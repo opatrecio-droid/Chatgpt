@@ -1,0 +1,49 @@
+Pessoa personagem feminina A — Kenney — mini-characters
+Fonte: https://kenney.nl/assets/mini-characters
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: e9d659be4c98894c87952a0d158b2af8311d7012e25c36013b5f51da727e6929
+
+Coelho — Quaternius — Quaternius models on Poly Pizza
+Fonte: https://poly.pizza/m/mKev485XTR
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: f97a7c07b367e829a0d5ca6a2609f353fbac5ddcd8bbd073b4b03a1f9de663de
+
+Ambulância — Kenney — car-kit
+Fonte: https://kenney.nl/assets/car-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 338da37cb1fedb87fd040d27cb53163364fa69dd01c612aeba447f18b8a26cb3
+
+Cacto baixo — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 81ac9fc4c66eacceaf4aebcb6df3468ea450a2f5081151bb11400282efbc51bd
+
+Árvore palmeira — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 27bbb23d26ed788d84de6df2f7fab0acc3fe0ff16c7d08cdcfa1fffcb11de324
+
+Cadeira — Kenney — Furniture Kit
+Fonte: https://kenney.nl/assets/furniture-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: c8a11eec93e89e31250ba91afc1b8d56c3bec7ae86640fd1239f595ff4180883
+
+Abacate cortado ao meio — Kenney — Food Kit
+Fonte: https://kenney.nl/assets/food-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 42c57ca7e8ba1648768b8e6a0623e4a1b36253efa43868f19a02f6068ae2842f
+
+Casa suburbana tipo A — Kenney — City Kit Suburban
+Fonte: https://kenney.nl/assets/city-kit-suburban
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: c9a2751a753d178577580f5ccc62944ad8f9252564e758e31e3fb9e5ed15c72b
+
+Veleiro A — Kenney — watercraft-kit
+Fonte: https://kenney.nl/assets/watercraft-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: fcd853ffc993bea966d1229f30f5e8db14d3147ff042b00f7b2e5519f86f4be6
+
+Baleia — Quaternius — Quaternius models on Poly Pizza
+Fonte: https://poly.pizza/m/JGFwp6xWgk
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 153d6814c67039378fce22d4c347ed35d7febf2bedac866de91cf9b5dd7945f2
