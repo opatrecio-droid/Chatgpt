@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 125,
+  "catalogueCount": 135,
   "models": [
     {
-      "id": "k_actor_mini_characters_character_male_c",
+      "id": "k_actor_mini_characters_character_male_d",
       "meshes": 2,
-      "triangles": 793,
+      "triangles": 711,
       "textures": 2,
       "preserved": true,
       "bounds": [
-        1.9353603787794191,
+        2.1258223612732103,
         2,
-        1.162115487056229
+        0.9421396291964326
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_gyyc0gymnw",
-      "meshes": 1,
-      "triangles": 1204,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.7000000000000002,
-        0.858776103033924,
-        1.411242028179513
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_flower-reda",
-      "meshes": 2,
-      "triangles": 76,
+      "id": "k_actor_quaternius_37wofocozg",
+      "meshes": 4,
+      "triangles": 5016,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.6317694358974362,
-        3,
-        1.857016
+        1.7,
+        0.9856322645699311,
+        0.5690495043750705
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_commercial_detail_overhang_wide",
+      "id": "k_nature_flower-redc",
+      "meshes": 3,
+      "triangles": 78,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.330283870967742,
+        3.0000000000000004,
+        2.336245935483871
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_path_stones_messy",
       "meshes": 1,
-      "triangles": 64,
+      "triangles": 36,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        2,
-        0.800000011920929,
-        0.3999999910593033
+        0.8613473305242951,
+        0.05534793085869758,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_kart_oodi",
+      "id": "k_actor_car_kit_kart_ooli",
       "meshes": 6,
-      "triangles": 2726,
+      "triangles": 2706,
       "textures": 6,
       "preserved": true,
       "bounds": [
-        1.36479922253131,
+        1.3647992016577506,
         1.8618494340723113,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_barrel",
+      "id": "k_props_food_beet",
       "meshes": 1,
-      "triangles": 308,
+      "triangles": 100,
       "textures": 1,
       "preserved": true,
       "bounds": [
+        0.7385268446648122,
         2,
-        1.7865952916721959,
-        1.7865952916721959
+        0.7385268446648122
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_flower-redb",
+      "id": "k_nature_flower-yellowa",
       "meshes": 2,
-      "triangles": 98,
+      "triangles": 76,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.406204093323334,
+        2.47944187012987,
         3,
-        2.775778195418042
+        2.821699636363636
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_suburban_fence_3x3",
+      "id": "k_world_city_kit_industrial_chimney_large",
       "meshes": 1,
-      "triangles": 364,
+      "triangles": 218,
       "textures": 1,
       "preserved": true,
       "bounds": [
+        1.2705881098974983,
         2,
-        0.4235293501664204,
-        1.9411764375891265
+        1.2705881098974983
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_boat_row_small",
+      "id": "k_actor_watercraft_kit_boat_sail_b",
       "meshes": 2,
-      "triangles": 168,
+      "triangles": 426,
       "textures": 2,
       "preserved": true,
       "bounds": [
+        0.7967211875091159,
         2,
-        0.6168337555689889,
-        1.7261150132318963
+        1.8166136333825285
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_desk_chair",
+      "id": "k_actor_space_kit_desk_chairArms",
       "meshes": 3,
-      "triangles": 88,
+      "triangles": 128,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.0212765957446808,
+        1.4545454545454546,
         2,
-        1.0212765957446808
+        0.8727272727272727
       ],
       "gl": 0
     }
