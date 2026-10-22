@@ -528,6 +528,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_cone",
+    "name": "Cone",
+    "originalModelName": "cone",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/cone.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d829469df03a84c4d057cf4add5ed1e73d6d47b59768840c438ea7215aa720a7",
+    "bytes": 29120,
+    "description": "Modelo 3D original Cone do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "053bdad227f68a281d7b68b9be42f8883506cae73827d493465eae6bedfd2b96",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_cone_flat",
     "name": "Cone baixo",
     "originalModelName": "cone-flat",
@@ -946,6 +969,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_crops-dirtrowend",
+    "name": "Cultivos terra fileira extremidade",
+    "originalModelName": "crops_dirtRowEnd.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_dirtRowEnd.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9c65aac1b350fa3bb7a05d651ef1e21961cda0b71706f4d6882c03ba892eb62d",
+    "bytes": 4064,
+    "description": "Modelo estilizado de cultivos terra fileira extremidade, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "terra",
+      "fileira",
+      "extremidade"
+    ],
+    "geometrySignature": "04738b6907e7d0fe62290f972b8235ada5c98f423a966a227013fced737acd56",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_crops-dirtrowcorner",
     "name": "Cultivos terra fileira quina",
     "originalModelName": "crops_dirtRowCorner.glb",
@@ -966,6 +1012,28 @@
       "quina"
     ],
     "geometrySignature": "0a32d538711eaffd57c6a5037f30aad1b63de64f73c41ad9cef8305345780482",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-dirtsingle",
+    "name": "Cultivos terra simples",
+    "originalModelName": "crops_dirtSingle.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_dirtSingle.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6d9df48fa8b691a949c053f56977e1134cd917ec7c8a936612d7fa1978dcce1d",
+    "bytes": 4196,
+    "description": "Modelo estilizado de cultivos terra simples, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "terra",
+      "simples"
+    ],
+    "geometrySignature": "00b94753540675ae8ee8660564a0ca4b3a0ba91442a3de5fb1e4a81da449bcce",
     "animationCount": 0
   },
   {
@@ -4292,6 +4360,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_building_a",
+    "name": "Edifício a",
+    "originalModelName": "building-a.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_a.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "155b8f243633ed482493da0f29b805a6c7748e43f121ef5d3ee7c743016f2e58",
+    "bytes": 119996,
+    "description": "Modelo low-poly original do Kenney: edifício a, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "0284f2d27ca8b9972707f57ba373edd192edfb4b507fcf9b281ca55300d92c00",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_driveway_long",
     "name": "Entrada residencial longa",
     "originalModelName": "driveway-long.glb",
@@ -4701,6 +4792,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_modular_buildings_building_window_balcony",
+    "name": "Janela modular com sacada",
+    "originalModelName": "building-window-balcony.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/modular-buildings/building_window_balcony.glb",
+    "author": "Kenney",
+    "pack": "Modular Buildings",
+    "sourcePage": "https://kenney.nl/assets/modular-buildings",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "86c72cfb0a58d53ca99349a71956651b3d3b3b9322c387ba138f594c5b527224",
+    "bytes": 15100,
+    "description": "Módulo de fachada que combina janela e sacada.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "modular buildings"
+    ],
+    "geometrySignature": "002403a931fc851bd57057157d08f4ebb2d479181e2140a51959f5dce1a0c640",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_can_open",
     "name": "Lata aberta",
     "originalModelName": "can-open",
@@ -4721,6 +4835,29 @@
       "aberto"
     ],
     "geometrySignature": "02147c62d17fb1108f037b9b0f3484f21fea0147f78b3789cfcbad008bca95db",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_can_small",
+    "name": "Lata pequena",
+    "originalModelName": "can-small",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/can-small.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "863aec9d59a16e713b6ebb25279fc65fcee8234d3277c31034fb96b9c5270b6a",
+    "bytes": 26732,
+    "description": "Lata pequena, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "lata",
+      "pequeno"
+    ],
+    "geometrySignature": "021448eb8a758e616ac5e418f9c54eefbc2bd822a0d7f13b6188ef238e4370ab",
     "animationCount": 0
   },
   {
@@ -5236,6 +5373,53 @@
     "bytes": 15692,
     "description": "Original Kenney Nature Kit low-poly bridge wood model, preserved from the pack GLB.",
     "originalModelName": "Bridge Wood",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-side-wood",
+    "name": "Ponte lateral madeira",
+    "originalModelName": "bridge_side_wood.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_side_wood.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3857c2a286d236375dbae209897884eebc379d18e4af39ee8414f2d9511e2c49",
+    "bytes": 10604,
+    "description": "Modelo estilizado de ponte lateral madeira, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "lateral",
+      "madeira",
+      "acampamento"
+    ],
+    "geometrySignature": "0a6226350b0d6c16d1f69ff818c92fbaab7f35002e5b419eaba5c8ccf5c4e7a6",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-side-woodround",
+    "name": "Ponte lateral madeira arredondado",
+    "originalModelName": "bridge_side_woodRound.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_side_woodRound.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "29a2bd3dc9cf5bf3c9354323a3551ad98a279ad785faa8e22152a313cc4f65cd",
+    "bytes": 13460,
+    "description": "Modelo estilizado de ponte lateral madeira arredondado, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "lateral",
+      "madeira",
+      "arredondado",
+      "acampamento"
+    ],
+    "geometrySignature": "0816775f1045b9d5f5798199e82ca6c85f21e6ba71fa142749154e7b207edede",
     "animationCount": 0
   },
   {
@@ -6826,6 +7010,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_craft_miner",
+    "name": "Nave mineradora",
+    "originalModelName": "craft_miner",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/craft_miner.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "de32320578886d2e73b1cd24b6161c9bd855e3a172bc2abcc8cb7bdd46352348",
+    "bytes": 26672,
+    "description": "Modelo 3D original Craft Miner do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "254d63bcd99ffd9eca8a3d32a084dd672127673ce6b72d4897d498c3fc343246",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_watercraft_kit_ship_cargo_a",
     "name": "Navio cargueiro A",
     "originalModelName": "ship-cargo-a",
@@ -6869,6 +7076,29 @@
       "low-poly"
     ],
     "geometrySignature": "066e8eef7fdc87e18cd867c9fa767dc360d574f8d1c2f762ce700cfd4ee287df",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_ship_cargo_c",
+    "name": "Navio cargueiro C",
+    "originalModelName": "ship-cargo-c",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/ship-cargo-c.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "81087508a21d522b6561b08939d0fdfff7479a68e8c33115e261f884f7535d32",
+    "bytes": 40468,
+    "description": "Modelo 3D original Navio cargueiro C do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "01572b516c9c3bc16a21705e3f86ac0ddc3cd0429db4d0cb4345365229f396e3",
     "animationCount": 0
   },
   {

@@ -1,88 +1,101 @@
 {
-  "catalogueCount": 305,
+  "catalogueCount": 315,
   "models": [
     {
-      "id": "k_actor_car_kit_cone_flat",
+      "id": "k_actor_car_kit_cone",
       "meshes": 1,
       "triangles": 172,
       "textures": 1,
       "preserved": true,
       "bounds": [
+        1.5999999799730076,
         2,
-        1.1800000438090463,
-        2
+        1.5999999799730076
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-dirtrow",
+      "id": "k_nature_crops-dirtrowend",
       "meshes": 2,
-      "triangles": 44,
+      "triangles": 32,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        3,
-        0.15000000000000002,
-        1.8599999520000001
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_crops-dirtrowcorner",
-      "meshes": 2,
-      "triangles": 19,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.19255456107942617,
+        2.9032258813735714,
+        0.24193549011446427,
         3
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_x5ejea6fmf",
-      "meshes": 5,
-      "triangles": 1638,
+      "id": "k_nature_crops-dirtsingle",
+      "meshes": 2,
+      "triangles": 32,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        0.7504675738759636,
-        1.451726198365817,
-        1.6999999999999997
+        3,
+        0.75,
+        2.59807617
       ],
       "gl": 0
     },
     {
-      "id": "k_world_castle_kit_wall_narrow_stairs",
+      "id": "k_world_city_kit_commercial_building_a",
       "meshes": 1,
-      "triangles": 262,
+      "triangles": 1252,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.4732824670609248,
+        1.366725303255345,
         2,
-        1.5267176239385367
+        1.453983000921037
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_can_open",
+      "id": "k_world_modular_buildings_building_window_balcony",
       "meshes": 1,
-      "triangles": 216,
+      "triangles": 72,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.4739802546420218,
-        2,
-        1.4739802546420218
+        1.7391304708383493,
+        1.0869565442739684,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_bridge-side-stoneround",
+      "id": "k_props_food_can_small",
       "meshes": 2,
-      "triangles": 198,
+      "triangles": 154,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0741483603272994,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_bridge-side-wood",
+      "meshes": 3,
+      "triangles": 136,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9615384615384615,
+        0.7692307692307696,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_bridge-side-woodround",
+      "meshes": 4,
+      "triangles": 190,
       "textures": 0,
       "preserved": true,
       "bounds": [
@@ -93,40 +106,27 @@
       "gl": 0
     },
     {
-      "id": "k_world_modular_buildings_roof_gable",
-      "meshes": 1,
-      "triangles": 20,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.9507136813188374,
-        1.8327010303061948
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_craft_cargoB",
+      "id": "k_actor_space_kit_craft_miner",
       "meshes": 4,
-      "triangles": 380,
+      "triangles": 384,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.2000000000000002,
-        0.7200000000000001,
-        2
+        1.384615384615385,
+        0.5384615384615385,
+        2.0000000000000004
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_ship_cargo_b",
-      "meshes": 3,
-      "triangles": 850,
-      "textures": 3,
+      "id": "k_actor_watercraft_kit_ship_cargo_c",
+      "meshes": 1,
+      "triangles": 362,
+      "textures": 1,
       "preserved": true,
       "bounds": [
         0.7426877750509124,
-        0.6257752143677131,
+        0.4904507078568978,
         2
       ],
       "gl": 0
