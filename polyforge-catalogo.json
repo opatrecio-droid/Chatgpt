@@ -643,6 +643,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_door",
+    "name": "Porta solta",
+    "originalModelName": "debris-door",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-door.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "46c0f165682fcbd9564f968073577ff0cea0bbc9e72cbc0a86d424961361cb7f",
+    "bytes": 19476,
+    "description": "Modelo 3D original Porta solta do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0052730b1d134c320450c9552ac14abff47f570cd4684441c3309e7ac30e67b0",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -813,6 +836,27 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_crop-pumpkin",
+    "name": "Cultivo abóbora",
+    "originalModelName": "crop_pumpkin.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crop_pumpkin.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5b4878c5996033629419c26ac32153ce8ac06bbbdac98e4fa8a5cbab98f78077",
+    "bytes": 10840,
+    "description": "Modelo estilizado de cultivo abóbora, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivo",
+      "abóbora"
+    ],
+    "geometrySignature": "0263efc9e5bfe3e471af31088fc0c929bf67a906e337a75f3eafdecc84dc1b02",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_crop-carrot",
     "name": "Cultivo cenoura",
     "originalModelName": "crop_carrot.glb",
@@ -852,6 +896,27 @@
       "melão"
     ],
     "geometrySignature": "0f970ea295091ec24b358a26c9214a448f019d61881a55a6e5e683ea2a51dd86",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crop-turnip",
+    "name": "Cultivo nabo",
+    "originalModelName": "crop_turnip.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crop_turnip.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5e121c6042742497ed02081a7c62fc80aec2191f04e22a57d81d02130689f71d",
+    "bytes": 14308,
+    "description": "Modelo estilizado de cultivo nabo, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivo",
+      "nabo"
+    ],
+    "geometrySignature": "047c843eca2294b96e06940195a5d27d8a2e1a1224c67b8e02872fc5c6c8d630",
     "animationCount": 0
   },
   {
@@ -4059,6 +4124,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_carton",
+    "name": "Caixa de papelão",
+    "originalModelName": "carton",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/carton.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "373bbaa557ea2c6eb45ae1ef458ffa14c6ccb0fc8672ac7e1f8eab26f267e7eb",
+    "bytes": 20124,
+    "description": "Caixa de papelão, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "caixa de papelão"
+    ],
+    "geometrySignature": "110dae37e2299e1d007457e99927a83417093257f61a54e33d4b0bc8f2ef5dfa",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_carton_small",
     "name": "Caixa pequena de papelão",
     "originalModelName": "carton-small",
@@ -4234,6 +4321,29 @@
       "city kit suburban"
     ],
     "geometrySignature": "01e5f1a20ab47708ba2791b94e78cf3474f76e38f37cd11870c01a0234e2e210",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_suburban_building_type_e",
+    "name": "Casa suburbana modelo E",
+    "originalModelName": "building-type-e.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_e.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "31e6a3c89998e0f4b6f9cacd305cf97b40b8bd68e19adfe07c032306081b64ca",
+    "bytes": 157344,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo e, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "00559275dcba263bc970ef79d85963f0ec773ee0d02f147baf7d613500a9899f",
     "animationCount": 0
   },
   {
@@ -4604,6 +4714,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_cauliflower",
+    "name": "Couve-flor",
+    "originalModelName": "cauliflower",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cauliflower.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "35d4f13cbd6d4bada4f166f3df106b04c0203e063187f06bc86d3459cd02d811",
+    "bytes": 27360,
+    "description": "Couve-flor, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "couve-flor"
+    ],
+    "geometrySignature": "008f03870d09fa38018ea60abefd676b438da648d09515a7c26e8ac7ba617bec",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_space_kit_crater",
     "name": "Cratera",
     "originalModelName": "crater",
@@ -4785,6 +4917,29 @@
       "city kit commercial"
     ],
     "geometrySignature": "06707ed47d8839f214a0990635ae5374e123b37c7c4b2724a0f608abc1ac9653",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_commercial_building_e",
+    "name": "Edifício e",
+    "originalModelName": "building-e.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_e.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ec55119fc76d83f4ecd70fb5e7180f42322c78722a575ffe8fd9af3b3a4e0eb9",
+    "bytes": 139264,
+    "description": "Modelo low-poly original do Kenney: edifício e, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "1210644b54c6f8de488f67037ffa18e13426b6976b9c31563c6a5a88ba1f9abb",
     "animationCount": 0
   },
   {
@@ -5921,6 +6076,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_bridge-woodnarrow",
+    "name": "Ponte madeira estreito",
+    "originalModelName": "bridge_woodNarrow.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_woodNarrow.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "df46d1ba2ae557f3c69850c4faf03bcd16786fff305bce772f5b260e50def351",
+    "bytes": 15708,
+    "description": "Modelo estilizado de ponte madeira estreito, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "madeira",
+      "estreito",
+      "acampamento"
+    ],
+    "geometrySignature": "001b4cf8112da51f636d0e35d47b21c7cce63344a4e555ac17b14472728e347a",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_bridge-stone",
     "name": "Ponte pedra",
     "originalModelName": "bridge_stone.glb",
@@ -6822,6 +7000,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_watercraft_kit_ship_small_ghost",
+    "name": "Barco pequeno fantasma",
+    "originalModelName": "ship-small-ghost",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/ship-small-ghost.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "804189e90caa74b61a48e18f9f828f38d849a4e0eb83ba69d1088971e7dfc5ef",
+    "bytes": 164556,
+    "description": "Modelo 3D original Barco pequeno fantasma do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00a6cbf53ec3565aabebbbfeb0d673dfd1fb6e4ad13fb9424545f749fd77652c",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_truck",
     "name": "Caminhão",
     "originalModelName": "truck",
@@ -7642,6 +7843,29 @@
       "low-poly"
     ],
     "geometrySignature": "0623353f6f787d8acf47cf1bd642b0fa07f8dbf11dac4086be0d7647e28c3f82",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_craft_speederC",
+    "name": "Nave veloz C",
+    "originalModelName": "craft_speederC",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/craft_speederC.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ed009e13d8ef649d26ec0215f20c2f600cc35dc4b52deea1cb8cfe5bd11ee084",
+    "bytes": 20528,
+    "description": "Modelo 3D original Craft Speederc do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "064d447dd001e2cf3622f5a090f69234c08adff4e1bde727beb64d23b80773a7",
     "animationCount": 0
   },
   {
