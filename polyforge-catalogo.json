@@ -697,6 +697,50 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_crops-bamboostageb",
+    "name": "Cultivos bambu estágio B",
+    "originalModelName": "crops_bambooStageB.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_bambooStageB.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "238c4cbeedf747dea96d579cf63301d35bb8709310f0405596c8f988dcc366e6",
+    "bytes": 40144,
+    "description": "Modelo estilizado de cultivos bambu estágio B, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "bambu",
+      "estágio"
+    ],
+    "geometrySignature": "001f728f8b1f1aa8df7d4b7094a3d12ce73afb9056562ae40c602de3804220c6",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-cornstagea",
+    "name": "Cultivos milho estágio A",
+    "originalModelName": "crops_cornStageA.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_cornStageA.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "085e2f0501f0f39acc10762cf46449fd962d9ac0630e7fd128cf9aa4a1edcfb5",
+    "bytes": 9076,
+    "description": "Modelo estilizado de cultivos milho estágio A, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "milho",
+      "estágio"
+    ],
+    "geometrySignature": "092d3ae48a9590712818b3198cbf14eb14f311bd2b682f97c1fa567b732369d6",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-steps-rock",
     "name": "Degraus de rocha",
     "originalModelName": "cliff_steps_rock.glb",
@@ -2322,6 +2366,30 @@
     "animationCount": 6
   },
   {
+    "id": "k_actor_quaternius_s2mkbeszgy",
+    "name": "Peixe-borboleta",
+    "originalModelName": "Butterfly Fish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/butterfly_fish_s2mkbeszgy.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/s2MkBeSzGy",
+    "sourceDownload": "https://static.poly.pizza/180f002b-9a9c-4ec8-9460-7aca6f05a6e7.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d43e7f55ae3fff23dd48c09661382836b1498f773c561f486d9a0277d0590853",
+    "bytes": 151748,
+    "description": "Modelo 3D original de Butterfly Fish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "01b4b4231ae7e94836a0a07a5874491bea61e56b5628cb3efe1cf89ec93c6ad1",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_imxzbhz1ys",
     "name": "Peixe-dourado-azul",
     "originalModelName": "Blue Goldfish",
@@ -3418,6 +3486,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_castle_kit_siege_catapult",
+    "name": "Catapulta de cerco",
+    "originalModelName": "siege-catapult.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/castle-kit/siege_catapult.glb",
+    "author": "Kenney",
+    "pack": "Castle Kit",
+    "sourcePage": "https://kenney.nl/assets/castle-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1a42806226ff29998597fae0fbb326469f7cc454a2714d0f962bf40ad8a3dc00",
+    "bytes": 93716,
+    "description": "Máquina medieval de cerco com braço lançador.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "castle kit"
+    ],
+    "geometrySignature": "030b22dac0f9ad86d3fa1528196f74c425aa3c5aaf8e98fcedfa38514f96446d",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_dumpster",
     "name": "Caçamba de resíduos",
     "originalModelName": "dumpster.glb",
@@ -3942,6 +4033,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_machine_generatorLarge",
+    "name": "Gerador grande",
+    "originalModelName": "machine_generatorLarge",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/machine_generatorLarge.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "bbfa33a2e7c7eff7d9ee12f64255249b7e2f5d4b2ada2d681aa35cf38ba599bc",
+    "bytes": 10220,
+    "description": "Modelo 3D original Machine Generatorlarge do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "07d47deb96bd2555298758c01810ed2d035ed9d01e141fcdaf4cbcb19ada4d8f",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_construction_fence",
     "name": "Grade de obras",
     "originalModelName": "construction-fence.glb",
@@ -3985,6 +4099,28 @@
       "city kit commercial"
     ],
     "geometrySignature": "055c3298965047f50b296fb7c2892d831eadf0cd64425f664d4a25dfe68aa351",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_burger",
+    "name": "Hambúrguer",
+    "originalModelName": "burger",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/burger.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "99e1162f032eeb02295da8a61f9bed4265cb7a63fc8d6f1faac6a2dd540508e8",
+    "bytes": 45260,
+    "description": "Hambúrguer, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "hambúrguer"
+    ],
+    "geometrySignature": "13070c3029797e604e4f30afc86889d054cf75ec7dc272b109959e3de1514f72",
     "animationCount": 0
   },
   {
@@ -4484,6 +4620,30 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_bridge-center-stoneround",
+    "name": "Ponte centro pedra arredondado",
+    "originalModelName": "bridge_center_stoneRound.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_center_stoneRound.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ec0e73f593a3230b9f10bfe69dec5e95c8c031f1a1a81e1a308501ef3a70e68c",
+    "bytes": 5080,
+    "description": "Modelo estilizado de ponte centro pedra arredondado, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "centro",
+      "pedra",
+      "arredondado",
+      "acampamento"
+    ],
+    "geometrySignature": "09481ef7e10627da7181cf3a1210c5e005dcc47c241d5200f090889785d96e60",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_bridge_wood",
     "name": "Ponte de madeira",
     "category": "props",
@@ -4500,6 +4660,29 @@
     "description": "Original Kenney Nature Kit low-poly bridge wood model, preserved from the pack GLB.",
     "originalModelName": "Bridge Wood",
     "animationCount": 0
+  },
+  {
+    "id": "k_world_building_kit_door_rotate_round_a",
+    "name": "Porta giratória redonda A",
+    "originalModelName": "door-rotate-round-a.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/building-kit/door_rotate_round_a.glb",
+    "author": "Kenney",
+    "pack": "Building Kit",
+    "sourcePage": "https://kenney.nl/assets/building-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b5cd5470169db8acdd7205b940d24323229fe08a7fb4c95440d356c5bc5aa779",
+    "bytes": 33380,
+    "description": "Porta modular redonda da variante A.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "building kit"
+    ],
+    "geometrySignature": "0d0805d876605f377df091c813396e1c6e21065a72d3df227fa42344a9738ed2",
+    "animationCount": 3
   },
   {
     "id": "kenney_objects_fence_gate",
@@ -5266,6 +5449,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_truck_flat",
+    "name": "Caminhão plataforma",
+    "originalModelName": "truck-flat",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/truck-flat.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "0c3b018001a3f37c7048be584c0089b5ebb53c3d6fbfdb79fe336d799f9acb5d",
+    "bytes": 219840,
+    "description": "Modelo 3D original Caminhão plataforma do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "109c65beb1854c607c11bb2741163ac7468a73c17e1a2f0b10c1d471c90a84d7",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_canoe",
     "name": "Canoa",
     "category": "vehicles",
@@ -5810,6 +6016,29 @@
       "low-poly"
     ],
     "geometrySignature": "00688941d21cd250fef09c245486eb535260b39ead4d21fb0521df6bfb65a1ef",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_tug_a",
+    "name": "Rebocador A",
+    "originalModelName": "boat-tug-a",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-tug-a.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9f03b5cb29705a7b9c852629623fe2d92bdb69a3d9ef3b30896cf8c38428ab1e",
+    "bytes": 49908,
+    "description": "Modelo 3D original Rebocador A do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "03b28dd062e3eeca6bc16e85e28088ae8bf7c2e6cf960db4e7c309ca89ca50ee",
     "animationCount": 0
   },
   {
