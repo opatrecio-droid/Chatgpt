@@ -1,4 +1,4 @@
-# PolyForge — 45 modelos no mesmo arquivo
+# PolyForge — 55 modelos no mesmo arquivo
 
 **[Baixar o ZIP atualizado](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/polyforge.zip)** · [Baixar apenas o HTML](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/polyforge.html)
 
