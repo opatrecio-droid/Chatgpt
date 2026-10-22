@@ -528,6 +528,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_cone_flat",
+    "name": "Cone baixo",
+    "originalModelName": "cone-flat",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/cone-flat.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "24aa7bbf2473e83b04ff3b1d25f4e6b96b687029313ab6b1a0bcbc293068abf6",
+    "bytes": 29132,
+    "description": "Modelo 3D original Cone baixo do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "04c107881d1b8d87fbcb4f2def07d43b3a2405d3c28b1d8ffe5930c46c743e53",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -898,6 +921,51 @@
       "quina"
     ],
     "geometrySignature": "0216382c15e49001e65d35f88079d2373a2cfb59a4c059f60789b357bbc97bc2",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-dirtrow",
+    "name": "Cultivos terra fileira",
+    "originalModelName": "crops_dirtRow.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_dirtRow.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a36752160e42703c0539386bf07260984796dd07674d322ae18c1fc5201b59b2",
+    "bytes": 4712,
+    "description": "Modelo estilizado de cultivos terra fileira, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "terra",
+      "fileira"
+    ],
+    "geometrySignature": "007350166ac638c1b4cf7b53ffb1c4293bb99f1cac64b85810ec1d5103ed7adc",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-dirtrowcorner",
+    "name": "Cultivos terra fileira quina",
+    "originalModelName": "crops_dirtRowCorner.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_dirtRowCorner.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e1fbad7df11b2e4120df8f4859c4a2278965451dc01bc91b4efd40d3c8c2f99b",
+    "bytes": 3248,
+    "description": "Modelo estilizado de cultivos terra fileira quina, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "terra",
+      "fileira",
+      "quina"
+    ],
+    "geometrySignature": "0a32d538711eaffd57c6a5037f30aad1b63de64f73c41ad9cef8305345780482",
     "animationCount": 0
   },
   {
@@ -2574,6 +2642,30 @@
     "animationCount": 6
   },
   {
+    "id": "k_actor_quaternius_x5ejea6fmf",
+    "name": "Peixe-chato",
+    "originalModelName": "Flatfish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/flatfish_x5ejea6fmf.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/X5EjEA6fMF",
+    "sourceDownload": "https://static.poly.pizza/57b1100f-2b41-4154-b0b2-704bd7186b16.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "56e85614f9a28b06455e875f43d9317e506465882bf724ac4e84d9fbdcd1c443",
+    "bytes": 160064,
+    "description": "Modelo 3D original de Flatfish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "0123b202de2b324bf5ce1f4857ffc7741c0b82f5e2b9731449b2efbd579ea0e6",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_imxzbhz1ys",
     "name": "Peixe-dourado-azul",
     "originalModelName": "Blue Goldfish",
@@ -4246,6 +4338,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_castle_kit_wall_narrow_stairs",
+    "name": "Escada estreita de muralha",
+    "originalModelName": "wall-narrow-stairs.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/castle-kit/wall_narrow_stairs.glb",
+    "author": "Kenney",
+    "pack": "Castle Kit",
+    "sourcePage": "https://kenney.nl/assets/castle-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9fb1d3cf22859ea666b9536b86caacc103e14d9a3db67269b044fc774086d68c",
+    "bytes": 34560,
+    "description": "Escadaria estreita integrada a uma muralha.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "castle kit"
+    ],
+    "geometrySignature": "018b9d25ca9d6a2fe7c78ef44dd9f38ed7e2af9c5e187a7f84c6f8b0fd9c17ad",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_road_crossing",
     "name": "Faixa de pedestres",
     "originalModelName": "road-crossing.glb",
@@ -4583,6 +4698,29 @@
       "duplo"
     ],
     "geometrySignature": "022a28844279e7ee4f6b023fe9035b03e890d02f44af949970c1b9414bac2e61",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_can_open",
+    "name": "Lata aberta",
+    "originalModelName": "can-open",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/can-open.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "11b9b3d188fd7a3c43b2ecfd5efd1b97107bccd6d007c380312cd7ec7bf74e60",
+    "bytes": 29200,
+    "description": "Lata aberta, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "lata",
+      "aberto"
+    ],
+    "geometrySignature": "02147c62d17fb1108f037b9b0f3484f21fea0147f78b3789cfcbad008bca95db",
     "animationCount": 0
   },
   {
@@ -5124,6 +5262,30 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_bridge-side-stoneround",
+    "name": "Ponte lateral pedra arredondado",
+    "originalModelName": "bridge_side_stoneRound.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_side_stoneRound.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "26554af65f17af00b12246aa950f267fd940cd0b3973314ee767f6a458687005",
+    "bytes": 13540,
+    "description": "Modelo estilizado de ponte lateral pedra arredondado, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "lateral",
+      "pedra",
+      "arredondado",
+      "acampamento"
+    ],
+    "geometrySignature": "04c578930cb2ffbce8a5839ef1e5b25b4c0666f1ee5e027444ec308b26bc745d",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_building_kit_door_rotate_round_a",
     "name": "Porta giratória redonda A",
     "originalModelName": "door-rotate-round-a.glb",
@@ -5430,6 +5592,29 @@
       "low-poly"
     ],
     "geometrySignature": "0a5d565d2daf4549b683584378cf724be246a3c732134db5543871efdc5db513",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_modular_buildings_roof_gable",
+    "name": "Telhado de duas águas",
+    "originalModelName": "roof-gable.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/modular-buildings/roof_gable.glb",
+    "author": "Kenney",
+    "pack": "Modular Buildings",
+    "sourcePage": "https://kenney.nl/assets/modular-buildings",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b6fc15bdac036d5a10dde587b635e17c96941e4d24d9dea8fc21a40bf13eb843",
+    "bytes": 11208,
+    "description": "Módulo de cobertura com duas águas.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "modular buildings"
+    ],
+    "geometrySignature": "05966deb09c259f17131858918ce9881c62d9f5398c6d49d60755e230aacc508",
     "animationCount": 0
   },
   {
@@ -6618,6 +6803,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_craft_cargoB",
+    "name": "Nave cargueira B",
+    "originalModelName": "craft_cargoB",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/craft_cargoB.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8da33a720ed3b208938a969864d6b0a64a51b7715f71d102ecad0a5f71412b8c",
+    "bytes": 26308,
+    "description": "Modelo 3D original Craft Cargo B do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0ef4f5f71c6fce77e290217da2130c37d6d5b22914d780a8ee6643cd6255e1c3",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_watercraft_kit_ship_cargo_a",
     "name": "Navio cargueiro A",
     "originalModelName": "ship-cargo-a",
@@ -6638,6 +6846,29 @@
       "low-poly"
     ],
     "geometrySignature": "06e9ae7fa2464fdaae25b777f1448c0207e85eb7c24ad89ef2c31cea3f6f1858",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_ship_cargo_b",
+    "name": "Navio cargueiro B",
+    "originalModelName": "ship-cargo-b",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/ship-cargo-b.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d324baf6ee6ec5f2381cfe72d8000ebede3395efd6ccf36fdb4948283904fd2f",
+    "bytes": 88692,
+    "description": "Modelo 3D original Navio cargueiro B do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "066e8eef7fdc87e18cd867c9fa767dc360d574f8d1c2f762ce700cfd4ee287df",
     "animationCount": 0
   },
   {

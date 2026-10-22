@@ -1,132 +1,132 @@
 {
-  "catalogueCount": 295,
+  "catalogueCount": 305,
   "models": [
     {
-      "id": "k_actor_car_kit_box",
+      "id": "k_actor_car_kit_cone_flat",
       "meshes": 1,
-      "triangles": 124,
+      "triangles": 172,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        2,
+        1.1800000438090463,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-dirtdoublerowend",
+      "id": "k_nature_crops-dirtrow",
       "meshes": 2,
-      "triangles": 64,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9189765458422177,
-        0.15991471215351816,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_crops-dirtdoublerowcorner",
-      "meshes": 2,
-      "triangles": 50,
+      "triangles": 44,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
-        0.15991471215351816,
+        0.15000000000000002,
+        1.8599999520000001
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_crops-dirtrowcorner",
+      "meshes": 2,
+      "triangles": 19,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        0.19255456107942617,
         3
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_vmjlustc59",
-      "meshes": 4,
-      "triangles": 1390,
+      "id": "k_actor_quaternius_x5ejea6fmf",
+      "meshes": 5,
+      "triangles": 1638,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.024176876080031,
-        0.6789703178582978,
-        1.7000000000000002
+        0.7504675738759636,
+        1.451726198365817,
+        1.6999999999999997
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_cake",
-      "meshes": 6,
-      "triangles": 750,
-      "textures": 6,
-      "preserved": true,
-      "bounds": [
-        1.9999986757863948,
-        0.8544337726716167,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_castle_kit_wall_doorway",
+      "id": "k_world_castle_kit_wall_narrow_stairs",
       "meshes": 1,
-      "triangles": 500,
+      "triangles": 262,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.7633588119693477,
+        1.4732824670609248,
         2,
         1.5267176239385367
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_bridge-side-stone",
+      "id": "k_props_food_can_open",
+      "meshes": 1,
+      "triangles": 216,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.4739802546420218,
+        2,
+        1.4739802546420218
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_bridge-side-stoneround",
       "meshes": 2,
-      "triangles": 152,
+      "triangles": 198,
       "textures": 0,
       "preserved": true,
       "bounds": [
         1.9615384615384615,
-        0.7692307692307696,
+        0.86538461538462,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_world_modular_buildings_building_sample_tower_a",
+      "id": "k_world_modular_buildings_roof_gable",
       "meshes": 1,
-      "triangles": 398,
+      "triangles": 20,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.8800000190734864,
         2,
-        1.0000000476837159
+        0.9507136813188374,
+        1.8327010303061948
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_craft_cargoA",
+      "id": "k_actor_space_kit_craft_cargoB",
       "meshes": 4,
-      "triangles": 264,
+      "triangles": 380,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.3061224489795917,
-        0.6530612244897959,
+        1.2000000000000002,
+        0.7200000000000001,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_ship_cargo_a",
-      "meshes": 4,
-      "triangles": 1060,
-      "textures": 4,
+      "id": "k_actor_watercraft_kit_ship_cargo_b",
+      "meshes": 3,
+      "triangles": 850,
+      "textures": 3,
       "preserved": true,
       "bounds": [
         0.7426877750509124,
-        0.6408955447063565,
+        0.6257752143677131,
         2
       ],
       "gl": 0
