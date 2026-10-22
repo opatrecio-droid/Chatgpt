@@ -505,6 +505,29 @@
     "animationCount": 14
   },
   {
+    "id": "k_actor_car_kit_debris_spoiler_a",
+    "name": "Aerofólio A",
+    "originalModelName": "debris-spoiler-a",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-spoiler-a.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "abdbef6f97e290781bcd902739fc5f70c29e5ef6c5e8dd2d1561bb90a693ec7b",
+    "bytes": 18044,
+    "description": "Modelo 3D original Aerofólio A do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "03ecdb466052de8132ddeea8cc0ca212c31bc3fca1bb1ebe5b61663fd461cbf5",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_box",
     "name": "Caixa",
     "originalModelName": "box",
@@ -640,6 +663,52 @@
       "low-poly"
     ],
     "geometrySignature": "0302a07628b53a4abe3b1b26f9ec1a0b716d5d1865fff7576dbcd05f7c10638a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_debris_plate_small_a",
+    "name": "Painel pequeno A",
+    "originalModelName": "debris-plate-small-a",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-plate-small-a.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ede336f48f3fb80ea82e446df178f33c0c660407bdb359b40ee5b63f70d3b68a",
+    "bytes": 16648,
+    "description": "Modelo 3D original Placa pequena A do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "037abc56d2a8567de354eecbdd761a6379eed8ed32586370aec83f783e76780f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_debris_plate_small_b",
+    "name": "Painel pequeno B",
+    "originalModelName": "debris-plate-small-b",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-plate-small-b.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "04f26c1ea518119a71a1db51eaaa750f18941f63bcf6995592581273a3d171fc",
+    "bytes": 17820,
+    "description": "Modelo 3D original Placa pequena B do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00f293d9ae68731bdd6d26ab23a69d43d6afa436c0230fac2a3e8e72993f6688",
     "animationCount": 0
   },
   {
@@ -2539,6 +2608,51 @@
       "margem"
     ],
     "geometrySignature": "0072effabc13d141be6c8409a211d82f05d251b04390c142f9a193077713deed",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathcorner",
+    "name": "Solo caminho quina",
+    "originalModelName": "ground_pathCorner.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathCorner.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "704324699e7151e72d4d06bb782fbc4017c418a1c0d562c5d9bdc96c95e9c081",
+    "bytes": 3532,
+    "description": "Modelo estilizado de solo caminho quina, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "quina"
+    ],
+    "geometrySignature": "0109d8f0e69e4c5339692a0c672e4758842042992ff279caa3ff145248f53ae4",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathcornersmall",
+    "name": "Solo caminho quina pequeno",
+    "originalModelName": "ground_pathCornerSmall.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathCornerSmall.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d48127637fb555a2af23ef60928952de10c2adc67796dd8263c3a7e86a04706b",
+    "bytes": 3632,
+    "description": "Modelo estilizado de solo caminho quina pequeno, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "quina",
+      "pequeno"
+    ],
+    "geometrySignature": "058f8d3ac54118564ecb0f80d01b0ea726bbb5c1cb96c88efbb6f3995e230f5c",
     "animationCount": 0
   },
   {
@@ -4725,6 +4839,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_j",
+    "name": "Casa suburbana modelo J",
+    "originalModelName": "building-type-j.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_j.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cd0abeb22d22f27fa5a6ac22367d0c83d77dcba24b50654096248de2e64ff841",
+    "bytes": 111352,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo j, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "046e2ee9df94688b8a0496628be8705d836b75c6270f14375b817939e0273eb1",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -4996,6 +5133,28 @@
       "city kit industrial"
     ],
     "geometrySignature": "08a19e42367e77bd3df7f065394706e6e14e3880b2f2bd759cdc1a8087419664",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_chocolate",
+    "name": "Chocolate",
+    "originalModelName": "chocolate",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/chocolate.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "12101831be0403ec3c3b91e025ab140601ea8c74b60246b7f4f12f2d0b686878",
+    "bytes": 23416,
+    "description": "Chocolate, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "de chocolate"
+    ],
+    "geometrySignature": "0024abee30d31433a733482e1637f55fd5946f5ce99cfdace0f3bb1a567982e0",
     "animationCount": 0
   },
   {
@@ -5457,6 +5616,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_building_j",
+    "name": "Edifício j",
+    "originalModelName": "building-j.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_j.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "12d9a5d4576111bff5580a10025a8bb2ebd7e29d51df1ea4487c826eef11b1cd",
+    "bytes": 451708,
+    "description": "Modelo low-poly original do Kenney: edifício j, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "01a3e8b483afd68780bb4ce5162db547c80d114386a06bd64f852b50783e8e66",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_candy_bar_wrapper",
     "name": "Embalagem de barra de chocolate",
     "originalModelName": "candy-bar-wrapper",
@@ -5478,6 +5660,29 @@
       "embalagem"
     ],
     "geometrySignature": "0250326ca2384f20b66403501e58a77528ae735928fe9f9158494fb885d795a9",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_chocolate_wrapper",
+    "name": "Embalagem de chocolate",
+    "originalModelName": "chocolate-wrapper",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/chocolate-wrapper.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3947016eb80c6ee1bec08ecb314f107a27719e3859fbec351fa7fd69cfac4bd8",
+    "bytes": 22488,
+    "description": "Embalagem de chocolate, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "de chocolate",
+      "embalagem"
+    ],
+    "geometrySignature": "152f23b3b5afa86b64aff9f8b7ce655aaf979f5e01cd152d4f9902fe312a95f4",
     "animationCount": 0
   },
   {
@@ -5976,6 +6181,29 @@
       "duplo"
     ],
     "geometrySignature": "022a28844279e7ee4f6b023fe9035b03e890d02f44af949970c1b9414bac2e61",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_chopstic_decorative",
+    "name": "Hashi decorativo",
+    "originalModelName": "chopstic-decorative",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/chopstic-decorative.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c46b5143f47c2ca601c516acaab9e70d873ea5eb3dbe5b4da8a84830e45355cb",
+    "bytes": 16188,
+    "description": "Hashi decorativo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "hashi",
+      "decorativo"
+    ],
+    "geometrySignature": "047fc9d05824e6612c189fbd2172d81b051da25ab438be3196e780df07ec98fd",
     "animationCount": 0
   },
   {

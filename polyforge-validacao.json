@@ -1,10 +1,23 @@
 {
-  "catalogueCount": 395,
+  "catalogueCount": 405,
   "models": [
     {
-      "id": "k_actor_car_kit_debris_plate_b",
+      "id": "k_actor_car_kit_debris_spoiler_a",
       "meshes": 1,
-      "triangles": 44,
+      "triangles": 48,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5454545553065526,
+        0.43158614241890164
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_car_kit_debris_plate_small_a",
+      "meshes": 1,
+      "triangles": 28,
       "textures": 1,
       "preserved": true,
       "bounds": [
@@ -15,119 +28,106 @@
       "gl": 0
     },
     {
-      "id": "k_nature_ground-pathbend",
-      "meshes": 3,
-      "triangles": 32,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.15000000000000002,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_ground-pathbendbank",
-      "meshes": 3,
-      "triangles": 38,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.15000000000000002,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_suburban_building_type_i",
+      "id": "k_actor_car_kit_debris_plate_small_b",
       "meshes": 1,
-      "triangles": 800,
+      "triangles": 44,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        2,
-        1.1466281899445276,
-        1.5982831894163065
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_cherries",
-      "meshes": 1,
-      "triangles": 134,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.0309942653193889,
-        2,
-        1.896850643679644
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_chinese",
-      "meshes": 3,
-      "triangles": 162,
-      "textures": 3,
-      "preserved": true,
-      "bounds": [
-        1.6006681780706824,
         1.9999999999999998,
-        1.966321551975916
+        0.8888889256818804,
+        1.9999999999999998
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_commercial_building_i",
+      "id": "k_nature_ground-pathcorner",
+      "meshes": 3,
+      "triangles": 22,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        0.15000000000000002,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_ground-pathcornersmall",
+      "meshes": 3,
+      "triangles": 24,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        0.15000000000000002,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_j",
       "meshes": 1,
-      "triangles": 2544,
+      "triangles": 1210,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.4761904998431121,
         2,
-        1.5499999219463017
+        1.5145985696799613,
+        1.3372262852479897
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_campfire-stones",
+      "id": "k_props_food_chocolate",
       "meshes": 1,
-      "triangles": 264,
-      "textures": 0,
+      "triangles": 140,
+      "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        0.28752053117490606,
-        1.9063273596512509
+        0.230769242527662,
+        1
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_monorail_trainPassenger",
-      "meshes": 4,
-      "triangles": 164,
-      "textures": 0,
+      "id": "k_world_city_kit_commercial_building_j",
+      "meshes": 1,
+      "triangles": 5246,
+      "textures": 1,
       "preserved": true,
       "bounds": [
-        1,
-        1.6,
-        2
+        2,
+        1.6250814219125167,
+        1.2862427991847996
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_monorail_trainFront",
-      "meshes": 3,
-      "triangles": 242,
-      "textures": 0,
+      "id": "k_props_food_chocolate_wrapper",
+      "meshes": 1,
+      "triangles": 118,
+      "textures": 1,
       "preserved": true,
       "bounds": [
-        1.1428571428571428,
-        1.5238095238095237,
-        2
+        2,
+        0.44416746850022104,
+        1.381325406917366
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_chopstic_decorative",
+      "meshes": 1,
+      "triangles": 36,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.0888888892568188,
+        0.0888888892568188,
+        1.9999999999999998
       ],
       "gl": 0
     }
