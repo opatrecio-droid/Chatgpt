@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 65,
+  "catalogueCount": 75,
   "models": [
     {
-      "id": "k_actor_mini_characters_character_female_c",
+      "id": "k_actor_mini_characters_character_female_d",
       "meshes": 2,
-      "triangles": 732,
+      "triangles": 797,
       "textures": 2,
       "preserved": true,
       "bounds": [
-        1.978440278446112,
+        1.9784405445452489,
         2,
-        1.2882321755391333
+        1.2882324256624882
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_2kuk0qqpcg",
+      "id": "k_actor_quaternius_xmmx6vqp3r",
       "meshes": 1,
-      "triangles": 3604,
+      "triangles": 2876,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.7697482397270567,
-        1.538007690251625,
-        1.6999999999999997
+        0.7472918940706585,
+        0.7354808296178434,
+        1.7000000000000002
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_cliff-blockhalf-rock",
+      "id": "k_nature_cliff-blockslope-rock",
       "meshes": 2,
-      "triangles": 12,
+      "triangles": 70,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        3,
-        1.5,
-        3
+        3.0000000000000004,
+        2.5000000875539286,
+        2.5000000750000027
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_roads_traffic_light",
-      "meshes": 1,
-      "triangles": 212,
-      "textures": 1,
+      "id": "k_world_city_kit_roads_dumpster",
+      "meshes": 3,
+      "triangles": 234,
+      "textures": 3,
       "preserved": true,
       "bounds": [
-        0.4566990327612599,
-        2,
-        0.349514557769402
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_car_kit_hatchback_sports",
-      "meshes": 5,
-      "triangles": 2088,
-      "textures": 5,
-      "preserved": true,
-      "bounds": [
-        0.9122806225016767,
-        0.7719297858156345,
+        1.4864859814363829,
+        1.1321172131400068,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_apple",
-      "meshes": 1,
-      "triangles": 136,
-      "textures": 1,
+      "id": "k_actor_car_kit_firetruck",
+      "meshes": 6,
+      "triangles": 2767,
+      "textures": 6,
       "preserved": true,
       "bounds": [
-        2,
-        1.943542543690345,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_cliff-blockquarter-rock",
-      "meshes": 2,
-      "triangles": 12,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.75,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_castle_kit_siege_trebuchet",
-      "meshes": 10,
-      "triangles": 1518,
-      "textures": 10,
-      "preserved": true,
-      "bounds": [
-        1.8903427633876293,
-        2.0000000000000004,
-        1.2845524320722839
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_boat_fishing_small",
-      "meshes": 1,
-      "triangles": 237,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.922480630184064,
-        1.343669241094542,
+        0.8823529737020706,
+        1.0000000438746581,
         1.9999999999999998
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_barrels",
-      "meshes": 10,
-      "triangles": 268,
+      "id": "k_props_food_avocado",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.4054354696442999,
+        2,
+        1.622857222545763
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_cliff-cave-rock",
+      "meshes": 1,
+      "triangles": 64,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.000000000000001,
-        1.2727272727272732,
-        1.8051278618181823
+        3,
+        3,
+        0.5055
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_tower_hexagon_base",
+      "meshes": 1,
+      "triangles": 68,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.3740458251448984,
+        2,
+        1.189958646204649
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_house_a",
+      "meshes": 1,
+      "triangles": 408,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.1531008844385453,
+        0.9356158885359157,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_bones",
+      "meshes": 1,
+      "triangles": 168,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.0000000000000004,
+        1.02670066171349,
+        1.35156721615974
       ],
       "gl": 0
     }
