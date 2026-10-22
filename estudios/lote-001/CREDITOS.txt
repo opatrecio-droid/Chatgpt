@@ -1,0 +1,359 @@
+PolyForge — Coleção 10.000, lote 001
+
+Manifesto: lote-001.catalog.json
+Modelos: 1.000 GLBs originais incorporados à página HTML.
+
+Créditos e licenças por coleção:
+
+- Blaster Kit — Kenney; 14 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/blaster-kit
+- Blocky Characters — Kenney; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/blocky-characters
+- Coaster Kit — Kenney; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/coaster-kit
+- Cube Pets — Kenney; 24 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/cube-pets
+- Fantasy Town Kit — Kenney; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/fantasy-town-kit
+- Furniture Kit — Kenney; 8 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/furniture-kit
+- Graveyard Kit — Kenney; 14 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/graveyard-kit
+- Holiday Kit — Kenney; 16 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/holiday-kit
+- KayKit - Character Pack: Adventurers — Kay Lousberg; 30 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/kaykit-adventurers
+- KayKit - Character Pack: Skeletons — Kay Lousberg; 17 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/kaykit-skeletons
+- KayKit - Dungeon Pack — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/kaykit-dungeon-pack
+- KayKit - Forest Nature Pack — Kay Lousberg; 71 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/kaykit-forest
+- KayKit - Medieval Hexagon Pack — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/kaykit-medieval-hexagon
+- KayKit - Platformer Pack — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/kaykit-platformer
+- KayKit: Block Bits — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/block-bits
+- KayKit: Board Game Bits — Kay Lousberg; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/board-game-bits
+- KayKit: City Builder Bits — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/city-builder-bits
+- KayKit: Fantasy Weapons Bits — Kay Lousberg; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/fantasy-weapons-bits
+- KayKit: Furniture Bits — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/furniture-bits
+- KayKit: Halloween Bits — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/halloween-bits
+- KayKit: Holiday Bits — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/holiday-bits
+- KayKit: Prototype Bits — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/prototype-bits
+- KayKit: Resource Bits — Kay Lousberg; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/resource-bits
+- KayKit: Restaurant Bits — Kay Lousberg; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/restaurant-bits
+- KayKit: RPG Tools Bits — Kay Lousberg; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/rpg-tools-bits
+- KayKit: Space Base Bits — Kay Lousberg; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kaylousberg.itch.io/space-base-bits
+- Mini Arcade — Kenney; 11 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/mini-arcade
+- Mini Dungeon — Kenney; 14 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/mini-dungeon
+- Mini Forest — Kenney; 22 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/mini-forest
+- Mini Market — Kenney; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/mini-market
+- Mini Skate — Kenney; 12 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/mini-skate
+- Minigolf Kit — Kenney; 9 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/minigolf-kit
+- Modelos de Quaternius na Poly Pizza — Quaternius; 267 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://poly.pizza/m/0YAR0Lg58p
+  Fonte: https://poly.pizza/m/0bVHWZZnNg
+  Fonte: https://poly.pizza/m/0lxF8Dl1jU
+  Fonte: https://poly.pizza/m/16MPvqwlmE
+  Fonte: https://poly.pizza/m/17scbUKx6U
+  Fonte: https://poly.pizza/m/18Uxrb2dIc
+  Fonte: https://poly.pizza/m/1XZD9GK6Kj
+  Fonte: https://poly.pizza/m/1gNo5ezvmr
+  Fonte: https://poly.pizza/m/1orHe0kCc1
+  Fonte: https://poly.pizza/m/1pYOHhwjXP
+  Fonte: https://poly.pizza/m/1tycAcvSVW
+  Fonte: https://poly.pizza/m/2f54vbV0In
+  Fonte: https://poly.pizza/m/34W5ymEePk
+  Fonte: https://poly.pizza/m/3BTgw6qq6s
+  Fonte: https://poly.pizza/m/3PCaOuRgtU
+  Fonte: https://poly.pizza/m/42djT5zJnx
+  Fonte: https://poly.pizza/m/4E3IOActVF
+  Fonte: https://poly.pizza/m/4LjT020LQh
+  Fonte: https://poly.pizza/m/4MUaQTcDdc
+  Fonte: https://poly.pizza/m/4NxxeyYMPJ
+  Fonte: https://poly.pizza/m/4UvIHxnoSR
+  Fonte: https://poly.pizza/m/4vHWF8XUBn
+  Fonte: https://poly.pizza/m/54QyRcsogk
+  Fonte: https://poly.pizza/m/54jZKTAt5p
+  Fonte: https://poly.pizza/m/5UEl54KsuC
+  Fonte: https://poly.pizza/m/5dWpau7C3k
+  Fonte: https://poly.pizza/m/5zzi8WUMXj
+  Fonte: https://poly.pizza/m/66kQ4dBBC7
+  Fonte: https://poly.pizza/m/6HsU6GQt3a
+  Fonte: https://poly.pizza/m/6cytS1cPiL
+  Fonte: https://poly.pizza/m/71gomWolax
+  Fonte: https://poly.pizza/m/75ikp7NEDx
+  Fonte: https://poly.pizza/m/76GTkSh4KM
+  Fonte: https://poly.pizza/m/7H5qKjuxVY
+  Fonte: https://poly.pizza/m/7HYR2s9JVi
+  Fonte: https://poly.pizza/m/7V4gaDMQV8
+  Fonte: https://poly.pizza/m/7eNPB3UYWV
+  Fonte: https://poly.pizza/m/7hMOlBjln0
+  Fonte: https://poly.pizza/m/7pn3R6hPvE
+  Fonte: https://poly.pizza/m/7r0bphYNPY
+  Fonte: https://poly.pizza/m/8JI0vnsWXA
+  Fonte: https://poly.pizza/m/97wBswIAvM
+  Fonte: https://poly.pizza/m/9AOHhRPHE7
+  Fonte: https://poly.pizza/m/9JZdrSwMym
+  Fonte: https://poly.pizza/m/9TA7f3dgU8
+  Fonte: https://poly.pizza/m/9g1aIbfR9Y
+  Fonte: https://poly.pizza/m/9zxw2NmVI6
+  Fonte: https://poly.pizza/m/AQ8zbFoDln
+  Fonte: https://poly.pizza/m/AyP8sQmDLh
+  Fonte: https://poly.pizza/m/B79i6fHgVU
+  Fonte: https://poly.pizza/m/B7xd3SZq0z
+  Fonte: https://poly.pizza/m/BRKfDKwPTv
+  Fonte: https://poly.pizza/m/BTALZymknF
+  Fonte: https://poly.pizza/m/BldaiPtyJa
+  Fonte: https://poly.pizza/m/Bq1Qj4DAre
+  Fonte: https://poly.pizza/m/Btfn3G5Xv4
+  Fonte: https://poly.pizza/m/CCRSdAJxsD
+  Fonte: https://poly.pizza/m/CDzsCXJEBQ
+  Fonte: https://poly.pizza/m/CdyHyKZd6D
+  Fonte: https://poly.pizza/m/CndBdbFR7V
+  Fonte: https://poly.pizza/m/CrDlkPLon0
+  Fonte: https://poly.pizza/m/D36zsP5ESu
+  Fonte: https://poly.pizza/m/D3hAeqeDBE
+  Fonte: https://poly.pizza/m/Db4UVcNWnF
+  Fonte: https://poly.pizza/m/Dc4k4CooN3
+  Fonte: https://poly.pizza/m/DojKLcO34E
+  Fonte: https://poly.pizza/m/DvXwMLGL8e
+  Fonte: https://poly.pizza/m/E8NjhhdvSU
+  Fonte: https://poly.pizza/m/EC1Lk2IamI
+  Fonte: https://poly.pizza/m/EDOyeLovqG
+  Fonte: https://poly.pizza/m/EDvCEBvs8k
+  Fonte: https://poly.pizza/m/EEojbRn1eX
+  Fonte: https://poly.pizza/m/EPxz521Rmo
+  Fonte: https://poly.pizza/m/F7bCnF1BFf
+  Fonte: https://poly.pizza/m/FD3GBkVOyX
+  Fonte: https://poly.pizza/m/FO1yWXFzac
+  Fonte: https://poly.pizza/m/FUgtfvqgMx
+  Fonte: https://poly.pizza/m/G61jVPof0G
+  Fonte: https://poly.pizza/m/GcttdvsqsQ
+  Fonte: https://poly.pizza/m/Gl3pcrdnpW
+  Fonte: https://poly.pizza/m/Gs3yfsV5lB
+  Fonte: https://poly.pizza/m/GyDYqHAByU
+  Fonte: https://poly.pizza/m/Gzj704DXdr
+  Fonte: https://poly.pizza/m/Hgf0R8s4Uo
+  Fonte: https://poly.pizza/m/Hnbmthe7Ov
+  Fonte: https://poly.pizza/m/HtpdTh3Ld6
+  Fonte: https://poly.pizza/m/HvfIku26CK
+  Fonte: https://poly.pizza/m/IBLX2Jz90O
+  Fonte: https://poly.pizza/m/IVnmauIgWX
+  Fonte: https://poly.pizza/m/Iip30bDHmu
+  Fonte: https://poly.pizza/m/IkB63XOPvr
+  Fonte: https://poly.pizza/m/IoWG5F9WUc
+  Fonte: https://poly.pizza/m/JQrBevTzgD
+  Fonte: https://poly.pizza/m/JknXyvHxtD
+  Fonte: https://poly.pizza/m/JmFMh7ztL9
+  Fonte: https://poly.pizza/m/JoBvxIUpZP
+  Fonte: https://poly.pizza/m/Jqfed124pQ
+  Fonte: https://poly.pizza/m/K1IczhnvQ5
+  Fonte: https://poly.pizza/m/Kd94xlw5aj
+  Fonte: https://poly.pizza/m/KiNAaBa4cK
+  Fonte: https://poly.pizza/m/KpxDpidn1Z
+  Fonte: https://poly.pizza/m/Kr4kr7OCCQ
+  Fonte: https://poly.pizza/m/KvXSMwoftt
+  Fonte: https://poly.pizza/m/LH96IMq0rE
+  Fonte: https://poly.pizza/m/M0UX3rVvNX
+  Fonte: https://poly.pizza/m/MZdeiQApSb
+  Fonte: https://poly.pizza/m/Mo2ky6vkf8
+  Fonte: https://poly.pizza/m/MujITy1NRR
+  Fonte: https://poly.pizza/m/MwOFAOgOhg
+  Fonte: https://poly.pizza/m/NlXe0ZJGUd
+  Fonte: https://poly.pizza/m/O4wpTLSfIn
+  Fonte: https://poly.pizza/m/O9vL3stB6n
+  Fonte: https://poly.pizza/m/OF8rWAO1gC
+  Fonte: https://poly.pizza/m/OQvi8PIZ40
+  Fonte: https://poly.pizza/m/OdCOFSmEhl
+  Fonte: https://poly.pizza/m/P1cMV8qtN2
+  Fonte: https://poly.pizza/m/P4BaLlrAIM
+  Fonte: https://poly.pizza/m/P79Otw95no
+  Fonte: https://poly.pizza/m/PTvW67lIoU
+  Fonte: https://poly.pizza/m/PWAQTFyAyc
+  Fonte: https://poly.pizza/m/PoFx4pgUbg
+  Fonte: https://poly.pizza/m/Q2GNw9TRzF
+  Fonte: https://poly.pizza/m/Q3z8ZX4kUy
+  Fonte: https://poly.pizza/m/QBTCfwOTsY
+  Fonte: https://poly.pizza/m/QeYQEpgPcC
+  Fonte: https://poly.pizza/m/R2UjZAX3By
+  Fonte: https://poly.pizza/m/Rf86QRhYYc
+  Fonte: https://poly.pizza/m/RptHDDjUGW
+  Fonte: https://poly.pizza/m/RtLRqYjfMs
+  Fonte: https://poly.pizza/m/S1E7idPFhe
+  Fonte: https://poly.pizza/m/SRIt9gKM5j
+  Fonte: https://poly.pizza/m/SU28ptta34
+  Fonte: https://poly.pizza/m/TQaMo8GTJl
+  Fonte: https://poly.pizza/m/TX8r9WBXpe
+  Fonte: https://poly.pizza/m/TorqaXvgAO
+  Fonte: https://poly.pizza/m/UA4axT3nIQ
+  Fonte: https://poly.pizza/m/UDTM6X1y9a
+  Fonte: https://poly.pizza/m/UKHtgpxTOk
+  Fonte: https://poly.pizza/m/UTau9hyAnm
+  Fonte: https://poly.pizza/m/UcLErL2W37
+  Fonte: https://poly.pizza/m/UpDxLf8yue
+  Fonte: https://poly.pizza/m/Uu0PXwt2nU
+  Fonte: https://poly.pizza/m/V9KbWC8Vd6
+  Fonte: https://poly.pizza/m/VBvzjFIYws
+  Fonte: https://poly.pizza/m/VGtSTNRf2O
+  Fonte: https://poly.pizza/m/VNIRoibtQv
+  Fonte: https://poly.pizza/m/VSxUAFhzbA
+  Fonte: https://poly.pizza/m/VtJh4Irl4w
+  Fonte: https://poly.pizza/m/W2vMzztgIi
+  Fonte: https://poly.pizza/m/WPj4nM1PFL
+  Fonte: https://poly.pizza/m/WRd1piJOfh
+  Fonte: https://poly.pizza/m/Wp6Eh4r9VX
+  Fonte: https://poly.pizza/m/XU7oNeKShV
+  Fonte: https://poly.pizza/m/Xx1Jkg77vJ
+  Fonte: https://poly.pizza/m/Y67erogmR9
+  Fonte: https://poly.pizza/m/YH4OBMzAGM
+  Fonte: https://poly.pizza/m/Yg2bQZO6Hj
+  Fonte: https://poly.pizza/m/YnowJvWqxE
+  Fonte: https://poly.pizza/m/Yp4GwKdHHO
+  Fonte: https://poly.pizza/m/Z6M4GNkgWt
+  Fonte: https://poly.pizza/m/Z6O59Ps7CW
+  Fonte: https://poly.pizza/m/Z9lddNpM1M
+  Fonte: https://poly.pizza/m/ZCGVHzSvQD
+  Fonte: https://poly.pizza/m/ZKvgpQwJiY
+  Fonte: https://poly.pizza/m/ZUN3itcCyX
+  Fonte: https://poly.pizza/m/ZYBzMHnSbM
+  Fonte: https://poly.pizza/m/ZYHKojmtPW
+  Fonte: https://poly.pizza/m/aCtxEoSLEZ
+  Fonte: https://poly.pizza/m/aNhGga1jGX
+  Fonte: https://poly.pizza/m/ahBEW2RRgq
+  Fonte: https://poly.pizza/m/b0boebSV1r
+  Fonte: https://poly.pizza/m/b7gRkv0cEa
+  Fonte: https://poly.pizza/m/bG0hEKshdv
+  Fonte: https://poly.pizza/m/beP0850ESv
+  Fonte: https://poly.pizza/m/bfLOqIV5uP
+  Fonte: https://poly.pizza/m/bs6ikOeTrR
+  Fonte: https://poly.pizza/m/c6E9QTukqK
+  Fonte: https://poly.pizza/m/cXw6oiFtZ8
+  Fonte: https://poly.pizza/m/ceRHrn8HHE
+  Fonte: https://poly.pizza/m/cg6yBEddtZ
+  Fonte: https://poly.pizza/m/cuQuFJEIfH
+  Fonte: https://poly.pizza/m/czsz9Baw86
+  Fonte: https://poly.pizza/m/d2VWOdthtR
+  Fonte: https://poly.pizza/m/dQXRtm5GbO
+  Fonte: https://poly.pizza/m/djXoqejw6w
+  Fonte: https://poly.pizza/m/dveIJ0xNpX
+  Fonte: https://poly.pizza/m/e8u2OQ9Quz
+  Fonte: https://poly.pizza/m/eSLKTsbl7F
+  Fonte: https://poly.pizza/m/ebmepOXDRd
+  Fonte: https://poly.pizza/m/f6GPjbEgg0
+  Fonte: https://poly.pizza/m/fqv7qtGQYH
+  Fonte: https://poly.pizza/m/gKLBoRsyKe
+  Fonte: https://poly.pizza/m/gReSPnGdkr
+  Fonte: https://poly.pizza/m/gZ2ExU9OAB
+  Fonte: https://poly.pizza/m/h6M5zlF5Yx
+  Fonte: https://poly.pizza/m/hKZtOOMadH
+  Fonte: https://poly.pizza/m/hNO9XvjlKa
+  Fonte: https://poly.pizza/m/hwQ1Fx5P8U
+  Fonte: https://poly.pizza/m/iHEuXiH6Aj
+  Fonte: https://poly.pizza/m/iawvpwugzX
+  Fonte: https://poly.pizza/m/ineV9pU5VL
+  Fonte: https://poly.pizza/m/iw6l7gqcdQ
+  Fonte: https://poly.pizza/m/j4KsIuJYnq
+  Fonte: https://poly.pizza/m/kKtL4zvS3n
+  Fonte: https://poly.pizza/m/kZ3DmIoGip
+  Fonte: https://poly.pizza/m/l5Oc9swvKk
+  Fonte: https://poly.pizza/m/l6AhogdZHe
+  Fonte: https://poly.pizza/m/l7bDe7ak6j
+  Fonte: https://poly.pizza/m/l7c8pppfFj
+  Fonte: https://poly.pizza/m/lDlWQjn9Zg
+  Fonte: https://poly.pizza/m/lF3jeRJwiH
+  Fonte: https://poly.pizza/m/lFZfDh2hzP
+  Fonte: https://poly.pizza/m/li0YBlBEMz
+  Fonte: https://poly.pizza/m/lj0WFfJkbb
+  Fonte: https://poly.pizza/m/m6BBMbW9rd
+  Fonte: https://poly.pizza/m/mJXJPCIkbM
+  Fonte: https://poly.pizza/m/mPDR0L5uKx
+  Fonte: https://poly.pizza/m/mWojM4i2IH
+  Fonte: https://poly.pizza/m/mdGe4IN31v
+  Fonte: https://poly.pizza/m/n31PjUy6Ra
+  Fonte: https://poly.pizza/m/nBlnK8G6xw
+  Fonte: https://poly.pizza/m/nFwrlcLvM5
+  Fonte: https://poly.pizza/m/nG0anykUvQ
+  Fonte: https://poly.pizza/m/nIItLV9nxS
+  Fonte: https://poly.pizza/m/nQVHa5aYfP
+  Fonte: https://poly.pizza/m/ncfRdJZ0xT
+  Fonte: https://poly.pizza/m/o87Upt5uHX
+  Fonte: https://poly.pizza/m/pHZz4EMvVM
+  Fonte: https://poly.pizza/m/phCQtmbSy5
+  Fonte: https://poly.pizza/m/poFJzEWCk8
+  Fonte: https://poly.pizza/m/qJ2gsTUBHL
+  Fonte: https://poly.pizza/m/qn4grQgHm8
+  Fonte: https://poly.pizza/m/qyGtRmhgzl
+  Fonte: https://poly.pizza/m/r10Gkf9yDs
+  Fonte: https://poly.pizza/m/rDX8W8uqip
+  Fonte: https://poly.pizza/m/rYguWNNPvA
+  Fonte: https://poly.pizza/m/rdKKO0DvMG
+  Fonte: https://poly.pizza/m/rzvuy93JU3
+  Fonte: https://poly.pizza/m/s0joFFrQoy
+  Fonte: https://poly.pizza/m/sUTLXji0aL
+  Fonte: https://poly.pizza/m/sZR8AMLMz5
+  Fonte: https://poly.pizza/m/skqPvEIpve
+  Fonte: https://poly.pizza/m/t91lDHaqRW
+  Fonte: https://poly.pizza/m/tLs9mFVCSU
+  Fonte: https://poly.pizza/m/tU90pfm5xf
+  Fonte: https://poly.pizza/m/tnNKjvigJA
+  Fonte: https://poly.pizza/m/tzOLXetacM
+  Fonte: https://poly.pizza/m/u105mYHLHU
+  Fonte: https://poly.pizza/m/uCeLfsdmNP
+  Fonte: https://poly.pizza/m/uRzqB8lopZ
+  Fonte: https://poly.pizza/m/vd1boG8aHD
+  Fonte: https://poly.pizza/m/vzzCNUB6Zn
+  Fonte: https://poly.pizza/m/wODZYCgX5Z
+  Fonte: https://poly.pizza/m/wTDbVozPAj
+  Fonte: https://poly.pizza/m/xExePQ3jdR
+  Fonte: https://poly.pizza/m/xKVeMHa2tJ
+  Fonte: https://poly.pizza/m/xtMYEVzyw0
+  Fonte: https://poly.pizza/m/y4kJh8EeYS
+  Fonte: https://poly.pizza/m/y9KWOVG21R
+  Fonte: https://poly.pizza/m/yEdSk8tRKc
+  Fonte: https://poly.pizza/m/ypAEwOy2Cn
+  Fonte: https://poly.pizza/m/yq5ATpujSt
+  Fonte: https://poly.pizza/m/yz8Ko0rRdC
+  Fonte: https://poly.pizza/m/z0d6CbNtrz
+  Fonte: https://poly.pizza/m/zhm3D5KKRh
+  Fonte: https://poly.pizza/m/zjr7CmWGER
+  Fonte: https://poly.pizza/m/zt2WLYypMl
+- Nature Kit — Kenney; 3 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/nature-kit
+- Pirate Kit — Kenney; 11 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/pirate-kit
+- Platformer Kit — Kenney; 6 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/platformer-kit
+- Prototype Kit — Kenney; 22 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/prototype-kit
+- Space Kit (Kenney) — Kenney; 14 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/space-kit
+- Survival Kit — Kenney; 8 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/survival-kit
+- Tower Defense Kit — Kenney; 8 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/tower-defense-kit
+- Toy Car Kit — Kenney; 62 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/toy-car-kit
+- Train Kit — Kenney; 62 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  Fonte: https://kenney.nl/assets/train-kit
+
+Para os créditos completos por modelo, consulte `lote-001.catalog.json`.

@@ -1,0 +1,13 @@
+{
+  "htmlSha256": "6b8839e0216517f49f219747cc5ceb239af0113e72a4084b3400b01f81ced444",
+  "catalogSha256": "95d37adf4e90f56a6f6f53874e69662377a85293a426a0b8e54f75b628b57d44",
+  "sourceAndEmbeddedGlbHashes": "1000/1000 matched",
+  "modelRenderScan": "1000/1000, zero WebGL errors; report auditoria-render.json",
+  "uiFilters": "passed",
+  "mobileViewport": "390px passed",
+  "biomeCoverage": "forest desktop and mobile passed; canopy excludes cut/stump/log models",
+  "reviewCaptures": [
+    "preview-forest.png",
+    "preview-mobile.png"
+  ]
+}

@@ -1,6 +1,6 @@
-# Atualizações do mesmo HTML
+# Atualizações da biblioteca PolyForge
 
-35 modelos iniciais preservados. As primeiras versões avançam de 10 em 10; a etapa seguinte fecha blocos de 200 novos, conforme a mudança de pedido.
+Os lotes preservam a biblioteca já publicada e acrescentam modelos novos após deduplicação geométrica. O HTML cumulativo publicado inicialmente contém 1.035 modelos; a expansão atual é entregue em estúdios offline separados. Cada lote conta somente modelos auditados, sem contar instâncias de bioma.
 
 | Atualização | Total no HTML | Novos acumulados | SHA-256 do HTML |
 | --- | --- | --- | --- |
@@ -45,3 +45,11 @@
 | 039 | 635 | 600 | `8b07b6ef91fe9e4321b39aea0d7b29ef95db98a111d41bbebd827b87322a4256` |
 | 040 | 835 | 800 | `e8a80cf1e99890df1d594aa044baf8e8440494d13e18ba21cd7d9e6f5f298f31` |
 | 041 | 1035 | 1000 | `7c4b59695ed4115983a9b288b2df6c1d57c3a77782d580b0944e2ff9024b91c5` |
+
+| Lote 001 | 2035 | 1000 | `c52a2def829b27010afad4cabc6f96cded4be3d1ad5e5e2bcadd1332d716e226` |
+
+O estúdio independente do lote 001 está em [estudios/lote-001.zip](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001.zip); HTML: [index.html](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001/index.html). O ZIP cumulativo original de 1.035 modelos permanece em [polyforge.zip](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/polyforge.zip).
+
+| Lote 001 | 2035 | 1000 | `6b8839e0216517f49f219747cc5ceb239af0113e72a4084b3400b01f81ced444` |
+
+O estúdio independente do lote 001 está em [estudios/lote-001.zip](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001.zip); HTML: [index.html](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001/index.html). O ZIP cumulativo original de 1.035 modelos permanece em [polyforge.zip](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/polyforge.zip).

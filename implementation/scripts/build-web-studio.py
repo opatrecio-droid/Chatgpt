@@ -9,10 +9,25 @@ parser.add_argument('--label',default='')
 args=parser.parse_args()
 html=(ROOT/'legacy/procedural-studio.html').read_text()
 manifest=[]
+existing_catalog=ROOT/'assets/catalog.json'
+baseline_by_id={}
+if existing_catalog.exists():
+    baseline_by_id={a['id']:a for a in json.loads(existing_catalog.read_text())}
+style_aliases={'lowpoly':'lowpoly','low-poly':'lowpoly','stylized-low-poly':'lowpoly','cartoon':'cartoon','chibi':'cartoon','cartoon-chibi':'cartoon','voxel':'voxel','realistic':'realistic','unclassified':'unclassified'}
+def classify_style(asset):
+    explicit=asset.get('artStyle') or asset.get('style')
+    if explicit:
+        key=re.sub(r'[ _]','-',str(explicit).strip().lower())
+        return style_aliases.get(key,'unclassified'),asset.get('styleSource') or 'Estilo visual informado no manifesto de origem.'
+    if asset['id'] in baseline_by_id:
+        if asset.get('sourcePage','').rstrip('/').endswith('/mini-characters') or 'mini-characters' in asset.get('pack','').lower():
+            return 'cartoon','Classificação de pacote: silhuetas chibi/cartoon revisadas em Mini Characters.'
+        if asset.get('author') in {'Kenney','Quaternius'}:
+            return 'lowpoly','Classificação de pacote: GLBs autorais representativos revisados; low-poly estilizado.'
+    return 'unclassified','Sem evidência visual confiável no manifesto; revisão pendente.'
 translations={'Wizard':'Mago','Monk':'Monge','King':'Rei','Adventurer':'Aventureiro','Pirate Captain':'Capitão pirata','Horse':'Cavalo','Stag':'Veado com galhadas','Husky':'Husky','Wolf':'Lobo','Alpaca':'Alpaca','Donkey':'Burro','Bull':'Touro','Deer':'Cervo','Fox':'Raposa','Cow':'Vaca','Twisted Tree':'Árvore retorcida','Palm Tree':'Palmeira','Pine':'Pinheiro','Dead Tree':'Árvore seca','Mushroom':'Cogumelo','Rocks':'Rochas','Big Crystal':'Cristal','Flower Group':'Flores','Bush with Flowers':'Arbusto florido','Grass':'Grama','Plant Big':'Planta de folhas largas','Fern':'Samambaia','Canoe':'Canoa','Canoe Paddle':'Remo','Campfire Logs':'Fogueira','Bed':'Cama','Tent Detailed Closed':'Barraca','Pot Large':'Vaso','Sign':'Placa','Statue Obelisk':'Obelisco','Bridge Wood':'Ponte de madeira','Fence Gate':'Portão de cerca'}
 # Alternate prop designs and three characters with a different visual style stay out of the visible catalog.
 excluded={'kenney_objects_campfire_bricks','kenney_objects_bridge_stone','web_characters_wizard','web_characters_monk','web_characters_king'}
-existing_catalog=ROOT/'assets/catalog.json'
 catalog_input=args.catalog or (existing_catalog if existing_catalog.exists() else None)
 groups=[('custom',json.loads(catalog_input.read_text()))] if catalog_input else [(group,json.loads((ROOT/'assets/catalog-parts'/f'{group}.json').read_text())) for group in ['characters','animals','nature','objects']]
 for group,records in groups:
@@ -26,6 +41,7 @@ for group,records in groups:
         if asset.get('sourcePage','').endswith('/space-kit') and asset['category']=='items' and not re.search(r'weapon|gun|blaster|sword|shield',asset.get('originalModelName',''),re.I):asset['category']='props'
         if asset.get('sourcePage','').endswith('/mini-characters') and asset['category']=='items':asset['category']='props'
         asset.setdefault('originalModelName',asset['name']);asset['name']=translations.get(asset['name'],asset['name'])
+        asset['artStyle'],asset['styleSource']=classify_style(asset)
         path=ROOT/asset['file'];data=path.read_bytes()
         assert data[:4]==b'glTF' and hashlib.sha256(data).hexdigest()==asset['sha256'],path
         doc=json.loads(data[20:20+struct.unpack_from('<I',data,12)[0]])
@@ -105,12 +121,15 @@ html=html.replace('</head>',css+'</head>',1)
 notices='\n\n'.join(p.name+'\n'+p.read_text() for p in sorted((ROOT/'assets/vendor').glob('LICENSE-*.txt')))
 html=html.replace('</head>','<template id="third-party-licenses"><pre>'+html_utils.escape(notices)+'</pre></template></head>',1)
 html=html.replace('<button onclick="saveStudioImage()"', '<button onclick="exportToOBJ()" title="Exportar geometria estática na pose atual">OBJ</button><button onclick="saveStudioImage()"',1)
-config='const WEB_CATALOG='+json.dumps(manifest,ensure_ascii=False)+';\nconst WEB_MODEL_DATA='+json.dumps(model_data)+';\nconst WEB_DEPENDENCIES='+json.dumps(vendors)+';\nconst WEB_THUMBNAILS='+json.dumps(thumbs)+';\n'
+def script_json(value):
+    return (json.dumps(value,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c').replace('>','\\u003e').replace('&','\\u0026').replace('\u2028','\\u2028').replace('\u2029','\\u2029'))
+config='const WEB_CATALOG='+script_json(manifest)+';\nconst WEB_MODEL_DATA='+script_json(model_data)+';\nconst WEB_DEPENDENCIES='+script_json(vendors)+';\nconst WEB_THUMBNAILS='+script_json(thumbs)+';\n'
 runtime=(ROOT/'src/web-models.js').read_text()
+biome_runtime=(ROOT/'src/biome-worlds.js').read_text()
 if args.label:
     runtime=runtime.replace("ASSET_CATALOG.length+' modelos de autores'", "ASSET_CATALOG.length+"+json.dumps(' modelos · '+args.label,ensure_ascii=False))
 end=html.rfind('</body>')
-html=html[:end]+'<script>\n'+config+runtime+'\n</script>'+html[end:]
+html=html[:end]+'<script>\n'+config+runtime+'\n'+biome_runtime+'\n</script>'+html[end:]
 args.output.parent.mkdir(parents=True,exist_ok=True)
 args.output.write_text(html)
 catalog_output=args.output.with_suffix('.catalog.json') if args.catalog else ROOT/'assets/catalog.json'

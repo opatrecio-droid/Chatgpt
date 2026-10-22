@@ -12,6 +12,7 @@ onWindowResize=function(){
         nativeNarrowViewport=narrow;
     }
     nativeOriginalResize();
+    if (window.PolyForgeBiomes) window.PolyForgeBiomes.resize();
 };
 toggleSidebar=function(side){
     const panel=document.getElementById(side==='left'?'left-sidebar':'right-sidebar');
@@ -87,7 +88,13 @@ function syncNativeAnimations(){
     document.querySelectorAll('.anim-btn').forEach(btn=>{const supported=['idle','spin'].includes(btn.dataset.anim)||!!actor?.find(btn.dataset.anim);btn.disabled=!supported;btn.style.opacity=supported?'1':'.35';btn.title=supported?'':'O arquivo não contém um clipe correspondente';});
     const manual=document.querySelector('button[onclick="triggerManualAttackBurst()"]');if(manual){manual.disabled=!actor?.find('action');manual.style.opacity=manual.disabled?'.35':'1';}
 }
-async function downloadNativeGLB(){const asset=ASSET_INDEX.get(state.selectedAssetId),blob=new Blob([await decodeModelData(WEB_MODEL_DATA[asset.id])],{type:'model/gltf-binary'});downloadNativeBlob(blob,asset.id+'.glb');}
+function nativeLicenseLabel(asset){const code=String(asset?.license||'').replace(/\s/g,'').toUpperCase();return ({'CC0-1.0':'CC0 1.0','CC-BY-3.0':'CC BY 3.0','CC-BY-4.0':'CC BY 4.0'})[code]||asset?.license||'Licença não informada';}
+function nativeStyleLabel(style){return ({lowpoly:'Low-poly estilizado',cartoon:'Cartoon / chibi',voxel:'Voxel',realistic:'Realista',unclassified:'A revisar'})[style]||style||'A revisar';}
+function nativeStyleKey(asset){const raw=String(asset?.artStyle||asset?.style||'unclassified').toLowerCase().replace(/[ _]/g,'-');return ['lowpoly','low-poly','stylized-low-poly'].includes(raw)?'lowpoly':['cartoon','chibi','cartoon-chibi'].includes(raw)?'cartoon':['voxel','realistic','unclassified'].includes(raw)?raw:'unclassified';}
+function nativeCredits(asset){return `Título: ${asset.name}\nAutor: ${asset.author}\nFonte: ${asset.sourcePage}\nLicença: ${nativeLicenseLabel(asset)} (${asset.licenseUrl})`;}
+function nativeExternalURL(value){return /^https?:\/\//i.test(String(value||''))?String(value):'#';}
+function nativeScriptJSON(value){return JSON.stringify(value).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');}
+async function downloadNativeGLB(){const asset=ASSET_INDEX.get(state.selectedAssetId),blob=new Blob([await decodeModelData(WEB_MODEL_DATA[asset.id])],{type:'model/gltf-binary'});downloadNativeBlob(blob,asset.id+'.glb');downloadNativeBlob(new Blob([nativeCredits(asset)+'\n'],{type:'text/plain;charset=utf-8'}),asset.id+'-creditos.txt');}
 function downloadNativeBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function nativeCategoryRecipe(key){
     const tags={forest:['tree','pine','fern','bush','grass','mushroom'],desert:['palm','rock','crystal'],tundra:['pine','rock','dead'],ocean:['palm','canoe','rock'],crystal:['crystal','rock','flower'],medieval:['tent','sign','bridge','obelisk','campfire'],swamp:['dead','fern','grass'],jungle:['tree','palm','fern','plant']};
@@ -98,17 +105,18 @@ async function bootDownloadedStudio(){
     const overlay=document.getElementById('native-loading'),progress=document.getElementById('native-progress');
     try{
         let completed=0,cursor=0;
-        const startup=NATIVE_LAZY?[WEB_CATALOG.find(a=>a.id.includes('adventurer'))||WEB_CATALOG[0]]:WEB_CATALOG;
+        const starterAsset=WEB_CATALOG.find(a=>a.category==='characters'&&/adventur/i.test([a.id,a.name,a.originalModelName].join(' ')))||WEB_CATALOG.find(a=>a.category==='characters')||WEB_CATALOG[0];
+        const startup=NATIVE_LAZY?[starterAsset]:WEB_CATALOG;
         await Promise.all(Array.from({length:3},async()=>{while(cursor<startup.length){const asset=startup[cursor++];await ensureNativeAsset(asset.id);
             progress.textContent=++completed+' / '+startup.length+' arquivos iniciais carregados';await new Promise(resolve=>setTimeout(resolve,0));}}));
         ASSET_CATALOG.splice(0,ASSET_CATALOG.length,...WEB_CATALOG.map(asset=>({...asset,defaultColors:{primary:'#b6bdc9',secondary:'#65718b',accent:'#d6b478'},roughness:.6,metalness:0,emissive:0,categoryLabel:CATEGORY_LABELS[asset.category],icon:({characters:'fa-person',pets:'fa-paw',nature:'fa-tree',props:'fa-cube',items:'fa-shield-halved',vehicles:'fa-ship'})[asset.category]})));
         ASSET_INDEX.clear();ASSET_CATALOG.forEach(a=>ASSET_INDEX.set(a.id,a));
-        state.selectedAssetId=ASSET_CATALOG.find(a=>a.id.includes('adventurer'))?.id||ASSET_CATALOG[0].id;state.equippedItemId='';state.equippedPetId='';
+        state.selectedAssetId=ASSET_CATALOG.find(a=>a.category==='characters'&&/adventur/i.test([a.id,a.name,a.originalModelName].join(' ')))?.id||ASSET_CATALOG.find(a=>a.category==='characters')?.id||ASSET_CATALOG[0].id;state.equippedItemId='';state.equippedPetId='';
         const initial=state.selectedAssetId;const oldSelect=selectAsset;let selectionVersion=0;
         selectAsset=function(id){
             if(!ASSET_INDEX.has(id))return;
             const version=++selectionVersion;
-            const apply=()=>{if(version!==selectionVersion)return;oldSelect(id);populateNativeMaterialChoices();syncNativeAnimations();updateNativeProvenance();};
+            const apply=()=>{if(version!==selectionVersion)return;PolyForgeBiomes.clear();PolyForgeBiomes.restoreCamera();oldSelect(id);populateNativeMaterialChoices();syncNativeAnimations();updateNativeProvenance();};
             if(NATIVE_TEMPLATES.has(id))return apply();
             showToast('Abrindo '+ASSET_INDEX.get(id).name+'…');
             return ensureNativeAsset(id).then(apply).catch(error=>{console.error(error);showToast('Falha ao abrir '+ASSET_INDEX.get(id).name);});
@@ -117,15 +125,32 @@ async function bootDownloadedStudio(){
             const original=window[name];
             if(typeof original==='function')window[name]=function(id){if(!id||NATIVE_TEMPLATES.has(id))return original(id);return ensureNativeAsset(id).then(()=>original(id));};
         }
-        initThreeJS();selectAsset(initial);webReady=true;overlay.remove();
-        document.getElementById('library-biome').innerHTML='<option value="all">Todos os autores</option>'+[...new Set(ASSET_CATALOG.map(a=>a.author))].map(author=>'<option value="'+author+'">'+author+'</option>').join('');
+        initThreeJS();PolyForgeBiomes.attachRenderer(renderer);selectAsset(initial);webReady=true;overlay.remove();
+        const authorFilter=document.getElementById('library-biome');authorFilter.replaceChildren(new Option('Todos os autores','all'),... [...new Set(ASSET_CATALOG.map(a=>a.author))].sort((a,b)=>a.localeCompare(b)).map(author=>new Option(author,author)));
         if(ASSET_CATALOG.length>100){
             const collection=document.createElement('select');collection.id='native-pack-filter';collection.className='library-biome';collection.setAttribute('aria-label','Filtrar coleção');
             collection.add(new Option('Todas as coleções','all'));
             [...new Set(ASSET_CATALOG.map(a=>a.pack))].sort((a,b)=>a.localeCompare(b)).forEach(pack=>collection.add(new Option(pack,pack)));
             collection.onchange=()=>filterAssets();document.getElementById('library-biome').after(collection);
         }
-        document.getElementById('biome-select').innerHTML='<option value="none">Cenário: estúdio</option>'+['forest','desert','tundra','ocean','crystal','medieval','swamp','jungle'].map(id=>'<option value="'+id+'">Composição: '+({forest:'floresta',desert:'deserto',tundra:'tundra',ocean:'costa',crystal:'cristais',medieval:'acampamento',swamp:'pântano',jungle:'selva'})[id]+'</option>').join('');
+        const styleFilter=document.createElement('select');styleFilter.id='native-style-filter';styleFilter.className='library-biome';styleFilter.setAttribute('aria-label','Filtrar por estilo visual');styleFilter.add(new Option('Todos os estilos','all'));
+        for(const style of ['lowpoly','cartoon','voxel','realistic','unclassified'])if(ASSET_CATALOG.some(a=>nativeStyleKey(a)===style))styleFilter.add(new Option(nativeStyleLabel(style),style));
+        styleFilter.onchange=()=>{filterAssets();syncBiomeAvailability(styleFilter.value);};const packFilter=document.getElementById('native-pack-filter');(packFilter||authorFilter).after(styleFilter);
+        const biomeSelect=document.getElementById('biome-select');
+        const componentLabels={canopy:'copas',undergrowth:'sub-bosque',stone:'rochas'};
+        const availabilityNote=document.createElement('small');availabilityNote.id='biome-availability';availabilityNote.className='text-[9px] text-slate-400';
+        biomeSelect.parentElement.after(availabilityNote);
+        function syncBiomeAvailability(style){
+            const current=biomeSelect.value,biomeAvailability=PolyForgeBiomes.availability(style);
+            biomeSelect.replaceChildren(new Option('Bioma completo: Estúdio','none'));
+            for(const biome of biomeAvailability.available)biomeSelect.add(new Option('Bioma completo: '+biome.label,biome.key));
+            availabilityNote.textContent='Completos: '+(biomeAvailability.available.map(b=>b.label).join(', ')||'nenhum bioma neste estilo')+' · Indisponíveis por falta de componentes: '+Object.entries(biomeAvailability.unavailable).map(([key,message])=>{const missing=message.match(/para (.+?)\./)?.[1]||'componentes';return PolyForgeBiomes.definitions[key].label+' ('+missing.split(', ').map(role=>componentLabels[role]||role).join(', ')+')';}).join(', ');
+            if(current!=='none'&&!biomeAvailability.available.some(b=>b.key===current)){clearCustomSceneProps();biomeSelect.value='none';}
+            else biomeSelect.value=current;
+        }
+        syncBiomeAvailability(styleFilter.value);
+        const biomeExport=document.createElement('button');biomeExport.id='biome-export-json';biomeExport.type='button';biomeExport.className='library-biome';biomeExport.textContent='Exportar decomposição do bioma (.json)';biomeExport.onclick=async()=>{try{const result=await PolyForgeBiomes.exportScene();downloadNativeBlob(new Blob([result.json],{type:'application/json;charset=utf-8'}),'bioma-'+(PolyForgeBiomes.info()?.key||'cena')+'.json');if(result.gltf)downloadNativeBlob(new Blob([result.gltf],{type:'model/gltf-binary'}),'bioma-'+(PolyForgeBiomes.info()?.key||'cena')+'.glb');}catch(error){showToast(error.message);}};
+        document.getElementById('scene-prop-count').parentElement.after(biomeExport);
         document.getElementById('native-count').textContent=ASSET_CATALOG.length+' modelos de autores';
         document.querySelectorAll('.cat-btn').forEach(button=>{button.hidden=button.dataset.cat!=='all'&&!ASSET_CATALOG.some(a=>a.category===button.dataset.cat);});
         const equipment=document.getElementById('equip-item-select');if(!ASSET_CATALOG.some(a=>a.category==='items')){equipment.parentElement.hidden=true;document.getElementById('hud-item-badge').hidden=true;}
@@ -141,11 +166,11 @@ animateProceduralModel=function(group,animState,time,speed=1){if(!group)return;c
 disposeModel=function(group){if(!group)return;NATIVE_ACTORS.get(group)?.dispose();const mats=new Set(),geometries=new Set();group.traverse(node=>{if(!node.isMesh)return;if(!NATIVE_GEOMETRIES.has(node.geometry))geometries.add(node.geometry);[node.material,node.userData.originalMaterial,node.userData.clayMaterial].flat().filter(Boolean).forEach(m=>mats.add(m));});geometries.forEach(g=>g.dispose());mats.forEach(m=>m.dispose());};
 getAssetFamilyKey=asset=>asset?.id||'';getAssetFamilyName=asset=>asset.name;
 syncFamilyVariants=()=>document.getElementById('family-variants')?.classList.add('hidden');
-getFilteredAssets=function(){const query=normalizeSearch(document.getElementById('search-input').value.trim()),author=document.getElementById('library-biome').value,pack=document.getElementById('native-pack-filter')?.value||'all';return ASSET_CATALOG.filter(a=>(state.selectedCategory==='all'||a.category===state.selectedCategory)&&(author==='all'||a.author===author)&&(pack==='all'||a.pack===pack)&&(!query||normalizeSearch(a.name+' '+a.originalModelName+' '+a.pack+' '+(a.tags||[]).join(' ')+' '+a.author+' '+a.description+' '+a.categoryLabel).includes(query)));};
+getFilteredAssets=function(){const query=normalizeSearch(document.getElementById('search-input').value.trim()),author=document.getElementById('library-biome').value,pack=document.getElementById('native-pack-filter')?.value||'all',style=document.getElementById('native-style-filter')?.value||'all';return ASSET_CATALOG.filter(a=>(state.selectedCategory==='all'||a.category===state.selectedCategory)&&(author==='all'||a.author===author)&&(pack==='all'||a.pack===pack)&&(style==='all'||nativeStyleKey(a)===style)&&(!query||normalizeSearch(a.name+' '+a.originalModelName+' '+a.pack+' '+(a.tags||[]).join(' ')+' '+a.author+' '+a.description+' '+a.categoryLabel+' '+nativeStyleLabel(nativeStyleKey(a))).includes(query)));};
 renderAssetList=function(){
     const all=getFilteredAssets(),pages=Math.max(1,Math.ceil(all.length/libraryState.pageSize));libraryState.page=Math.max(1,Math.min(pages,libraryState.page));const start=(libraryState.page-1)*libraryState.pageSize,visible=all.slice(start,start+libraryState.pageSize);
     document.getElementById('catalog-count-label').textContent='Biblioteca · '+all.length;
-    document.getElementById('asset-list').innerHTML=visible.map(a=>`<button id="${a.id}" type="button" onclick="selectAsset('${a.id}')" aria-pressed="${a.id===state.selectedAssetId}" class="asset-card ${a.id===state.selectedAssetId?'active':''} native-asset-card"><span class="native-thumbnail">${WEB_THUMBNAILS[a.id]?'<img src="'+WEB_THUMBNAILS[a.id]+'" alt="" loading="lazy">':'<i class="fa-solid '+a.icon+'"></i>'}</span><span class="native-asset-text"><strong>${escapeAssetHTML(a.name)}</strong><small>${escapeAssetHTML(a.categoryLabel)} · ${escapeAssetHTML(a.author)}</small><span>GLB · CC0 ${(a.animationCount||distinctNativeClips(NATIVE_TEMPLATES.get(a.id)?.animations||[]).length)?'· animado':''}</span></span></button>`).join('')||'<p class="library-empty">Nenhum modelo encontrado.</p>';
+    document.getElementById('asset-list').innerHTML=visible.map(a=>`<button id="${escapeAssetHTML(a.id)}" type="button" onclick="selectAsset(${escapeAssetHTML(nativeScriptJSON(a.id))})" aria-pressed="${a.id===state.selectedAssetId}" class="asset-card ${a.id===state.selectedAssetId?'active':''} native-asset-card"><span class="native-thumbnail">${WEB_THUMBNAILS[a.id]?'<img src="'+WEB_THUMBNAILS[a.id]+'" alt="" loading="lazy">':'<i class="fa-solid '+a.icon+'"></i>'}</span><span class="native-asset-text"><strong>${escapeAssetHTML(a.name)}</strong><small>${escapeAssetHTML(a.categoryLabel)} · ${escapeAssetHTML(a.author)}</small><span>${escapeAssetHTML(nativeLicenseLabel(a))} · ${escapeAssetHTML(nativeStyleLabel(nativeStyleKey(a)))} ${(a.animationCount||distinctNativeClips(NATIVE_TEMPLATES.get(a.id)?.animations||[]).length)?'· animado':''}</span></span></button>`).join('')||'<p class="library-empty">Nenhum modelo encontrado.</p>';
     document.getElementById('library-pagination').innerHTML=`<button onclick="setAssetPage(${libraryState.page-1})" ${libraryState.page===1?'disabled':''}>←</button><span>${all.length?start+1:0}–${Math.min(start+72,all.length)} · ${libraryState.page}/${pages}</span><button onclick="setAssetPage(${libraryState.page+1})" ${libraryState.page===pages?'disabled':''}>→</button>`;
 };
 showExpansionAssets=function(){document.getElementById('library-biome').value='all';setCategory('all');};
@@ -161,30 +186,29 @@ resetCurrentModelSettings=function(){selectAsset(state.selectedAssetId);};
 randomizeCurrentModel=function(){const material=nativeMaterials()[selectedNativeMaterial];if(!material)return;document.getElementById('color-primary').value='#'+Math.floor(Math.random()*0xffffff).toString(16).padStart(6,'0');updateModelAppearance();};
 applyColorPreset=function(p,s,a){document.getElementById('color-primary').value=p;updateModelAppearance();};
 triggerManualAttackBurst=function(){if(!NATIVE_ACTORS.get(currentModelGroup)?.find('action'))return;setAnimation('action');};
-generateWorldBiome=async function(key){clearCustomSceneProps();state.activeBiome=key;document.getElementById('biome-select').value=key;if(key==='none')return;const pool=nativeCategoryRecipe(key);if(!pool.length)return;
-    await Promise.all(pool.slice(0,12).map(a=>ensureNativeAsset(a.id)));
-    if(state.activeBiome!==key)return;
-    const readyPool=pool.slice(0,12);
-    const count=Math.min(12,readyPool.length*2);for(let i=0;i<count;i++){const a=readyPool[i%readyPool.length],model=buildDownloadedModel(a.id,{}),angle=i/count*Math.PI*2,radius=i%2?9:6;model.position.set(Math.cos(angle)*radius,0,Math.sin(angle)*radius);model.userData.isSceneProp=true;customWorldGroup.add(model);customWorldProps.push(model);}updateScenePropCounter();showToast('Composição com '+count+' cópias de '+readyPool.length+' arquivos de autores.');
-};
+const clearStudioScene=clearCustomSceneProps;
+clearCustomSceneProps=function(){PolyForgeBiomes?.clear();clearStudioScene();};
+updateScenePropCounter=function(){const info=PolyForgeBiomes?.info(),extra=info?.instances||0,models=customWorldProps.length+extra,files=info?.sourceFiles||0;document.getElementById('scene-prop-count').textContent=`Cena: ${models} · Bioma: ${extra} / ${files} GLBs`;};
+generateWorldBiome=async function(key,options={}){clearCustomSceneProps();state.activeBiome=key;const selector=document.getElementById('biome-select');if(selector)selector.value=key;if(key==='none'){updateScenePropCounter();return;}const requestedStyle=options.style||document.getElementById('native-style-filter')?.value||'all';try{const result=await PolyForgeBiomes.generate(key,{...options,style:requestedStyle});if(state.activeBiome!==key)return;updateScenePropCounter();showToast(`${result.label}: ${result.instances} instâncias de ${result.sourceFiles} GLBs · estilo ${nativeStyleLabel(result.style)}`);return result;}catch(error){if(error.name==='AbortError')return null;showToast(error.message);updateScenePropCounter();return null;}};
 function updateNativeProvenance(){
-    const asset=ASSET_INDEX.get(state.selectedAssetId),templates=NATIVE_TEMPLATES.get(asset.id);if(!asset)return;
+    const asset=ASSET_INDEX.get(state.selectedAssetId);if(!asset)return;
     document.getElementById('hud-model-index').textContent='Arquivo GLB';document.getElementById('hud-model-desc').textContent=asset.author+' · materiais originais · '+asset.license;
-    document.getElementById('native-provenance').innerHTML='<strong>'+escapeAssetHTML(asset.author)+'</strong><span>'+escapeAssetHTML(asset.pack)+'</span><a href="'+asset.sourcePage+'" target="_blank" rel="noopener noreferrer">Página do modelo ↗</a><a href="'+asset.licenseUrl+'" target="_blank" rel="noopener noreferrer">Licença CC0 1.0 ↗</a><small>Geometria, materiais e clipes do arquivo baixado. A base e a iluminação pertencem ao estúdio.</small>';
+    document.getElementById('native-provenance').innerHTML='<strong>'+escapeAssetHTML(asset.name)+' · '+escapeAssetHTML(asset.author)+'</strong><span>'+escapeAssetHTML(asset.pack)+' · '+escapeAssetHTML(nativeStyleLabel(nativeStyleKey(asset)))+'</span><a href="'+escapeAssetHTML(nativeExternalURL(asset.sourcePage))+'" target="_blank" rel="noopener noreferrer">Fonte do autor ↗</a><a href="'+escapeAssetHTML(nativeExternalURL(asset.licenseUrl))+'" target="_blank" rel="noopener noreferrer">'+escapeAssetHTML(nativeLicenseLabel(asset))+' ↗</a><small>Origem do estilo: '+escapeAssetHTML(asset.styleSource||'revisão pendente')+' Malha, materiais e animações originais. Autor, fonte e licença acompanham a exportação.</small>';
 }
 generateThreeJSSnippet=function(){const a=ASSET_INDEX.get(state.selectedAssetId);return `// ${a.name} — ${a.author}\n// Fonte: ${a.sourcePage}\n// Licença: ${a.license} (${a.licenseUrl})\n// Use Three.js r128 + GLTFLoader. O GLB original contém seus próprios materiais.\nconst loader = new THREE.GLTFLoader();\nloader.load('${a.file}', (gltf) => {\n    scene.add(gltf.scene);\n    const mixer = new THREE.AnimationMixer(gltf.scene);\n    if (gltf.animations.length) mixer.clipAction(gltf.animations[0]).play();\n    // No loop: mixer.update(deltaEmSegundos);\n});`;};
 window.onload=bootDownloadedStudio;
 downloadStarterGameHTML=function(){
     const selected=ASSET_INDEX.get(state.selectedAssetId),pet=ASSET_INDEX.get(state.equippedPetId);
     const records=[selected,...(pet&&selected.category==='characters'?[pet]:[])].map(meta=>({meta,data:WEB_MODEL_DATA[meta.id]}));
-    const source=`<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeAssetHTML(selected.name)} · cena GLB</title><style>body{margin:0;background:#101622;color:#e7ecf7;font:14px system-ui;overflow:hidden}aside{position:fixed;left:18px;top:18px;max-width:440px;background:#111b2de8;padding:16px;border:1px solid #354258;border-radius:12px}h1{font-size:16px;margin:0 0 8px}p{font-size:12px;color:#acb9d0;margin:5px 0}</style><aside><h1>${escapeAssetHTML(selected.name)}</h1><p>WASD: mover · Espaço: pular · E: ação, quando o arquivo possui um clipe</p><p>Modelos originais: ${records.map(r=>escapeAssetHTML(r.meta.author)).join(', ')} · CC0 1.0</p><p id="status">Carregando GLB…</p></aside><script src="${WEB_DEPENDENCIES.three}"><\/script><script src="${WEB_DEPENDENCIES.gltf}"><\/script><script>
+    const credits=records.map(r=>`<p><strong>${escapeAssetHTML(r.meta.name)}</strong> · ${escapeAssetHTML(r.meta.author)} · <a href="${escapeAssetHTML(nativeExternalURL(r.meta.sourcePage))}" target="_blank" rel="noopener">Fonte</a> · <a href="${escapeAssetHTML(nativeExternalURL(r.meta.licenseUrl))}" target="_blank" rel="noopener">${escapeAssetHTML(nativeLicenseLabel(r.meta))}</a></p>`).join('');
+    const source=`<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeAssetHTML(selected.name)} · cena GLB</title><style>body{margin:0;background:#101622;color:#e7ecf7;font:14px system-ui;overflow:hidden}aside{position:fixed;left:18px;top:18px;max-width:440px;background:#111b2de8;padding:16px;border:1px solid #354258;border-radius:12px}h1{font-size:16px;margin:0 0 8px}p{font-size:12px;color:#acb9d0;margin:5px 0}aside a{color:#a5b4fc}</style><aside><h1>${escapeAssetHTML(selected.name)}</h1><p>WASD: mover · Espaço: pular · E: ação, quando o arquivo possui um clipe</p><h2>Créditos dos modelos</h2>${credits}<p id="status">Carregando GLB…</p></aside><script src="${WEB_DEPENDENCIES.three}"><\/script><script src="${WEB_DEPENDENCIES.gltf}"><\/script><script>
 ${decodeModelData.toString()}
 ${parseNativeGLB.toString()}
 ${canonicalClipName.toString()}
 ${distinctNativeClips.toString()}
 ${normalizeNativeScene.toString()}
 ${createNativeAnimator.toString()}
-const records=${JSON.stringify(records)};
+const records=${nativeScriptJSON(records)};
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x101622);
 const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.05,300);
 const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;renderer.shadowMap.enabled=true;document.body.prepend(renderer.domElement);
@@ -198,4 +222,4 @@ let player,pet,actor,petActor,velY=0,onGround=true;const clock=new THREE.Clock()
 };
 
 randomizeLoadoutCombo=async function(){const chars=ASSET_CATALOG.filter(a=>a.category==='characters'),pets=ASSET_CATALOG.filter(a=>a.category==='pets');if(!chars.length)return;const hero=chars[Math.floor(Math.random()*chars.length)],pet=pets[Math.floor(Math.random()*pets.length)];await Promise.all([hero,pet].filter(Boolean).map(a=>ensureNativeAsset(a.id)));state.equippedPetId=pet?.id||'';state.equippedItemId='';document.getElementById('equip-pet-select').value=state.equippedPetId;document.getElementById('hud-pet-badge').textContent=pet?'Animal: '+pet.name:'Animal: nenhum';selectAsset(hero.id);showToast(hero.name+(pet?' + '+pet.name:''));};
-exportToOBJ=function(){if(!currentModelGroup)return;let output='# Geometria estática na pose atual. Materiais, rig e animações estão no GLB original.\n',offset=1;for(const group of [currentModelGroup,companionPetGroup].filter(Boolean)){group.updateMatrixWorld(true);group.traverse(mesh=>{if(!mesh.isMesh||!mesh.geometry.attributes.position)return;if(mesh.isSkinnedMesh)mesh.skeleton.update();const pos=mesh.geometry.attributes.position,index=mesh.geometry.index,v=new THREE.Vector3();output+='o '+(mesh.name||'parte')+'\n';for(let i=0;i<pos.count;i++){v.fromBufferAttribute(pos,i);if(mesh.isSkinnedMesh)mesh.boneTransform(i,v);v.applyMatrix4(mesh.matrixWorld);output+='v '+v.x.toFixed(6)+' '+v.y.toFixed(6)+' '+v.z.toFixed(6)+'\n';}const count=index?index.count:pos.count;for(let i=0;i<count;i+=3){const vertex=j=>(index?index.getX(j):j)+offset;output+='f '+vertex(i)+' '+vertex(i+1)+' '+vertex(i+2)+'\n';}offset+=pos.count;});}downloadNativeBlob(new Blob([output],{type:'text/plain'}),'pose-'+state.selectedAssetId+'.obj');};
+exportToOBJ=function(){if(!currentModelGroup)return;const credited=[ASSET_INDEX.get(state.selectedAssetId),ASSET_INDEX.get(state.equippedPetId)].filter(Boolean);let output='# Geometria estática na pose atual. Materiais, rig e animações estão no GLB original.\n'+credited.map(a=>'# '+nativeCredits(a).replace(/\n/g,'\n# ')).join('\n')+'\n',offset=1;for(const group of [currentModelGroup,companionPetGroup].filter(Boolean)){group.updateMatrixWorld(true);group.traverse(mesh=>{if(!mesh.isMesh||!mesh.geometry.attributes.position)return;if(mesh.isSkinnedMesh)mesh.skeleton.update();const pos=mesh.geometry.attributes.position,index=mesh.geometry.index,v=new THREE.Vector3();output+='o '+(mesh.name||'parte')+'\n';for(let i=0;i<pos.count;i++){v.fromBufferAttribute(pos,i);if(mesh.isSkinnedMesh)mesh.boneTransform(i,v);v.applyMatrix4(mesh.matrixWorld);output+='v '+v.x.toFixed(6)+' '+v.y.toFixed(6)+' '+v.z.toFixed(6)+'\n';}const count=index?index.count:pos.count;for(let i=0;i<count;i+=3){const vertex=j=>(index?index.getX(j):j)+offset;output+='f '+vertex(i)+' '+vertex(i+1)+' '+vertex(i+2)+'\n';}offset+=pos.count;});}downloadNativeBlob(new Blob([output],{type:'text/plain'}),'pose-'+state.selectedAssetId+'.obj');};
