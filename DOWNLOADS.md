@@ -2,13 +2,13 @@
 
 ## Atualização acumulada — 3.035 modelos
 
-**[Baixar pacote PolyForge acumulado (ZIP único)](https://github.com/opatrecio-droid/Chatgpt/releases/download/polyforge-cumulative-3035-2026-10-22/polyforge-atualizacao-acumulada-3035.zip)** — inclui o HTML standalone atualizado com os 3.035 modelos e a pasta `modelos-3d/` com todos os 3.035 GLBs, catálogo, créditos, licenças, README e auditoria de integridade.
+**[Baixar pacote PolyForge acumulado (ZIP único)](https://media.githubusercontent.com/media/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/downloads/polyforge-atualizacao-acumulada-3035.zip)** — inclui o HTML standalone atualizado com os 3.035 modelos e a pasta `modelos-3d/` com todos os 3.035 GLBs, catálogo, créditos, licenças, README e auditoria de integridade.
 
 O estúdio é o `index.html` na raiz do ZIP; extraia o arquivo e abra em Chrome ou Edge atualizado. Os GLBs estão organizados em pastas por categoria e estilo. O pacote reúne os 1.035 modelos da biblioteca base, os 1.000 do lote 001 e os 1.000 do lote 002, sem IDs ou geometrias repetidos.
 
 - Tamanho: 189.663.672 bytes (180,8 MiB)
 - SHA-256: `13aa9317ac29bd1bea1d0e7abbfc9814465de504e52197043c5ab7380f4886bd`
-- Release: [`polyforge-cumulative-3035-2026-10-22`](https://github.com/opatrecio-droid/Chatgpt/releases/tag/polyforge-cumulative-3035-2026-10-22)
+- Versão: `polyforge-cumulative-3035-2026-10-22`
 
 ## Downloads anteriores
 
