@@ -574,6 +574,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_drivetrain_axle",
+    "name": "Eixo de transmissão solto",
+    "originalModelName": "debris-drivetrain-axle",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-drivetrain-axle.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d85540c6336f3177f2c80a25725a25cb10a48767fd671003ac35a7fe43eb9349",
+    "bytes": 31164,
+    "description": "Modelo 3D original Eixo de transmissão solto do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0988162a361709169275e5cdd2f159019f7d91d161c8ba5fb94794fe7c0c02c7",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_debris_bumper",
     "name": "Para-choque solto",
     "originalModelName": "debris-bumper",
@@ -1368,6 +1391,27 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_flower-yellowc",
+    "name": "Flor amarela C",
+    "originalModelName": "flower_yellowC.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/flower_yellowC.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "4115c017390b3e157466a8719e9e2af6c5385505135e7012982b9410760ba9f3",
+    "bytes": 7616,
+    "description": "Modelo estilizado de flor amarela C, malha original do pacote Nature Kit.",
+    "tags": [
+      "flor",
+      "amarela"
+    ],
+    "geometrySignature": "00ccac2dfbdedcc46db63c94a0f2eab4b94b14f99bcd636b05cefddb7a9f815e",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_flower-purplea",
     "name": "Flor roxa A",
     "originalModelName": "flower_purpleA.glb",
@@ -1535,6 +1579,26 @@
     "bytes": 79796,
     "description": "Authored Quaternius Grass nature asset, preserving the original published geometry and materials.",
     "originalModelName": "Grass",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_grass",
+    "name": "Grama",
+    "originalModelName": "grass.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/grass.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "260e41d3e5f2472492ed7b475c5b92a30b13ce2bad408535b5ff50574d4575e7",
+    "bytes": 11496,
+    "description": "Modelo estilizado de grama, malha original do pacote Nature Kit.",
+    "tags": [
+      "grama"
+    ],
+    "geometrySignature": "043267f2766c24b9e8628c95eccf3bad7ad544d0eae153049899ea5370a16a9a",
     "animationCount": 0
   },
   {
@@ -4347,6 +4411,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_f",
+    "name": "Casa suburbana modelo F",
+    "originalModelName": "building-type-f.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_f.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "489997574f13e06302fc15200f5f208f3f7aad41b085ac6b46a2bd1b9147943c",
+    "bytes": 150372,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo f, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "00a24d9ae08a14eb94e0508d58b48fb53bc7e901acb0912cf846a7c6f00a33e3",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -4940,6 +5027,29 @@
       "city kit commercial"
     ],
     "geometrySignature": "1210644b54c6f8de488f67037ffa18e13426b6976b9c31563c6a5a88ba1f9abb",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_commercial_building_f",
+    "name": "Edifício f",
+    "originalModelName": "building-f.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_f.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "4d410982e08b0e17d89b7cb467df39e93541b7fb8a2619388c3902a2107875d1",
+    "bytes": 160008,
+    "description": "Modelo low-poly original do Kenney: edifício f, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "067a1eac1bb6f205fc0c3b3648e11fa470d675fd3f5c9c62474dc9d787d925e4",
     "animationCount": 0
   },
   {
@@ -6076,6 +6186,53 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_bridge-woodround",
+    "name": "Ponte madeira arredondado",
+    "originalModelName": "bridge_woodRound.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_woodRound.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3b8593e6f50ae78f0f3f5d51ef5ac4751808fd5cbd462f35d09bbde5388f1034",
+    "bytes": 21192,
+    "description": "Modelo estilizado de ponte madeira arredondado, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "madeira",
+      "arredondado",
+      "acampamento"
+    ],
+    "geometrySignature": "00171c72f60bf85dbc9a1302503e3c5e58ca039c262497d4fc216d3a51bd4fff",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-woodroundnarrow",
+    "name": "Ponte madeira arredondado estreito",
+    "originalModelName": "bridge_woodRoundNarrow.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_woodRoundNarrow.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "fbd1bfc4601b7b195861ca85cc9d1e7a36f87d6178cdefb0aa887b1d2fe41c24",
+    "bytes": 21204,
+    "description": "Modelo estilizado de ponte madeira arredondado estreito, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "madeira",
+      "arredondado",
+      "estreito",
+      "acampamento"
+    ],
+    "geometrySignature": "0546fdcc7641fa28a2c19345f452aeccd9e746cfa5e5e7a6adc16aec6fd38f6e",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_bridge-woodnarrow",
     "name": "Ponte madeira estreito",
     "originalModelName": "bridge_woodNarrow.glb",
@@ -6451,6 +6608,29 @@
       "city kit roads"
     ],
     "geometrySignature": "04b45bf68dd4bfdc7478328760195c936fe4c7c20f5e1dfce1d257292f4cf841",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_celery_stick",
+    "name": "Talo de aipo",
+    "originalModelName": "celery-stick",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/celery-stick.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e4914bd3d9b5f034115e9eb30ffd57bab71c0c98c0aa96fc8f4f2978b38b7663",
+    "bytes": 16732,
+    "description": "Talo de aipo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "aipo",
+      "talo"
+    ],
+    "geometrySignature": "11af0c4b0cceeef4f0a4a06524e58286f548ca6df0eae9528c384508bb02fed6",
     "animationCount": 0
   },
   {
@@ -6997,6 +7177,29 @@
       "low-poly"
     ],
     "geometrySignature": "0038d7d5a86298b0454948591bcd5f9a507854ad175162412bc3cf16ae39dec9",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_ship_small",
+    "name": "Barco pequeno",
+    "originalModelName": "ship-small",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/ship-small.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cf6e7d42bd1e04c3c67b3f063723cbc92e2606f8a7de9b21150babe4ef0ece61",
+    "bytes": 153788,
+    "description": "Modelo 3D original Barco pequeno do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0064873eae7b49512f086642183a523a5bc00a4a6bf95874ed8301aa9375342f",
     "animationCount": 0
   },
   {
@@ -7866,6 +8069,29 @@
       "low-poly"
     ],
     "geometrySignature": "064d447dd001e2cf3622f5a090f69234c08adff4e1bde727beb64d23b80773a7",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_craft_speederD",
+    "name": "Nave veloz D",
+    "originalModelName": "craft_speederD",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/craft_speederD.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a5780b9f6cc40d6f348f4211bb43c9501fa199729197361be6bfb522a42c56ad",
+    "bytes": 22876,
+    "description": "Modelo 3D original Craft Speederd do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "021eceaf1b0d2b5288d4bb02b21d4bbeca5a810b8d85cbc2d579539941ae3ce2",
     "animationCount": 0
   },
   {
