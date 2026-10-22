@@ -1187,6 +1187,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-large-rock",
+    "name": "Penhasco grande rocha",
+    "originalModelName": "cliff_large_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_large_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f9bf79cd3a76bbe11f4887053655585e467e14f2528678215a820896669e4e8e",
+    "bytes": 3560,
+    "description": "Modelo estilizado de penhasco grande rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "grande",
+      "rocha"
+    ],
+    "geometrySignature": "0d921b73511d11fd68ed11260e0e71dc29a92dd3285063d7fdeb1b2fd82d633f",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-halfcornerinner-rock",
     "name": "Penhasco meio quina interno rocha",
     "originalModelName": "cliff_halfCornerInner_rock.glb",
@@ -1345,6 +1367,27 @@
       "rocha"
     ],
     "geometrySignature": "0abfd2ef338872460a7412f3fa5c164492719897e8db779ad2499eba36b37857",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-rock",
+    "name": "Penhasco rocha",
+    "originalModelName": "cliff_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "64b555b394b4312938ccd389862d5c01beb3fc417100aa41bb1e5e96a9889de0",
+    "bytes": 3556,
+    "description": "Modelo estilizado de penhasco rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "rocha"
+    ],
+    "geometrySignature": "04ff2bd7565a2d022ef0a14ce1f9cc1a075ce65b713a0787a98bca7cc811e65d",
     "animationCount": 0
   },
   {
@@ -1621,6 +1664,30 @@
     ],
     "geometrySignature": "038687b866ff5a6c3e1e542a4d3a9b2a5e451be5e08db6f8c6abc1974abdc33b",
     "animationCount": 0
+  },
+  {
+    "id": "k_actor_quaternius_mtd9qk5yce",
+    "name": "Bagre-armado",
+    "originalModelName": "Armored Catfish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/armored_catfish_mtd9qk5yce.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/mtd9QK5yCe",
+    "sourceDownload": "https://static.poly.pizza/d42c2675-dba1-4d73-8a66-f924bb3bdbbf.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a4a03f5f7a8c55523217902f6fd966df0e2a0fd043e5262e0489a80fe2f3d8fc",
+    "bytes": 158376,
+    "description": "Modelo 3D original de Armored Catfish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "1145bb8c95a6d9ce1b49582ee7da0664562ca5673ecd53443f8ac59c439ca917",
+    "animationCount": 6
   },
   {
     "id": "k_actor_quaternius_jgfwp6xwgk",
@@ -2805,6 +2872,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_broccoli",
+    "name": "Brócolis",
+    "originalModelName": "broccoli",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/broccoli.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "367ddfa0335bfb48703458400f4db7fc8720811abc46d0fe3289b701a90cbd11",
+    "bytes": 31212,
+    "description": "Brócolis, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "brócolis"
+    ],
+    "geometrySignature": "02d3f0bf0e6df40fa301ee84aeccf0b477bf6cd14886604819a770bfc5421007",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_furniture_chair",
     "name": "Cadeira",
     "originalModelName": "chair",
@@ -2893,6 +2982,29 @@
       "low-poly"
     ],
     "geometrySignature": "0b2e33922d1f07b3bd4b39a89d6b66a6787c73c9fda5c98d51376880e49bbb81",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_mini_characters_wheelchair_power_deluxe",
+    "name": "Cadeira de rodas elétrica de luxo",
+    "originalModelName": "wheelchair-power-deluxe",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/wheelchair-power-deluxe.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "38b1ef3265be070ca8c2950dd6725100df4646a648367eae548baf68a3d2c861",
+    "bytes": 99268,
+    "description": "Modelo 3D original Wheelchair Power Deluxe do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "cenário",
+      "prop",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "06134f55d67cef403479643e7a4c7b9b9423eb324ac39b81153e4a5f26a215cc",
     "animationCount": 0
   },
   {
@@ -3348,6 +3460,29 @@
       "city kit suburban"
     ],
     "geometrySignature": "0ceaceb9ea009a38cf8801956437a44cff4444d6be0d61e626c451500572afca",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_road_crossing",
+    "name": "Faixa de pedestres",
+    "originalModelName": "road-crossing.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/road_crossing.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7db257a74ce8a1e2090cb0073e30ad34621ffb2347643faa7e38520bcee31d3a",
+    "bytes": 20188,
+    "description": "Trecho de rua com faixa elevada de travessia.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "04b3058e8633a9c610e218012447256f14b9e321add8b7e84531d9f42b76723e",
     "animationCount": 0
   },
   {
@@ -4031,6 +4166,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_desk_computerScreen",
+    "name": "Tela de computador de mesa",
+    "originalModelName": "desk_computerScreen",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/desk_computerScreen.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3a7526fff69a29bd1c793cea34c2bf9d6a96dcc7ef0c7b3c1286f691b8835074",
+    "bytes": 8248,
+    "description": "Modelo 3D original Desk Computerscreen do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0a5d565d2daf4549b683584378cf724be246a3c732134db5543871efdc5db513",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_bowl",
     "name": "Tigela",
     "originalModelName": "bowl",
@@ -4275,6 +4433,29 @@
       "low-poly"
     ],
     "geometrySignature": "00d102a79eeb268c5a3646c9e917807d0724db3c9a5fbd31f1197c556f8fa8fd",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_mini_characters_aid_sunglasses",
+    "name": "Óculos de sol",
+    "originalModelName": "aid-sunglasses",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/aid-sunglasses.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "58150f18f610dfe96bf86c3673b82fe6332098a244fc42a350067d9f48328449",
+    "bytes": 15084,
+    "description": "Modelo 3D original Aid Sunglasses do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "027647773fc61b5aca4c12626b229d906c3ad84ba35ddb2e4322143c626e3150",
     "animationCount": 0
   },
   {
@@ -4986,6 +5167,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_watercraft_kit_boat_speed_i",
+    "name": "Lancha esportiva I",
+    "originalModelName": "boat-speed-i",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-i.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "45562303147ad37d54866f464521f7edff9e04b6ddc20493167102c8206b5914",
+    "bytes": 23860,
+    "description": "Modelo 3D original Boat Speed I do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "013ebe8f412d276ed3f31dc8f6be108c3e8dee1717aaaecbfc14f75162bde7a1",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_suv",
     "name": "SUV",
     "originalModelName": "suv",
@@ -5075,6 +5279,29 @@
       "low-poly"
     ],
     "geometrySignature": "09c3e664d3d5458e482882b32045d637a3f79f8d4827db52b7ba54b475d2fe2f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_taxi",
+    "name": "Táxi",
+    "originalModelName": "taxi",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/taxi.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "300c2bec9414752bd0f8ceadbe71bab90a3ed885e088aa0e752ec6f4249b8434",
+    "bytes": 187996,
+    "description": "Modelo 3D original Táxi do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "003fd656e5df9c554f8b26516a52e44d700a4d8844fb13e96f106bf143803bd2",
     "animationCount": 0
   },
   {

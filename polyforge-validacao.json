@@ -1,132 +1,132 @@
 {
-  "catalogueCount": 215,
+  "catalogueCount": 225,
   "models": [
     {
-      "id": "k_nature_cliff-halfcorner-rock",
-      "meshes": 2,
-      "triangles": 16,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.5110000371999988,
-        3,
-        2.5110000371999988
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_cliff-half-rock",
-      "meshes": 2,
-      "triangles": 53,
+      "id": "k_nature_cliff-large-rock",
+      "meshes": 1,
+      "triangles": 32,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
-        1.5000000000000009,
+        3,
         1.2555000186
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_mrjslwcjhm",
-      "meshes": 6,
-      "triangles": 1870,
+      "id": "k_nature_cliff-rock",
+      "meshes": 1,
+      "triangles": 32,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.1696875392122872,
-        1.035600978057285,
+        2.9999999999999996,
+        3,
+        0.5054999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_quaternius_mtd9qk5yce",
+      "meshes": 3,
+      "triangles": 1466,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.070059838494126,
+        0.7060202806067415,
         1.7
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_mini_characters_wheelchair_deluxe",
+      "id": "k_props_food_broccoli",
       "meshes": 1,
-      "triangles": 696,
+      "triangles": 220,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.9550651411124567,
-        1.6711255777469196,
+        1.7795031815351516,
+        2,
+        1.7795031815351516
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_mini_characters_wheelchair_power_deluxe",
+      "meshes": 1,
+      "triangles": 1040,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.5353269772077287,
+        1.9999999999999998,
+        1.634294648183766
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_crossing",
+      "meshes": 1,
+      "triangles": 104,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.03999999910593033,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_desk_computerCorner",
+      "id": "k_actor_space_kit_desk_computerScreen",
       "meshes": 3,
-      "triangles": 126,
+      "triangles": 108,
       "textures": 0,
       "preserved": true,
       "bounds": [
+        1.6470588235294121,
         2,
-        1,
-        2
+        0.7058823529411766
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_mini_characters_aid_mask",
+      "id": "k_actor_mini_characters_aid_sunglasses",
       "meshes": 1,
-      "triangles": 176,
+      "triangles": 62,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        1.2078876238509166,
-        1.2538228239880997
+        0.5807265318884453,
+        1.1126738265696205
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_bread",
+      "id": "k_actor_watercraft_kit_boat_speed_i",
       "meshes": 1,
-      "triangles": 116,
+      "triangles": 136,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        2,
-        0.17970678724848851,
-        1.6544741118961377
+        0.922480630184064,
+        0.8785530221989265,
+        1.9999999999999998
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_roads_road_bridge",
-      "meshes": 1,
-      "triangles": 240,
-      "textures": 1,
+      "id": "k_actor_car_kit_taxi",
+      "meshes": 5,
+      "triangles": 2072,
+      "textures": 5,
       "preserved": true,
       "bounds": [
-        2,
-        1.0399994659426375,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_boat_speed_h",
-      "meshes": 1,
-      "triangles": 180,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.9727520051846621,
-        0.6792425643288394,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_car_kit_suv",
-      "meshes": 6,
-      "triangles": 2474,
-      "textures": 6,
-      "preserved": true,
-      "bounds": [
-        1.1111111298851677,
-        0.9629630057247657,
+        1.0909091854883701,
+        1.0909091247999994,
         2
       ],
       "gl": 0
