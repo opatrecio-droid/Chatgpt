@@ -1,0 +1,49 @@
+Personagem feminina C — Kenney — Mini Characters (Kenney)
+Fonte: https://kenney.nl/assets/mini-characters
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: c151fe33bb9d208fa42e4310cd5a06f95a2be97f3c8235962d04c9ea74bb89b0
+
+Cachorro — Quaternius — Modelos Quaternius na Poly Pizza
+Fonte: https://poly.pizza/m/2kUk0QqpCg
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 4beaff05eca771dab58479316e410a721e5c04660169e5b6e231839855bbec2d
+
+Meio bloco rochoso — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: a3d29368524dd6968d5920f1aba2bdf6e6d189ccc60123f5d036c56653c31c5e
+
+Semáforo vertical — Kenney — City Kit Roads
+Fonte: https://kenney.nl/assets/city-kit-roads
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: a62ca67bd509523464c817735a5768295c5f3a183fcf143cdfa6e6b0714c9bdf
+
+Hatch esportivo — Kenney — Car Kit (Kenney)
+Fonte: https://kenney.nl/assets/car-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 845b1f19c408196577642e99919c73dd270618e2fa4c398f8707cc64faa066ae
+
+Maçã — Kenney — Food Kit
+Fonte: https://kenney.nl/assets/food-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 442f7e20fc4551e1294c86338084bfcd0fcc72e78875138c53d487517f17027b
+
+Quarto de bloco rochoso — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 748f3f4c8695e46567819f3ae73ba53bbc7db827254bc68f9fca27f01f481666
+
+Trabuco de cerco — Kenney — Castle Kit
+Fonte: https://kenney.nl/assets/castle-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 3372f8202e17e205cdfa704ca4117f662f7c256290680bfd0fd31992f97dbe6f
+
+Barco de pesca pequeno — Kenney — Watercraft Kit (Kenney)
+Fonte: https://kenney.nl/assets/watercraft-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: b4238f6b78d4c0f7a1bb5eeb98645ffc47019f8fcf5a61380aea34c02639ec3a
+
+Barris — Kenney — Space Kit (Kenney)
+Fonte: https://kenney.nl/assets/space-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 5eefdb7cb192863ac6b6709293e196ae97e7cceb29c6ab754850a738f3b2379b

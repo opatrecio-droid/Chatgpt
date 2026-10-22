@@ -1,0 +1,223 @@
+[
+  {
+    "id": "k_actor_mini_characters_character_female_b",
+    "name": "Personagem feminina B",
+    "originalModelName": "character-female-b",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/mini-characters/character-female-b.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7441782e15e10d69b08a06ac538202582d79e8235091fadd9f626554312c05d1",
+    "bytes": 260436,
+    "description": "Modelo 3D original de Character Female B, publicado por Kenney no pacote oficial mini-characters.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "03b8599f56d531393e850c7003f9a2a330c129cf4afd77c1fbc5f2072958347c"
+  },
+  {
+    "id": "k_actor_space_kit_barrel",
+    "name": "Barril",
+    "originalModelName": "barrel",
+    "category": "items",
+    "file": "assets/models/expansion/actors/space-kit/barrel.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8a95781be23b35ebb39ad90278affc03140c75d4d055027e98be0313de084451",
+    "bytes": 4656,
+    "description": "Modelo 3D original Barrel do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0577596049ec803591eaf599d8ec4b8312b2c3048123c4c682e3e66f4a91816a"
+  },
+  {
+    "id": "k_props_food_apple_half",
+    "name": "Maçã cortada ao meio",
+    "originalModelName": "apple-half",
+    "category": "items",
+    "file": "assets/models/expansion/props/food-kit/apple-half.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "888e39f1f300d94c960dd0641a7bebbbe7c5e2bdd9618b1445974f9ef871cfea",
+    "bytes": 21712,
+    "description": "Maçã cortada ao meio, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "maçã",
+      "meio"
+    ],
+    "geometrySignature": "0ade3dbcce9b7aa1c21d60df3925868d2bca175dcff7930431bf40a073de6df9"
+  },
+  {
+    "id": "k_nature_cliff-blockcave-rock",
+    "name": "Bloco rochoso de caverna",
+    "originalModelName": "cliff_blockCave_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_blockCave_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2c373a596840a4f3bffa1aba7a93d7da9d2aa1dded54f7a9966e4e4b3fce7d43",
+    "bytes": 5432,
+    "description": "Bloco rochoso com abertura de caverna, para construir paredes de terreno e entradas subterrâneas.",
+    "tags": [
+      "penhasco",
+      "caverna",
+      "rocha",
+      "terreno"
+    ],
+    "geometrySignature": "014a2b4d07bd9fe600791e5ab69503895232c0c0d60c384adf84244fe51a34cc"
+  },
+  {
+    "id": "k_nature_cliff-blockdiagonal-rock",
+    "name": "Bloco rochoso diagonal",
+    "originalModelName": "cliff_blockDiagonal_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_blockDiagonal_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "32b61e963ba99695624f213e4d893c5d2ac028dd831ba65bcd220ee5a6006114",
+    "bytes": 2564,
+    "description": "Peça rochosa diagonal para formar quinas e contornos inclinados de penhascos.",
+    "tags": [
+      "penhasco",
+      "rocha",
+      "terreno",
+      "diagonal"
+    ],
+    "geometrySignature": "07928a9285a43f6f04cae8813d204f667af2b1f0f240997a3ed56fe9a6391434"
+  },
+  {
+    "id": "k_actor_quaternius_qkicy6xla2",
+    "name": "Gato",
+    "originalModelName": "Cat",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/cat_qkicy6xla2.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/qKICY6xla2",
+    "sourceDownload": "https://static.poly.pizza/67f5e3fe-37ee-4c86-95c8-d269d8c9f8ba.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "842c5f96c480b9a7800994345ed83be5e9ba5fc8e18be633f2b7cfe09cf8fef7",
+    "bytes": 238672,
+    "description": "Modelo 3D original de Cat, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "01795730172220c55eb7b26f88120247f198a2e6ac194f10726f52aa3e36e521"
+  },
+  {
+    "id": "k_world_city_kit_commercial_building_skyscraper_a",
+    "name": "Arranha-céu comercial A",
+    "originalModelName": "building-skyscraper-a.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_skyscraper_a.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "758daca2d4eefecd8e688d08352d8e34f4ae10a2008477a01b7df4f5a35eea4a",
+    "bytes": 122392,
+    "description": "Edifício comercial alto da série de arranha-céus.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "0153694bd391a246a600409de2e7bf8e00a96d33741e3f06134a2fae565edb8c"
+  },
+  {
+    "id": "k_world_city_kit_industrial_water_tower",
+    "name": "Torre de água industrial",
+    "originalModelName": "water-tower.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-industrial/water_tower.glb",
+    "author": "Kenney",
+    "pack": "City Kit Industrial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-industrial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9f28ffec623daa318ef024c02069611db2e17fc7f637fd12249823f89790fef1",
+    "bytes": 105876,
+    "description": "Torre elevada de armazenamento de água para complexo industrial.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit industrial"
+    ],
+    "geometrySignature": "07455bcf72ca0cc8dfdc470f0911fabdcaf7c5d5e961741934c420c2b6e9d8a1"
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_fan",
+    "name": "Barco a hélice",
+    "originalModelName": "boat-fan",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-fan.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7d84a1f01be34ad8de63b133784a4ccd8e576e080eb7920ee9bee577956a21af",
+    "bytes": 40036,
+    "description": "Modelo 3D original Barco a hélice do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "035ebff725042d5ebdcd128a4cf307be80524538770b3bd9627c34013275258d"
+  },
+  {
+    "id": "k_actor_car_kit_sedan",
+    "name": "Sedã",
+    "originalModelName": "sedan",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/sedan.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "df2ffacd38e02e3053d1ccafc4dc48d044de3ae762920a3815edbfe7ed455be5",
+    "bytes": 184600,
+    "description": "Modelo 3D original de Sedan, publicado por Kenney no pacote oficial car-kit.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "02c0210824f57adf38569174c288fa3d2821c70140066c27b7b79d58d3d29949"
+  }
+]

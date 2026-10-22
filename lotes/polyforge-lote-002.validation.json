@@ -1,0 +1,137 @@
+{
+  "models": [
+    {
+      "id": "k_actor_mini_characters_character_female_b",
+      "meshes": 2,
+      "triangles": 742,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        2.1211444791609093,
+        1.9999999999999998,
+        1.157172665809276
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_barrel",
+      "meshes": 2,
+      "triangles": 56,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.6,
+        2,
+        1.38564064
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_apple_half",
+      "meshes": 1,
+      "triangles": 124,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1,
+        1.943542543690345,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_cliff-blockcave-rock",
+      "meshes": 2,
+      "triangles": 56,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        3,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_cliff-blockdiagonal-rock",
+      "meshes": 2,
+      "triangles": 8,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        3,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_quaternius_qkicy6xla2",
+      "meshes": 1,
+      "triangles": 2448,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.0321825207715498,
+        1.4698116156334096,
+        1.7
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_skyscraper_a",
+      "meshes": 1,
+      "triangles": 1292,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.9444443294663438,
+        2,
+        0.9444445778190411
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_industrial_water_tower",
+      "meshes": 1,
+      "triangles": 968,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.7958439870132017,
+        2,
+        0.7767782602353287
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_fan",
+      "meshes": 2,
+      "triangles": 310,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        1.2439024653645079,
+        1.522648104464226,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_car_kit_sedan",
+      "meshes": 5,
+      "triangles": 2032,
+      "textures": 5,
+      "preserved": true,
+      "bounds": [
+        1.176470610234702,
+        1.01960785285366,
+        2
+      ],
+      "gl": 0
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "mobileWidth": 390
+}

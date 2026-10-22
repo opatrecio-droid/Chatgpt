@@ -1,0 +1,220 @@
+[
+  {
+    "id": "k_actor_mini_characters_character_male_b",
+    "name": "Personagem masculina B",
+    "originalModelName": "character-male-b",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/mini-characters/character-male-b.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d32681509ad00c22338172ead73febc0fbbf1a56be5e7e0cfed0c62f08d17050",
+    "bytes": 255628,
+    "description": "Modelo 3D original Pessoa personagem masculina B do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00d7d6f27582cd12855bb8a689a5f69989e9525de9246aa1dc9ee34600ad5adc"
+  },
+  {
+    "id": "k_props_food_banana",
+    "name": "Banana",
+    "originalModelName": "banana",
+    "category": "items",
+    "file": "assets/models/expansion/props/food-kit/banana.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "94dbe363cec3b738216e7db212a93daa13a708f9488466b07df04549564d56fe",
+    "bytes": 23108,
+    "description": "Banana, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "banana"
+    ],
+    "geometrySignature": "0207bcd6283a0d2eda8489cd46269142cd7463c86f6914e52780d0369a8c678b"
+  },
+  {
+    "id": "k_actor_space_kit_craterLarge",
+    "name": "Cratera grande",
+    "originalModelName": "craterLarge",
+    "category": "items",
+    "file": "assets/models/expansion/actors/space-kit/craterLarge.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "703f86c085371d5e53e39029a0c74e51cefccd02697ea5e00eb2b4235ed9011b",
+    "bytes": 5688,
+    "description": "Modelo 3D original Craterlarge do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "07a40182747a2846a0acafcb7f3b4a93306084d24758b54583f2af5c0e7d35ba"
+  },
+  {
+    "id": "k_nature_flower-purpleb",
+    "name": "Flor roxa B",
+    "originalModelName": "flower_purpleB.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/flower_purpleB.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2afb10cd68a9a7b185fc46110be0da550ea2aef86ef9ac6b7339f217eb4b636a",
+    "bytes": 8084,
+    "description": "Flor roxa individual com forma distinta para variar canteiros naturais.",
+    "tags": [
+      "flor",
+      "planta",
+      "roxa"
+    ],
+    "geometrySignature": "0361500afc3dc2d00e7a7b1966feb00d1eefb68f02f2d0c52c266ee58f6842d6"
+  },
+  {
+    "id": "k_nature_flower-purplec",
+    "name": "Flor roxa C",
+    "originalModelName": "flower_purpleC.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/flower_purpleC.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "beb85b66766c9943a89a5ee27114d3befe22569db9a6f0b5f8366b687f9c1e42",
+    "bytes": 7600,
+    "description": "Flor roxa individual de geometria própria para vegetação rasteira.",
+    "tags": [
+      "flor",
+      "planta",
+      "roxa"
+    ],
+    "geometrySignature": "08202424cf7277c7dc7d98ccd69572ffa4e8961bf9425beb6265b407b786f889"
+  },
+  {
+    "id": "k_actor_quaternius_yysk3grcbz",
+    "name": "Tubarão",
+    "originalModelName": "Shark",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/shark_yysk3grcbz.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/YYsK3gRCBZ",
+    "sourceDownload": "https://static.poly.pizza/840dac4f-e6b5-4015-88d7-ceb940a4b90e.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "385b9eba21f56832c36f3088dcc4440145ecc7225371e7d08539561e27f5d7d5",
+    "bytes": 527836,
+    "description": "Modelo 3D original de Shark, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "04831b99c3a5ee8058c244ba6f1556d93bedecdc2be9371bbb5f926bbecd1994"
+  },
+  {
+    "id": "k_world_city_kit_suburban_fence",
+    "name": "Cerca residencial",
+    "originalModelName": "fence.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/fence.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "80ad048268c3fb16de80b9adf756e91f937731d0a0e848c3e436d56b64befeb7",
+    "bytes": 21512,
+    "description": "Cerca modular residencial de baixa altura.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "0c5c1bbbfc378e14b11f2a130fefa536ee78070e69aba56b1a4f5247ad07514c"
+  },
+  {
+    "id": "k_world_city_kit_commercial_detail_overhang",
+    "name": "Marquise de fachada",
+    "originalModelName": "detail-overhang.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/detail_overhang.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "19e4bf7727a788fac615b66bd0d403c438932cba86294ba383da132e430b9aed",
+    "bytes": 17764,
+    "description": "Marquise arquitetônica curta para a entrada de um edifício.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "04035a8cd18872a9590c36b579229653d4fd19fc40a89199947641ed610adb2a"
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_row_large",
+    "name": "Barco a remo grande",
+    "originalModelName": "boat-row-large",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-row-large.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e95f3140f9f92c1dbee19169c49a54f9ce5252870382fe3dd8105681558f6cf5",
+    "bytes": 24848,
+    "description": "Modelo 3D original Barco a remo grande do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "03117c849ada7302a2e81f96e0a31f643581761fee50d286066078ac63b07ab5"
+  },
+  {
+    "id": "k_actor_car_kit_kart_oobi",
+    "name": "Kart Oobi",
+    "originalModelName": "kart-oobi",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/kart-oobi.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b60894247467d1496cb974b07b3d0e9061c7e5162616dc9c0832417e8b232eb4",
+    "bytes": 263888,
+    "description": "Modelo 3D original Kart Oobi do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00895773d81b3496ee461c041317783e3123c5498d88a01a3f59228f5c6284c9"
+  }
+]

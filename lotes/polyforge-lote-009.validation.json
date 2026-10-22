@@ -1,0 +1,137 @@
+{
+  "models": [
+    {
+      "id": "k_actor_mini_characters_character_male_c",
+      "meshes": 2,
+      "triangles": 793,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        1.9353603787794191,
+        2,
+        1.162115487056229
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_barrel",
+      "meshes": 1,
+      "triangles": 308,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.7865952916721959,
+        1.7865952916721959
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_desk_chair",
+      "meshes": 3,
+      "triangles": 88,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.0212765957446808,
+        2,
+        1.0212765957446808
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_flower-reda",
+      "meshes": 2,
+      "triangles": 76,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.6317694358974362,
+        3,
+        1.857016
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_flower-redb",
+      "meshes": 2,
+      "triangles": 98,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.406204093323334,
+        3,
+        2.775778195418042
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_quaternius_gyyc0gymnw",
+      "meshes": 1,
+      "triangles": 1204,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.7000000000000002,
+        0.858776103033924,
+        1.411242028179513
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_fence_3x3",
+      "meshes": 1,
+      "triangles": 364,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.4235293501664204,
+        1.9411764375891265
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_detail_overhang_wide",
+      "meshes": 1,
+      "triangles": 64,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.800000011920929,
+        0.3999999910593033
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_row_small",
+      "meshes": 2,
+      "triangles": 168,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.6168337555689889,
+        1.7261150132318963
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_car_kit_kart_oodi",
+      "meshes": 6,
+      "triangles": 2726,
+      "textures": 6,
+      "preserved": true,
+      "bounds": [
+        1.36479922253131,
+        1.8618494340723113,
+        2
+      ],
+      "gl": 0
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "mobileWidth": 390
+}

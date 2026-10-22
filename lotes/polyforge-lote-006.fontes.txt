@@ -1,0 +1,49 @@
+Personagem feminina F — Kenney — Mini Characters (Kenney)
+Fonte: https://kenney.nl/assets/mini-characters
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: b2bcf0fd64c79358908a269104735119491c7bea58ee0bfd53ffada7981390c0
+
+Porco — Quaternius — Modelos Quaternius na Poly Pizza
+Fonte: https://poly.pizza/m/u35l6uP5vj
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 39a6187a43130b6d758090294ff4292c06a113df6b03243e124644eb8c71aee4
+
+Degraus de rocha — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: f290e67a836ec459efcedb013f67258c2043fec128f07d6a16454e8505b7530f
+
+Cruzamento de quatro vias — Kenney — City Kit Roads
+Fonte: https://kenney.nl/assets/city-kit-roads
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: f44badbd46862c10bddf6a2039d0e345af3794fd21b2e129b51eff7947bfe806
+
+Caminhão de entregas — Kenney — Car Kit (Kenney)
+Fonte: https://kenney.nl/assets/car-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 3a388290a751d9db7ef5df91ed62b44ea9dd55cfe4d6f027123ea15095593521
+
+Sacola achatada — Kenney — Food Kit
+Fonte: https://kenney.nl/assets/food-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: c437b0e4075a70772013914c0f9f73aa96273f701b4684a903d54fa390e6e67d
+
+Parede rochosa de cachoeira — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 08063b24498cae385c204e9038a72f0dd438fdfa29ecf106a0df5e656b7edff6
+
+Toldo de fachada — Kenney — City Kit Commercial
+Fonte: https://kenney.nl/assets/city-kit-commercial
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: aecddbf33201da4e448642b9aa60bd56f8e06f61d13382ba6e1e89e583a87680
+
+Casa-barco C — Kenney — Watercraft Kit (Kenney)
+Fonte: https://kenney.nl/assets/watercraft-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 165adc6a57ccbdc370dcff19ef0b0cd2a5711c2e5e93ee83b4494105c19f1666
+
+Chaminé detalhada — Kenney — Space Kit (Kenney)
+Fonte: https://kenney.nl/assets/space-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 2b7b4950f5a1430ccf7d3469c21b837dc52ec61538dcdbcf875529767d68d752

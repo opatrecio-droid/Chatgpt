@@ -1,0 +1,49 @@
+Personagem feminina D — Kenney — Mini Characters (Kenney)
+Fonte: https://kenney.nl/assets/mini-characters
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: bac262aeaae0e11c4b16cf2f65c70781774d96833f55a27f6db13e0800d80f92
+
+Guaxinim — Quaternius — Modelos Quaternius na Poly Pizza
+Fonte: https://poly.pizza/m/xMmx6VQP3r
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 4844072432a3e474ef32426d3d74be895fe9e203d643d26670e5a23da6d7fc5a
+
+Bloco rochoso inclinado — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 82fe2e0477c7ce2c5994435f44074022cb2a36f56ff40bd34598cbfc87286885
+
+Caçamba de resíduos — Kenney — City Kit Roads
+Fonte: https://kenney.nl/assets/city-kit-roads
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 352376cc9c165619727b31e8187a3917e37a1a2a66e18639805509d238bae236
+
+Caminhão de bombeiros — Kenney — Car Kit (Kenney)
+Fonte: https://kenney.nl/assets/car-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 8d02e85709a384ba1099826f8a1adf98408b5b2ccc58344e2cba185f549cab75
+
+Abacate — Kenney — Food Kit
+Fonte: https://kenney.nl/assets/food-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 41de9ad6b86bff649f8e412b22352774e2f0323bcbacd10f007e770c704dcb3a
+
+Parede rochosa de caverna — Kenney — Nature Kit
+Fonte: https://kenney.nl/assets/nature-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 2d83296b0166ad0e980152ad4f45b4e45349e932a6b6c2adbe7eb606a6472d8d
+
+Base hexagonal de torre — Kenney — Castle Kit
+Fonte: https://kenney.nl/assets/castle-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 63bf23b95f459df14beffa44ba036c30855ea08f359a47070b205f5082832094
+
+Casa-barco A — Kenney — Watercraft Kit (Kenney)
+Fonte: https://kenney.nl/assets/watercraft-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: 12bd414282d15ca4ea27761effd9a9c36cc452965146bd7b178fda11f4f2dfd5
+
+Ossos — Kenney — Space Kit (Kenney)
+Fonte: https://kenney.nl/assets/space-kit
+Licença: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+SHA256 GLB: d42d859e91beb903a09c4eecf4ccb169ae77b84e475a6b773d6ecf30644371be

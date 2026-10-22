@@ -1,0 +1,137 @@
+{
+  "models": [
+    {
+      "id": "k_actor_mini_characters_character_male_b",
+      "meshes": 2,
+      "triangles": 690,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        2.3200950519978694,
+        2,
+        1.1778540705960405
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_banana",
+      "meshes": 1,
+      "triangles": 104,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.43691465500876936,
+        0.6217156095593597,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_craterLarge",
+      "meshes": 2,
+      "triangles": 60,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        0.2708651477603177,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_flower-purpleb",
+      "meshes": 2,
+      "triangles": 98,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.600572441950051,
+        2.6151900762948217,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_flower-purplec",
+      "meshes": 3,
+      "triangles": 78,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.9687178082191785,
+        3.0000000000000004,
+        2.9763133150684933
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_quaternius_yysk3grcbz",
+      "meshes": 2,
+      "triangles": 6604,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        0.69376864693018,
+        0.6075213213292124,
+        1.6999999999999995
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_fence",
+      "meshes": 1,
+      "triangles": 88,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.1368419678917951,
+        0.3157894703820143
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_detail_overhang",
+      "meshes": 1,
+      "triangles": 64,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.600000023841858,
+        0.7999999821186066
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_row_large",
+      "meshes": 2,
+      "triangles": 174,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        1.9273469271748935,
+        0.5944263216868201,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_car_kit_kart_oobi",
+      "meshes": 6,
+      "triangles": 2884,
+      "textures": 6,
+      "preserved": true,
+      "bounds": [
+        1.36479922253131,
+        1.8618494340723113,
+        2
+      ],
+      "gl": 0
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "mobileWidth": 390
+}

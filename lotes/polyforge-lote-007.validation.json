@@ -1,0 +1,137 @@
+{
+  "models": [
+    {
+      "id": "k_actor_mini_characters_character_male_a",
+      "meshes": 2,
+      "triangles": 723,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        2.2855351397453187,
+        2,
+        1.012921977963657
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_crater",
+      "meshes": 2,
+      "triangles": 60,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.732050832637629,
+        0.2848837319722376,
+        1.9999999999999996
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_bag",
+      "meshes": 1,
+      "triangles": 46,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.7339614911805719,
+        2,
+        1.3732182237465174
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_cactus-tall",
+      "meshes": 1,
+      "triangles": 122,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5849997999999998,
+        3,
+        1.356328252
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_flower-purplea",
+      "meshes": 2,
+      "triangles": 76,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.968216807198905,
+        3,
+        2.2399059708010216
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_quaternius_z3rcocyss4",
+      "meshes": 1,
+      "triangles": 2140,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.8401659771994823,
+        1.6999999999999995,
+        1.1282779380956636
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_driveway_long",
+      "meshes": 1,
+      "triangles": 12,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.799999895691873,
+        0.049999998137354874,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_detail_parasol_a",
+      "meshes": 1,
+      "triangles": 96,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.5396006290276596,
+        2,
+        1.7777777336261908
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_car_kit_garbage_truck",
+      "meshes": 7,
+      "triangles": 3124,
+      "textures": 7,
+      "preserved": true,
+      "bounds": [
+        0.9275363290342544,
+        0.9275363359449386,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_house_d",
+      "meshes": 1,
+      "triangles": 550,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.1531008844385453,
+        1.4816409976493896,
+        2
+      ],
+      "gl": 0
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "mobileWidth": 390
+}
