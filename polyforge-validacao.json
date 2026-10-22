@@ -1,127 +1,127 @@
 {
-  "catalogueCount": 85,
+  "catalogueCount": 95,
   "models": [
     {
-      "id": "k_actor_mini_characters_character_female_e",
+      "id": "k_actor_mini_characters_character_female_f",
       "meshes": 2,
-      "triangles": 756,
+      "triangles": 788,
       "textures": 2,
       "preserved": true,
       "bounds": [
-        2.1415066864848207,
+        2.285534733895653,
         2,
-        1.471262508438477
+        1.3141537317762508
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_rgjxf570zk",
+      "id": "k_actor_quaternius_u35l6up5vj",
       "meshes": 1,
-      "triangles": 2528,
+      "triangles": 2816,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.6479341443971507,
-        1.0400411127542821,
-        1.6999999999999997
+        0.7011083752565925,
+        1.341142279628176,
+        1.7
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_cliff-cornerinnerlarge-rock",
-      "meshes": 1,
-      "triangles": 44,
+      "id": "k_nature_cliff-steps-rock",
+      "meshes": 2,
+      "triangles": 219,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        3,
-        3,
+        2.857142857142857,
+        2.8571428571428674,
         3
       ],
       "gl": 0
     },
     {
-      "id": "k_world_building_kit_column_wide",
+      "id": "k_world_city_kit_roads_road_crossroad",
       "meshes": 1,
-      "triangles": 38,
+      "triangles": 116,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.5833333002196431,
         2,
-        0.5833333002196431
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_car_kit_delivery_flat",
-      "meshes": 5,
-      "triangles": 2574,
-      "textures": 5,
-      "preserved": true,
-      "bounds": [
-        0.9230769907934475,
-        0.8307692550343188,
+        0.03999999910593033,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_bacon",
+      "id": "k_actor_car_kit_delivery",
+      "meshes": 6,
+      "triangles": 2476,
+      "textures": 6,
+      "preserved": true,
+      "bounds": [
+        0.9230769907934475,
+        1.0153846238491808,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_bag_flat",
+      "meshes": 1,
+      "triangles": 114,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.586232610344249,
+        1.4384615948919734
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_cliff-waterfall-rock",
+      "meshes": 3,
+      "triangles": 34,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.9999999999999996,
+        3,
+        0.5054999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_detail_awning",
       "meshes": 1,
       "triangles": 40,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.5,
-        0.11538462420187084,
-        2
+        1.9999999999999984,
+        2,
+        0.7394565531692416
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_cliff-cornerlarge-rock",
+      "id": "k_actor_watercraft_kit_boat_house_c",
       "meshes": 1,
-      "triangles": 12,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.2555000186,
-        3,
-        1.25549997
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_modular_buildings_building_sample_house_a",
-      "meshes": 1,
-      "triangles": 312,
+      "triangles": 452,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.095642739794091,
-        1.1437498841434786,
-        2
+        1.0394465379978242,
+        1.1657213126983859,
+        1.9999999999999998
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_boat_house_b",
-      "meshes": 1,
-      "triangles": 380,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.9645555178932032,
-        0.7917820317769764,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_chimney",
-      "meshes": 2,
-      "triangles": 140,
+      "id": "k_actor_space_kit_chimney_detailed",
+      "meshes": 3,
+      "triangles": 332,
       "textures": 0,
       "preserved": true,
       "bounds": [

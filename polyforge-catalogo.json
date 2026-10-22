@@ -227,6 +227,29 @@
     "animationCount": 32
   },
   {
+    "id": "k_actor_mini_characters_character_female_f",
+    "name": "Personagem feminina F",
+    "originalModelName": "character-female-f",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/mini-characters/character-female-f.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b2bcf0fd64c79358908a269104735119491c7bea58ee0bfd53ffada7981390c0",
+    "bytes": 267784,
+    "description": "Modelo 3D original de Character Female F, publicado por Kenney no pacote oficial mini-characters.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00833138d96bc2271dfcd7efd1eca64fe7d6d67801e1e0aa9f0a68af18425213",
+    "animationCount": 32
+  },
+  {
     "id": "k_props_food_avocado",
     "name": "Abacate",
     "originalModelName": "avocado",
@@ -363,6 +386,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_chimney_detailed",
+    "name": "Chaminé detalhada",
+    "originalModelName": "chimney_detailed",
+    "category": "items",
+    "file": "assets/models/expansion/actors/space-kit/chimney_detailed.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2b7b4950f5a1430ccf7d3469c21b837dc52ec61538dcdbcf875529767d68d752",
+    "bytes": 19356,
+    "description": "Modelo 3D original Chimney Detailed do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "02a6395b07daf24a37eaf840c778e958721f565aaf21e0b4316b5ebb1952cc77",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_apple",
     "name": "Maçã",
     "originalModelName": "apple",
@@ -428,6 +474,29 @@
       "low-poly"
     ],
     "geometrySignature": "05d0d20f59313d37de7e1b2fb6cb79dbbfc6d43f8fa588ef6514a5d041007464",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bag_flat",
+    "name": "Sacola achatada",
+    "originalModelName": "bag-flat",
+    "category": "items",
+    "file": "assets/models/expansion/props/food-kit/bag-flat.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c437b0e4075a70772013914c0f9f73aa96273f701b4684a903d54fa390e6e67d",
+    "bytes": 22048,
+    "description": "Sacola achatada, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "sacola",
+      "achatada"
+    ],
+    "geometrySignature": "01729d4da18305e5d022b29f1bfd54e4379639ef23a6105d79bc3c4e28539b9c",
     "animationCount": 0
   },
   {
@@ -579,6 +648,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-steps-rock",
+    "name": "Degraus de rocha",
+    "originalModelName": "cliff_steps_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_steps_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f290e67a836ec459efcedb013f67258c2043fec128f07d6a16454e8505b7530f",
+    "bytes": 15952,
+    "description": "Escadaria rochosa para conectar níveis de terreno em encostas.",
+    "tags": [
+      "penhasco",
+      "rocha",
+      "terreno",
+      "degraus"
+    ],
+    "geometrySignature": "04f687d7bbb86036b866a96cb83803c8731539b2531424eb602279a15f315ca7",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_flower_group",
     "name": "Flores",
     "category": "nature",
@@ -656,6 +748,29 @@
     "bytes": 115980,
     "description": "Authored Quaternius Palm Tree nature asset, preserving the original published geometry and materials.",
     "originalModelName": "Palm Tree",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-waterfall-rock",
+    "name": "Parede rochosa de cachoeira",
+    "originalModelName": "cliff_waterfall_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_waterfall_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "08063b24498cae385c204e9038a72f0dd438fdfa29ecf106a0df5e656b7edff6",
+    "bytes": 4488,
+    "description": "Seção de penhasco preparada para compor uma queda d’água em cenário natural.",
+    "tags": [
+      "penhasco",
+      "cachoeira",
+      "rocha",
+      "terreno"
+    ],
+    "geometrySignature": "01e694577de750a09b0329f53dde1bec9504e47c202a81d0a38d8483e1cb666c",
     "animationCount": 0
   },
   {
@@ -1308,6 +1423,30 @@
     "animationCount": 8
   },
   {
+    "id": "k_actor_quaternius_u35l6up5vj",
+    "name": "Porco",
+    "originalModelName": "Pig",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/pig_u35l6up5vj.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/u35l6uP5vj",
+    "sourceDownload": "https://static.poly.pizza/6277c120-ea5c-405d-9614-0d3d7e0b829d.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "39a6187a43130b6d758090294ff4292c06a113df6b03243e124644eb8c71aee4",
+    "bytes": 300940,
+    "description": "Modelo 3D original de Pig, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "0133c9205df3d749ceca46916c944785d6ce76cbf3cdfbb488d45016c2a2eb79",
+    "animationCount": 8
+  },
+  {
     "id": "web_animals_fox",
     "name": "Raposa",
     "category": "pets",
@@ -1688,6 +1827,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_roads_road_crossroad",
+    "name": "Cruzamento de quatro vias",
+    "originalModelName": "road-crossroad.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/road_crossroad.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f44badbd46862c10bddf6a2039d0e345af3794fd21b2e129b51eff7947bfe806",
+    "bytes": 21568,
+    "description": "Trecho modular de estrada com cruzamento urbano.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "060975cd2c9fbfadbbfe6b9d207d91f200ef26c35cdae2a4292d57c82f94f4a0",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_campfire_logs",
     "name": "Fogueira",
     "category": "props",
@@ -1816,6 +1978,29 @@
       "city kit roads"
     ],
     "geometrySignature": "04b45bf68dd4bfdc7478328760195c936fe4c7c20f5e1dfce1d257292f4cf841",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_commercial_detail_awning",
+    "name": "Toldo de fachada",
+    "originalModelName": "detail-awning.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/detail_awning.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "aecddbf33201da4e448642b9aa60bd56f8e06f61d13382ba6e1e89e583a87680",
+    "bytes": 16584,
+    "description": "Toldo curto para compor fachadas de lojas.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "01c8a58f0d4701b4f00f749011c75f14ed2c2384dba84697c358a9d074e7e3b1",
     "animationCount": 0
   },
   {
@@ -1975,6 +2160,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_delivery",
+    "name": "Caminhão de entregas",
+    "originalModelName": "delivery",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/delivery.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3a388290a751d9db7ef5df91ed62b44ea9dd55cfe4d6f027123ea15095593521",
+    "bytes": 252672,
+    "description": "Modelo 3D original Caminhão de entregas do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0847124b68ea722d3476109b2e6cad2896a95fd6fb5100e7ac0a3a45acd6c638",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_delivery_flat",
     "name": "Caminhão de entregas plataforma",
     "originalModelName": "delivery-flat",
@@ -2059,6 +2267,29 @@
       "low-poly"
     ],
     "geometrySignature": "027dd6609a010ca3685da78fce91ef452510938963ca9239e99016c286631c4c",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_house_c",
+    "name": "Casa-barco C",
+    "originalModelName": "boat-house-c",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-house-c.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "165adc6a57ccbdc370dcff19ef0b0cd2a5711c2e5e93ee83b4494105c19f1666",
+    "bytes": 49652,
+    "description": "Modelo 3D original Casa-barco C do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "079dd5e6b3a6343af3502f4728e53cea350ac8a2317a0ad47e51353e7c00d346",
     "animationCount": 0
   },
   {
