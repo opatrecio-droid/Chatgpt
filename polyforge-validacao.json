@@ -1,132 +1,132 @@
 {
-  "catalogueCount": 235,
+  "catalogueCount": 245,
   "models": [
     {
-      "id": "k_nature_cliff-stepscornerinner-rock",
+      "id": "k_nature_cliff-topdiagonal-rock",
       "meshes": 2,
-      "triangles": 213,
+      "triangles": 66,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
-        3,
+        2.3649980291683113,
         3
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_cliff-stepscorner-rock",
+      "id": "k_nature_cliff-top-rock",
       "meshes": 2,
-      "triangles": 245,
+      "triangles": 53,
       "textures": 0,
       "preserved": true,
       "bounds": [
+        2.9999999999999996,
         3,
-        2.857142857142857,
-        3
+        0.8055000449999999
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_4k2s68ursg",
+      "id": "k_actor_quaternius_7jh8vsarfn",
+      "meshes": 3,
+      "triangles": 1316,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.287410359605631,
+        0.8864320035189166,
+        1.7
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_mini_characters_wheelchair",
+      "meshes": 1,
+      "triangles": 656,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.7169885556222304,
+        1.699818581882627,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_bed-floor",
+      "meshes": 3,
+      "triangles": 124,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8571682493936872,
+        0.24635357828196455,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_burger_cheese",
       "meshes": 4,
-      "triangles": 1974,
+      "triangles": 226,
+      "textures": 4,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.1640212164157187,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_machine_barrelLarge",
+      "meshes": 4,
+      "triangles": 192,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        0.9476985603183304,
-        1.4960417038819327,
-        1.7000000000000002
+        1.9999999999999996,
+        1.5908205117331797,
+        1.9999999999999996
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_mini_characters_aid_hearing",
+      "id": "k_world_city_kit_roads_road_sign_warning",
       "meshes": 1,
-      "triangles": 48,
+      "triangles": 104,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.6379103090078819,
-        1.576056337318108,
+        0.31027625360930644,
+        2,
+        0.5904466597357781
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_tow_a",
+      "meshes": 1,
+      "triangles": 576,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.9409288259128326,
+        1.0867409057487862,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_mini_characters_wheelchair_power",
-      "meshes": 1,
-      "triangles": 880,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.6792246136785212,
-        2,
-        1.7874679726036953
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_burger_cheese_double",
-      "meshes": 7,
-      "triangles": 392,
-      "textures": 7,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.6931217578640092,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_machine_barrel",
+      "id": "k_actor_car_kit_tractor_shovel",
       "meshes": 6,
-      "triangles": 338,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.000000000000001,
-        1.8564065886763164,
-        1.5948698404413855
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_roundabout",
-      "meshes": 1,
-      "triangles": 1636,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.013333333035310108,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_boat_speed_j",
-      "meshes": 1,
-      "triangles": 178,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.8360655618710733,
-        0.5837986590267005,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_car_kit_tractor_police",
-      "meshes": 6,
-      "triangles": 2278,
+      "triangles": 2646,
       "textures": 6,
       "preserved": true,
       "bounds": [
-        1.1662364189793695,
-        1.4790478291133422,
+        1.3445494355572443,
+        1.2242811819546917,
         2
       ],
       "gl": 0

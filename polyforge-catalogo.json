@@ -1438,6 +1438,51 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-topdiagonal-rock",
+    "name": "Penhasco topo diagonal rocha",
+    "originalModelName": "cliff_topDiagonal_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_topDiagonal_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "005c3bf817333dc2e5e6e1bc08439641a8340ebb93f637208b6c1b00878f3b2e",
+    "bytes": 6220,
+    "description": "Modelo estilizado de penhasco topo diagonal rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "topo",
+      "diagonal",
+      "rocha"
+    ],
+    "geometrySignature": "096ac311e677dc58e2fb0883b057fc139acdffb600889c55e7df1d02a07cad24",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-top-rock",
+    "name": "Penhasco topo rocha",
+    "originalModelName": "cliff_top_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_top_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8c3b4d37fad0bacf39d0315a51850dfe9c55eea03de74854e3d92ce4157bbebb",
+    "bytes": 5312,
+    "description": "Modelo estilizado de penhasco topo rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "topo",
+      "rocha"
+    ],
+    "geometrySignature": "0050d3abe7899436056345d53300bb53955ef954e6cddec8f2e66d37c3a04fa7",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_pine",
     "name": "Pinheiro",
     "category": "nature",
@@ -2206,6 +2251,30 @@
     ],
     "geometrySignature": "0085079ad96e5a84de821bb6e5b2574a7bfb57bb491815717438fed4029bb190",
     "animationCount": 14
+  },
+  {
+    "id": "k_actor_quaternius_7jh8vsarfn",
+    "name": "Peixe-bolha",
+    "originalModelName": "Blobfish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/blobfish_7jh8vsarfn.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/7Jh8vsARfN",
+    "sourceDownload": "https://static.poly.pizza/75913946-d67e-469c-8a8b-014ae27ff8fb.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2d3aedd5e8238fece631c94fa97d2bfa6897e884fd613d9e9aeecf95301687be",
+    "bytes": 145016,
+    "description": "Modelo 3D original de Blobfish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "077a191423941a158e8dd0fb1471d06d09a7eb6229054129ecc71b523a2c5d09",
+    "animationCount": 6
   },
   {
     "id": "k_actor_quaternius_4k2s68ursg",
@@ -3056,6 +3125,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_mini_characters_wheelchair",
+    "name": "Cadeira de rodas",
+    "originalModelName": "wheelchair",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/wheelchair.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c0146a2dfae2ed9bbecce3c79dd2edd95139a58a0b39111a38884c41a230ce92",
+    "bytes": 65436,
+    "description": "Modelo 3D original Wheelchair do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "cenário",
+      "prop",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0d031e12e07f6a3973e6530de2a83fda13b160ef663f4ac089d8afacd49bd427",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_mini_characters_wheelchair_deluxe",
     "name": "Cadeira de rodas de luxo",
     "originalModelName": "wheelchair-deluxe",
@@ -3140,6 +3232,28 @@
     "bytes": 19108,
     "description": "Original Kenney Nature Kit low-poly bed model, preserved from the pack GLB.",
     "originalModelName": "Bed",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bed-floor",
+    "name": "Cama piso",
+    "originalModelName": "bed_floor.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bed_floor.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a59c8878186ab180f43e55249184b5c8e6af7d6501f908898202ac14c474a05f",
+    "bytes": 10688,
+    "description": "Modelo estilizado de cama piso, malha original do pacote Nature Kit.",
+    "tags": [
+      "cama",
+      "piso",
+      "acampamento"
+    ],
+    "geometrySignature": "002229e9ae473163de98a2176ff205c78449d8a32eb9559fb4aeb20e2efa402a",
     "animationCount": 0
   },
   {
@@ -3759,6 +3873,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_burger_cheese",
+    "name": "Hambúrguer com queijo",
+    "originalModelName": "burger-cheese",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/burger-cheese.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "dfe3fb18cd5b93bf002186adfcf264012f7ec65f9854e992a196159411c5bf32",
+    "bytes": 36644,
+    "description": "Hambúrguer com queijo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "hambúrguer",
+      "queijo"
+    ],
+    "geometrySignature": "04f66428d2dbd48dc32497dd4b972001e6a5bbe6f6ff7fe611c9af629df03b11",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_burger_cheese_double",
     "name": "Hambúrguer duplo com queijo",
     "originalModelName": "burger-cheese-double",
@@ -3966,6 +4103,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_machine_barrelLarge",
+    "name": "Máquina grande de barris",
+    "originalModelName": "machine_barrelLarge",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/machine_barrelLarge.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3c156127373395cd45bfb7772936c56b06e4bcf33101da7a5030f17e5d8acae5",
+    "bytes": 13880,
+    "description": "Modelo 3D original Machine Barrellarge do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0492b92ee92f4fcc1091a5c176ba99550d43ecd9fd21042978756744aee9b053",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_mini_characters_aid_mask",
     "name": "Máscara",
     "originalModelName": "aid-mask",
@@ -4114,6 +4274,29 @@
     "bytes": 5040,
     "description": "Original Kenney Nature Kit low-poly sign model, preserved from the pack GLB.",
     "originalModelName": "Sign",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_road_sign_warning",
+    "name": "Placa de advertência",
+    "originalModelName": "road-sign-warning.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/road_sign_warning.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5e75bfeb300b149481018176617263f0df32bfdd5a502224c612bced081062dc",
+    "bytes": 22980,
+    "description": "Placa de trânsito urbana com símbolo de advertência.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "04ecc2910e181d2c12355349de2f74db084bf8674b40e1e4411d82e977068abc",
     "animationCount": 0
   },
   {
@@ -4758,6 +4941,29 @@
       "low-poly"
     ],
     "geometrySignature": "082ebe85d21a8a02d7c0ac41de7313ea928cdfbdca98941cf3dc72508ba6566a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_tow_a",
+    "name": "Barco de reboque A",
+    "originalModelName": "boat-tow-a",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-tow-a.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d213fb16b776021e54215b2f243e14d63a16f3f3a588dfa77459242f3ba7484a",
+    "bytes": 59796,
+    "description": "Modelo 3D original Barco de reboque A do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "005e702897066a995b0aa7e7e115416594e483acdf06c54162cd332a3ea30334",
     "animationCount": 0
   },
   {
@@ -5489,6 +5695,29 @@
       "low-poly"
     ],
     "geometrySignature": "09c3e664d3d5458e482882b32045d637a3f79f8d4827db52b7ba54b475d2fe2f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_tractor_shovel",
+    "name": "Trator com pá",
+    "originalModelName": "tractor-shovel",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/tractor-shovel.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c0d9adb5805a6af1d2a7e59cffe8caea3e765831b20edee422e4ad44c180f8ce",
+    "bytes": 234964,
+    "description": "Modelo 3D original Trator com pá do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "006eafce9ab71f293e121d48968b5381d9de03697a97334a4762b5a18bc90dca",
     "animationCount": 0
   },
   {
