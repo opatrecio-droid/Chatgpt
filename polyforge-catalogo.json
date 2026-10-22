@@ -44,6 +44,29 @@
     "animationCount": 24
   },
   {
+    "id": "k_actor_space_kit_alien",
+    "name": "Alienígena",
+    "originalModelName": "alien",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/space-kit/alien.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c041e8ed0eff82f0b25b944a8107f1268ddbec9c2c93afedc4ee0e8b047d983d",
+    "bytes": 27784,
+    "description": "Modelo 3D original Alienígena do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00ee09ea9378166c0c9ab6d3009c7349a00f414a950d8aef0d0eba60840ca0a9",
+    "animationCount": 0
+  },
+  {
     "id": "web_characters_pirate_captain",
     "name": "Capitão pirata",
     "category": "characters",
@@ -956,6 +979,54 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-blockslopewalls-stone",
+    "name": "Penhasco bloco inclinado paredes pedra",
+    "originalModelName": "cliff_blockSlopeWalls_stone.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_blockSlopeWalls_stone.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cd2c3d5ce44db2705146b0992ba494ab5d625136ff4e10dab6b94f67f600e3a6",
+    "bytes": 8904,
+    "description": "Modelo estilizado de penhasco bloco inclinado paredes pedra, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "bloco",
+      "inclinado",
+      "paredes",
+      "pedra"
+    ],
+    "geometrySignature": "00b75cbf2f986a381cd494146eb2fa584f1040cebe771b73117a38a569161522",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-blockslopewalls-rock",
+    "name": "Penhasco bloco inclinado paredes rocha",
+    "originalModelName": "cliff_blockSlopeWalls_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_blockSlopeWalls_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "055776add47ad3a13c53900a728ace7533c02f7afa27fdb57557ca117d44a55d",
+    "bytes": 8900,
+    "description": "Modelo estilizado de penhasco bloco inclinado paredes rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "bloco",
+      "inclinado",
+      "paredes",
+      "rocha"
+    ],
+    "geometrySignature": "0425c14febd24a6d1b59f7683a6c177f1c0eab20cf8dcd10435031e21feef541",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_pine",
     "name": "Pinheiro",
     "category": "nature",
@@ -1394,6 +1465,30 @@
     ],
     "originalModelName": "Deer",
     "animationCount": 26
+  },
+  {
+    "id": "k_actor_quaternius_x9x0vizs8v",
+    "name": "Cobra",
+    "originalModelName": "Snake",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/snake_x9x0vizs8v.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/x9x0viZs8V",
+    "sourceDownload": "https://static.poly.pizza/0f3a551e-743e-48f5-936f-804c6c3b88bd.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "70b4af1088dec939e167b07c0a5e69992a4851beac8bd24a9da1189b65ae101c",
+    "bytes": 216696,
+    "description": "Modelo 3D original de Snake, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "07a4449294de0c2c7ae40a4ee76969075585acc1b08772a96170514a76d02298",
+    "animationCount": 4
   },
   {
     "id": "k_actor_quaternius_mkev485xtr",
@@ -2201,6 +2296,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_mini_characters_aid_cane_blind",
+    "name": "Bengala para pessoa cega",
+    "originalModelName": "aid-cane-blind",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/aid-cane-blind.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9084d2de2237e6b888a8b975bcb33533875824c288572bc7f894b6d4d89c3814",
+    "bytes": 14924,
+    "description": "Modelo 3D original Aid Cane Blind do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "030cb3908d3dc91d7ada59b0b7f3aa12c683c4263d690674a1f1fe003c0eb844",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_beet",
     "name": "Beterraba",
     "originalModelName": "beet",
@@ -2764,6 +2882,52 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_bottle_oil",
+    "name": "Garrafa de óleo",
+    "originalModelName": "bottle-oil",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bottle-oil.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6e4476efbbbd2f06964f0ab5c4a69d1f73802537fd2563310c655d10c5008136",
+    "bytes": 21268,
+    "description": "Garrafa de óleo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "garrafa",
+      "oil"
+    ],
+    "geometrySignature": "02e98bc2e1b7fb884a1b5b7abee0f203819e2d41cc94d8e59f536850c904f068",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_construction_fence",
+    "name": "Grade de obras",
+    "originalModelName": "construction-fence.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/construction_fence.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "90e3907dab8756208d946e40fbcf3fe0bb307e492a027e663beffc8a90869936",
+    "bytes": 26340,
+    "description": "Grade móvel usada para isolar áreas de construção.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "06ecbffb100eb423cf8e4eef16ab150b23e5569d8a2b24d829fa2a49fca266bc",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_commercial_detail_parasol_a",
     "name": "Guarda-sol comercial A",
     "originalModelName": "detail-parasol-a.glb",
@@ -3082,6 +3246,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_industrial_detail_tank_large",
+    "name": "Tanque industrial grande",
+    "originalModelName": "detail-tank-large.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-industrial/detail_tank_large.glb",
+    "author": "Kenney",
+    "pack": "City Kit Industrial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-industrial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "27813f3e65f606137fa26d74edde65e1af299f5ab6c616bd963c6d90b4be05d0",
+    "bytes": 59492,
+    "description": "Reservatório cilíndrico industrial de grande porte.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit industrial"
+    ],
+    "geometrySignature": "03c083baefc9f6e2b03bd15404fa1aad8cbe879d6a418f74c16ccbc1f0497919",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_commercial_detail_awning",
     "name": "Toldo de fachada",
     "originalModelName": "detail-awning.glb",
@@ -3394,6 +3581,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_police",
+    "name": "Carro de polícia",
+    "originalModelName": "police",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/police.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "82a7fad45e522f1b7fce30701b9763fed95b76e620d80be9119e0543778b0141",
+    "bytes": 207712,
+    "description": "Modelo 3D original Carro de polícia do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0ebdf7ca55b520bd8cd0ed49ed5769bbea9ebe66e2f43553138e9bc4bbec2749",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_watercraft_kit_boat_house_a",
     "name": "Casa-barco A",
     "originalModelName": "boat-house-a",
@@ -3667,6 +3877,29 @@
       "low-poly"
     ],
     "geometrySignature": "03a985de83e3b99dfafb8e833a016eeec71f8ea1d5dfe27019c4e6687c8447cc",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_speed_c",
+    "name": "Lancha esportiva C",
+    "originalModelName": "boat-speed-c",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-c.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c3ce4165f2f55cb7da851991bbee0942c7eccf17ef0d76388177a871182fd4af",
+    "bytes": 25256,
+    "description": "Modelo 3D original Boat Speed C do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "003c54384955c09e19c41cc75d715290bb8b08e0f4454511116ae3e4f67d0cc4",
     "animationCount": 0
   },
   {
