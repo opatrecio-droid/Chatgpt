@@ -1,132 +1,132 @@
 {
-  "catalogueCount": 285,
+  "catalogueCount": 295,
   "models": [
     {
-      "id": "k_nature_crops-cornstaged",
-      "meshes": 9,
-      "triangles": 300,
-      "textures": 0,
+      "id": "k_actor_car_kit_box",
+      "meshes": 1,
+      "triangles": 124,
+      "textures": 1,
       "preserved": true,
       "bounds": [
-        1.0597718627493824,
-        3,
-        1.0597718976990347
+        2,
+        2,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-dirtdoublerow",
+      "id": "k_nature_crops-dirtdoublerowend",
       "meshes": 2,
-      "triangles": 88,
+      "triangles": 64,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9189765458422177,
+        0.15991471215351816,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_crops-dirtdoublerowcorner",
+      "meshes": 2,
+      "triangles": 50,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
-        0.15000000000000002,
-        2.814
+        0.15991471215351816,
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_769fho3eeb",
+      "id": "k_actor_quaternius_vmjlustc59",
       "meshes": 4,
-      "triangles": 1530,
+      "triangles": 1390,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.422037695222504,
-        0.9810273106970424,
-        1.7
+        1.024176876080031,
+        0.6789703178582978,
+        1.7000000000000002
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_machine_wirelessCable",
-      "meshes": 7,
-      "triangles": 282,
-      "textures": 0,
+      "id": "k_props_food_cake",
+      "meshes": 6,
+      "triangles": 750,
+      "textures": 6,
       "preserved": true,
       "bounds": [
-        1.87500012,
-        2,
-        1.5
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_cake_slicer",
-      "meshes": 1,
-      "triangles": 36,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.19110035293305738,
-        0.5244060279028264
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_bridge-center-woodround",
-      "meshes": 4,
-      "triangles": 60,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.39999999999999997,
+        1.9999986757863948,
+        0.8544337726716167,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_world_building_kit_roof_flat_patch_large",
+      "id": "k_world_castle_kit_wall_doorway",
       "meshes": 1,
-      "triangles": 44,
+      "triangles": 500,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        2,
-        0.0625,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_castle_kit_tower_square",
-      "meshes": 1,
-      "triangles": 176,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.5267176239385367,
+        0.7633588119693477,
         2,
         1.5267176239385367
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_boat_tug_c",
-      "meshes": 1,
-      "triangles": 197,
-      "textures": 1,
+      "id": "k_nature_bridge-side-stone",
+      "meshes": 2,
+      "triangles": 152,
+      "textures": 0,
       "preserved": true,
       "bounds": [
-        1.2439024653645079,
-        1.2543554174850708,
-        1.9999999999999998
+        1.9615384615384615,
+        0.7692307692307696,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_van",
-      "meshes": 5,
-      "triangles": 2082,
-      "textures": 5,
+      "id": "k_world_modular_buildings_building_sample_tower_a",
+      "meshes": 1,
+      "triangles": 398,
+      "textures": 1,
       "preserved": true,
       "bounds": [
-        1.090908996329828,
-        0.9818180880270795,
+        0.8800000190734864,
+        2,
+        1.0000000476837159
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_craft_cargoA",
+      "meshes": 4,
+      "triangles": 264,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.3061224489795917,
+        0.6530612244897959,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_ship_cargo_a",
+      "meshes": 4,
+      "triangles": 1060,
+      "textures": 4,
+      "preserved": true,
+      "bounds": [
+        0.7426877750509124,
+        0.6408955447063565,
         2
       ],
       "gl": 0

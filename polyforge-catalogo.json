@@ -505,6 +505,29 @@
     "animationCount": 14
   },
   {
+    "id": "k_actor_car_kit_box",
+    "name": "Caixa",
+    "originalModelName": "box",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/box.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cd322c12f8698f5ea32f997574e22879ec47571cf54c17a6ae698e9f9d4bea9f",
+    "bytes": 26532,
+    "description": "Modelo 3D original Caixa do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "05a2ff885091b779ca5f364e9d38295d726858c228443d83be24335f8c6d5c25",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -827,6 +850,54 @@
       "fileira"
     ],
     "geometrySignature": "02a81268907d0a2152d3448728267efaeeefd611ced362de699b5bde3fb07f35",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-dirtdoublerowend",
+    "name": "Cultivos terra dupla fileira extremidade",
+    "originalModelName": "crops_dirtDoubleRowEnd.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_dirtDoubleRowEnd.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "997b8cc31495742e1ab278bcbf4f49afb4167c2aa5d5cc18422bb044f9d3b27e",
+    "bytes": 6248,
+    "description": "Modelo estilizado de cultivos terra dupla fileira extremidade, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "terra",
+      "dupla",
+      "fileira",
+      "extremidade"
+    ],
+    "geometrySignature": "07fe61c76a01278734f9cd07677a4618d1981c9420063e3d871bf1eb971e8e66",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-dirtdoublerowcorner",
+    "name": "Cultivos terra dupla fileira quina",
+    "originalModelName": "crops_dirtDoubleRowCorner.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_dirtDoubleRowCorner.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2262ded26251bba82bd056e83dec3c66931d6f90cc677fce2b8f8f50048a5591",
+    "bytes": 5396,
+    "description": "Modelo estilizado de cultivos terra dupla fileira quina, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "terra",
+      "dupla",
+      "fileira",
+      "quina"
+    ],
+    "geometrySignature": "0216382c15e49001e65d35f88079d2373a2cfb59a4c059f60789b357bbc97bc2",
     "animationCount": 0
   },
   {
@@ -2623,6 +2694,30 @@
     "animationCount": 6
   },
   {
+    "id": "k_actor_quaternius_vmjlustc59",
+    "name": "Peixe-vaca",
+    "originalModelName": "Cowfish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/cowfish_vmjlustc59.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/VMJluStc59",
+    "sourceDownload": "https://static.poly.pizza/d4a8d818-d508-446b-ad9c-11e24aec0b6b.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "4c5c9d0644c7f2d338e4912b980ef8bc8b5eb3914f6e8521ce034b893c3c746e",
+    "bytes": 152816,
+    "description": "Modelo 3D original de Cowfish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "02224baa39eb285f5cde7c3bf34c7bc68fbc42f25184e051e0174e56c6c75b4f",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_9nglbtpder",
     "name": "Pombo",
     "originalModelName": "Pigeon",
@@ -3352,6 +3447,28 @@
       "beterraba"
     ],
     "geometrySignature": "099c45bb285c218583b744b0937f6eba0129ea53fec39027698f11516f67a24e",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cake",
+    "name": "Bolo",
+    "originalModelName": "cake",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cake.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9aaf404b02a9ca41113f1bcfb423185a7ca50e2db2c2036417ee8112b58db7fe",
+    "bytes": 83604,
+    "description": "Bolo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "bolo"
+    ],
+    "geometrySignature": "05ef44e8084cf8eacc0e1e23acab1d853d663b4f2d0efc86a22e80e98a684815",
     "animationCount": 0
   },
   {
@@ -4629,6 +4746,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_castle_kit_wall_doorway",
+    "name": "Muralha com passagem",
+    "originalModelName": "wall-doorway.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/castle-kit/wall_doorway.glb",
+    "author": "Kenney",
+    "pack": "Castle Kit",
+    "sourcePage": "https://kenney.nl/assets/castle-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "41726c5bcbba51a21eb10ed0091dca689477d35dc5d394093f5bf10ac7a37d44",
+    "bytes": 45144,
+    "description": "Trecho de muralha com abertura para passagem.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "castle kit"
+    ],
+    "geometrySignature": "02ce6af995b59a20e882a1900ad9569c7258ded33be79f84abf8ec8bcdbe35f4",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_space_kit_machine_barrel",
     "name": "Máquina de barris",
     "originalModelName": "machine_barrel",
@@ -4958,6 +5098,29 @@
     "bytes": 15692,
     "description": "Original Kenney Nature Kit low-poly bridge wood model, preserved from the pack GLB.",
     "originalModelName": "Bridge Wood",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-side-stone",
+    "name": "Ponte lateral pedra",
+    "originalModelName": "bridge_side_stone.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_side_stone.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2da6236082152f843a29393225be8bbbd28abacf597acc35704c0bb393bc4127",
+    "bytes": 11408,
+    "description": "Modelo estilizado de ponte lateral pedra, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "lateral",
+      "pedra",
+      "acampamento"
+    ],
+    "geometrySignature": "02cd5afd54f4797beaf67744857381149e0f0e6e634ae6d1c87a50dc2d6e373d",
     "animationCount": 0
   },
   {
@@ -5404,6 +5567,29 @@
       "city kit industrial"
     ],
     "geometrySignature": "07455bcf72ca0cc8dfdc470f0911fabdcaf7c5d5e961741934c420c2b6e9d8a1",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_modular_buildings_building_sample_tower_a",
+    "name": "Torre modular de amostra A",
+    "originalModelName": "building-sample-tower-a.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/modular-buildings/building_sample_tower_a.glb",
+    "author": "Kenney",
+    "pack": "Modular Buildings",
+    "sourcePage": "https://kenney.nl/assets/modular-buildings",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e0a1c76c91b6c87e796ea59656b5634cbc0548e03433203facb8ba1a0c7fd35a",
+    "bytes": 42844,
+    "description": "Torre completa construída com módulos de fachada e cobertura.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "modular buildings"
+    ],
+    "geometrySignature": "03f6e7f01f5574be705e3cb6405bef355a996159c7c0e6d8bb9ba126df558fe8",
     "animationCount": 0
   },
   {
@@ -6406,6 +6592,52 @@
       "low-poly"
     ],
     "geometrySignature": "00688941d21cd250fef09c245486eb535260b39ead4d21fb0521df6bfb65a1ef",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_craft_cargoA",
+    "name": "Nave cargueira A",
+    "originalModelName": "craft_cargoA",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/craft_cargoA.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b9676e838c605699e164c4c1779262bf47db1562a1504ceb29764828cbaa80c2",
+    "bytes": 18964,
+    "description": "Modelo 3D original Craft Cargo A do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "01d36c9b115e16d577613ffc02ca86a2416fe7641158078cdeac2a1e2b0f97e9",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_ship_cargo_a",
+    "name": "Navio cargueiro A",
+    "originalModelName": "ship-cargo-a",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/ship-cargo-a.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "898fd151e1e9a4ce7767ce6f8ee77bb281fb9c08070be7d49c0c498cdf74a0af",
+    "bytes": 106908,
+    "description": "Modelo 3D original Navio cargueiro A do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "06e9ae7fa2464fdaae25b777f1448c0207e85eb7c24ad89ef2c31cea3f6f1858",
     "animationCount": 0
   },
   {
