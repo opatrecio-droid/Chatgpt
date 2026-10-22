@@ -574,6 +574,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_bolt",
+    "name": "Parafuso solto",
+    "originalModelName": "debris-bolt",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-bolt.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "41628f01eddb116e03e4b802a4e4fcb8f0cab0623e71bc231cb94b146114a24d",
+    "bytes": 17196,
+    "description": "Modelo 3D original Parafuso solto do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "06977ea942fe779a3ae9ff2614516ca7d6c1f73651a2c3e2de52575993a8e6cf",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -785,6 +808,50 @@
       "estágio"
     ],
     "geometrySignature": "001f728f8b1f1aa8df7d4b7094a3d12ce73afb9056562ae40c602de3804220c6",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-leafsstagea",
+    "name": "Cultivos folhas estágio A",
+    "originalModelName": "crops_leafsStageA.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_leafsStageA.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f30d55780aa6668316a272eac8ea908e981d16fea7dc4fd1de4e68aa8170cee2",
+    "bytes": 7144,
+    "description": "Modelo estilizado de cultivos folhas estágio A, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "folhas",
+      "estágio"
+    ],
+    "geometrySignature": "0149fc8236c91aafe693ab991d6a667175574a764eb2abf0a1055efa20ae6257",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-leafsstageb",
+    "name": "Cultivos folhas estágio B",
+    "originalModelName": "crops_leafsStageB.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_leafsStageB.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "aea4fe9a7943e7b2b7df99dc4fa00b85e34d00ea9b8e1b144504cef25d77b98c",
+    "bytes": 7768,
+    "description": "Modelo estilizado de cultivos folhas estágio B, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "folhas",
+      "estágio"
+    ],
+    "geometrySignature": "04b6f4e03b20c774b2712f917522239ebd8df2f63d8986425b74a1cfa47b7f4c",
     "animationCount": 0
   },
   {
@@ -3923,6 +3990,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_b",
+    "name": "Casa suburbana modelo B",
+    "originalModelName": "building-type-b.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_b.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f9afd0f5b44f371b08dd515c5a1cdcbfcf8c8b7181feaed040cd8f4f45fbd89c",
+    "bytes": 158556,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo b, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "05896210b66135f3134aecfc00b89a5cca4582a28ddb39a202f8de66c09ac3d7",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -4383,6 +4473,53 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_building_b",
+    "name": "Edifício b",
+    "originalModelName": "building-b.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_b.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "968cd3170675970bde430e5b007ed70777059a25ede68671d0ab536f5c012773",
+    "bytes": 117468,
+    "description": "Modelo low-poly original do Kenney: edifício b, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "0d073aae201ddb443680bac1c4d4af9dee6d9168df71611edcd2ee12467daf35",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_candy_bar_wrapper",
+    "name": "Embalagem de barra de chocolate",
+    "originalModelName": "candy-bar-wrapper",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/candy-bar-wrapper.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9da409c85248ce5258ce35b80468f218ff5a67489c42c14be62af0578756a7b3",
+    "bytes": 16892,
+    "description": "Embalagem de barra de chocolate, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "doce",
+      "barra",
+      "embalagem"
+    ],
+    "geometrySignature": "0250326ca2384f20b66403501e58a77528ae735928fe9f9158494fb885d795a9",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_driveway_long",
     "name": "Entrada residencial longa",
     "originalModelName": "driveway-long.glb",
@@ -4812,6 +4949,28 @@
       "modular buildings"
     ],
     "geometrySignature": "002403a931fc851bd57057157d08f4ebb2d479181e2140a51959f5dce1a0c640",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_can",
+    "name": "Lata",
+    "originalModelName": "can",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/can.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8bb693ff8dd3d03e3cc9af9ac5dc0ff294d6b5b108ab2aaea2cc7e7095207462",
+    "bytes": 24480,
+    "description": "Lata, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "lata"
+    ],
+    "geometrySignature": "02784857d369a8ec5eacecc90a79be9251194c7f3a3792e3ce6eb712f1598941",
     "animationCount": 0
   },
   {
@@ -5467,6 +5626,28 @@
       "acampamento"
     ],
     "geometrySignature": "04c578930cb2ffbce8a5839ef1e5b25b4c0666f1ee5e027444ec308b26bc745d",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-stone",
+    "name": "Ponte pedra",
+    "originalModelName": "bridge_stone.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_stone.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b8b311f525ad616fcdebb6463db8b0c7710af58eb45308b54c08bcb290a2315e",
+    "bytes": 17708,
+    "description": "Modelo estilizado de ponte pedra, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "pedra",
+      "acampamento"
+    ],
+    "geometrySignature": "05d376eb7f3a164fb4c432be11166448eb21cb17ff83060f3f032cee726d72e0",
     "animationCount": 0
   },
   {
@@ -7010,6 +7191,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_craft_racer",
+    "name": "Nave de corrida",
+    "originalModelName": "craft_racer",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/craft_racer.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "bce8cb3d037a67e151ea6b68bba5876f53f4c77dfd43892c1c72892d5ab1c5aa",
+    "bytes": 19228,
+    "description": "Modelo 3D original Craft Racer do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0123502e8185193a8870b38fd31cd657f305273b4575f4f466cd4ff46ae1af9e",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_space_kit_craft_miner",
     "name": "Nave mineradora",
     "originalModelName": "craft_miner",
@@ -7099,6 +7303,29 @@
       "low-poly"
     ],
     "geometrySignature": "01572b516c9c3bc16a21705e3f86ac0ddc3cd0429db4d0cb4345365229f396e3",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_ship_large",
+    "name": "Navio grande",
+    "originalModelName": "ship-large",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/ship-large.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e4d69c8c3e5da99ea0203e16044683e79672544d2e9f486ae215dd0795c2f88f",
+    "bytes": 164640,
+    "description": "Modelo 3D original Navio grande do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "026b116f881c5b69a3679ca430260cf16643764e7afcf54b9825de964207c812",
     "animationCount": 0
   },
   {

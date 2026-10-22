@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 315,
+  "catalogueCount": 325,
   "models": [
     {
-      "id": "k_actor_car_kit_cone",
+      "id": "k_actor_car_kit_debris_bolt",
       "meshes": 1,
-      "triangles": 172,
+      "triangles": 36,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.5999999799730076,
+        1.3323468000099035,
         2,
-        1.5999999799730076
+        1.5384616178168375
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-dirtrowend",
-      "meshes": 2,
-      "triangles": 32,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.9032258813735714,
-        0.24193549011446427,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_crops-dirtsingle",
-      "meshes": 2,
-      "triangles": 32,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.75,
-        2.59807617
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_commercial_building_a",
+      "id": "k_nature_crops-leafsstagea",
       "meshes": 1,
-      "triangles": 1252,
+      "triangles": 76,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.7352017805969147,
+        3,
+        2.7352017805969147
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_crops-leafsstageb",
+      "meshes": 1,
+      "triangles": 84,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.7252684116567163,
+        3,
+        1.7252684116567163
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_b",
+      "meshes": 1,
+      "triangles": 1748,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.366725303255345,
+        2,
+        1.244529545903922,
+        1.2472647077390042
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_b",
+      "meshes": 1,
+      "triangles": 1276,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.5003868539718455,
         2,
         1.453983000921037
       ],
       "gl": 0
     },
     {
-      "id": "k_world_modular_buildings_building_window_balcony",
+      "id": "k_props_food_candy_bar_wrapper",
       "meshes": 1,
-      "triangles": 72,
+      "triangles": 48,
       "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.7391304708383493,
-        1.0869565442739684,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_can_small",
-      "meshes": 2,
-      "triangles": 154,
-      "textures": 2,
       "preserved": true,
       "bounds": [
         2,
-        1.0741483603272994,
-        2
+        0.5553394064115026,
+        0.7997614574898456
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_bridge-side-wood",
-      "meshes": 3,
-      "triangles": 136,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9615384615384615,
-        0.7692307692307696,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_bridge-side-woodround",
-      "meshes": 4,
-      "triangles": 190,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9615384615384615,
-        0.86538461538462,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_craft_miner",
-      "meshes": 4,
-      "triangles": 384,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.384615384615385,
-        0.5384615384615385,
-        2.0000000000000004
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_ship_cargo_c",
+      "id": "k_props_food_can",
       "meshes": 1,
-      "triangles": 362,
+      "triangles": 156,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.7426877750509124,
-        0.4904507078568978,
+        1.8750001164153245,
+        2,
+        1.8750001164153245
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_bridge-stone",
+      "meshes": 2,
+      "triangles": 252,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.7692307692307692,
         2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_craft_racer",
+      "meshes": 4,
+      "triangles": 280,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.1847928753981174,
+        0.7404955471238234,
+        1.9999999999999996
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_ship_large",
+      "meshes": 6,
+      "triangles": 1849,
+      "textures": 6,
+      "preserved": true,
+      "bounds": [
+        0.732824435261022,
+        1.5211480549485283,
+        1.9999999999999998
       ],
       "gl": 0
     }
