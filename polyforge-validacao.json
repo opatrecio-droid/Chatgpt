@@ -1,4 +1,5 @@
 {
+  "catalogueCount": 45,
   "models": [
     {
       "id": "k_actor_mini_characters_character_female_a",
@@ -14,15 +15,28 @@
       "gl": 0
     },
     {
-      "id": "k_props_food_advocado_half",
+      "id": "k_actor_quaternius_mkev485xtr",
       "meshes": 2,
-      "triangles": 98,
+      "triangles": 2282,
       "textures": 2,
       "preserved": true,
       "bounds": [
-        0.9697505805458189,
-        2,
-        1.6228571882723923
+        1.7,
+        1.4990002838327694,
+        0.6844098588120215
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_car_kit_ambulance",
+      "meshes": 7,
+      "triangles": 2804,
+      "textures": 7,
+      "preserved": true,
+      "bounds": [
+        0.9230769907934475,
+        1.1076924109600075,
+        2
       ],
       "gl": 0
     },
@@ -53,32 +67,6 @@
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_jgfwp6xwgk",
-      "meshes": 2,
-      "triangles": 447,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        0.6774756107794169,
-        0.5311717367618669,
-        1.7
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_quaternius_mkev485xtr",
-      "meshes": 2,
-      "triangles": 2282,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.7,
-        1.4990002838327694,
-        0.6844098588120215
-      ],
-      "gl": 0
-    },
-    {
       "id": "k_props_furniture_chair",
       "meshes": 1,
       "triangles": 170,
@@ -88,6 +76,19 @@
         0.851063829787234,
         1.9999999999999998,
         0.851063829787234
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_advocado_half",
+      "meshes": 2,
+      "triangles": 98,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        0.9697505805458189,
+        2,
+        1.6228571882723923
       ],
       "gl": 0
     },
@@ -105,19 +106,6 @@
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_ambulance",
-      "meshes": 7,
-      "triangles": 2804,
-      "textures": 7,
-      "preserved": true,
-      "bounds": [
-        0.9230769907934475,
-        1.1076924109600075,
-        2
-      ],
-      "gl": 0
-    },
-    {
       "id": "k_actor_watercraft_kit_boat_sail_a",
       "meshes": 2,
       "triangles": 386,
@@ -127,6 +115,19 @@
         0.7533012791219136,
         2,
         1.5910060343006038
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_quaternius_jgfwp6xwgk",
+      "meshes": 2,
+      "triangles": 447,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.6774756107794169,
+        0.5311717367618669,
+        1.7
       ],
       "gl": 0
     }
