@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 275,
+  "catalogueCount": 285,
   "models": [
     {
-      "id": "k_nature_crops-cornstageb",
-      "meshes": 1,
-      "triangles": 116,
+      "id": "k_nature_crops-cornstaged",
+      "meshes": 9,
+      "triangles": 300,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        0.9126059999999999,
+        1.0597718627493824,
         3,
-        0.9126059999999999
+        1.0597718976990347
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-cornstagec",
-      "meshes": 1,
-      "triangles": 148,
+      "id": "k_nature_crops-dirtdoublerow",
+      "meshes": 2,
+      "triangles": 88,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        0.7300847999999999,
         3,
-        0.7300847999999999
+        0.15000000000000002,
+        2.814
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_yyzyvhg2jq",
+      "id": "k_actor_quaternius_769fho3eeb",
       "meshes": 4,
-      "triangles": 1388,
+      "triangles": 1530,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        0.7773395270993997,
-        1.0234554676809977,
-        1.7000000000000002
+        1.422037695222504,
+        0.9810273106970424,
+        1.7
       ],
       "gl": 0
     },
     {
-      "id": "k_world_castle_kit_siege_ram",
-      "meshes": 8,
-      "triangles": 1112,
-      "textures": 8,
+      "id": "k_actor_space_kit_machine_wirelessCable",
+      "meshes": 7,
+      "triangles": 282,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.87500012,
+        2,
+        1.5
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cake_slicer",
+      "meshes": 1,
+      "triangles": 36,
+      "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        1.1347300403176526,
-        0.9583345208993268
+        0.19110035293305738,
+        0.5244060279028264
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_cake_birthday",
-      "meshes": 6,
-      "triangles": 1146,
-      "textures": 6,
+      "id": "k_nature_bridge-center-woodround",
+      "meshes": 4,
+      "triangles": 60,
+      "textures": 0,
       "preserved": true,
       "bounds": [
-        1.9999986757863948,
-        1.1382146624567877,
+        2,
+        0.39999999999999997,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_machine_wireless",
-      "meshes": 4,
-      "triangles": 174,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.5999999999999999,
-        1.3333333333333333
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_building_kit_stairs_open",
+      "id": "k_world_building_kit_roof_flat_patch_large",
       "meshes": 1,
-      "triangles": 132,
+      "triangles": 44,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.6499999761581421,
-        1.25,
+        2,
+        0.0625,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_cabbage",
+      "id": "k_world_castle_kit_tower_square",
       "meshes": 1,
-      "triangles": 140,
+      "triangles": 176,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.880264954217372,
-        1.5231975972270289,
+        1.5267176239385367,
+        2,
+        1.5267176239385367
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_tug_c",
+      "meshes": 1,
+      "triangles": 197,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.2439024653645079,
+        1.2543554174850708,
         1.9999999999999998
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_truck",
+      "id": "k_actor_car_kit_van",
       "meshes": 5,
       "triangles": 2082,
       "textures": 5,
       "preserved": true,
       "bounds": [
-        1.0169493004838281,
-        0.8813560523373307,
-        1.9999999999999998
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_boat_tug_b",
-      "meshes": 1,
-      "triangles": 371,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.2439024653645079,
-        1.5588850716069877,
-        1.9999999999999998
+        1.090908996329828,
+        0.9818180880270795,
+        2
       ],
       "gl": 0
     }

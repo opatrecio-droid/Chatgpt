@@ -785,6 +785,51 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_crops-cornstaged",
+    "name": "Cultivos milho estágio D",
+    "originalModelName": "crops_cornStageD.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_cornStageD.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d90d9cbba85e99526b254adee638495f914480831ab41d00807378c004c112c3",
+    "bytes": 29316,
+    "description": "Modelo estilizado de cultivos milho estágio D, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "milho",
+      "estágio"
+    ],
+    "geometrySignature": "04116e982e68999c3b439648f987f4d40ff9b5581672c52e1df5a576db87fd06",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-dirtdoublerow",
+    "name": "Cultivos terra dupla fileira",
+    "originalModelName": "crops_dirtDoubleRow.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_dirtDoubleRow.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b5c330d81a4efe0944caf5f1d1dd0c0d50227c93f2a4a57ec2425d2c9b7a2d84",
+    "bytes": 7560,
+    "description": "Modelo estilizado de cultivos terra dupla fileira, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "terra",
+      "dupla",
+      "fileira"
+    ],
+    "geometrySignature": "02a81268907d0a2152d3448728267efaeeefd611ced362de699b5bde3fb07f35",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-steps-rock",
     "name": "Degraus de rocha",
     "originalModelName": "cliff_steps_rock.glb",
@@ -2506,6 +2551,30 @@
     "animationCount": 6
   },
   {
+    "id": "k_actor_quaternius_769fho3eeb",
+    "name": "Peixe-palhaço",
+    "originalModelName": "Clownfish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/clownfish_769fho3eeb.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/769fHo3eEB",
+    "sourceDownload": "https://static.poly.pizza/f28280ed-888d-4d9b-9d13-af2baf36b749.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d1d0b1f83848337299ef163b7ec5b207b5c34e3933da1367000e1dcd6d856bf1",
+    "bytes": 166084,
+    "description": "Modelo 3D original de Clownfish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "01bedd76d5186b5246eed6e91d3024bf7ea8c4284a1e625f81d51b9084dc3820",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_6jo6q4ucdh",
     "name": "Peixe-palhaço-zebra",
     "originalModelName": "Zebra Clown Fish",
@@ -3853,6 +3922,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_machine_wirelessCable",
+    "name": "Comunicador com cabo",
+    "originalModelName": "machine_wirelessCable",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/machine_wirelessCable.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b38770b6d1a40e2afd8a5f535e6a962f07cf18a8345e9b940bf3843bcf938a6b",
+    "bytes": 20884,
+    "description": "Modelo 3D original Machine Wirelesscable do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "012f16062a279ad191d383dda034c79909418554c90bddcdd11cb60f2b7b3f0e",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_space_kit_machine_wireless",
     "name": "Comunicador sem fio",
     "originalModelName": "machine_wireless",
@@ -4057,6 +4149,29 @@
       "city kit roads"
     ],
     "geometrySignature": "04b3058e8633a9c610e218012447256f14b9e321add8b7e84531d9f42b76723e",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cake_slicer",
+    "name": "Fatia de bolo",
+    "originalModelName": "cake-slicer",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cake-slicer.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cae7fac6c2d7a48dd377a74f4f38ca37871de4ba6f04e945ac2d58d12ce4d4e1",
+    "bytes": 15828,
+    "description": "Fatia de bolo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "bolo",
+      "fatiador"
+    ],
+    "geometrySignature": "02bb696894d8c63f5cccca7581c555e0cd81316efdbaf6ec105281cbea1a7429",
     "animationCount": 0
   },
   {
@@ -4757,6 +4872,30 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_bridge-center-woodround",
+    "name": "Ponte centro madeira arredondado",
+    "originalModelName": "bridge_center_woodRound.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_center_woodRound.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "382c95860d1805457a77e43ae1e47cc77d7a05cb5b1921e5e0f44f6627d0e11f",
+    "bytes": 6280,
+    "description": "Modelo estilizado de ponte centro madeira arredondado, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "centro",
+      "madeira",
+      "arredondado",
+      "acampamento"
+    ],
+    "geometrySignature": "05868beb35d88b7461d2c76d23e6c56b3967e2c21bbc65edb9e6f1cecc33b9b7",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_bridge-center-stone",
     "name": "Ponte centro pedra",
     "originalModelName": "bridge_center_stone.glb",
@@ -4946,6 +5085,29 @@
     "bytes": 3952,
     "description": "Original Kenney Nature Kit low-poly canoe paddle model, preserved from the pack GLB.",
     "originalModelName": "Canoe Paddle",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_building_kit_roof_flat_patch_large",
+    "name": "Reparo grande de telhado plano",
+    "originalModelName": "roof-flat-patch-large.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/building-kit/roof_flat_patch_large.glb",
+    "author": "Kenney",
+    "pack": "Building Kit",
+    "sourcePage": "https://kenney.nl/assets/building-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1ceeaf982449e72b19da27c4c5540c5b19e22e4f2e0b0d8b405330c056c525c4",
+    "bytes": 15544,
+    "description": "Placa modular grande para cobertura plana.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "building kit"
+    ],
+    "geometrySignature": "00436bc7d995db7f239262131a434ac7bb03f25410a64c424fa9947830fb7787",
     "animationCount": 0
   },
   {
@@ -5242,6 +5404,29 @@
       "city kit industrial"
     ],
     "geometrySignature": "07455bcf72ca0cc8dfdc470f0911fabdcaf7c5d5e961741934c420c2b6e9d8a1",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_castle_kit_tower_square",
+    "name": "Torre quadrada de castelo",
+    "originalModelName": "tower-square.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/castle-kit/tower_square.glb",
+    "author": "Kenney",
+    "pack": "Castle Kit",
+    "sourcePage": "https://kenney.nl/assets/castle-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "01c7e1b14fe9531b106624004ce8ba978aa39d066b1dad76acc33cd384bfde32",
+    "bytes": 24152,
+    "description": "Estrutura modular de torre com base quadrada.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "castle kit"
+    ],
+    "geometrySignature": "01900a9ccb2a506b3e1475cb8b6b1eca84db6e0011236b4f2935062c79fcf983",
     "animationCount": 0
   },
   {
@@ -6270,6 +6455,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_watercraft_kit_boat_tug_c",
+    "name": "Rebocador C",
+    "originalModelName": "boat-tug-c",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-tug-c.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "52bae3800501d526cacb3a70a8b3ff1aa742d343a14072038ee214648895cc0a",
+    "bytes": 27716,
+    "description": "Modelo 3D original Rebocador C do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "06c4e2c0d2a6698f89ef149d5ca910aa8af0a757d2dc9913497da468df9acad8",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_suv",
     "name": "SUV",
     "originalModelName": "suv",
@@ -6451,6 +6659,29 @@
       "low-poly"
     ],
     "geometrySignature": "003fd656e5df9c554f8b26516a52e44d700a4d8844fb13e96f106bf143803bd2",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_van",
+    "name": "Van",
+    "originalModelName": "van",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/van.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b59efddda6c689408fb9b27c5d621d0458e0a24b03706049bd398b8de0527343",
+    "bytes": 188048,
+    "description": "Modelo 3D original Van do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0087002422c8878e272b03bd492298c305bbc6a8ce89251b1b851c6575bd96fb",
     "animationCount": 0
   },
   {
