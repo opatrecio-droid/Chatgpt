@@ -147,6 +147,30 @@
     "animationCount": 14
   },
   {
+    "id": "k_actor_quaternius_3rum1cn3yp",
+    "name": "Dragão",
+    "originalModelName": "Dragon",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/dragon_3rum1cn3yp.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/3rUm1cN3yp",
+    "sourceDownload": "https://static.poly.pizza/ae5b8510-1fa5-4d53-b943-a4f3b88fb629.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d8a12f3f819e86518f5a44984db611ffaaa800895da33928d66519e629615705",
+    "bytes": 251540,
+    "description": "Modelo 3D original de Dragon, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "003d952895930cd8dab2d7a811b6eecd6d40c1ea94a7eaa624fbb93570412d0f",
+    "animationCount": 8
+  },
+  {
     "id": "web_characters_ninja",
     "name": "Ninja",
     "category": "characters",
@@ -1119,6 +1143,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-diagonal-stone",
+    "name": "Penhasco diagonal pedra",
+    "originalModelName": "cliff_diagonal_stone.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_diagonal_stone.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6c6f93c685053d2dc50e2befa45fc45e3c5beac1c35b693f277056a990e8850c",
+    "bytes": 4236,
+    "description": "Modelo estilizado de penhasco diagonal pedra, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "diagonal",
+      "pedra"
+    ],
+    "geometrySignature": "0640512ccb026089eba099860bd5dfbf2ceeadbc8cec9eb928b6a3524e518a06",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-diagonal-rock",
     "name": "Penhasco diagonal rocha",
     "originalModelName": "cliff_diagonal_rock.glb",
@@ -1138,6 +1184,30 @@
       "rocha"
     ],
     "geometrySignature": "010417df2c96e77a2b19761ec2b9968ec99e8a4a909b8247e24f7fe22399e398",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-halfcornerinner-rock",
+    "name": "Penhasco meio quina interno rocha",
+    "originalModelName": "cliff_halfCornerInner_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_halfCornerInner_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "aaa3e59a48e56547199c212037d0ee06fa5de3a58a9ac25355c8932bc7b096fe",
+    "bytes": 8016,
+    "description": "Modelo estilizado de penhasco meio quina interno rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "meio",
+      "quina",
+      "interno",
+      "rocha"
+    ],
+    "geometrySignature": "0034e214ae18e2280e955c1fee9fdf9189aae6a495685808875aee8fd3ab021c",
     "animationCount": 0
   },
   {
@@ -1977,6 +2047,30 @@
     ],
     "geometrySignature": "0085079ad96e5a84de821bb6e5b2574a7bfb57bb491815717438fed4029bb190",
     "animationCount": 14
+  },
+  {
+    "id": "k_actor_quaternius_6jo6q4ucdh",
+    "name": "Peixe-palhaço-zebra",
+    "originalModelName": "Zebra Clown Fish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/zebra_clown_fish_6jo6q4ucdh.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/6jO6q4uCdh",
+    "sourceDownload": "https://static.poly.pizza/06a99b8d-e99d-4090-be53-2480fa7ad7c6.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b358221099c35258ad9b9a7d479c144522d838a03ca388ca48f2690287887534",
+    "bytes": 164472,
+    "description": "Modelo 3D original de Zebra Clown Fish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "06acce2317f5ecbfab35ebd12847e52e7a4276f0e1e8fb7182274d9fa18bd03b",
+    "animationCount": 6
   },
   {
     "id": "k_actor_quaternius_9nglbtpder",
@@ -3622,6 +3716,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_roads_light_curved_double",
+    "name": "Poste de iluminação com dois braços curvos",
+    "originalModelName": "light-curved-double.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/light_curved_double.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "4bc58a9216529c77ce886b3528228062d9b695655475074c284a1738228e7f6b",
+    "bytes": 25692,
+    "description": "Luminária urbana dupla com braços curvos.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "0055d2c186d0422c3a988b44e1c89c9274545e96ccdc72dcedb0715a694b3a0e",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_electricity_pole",
     "name": "Poste elétrico",
     "originalModelName": "electricity-pole.glb",
@@ -3751,6 +3868,28 @@
       "city kit industrial"
     ],
     "geometrySignature": "03c083baefc9f6e2b03bd15404fa1aad8cbe879d6a418f74c16ccbc1f0497919",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bowl",
+    "name": "Tigela",
+    "originalModelName": "bowl",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bowl.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9c007cb436ee356a2b00033ced199b888c04b01f5614d73a89cf0247c562c51e",
+    "bytes": 17112,
+    "description": "Tigela, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "tigela"
+    ],
+    "geometrySignature": "0046d62537c19c720e22645a053153c0aa1be43d257dbb8fd6bdbf55bc25c0cc",
     "animationCount": 0
   },
   {
@@ -3892,6 +4031,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_industrial_windmill",
+    "name": "Turbina eólica industrial",
+    "originalModelName": "windmill.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-industrial/windmill.glb",
+    "author": "Kenney",
+    "pack": "City Kit Industrial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-industrial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9d24aeeea4504e7e8262266389581e2f78f4ceacb3469763adb33d4956858f98",
+    "bytes": 58316,
+    "description": "Turbina eólica alta para geração de energia.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit industrial"
+    ],
+    "geometrySignature": "027fedbcfaffb89836cd85f896656d0411a7f8aab55eee49fa098ffc18d8a886",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_pot_large",
     "name": "Vaso",
     "category": "props",
@@ -3907,6 +4069,29 @@
     "bytes": 6168,
     "description": "Original Kenney Nature Kit low-poly pot large model, preserved from the pack GLB.",
     "originalModelName": "Pot Large",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_mini_characters_aid_glasses",
+    "name": "Óculos",
+    "originalModelName": "aid-glasses",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/aid-glasses.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "42c357758fb06c4925d44726394ab347950ce914e98656fc01dc8eb223874d68",
+    "bytes": 15520,
+    "description": "Modelo 3D original Aid Glasses do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00d102a79eeb268c5a3646c9e917807d0724db3c9a5fbd31f1197c556f8fa8fd",
     "animationCount": 0
   },
   {
@@ -4569,6 +4754,52 @@
       "low-poly"
     ],
     "geometrySignature": "0350cd60b3e56130b25542fcf9bc9dafb733943554e58bccde01087b44e64a81",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_speed_g",
+    "name": "Lancha esportiva G",
+    "originalModelName": "boat-speed-g",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-g.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "890ee2fe65fac22bc477f73fb1e5a2339306da82f3bc2f390ec83ac2fc7398f3",
+    "bytes": 23028,
+    "description": "Modelo 3D original Boat Speed G do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0331ea393ceb655456ec0ccfc788c78c171e1cfad7894048ec84303240574e64",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_suv_luxury",
+    "name": "SUV de luxo",
+    "originalModelName": "suv-luxury",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/suv-luxury.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ac1c702a205bf58ad98479cedffc2ccadca056934815bc87ad36763cca440585",
+    "bytes": 188296,
+    "description": "Modelo 3D original SUV de luxo do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "086f33d6df3aa038b74f7249fe4bf46e6dbe206658d49f820c5f3189314a5786",
     "animationCount": 0
   },
   {
