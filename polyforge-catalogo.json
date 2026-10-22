@@ -457,6 +457,30 @@
     "animationCount": 32
   },
   {
+    "id": "k_actor_quaternius_ipv5ymaoiv",
+    "name": "Tubarão personagem",
+    "originalModelName": "Sharky",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/sharky_ipv5ymaoiv.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/iPV5YmAoIv",
+    "sourceDownload": "https://static.poly.pizza/4d02507f-329a-4fd3-a0d1-34163c5fd681.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "64861dfbb742edd303d18fcfa279c4fef33dd12675bda0bd0e5ced39f465e947",
+    "bytes": 750300,
+    "description": "Modelo 3D original de Sharky, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "037496ae3954a35e1e1abf228bd82fa8a1853a6e3ab2f63198c172de010de970",
+    "animationCount": 14
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -1095,6 +1119,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-diagonal-rock",
+    "name": "Penhasco diagonal rocha",
+    "originalModelName": "cliff_diagonal_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_diagonal_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "648bdb3118cda8900bad55e281f56c245a1a0252cc1c0e1bf4fa085d8ef75a0b",
+    "bytes": 4296,
+    "description": "Modelo estilizado de penhasco diagonal rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "diagonal",
+      "rocha"
+    ],
+    "geometrySignature": "010417df2c96e77a2b19761ec2b9968ec99e8a4a909b8247e24f7fe22399e398",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-cornerinner-rock",
     "name": "Penhasco quina interno rocha",
     "originalModelName": "cliff_cornerInner_rock.glb",
@@ -1139,6 +1185,28 @@
       "rocha"
     ],
     "geometrySignature": "06ec4fc29d48f345683fcc0d1a7dc54cf5e7e895571c335a76d6ca4bf380d4fc",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-corner-rock",
+    "name": "Penhasco quina rocha",
+    "originalModelName": "cliff_corner_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_corner_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "4a22b80e18ac1798035867b7ff6e4d78161fa25b507112c903ad6f80765cf181",
+    "bytes": 2360,
+    "description": "Modelo estilizado de penhasco quina rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "quina",
+      "rocha"
+    ],
+    "geometrySignature": "0316388e48942930bf1d5c87ca938b9456d4cd380973e6f27db0f063f8b870cf",
     "animationCount": 0
   },
   {
@@ -1414,6 +1482,30 @@
     ],
     "originalModelName": "Alpaca",
     "animationCount": 26
+  },
+  {
+    "id": "k_actor_quaternius_kwhaorgzcc",
+    "name": "Atum",
+    "originalModelName": "Fish Tuna",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/fish_tuna_kwhaorgzcc.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/kwhaORGzCC",
+    "sourceDownload": "https://static.poly.pizza/3357e4a4-2c61-4f83-8729-1c303896a359.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9e8adc7cf8157ab888b9d927db67c1a75ce67c63f71c80fb51669a762ceff8bb",
+    "bytes": 52176,
+    "description": "Modelo 3D original de Fish Tuna, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "038687b866ff5a6c3e1e542a4d3a9b2a5e451be5e08db6f8c6abc1974abdc33b",
+    "animationCount": 0
   },
   {
     "id": "k_actor_quaternius_jgfwp6xwgk",
@@ -3027,6 +3119,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_mini_characters_aid_defibrillator_green",
+    "name": "Desfibrilador verde",
+    "originalModelName": "aid-defibrillator-green",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/aid-defibrillator-green.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a112bc7b0e00f2e6a00ac8fa5e87fac2fe0c97ebfaade954fb7d4703eafe8a03",
+    "bytes": 19044,
+    "description": "Modelo 3D original Aid Defibrillator Green do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "1109522768e26b12a4b64c7ef66ba6eb7747592119c33d50b9805872d18c1fc8",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_driveway_long",
     "name": "Entrada residencial longa",
     "originalModelName": "driveway-long.glb",
@@ -3047,6 +3162,29 @@
       "city kit suburban"
     ],
     "geometrySignature": "0ceaceb9ea009a38cf8801956437a44cff4444d6be0d61e626c451500572afca",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_electricity_wires",
+    "name": "Fiação elétrica suspensa",
+    "originalModelName": "electricity-wires.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/electricity_wires.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ab44eb96422f2fcff55011aa7dda2f87be46e05655d6d20b377aee8488e46e15",
+    "bytes": 20432,
+    "description": "Trecho de fios aéreos para ligação entre postes.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "0990bb5acf38daa0b32ffcc470a935914ea230057d3dcfd10f948607fb3cb8c3",
     "animationCount": 0
   },
   {
@@ -3384,6 +3522,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_industrial_solar_panel_portrait",
+    "name": "Painel solar vertical",
+    "originalModelName": "solar-panel-portrait.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-industrial/solar_panel_portrait.glb",
+    "author": "Kenney",
+    "pack": "City Kit Industrial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-industrial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "832609aa49a78abd05f6322ab9a68588c5d43a4c9abf2b3aaf2b127765b279bd",
+    "bytes": 33812,
+    "description": "Painel fotovoltaico industrial montado na orientação vertical.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit industrial"
+    ],
+    "geometrySignature": "06666e5ae4d61d847e127fb14c7f588b6c0b3e4129e58bfbf64d3b73a1d9f853",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_bridge_pillar_wide",
     "name": "Pilar largo de ponte",
     "originalModelName": "bridge-pillar-wide.glb",
@@ -3636,6 +3797,29 @@
       "cereal"
     ],
     "geometrySignature": "00bb44a138a9a8ef524d49e6774a215d0c699f4064cc054a392ab1f30f8512c6",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bowl_soup",
+    "name": "Tigela de sopa",
+    "originalModelName": "bowl-soup",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bowl-soup.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "904fd3fa7e102b1ad414fbf4a37fa0165791f24f950243366b2e49f3794a0095",
+    "bytes": 21960,
+    "description": "Tigela de sopa, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "tigela",
+      "soup"
+    ],
+    "geometrySignature": "06f2383302f3f591b2526c546ea200393e3151ad453171e407b65ce59e73ddf4",
     "animationCount": 0
   },
   {
@@ -4365,6 +4549,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_watercraft_kit_boat_speed_f",
+    "name": "Lancha esportiva F",
+    "originalModelName": "boat-speed-f",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-f.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "769adc250e142a73a43f908e1da0d3ac7f34d3a21e5733a214f3b285587e5175",
+    "bytes": 31156,
+    "description": "Modelo 3D original Boat Speed F do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0350cd60b3e56130b25542fcf9bc9dafb733943554e58bccde01087b44e64a81",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_sedan",
     "name": "Sedã",
     "originalModelName": "sedan",
@@ -4385,6 +4592,29 @@
       "low-poly"
     ],
     "geometrySignature": "02c0210824f57adf38569174c288fa3d2821c70140066c27b7b79d58d3d29949",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_sedan_sports",
+    "name": "Sedã esportivo",
+    "originalModelName": "sedan-sports",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/sedan-sports.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9865e0ebae4e7e588d5e5891d9953e2fdc52e51e9e97291b7b5d2ecee59ca5f8",
+    "bytes": 190056,
+    "description": "Modelo 3D original Sedã esportivo do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "09c3e664d3d5458e482882b32045d637a3f79f8d4827db52b7ba54b475d2fe2f",
     "animationCount": 0
   },
   {
