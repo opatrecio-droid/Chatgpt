@@ -1211,6 +1211,51 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-halfcorner-rock",
+    "name": "Penhasco meio quina rocha",
+    "originalModelName": "cliff_halfCorner_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_halfCorner_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "66bf0d002431f55e99aad464862c133420b3e4b78cf878091c7b5d94ed371ec9",
+    "bytes": 3128,
+    "description": "Modelo estilizado de penhasco meio quina rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "meio",
+      "quina",
+      "rocha"
+    ],
+    "geometrySignature": "05fc9fa6927eaab9d511fd661f58b8e649192c647d5c86b0f4ddfcbe6cc81f09",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-half-rock",
+    "name": "Penhasco meio rocha",
+    "originalModelName": "cliff_half_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_half_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ceeb985b16171ac5b30794239de27779ad0b39f389f8b8a8b1e03f1f89961995",
+    "bytes": 5316,
+    "description": "Modelo estilizado de penhasco meio rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "meio",
+      "rocha"
+    ],
+    "geometrySignature": "0091e4d554773f11d8e7a2533446ad15f1b82dfa5fb3bf2682b27eeba10accf0",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-cornerinner-rock",
     "name": "Penhasco quina interno rocha",
     "originalModelName": "cliff_cornerInner_rock.glb",
@@ -2073,6 +2118,30 @@
     "animationCount": 6
   },
   {
+    "id": "k_actor_quaternius_mrjslwcjhm",
+    "name": "Peixe-pescador",
+    "originalModelName": "Anglerfish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/anglerfish_mrjslwcjhm.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/MRjSlwCjHM",
+    "sourceDownload": "https://static.poly.pizza/0c4802f0-32f9-4a2a-90a5-56b94c33e37e.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cf839231b3e84a88ca9b57163c9e67183ba8ff12ef3823638137ddfda37434c0",
+    "bytes": 182328,
+    "description": "Modelo 3D original de Anglerfish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "0edc8ee765ba737b8dab0d82591ae42deb8ac976044dd9dfcfa1aabbab7dd5dc",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_9nglbtpder",
     "name": "Pombo",
     "originalModelName": "Pigeon",
@@ -2804,6 +2873,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_mini_characters_wheelchair_deluxe",
+    "name": "Cadeira de rodas de luxo",
+    "originalModelName": "wheelchair-deluxe",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/wheelchair-deluxe.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "465de97721e6f5f3ac10534233e8ee721f111ec1b90d23efdc457cbcce98d6a2",
+    "bytes": 69344,
+    "description": "Modelo 3D original Wheelchair Deluxe do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "cenário",
+      "prop",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0b2e33922d1f07b3bd4b39a89d6b66a6787c73c9fda5c98d51376880e49bbb81",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_bed",
     "name": "Cama",
     "category": "props",
@@ -3529,6 +3621,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_desk_computerCorner",
+    "name": "Mesa de computador de canto",
+    "originalModelName": "desk_computerCorner",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/desk_computerCorner.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e98f3547cebacede85a72b429f6326a8326d815adaabe6c4271ca02226bee4e1",
+    "bytes": 8720,
+    "description": "Modelo 3D original Desk Computercorner do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "04551797599eab3ee3f9ad6973d238cf67c9d2c2f0f37de31a29d0973904f78f",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_mini_characters_aid_crutch",
     "name": "Muleta",
     "originalModelName": "aid-crutch",
@@ -3549,6 +3664,29 @@
       "low-poly"
     ],
     "geometrySignature": "07ec12e6c2066f3baa5d0756c652a0086f5b487a73d462022ba1150eb9af4b71",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_mini_characters_aid_mask",
+    "name": "Máscara",
+    "originalModelName": "aid-mask",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/aid-mask.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f699243be00f5864accab5bcd50376146d738cab377e83445d2722183e9c68f0",
+    "bytes": 24576,
+    "description": "Modelo 3D original Aid Mask do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "018163440be81e104bf93d2db84f52ccbea9cb941acf437bd92e15fea324fc13",
     "animationCount": 0
   },
   {
@@ -3759,6 +3897,28 @@
       "city kit roads"
     ],
     "geometrySignature": "02fcd54770b618a30feac98a557884ce486bca204d38698760006d3e5ccb6a19",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bread",
+    "name": "Pão",
+    "originalModelName": "bread",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bread.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f1e3c42c82294c0c3e90dc3c33551df63e330f539174e09f464a71260998097f",
+    "bytes": 20240,
+    "description": "Pão, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "pão"
+    ],
+    "geometrySignature": "0464b9ad9aef6987ad52232cd5b5098b45260c6cb2d92c16256c7ec11304b343",
     "animationCount": 0
   },
   {
@@ -4028,6 +4188,29 @@
       "castle kit"
     ],
     "geometrySignature": "023877bdbaaa6bd8bb4a48210c9876f5396a33fd11cb115fb36ef2e382e2f50d",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_road_bridge",
+    "name": "Trecho de ponte rodoviária",
+    "originalModelName": "road-bridge.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/road_bridge.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "db5383e3f90552e53fddf176e7b01f06bd76808fbe5cf00e0984fbcc8c3c81f5",
+    "bytes": 36276,
+    "description": "Segmento modular de pista sobre uma ponte.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "07d18fe5bca1f365abf3ddbcbd99771ce270f7f4d4edbaaeaf8176a1017fbb25",
     "animationCount": 0
   },
   {
@@ -4777,6 +4960,52 @@
       "low-poly"
     ],
     "geometrySignature": "0331ea393ceb655456ec0ccfc788c78c171e1cfad7894048ec84303240574e64",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_speed_h",
+    "name": "Lancha esportiva H",
+    "originalModelName": "boat-speed-h",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-h.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "4008efd0373b727d99f113e6f58413a517219300827ca3399c8098aef7ad0a78",
+    "bytes": 28680,
+    "description": "Modelo 3D original Boat Speed H do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00339d44a7dd3cdf0cf7eddb3e333998db74e8d074b48d30b3e4c029872a1f0b",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_suv",
+    "name": "SUV",
+    "originalModelName": "suv",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/suv.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c6446aad5173f89aa1b8a61fd72fb203879cc7bba0faf659814c9a4c3c691428",
+    "bytes": 219948,
+    "description": "Modelo 3D original SUV do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "01d1cf458ee9241c7da1f2bdca15e8345f4cf370c8f29ecf3afbad07bb811af6",
     "animationCount": 0
   },
   {
