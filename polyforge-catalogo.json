@@ -574,6 +574,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_bumper",
+    "name": "Para-choque solto",
+    "originalModelName": "debris-bumper",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-bumper.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f5ebaf3d6debac0c32b35b29178f766994249a86e188dd8758a5faba4cd3db2e",
+    "bytes": 23736,
+    "description": "Modelo 3D original Para-choque solto do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "027c15e24c7ea3f73701ec7252b6ee62ac4409d33d3de75e695b25ea8161dc9c",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_debris_bolt",
     "name": "Parafuso solto",
     "originalModelName": "debris-bolt",
@@ -1101,6 +1124,50 @@
       "simples"
     ],
     "geometrySignature": "00b94753540675ae8ee8660564a0ca4b3a0ba91442a3de5fb1e4a81da449bcce",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-wheatstagea",
+    "name": "Cultivos trigo estágio A",
+    "originalModelName": "crops_wheatStageA.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_wheatStageA.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d8c690d473a230741cf4d03fa6a69a405f0ae6a246847a2a72e7f50dd5bebc08",
+    "bytes": 56228,
+    "description": "Modelo estilizado de cultivos trigo estágio A, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "trigo",
+      "estágio"
+    ],
+    "geometrySignature": "02e58c8ab68f823fb73370fa6e8bf2b735062676f5ca13ce4b34823bd9dc57eb",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-wheatstageb",
+    "name": "Cultivos trigo estágio B",
+    "originalModelName": "crops_wheatStageB.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_wheatStageB.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "589db4d6fe0bd7616c1f1c2f10a335704b2dad5d24638dc08a5b2e5334c68852",
+    "bytes": 30040,
+    "description": "Modelo estilizado de cultivos trigo estágio B, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "trigo",
+      "estágio"
+    ],
+    "geometrySignature": "031350619b7910f7424a4a2297ef8baf01de4ded7307eb597b795719081f48fc",
     "animationCount": 0
   },
   {
@@ -3477,6 +3544,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_candy_bar",
+    "name": "Barra de chocolate",
+    "originalModelName": "candy-bar",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/candy-bar.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "583eaa24cb7cd42286d09665de08aebb7d8c6a6634cd69ab26a0be68249366c0",
+    "bytes": 18272,
+    "description": "Barra de chocolate, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "doce",
+      "barra"
+    ],
+    "geometrySignature": "03de5e902bc797202268efffa0ff790a785b1936976c43c7f98514277446875f",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_tent_detailed_closed",
     "name": "Barraca",
     "category": "props",
@@ -4013,6 +4103,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_c",
+    "name": "Casa suburbana modelo C",
+    "originalModelName": "building-type-c.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_c.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "554f82156171a20eb17703b5507e9d37c6120d0aa13aa32be1ceb341180b213b",
+    "bytes": 111428,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo c, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "0e2d74e2e28d3c6d5a1b3d33dd7bb51230e27c4152cd5bbc2dbad4b4eecbfaaf",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -4493,6 +4606,29 @@
       "city kit commercial"
     ],
     "geometrySignature": "0d073aae201ddb443680bac1c4d4af9dee6d9168df71611edcd2ee12467daf35",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_commercial_building_c",
+    "name": "Edifício c",
+    "originalModelName": "building-c.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_c.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "35ec81c361067c932eb0437e40a3d7ab528b66a84d51dd5a581acf2b5615ced0",
+    "bytes": 113848,
+    "description": "Modelo low-poly original do Kenney: edifício c, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "00ae826cbb15cec742085047b46d07d902ffd99b2cd7666c690df7f95a6b9a95",
     "animationCount": 0
   },
   {
@@ -5648,6 +5784,52 @@
       "acampamento"
     ],
     "geometrySignature": "05d376eb7f3a164fb4c432be11166448eb21cb17ff83060f3f032cee726d72e0",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-stoneround",
+    "name": "Ponte pedra arredondado",
+    "originalModelName": "bridge_stoneRound.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_stoneRound.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "0b2254c5eb59a5fac2c7185cdc9af8efb941a31f0c0fb5a3fabaeb60c0108b41",
+    "bytes": 22552,
+    "description": "Modelo estilizado de ponte pedra arredondado, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "pedra",
+      "arredondado",
+      "acampamento"
+    ],
+    "geometrySignature": "02a0fdcb449db9b5d6b094107a7fe815fd3fd356ccd401b516184483614e02e0",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-stonenarrow",
+    "name": "Ponte pedra estreito",
+    "originalModelName": "bridge_stoneNarrow.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_stoneNarrow.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ea011dbaa2926013456c001ac93d24be07c2b1bed98fe5b24aae372f68c5ff24",
+    "bytes": 17724,
+    "description": "Modelo estilizado de ponte pedra estreito, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "pedra",
+      "estreito",
+      "acampamento"
+    ],
+    "geometrySignature": "020ace488af4edb35250089e0bf946dcee80c6dbf658ed1bea4a1479fc9738ac",
     "animationCount": 0
   },
   {
@@ -7237,6 +7419,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_craft_speederA",
+    "name": "Nave veloz A",
+    "originalModelName": "craft_speederA",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/craft_speederA.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "dc48652fa5c59088a5e3902abce7598199f32e0dcb8c91bac25e17bb8ce15876",
+    "bytes": 20496,
+    "description": "Modelo 3D original Craft Speeder A do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0988e25adfca1933a7c9ccafa609e905caa049dc129d9f8b180d469938da1fd3",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_watercraft_kit_ship_cargo_a",
     "name": "Navio cargueiro A",
     "originalModelName": "ship-cargo-a",
@@ -7487,6 +7692,29 @@
       "low-poly"
     ],
     "geometrySignature": "09c3e664d3d5458e482882b32045d637a3f79f8d4827db52b7ba54b475d2fe2f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_ship_ocean_liner_small",
+    "name": "Transatlântico pequeno",
+    "originalModelName": "ship-ocean-liner-small",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/ship-ocean-liner-small.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b4e7ae989f00a62d6cf9077b43d37f3ae6d21fa28facc8c9317a41930208d9c6",
+    "bytes": 154576,
+    "description": "Modelo 3D original Transatlântico pequeno do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "11bddfb82d31a97d6ff55252e3368669eafd69ff8ebe8020ec1191b9f636f69b",
     "animationCount": 0
   },
   {

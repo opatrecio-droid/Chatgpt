@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 325,
+  "catalogueCount": 335,
   "models": [
     {
-      "id": "k_actor_car_kit_debris_bolt",
+      "id": "k_actor_car_kit_debris_bumper",
       "meshes": 1,
-      "triangles": 36,
+      "triangles": 116,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.3323468000099035,
         2,
-        1.5384616178168375
+        0.6153846471267351,
+        0.692307722286361
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-leafsstagea",
+      "id": "k_nature_crops-wheatstagea",
       "meshes": 1,
-      "triangles": 76,
+      "triangles": 720,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.7352017805969147,
         3,
-        2.7352017805969147
+        1.8621060468497752,
+        2.483465254497524
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-leafsstageb",
-      "meshes": 1,
-      "triangles": 84,
+      "id": "k_nature_crops-wheatstageb",
+      "meshes": 2,
+      "triangles": 360,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.7252684116567163,
         3,
-        1.7252684116567163
+        2.974024310119325,
+        2.483465254497524
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_suburban_building_type_b",
+      "id": "k_props_food_candy_bar",
       "meshes": 1,
-      "triangles": 1748,
+      "triangles": 72,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        1.244529545903922,
-        1.2472647077390042
+        0.4465204364121364,
+        0.5097414369577433
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_commercial_building_b",
+      "id": "k_world_city_kit_suburban_building_type_c",
       "meshes": 1,
-      "triangles": 1276,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.5003868539718455,
-        2,
-        1.453983000921037
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_candy_bar_wrapper",
-      "meshes": 1,
-      "triangles": 48,
+      "triangles": 1196,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        0.5553394064115026,
-        0.7997614574898456
+        1.6068980088852316,
+        1.5984974432255206
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_can",
+      "id": "k_world_city_kit_commercial_building_c",
       "meshes": 1,
-      "triangles": 156,
+      "triangles": 1195,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.8750001164153245,
-        2,
-        1.8750001164153245
+        1.6212620577041812,
+        1.6385319825646039,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_bridge-stone",
+      "id": "k_nature_bridge-stoneround",
+      "meshes": 2,
+      "triangles": 360,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.8653846153846153,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_bridge-stonenarrow",
       "meshes": 2,
       "triangles": 252,
       "textures": 0,
       "preserved": true,
       "bounds": [
         2,
-        0.7692307692307692,
-        2
+        0.673076923076923,
+        1.6153846153846152
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_craft_racer",
+      "id": "k_actor_space_kit_craft_speederA",
       "meshes": 4,
       "triangles": 280,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.1847928753981174,
-        0.7404955471238234,
-        1.9999999999999996
+        1.904761904761905,
+        0.7619047619047621,
+        2.0000000000000004
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_ship_large",
-      "meshes": 6,
-      "triangles": 1849,
-      "textures": 6,
+      "id": "k_actor_watercraft_kit_ship_ocean_liner_small",
+      "meshes": 1,
+      "triangles": 1750,
+      "textures": 1,
       "preserved": true,
       "bounds": [
-        0.732824435261022,
-        1.5211480549485283,
-        1.9999999999999998
+        0.626315686114949,
+        1.1754999589982833,
+        2
       ],
       "gl": 0
     }
