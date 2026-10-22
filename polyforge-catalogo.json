@@ -597,6 +597,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_plate_a",
+    "name": "Painel de carroceria A",
+    "originalModelName": "debris-plate-a",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-plate-a.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d88d0550f954ba98674f4df979d5fa108f39785c12df387d9f730d7faca668f4",
+    "bytes": 17472,
+    "description": "Modelo 3D original Placa de carroceria A do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "10d217dcc438e4bb245c6a7086eb6a52bbdcd627d51fcbc88aaffad98ab9e02c",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_debris_bumper",
     "name": "Para-choque solto",
     "originalModelName": "debris-bumper",
@@ -640,6 +663,29 @@
       "low-poly"
     ],
     "geometrySignature": "06977ea942fe779a3ae9ff2614516ca7d6c1f73651a2c3e2de52575993a8e6cf",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_debris_nut",
+    "name": "Porca solta",
+    "originalModelName": "debris-nut",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-nut.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "0eeb2e974378c25b0d73cc1adb1aaafb8ed9d00954eeac7d5ebddc1d12fce6d2",
+    "bytes": 17172,
+    "description": "Modelo 3D original Porca solta do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "149c5474846f9de6e87ccfb5edf5ef8d9b73b4d8358bc292a658405c9d00bd6c",
     "animationCount": 0
   },
   {
@@ -1646,6 +1692,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_grass-leafslarge",
+    "name": "Grama folhas grande",
+    "originalModelName": "grass_leafsLarge.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/grass_leafsLarge.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a68b9b3d9639afaeb4ace840d5a8e3f21ffc4e8afc1eab15566500fbb2bee3e3",
+    "bytes": 13988,
+    "description": "Modelo estilizado de grama folhas grande, malha original do pacote Nature Kit.",
+    "tags": [
+      "grama",
+      "folhas",
+      "grande"
+    ],
+    "geometrySignature": "0cd3f08f3ab57d550a9bcd6cd7c375f34fbc130b289a2ef5edbbbf04008a2726",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_grass-large",
     "name": "Grama grande",
     "originalModelName": "grass_large.glb",
@@ -2403,6 +2471,27 @@
     "bytes": 692724,
     "description": "Authored Quaternius Fern nature asset, preserving the original published geometry and materials.",
     "originalModelName": "Fern",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-grass",
+    "name": "Solo grama",
+    "originalModelName": "ground_grass.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_grass.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "da741e8ab34ca70c0c85ccda21538558a798188db2f1e265885bcdd226a5cca2",
+    "bytes": 1576,
+    "description": "Modelo estilizado de solo grama, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "grama"
+    ],
+    "geometrySignature": "4215c37e1e5dbf36159ab76fc3ae23f1020ff175e4cf51b556a8999d1050fdf0",
     "animationCount": 0
   },
   {
@@ -4522,6 +4611,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_h",
+    "name": "Casa suburbana modelo H",
+    "originalModelName": "building-type-h.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_h.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1b2573dd4164efeaa1225fe6b0d563e726e8a2d0b65bc718321602324bfd246e",
+    "bytes": 77200,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo h, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "020064969a94a5d765d998599f512391aec9adbb70c9a47795372623856ea0cb",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -5164,6 +5276,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_building_h",
+    "name": "Edifício h",
+    "originalModelName": "building-h.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_h.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "11442a83c08ad9370e0a5c9ff13f85ca1adcef3d40636badd8b008a93965c898",
+    "bytes": 138444,
+    "description": "Modelo low-poly original do Kenney: edifício h, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "0319da6a47ad43cc953dfa73c3c14e09590bbd0b1bc85b6e6990e75a2affe652",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_candy_bar_wrapper",
     "name": "Embalagem de barra de chocolate",
     "originalModelName": "candy-bar-wrapper",
@@ -5386,6 +5521,28 @@
       "acampamento"
     ],
     "geometrySignature": "017e93e2c5ed29e03299c3fc662e685c0b5be661a9427ef152c8d292ac651af6",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_campfire-planks",
+    "name": "Fogueira tábuas",
+    "originalModelName": "campfire_planks.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/campfire_planks.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "0d26e842f7f5cb607ad37205e930822656b7c6ba570f9d0ba6b039cea90f8ab7",
+    "bytes": 8148,
+    "description": "Modelo estilizado de fogueira tábuas, malha original do pacote Nature Kit.",
+    "tags": [
+      "fogueira",
+      "tábuas",
+      "acampamento"
+    ],
+    "geometrySignature": "00e8a10344908d58f2d4a165d5f529c1e57a9c679bbb0c28f947800c4063bd85",
     "animationCount": 0
   },
   {
@@ -6610,6 +6767,28 @@
       "pão"
     ],
     "geometrySignature": "0464b9ad9aef6987ad52232cd5b5098b45260c6cb2d92c16256c7ec11304b343",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cheese",
+    "name": "Queijo",
+    "originalModelName": "cheese",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cheese.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6c91c995046dc1510fda1939f4dd85628bee8b1ff871b4dd44a4275d5e26fc18",
+    "bytes": 71628,
+    "description": "Queijo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "queijo"
+    ],
+    "geometrySignature": "006cc678ca2891a4720703c1b0d452b3809caf379c81c767aac19ec7b245b7bd",
     "animationCount": 0
   },
   {
@@ -8708,6 +8887,52 @@
       "low-poly"
     ],
     "geometrySignature": "02f4ae5923a507a62173d8558d8bb62801b8f74675ccd987884acfe8c3ed3c3d",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_monorail_trainFlat",
+    "name": "Vagão plataforma de monotrilho",
+    "originalModelName": "monorail_trainFlat",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/monorail_trainFlat.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9267e20feebfb09bd2a56ee87f670b7fff52e5d717b5b535a3be2caf78875e60",
+    "bytes": 7544,
+    "description": "Modelo 3D original Monorail Trainflat do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "100d7b09cf97da1431a5b277cccc7ccb336b9e0a3c336a17e4e14b88d0fad66d",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_monorail_trainEnd",
+    "name": "Vagão traseiro de monotrilho",
+    "originalModelName": "monorail_trainEnd",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/monorail_trainEnd.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6f254e6793df0671ca2e711cc85ecf33cc7a39803d2a3e36d78c4ccedbe95d7b",
+    "bytes": 13356,
+    "description": "Modelo 3D original Monorail Trainend do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "036564f7aa656ba75df6f14d45e68b1015566d9af5cff6ebddfb25e8c2cbca4d",
     "animationCount": 0
   },
   {
