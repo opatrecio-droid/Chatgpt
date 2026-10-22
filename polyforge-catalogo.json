@@ -90,6 +90,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_astronautB",
+    "name": "Astronauta B",
+    "originalModelName": "astronautB",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/space-kit/astronautB.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6fa5b3e11cb3d117b28a0794b261ad9107f16ca6ce886b288493e22493d74d2d",
+    "bytes": 27824,
+    "description": "Modelo 3D original Astronaut B do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "01f3b9fdf49ceda804127444f3332f904ccaa6aee48a82c109e6cf52bd71edad",
+    "animationCount": 0
+  },
+  {
     "id": "web_characters_pirate_captain",
     "name": "Capitão pirata",
     "category": "characters",
@@ -1072,6 +1095,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-cornerinner-rock",
+    "name": "Penhasco quina interno rocha",
+    "originalModelName": "cliff_cornerInner_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_cornerInner_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "fd04f7428e961511dc3fba4ee5127f1a048b89dcbd65f88578579c2b134ac44c",
+    "bytes": 5008,
+    "description": "Modelo estilizado de penhasco quina interno rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "quina",
+      "interno",
+      "rocha"
+    ],
+    "geometrySignature": "01ab51ca7b180d932b5a43bc739c25d04cedd65a48cec16da865a6479d7ad7ce",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-cornerinnertop-rock",
     "name": "Penhasco quina interno topo rocha",
     "originalModelName": "cliff_cornerInnerTop_rock.glb",
@@ -1093,6 +1139,29 @@
       "rocha"
     ],
     "geometrySignature": "06ec4fc29d48f345683fcc0d1a7dc54cf5e7e895571c335a76d6ca4bf380d4fc",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-cornertop-rock",
+    "name": "Penhasco quina topo rocha",
+    "originalModelName": "cliff_cornerTop_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_cornerTop_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1cebec53101f64332d911dfffb752b9d465224e7a2f91a25f8532fa749fee1b6",
+    "bytes": 3108,
+    "description": "Modelo estilizado de penhasco quina topo rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "quina",
+      "topo",
+      "rocha"
+    ],
+    "geometrySignature": "0abfd2ef338872460a7412f3fa5c164492719897e8db779ad2499eba36b37857",
     "animationCount": 0
   },
   {
@@ -1440,6 +1509,30 @@
     ],
     "geometrySignature": "01e0ce4aea6cdef44fa8aaaef2903ca69efc187234394bc8781905dca37e7f77",
     "animationCount": 8
+  },
+  {
+    "id": "k_actor_quaternius_uassutyyae",
+    "name": "Cavala",
+    "originalModelName": "Fish Mackerel",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/fish_mackerel_uassutyyae.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/uassUTYYae",
+    "sourceDownload": "https://static.poly.pizza/66fbd4f3-2901-4fc0-8ee1-9e21a96efc7c.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1e56926aa21c7cdab721937d35caf77fa13356a27e1a814f4b82212e1d0bc6b8",
+    "bytes": 45428,
+    "description": "Modelo 3D original de Fish Mackerel, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "0b97c7919a586e6797125de9972e95dd6ed0ebea66b9dfc5a78f02874d50d126",
+    "animationCount": 0
   },
   {
     "id": "web_animals_horse",
@@ -3204,6 +3297,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_mini_characters_aid_crutch",
+    "name": "Muleta",
+    "originalModelName": "aid-crutch",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/aid-crutch.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "54614311bdeb77a5fa7c9c883863073a3de24532befe2fba9e4bf4bd1c2a88fe",
+    "bytes": 24752,
+    "description": "Modelo 3D original Aid Crutch do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "07ec12e6c2066f3baa5d0756c652a0086f5b487a73d462022ba1150eb9af4b71",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_statue_obelisk",
     "name": "Obelisco",
     "category": "props",
@@ -3242,6 +3358,29 @@
       "low-poly"
     ],
     "geometrySignature": "05d0d20f59313d37de7e1b2fb6cb79dbbfc6d43f8fa588ef6514a5d041007464",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_industrial_solar_panel_landscape",
+    "name": "Painel solar horizontal",
+    "originalModelName": "solar-panel-landscape.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-industrial/solar_panel_landscape.glb",
+    "author": "Kenney",
+    "pack": "City Kit Industrial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-industrial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "447524fab3429b5c23f33df50fa1eb6ae3cf6c3f501adb3d879b11d7b03216ca",
+    "bytes": 33816,
+    "description": "Painel fotovoltaico industrial montado na orientação horizontal.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit industrial"
+    ],
+    "geometrySignature": "035b704cc2c8ff06a8edbc3a22e7c76a879d4fd92b5e7fef0c9a29e2328c9c94",
     "animationCount": 0
   },
   {
@@ -3319,6 +3458,29 @@
     "bytes": 27652,
     "description": "Original Kenney Nature Kit low-poly fence gate model, preserved from the pack GLB.",
     "originalModelName": "Fence Gate",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_electricity_pole",
+    "name": "Poste elétrico",
+    "originalModelName": "electricity-pole.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/electricity_pole.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8a2a394d969fcd1172d47c8de5017e1ab633cce677ec18c1c859c090dd8ed22f",
+    "bytes": 55136,
+    "description": "Poste urbano para sustentação de linhas elétricas.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "02fcd54770b618a30feac98a557884ce486bca204d38698760006d3e5ccb6a19",
     "animationCount": 0
   },
   {
@@ -3451,6 +3613,29 @@
       "caldo"
     ],
     "geometrySignature": "0545cde10f5848e2b9215971cbfd1ffa662c7b6627a11a39e96da81464d3f003",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bowl_cereal",
+    "name": "Tigela de cereal",
+    "originalModelName": "bowl-cereal",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bowl-cereal.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "bec1ac79103ab704b12390e41e4c3a486aa6c0dfa6845243815120375bc15457",
+    "bytes": 23236,
+    "description": "Tigela de cereal, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "tigela",
+      "cereal"
+    ],
+    "geometrySignature": "00bb44a138a9a8ef524d49e6774a215d0c699f4064cc054a392ab1f30f8512c6",
     "animationCount": 0
   },
   {
@@ -3763,6 +3948,29 @@
     "bytes": 15780,
     "description": "Original Kenney Nature Kit low-poly canoe model, preserved from the pack GLB.",
     "originalModelName": "Canoe",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_race",
+    "name": "Carro de corrida",
+    "originalModelName": "race",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/race.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ff0e31aa2925e4e5c5c158c86767b3380f3f06efa9266a935a6932835844ab9e",
+    "bytes": 179656,
+    "description": "Modelo 3D original Carro de corrida do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "024ebc5066d890d3796e4bc94dfe4ddd22808bba8462cd83fd0e07d946673d58",
     "animationCount": 0
   },
   {
@@ -4131,6 +4339,29 @@
       "low-poly"
     ],
     "geometrySignature": "068ac312e6883af503f3ec46af0ba682fa577e439d4edd9ab1199054eb2528ca",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_speed_e",
+    "name": "Lancha esportiva E",
+    "originalModelName": "boat-speed-e",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-e.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a4dcedafca565f18c62f0e8cccd7270e88ccb972f3fc93a3430d6347ce277bea",
+    "bytes": 33984,
+    "description": "Modelo 3D original Boat Speed E do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00846a76208b2e501352d803df4f14ee30b726cf67b833b546a34c30d86210d5",
     "animationCount": 0
   },
   {
