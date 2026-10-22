@@ -675,6 +675,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_crops-bamboostagea",
+    "name": "Cultivos bambu estágio A",
+    "originalModelName": "crops_bambooStageA.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_bambooStageA.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7bafbd69c78b1f6b92fe72e8fd6d1b6ea4b25d6af141c0baa85c27b60aa34e41",
+    "bytes": 22092,
+    "description": "Modelo estilizado de cultivos bambu estágio A, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "bambu",
+      "estágio"
+    ],
+    "geometrySignature": "14aea6a6ecf5f01612dfa884d4411a37f85a9a986bf8d7d997b7c82a0451bd76",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-steps-rock",
     "name": "Degraus de rocha",
     "originalModelName": "cliff_steps_rock.glb",
@@ -1140,6 +1162,29 @@
       "rocha"
     ],
     "geometrySignature": "279e53269c4c6abc74dd42ed4cb8471e3bf8f335be0941b511578e35c17c31f0",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-waterfalltop-rock",
+    "name": "Penhasco cachoeira topo rocha",
+    "originalModelName": "cliff_waterfallTop_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_waterfallTop_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c5f7b299f3a8ec16c138bd962eace461f06a882f3614c396d3ba8020f1a8bbe6",
+    "bytes": 7076,
+    "description": "Modelo estilizado de penhasco cachoeira topo rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "cachoeira",
+      "topo",
+      "rocha"
+    ],
+    "geometrySignature": "0ee8b3db9ac2ba4803efcd1b50a2f905ba78db4b7d605b1688ffc5b82d73e6ed",
     "animationCount": 0
   },
   {
@@ -2277,6 +2322,30 @@
     "animationCount": 6
   },
   {
+    "id": "k_actor_quaternius_imxzbhz1ys",
+    "name": "Peixe-dourado-azul",
+    "originalModelName": "Blue Goldfish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/blue_goldfish_imxzbhz1ys.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/imxZBHZ1yS",
+    "sourceDownload": "https://static.poly.pizza/2da5383d-4fd5-49bd-a7ea-197f654bc34d.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c44e989a0cf9f703594bc80bab227355d71d7d30f7f6e773c87e15b2d49ccea0",
+    "bytes": 177432,
+    "description": "Modelo 3D original de Blue Goldfish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "075d00d18931c801c1a4f1200ba5dd6cb8cb4e79f2acd0463d5e26f283a1c74a",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_4k2s68ursg",
     "name": "Peixe-leão-negro",
     "originalModelName": "Black Lion Fish",
@@ -2787,6 +2856,29 @@
       "bacon"
     ],
     "geometrySignature": "07fa919590014c0584bdc3953440a077d2c6ca89fbe03a56668b02a58b427b8c",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_castle_kit_siege_ballista",
+    "name": "Balista de cerco",
+    "originalModelName": "siege-ballista.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/castle-kit/siege_ballista.glb",
+    "author": "Kenney",
+    "pack": "Castle Kit",
+    "sourcePage": "https://kenney.nl/assets/castle-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3f92e83cdec20a3783aafab71db5671e12ade08dd6af8c54be19c20731942f2c",
+    "bytes": 72164,
+    "description": "Arma medieval de cerco montada sobre suporte.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "castle kit"
+    ],
+    "geometrySignature": "059ecc7c385855c655b0bbb3dace83dc8aef2fddf7a98658676d8bf8517556cd",
     "animationCount": 0
   },
   {
@@ -3827,6 +3919,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_machine_generator",
+    "name": "Gerador",
+    "originalModelName": "machine_generator",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/machine_generator.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "98e8ac6aceada3b2483ed1eceb59bff7190ee774edac799350ccc11ad140f7f3",
+    "bytes": 28044,
+    "description": "Modelo 3D original Machine Generator do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "06ced993fe71dac2d52ea3f275015f2106fbd306bb8b89d47045065c981998e1",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_construction_fence",
     "name": "Grade de obras",
     "originalModelName": "construction-fence.glb",
@@ -3893,6 +4008,29 @@
       "queijo"
     ],
     "geometrySignature": "04f66428d2dbd48dc32497dd4b972001e6a5bbe6f6ff7fe611c9af629df03b11",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_burger_double",
+    "name": "Hambúrguer duplo",
+    "originalModelName": "burger-double",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/burger-double.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7621de4941ce926c4122d7bf5ef740ff8ee32700ac676b0747a22d4abcfa48cb",
+    "bytes": 66372,
+    "description": "Hambúrguer duplo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "hambúrguer",
+      "duplo"
+    ],
+    "geometrySignature": "018648ef5e98f2aa59c10862134159737169d15cd140657bd0a2e7277839d35a",
     "animationCount": 0
   },
   {
@@ -4297,6 +4435,52 @@
       "city kit roads"
     ],
     "geometrySignature": "04ecc2910e181d2c12355349de2f74db084bf8674b40e1e4411d82e977068abc",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_sign_highway",
+    "name": "Placa de rodovia",
+    "originalModelName": "sign-highway.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/sign_highway.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c0f9e6229fbc4de0222c38cd5da968387ed8685ee7451370ab289e7b8ea5bd59",
+    "bytes": 28772,
+    "description": "Placa elevada de orientação para rodovia.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "004767d63987ad0682d44faf5356262e7dc3ed29206b4ce1c59ad0aaf66da913",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_bridge-center-stone",
+    "name": "Ponte centro pedra",
+    "originalModelName": "bridge_center_stone.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/bridge_center_stone.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f3681603a3d6523f8298da7d4c8d00e653c6028136c3427af07952fa3ca10519",
+    "bytes": 5076,
+    "description": "Modelo estilizado de ponte centro pedra, malha original do pacote Nature Kit.",
+    "tags": [
+      "ponte",
+      "centro",
+      "pedra",
+      "acampamento"
+    ],
+    "geometrySignature": "076dcef72196e7e479b3114cc8f3d01a62275d3432d7e841694c7a553a65e67f",
     "animationCount": 0
   },
   {
@@ -4964,6 +5148,29 @@
       "low-poly"
     ],
     "geometrySignature": "005e702897066a995b0aa7e7e115416594e483acdf06c54162cd332a3ea30334",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_tow_b",
+    "name": "Barco de reboque B",
+    "originalModelName": "boat-tow-b",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-tow-b.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e3ff3cc6a5b044447d5ad991610e3acc4dbd290ea3dfbfafc5daeac891506908",
+    "bytes": 60348,
+    "description": "Modelo 3D original Barco de reboque B do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0038d7d5a86298b0454948591bcd5f9a507854ad175162412bc3cf16ae39dec9",
     "animationCount": 0
   },
   {
@@ -5695,6 +5902,29 @@
       "low-poly"
     ],
     "geometrySignature": "09c3e664d3d5458e482882b32045d637a3f79f8d4827db52b7ba54b475d2fe2f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_tractor",
+    "name": "Trator",
+    "originalModelName": "tractor",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/tractor.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "00a5daa336befe4342e3af410ea2196e2d7d656641a6706b7ff7be1f00f10994",
+    "bytes": 188340,
+    "description": "Modelo 3D original Trator do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "003ccd1a0d7dcf96f43958cb2d6fe5d5d6e4a49e2af3051d9e076958b6a1f369",
     "animationCount": 0
   },
   {
