@@ -1,73 +1,99 @@
 {
-  "catalogueCount": 145,
+  "catalogueCount": 155,
   "models": [
     {
-      "id": "k_actor_mini_characters_character_male_e",
+      "id": "k_actor_mini_characters_character_male_f",
       "meshes": 2,
-      "triangles": 710,
+      "triangles": 701,
       "textures": 2,
       "preserved": true,
       "bounds": [
-        2.2698412799886145,
+        2.2855351397453187,
         2,
-        1.0117853091993378
+        1.0129219779636567
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_9nglbtpder",
-      "meshes": 4,
-      "triangles": 2184,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.7,
-        1.304325633688817,
-        1.4558024509962844
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_flower-yellowb",
+      "id": "k_nature_cliff-blockslopehalfwalls-stone",
       "meshes": 2,
-      "triangles": 154,
+      "triangles": 106,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.600572441950051,
-        1.98804633520152,
+        3,
+        1.5,
         3
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_industrial_chimney_medium",
+      "id": "k_nature_cliff-blockslopehalfwalls-rock",
+      "meshes": 2,
+      "triangles": 106,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        1.5,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_quaternius_iclpbr6sbz",
+      "meshes": 2,
+      "triangles": 1354,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.47304273886479653,
+        1.301773372524953,
+        1.6999999999999997
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_construction_barrier",
       "meshes": 1,
-      "triangles": 160,
+      "triangles": 60,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.467532466728222,
-        2,
-        0.467532466728222
+        1.2044444668145833,
+        1.1555555437817981,
+        1.9999999999999998
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_kart_oopi",
-      "meshes": 6,
-      "triangles": 2726,
-      "textures": 6,
+      "id": "k_world_city_kit_industrial_chimney_small",
+      "meshes": 1,
+      "triangles": 124,
+      "textures": 1,
       "preserved": true,
       "bounds": [
-        1.36479922253131,
-        1.8618494340723113,
-        2
+        0.8000000317891438,
+        2,
+        0.8000000317891438
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_bottle_ketchup",
+      "id": "k_actor_space_kit_desk_computer",
+      "meshes": 3,
+      "triangles": 88,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999996,
+        1.4285714285714282,
+        0.8571428571428569
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_bottle_musterd",
       "meshes": 1,
       "triangles": 96,
       "textures": 1,
@@ -80,59 +106,34 @@
       "gl": 0
     },
     {
-      "id": "k_nature_cliff-blockcave-stone",
-      "meshes": 2,
-      "triangles": 56,
-      "textures": 0,
+      "id": "k_actor_car_kit_kart_oozi",
+      "meshes": 6,
+      "triangles": 2726,
+      "textures": 6,
       "preserved": true,
       "bounds": [
-        3,
-        3,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_bridge_pillar_wide",
-      "meshes": 1,
-      "triangles": 38,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.5600000023841858,
-        2,
-        0.5600000023841858
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_boat_speed_a",
-      "meshes": 1,
-      "triangles": 156,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.0593471222277209,
-        0.8902076823840159,
+        1.36479922253131,
+        1.8618494340723113,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_desk_chairStool",
-      "meshes": 2,
-      "triangles": 76,
-      "textures": 0,
+      "id": "k_actor_watercraft_kit_boat_speed_b",
+      "meshes": 1,
+      "triangles": 148,
+      "textures": 1,
       "preserved": true,
       "bounds": [
-        1.7777779041975401,
-        2,
-        1.7777779041975401
+        1.0847065451450382,
+        0.9679231103044247,
+        2
       ],
       "gl": 0
     }
   ],
   "errors": [],
   "externalRequests": [],
-  "mobileWidth": 390
+  "mobileWidth": 390,
+  "verification": "Ten additions rendered with the same runtime; cumulative IDs and every retained GLB SHA-256 verified during build."
 }

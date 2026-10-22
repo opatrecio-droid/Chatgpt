@@ -365,6 +365,29 @@
     "animationCount": 32
   },
   {
+    "id": "k_actor_mini_characters_character_male_f",
+    "name": "Personagem masculina F",
+    "originalModelName": "character-male-f",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/mini-characters/character-male-f.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "76888216868dc44315305332abcfe0ec1addf39ba66a800989ebb0923b082af0",
+    "bytes": 257680,
+    "description": "Modelo 3D original Pessoa personagem masculina F do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0788a3c2c89ee4afca0ed04da20e0a349b057be57429396084267b027e35a891",
+    "animationCount": 32
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -880,6 +903,56 @@
       "pedra"
     ],
     "geometrySignature": "063b3bf7bd950e42f6b52e25c23bded13994232787809c7975f64171dd22638b",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-blockslopehalfwalls-stone",
+    "name": "Penhasco bloco inclinado meio paredes pedra",
+    "originalModelName": "cliff_blockSlopeHalfWalls_stone.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_blockSlopeHalfWalls_stone.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "afc1db3ed3cde8d7bb5669f220ea4e6998b59414208bc046e6356829fac581a0",
+    "bytes": 8884,
+    "description": "Modelo estilizado de penhasco bloco inclinado meio paredes pedra, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "bloco",
+      "inclinado",
+      "meio",
+      "paredes",
+      "pedra"
+    ],
+    "geometrySignature": "033e08df27cd42c3042aa3339c5bc494596254a91dce045f1aec8e910bf4dc5b",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-blockslopehalfwalls-rock",
+    "name": "Penhasco bloco inclinado meio paredes rocha",
+    "originalModelName": "cliff_blockSlopeHalfWalls_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_blockSlopeHalfWalls_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "95a25398990b978071d461998c442c034feb517ecea6538e88ed2ee957a2c3e6",
+    "bytes": 8880,
+    "description": "Modelo estilizado de penhasco bloco inclinado meio paredes rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "bloco",
+      "inclinado",
+      "meio",
+      "paredes",
+      "rocha"
+    ],
+    "geometrySignature": "012e5e45f7ee6a239ba09e267e570fee8ed215a61fade966870de3991dc7d2cb",
     "animationCount": 0
   },
   {
@@ -1837,6 +1910,30 @@
     "animationCount": 26
   },
   {
+    "id": "k_actor_quaternius_iclpbr6sbz",
+    "name": "Zebra",
+    "originalModelName": "Zebra",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/zebra_iclpbr6sbz.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/iclPBR6SBZ",
+    "sourceDownload": "https://static.poly.pizza/ff99ce31-85dd-4863-b145-24a6646a2b20.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "12c48d4d2e8fe43cf686a7debb613a51a805efbb0b1eee9a3d38328a9d516c9b",
+    "bytes": 384288,
+    "description": "Modelo 3D original de Zebra, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "295cbfe124f549286cd4a87a204e9d75e3cab9c06d44ed575d84272ec398d7f3",
+    "animationCount": 6
+  },
+  {
     "id": "k_props_food_avocado",
     "name": "Abacate",
     "originalModelName": "avocado",
@@ -1987,6 +2084,29 @@
     "bytes": 15460,
     "description": "Original Kenney Nature Kit low-poly tent detailed closed model, preserved from the pack GLB.",
     "originalModelName": "Tent Detailed Closed",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_construction_barrier",
+    "name": "Barreira de obras",
+    "originalModelName": "construction-barrier.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/construction_barrier.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "67d40cf1d24420f7c0aa29cee34988affc98119d06ce57ca904e11d9d0cb712b",
+    "bytes": 18532,
+    "description": "Barreira portátil para sinalização de obras.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "08b8a402594587668074c0f300d0dcb26e1bf7cd5c6100e79742cb04e64ab4af",
     "animationCount": 0
   },
   {
@@ -2419,6 +2539,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_industrial_chimney_small",
+    "name": "Chaminé industrial pequena",
+    "originalModelName": "chimney-small.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-industrial/chimney_small.glb",
+    "author": "Kenney",
+    "pack": "City Kit Industrial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-industrial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b43b823e4ba763c1d52ff87c6e6ac25c50a162480c77ee58ed3940366fd3db81",
+    "bytes": 22584,
+    "description": "Chaminé industrial compacta.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit industrial"
+    ],
+    "geometrySignature": "08a19e42367e77bd3df7f065394706e6e14e3880b2f2bd759cdc1a8087419664",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_building_kit_column_wide",
     "name": "Coluna larga de construção",
     "originalModelName": "column-wide.glb",
@@ -2439,6 +2582,29 @@
       "building kit"
     ],
     "geometrySignature": "092fd152d53e6392a9654d7f417818a3a48afcdb8a6c82c97ef33b220b177089",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_desk_computer",
+    "name": "Computador de mesa",
+    "originalModelName": "desk_computer",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/desk_computer.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a2a6c536db930352553d56833870956ec2790e8c6a71d4a2f93358cce36d12e3",
+    "bytes": 6972,
+    "description": "Modelo 3D original Desk Computer do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "05633b02ad7403c0e019cdf6717c837b0ef5dd3cf811b2d0325fc57844072b76",
     "animationCount": 0
   },
   {
@@ -2572,6 +2738,29 @@
       "ketchup"
     ],
     "geometrySignature": "02c39beb69ef2dfd7cdf443bad55d82974771abdb68e20affd0aab34e1c9b17c",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bottle_musterd",
+    "name": "Garrafa de mostarda",
+    "originalModelName": "bottle-musterd",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bottle-musterd.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a0e356f8c4d496a2ded0ffae8b32da3912c23481b4b2fcd075339b9b196a3b6d",
+    "bytes": 20388,
+    "description": "Garrafa de mostarda, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "garrafa",
+      "musterd"
+    ],
+    "geometrySignature": "0855a843a208a10fd22f20d1daef7f2823b82297be768c620ca13bec8f7d9080",
     "animationCount": 0
   },
   {
@@ -3412,6 +3601,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_kart_oozi",
+    "name": "Kart Oozi",
+    "originalModelName": "kart-oozi",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/kart-oozi.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5b4c18998a8722f524d1e22aba20a4748d0cff496adef4738cb323a48cf4b098",
+    "bytes": 253148,
+    "description": "Modelo 3D original Kart Oozi do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "03a3734a6cf9606f7917102f50ffb331c0ea3004c5d098638dd9bed404732fcd",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_watercraft_kit_boat_speed_a",
     "name": "Lancha esportiva A",
     "originalModelName": "boat-speed-a",
@@ -3432,6 +3644,29 @@
       "low-poly"
     ],
     "geometrySignature": "09a14cae394b2596ab6b32b22b3eefab0f50a04ecd20cceae5cbe9acf59de4cb",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_speed_b",
+    "name": "Lancha esportiva B",
+    "originalModelName": "boat-speed-b",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-b.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "59199755f7f8f4d07f9e18f6431195de3ce149749ca1af7a3df888f9e0038b02",
+    "bytes": 24660,
+    "description": "Modelo 3D original Boat Speed B do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "03a985de83e3b99dfafb8e833a016eeec71f8ea1d5dfe27019c4e6687c8447cc",
     "animationCount": 0
   },
   {
