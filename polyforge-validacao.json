@@ -1,49 +1,75 @@
 {
-  "catalogueCount": 405,
+  "catalogueCount": 435,
   "models": [
     {
-      "id": "k_actor_car_kit_debris_spoiler_a",
+      "id": "k_actor_car_kit_debris_spoiler_b",
       "meshes": 1,
-      "triangles": 48,
+      "triangles": 88,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        0.5454545553065526,
-        0.43158614241890164
+        0.699999988079071,
+        0.6747447848320007
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_debris_plate_small_a",
+      "id": "k_actor_car_kit_debris_tire",
       "meshes": 1,
-      "triangles": 28,
+      "triangles": 288,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.9999999999999998,
-        0.4444444628409402,
-        1.9999999999999998
+        1.1666666004392863,
+        2,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_debris_plate_small_b",
+      "id": "k_actor_car_kit_wheel_dark",
       "meshes": 1,
-      "triangles": 44,
+      "triangles": 332,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.9999999999999998,
-        0.8888889256818804,
-        1.9999999999999998
+        1.3333333002196432,
+        2,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_ground-pathcorner",
+      "id": "k_actor_car_kit_wheel_default",
+      "meshes": 1,
+      "triangles": 332,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.3333333002196432,
+        2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_ground-pathopen",
+      "meshes": 1,
+      "triangles": 8,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        0,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_ground-pathcross",
       "meshes": 3,
-      "triangles": 22,
+      "triangles": 74,
       "textures": 0,
       "preserved": true,
       "bounds": [
@@ -54,9 +80,9 @@
       "gl": 0
     },
     {
-      "id": "k_nature_ground-pathcornersmall",
+      "id": "k_nature_ground-pathend",
       "meshes": 3,
-      "triangles": 24,
+      "triangles": 52,
       "textures": 0,
       "preserved": true,
       "bounds": [
@@ -67,67 +93,301 @@
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_suburban_building_type_j",
-      "meshes": 1,
-      "triangles": 1210,
-      "textures": 1,
+      "id": "k_nature_ground-pathendclosed",
+      "meshes": 3,
+      "triangles": 68,
+      "textures": 0,
       "preserved": true,
       "bounds": [
-        2,
-        1.5145985696799613,
-        1.3372262852479897
+        3,
+        0.15000000000000002,
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_chocolate",
-      "meshes": 1,
-      "triangles": 140,
-      "textures": 1,
+      "id": "k_nature_ground-pathside",
+      "meshes": 3,
+      "triangles": 34,
+      "textures": 0,
       "preserved": true,
       "bounds": [
-        2,
-        0.230769242527662,
-        1
+        3,
+        0.15000000000000002,
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_commercial_building_j",
-      "meshes": 1,
-      "triangles": 5246,
-      "textures": 1,
+      "id": "k_nature_ground-pathrocks",
+      "meshes": 3,
+      "triangles": 102,
+      "textures": 0,
       "preserved": true,
       "bounds": [
-        2,
-        1.6250814219125167,
-        1.2862427991847996
+        3,
+        0.1500000000000011,
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_chocolate_wrapper",
+      "id": "k_props_food_cookie",
       "meshes": 1,
-      "triangles": 118,
+      "triangles": 68,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        0.44416746850022104,
-        1.381325406917366
+        0.45298163597859054,
+        1.7320508830069228
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_chopstic_decorative",
+      "id": "k_props_food_cookie_chocolate",
+      "meshes": 1,
+      "triangles": 136,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.73205072653272,
+        0.9314285817681526,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_corn_dog",
+      "meshes": 2,
+      "triangles": 64,
+      "textures": 2,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.31106485806239825,
+        0.35918683754448594
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_k",
+      "meshes": 1,
+      "triangles": 1024,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.602193837680712,
+        2,
+        1.7745360818755656
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_l",
+      "meshes": 1,
+      "triangles": 1310,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.9702524816867382,
+        2,
+        1.9443508847357518
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_m",
+      "meshes": 1,
+      "triangles": 1112,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0329130315696733,
+        1.9999999165201108
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_coconut",
+      "meshes": 1,
+      "triangles": 76,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.9999997624975412,
+        1.9999999999999998,
+        1.9999997624975412
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_coconut_half",
+      "meshes": 1,
+      "triangles": 92,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0000001199771493,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cooking_spoon",
+      "meshes": 1,
+      "triangles": 56,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.07331765405536489,
+        0.519233245651285
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cocktail",
+      "meshes": 3,
+      "triangles": 144,
+      "textures": 3,
+      "preserved": true,
+      "bounds": [
+        1.030569621630762,
+        2,
+        1.4290761793345332
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_croissant",
+      "meshes": 1,
+      "triangles": 162,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.4491161161056862,
+        0.8106601272400482,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_k",
+      "meshes": 1,
+      "triangles": 2960,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.4110275406740536,
+        0.9042092690047254
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_l",
+      "meshes": 1,
+      "triangles": 3512,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.2070484724931125,
+        2,
+        1.2352423099504573
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_m",
+      "meshes": 1,
+      "triangles": 3740,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.7873016452092475,
+        2,
+        0.7885715079361596
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cooking_spatula",
+      "meshes": 1,
+      "triangles": 72,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.21127722272877011,
+        0.5566359097077596
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cooking_knife",
+      "meshes": 1,
+      "triangles": 39,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.11169285110363263,
+        0.37045822972734566
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cooking_knife_chopping",
+      "meshes": 1,
+      "triangles": 80,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.13333332505491072,
+        0.7422344588345504
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cooking_fork",
       "meshes": 1,
       "triangles": 36,
       "textures": 1,
       "preserved": true,
       "bounds": [
+        2,
+        0.21127722272877011,
+        0.21951503591571475
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_chopstick",
+      "meshes": 1,
+      "triangles": 12,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
         0.0888888892568188,
         0.0888888892568188,
         1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_corn",
+      "meshes": 1,
+      "triangles": 128,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.842544782846275,
+        1.7494431260001395
       ],
       "gl": 0
     }
@@ -135,5 +395,5 @@
   "errors": [],
   "externalRequests": [],
   "mobileWidth": 390,
-  "verification": "Ten additions rendered with the same runtime; cumulative IDs and every retained GLB SHA-256 verified during build."
+  "verification": "30 additions rendered with the same runtime; cumulative IDs and every retained GLB SHA-256 verified during build."
 }

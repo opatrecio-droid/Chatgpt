@@ -1,6 +1,6 @@
 # Atualizações do mesmo HTML
 
-35 modelos iniciais; cada versão acrescenta exatamente dez e preserva as anteriores.
+35 modelos iniciais preservados. As primeiras versões avançam de 10 em 10; a etapa seguinte fecha blocos de 200 novos, conforme a mudança de pedido.
 
 | Atualização | Total no HTML | Novos acumulados | SHA-256 do HTML |
 | --- | --- | --- | --- |
@@ -41,3 +41,4 @@
 | 035 | 385 | 350 | `8a7c1f2c94809970616502135f95de1f0950ccdd22eddcbe1d6b7c9860408b70` |
 | 036 | 395 | 360 | `8cd9c45fd273f78315d5560904b18208f005a687908553fc446b03edffaa7520` |
 | 037 | 405 | 370 | `93a95be3a8d8b308da8db20614e2d891ffa8aa6ac588e9779fb9b109368334e7` |
+| 038 | 435 | 400 | `f586ec99d46e8ed75db7c6207e3271c3f7ac8d00326af496465f1cca148fa9a1` |

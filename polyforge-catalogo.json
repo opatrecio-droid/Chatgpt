@@ -528,6 +528,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_spoiler_b",
+    "name": "Aerofólio B",
+    "originalModelName": "debris-spoiler-b",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-spoiler-b.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2f7891028db42a9a5179f9a6210733702dd7a4d7f6711ecf3c111dde8a23dae2",
+    "bytes": 21024,
+    "description": "Modelo 3D original Aerofólio B do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0a2ae9a9127e463ac1f0609649bb6f74db57dafe6bfe7e0ed04de86cf4653e71",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_box",
     "name": "Caixa",
     "originalModelName": "box",
@@ -758,6 +781,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_tire",
+    "name": "Pneu solto",
+    "originalModelName": "debris-tire",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-tire.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "978783c8b6afa09c46a9468870f8e6cc9a9789fea4edf335d60799f46db7653b",
+    "bytes": 38980,
+    "description": "Modelo 3D original Pneu solto do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "09458f5b08138c7bbbf1ab2fa6323b74f1a9b64b62569f6fb0098176f38ecaa3",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_debris_nut",
     "name": "Porca solta",
     "originalModelName": "debris-nut",
@@ -824,6 +870,52 @@
       "low-poly"
     ],
     "geometrySignature": "0052730b1d134c320450c9552ac14abff47f570cd4684441c3309e7ac30e67b0",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_wheel_dark",
+    "name": "Roda escura",
+    "originalModelName": "wheel-dark",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/wheel-dark.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "04d8589d445c1888d956bf8c86c4087fc35b62c880d182d6ca4ad4957b1490fe",
+    "bytes": 41544,
+    "description": "Modelo 3D original Roda escura do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "062aad3ab39c90a50700be4830735640e1d39099da2228fa30a32a66e558a707",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_wheel_default",
+    "name": "Roda padrão",
+    "originalModelName": "wheel-default",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/wheel-default.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "66bbe0892c7feb49ae7dc8d1bdaa0d8cebe61cb4f420a327c74a047c156706b0",
+    "bytes": 39248,
+    "description": "Modelo 3D original Roda padrão do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "014bda1417a53e797adb723b4af970ac14ec00e5794adef21b2afd19060ae8ed",
     "animationCount": 0
   },
   {
@@ -2566,6 +2658,50 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_ground-pathopen",
+    "name": "Solo caminho aberto",
+    "originalModelName": "ground_pathOpen.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathOpen.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "bfa52db11cb99d784e47f144816b8ded6ad0c083790e8dd781de14790ff5fb22",
+    "bytes": 1856,
+    "description": "Modelo estilizado de solo caminho aberto, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "aberto"
+    ],
+    "geometrySignature": "0168415ef3e54c90f1abe00dc84cf282ef676a71737a27f7d50e23c5b08c202c",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathcross",
+    "name": "Solo caminho cruzamento",
+    "originalModelName": "ground_pathCross.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathCross.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6638d277b1fa06912d7fe2617f25507c14dfa7a39b16211d73bf4ae6ca79bb2f",
+    "bytes": 6404,
+    "description": "Modelo estilizado de solo caminho cruzamento, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "cruzamento"
+    ],
+    "geometrySignature": "065d253dd4aae84dd7ff69a45e2096d6d04e5efbb83a2f84f1106188cb5b9c2a",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_ground-pathbend",
     "name": "Solo caminho curvada",
     "originalModelName": "ground_pathBend.glb",
@@ -2608,6 +2744,95 @@
       "margem"
     ],
     "geometrySignature": "0072effabc13d141be6c8409a211d82f05d251b04390c142f9a193077713deed",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathend",
+    "name": "Solo caminho extremidade",
+    "originalModelName": "ground_pathEnd.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathEnd.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2682ba6e407dd86227550fe1c4f5f4940d033e532140787a5d5838c4e5eca610",
+    "bytes": 5044,
+    "description": "Modelo estilizado de solo caminho extremidade, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "extremidade"
+    ],
+    "geometrySignature": "0979817d1858ad23d7975ace08d51750614aa998bcd2cb8272acdf7007c1717c",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathendclosed",
+    "name": "Solo caminho extremidade fechado",
+    "originalModelName": "ground_pathEndClosed.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathEndClosed.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d260528d7bf288792f6e2dcb63be5eb25957cd92edd5dcb53e12295ea5e22358",
+    "bytes": 5824,
+    "description": "Modelo estilizado de solo caminho extremidade fechado, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "extremidade",
+      "fechado"
+    ],
+    "geometrySignature": "0b74a7e27f7ede38460aaf7bdc9920f806c7d8fbdc8a1fd4efd67b9eaf4c32f3",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathside",
+    "name": "Solo caminho lateral",
+    "originalModelName": "ground_pathSide.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathSide.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b2b71d110214958231ad3691ee491643b101b3329f83add48ce7c48d90be16d5",
+    "bytes": 4124,
+    "description": "Modelo estilizado de solo caminho lateral, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "lateral"
+    ],
+    "geometrySignature": "01dcb36a98389e5279a44dc87b256e32ead75fb67b5ee1622ea4d50eb8ff1825",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathrocks",
+    "name": "Solo caminho pedras",
+    "originalModelName": "ground_pathRocks.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathRocks.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2447aca8c95d4d3583111e696056b024cb42c43290f8b0e7731b6486fc85f234",
+    "bytes": 8036,
+    "description": "Modelo estilizado de solo caminho pedras, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "pedras"
+    ],
+    "geometrySignature": "088ee6afc3da10d6a9b7b0d1a9a43eaeba45027c24fbcfeb0111b5f2e400af2c",
     "animationCount": 0
   },
   {
@@ -4297,6 +4522,51 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_cookie",
+    "name": "Biscoito",
+    "originalModelName": "cookie",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cookie.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e64ce4cfb56064370c1a6da7544369958d0c87befdcaab1a226982dde430c79f",
+    "bytes": 18296,
+    "description": "Biscoito, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "biscoito"
+    ],
+    "geometrySignature": "050dacd07b395f634440f0fdbc5c4baa419f28e18ac5cfca68f1910aa795127f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cookie_chocolate",
+    "name": "Biscoito de chocolate",
+    "originalModelName": "cookie-chocolate",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cookie-chocolate.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6adf6ba7b5dcf5e4c9b7d3bbb259a6b70e781a846f1ea71c0f013ccc8da75d38",
+    "bytes": 23112,
+    "description": "Biscoito de chocolate, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "biscoito",
+      "de chocolate"
+    ],
+    "geometrySignature": "03753d4e861de468a74a5a960ebe7ef83c5c98b683037c9da819b5f8ace86ffd",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_cake",
     "name": "Bolo",
     "originalModelName": "cake",
@@ -4361,6 +4631,29 @@
       "brócolis"
     ],
     "geometrySignature": "02d3f0bf0e6df40fa301ee84aeccf0b477bf6cd14886604819a770bfc5421007",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_corn_dog",
+    "name": "Cachorro-quente empanado",
+    "originalModelName": "corn-dog",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/corn-dog.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8456103e148a7a80fe59939c0fb4126f28406da91d2b74130629790b88f068e4",
+    "bytes": 19908,
+    "description": "Cachorro-quente empanado, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "milho",
+      "cachorro-quente"
+    ],
+    "geometrySignature": "04b3e5992a739649a9c380000498b9827f37ddf8d4294e81869b5b5fac89f73b",
     "animationCount": 0
   },
   {
@@ -4862,6 +5155,75 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_k",
+    "name": "Casa suburbana modelo K",
+    "originalModelName": "building-type-k.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_k.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a6f7e201bb91351b0928cc6e103d21220804ff36f077726b214f1f49c82edaaf",
+    "bytes": 100992,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo k, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "03a84c857b16f51f3821cc9e71a733da1f7606728d9c0e80efd7d6a30ea178e3",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_suburban_building_type_l",
+    "name": "Casa suburbana modelo L",
+    "originalModelName": "building-type-l.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_l.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8f0230d1d7e2ac28117fd8e43ded27d23021301a16576581d5ec894e1d5aaca7",
+    "bytes": 121072,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo l, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "0c5338b4bf16add9ebbbcdfaedb896416eb569df528c28a215dd50ab4e2b2467",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_suburban_building_type_m",
+    "name": "Casa suburbana modelo M",
+    "originalModelName": "building-type-m.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_m.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f75d75024794ffbddcc997708e575c7fdab9efe00edf3900de978dfe01cbb52c",
+    "bytes": 108832,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo m, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "07205a8632d1acb0066b43b54e306834e3879e9e31a8925262708ddbb6550f44",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -5158,6 +5520,74 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_coconut",
+    "name": "Coco",
+    "originalModelName": "coconut",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/coconut.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b98aee33243fe4227d6dbc86e30bc5f3ec5a735f72293913cc4142cd186237ff",
+    "bytes": 19748,
+    "description": "Coco, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "coco"
+    ],
+    "geometrySignature": "005d7c34734da6e1ff7f767d26b22bba4d8c586c258a4aaf856be3b42128540a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_coconut_half",
+    "name": "Coco cortado ao meio",
+    "originalModelName": "coconut-half",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/coconut-half.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2ec55464eb47f6a2ac20c4086194af3b191b79df5255ebe1218d08b02328ae53",
+    "bytes": 19072,
+    "description": "Coco cortado ao meio, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "coco",
+      "meio"
+    ],
+    "geometrySignature": "00545b4b6fade94945e07fc793575a44eec2c0d703829f8780e738b167838033",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cooking_spoon",
+    "name": "Colher de cozinha",
+    "originalModelName": "cooking-spoon",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cooking-spoon.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7351094795579e3e1393823ad48ba45d49745852cabf9aeb03c49c8d004b77d3",
+    "bytes": 17568,
+    "description": "Colher de cozinha, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "de cozinha",
+      "colher"
+    ],
+    "geometrySignature": "0116c6271530121287f6f57ee8492b9f2857da1b72c532fb9c6961ef6f47c678",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_building_kit_column_wide",
     "name": "Coluna larga de construção",
     "originalModelName": "column-wide.glb",
@@ -5295,6 +5725,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_cocktail",
+    "name": "Coquetel",
+    "originalModelName": "cocktail",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cocktail.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2ccae9351fbb30dd76e629a57d405eaef0b3f83c40f0c291ff2d261808289669",
+    "bytes": 24888,
+    "description": "Coquetel, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "coquetel"
+    ],
+    "geometrySignature": "0536d1f76de88fb431b419452f70c83154e148646d222fd259295b1495fd6879",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_cauliflower",
     "name": "Couve-flor",
     "originalModelName": "cauliflower",
@@ -5360,6 +5812,28 @@
       "low-poly"
     ],
     "geometrySignature": "07a40182747a2846a0acafcb7f3b4a93306084d24758b54583f2af5c0e7d35ba",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_croissant",
+    "name": "Croissant",
+    "originalModelName": "croissant",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/croissant.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b980b42b3744a13d0752cf0e7bab705197ebe675567fd7662b00f3662ab9cd5c",
+    "bytes": 25120,
+    "description": "Croissant, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "croissant"
+    ],
+    "geometrySignature": "0107cdf20741a507a77e1e8cb40946ae11b7d05e9a6ea1678728bde65cab339c",
     "animationCount": 0
   },
   {
@@ -5639,6 +6113,75 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_building_k",
+    "name": "Edifício k",
+    "originalModelName": "building-k.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_k.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9307de56ff08628967fcace766570e1ac77b4485ab335f925b8601d51ffc187c",
+    "bytes": 258036,
+    "description": "Modelo low-poly original do Kenney: edifício k, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "1285f7b0a6218e1cdb037cdb2d0908eedcbac405a35372b0516726f932bffe57",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_commercial_building_l",
+    "name": "Edifício l",
+    "originalModelName": "building-l.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_l.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "bdbb929dbf71569ed1b024d8f4d892491d81782d2c051ff6c941da21471ce478",
+    "bytes": 301572,
+    "description": "Modelo low-poly original do Kenney: edifício l, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "02df368545a4d01153d9f8ecb07b82dc4d2b7875f22eb8a124119a80926a6c76",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_commercial_building_m",
+    "name": "Edifício m",
+    "originalModelName": "building-m.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_m.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cb6185a1051f17049f80c784272883e6c236ea1a8492f0ef9b2a854ac0e5faad",
+    "bytes": 312060,
+    "description": "Modelo low-poly original do Kenney: edifício m, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "08adad48ce3d5cd771fae93f329af60b6e8bc93f4961bd118ae9cd993de8ecd2",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_candy_bar_wrapper",
     "name": "Embalagem de barra de chocolate",
     "originalModelName": "candy-bar-wrapper",
@@ -5752,6 +6295,76 @@
       "castle kit"
     ],
     "geometrySignature": "018b9d25ca9d6a2fe7c78ef44dd9f38ed7e2af9c5e187a7f84c6f8b0fd9c17ad",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cooking_spatula",
+    "name": "Espátula de cozinha",
+    "originalModelName": "cooking-spatula",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cooking-spatula.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "b25e5777f4fac2bc8046be9984d153dbd09215bd7a61f0e4742c0404081ff4ea",
+    "bytes": 16912,
+    "description": "Espátula de cozinha, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "de cozinha",
+      "espátula"
+    ],
+    "geometrySignature": "01d71dd4e4627fe10fac0934be0c2faf54c4f81cf75e22b49efa527a8f8a4d35",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cooking_knife",
+    "name": "Faca de cozinha",
+    "originalModelName": "cooking-knife",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cooking-knife.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "068b232b4c42f3043f5e706414c4b9bf9c00693ea7ca5fd4b1fb4ddb29ecd178",
+    "bytes": 16148,
+    "description": "Faca de cozinha, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "de cozinha",
+      "faca"
+    ],
+    "geometrySignature": "028051792b9cd6f816c4d4a3fa3ed21c5169f91a0d54af872de8b0baca8fb7b0",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cooking_knife_chopping",
+    "name": "Faca de cozinha para cortar",
+    "originalModelName": "cooking-knife-chopping",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cooking-knife-chopping.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "0e9f90f130038d1ad7a23c12a35cd041f69a3533e800b04ce95668886ac95ff5",
+    "bytes": 18568,
+    "description": "Faca de cozinha para cortar, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "de cozinha",
+      "faca",
+      "de corte"
+    ],
+    "geometrySignature": "0b03f2710dbdd2648f94dce26297d4b6f9df1df9baf9f5f0d5cfb4af121c4a91",
     "animationCount": 0
   },
   {
@@ -5928,6 +6541,29 @@
       "acampamento"
     ],
     "geometrySignature": "00e8a10344908d58f2d4a165d5f529c1e57a9c679bbb0c28f947800c4063bd85",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cooking_fork",
+    "name": "Garfo de cozinha",
+    "originalModelName": "cooking-fork",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cooking-fork.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3512f5f5080ca1186afa5d260b3221374923468aedb317920edd6dbf41f955cf",
+    "bytes": 15640,
+    "description": "Garfo de cozinha, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "de cozinha",
+      "garfo"
+    ],
+    "geometrySignature": "0605658d723fd1bcfaf54fe62dcfafa0e308ee33fe7ff1b3cb75d77798124f6a",
     "animationCount": 0
   },
   {
@@ -6184,6 +6820,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_chopstick",
+    "name": "Hashi",
+    "originalModelName": "chopstick",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/chopstick.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "431202f9caf77c3716271ca03f179862cdee4816c401d7e9ff20ee169e85023c",
+    "bytes": 13776,
+    "description": "Hashi, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "chopstick"
+    ],
+    "geometrySignature": "02b4cd6a6d212fcb49f9a32c21cc5df96fee8378c8a9a4031c7c1c8df36f4482",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_chopstic_decorative",
     "name": "Hashi decorativo",
     "originalModelName": "chopstic-decorative",
@@ -6432,6 +7090,28 @@
       "low-poly"
     ],
     "geometrySignature": "04551797599eab3ee3f9ad6973d238cf67c9d2c2f0f37de31a29d0973904f78f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_corn",
+    "name": "Milho",
+    "originalModelName": "corn",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/corn.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7a9770b3443260f17c8619317fb4909670e840fbf2e402cec7d95d0a212be6da",
+    "bytes": 25052,
+    "description": "Milho, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "milho"
+    ],
+    "geometrySignature": "070af85153f86e547805601af62a68db49b1e55cbc1eb4d27bb20ddb2be1e7b0",
     "animationCount": 0
   },
   {
