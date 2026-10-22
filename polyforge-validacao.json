@@ -1,132 +1,132 @@
 {
-  "catalogueCount": 335,
+  "catalogueCount": 345,
   "models": [
     {
-      "id": "k_actor_car_kit_debris_bumper",
+      "id": "k_actor_car_kit_debris_door_window",
       "meshes": 1,
-      "triangles": 116,
+      "triangles": 74,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        2,
-        0.6153846471267351,
-        0.692307722286361
+        0.4177777745399945,
+        1.9999999999999998,
+        1.7777778513637608
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-wheatstagea",
-      "meshes": 1,
-      "triangles": 720,
+      "id": "k_nature_crop-carrot",
+      "meshes": 2,
+      "triangles": 148,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.661962823276645,
+        3,
+        1.661962823276645
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_crop-melon",
+      "meshes": 3,
+      "triangles": 236,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
-        1.8621060468497752,
-        2.483465254497524
+        2.5000001436781694,
+        2.5980762987400174
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_crops-wheatstageb",
+      "id": "k_props_food_carton_small",
+      "meshes": 1,
+      "triangles": 74,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.177837346529555,
+        2,
+        1.177837346529555
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_d",
+      "meshes": 1,
+      "triangles": 1757,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.4091481870062048,
+        1.170589291704002
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_carrot",
+      "meshes": 1,
+      "triangles": 148,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.958090737387937,
+        1.9999999999999998,
+        0.958090737387937
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_d",
+      "meshes": 1,
+      "triangles": 1100,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.2993040131950764,
+        2,
+        1.3921111661213281
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_bridge-stoneroundnarrow",
       "meshes": 2,
       "triangles": 360,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        3,
-        2.974024310119325,
-        2.483465254497524
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_candy_bar",
-      "meshes": 1,
-      "triangles": 72,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
         2,
-        0.4465204364121364,
-        0.5097414369577433
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_suburban_building_type_c",
-      "meshes": 1,
-      "triangles": 1196,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.6068980088852316,
-        1.5984974432255206
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_commercial_building_c",
-      "meshes": 1,
-      "triangles": 1195,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.6212620577041812,
-        1.6385319825646039,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_bridge-stoneround",
-      "meshes": 2,
-      "triangles": 360,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.8653846153846153,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_bridge-stonenarrow",
-      "meshes": 2,
-      "triangles": 252,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.673076923076923,
+        0.7692307692307692,
         1.6153846153846152
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_craft_speederA",
+      "id": "k_actor_space_kit_craft_speederB",
       "meshes": 4,
-      "triangles": 280,
+      "triangles": 270,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.904761904761905,
-        0.7619047619047621,
-        2.0000000000000004
+        1.9746547923301956,
+        0.5923964376990587,
+        1.9999999999999996
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_ship_ocean_liner_small",
+      "id": "k_actor_watercraft_kit_ship_ocean_liner",
       "meshes": 1,
-      "triangles": 1750,
+      "triangles": 2796,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.626315686114949,
-        1.1754999589982833,
+        0.4473683432151548,
+        0.8396428203301111,
         2
       ],
       "gl": 0
