@@ -250,254 +250,27 @@
     "animationCount": 32
   },
   {
-    "id": "k_props_food_avocado",
-    "name": "Abacate",
-    "originalModelName": "avocado",
-    "category": "items",
-    "file": "assets/models/expansion/props/food-kit/avocado.glb",
+    "id": "k_actor_mini_characters_character_male_a",
+    "name": "Personagem masculina A",
+    "originalModelName": "character-male-a",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/mini-characters/character-male-a.glb",
     "author": "Kenney",
-    "pack": "Food Kit",
-    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
     "license": "CC0-1.0",
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "41de9ad6b86bff649f8e412b22352774e2f0323bcbacd10f007e770c704dcb3a",
-    "bytes": 16840,
-    "description": "Abacate, modelo 3D estilizado do Food Kit.",
+    "sha256": "b859c65ffc0fdffab17bbca51130ea8161ef5273ad321f84fde95159e4e5438e",
+    "bytes": 255212,
+    "description": "Modelo 3D original Pessoa personagem masculina A do pacote oficial mini-characters, publicado por Kenney.",
     "tags": [
-      "alimento",
-      "comida",
-      "abacate"
-    ],
-    "geometrySignature": "015ad48a3c0601218e37343f2de1810bdd236ef927fd0e6a51ae194a3e86a332",
-    "animationCount": 0
-  },
-  {
-    "id": "k_props_food_advocado_half",
-    "name": "Abacate cortado ao meio",
-    "originalModelName": "advocado-half",
-    "category": "items",
-    "file": "assets/models/expansion/props/food-kit/advocado-half.glb",
-    "author": "Kenney",
-    "pack": "Food Kit",
-    "sourcePage": "https://kenney.nl/assets/food-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "42c57ca7e8ba1648768b8e6a0623e4a1b36253efa43868f19a02f6068ae2842f",
-    "bytes": 21988,
-    "description": "Abacate cortado ao meio, modelo 3D estilizado do Food Kit.",
-    "tags": [
-      "alimento",
-      "comida",
-      "abacate",
-      "meio"
-    ],
-    "geometrySignature": "063491a362ea05caa4c9b543816b0a9469152db4e2c5649bac4e5923e44e6e95",
-    "animationCount": 0
-  },
-  {
-    "id": "k_props_food_bacon",
-    "name": "Bacon",
-    "originalModelName": "bacon",
-    "category": "items",
-    "file": "assets/models/expansion/props/food-kit/bacon.glb",
-    "author": "Kenney",
-    "pack": "Food Kit",
-    "sourcePage": "https://kenney.nl/assets/food-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "467583ff80898a37d8653b355819711417b95bce4d77572302047b218d822cbb",
-    "bytes": 16468,
-    "description": "Bacon, modelo 3D estilizado do Food Kit.",
-    "tags": [
-      "alimento",
-      "comida",
-      "bacon"
-    ],
-    "geometrySignature": "07fa919590014c0584bdc3953440a077d2c6ca89fbe03a56668b02a58b427b8c",
-    "animationCount": 0
-  },
-  {
-    "id": "k_actor_space_kit_barrel",
-    "name": "Barril",
-    "originalModelName": "barrel",
-    "category": "items",
-    "file": "assets/models/expansion/actors/space-kit/barrel.glb",
-    "author": "Kenney",
-    "pack": "Space Kit (Kenney)",
-    "sourcePage": "https://kenney.nl/assets/space-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "8a95781be23b35ebb39ad90278affc03140c75d4d055027e98be0313de084451",
-    "bytes": 4656,
-    "description": "Modelo 3D original Barrel do pacote oficial space-kit, publicado por Kenney.",
-    "tags": [
-      "objeto",
-      "item",
+      "pessoa",
+      "personagem",
       "kenney",
       "low-poly"
     ],
-    "geometrySignature": "0577596049ec803591eaf599d8ec4b8312b2c3048123c4c682e3e66f4a91816a",
-    "animationCount": 0
-  },
-  {
-    "id": "k_actor_space_kit_barrels",
-    "name": "Barris",
-    "originalModelName": "barrels",
-    "category": "items",
-    "file": "assets/models/expansion/actors/space-kit/barrels.glb",
-    "author": "Kenney",
-    "pack": "Space Kit (Kenney)",
-    "sourcePage": "https://kenney.nl/assets/space-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "5eefdb7cb192863ac6b6709293e196ae97e7cceb29c6ab754850a738f3b2379b",
-    "bytes": 20808,
-    "description": "Modelo 3D original Barrels do pacote oficial space-kit, publicado por Kenney.",
-    "tags": [
-      "objeto",
-      "item",
-      "kenney",
-      "low-poly"
-    ],
-    "geometrySignature": "0754ba27ec6de36df9610f121b852dcc4f19b27173c70713471eb6ae7ea8271a",
-    "animationCount": 0
-  },
-  {
-    "id": "k_actor_space_kit_chimney",
-    "name": "Chaminé",
-    "originalModelName": "chimney",
-    "category": "items",
-    "file": "assets/models/expansion/actors/space-kit/chimney.glb",
-    "author": "Kenney",
-    "pack": "Space Kit (Kenney)",
-    "sourcePage": "https://kenney.nl/assets/space-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "92db1a53b46eea2f2f045fe1dcc1493b4674309f76909e4ecf1078576070b14b",
-    "bytes": 8920,
-    "description": "Modelo 3D original Chimney do pacote oficial space-kit, publicado por Kenney.",
-    "tags": [
-      "objeto",
-      "item",
-      "kenney",
-      "low-poly"
-    ],
-    "geometrySignature": "057005cd65af32e28bfeccf99a7eaddef000ae1d1722d127630dc0be14f2814a",
-    "animationCount": 0
-  },
-  {
-    "id": "k_actor_space_kit_chimney_detailed",
-    "name": "Chaminé detalhada",
-    "originalModelName": "chimney_detailed",
-    "category": "items",
-    "file": "assets/models/expansion/actors/space-kit/chimney_detailed.glb",
-    "author": "Kenney",
-    "pack": "Space Kit (Kenney)",
-    "sourcePage": "https://kenney.nl/assets/space-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "2b7b4950f5a1430ccf7d3469c21b837dc52ec61538dcdbcf875529767d68d752",
-    "bytes": 19356,
-    "description": "Modelo 3D original Chimney Detailed do pacote oficial space-kit, publicado por Kenney.",
-    "tags": [
-      "objeto",
-      "item",
-      "kenney",
-      "low-poly"
-    ],
-    "geometrySignature": "02a6395b07daf24a37eaf840c778e958721f565aaf21e0b4316b5ebb1952cc77",
-    "animationCount": 0
-  },
-  {
-    "id": "k_props_food_apple",
-    "name": "Maçã",
-    "originalModelName": "apple",
-    "category": "items",
-    "file": "assets/models/expansion/props/food-kit/apple.glb",
-    "author": "Kenney",
-    "pack": "Food Kit",
-    "sourcePage": "https://kenney.nl/assets/food-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "442f7e20fc4551e1294c86338084bfcd0fcc72e78875138c53d487517f17027b",
-    "bytes": 25140,
-    "description": "Maçã, modelo 3D estilizado do Food Kit.",
-    "tags": [
-      "alimento",
-      "comida",
-      "maçã"
-    ],
-    "geometrySignature": "056af526d658c32b289f148c0418a516223de4a130b491d2922ca9346acda68e",
-    "animationCount": 0
-  },
-  {
-    "id": "k_props_food_apple_half",
-    "name": "Maçã cortada ao meio",
-    "originalModelName": "apple-half",
-    "category": "items",
-    "file": "assets/models/expansion/props/food-kit/apple-half.glb",
-    "author": "Kenney",
-    "pack": "Food Kit",
-    "sourcePage": "https://kenney.nl/assets/food-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "888e39f1f300d94c960dd0641a7bebbbe7c5e2bdd9618b1445974f9ef871cfea",
-    "bytes": 21712,
-    "description": "Maçã cortada ao meio, modelo 3D estilizado do Food Kit.",
-    "tags": [
-      "alimento",
-      "comida",
-      "maçã",
-      "meio"
-    ],
-    "geometrySignature": "0ade3dbcce9b7aa1c21d60df3925868d2bca175dcff7930431bf40a073de6df9",
-    "animationCount": 0
-  },
-  {
-    "id": "k_actor_space_kit_bones",
-    "name": "Ossos",
-    "originalModelName": "bones",
-    "category": "items",
-    "file": "assets/models/expansion/actors/space-kit/bones.glb",
-    "author": "Kenney",
-    "pack": "Space Kit (Kenney)",
-    "sourcePage": "https://kenney.nl/assets/space-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "d42d859e91beb903a09c4eecf4ccb169ae77b84e475a6b773d6ecf30644371be",
-    "bytes": 14212,
-    "description": "Modelo 3D original Bones do pacote oficial space-kit, publicado por Kenney.",
-    "tags": [
-      "objeto",
-      "item",
-      "kenney",
-      "low-poly"
-    ],
-    "geometrySignature": "05d0d20f59313d37de7e1b2fb6cb79dbbfc6d43f8fa588ef6514a5d041007464",
-    "animationCount": 0
-  },
-  {
-    "id": "k_props_food_bag_flat",
-    "name": "Sacola achatada",
-    "originalModelName": "bag-flat",
-    "category": "items",
-    "file": "assets/models/expansion/props/food-kit/bag-flat.glb",
-    "author": "Kenney",
-    "pack": "Food Kit",
-    "sourcePage": "https://kenney.nl/assets/food-kit",
-    "license": "CC0-1.0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "c437b0e4075a70772013914c0f9f73aa96273f701b4684a903d54fa390e6e67d",
-    "bytes": 22048,
-    "description": "Sacola achatada, modelo 3D estilizado do Food Kit.",
-    "tags": [
-      "alimento",
-      "comida",
-      "sacola",
-      "achatada"
-    ],
-    "geometrySignature": "01729d4da18305e5d022b29f1bfd54e4379639ef23a6105d79bc3c4e28539b9c",
-    "animationCount": 0
+    "geometrySignature": "0638b49a9a22791e9bd3b9a3333b2279f066ad456b4a1df511397d0966a884f9",
+    "animationCount": 32
   },
   {
     "id": "web_nature_bush_with_flowers",
@@ -588,6 +361,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cactus-tall",
+    "name": "Cacto alto",
+    "originalModelName": "cactus_tall.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cactus_tall.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d43a1aca5952e1f8a104d64a0edfec09c39f15102ca6bdc531460dd5a2c53d25",
+    "bytes": 9668,
+    "description": "Cacto alto estilizado para compor vegetação de deserto.",
+    "tags": [
+      "cacto",
+      "deserto",
+      "planta"
+    ],
+    "geometrySignature": "025c2fa96804ee22d7b3ccec6473227c2b6c94994f5a160af89cc62e8ef3d0dc",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cactus-short",
     "name": "Cacto baixo",
     "originalModelName": "cactus_short.glb",
@@ -668,6 +463,28 @@
       "degraus"
     ],
     "geometrySignature": "04f687d7bbb86036b866a96cb83803c8731539b2531424eb602279a15f315ca7",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_flower-purplea",
+    "name": "Flor roxa A",
+    "originalModelName": "flower_purpleA.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/flower_purpleA.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f6fc34c96a03420a74fe36d4c2d0ec88f15204fcad99cd1416c3c4ecb22e48c4",
+    "bytes": 7112,
+    "description": "Flor roxa individual de silhueta própria para vegetação rasteira.",
+    "tags": [
+      "flor",
+      "planta",
+      "roxa"
+    ],
+    "geometrySignature": "02a95462185ea2c7c9d4bb6427802f50034008ebecd2644624c3659c60232282",
     "animationCount": 0
   },
   {
@@ -1261,6 +1078,30 @@
     "animationCount": 30
   },
   {
+    "id": "k_actor_quaternius_z3rcocyss4",
+    "name": "Galinha",
+    "originalModelName": "Chicken",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/chicken_z3rcocyss4.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/Z3RCoCYss4",
+    "sourceDownload": "https://static.poly.pizza/9ba093a4-6525-4f3b-927d-98dca72e1e40.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "89876da1f94d735b6e1cf0a2ca7151b18623c48fd9b8cb469271de370e092730",
+    "bytes": 172692,
+    "description": "Modelo 3D original de Chicken, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "0195825769b17dfe30c56ef4639090ec4bdbd22a1503f9da8df723da6bb7ae55",
+    "animationCount": 5
+  },
+  {
     "id": "k_actor_quaternius_qkicy6xla2",
     "name": "Gato",
     "originalModelName": "Cat",
@@ -1631,6 +1472,51 @@
     "animationCount": 26
   },
   {
+    "id": "k_props_food_avocado",
+    "name": "Abacate",
+    "originalModelName": "avocado",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/avocado.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "41de9ad6b86bff649f8e412b22352774e2f0323bcbacd10f007e770c704dcb3a",
+    "bytes": 16840,
+    "description": "Abacate, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "abacate"
+    ],
+    "geometrySignature": "015ad48a3c0601218e37343f2de1810bdd236ef927fd0e6a51ae194a3e86a332",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_advocado_half",
+    "name": "Abacate cortado ao meio",
+    "originalModelName": "advocado-half",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/advocado-half.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "42c57ca7e8ba1648768b8e6a0623e4a1b36253efa43868f19a02f6068ae2842f",
+    "bytes": 21988,
+    "description": "Abacate cortado ao meio, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "abacate",
+      "meio"
+    ],
+    "geometrySignature": "063491a362ea05caa4c9b543816b0a9469152db4e2c5649bac4e5923e44e6e95",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_commercial_building_skyscraper_a",
     "name": "Arranha-céu comercial A",
     "originalModelName": "building-skyscraper-a.glb",
@@ -1654,6 +1540,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_bacon",
+    "name": "Bacon",
+    "originalModelName": "bacon",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bacon.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "467583ff80898a37d8653b355819711417b95bce4d77572302047b218d822cbb",
+    "bytes": 16468,
+    "description": "Bacon, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "bacon"
+    ],
+    "geometrySignature": "07fa919590014c0584bdc3953440a077d2c6ca89fbe03a56668b02a58b427b8c",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_tent_detailed_closed",
     "name": "Barraca",
     "category": "props",
@@ -1669,6 +1577,52 @@
     "bytes": 15460,
     "description": "Original Kenney Nature Kit low-poly tent detailed closed model, preserved from the pack GLB.",
     "originalModelName": "Tent Detailed Closed",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_barrel",
+    "name": "Barril",
+    "originalModelName": "barrel",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/barrel.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8a95781be23b35ebb39ad90278affc03140c75d4d055027e98be0313de084451",
+    "bytes": 4656,
+    "description": "Modelo 3D original Barrel do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0577596049ec803591eaf599d8ec4b8312b2c3048123c4c682e3e66f4a91816a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_barrels",
+    "name": "Barris",
+    "originalModelName": "barrels",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/barrels.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5eefdb7cb192863ac6b6709293e196ae97e7cceb29c6ab754850a738f3b2379b",
+    "bytes": 20808,
+    "description": "Modelo 3D original Barrels do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0754ba27ec6de36df9610f121b852dcc4f19b27173c70713471eb6ae7ea8271a",
     "animationCount": 0
   },
   {
@@ -1804,6 +1758,52 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_chimney",
+    "name": "Chaminé",
+    "originalModelName": "chimney",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/chimney.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "92db1a53b46eea2f2f045fe1dcc1493b4674309f76909e4ecf1078576070b14b",
+    "bytes": 8920,
+    "description": "Modelo 3D original Chimney do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "057005cd65af32e28bfeccf99a7eaddef000ae1d1722d127630dc0be14f2814a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_chimney_detailed",
+    "name": "Chaminé detalhada",
+    "originalModelName": "chimney_detailed",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/chimney_detailed.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2b7b4950f5a1430ccf7d3469c21b837dc52ec61538dcdbcf875529767d68d752",
+    "bytes": 19356,
+    "description": "Modelo 3D original Chimney Detailed do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "02a6395b07daf24a37eaf840c778e958721f565aaf21e0b4316b5ebb1952cc77",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_building_kit_column_wide",
     "name": "Coluna larga de construção",
     "originalModelName": "column-wide.glb",
@@ -1824,6 +1824,29 @@
       "building kit"
     ],
     "geometrySignature": "092fd152d53e6392a9654d7f417818a3a48afcdb8a6c82c97ef33b220b177089",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_crater",
+    "name": "Cratera",
+    "originalModelName": "crater",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/crater.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8b872ebe7358e1d5f08c600ed43f61d4d0dbbd03274a718424c599778915b175",
+    "bytes": 5684,
+    "description": "Modelo 3D original Crater do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0022a3b10bb94befcba20b01d3a06c8a9e3146497d20f59a2e14bde4e1187cf7",
     "animationCount": 0
   },
   {
@@ -1850,6 +1873,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_driveway_long",
+    "name": "Entrada residencial longa",
+    "originalModelName": "driveway-long.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/driveway_long.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "70f85bcf9dbe64bb676cba37a331a88740b214cbf64b38b56bd092d41bf5da9c",
+    "bytes": 14792,
+    "description": "Trecho longo de acesso residencial para veículos.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "0ceaceb9ea009a38cf8801956437a44cff4444d6be0d61e626c451500572afca",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_campfire_logs",
     "name": "Fogueira",
     "category": "props",
@@ -1868,6 +1914,74 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_detail_parasol_a",
+    "name": "Guarda-sol comercial A",
+    "originalModelName": "detail-parasol-a.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/detail_parasol_a.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1ddc04f16ad73cc9ba9913830f158699c1446b34cdf9e8e1d33bb6d6babfadb7",
+    "bytes": 21380,
+    "description": "Guarda-sol independente para calçada ou área externa.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "055c3298965047f50b296fb7c2892d831eadf0cd64425f664d4a25dfe68aa351",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_apple",
+    "name": "Maçã",
+    "originalModelName": "apple",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/apple.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "442f7e20fc4551e1294c86338084bfcd0fcc72e78875138c53d487517f17027b",
+    "bytes": 25140,
+    "description": "Maçã, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "maçã"
+    ],
+    "geometrySignature": "056af526d658c32b289f148c0418a516223de4a130b491d2922ca9346acda68e",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_apple_half",
+    "name": "Maçã cortada ao meio",
+    "originalModelName": "apple-half",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/apple-half.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "888e39f1f300d94c960dd0641a7bebbbe7c5e2bdd9618b1445974f9ef871cfea",
+    "bytes": 21712,
+    "description": "Maçã cortada ao meio, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "maçã",
+      "meio"
+    ],
+    "geometrySignature": "0ade3dbcce9b7aa1c21d60df3925868d2bca175dcff7930431bf40a073de6df9",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_statue_obelisk",
     "name": "Obelisco",
     "category": "props",
@@ -1883,6 +1997,29 @@
     "bytes": 4416,
     "description": "Original Kenney Nature Kit low-poly statue obelisk model, preserved from the pack GLB.",
     "originalModelName": "Statue Obelisk",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_bones",
+    "name": "Ossos",
+    "originalModelName": "bones",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/bones.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d42d859e91beb903a09c4eecf4ccb169ae77b84e475a6b773d6ecf30644371be",
+    "bytes": 14212,
+    "description": "Modelo 3D original Bones do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "05d0d20f59313d37de7e1b2fb6cb79dbbfc6d43f8fa588ef6514a5d041007464",
     "animationCount": 0
   },
   {
@@ -1955,6 +2092,51 @@
     "bytes": 3952,
     "description": "Original Kenney Nature Kit low-poly canoe paddle model, preserved from the pack GLB.",
     "originalModelName": "Canoe Paddle",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bag",
+    "name": "Sacola",
+    "originalModelName": "bag",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bag.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9a1a3cee8d542ac087de8de90bbb7c641c21e4113017dbd59305de4eab8f6c45",
+    "bytes": 17172,
+    "description": "Sacola, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "sacola"
+    ],
+    "geometrySignature": "024bd2c6432f525a1b4338e4483b6e6d1bf1c79ebd23e1eb6bec6cfb5d5817ec",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bag_flat",
+    "name": "Sacola achatada",
+    "originalModelName": "bag-flat",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bag-flat.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c437b0e4075a70772013914c0f9f73aa96273f701b4684a903d54fa390e6e67d",
+    "bytes": 22048,
+    "description": "Sacola achatada, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "sacola",
+      "achatada"
+    ],
+    "geometrySignature": "01729d4da18305e5d022b29f1bfd54e4379639ef23a6105d79bc3c4e28539b9c",
     "animationCount": 0
   },
   {
@@ -2206,6 +2388,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_garbage_truck",
+    "name": "Caminhão de lixo",
+    "originalModelName": "garbage-truck",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/garbage-truck.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "907957aed6bafd0699c1932d870626539f0e141b6e40fa0f357f5b045345e54c",
+    "bytes": 280628,
+    "description": "Modelo 3D original Caminhão de lixo do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "045a93ef76af8aeca05214f517044c2df4fdae964f4e1b0f88dec3ee16f1ce40",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_canoe",
     "name": "Canoa",
     "category": "vehicles",
@@ -2290,6 +2495,29 @@
       "low-poly"
     ],
     "geometrySignature": "079dd5e6b3a6343af3502f4728e53cea350ac8a2317a0ad47e51353e7c00d346",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_house_d",
+    "name": "Casa-barco D",
+    "originalModelName": "boat-house-d",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-house-d.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "55321a0cac57d89a4e4ad9f4bdb62acdd8b2cbb48a0bee29c7c3765f732aed83",
+    "bytes": 57548,
+    "description": "Modelo 3D original Casa-barco D do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "142fd4716fd8f09ca310485d7fd55f0f89f44c1e2166c99ac7b73a0fe2c9909c",
     "animationCount": 0
   },
   {
