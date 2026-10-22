@@ -1,2582 +1,86 @@
 {
-  "catalogueCount": 835,
+  "catalogueCount": 1035,
   "models": [
     {
-      "id": "k_props_survival_tool_hoe",
-      "meshes": 1,
-      "triangles": 58,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.7063970309934207,
-        2,
-        0.5910583226458899
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_survival_tool_hoe_upgraded",
-      "meshes": 1,
-      "triangles": 106,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.7442011823077528,
-        2,
-        0.7577249789645283
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_survival_tool_hammer",
-      "meshes": 1,
-      "triangles": 52,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.1727912435382668,
-        2,
-        0.5212405634712989
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_survival_tool_hammer_upgraded",
-      "meshes": 1,
-      "triangles": 80,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.2580497105812296,
-        2,
-        0.5591331912471258
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_survival_tool_pickaxe",
-      "meshes": 1,
-      "triangles": 74,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.4884023025273363,
-        2,
-        0.32249998261531265
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_survival_tool_pickaxe_upgraded",
-      "meshes": 1,
-      "triangles": 110,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.4884023025273363,
-        2,
-        0.33333331263727695
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_survival_tool_shovel",
-      "meshes": 1,
-      "triangles": 124,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.48915174880546636,
-        2,
-        0.21328966522228165
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_survival_tool_shovel_upgraded",
-      "meshes": 1,
-      "triangles": 176,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.6270827584824863,
-        2,
-        0.3135413920870721
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stone-tallf",
-      "meshes": 2,
-      "triangles": 46,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.320294638748275,
-        3,
-        2.679245283018868
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stone-tallg",
-      "meshes": 2,
-      "triangles": 62,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.6282873284066244,
-        3,
-        1.8801843425684592
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stone-smalli",
-      "meshes": 1,
-      "triangles": 44,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.5980758373168102,
-        2.0143007113958267,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_platform-grass",
-      "meshes": 2,
-      "triangles": 186,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.27709447447470115,
-        2.4314439322259216
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-talla",
-      "meshes": 3,
-      "triangles": 136,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.9612711668609077,
-        3,
-        2.058016966924949
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-tallb",
-      "meshes": 3,
-      "triangles": 172,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.5960831682469236,
-        3,
-        2.6139007960808316
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-tallc",
-      "meshes": 3,
-      "triangles": 37,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.748014173985454,
-        3,
-        1.6725797052563054
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-talld",
-      "meshes": 3,
-      "triangles": 38,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.720617222099419,
-        3,
-        1.7930633069645838
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-talle",
-      "meshes": 3,
-      "triangles": 38,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.5980761320776584,
-        2.527397404211953,
-        2.9999999999999996
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-tallf",
-      "meshes": 3,
-      "triangles": 46,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.320294638748275,
-        3,
-        2.679245283018868
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-tallg",
-      "meshes": 3,
-      "triangles": 62,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.6282873284066244,
-        3,
-        1.8801843425684592
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-tallh",
-      "meshes": 3,
-      "triangles": 78,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.4266293808098323,
-        3,
-        2.8020300982828164
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-talli",
-      "meshes": 3,
-      "triangles": 44,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.6858626385809314,
-        3,
-        1.7160056097560976
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-tallj",
-      "meshes": 3,
-      "triangles": 42,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.3610366967741934,
-        3,
-        2.6043532258064515
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-largea",
-      "meshes": 2,
-      "triangles": 80,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.318867125820834,
-        0.7674618631491075,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-largeb",
-      "meshes": 3,
-      "triangles": 85,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.265123351808351,
-        1.2711088772059695,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-largec",
-      "meshes": 2,
-      "triangles": 72,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.9050424000229995,
-        2.862606321362317
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-larged",
-      "meshes": 3,
-      "triangles": 80,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        1.5950756621962627,
-        2.8919502013891023
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-largee",
-      "meshes": 2,
-      "triangles": 64,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.800344059493612,
-        2.5191392647537265
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-largef",
-      "meshes": 3,
-      "triangles": 73,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        1.3116750716686028,
-        2.461933792489503
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smalla",
-      "meshes": 2,
-      "triangles": 16,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        1.5900000748337026,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallb",
-      "meshes": 2,
-      "triangles": 24,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        1.4700000914634144,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallc",
-      "meshes": 2,
-      "triangles": 16,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        1.020000049889135,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smalld",
-      "meshes": 2,
-      "triangles": 32,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        1.6271185447003782,
-        2.5980760843371176
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smalle",
-      "meshes": 2,
-      "triangles": 64,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        2.1299998170731707,
-        2.598076014412417
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallf",
-      "meshes": 2,
-      "triangles": 60,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        2.0816326338411297,
-        2.5980762841144442
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallg",
-      "meshes": 2,
-      "triangles": 32,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.5980767468098165,
-        1.0736843707888442,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallh",
-      "meshes": 2,
-      "triangles": 60,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        2.646410104282151,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smalli",
-      "meshes": 2,
-      "triangles": 44,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.5980758373168102,
-        2.0143007113958267,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallflata",
-      "meshes": 2,
-      "triangles": 20,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.39297297998117486,
-        2.5993520164362582
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallflatb",
-      "meshes": 2,
-      "triangles": 16,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.4536166581495565,
-        2.810331477667341
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smallflatc",
-      "meshes": 2,
-      "triangles": 40,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        0.4142025168662027,
-        2.2982334825606436
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smalltopa",
-      "meshes": 2,
-      "triangles": 52,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.99133896109631,
-        1.3492893783946893,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_rock-smalltopb",
-      "meshes": 2,
-      "triangles": 76,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.8880431354866625,
-        1.2997835132966322,
-        3.0000000000000004
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stump-old",
-      "meshes": 1,
-      "triangles": 120,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.8829676549865226,
-        2.1549862479784365,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stump-oldtall",
-      "meshes": 1,
-      "triangles": 120,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.6047726931732935,
-        3.0000000000000004,
-        1.6699174793698426
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stump-round",
-      "meshes": 2,
-      "triangles": 56,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.5980756064690023,
-        1.669811320754717,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stump-rounddetailed",
-      "meshes": 2,
-      "triangles": 96,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.8829676549865226,
-        1.669811320754717,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stump-square",
-      "meshes": 2,
-      "triangles": 44,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3,
-        2.5028724354553975,
-        2.5028724354553975
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_stump-squaredetailed",
+      "id": "k_nature_stump-squaredetailedwide",
       "meshes": 2,
       "triangles": 84,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
-        1.3636364628099247,
+        0.9375,
         3
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_pineapple",
+      "id": "k_world_city_kit_roads_road_side_entry",
       "meshes": 1,
-      "triangles": 196,
+      "triangles": 306,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.022769623590833,
-        1.9999999999999998,
-        1.03803253758521
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pumpkin",
-      "meshes": 1,
-      "triangles": 188,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.0940818972080044,
+        1.5267176239385367,
+        0.030534351796417183,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_pumpkin_basic",
+      "id": "k_props_food_utensil_knife",
       "meshes": 1,
-      "triangles": 80,
+      "triangles": 18,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        1.423809544421108,
-        1.732050858941985
+        0.05925745586041934,
+        0.2590016895158246
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_corridor_split",
-      "meshes": 4,
-      "triangles": 128,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_rice_ball",
-      "meshes": 1,
-      "triangles": 104,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.240310175445305,
-        2,
-        1.7597133823563218
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pizza_box",
+      "id": "k_nature_tree-blocks",
       "meshes": 2,
-      "triangles": 84,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.9789870019916118,
-        1.8525434028923247,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_wallCorner",
-      "meshes": 4,
-      "triangles": 256,
+      "triangles": 132,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2,
-        1.6,
-        2
+        1.5189872648614042,
+        3,
+        1.5189872648614042
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_industrial_chimney_basic",
-      "meshes": 1,
-      "triangles": 88,
-      "textures": 1,
+      "id": "k_actor_space_kit_pipe_cornerDiagonal",
+      "meshes": 2,
+      "triangles": 48,
+      "textures": 0,
       "preserved": true,
       "bounds": [
-        0.4000000059604645,
-        2,
-        0.4000000059604645
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_soda_glass",
-      "meshes": 3,
-      "triangles": 124,
-      "textures": 3,
-      "preserved": true,
-      "bounds": [
-        1.266452744769331,
         1.9999999999999996,
-        1.435403962016212
+        1.417752366168149,
+        1.9999999999999996
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_corridor_open",
-      "meshes": 2,
-      "triangles": 170,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_detailed",
-      "meshes": 4,
-      "triangles": 164,
-      "textures": 0,
+      "id": "k_props_food_utensil_spoon",
+      "meshes": 1,
+      "triangles": 46,
+      "textures": 1,
       "preserved": true,
       "bounds": [
         1.9999999999999998,
-        1.8333333333333333,
-        1.6666666666666665
+        0.11593318493896597,
+        0.5004310458664742
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_pizza_cutter",
-      "meshes": 1,
-      "triangles": 96,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.20745730121838296,
-        0.95110966847889
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_cross",
-      "meshes": 3,
-      "triangles": 172,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9999999999999998,
-        1.999999880000007,
-        1.9999999999999998
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_cornerRound",
-      "meshes": 3,
-      "triangles": 414,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_cornerRoundWindow",
-      "meshes": 4,
-      "triangles": 484,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_corner",
-      "meshes": 3,
-      "triangles": 110,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_pipe_corner",
-      "meshes": 2,
-      "triangles": 84,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.417752315917607,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_monorail_trackCornerLarge",
-      "meshes": 2,
-      "triangles": 204,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1625,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_monorail_trackCornerSmall",
-      "meshes": 2,
-      "triangles": 408,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9999999999999998,
-        0.4333333333333333,
-        1.9999999999999998
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_detail_tank",
-      "meshes": 1,
-      "triangles": 310,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.9794704270431767,
-        1.2153194266204619
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_h",
-      "meshes": 2,
-      "triangles": 698,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.1099746673907807,
-        1.9822571058426037
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_i",
-      "meshes": 2,
-      "triangles": 798,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.5817503563211321,
-        1.12852457146326,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_j",
-      "meshes": 2,
-      "triangles": 886,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.5794181908147316,
-        1.3248396715307265,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_k",
-      "meshes": 2,
-      "triangles": 702,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.1862240288036379,
-        1.4024354079791017
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_l",
-      "meshes": 2,
-      "triangles": 1896,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.8477744486845034,
-        1.7949810564748794
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_m",
-      "meshes": 2,
-      "triangles": 1694,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.548559341751566,
-        1.787066549776118,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_n",
-      "meshes": 2,
-      "triangles": 1262,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.0255638813512307,
-        2,
-        1.4911614277596743
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_o",
-      "meshes": 2,
-      "triangles": 868,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.425141904941511,
-        1.4806450999742164,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_p",
-      "meshes": 2,
-      "triangles": 1162,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.8488444949815402,
-        1.178435623866075
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_q",
-      "meshes": 2,
-      "triangles": 2062,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.8224299075832762,
-        1.6541042728119093
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_r",
-      "meshes": 2,
-      "triangles": 1912,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.121764117783912,
-        1.0243245522538396
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_s",
-      "meshes": 2,
-      "triangles": 876,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.7894254618656815,
-        0.8644106872246449
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_building_t",
-      "meshes": 2,
-      "triangles": 1586,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.9999999999999998,
-        1.1785292859649035,
-        1.6146593313350017
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_electricity_wires_wide",
-      "meshes": 1,
-      "triangles": 200,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.2074667678563037,
-        0.36736365526890546
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_electricity_side",
-      "meshes": 1,
-      "triangles": 416,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.863519374868957,
-        1.5283077908018114
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_electricity_side_wide",
-      "meshes": 1,
-      "triangles": 544,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.987352459654977,
-        0.8097465884754449
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_electricity_side_single",
-      "meshes": 1,
-      "triangles": 176,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.24171427280400018,
-        2,
-        1.6402363386715635
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_electricity_pole_wide",
-      "meshes": 1,
-      "triangles": 544,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.9730465715888189,
-        0.39704934400837116
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_electricity_pole_single",
-      "meshes": 1,
-      "triangles": 176,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.3012762036221917,
-        2,
-        0.816095252995049
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_skewer",
-      "meshes": 4,
-      "triangles": 116,
-      "textures": 4,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.3150747579329267,
-        0.363817030109062
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_skewer_vegetables",
-      "meshes": 6,
-      "triangles": 156,
-      "textures": 6,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.36088641304809277,
-        0.3638170305086299
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_end",
-      "meshes": 4,
-      "triangles": 120,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        1.000000011921336
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_paprika_slice",
-      "meshes": 1,
-      "triangles": 96,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.37448862224903257,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_tomato_slice",
-      "meshes": 1,
-      "triangles": 140,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.33333336092807747,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_utensil_fork",
-      "meshes": 1,
-      "triangles": 44,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.0707085219870213,
-        0.333680669214737
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_soda_bottle",
-      "meshes": 1,
-      "triangles": 100,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.6219443753544215,
-        2,
-        0.5386196511742303
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_hangar_largeA",
-      "meshes": 9,
-      "triangles": 412,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.3333333333333333,
-        0.6666666666666666,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_hangar_largeB",
-      "meshes": 10,
-      "triangles": 360,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.4666666666666668,
-        0.7333333333333334,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_hangar_smallA",
-      "meshes": 9,
-      "triangles": 280,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        1,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_hangar_smallB",
-      "meshes": 9,
-      "triangles": 284,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        1,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_hangar_roundA",
-      "meshes": 4,
-      "triangles": 166,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9999999999999998,
-        0.9170823592109987,
-        1.73205065466505
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_hangar_roundB",
-      "meshes": 4,
-      "triangles": 166,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9999999999999998,
-        1.1004988310531985,
-        1.73205065466505
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_hangar_roundGlass",
-      "meshes": 4,
-      "triangles": 113,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9999999999999998,
-        0.8559435352635987,
-        1.73205065466505
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_light_curved",
-      "meshes": 1,
-      "triangles": 92,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.14814816082129026,
-        2,
-        0.6666667236958062
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_light_curved_cross",
-      "meshes": 1,
-      "triangles": 270,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.185185286570322,
-        2,
-        1.185185286570322
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_light_square",
-      "meshes": 1,
-      "triangles": 60,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.1666666625274554,
-        2,
-        0.7916667059891738
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_light_square_cross",
-      "meshes": 1,
-      "triangles": 134,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.416666550768751,
-        2,
-        1.416666550768751
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_light_square_double",
-      "meshes": 1,
-      "triangles": 88,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.16666667494508922,
-        2,
-        1.416666550768751
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_window",
-      "meshes": 4,
-      "triangles": 190,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_windowClosed",
-      "meshes": 4,
-      "triangles": 214,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        2,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_soda_can_crushed",
-      "meshes": 1,
-      "triangles": 212,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.4617084655254768,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_soda_can",
-      "meshes": 1,
-      "triangles": 164,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.2814713224991696,
-        2,
-        1.2814713224991696
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_sausage",
-      "meshes": 1,
-      "triangles": 92,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.6414424968350957,
-        0.7406740351614935
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_styrofoam_dinner",
-      "meshes": 5,
-      "triangles": 240,
-      "textures": 5,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.2832945326540215,
-        1.184845765093856
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_sausage_half",
-      "meshes": 1,
-      "triangles": 100,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.2828849937200346,
-        1.4813480703810136
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pepper_mill",
-      "meshes": 1,
-      "triangles": 252,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.5768469464760675,
-        2,
-        0.5768469464760675
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_soy",
-      "meshes": 1,
-      "triangles": 68,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.7320507719698972,
-        0.4190726400985658,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_strawberry",
-      "meshes": 1,
-      "triangles": 156,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.3151648874925463,
-        2,
-        1.3151648874925463
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_construction_cone",
-      "meshes": 1,
-      "triangles": 66,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.6000000635782876,
-        2,
-        1.6000000635782876
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_popsicle_stick",
-      "meshes": 1,
-      "triangles": 36,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.1176470549564461,
-        2,
-        0.2352941099128922
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pan",
-      "meshes": 1,
-      "triangles": 236,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.7254268918394675,
-        0.46018507673572445,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pot",
-      "meshes": 1,
-      "triangles": 228,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.599494289219612,
-        0.8777824044289789,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_steamer",
-      "meshes": 4,
-      "triangles": 492,
-      "textures": 4,
-      "preserved": true,
-      "bounds": [
-        1.9999999999999998,
-        1.87500003632158,
-        1.9999999999999987
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pot_stew",
-      "meshes": 1,
-      "triangles": 370,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.599494289219612,
-        0.8777824044289789,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pancakes",
-      "meshes": 5,
-      "triangles": 512,
-      "textures": 5,
-      "preserved": true,
-      "bounds": [
-        1.728490012531568,
-        0.48261692489531316,
-        2.0000000000000004
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_wall",
-      "meshes": 3,
-      "triangles": 36,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        0.19999999999999996,
-        1.6,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_peanut_butter",
-      "meshes": 1,
-      "triangles": 172,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.5952941347155647,
-        2,
-        1.5952941347155647
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pear",
-      "meshes": 1,
-      "triangles": 136,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.4499878700835314,
-        2,
-        1.4499878700835314
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pear_half",
-      "meshes": 1,
-      "triangles": 126,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.7249939350417657,
-        2,
-        1.4499878700835314
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_turkey",
-      "meshes": 3,
-      "triangles": 368,
-      "textures": 3,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.7943267668356087,
-        1.478396625380345
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_popsicle",
-      "meshes": 1,
-      "triangles": 78,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.30612245518582293,
-        1.9999999999999998,
-        0.7346938316249101
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_popsicle_chocolate",
-      "meshes": 1,
-      "triangles": 132,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.38775508962835403,
-        1.9999999999999998,
-        0.8163265268885062
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pepper",
-      "meshes": 1,
-      "triangles": 100,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.6512648568372975,
-        0.48562157037645887,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_paprika",
-      "meshes": 1,
-      "triangles": 132,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.6861379915194126,
-        1.9999999999999998,
-        1.6861379915194126
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pizza",
-      "meshes": 8,
-      "triangles": 1208,
-      "textures": 8,
-      "preserved": true,
-      "bounds": [
-        1.9999999433911728,
-        0.10327868786482627,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_platform_low",
-      "meshes": 3,
-      "triangles": 156,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        1,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_bridge_pillar",
-      "meshes": 1,
-      "triangles": 38,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.4000000059604645,
-        2,
-        0.4000000059604645
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_plate",
-      "meshes": 1,
-      "triangles": 140,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.2018448671268171,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_plate_sauerkraut",
-      "meshes": 1,
-      "triangles": 580,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.39298681868723717,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_plate_dinner",
-      "meshes": 1,
-      "triangles": 354,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.49644640865839246,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_plate_deep",
-      "meshes": 1,
-      "triangles": 140,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.3249702360741756,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_plate_broken",
-      "meshes": 8,
-      "triangles": 336,
-      "textures": 8,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.2018448670286633,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_plate_rectangle",
-      "meshes": 1,
-      "triangles": 68,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.3028039980815806,
-        1.6739032692057656
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pudding",
-      "meshes": 1,
-      "triangles": 56,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.732050890305664,
-        1.3846152892937067,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_gate_complex",
-      "meshes": 4,
-      "triangles": 460,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.9743090078884995,
-        2,
-        0.9871545039442498
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_gate_simple",
-      "meshes": 3,
-      "triangles": 212,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.8518519890260734,
-        2,
-        0.9259259945130367
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_radish",
-      "meshes": 1,
-      "triangles": 166,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.1908372645461078,
-        2,
-        1.1908372645461078
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_styrofoam",
-      "meshes": 2,
-      "triangles": 152,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.2832945326540215,
-        1.184845765093856
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_soda",
-      "meshes": 1,
-      "triangles": 188,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.175028024491469,
-        2,
-        1.175028024491469
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_rollingpin",
-      "meshes": 1,
-      "triangles": 140,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.3448538027889199,
-        0.3982028699110592
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_salad",
-      "meshes": 1,
-      "triangles": 170,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.7320506770068096,
-        0.9429065934241025,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_shaker_pepper",
-      "meshes": 1,
-      "triangles": 116,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.968571473535575,
-        2,
-        0.968571473535575
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_sandwich",
-      "meshes": 4,
-      "triangles": 176,
-      "textures": 4,
-      "preserved": true,
-      "bounds": [
-        1.9928592612994445,
-        0.7744465573296042,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_sub",
-      "meshes": 7,
-      "triangles": 574,
-      "textures": 7,
-      "preserved": true,
-      "bounds": [
-        0.8368715491946188,
-        0.6587256535638829,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_solar_panel_landscape_group",
-      "meshes": 2,
-      "triangles": 976,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.3467169158329879,
-        1.182832832223732
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_solar_panel_flat",
-      "meshes": 2,
-      "triangles": 164,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.172413827675905,
-        0.17241379634461612,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_solar_panel_portrait_group",
-      "meshes": 2,
-      "triangles": 976,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        1.4708007575487059,
-        0.6566871451019316,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_sundae",
-      "meshes": 3,
-      "triangles": 316,
-      "textures": 3,
-      "preserved": true,
-      "bounds": [
-        0.6683464295689965,
-        2,
-        0.7717399618062025
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_monorail_trackSupportCorner",
-      "meshes": 3,
-      "triangles": 164,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        0.8,
-        2,
-        0.8
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_monorail_trackSupport",
-      "meshes": 3,
-      "triangles": 176,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        0.8,
-        2,
-        0.8
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_sushi_egg",
-      "meshes": 1,
-      "triangles": 78,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.3529036489815265,
-        0.9085453934861332,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_sushi_salmon",
-      "meshes": 1,
-      "triangles": 96,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.074841739810407,
-        0.8883233096066129,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_taco",
-      "meshes": 1,
-      "triangles": 174,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.2319711701739249,
-        0.5357142607056232
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_tajine",
-      "meshes": 1,
-      "triangles": 164,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.9021131768769686,
-        0.320471802392937,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pot_lid",
-      "meshes": 1,
-      "triangles": 132,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.36017981951503747,
-        1.902113212932057
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pot_stew_lid",
-      "meshes": 2,
-      "triangles": 176,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.36017981951503747,
-        1.902113212932057
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_tajine_lid",
-      "meshes": 1,
-      "triangles": 136,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.902113103498783,
-        1.1128934723034802,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_corridor_roof",
-      "meshes": 2,
-      "triangles": 44,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.482842714,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_tomato",
-      "meshes": 1,
-      "triangles": 132,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.6814497783907514,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_pie",
-      "meshes": 1,
-      "triangles": 292,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.3150000131702183,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_monorail_trackSlope",
-      "meshes": 2,
-      "triangles": 28,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        0.4,
-        1.26,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_monorail_trackStraight",
-      "meshes": 2,
-      "triangles": 28,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        0.4,
-        0.26000000000000006,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_windmill_low",
-      "meshes": 2,
-      "triangles": 456,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        0.67417744246823,
-        2,
-        1.2563623079945445
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_pot-small",
-      "meshes": 3,
-      "triangles": 72,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.6571359309147393,
-        1.7320508295573716
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_driveway_double",
-      "meshes": 1,
-      "triangles": 72,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_driveway_double_barrier",
-      "meshes": 1,
-      "triangles": 72,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_driveway_single",
-      "meshes": 1,
-      "triangles": 60,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_driveway_single_barrier",
-      "meshes": 1,
-      "triangles": 48,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_crossroad_barrier",
-      "meshes": 1,
-      "triangles": 112,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_crossroad_path",
-      "meshes": 1,
-      "triangles": 276,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_crossroad_line",
-      "meshes": 1,
-      "triangles": 108,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_bend",
-      "meshes": 1,
-      "triangles": 260,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_curve",
-      "meshes": 1,
-      "triangles": 308,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.019999999552965164,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_bend_barrier",
-      "meshes": 1,
-      "triangles": 128,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_curve_barrier",
-      "meshes": 1,
-      "triangles": 200,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.07999999821186066,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_bend_sidewalk",
-      "meshes": 1,
-      "triangles": 220,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_curve_pavement",
-      "meshes": 1,
-      "triangles": 220,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.019999998360872365,
-        1.9999998807907176
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_curve_intersection",
-      "meshes": 1,
-      "triangles": 298,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.019999999552965164,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_curve_intersection_barrier",
-      "meshes": 1,
-      "triangles": 166,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.07999999821186066,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_bend_square",
-      "meshes": 1,
-      "triangles": 60,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_bend_square_barrier",
-      "meshes": 1,
-      "triangles": 48,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_end",
-      "meshes": 1,
-      "triangles": 42,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_end_barrier",
-      "meshes": 1,
-      "triangles": 28,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_end_round",
-      "meshes": 1,
-      "triangles": 218,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.039999999105930335,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_end_round_barrier",
-      "meshes": 1,
-      "triangles": 160,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_intersection",
-      "meshes": 1,
-      "triangles": 84,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.9999997615814493,
-        0.03999999433755942,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_intersection_barrier",
-      "meshes": 1,
-      "triangles": 68,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1599999964237213,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_intersection_path",
-      "meshes": 1,
-      "triangles": 204,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_intersection_line",
-      "meshes": 1,
-      "triangles": 76,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_side_barrier",
-      "meshes": 1,
-      "triangles": 24,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.1221373738417933,
-        1.5267175711449523
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_side_entry_barrier",
+      "id": "k_world_city_kit_roads_road_side_exit_barrier",
       "meshes": 1,
       "triangles": 232,
       "textures": 1,
@@ -2589,21 +93,2516 @@
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_roads_road_roundabout_barrier",
+      "id": "k_world_city_kit_roads_road_side_exit",
       "meshes": 1,
-      "triangles": 754,
+      "triangles": 306,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.5267176239385367,
+        0.030534351796417187,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_waffle",
+      "meshes": 1,
+      "triangles": 588,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        0.05333333214124043,
+        0.25,
         2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_side",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.5267176239385367,
+        0.03053435179627518,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-cone",
+      "meshes": 2,
+      "triangles": 132,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.1109240228696988,
+        2.9999999999999996,
+        1.1109240228696988
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_sign_empty_hanging",
+      "meshes": 1,
+      "triangles": 112,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.37894738063918015,
+        2,
+        1.2421053485196776
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_watermelon",
+      "meshes": 8,
+      "triangles": 1376,
+      "textures": 8,
+      "preserved": true,
+      "bounds": [
+        1.9130435084418722,
+        2,
+        1.913043571038643
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-default",
+      "meshes": 2,
+      "triangles": 114,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.3261999290690947,
+        3,
+        1.1485224309956124
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_cornerRound",
+      "meshes": 2,
+      "triangles": 352,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.4177523159176069,
+        1.9999999291123844
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_whipped_cream",
+      "meshes": 1,
+      "triangles": 80,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.7320507776858354,
+        1.2290929692075065,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_sign_empty",
+      "meshes": 1,
+      "triangles": 42,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.2105263083595322,
+        2,
+        0.2105263083595322
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_cornerRoundLarge",
+      "meshes": 2,
+      "triangles": 356,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.649909781786902,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_whisk",
+      "meshes": 1,
+      "triangles": 150,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.435158699316687,
+        0.435158699316687
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_sign_object_stop",
+      "meshes": 1,
+      "triangles": 62,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.2336088252608968,
+        2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-detailed",
+      "meshes": 3,
+      "triangles": 402,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9073196454263193,
+        3,
+        1.7147840901159324
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_cross",
+      "meshes": 3,
+      "triangles": 200,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_whole_ham",
+      "meshes": 1,
+      "triangles": 128,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.1909413260248323,
+        1.3751806565725078,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-fat",
+      "meshes": 2,
+      "triangles": 50,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9689020779530262,
+        3,
+        1.7051186260809303
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_sign_object_street",
+      "meshes": 1,
+      "triangles": 56,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.4415589228496287,
+        0.6233774758777758,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_wholer_ham",
+      "meshes": 1,
+      "triangles": 116,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.8225208951584725,
+        0.9497652908997194,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_end",
+      "meshes": 3,
+      "triangles": 82,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.38564062,
+        1.2000000298023399,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_sign_object_warning",
+      "meshes": 1,
+      "triangles": 62,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.1560871031341233,
+        1.9999998886365642,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_entrance",
+      "meshes": 2,
+      "triangles": 126,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.0000000000000004,
+        1.7320507458733292,
+        1.2990380642763897
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_wine_red",
+      "meshes": 1,
+      "triangles": 132,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.5460000460544159,
+        2,
+        0.47284989842442726
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-oak",
+      "meshes": 2,
+      "triangles": 196,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5671174960606404,
+        3,
+        1.8095512662807454
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_sign_stop",
+      "meshes": 1,
+      "triangles": 104,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.3137176270838633,
+        2,
+        0.5594794022078001
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_wine_white",
+      "meshes": 1,
+      "triangles": 124,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.6186698326100404,
+        2,
+        0.5357838361760678
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-palmbend",
+      "meshes": 2,
+      "triangles": 200,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.0338048843754537,
+        3.0000000000000004,
+        2.201802245596021
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_open",
+      "meshes": 2,
+      "triangles": 104,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.38564062,
+        1.2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_platform_side",
+      "meshes": 4,
+      "triangles": 30,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_sign_street",
+      "meshes": 1,
+      "triangles": 154,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.8263158148180403,
+        2,
+        0.8263148736921173
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_rampLarge",
+      "meshes": 3,
+      "triangles": 160,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.69282031,
+        1.20000001490117,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bathroomcabinet",
+      "meshes": 4,
+      "triangles": 64,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.1794871341222897,
+        2,
+        0.6666666610256413
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_barrier",
+      "meshes": 1,
+      "triangles": 24,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.6599999666213989,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-palmdetailedshort",
+      "meshes": 3,
+      "triangles": 336,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        2.3053096889369082,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_rampSmall",
+      "meshes": 3,
+      "triangles": 160,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.69282031,
+        0.90000001490117,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_platform_small",
+      "meshes": 3,
+      "triangles": 76,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-palmdetailedtall",
+      "meshes": 3,
+      "triangles": 336,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        2.9194092033118273,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bathroomcabinetdrawer",
+      "meshes": 10,
+      "triangles": 508,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.822967895133712,
+        1.9999999999999996,
+        1.3566272707971812
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_platform_smallDiagonal",
+      "meshes": 3,
+      "triangles": 72,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.20000000000000046,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_curve_barrier",
+      "meshes": 1,
+      "triangles": 420,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5799999833106995,
+        1
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_ring",
+      "meshes": 4,
+      "triangles": 144,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.847520948,
+        1.6000000179999998,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bathroommirror",
+      "meshes": 3,
+      "triangles": 72,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.3866664973253062,
+        2,
+        0.6644808284511432
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_curve",
+      "meshes": 1,
+      "triangles": 544,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5199999809265137,
+        1
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-palmshort",
+      "meshes": 2,
+      "triangles": 190,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.937790099420027,
+        3,
+        2.9377900624963162
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_ringHigh",
+      "meshes": 5,
+      "triangles": 190,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.4211698623301663,
+        2,
+        1.53846153265685
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_platform_straight",
+      "meshes": 4,
+      "triangles": 56,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-palmtall",
+      "meshes": 2,
+      "triangles": 190,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.288914469641702,
+        3,
+        2.2889144408734055
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bathroomsink",
+      "meshes": 3,
+      "triangles": 316,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.2142857142857142,
+        2,
+        1.0357142857142856
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rock",
+      "meshes": 2,
+      "triangles": 172,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.8837569440879351,
+        0.7051021076871071,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_statue-block",
+      "meshes": 2,
+      "triangles": 140,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999997948,
+        2,
+        1.9999999999997948
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_flat_curve",
+      "meshes": 1,
+      "triangles": 648,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5199999344348966,
+        0.9999999105930408
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_ringHighEnd",
+      "meshes": 5,
+      "triangles": 186,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.4211699546378584,
+        2,
+        1.2307692261254801
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_statue-column",
+      "meshes": 3,
+      "triangles": 122,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.6,
+        2,
+        0.6
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinedefaulta",
+      "meshes": 2,
+      "triangles": 230,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.0323736817008633,
+        3,
+        1.0323736817008633
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bathroomsinksquare",
+      "meshes": 3,
+      "triangles": 234,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.482758549108208,
+        2,
+        1.0344827086801454
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rock_crystals",
+      "meshes": 3,
+      "triangles": 364,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        0.7932398147398269,
+        1.8837569440879351
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinedefaultb",
+      "meshes": 2,
+      "triangles": 246,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.0324365761973748,
+        3,
+        1.0324365761973748
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_flat_high",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0399999618530273,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rock_crystalsLargeA",
+      "meshes": 3,
+      "triangles": 384,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.8141425610174822,
+        1.1770049692236044,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_ringSupport",
+      "meshes": 3,
+      "triangles": 104,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.4211699546378584,
+        2,
+        0.6153846130627401
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_statue-columndamaged",
+      "meshes": 2,
+      "triangles": 108,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8571428571428571,
+        2,
+        0.8571428571428571
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bathtub",
+      "meshes": 3,
+      "triangles": 602,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.705882352941177,
+        0.9411764705882354
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_flat",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5399999618530273,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinegrounda",
+      "meshes": 1,
+      "triangles": 82,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5759460084250023,
+        3,
+        1.8197453690591454
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_split",
+      "meshes": 3,
+      "triangles": 142,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.2,
+        1.69282031
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rock_crystalsLargeB",
+      "meshes": 3,
+      "triangles": 380,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.1710359556487335,
+        1.984579841119143
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinegroundb",
+      "meshes": 1,
+      "triangles": 82,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.3831080375230638,
+        3,
+        1.5970753012702943
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bear",
+      "meshes": 3,
+      "triangles": 134,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.7320508444444447,
+        2,
+        1.1
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rock_largeA",
+      "meshes": 2,
+      "triangles": 176,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999991,
+        1.0878049623138668,
+        1.8141425610174813
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_statue-head",
+      "meshes": 3,
+      "triangles": 196,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.452,
+        2,
+        1.1088405860000001
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_high_barrier",
+      "meshes": 1,
+      "triangles": 24,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.159999966621399,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_straight",
+      "meshes": 3,
+      "triangles": 80,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.38564062,
+        1.2000000298023399,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bedbunk",
+      "meshes": 8,
+      "triangles": 580,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.042922435300351,
+        1.5525113497716896,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinerounda",
+      "meshes": 2,
+      "triangles": 204,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.354658962739012,
+        3,
+        1.5642255641166678
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant_high",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0399999618530273,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rock_largeB",
+      "meshes": 2,
+      "triangles": 172,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9755269539107787,
+        1.0645781414988487,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pineroundb",
+      "meshes": 3,
+      "triangles": 262,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.3350697176164958,
+        3,
+        1.5382382832353692
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_beddouble",
+      "meshes": 7,
+      "triangles": 264,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.699555621217969,
+        0.6666666666666666,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_baseA",
+      "meshes": 3,
+      "triangles": 300,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.777777777777778,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_supportHigh",
+      "meshes": 3,
+      "triangles": 40,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.7999999960760307,
+        2,
+        0.7999999960760307
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_statue-ring",
+      "meshes": 2,
+      "triangles": 76,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5067613220993343,
+        2,
+        1.0045075480662229
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_slant",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5399999618530273,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_pipe_supportLow",
+      "meshes": 3,
+      "triangles": 40,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5999999843041226,
+        2,
+        1.5999999843041226
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pineroundc",
+      "meshes": 2,
+      "triangles": 206,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.150296858450273,
+        3,
+        1.3282484058385142
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bedsingle",
+      "meshes": 6,
+      "triangles": 214,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.0151111703590083,
+        0.6666666666666078,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_baseB",
+      "meshes": 3,
+      "triangles": 284,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.4444444444444446,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pineroundd",
+      "meshes": 2,
+      "triangles": 170,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.3322831415021377,
+        3,
+        1.5383880655032156
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_split_barrier",
+      "meshes": 1,
+      "triangles": 512,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1,
+        0.07999999821186066,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_finsA",
+      "meshes": 3,
+      "triangles": 192,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        1.1666666666666665,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bench",
+      "meshes": 1,
+      "triangles": 170,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.702127659574468,
+        1.9999999999999998,
+        0.851063829787234
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_split",
+      "meshes": 1,
+      "triangles": 862,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1,
+        0.019999999552965164,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_benchcushion",
+      "meshes": 2,
+      "triangles": 196,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.7391304347826086,
+        2,
+        0.8695652173913043
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_square_barrier",
+      "meshes": 1,
+      "triangles": 32,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.1599999964237213,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinerounde",
+      "meshes": 2,
+      "triangles": 198,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.271986892576304,
+        3,
+        1.271986892576304
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_benchcushionlow",
+      "meshes": 3,
+      "triangles": 138,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.95238089342404,
+        1.047618982766444
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_finsB",
+      "meshes": 3,
+      "triangles": 249,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        1.1666666666666667,
+        1.9999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pineroundf",
+      "meshes": 2,
+      "triangles": 214,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.272082250414478,
+        3,
+        1.272082250414478
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_square",
+      "meshes": 1,
+      "triangles": 36,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.03999999910593033,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_fuelA",
+      "meshes": 2,
+      "triangles": 94,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0000000000000004,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bookcaseclosed",
+      "meshes": 1,
+      "triangles": 372,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.9411765104498286,
+        2,
+        0.5882353190311429
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_straight_barrier_end",
+      "meshes": 1,
+      "triangles": 16,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.1599999582767586,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bookcasecloseddoors",
+      "meshes": 5,
+      "triangles": 296,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.9411765104498286,
+        2,
+        0.5882353190311429
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_straight_barrier_half",
+      "meshes": 1,
+      "triangles": 24,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.1599999582767586,
+        1
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinesmalla",
+      "meshes": 2,
+      "triangles": 164,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5508684863523574,
+        3,
+        1.5508684863523574
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bookcaseclosedwide",
+      "meshes": 1,
+      "triangles": 372,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.974999905,
+        0.625
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_fuelB",
+      "meshes": 2,
+      "triangles": 130,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999996,
+        2,
+        1.9999999999999996
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinesmallb",
+      "meshes": 2,
+      "triangles": 86,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.148912464546069,
+        3,
+        1.165798185959186
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_straight_barrier",
+      "meshes": 1,
+      "triangles": 24,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.1599999582767586,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_sidesA",
+      "meshes": 3,
+      "triangles": 222,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bookcaseopen",
+      "meshes": 1,
+      "triangles": 320,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.9090909752066164,
+        2,
+        0.5681818595041352
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_straight_half",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1,
+        0.03999999910593033,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_bookcaseopenlow",
+      "meshes": 1,
+      "triangles": 184,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        2,
+        1.25
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_road_straight",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.03999999910593033,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinesmallc",
+      "meshes": 2,
+      "triangles": 54,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.031831512407564,
+        3,
+        1.0469963450890174
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_books",
+      "meshes": 4,
+      "triangles": 62,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        1.3812418878728214,
+        1.256251412784327
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_sidesB",
+      "meshes": 3,
+      "triangles": 206,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.0000000000000004,
+        1.5384615384615388,
+        2.0000000000000004
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinesmalld",
+      "meshes": 2,
+      "triangles": 54,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.1206403886602936,
+        3,
+        1.1206403886602936
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_sign_highway_detailed",
+      "meshes": 1,
+      "triangles": 256,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.26475009958447804,
+        1.6442502100915093,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_topA",
+      "meshes": 4,
+      "triangles": 50,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.6,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_cabinetbed",
+      "meshes": 3,
+      "triangles": 72,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.753383682559798,
+        1.6165415605178497
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_sign_highway_wide",
+      "meshes": 1,
+      "triangles": 144,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.26475009958447804,
+        1.4147502329498947,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_cabinetbeddrawer",
+      "meshes": 6,
+      "triangles": 182,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.978947389552831,
+        1.6338347872519776
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_cabinetbeddrawertable",
+      "meshes": 4,
+      "triangles": 140,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.978947389552831,
+        1.6338347872519776
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetalla",
+      "meshes": 2,
+      "triangles": 78,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.7575929788455327,
+        3,
+        0.7687273716238038
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_tile_low",
+      "meshes": 1,
+      "triangles": 12,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.03999999910593033,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocket_topB",
+      "meshes": 3,
+      "triangles": 82,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.8181818181818181,
+        2,
+        1.8181818181818181
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetalla-detailed",
+      "meshes": 2,
+      "triangles": 134,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.7575929788455327,
+        3,
+        0.7687273716238038
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_cabinettelevision",
+      "meshes": 1,
+      "triangles": 154,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.775,
+        0.625
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocks_smallA",
+      "meshes": 1,
+      "triangles": 60,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.22424520045303756,
+        1.856355397749141
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_tile_slant",
+      "meshes": 1,
+      "triangles": 12,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5399999618530273,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rail",
+      "meshes": 2,
+      "triangles": 76,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.0000000000000004,
+        0.6250000000000001,
+        0.125
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_cabinettelevisiondoors",
+      "meshes": 5,
+      "triangles": 210,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.775,
+        0.650000003
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_tile_slanthigh",
+      "meshes": 1,
+      "triangles": 12,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0399999618530273,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetallb",
+      "meshes": 2,
+      "triangles": 78,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.598994688365706,
+        3,
+        0.6077981518594214
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rail_corner",
+      "meshes": 2,
+      "triangles": 130,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5555555555555556,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rocks_smallB",
+      "meshes": 1,
+      "triangles": 48,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5103766520768114,
+        1.9175288539863682
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetallb-detailed",
+      "meshes": 2,
+      "triangles": 166,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.598994688365706,
+        3,
+        0.6077981518594214
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_cardboardboxclosed",
+      "meshes": 2,
+      "triangles": 60,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5124554519572952,
+        2,
+        1.512455451957296
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rover",
+      "meshes": 4,
+      "triangles": 172,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5573740956863096,
+        1.9999999999999998,
+        1.8169364449673613
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_traffic_light_hanging",
+      "meshes": 1,
+      "triangles": 230,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.46199737307836763,
+        2,
+        1.1589224218070204
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rail_end",
+      "meshes": 2,
+      "triangles": 46,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5555555555555556,
+        0.11111111111111116
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_cardboardboxopen",
+      "meshes": 2,
+      "triangles": 60,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999996,
+        1.5112605773517724,
+        1.1428571497719093
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_traffic_light_object_hanging",
+      "meshes": 1,
+      "triangles": 114,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.3632471985947143,
+        2,
+        0.8529027097660714
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetallc",
+      "meshes": 2,
+      "triangles": 98,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8627080886646525,
+        3,
+        0.9961694975126741
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_rail_middle",
+      "meshes": 2,
+      "triangles": 46,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5000000000000001,
+        0.09999999999999998
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_satelliteDish",
+      "meshes": 5,
+      "triangles": 274,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.0000000000000004,
+        1.7910658336354934,
+        1.6457966732212088
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetallc-detailed",
+      "meshes": 2,
+      "triangles": 154,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8627080886646525,
+        3,
+        0.9961694975126741
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_ceilingfan",
+      "meshes": 3,
+      "triangles": 214,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.732050877742038,
+        0.5093208005176304,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_satelliteDish_detailed",
+      "meshes": 5,
+      "triangles": 390,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999993,
+        1.7613279999999996,
+        1.9999999999999993
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_traffic_light_object_horizontal",
+      "meshes": 1,
+      "triangles": 118,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.3632482724020052,
+        0.8529026653863594,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_traffic_light_object_vertical",
+      "meshes": 1,
+      "triangles": 132,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.3632471985947143,
+        2,
+        0.8529027097660714
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_chaircushion",
+      "meshes": 2,
+      "triangles": 198,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8695652173913043,
+        2,
+        0.8695652173913043
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_bridge_draw",
+      "meshes": 1,
+      "triangles": 40,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.19958634576708015,
+        1.6587130564214059
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetalld",
+      "meshes": 2,
+      "triangles": 98,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.6943645817153488,
+        3,
+        0.8017831588070957
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_chairdesk",
+      "meshes": 3,
+      "triangles": 588,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.1025346057617358,
+        2,
+        1.0345590797060862
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_satelliteDish_large",
+      "meshes": 3,
+      "triangles": 186,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999996,
+        1.9186642061287218,
+        1.7364861035956625
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-pinetalld-detailed",
+      "meshes": 2,
+      "triangles": 170,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.6943645817153488,
+        3,
+        0.8017831588070957
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_bridge_straight_pillar",
+      "meshes": 1,
+      "triangles": 156,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.581632666508059,
+        2,
+        1.581632666508059
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_stairs",
+      "meshes": 3,
+      "triangles": 208,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8571428571428571,
+        1.4285714285714284,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_chairmoderncushion",
+      "meshes": 2,
+      "triangles": 92,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8695652173913043,
+        2,
+        0.8695652173913043
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_bridge_straight",
+      "meshes": 1,
+      "triangles": 192,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.581632666508059,
+        2,
+        1.581632666508059
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_chairmodernframecushion",
+      "meshes": 2,
+      "triangles": 284,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.8695652173913043,
+        2,
+        0.8695652173913043
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_door",
+      "meshes": 1,
+      "triangles": 188,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.49558927206988634,
+        2,
+        1.1873446226437387
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-plateau",
+      "meshes": 2,
+      "triangles": 215,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.4689504763611412,
+        2.9999999999999996,
+        1.572590403217238
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_chairrounded",
+      "meshes": 1,
+      "triangles": 280,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.879120911967155,
+        2,
+        0.879120911967155
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_stairs_corner",
+      "meshes": 3,
+      "triangles": 306,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.6666666666666667,
+        2.000000000000001
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-simple",
+      "meshes": 2,
+      "triangles": 62,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.7002015707345888,
+        3,
+        0.808523131504433
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_flag_banner_long",
+      "meshes": 1,
+      "triangles": 68,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.03686636137732995,
+        2,
+        0.5806452002765655
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_stairs_short",
+      "meshes": 3,
+      "triangles": 136,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.5000000000000002,
+        1.375,
+        2.0000000000000004
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_coatrack",
+      "meshes": 2,
+      "triangles": 132,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.250000044642859,
+        0.6000000214285722
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_flag_banner_short",
+      "meshes": 1,
+      "triangles": 68,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.10256409619608521,
+        2,
+        1.6153845389684072
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_coatrackstanding",
+      "meshes": 1,
+      "triangles": 190,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.7085714285714285,
+        2,
+        0.7085714285714285
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_flag_pennant",
+      "meshes": 1,
+      "triangles": 118,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.2457803185531297,
+        2,
+        1.325966126866668
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-small",
+      "meshes": 2,
+      "triangles": 62,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.9584469983422631,
+        3,
+        1.1067192660932295
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_computerkeyboard",
+      "meshes": 2,
+      "triangles": 32,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        0.1952941176470588,
+        0.8376470233876656
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_structure",
+      "meshes": 2,
+      "triangles": 168,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-tall",
+      "meshes": 2,
+      "triangles": 72,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.7102780986266983,
+        3,
+        0.8201585457179844
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_flag_wide",
+      "meshes": 1,
+      "triangles": 256,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.2457803185531297,
+        2,
+        1.2635544417973061
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_structure_closed",
+      "meshes": 3,
+      "triangles": 264,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_computermouse",
+      "meshes": 1,
+      "triangles": 71,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.1679855183520143,
+        0.5539588458469552,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_flag",
+      "meshes": 1,
+      "triangles": 144,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.2457803185531297,
+        2,
+        0.9987997329128577
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_computerscreen",
+      "meshes": 2,
+      "triangles": 72,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.4988245120808326,
+        0.5297029499246174
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_gate",
+      "meshes": 1,
+      "triangles": 146,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.33306292053936415,
+        2,
+        1.4547355827749275
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_tree-thin",
+      "meshes": 2,
+      "triangles": 228,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1.36973249596787,
+        3.0000000000000004,
+        1.241072372570126
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_desk",
+      "meshes": 3,
+      "triangles": 198,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.0467539892957318,
+        1.0682453790357695
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_structure_detailed",
+      "meshes": 3,
+      "triangles": 232,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_metal_gate",
+      "meshes": 1,
+      "triangles": 190,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.19571019507730275,
+        1.9999999999999998,
+        1.9046370384558013
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_structure_diagonal",
+      "meshes": 3,
+      "triangles": 344,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        2,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_deskcorner",
+      "meshes": 3,
+      "triangles": 250,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.7889527237985973,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_siege_ballista_demolished",
+      "meshes": 1,
+      "triangles": 618,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.5810157633534945,
+        1.7717586004513521
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_doorway",
+      "meshes": 3,
+      "triangles": 188,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.9628225696004369,
+        2,
+        0.2246585927055647
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_castle_kit_siege_catapult_demolished",
+      "meshes": 1,
+      "triangles": 842,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.3828859900805628,
+        1.9885480534539246
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_furniture_doorwayfront",
+      "meshes": 4,
+      "triangles": 156,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.9628225696004369,
+        2,
+        0.2246585927055647
       ],
       "gl": 0
     }
   ],
   "errors": [],
   "externalRequests": [],
-  "mobileWidth": 390,
-  "verification": "200 additions rendered with the same runtime; cumulative IDs and every retained GLB SHA-256 verified during build."
+  "mobileWidth": 390
 }
