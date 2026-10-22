@@ -1,0 +1,41 @@
+CONTEXTO PARA CONTINUAR ESTA CONVERSA
+
+Trabalhe em português e seja direto. O usuário reclamou de modelos repetidos que só mudavam de nome. Não infle contagens: considere novo modelo apenas geometria distinta; preserve autor, fonte e licença. A auditoria usada compara geometria normalizada e remove duplicatas geométricas, mas não prova que nunca existirá semelhança semântica ou visual.
+
+PROJETO E OBJETIVO
+
+Repositório: opatrecio-droid/Chatgpt, checkout principal em /workspace/Chatgpt. Há um worktree de publicação /workspace/polyforge-download na branch polyforge-download-2026-10-22.
+O usuário quer uma coleção de até 10.000 modelos para o PolyForge Studio, sem repetições artificiais, cobrindo personagens, animais, objetos, natureza/biomas e artes em estilos distintos. O formato foi ajustado para estúdios HTML autônomos separados: entregar um ZIP por lote de 1.000 modelos novos; o último lote tem 965 novos para alcançar 10.000 no total.
+O usuário pediu GPT-6 Luna em raciocínio alto para o trabalho pesado. A raiz coordena e revisa. O usuário valoriza economia, correção dos números e entregas claras.
+
+ESTADO DA ENTREGA
+
+- Biblioteca anterior: 1.035 modelos (os 35 modelos originais mais a expansão já concluída).
+- Lote 001: mais 1.000 modelos novos, geometria distinta do baseline. Total efetivamente entregue: 2.035.
+- ZIP original, preservado: https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/polyforge.zip
+- ZIP do lote 001: https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001.zip
+- HTML individual do lote 001: https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001/index.html
+- O ZIP do lote 001 foi baixado do link público, SHA-256 e CRC conferidos; contém o HTML offline, catálogo, créditos, relatórios e previews. SHA-256 ZIP: 59dd1bb1877701572430b9acc0687f70362b74be93302f24aed5a8b500a1b052. SHA-256 HTML: 6b8839e0216517f49f219747cc5ceb239af0113e72a4084b3400b01f81ced444.
+- Publicado no commit 4d9527802d84867c5aa0a046a2a942c152aa9038 da branch acima. O ZIP original continua preservado.
+- Lote 001 categorias corrigidas e conferidas: 165 natureza, 473 props/objetos, 182 itens/equipamentos, 75 animais/criaturas, 74 personagens, 31 veículos.
+- Validação: os 1.000 modelos parsearam e renderizaram; SHA de origem e payload embutido conferidos; filtros e largura móvel passaram; bioma floresta desktop/mobile aprovado. O estúdio mostra apenas estilos realmente disponíveis. No lote 001, floresta funciona no estilo Cartoon; Low-poly habilita floresta, selva, pântano e terras vulcânicas. Presets sem componentes suficientes aparecem indisponíveis com lacunas explicitadas. Instâncias nas cenas de bioma não contam como modelos novos.
+
+META FUTURA E PAUSA
+
+Meta: 10.000 modelos totais, isto é, 8.965 novos além dos 1.035 iniciais. Com o lote 001 entregue, restam 7.965 novos: sete lotes de 1.000 e um final de 965.
+O usuário disse “vamos dar uma pausa” e pediu “entrega o já foi feito”. A pausa foi cumprida: quatro agentes foram interrompidos; render Grab3D e auditoria global em execução foram encerrados. Não retomar aquisição, curadoria, publicação ou execução autônoma até o usuário pedir. Os arquivos e rascunhos foram preservados.
+Rascunho do lote 002 existe em /workspace/Chatgpt/assets/scale-deliveries/batch-002-draft.json, mas NÃO foi validado/congelado nem entregue. Não o apresente como pronto. A auditoria encontrou candidatos globais suficientes para a meta, mas candidatos não são modelos entregues. Snapshot é incompleto porque curadorias posteriores e aquisições precisam ser consolidadas ao retomar.
+Arquivo de checkpoint: /workspace/artifacts/colecao-10000/PAUSA.md.
+
+GOOGLE DRIVE
+
+O usuário compartilhou a pasta https://drive.google.com/drive/folders/1al5UDJl2YZhJ8cthWkE0ox5nmMXYB-OF?usp=sharing e marcou Google Drive repetidas vezes. Nesta conversa não apareceu ferramenta de upload do Drive (ALL_TOOLS só oferecia ferramentas sem integração Drive). Nenhum arquivo foi enviado. Não diga que enviou. Se o usuário retomar esse pedido, verifique se o conector de upload ficou disponível; se não, diga claramente que o bloqueio continua e disponibilize os links dos ZIPs.
+
+PREFERÊNCIAS IMPORTANTES
+
+- Não substituir o estúdio original; manter os ZIPs e lotes entregues disponíveis.
+- Distinguir candidatos baixados de modelos auditados, selecionados, testados e entregues.
+- Não usar cópias de geometria, recolorações ou renomeações para preencher lotes.
+- Categorizar conforme o modelo real: armas portáteis/equipamento em itens; peças de veículos, trilhos, prédios e recipientes em props; veículos completos em veículos; fauna em animais; humanoides/personagens em personagens; vegetação/rochas em natureza. Evitar regras cegas por nome do pacote.
+- Separar estilos apenas com evidência visual ou fonte verificável; usar “não classificado” quando ambíguo.
+- O usuário pediu uma pausa. Preserve esse limite, seja breve e não retome o trabalho sem pedido.
