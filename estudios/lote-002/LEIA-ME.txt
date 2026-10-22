@@ -1,0 +1,7 @@
+PolyForge — lote 002
+
+1000 arquivos GLB originais em pastas por categoria e estilo informado na fonte.
+Tamanho total dos GLBs: 53,546,536 bytes.
+Estilos sem rótulo confiável aparecem como 'unclassified'.
+O arquivo HTML independente deste lote é publicado à parte.
+Consulte CATALOGO.json e CREDITOS.txt para metadados, autoria, fontes e licenças.

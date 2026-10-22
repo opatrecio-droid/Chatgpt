@@ -1,5 +1,24 @@
 # PolyForge — estúdio e arquivos 3D
-## Modelos 3D em pastas, sem HTML
+
+## Lote 002 — +1.000 modelos (3.035 no total)
+
+- **[Abrir o estúdio HTML standalone do lote 002](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-002/index.html)** — 36,62 MB, abre offline após baixar.
+- **[Baixar somente os 1.000 GLBs do lote 002 (ZIP)](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/downloads/modelos-3d-lote-002.zip)** — 23,11 MB; contém modelos em pastas por categoria/estilo, catálogo, créditos e licenças; não inclui HTML.
+
+SHA-256 do HTML: `44ad72423245ab97a84b8b2ee776ec660825811c4fdcdba4e8fd7a0f1ff8352d`
+
+SHA-256 do ZIP GLB: `e59c361a7a24a8f0b47896ff51e969dfcdccf80c00787883c3430def942f96d8`
+
+- [Catálogo completo do lote 002](estudios/lote-002/CATALOGO.json) · [Créditos](estudios/lote-002/CREDITOS.txt) · [Auditoria de renderização](estudios/lote-002/auditoria-render.json) · [Auditoria de seleção](estudios/lote-002/auditoria-selecao.json)
+- [Prévia 1](estudios/lote-002/preview-01.jpg) · [Prévia 2](estudios/lote-002/preview-25.jpg)
+
+O lote 002 acrescenta 1.000 modelos à biblioteca anterior de 2.035, totalizando 3.035. Cada modelo tem ID, geometria, nome, fonte, autor e licença auditados. O HTML e o ZIP são arquivos separados.
+
+## Lote anterior
+
+**[Baixar o ZIP cumulativo publicado com os 2.035 modelos anteriores](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/downloads/modelos-3d.zip)** · [Estúdio independente do lote 001](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001/index.html) · [Pacote do lote 001](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001.zip).
+
+O ZIP de 2.035 modelos continua disponível sem alterações; o ZIP do lote 002 é incremental e contém apenas os novos modelos.
 
 **[Baixar os 2.035 arquivos GLB em ZIP (66 MB)](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/downloads/modelos-3d.zip)**
 

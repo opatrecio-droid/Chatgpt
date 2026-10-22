@@ -89,8 +89,8 @@ function syncNativeAnimations(){
     const manual=document.querySelector('button[onclick="triggerManualAttackBurst()"]');if(manual){manual.disabled=!actor?.find('action');manual.style.opacity=manual.disabled?'.35':'1';}
 }
 function nativeLicenseLabel(asset){const code=String(asset?.license||'').replace(/\s/g,'').toUpperCase();return ({'CC0-1.0':'CC0 1.0','CC-BY-3.0':'CC BY 3.0','CC-BY-4.0':'CC BY 4.0'})[code]||asset?.license||'Licença não informada';}
-function nativeStyleLabel(style){return ({lowpoly:'Low-poly estilizado',cartoon:'Cartoon / chibi',voxel:'Voxel',realistic:'Realista',unclassified:'A revisar'})[style]||style||'A revisar';}
-function nativeStyleKey(asset){const raw=String(asset?.artStyle||asset?.style||'unclassified').toLowerCase().replace(/[ _]/g,'-');return ['lowpoly','low-poly','stylized-low-poly'].includes(raw)?'lowpoly':['cartoon','chibi','cartoon-chibi'].includes(raw)?'cartoon':['voxel','realistic','unclassified'].includes(raw)?raw:'unclassified';}
+function nativeStyleLabel(style){return ({lowpoly:'Low-poly estilizado',cartoon:'Cartoon / chibi',voxel:'Voxel',realistic:'Realista',unclassified:'Sem classificação de estilo'})[style]||style||'Sem classificação de estilo';}
+function nativeStyleKey(asset){const raw=String(asset?.artStyle||asset?.style||'unclassified').toLowerCase().replace(/[ _]/g,'-');return ['lowpoly','low-poly','stylized-low-poly'].includes(raw)?'lowpoly':['cartoon','chibi','cartoon-chibi'].includes(raw)?'cartoon':(['voxel','realistic','unclassified'].includes(raw)?raw:raw||'unclassified');}
 function nativeCredits(asset){return `Título: ${asset.name}\nAutor: ${asset.author}\nFonte: ${asset.sourcePage}\nLicença: ${nativeLicenseLabel(asset)} (${asset.licenseUrl})`;}
 function nativeExternalURL(value){return /^https?:\/\//i.test(String(value||''))?String(value):'#';}
 function nativeScriptJSON(value){return JSON.stringify(value).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');}
@@ -134,7 +134,12 @@ async function bootDownloadedStudio(){
             collection.onchange=()=>filterAssets();document.getElementById('library-biome').after(collection);
         }
         const styleFilter=document.createElement('select');styleFilter.id='native-style-filter';styleFilter.className='library-biome';styleFilter.setAttribute('aria-label','Filtrar por estilo visual');styleFilter.add(new Option('Todos os estilos','all'));
-        for(const style of ['lowpoly','cartoon','voxel','realistic','unclassified'])if(ASSET_CATALOG.some(a=>nativeStyleKey(a)===style))styleFilter.add(new Option(nativeStyleLabel(style),style));
+        const styles=[...new Set(ASSET_CATALOG.map(nativeStyleKey))].sort((a,b)=>{
+            const order=['lowpoly','cartoon','voxel','realistic','unclassified'];
+            const ai=order.indexOf(a),bi=order.indexOf(b);
+            return (ai<0?order.length:ai)-(bi<0?order.length:bi)||a.localeCompare(b);
+        });
+        for(const style of styles)styleFilter.add(new Option(nativeStyleLabel(style),style));
         styleFilter.onchange=()=>{filterAssets();syncBiomeAvailability(styleFilter.value);};const packFilter=document.getElementById('native-pack-filter');(packFilter||authorFilter).after(styleFilter);
         const biomeSelect=document.getElementById('biome-select');
         const componentLabels={canopy:'copas',undergrowth:'sub-bosque',stone:'rochas'};

@@ -1,0 +1,105 @@
+{
+  "selection": "batch-002.json",
+  "previousSelection": "batch-002-pretrim-v2.json",
+  "removedIds": [
+    "s_poly_7do2pm4f8o",
+    "s_poly_9h7pb9ndc1",
+    "s_poly_c03o8oqq6o",
+    "s_poly_dm9hxxth1i",
+    "s_poly_fvpijt42q1",
+    "s_poly_gfcdqybb7p",
+    "s_poly_h4oxkd9lwz",
+    "s_poly_jabq8uevz0",
+    "s_poly_kfdc7vkid6",
+    "s_poly_kj0vzlemjx",
+    "s_poly_kvi5zmiqhy",
+    "s_poly_ozr7hf9axy",
+    "s_poly_sbllgmxrq1",
+    "s_poly_uacrjkwa4q",
+    "s_poly_wj8qjq38t8",
+    "s_poly_wkuyn6x3ul",
+    "s_poly_xvfodfisct",
+    "s_poly_yfs6j9xpdz",
+    "s_poly_zl8lbjx1cw"
+  ],
+  "addedIds": [
+    "s_poly_3y2cocx0ilr",
+    "s_poly_814cinpg3h1",
+    "s_poly_64yw0uoayhc",
+    "s_poly_cx7dmdudzhg",
+    "s_poly_1hrevsktbpg",
+    "s_poly_0wrzrtciirp",
+    "s_poly_653otkgnnpx",
+    "s_poly_11rgz0qxz-f",
+    "s_poly_kttbfvcl2c",
+    "s_poly_jkrevqzb8j",
+    "s_poly_tlsbuodtr7",
+    "s_poly_cklhpoyhe9",
+    "s_poly_2daakhd48zp",
+    "s_poly_a9qw8wsfaax",
+    "s_poly_5vv8rsyav1",
+    "s_poly_9fuvwmzqucy",
+    "s_poly_2z5-fkj3akx",
+    "s_poly_3b3pa6bhxn1",
+    "s_poly_4kmmro9_b73"
+  ],
+  "semanticMap": "batch-002-polypizza-replacement-map-v1.json",
+  "corrections": [
+    {
+      "id": "s_poly_8hpfk72jhlo",
+      "category": "props",
+      "reason": "Hammock is fixed outdoor furniture; props is the environmental fixture category."
+    },
+    {
+      "id": "s_poly_cw8u8jdl5ze",
+      "category": "items",
+      "reason": "Golf tee is a small held/consumable sports item, not a natural feature."
+    },
+    {
+      "id": "s_poly_eaz0fhzoti",
+      "category": "items",
+      "reason": "Crystal Bowl is a portable container/object; items is the catalog category for held objects."
+    },
+    {
+      "id": "s_poly_ftsh4nkz9ik",
+      "category": "props",
+      "reason": "Rock band poster is a decorative wall item/fixture; props is the catalog category for static decor."
+    }
+  ],
+  "planterCorrections": [
+    "s_poly_eucvk3oq9z",
+    "s_poly_kxvm53iiiu",
+    "s_poly_wibwte6p8l"
+  ],
+  "removedIds_v2": [
+    "s_poly_5wwzsz2ipb",
+    "s_poly_90pyh0u4cr",
+    "s_poly_bozww1kglr",
+    "s_poly_kwte99stlr",
+    "s_poly_qc7ty0vbgc",
+    "s_poly_rep1ogu40s",
+    "s_poly_wa3skdczyd",
+    "s_poly_xtl3rwtilo"
+  ],
+  "addedIds_v2": [
+    "s_add_gobkit_owl",
+    "s_add_gobkit_seal",
+    "s_add_gobkit_whale",
+    "s_poly_qbeov9zut8",
+    "s_poly_h0dibeeyw6",
+    "s_poly_hsejgrlqwx",
+    "s_poly_4jgndpc3sk",
+    "s_poly_fojr5i3h_nh"
+  ],
+  "semanticMaps_v2": [
+    "batch-002-polypizza-replacement-map-v2.json",
+    "/workspace/asset-downloads/scale/polypizza/category-review/batch002_v2_replacement_delta_non_polypizza_map.json"
+  ],
+  "retainedShurikenIds": [
+    "s_poly_aldddb2wij",
+    "s_poly_fw0rsclaoi",
+    "s_poly_fw98o9cibi",
+    "s_poly_rvebtdprqa"
+  ],
+  "trimRationale_v2": "iPoly3D shuriken visual family reduced to four distinct silhouettes based on QA sheets."
+}

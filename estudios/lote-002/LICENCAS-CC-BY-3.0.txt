@@ -1,0 +1,3 @@
+Creative Commons Attribution 3.0 Unported
+https://creativecommons.org/licenses/by/3.0/
+Os modelos sob CC BY requerem crédito apropriado, link para a licença e indicação de alterações, se houver. Veja autor, fonte, licença e SHA-256 de cada modelo em CREDITOS.txt e CATALOGO.json. Os GLBs deste pacote foram copiados sem alteração.

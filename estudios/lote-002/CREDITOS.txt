@@ -1,0 +1,1135 @@
+PolyForge — lote 002
+
+Modelos: 1000 arquivos GLB originais.
+Tamanho total dos GLBs: 53,546,536 bytes.
+SHA-256 individual consta no CATALOGO.json.
+
+Atribuição por autor e coleção:
+
+- abm — Polygonal Mind; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • MomusLogo01_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/abm — SHA256 df0a0aa039e44eac6a00f24b8da35b384308629dc04cc8db71ed277aefec8fdf
+
+- aero-system — Polygonal Mind; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Aero_Ground_Hexagon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/aero-system — SHA256 b3a0c2672a3148f26f647d588db3d1d0fd8afe4c2b2bee9df96eaf01cb9e40a5
+
+- avatar-garden — Polygonal Mind; 6 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Brush01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/avatar-garden — SHA256 1dc01ea7cfb156077e5d3c876f52985856a93284f67fc3e6d01687e56dff8511
+  • LogoPolygonal01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/avatar-garden — SHA256 c149a497b3fc08a0ff39979c70c94f38c60dc91d39d979046cd965ffe2dcb8f5
+  • PaintEasel01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/avatar-garden — SHA256 6df00013e77092c69a1040f59be35eade9eb6309dfcc8013f5a433efc02b59b0
+  • Palette01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/avatar-garden — SHA256 7106c566904db3df0bff892b674161a5aaacc097f8b7e4e7b4b157f2d64c9bba
+  • Star01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/avatar-garden — SHA256 09e8273b6a167d2e1fa94a6f033391e472ba26adf0de1636c739e3160d26c2d4
+  • Sunflare01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/avatar-garden — SHA256 a5a0fa6b270a032d8555c5e00f50aeb124db30cc092faf5d59bcf996e975cdea
+
+- Blaster Kit — Kenney; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • blaster-a.glb — https://kenney.nl/assets/blaster-kit — SHA256 8dff9826cc295ec82265d11fb2061c5e72ab695a8cc687e0c4f0ba8bc31a1a21
+  • blaster-b.glb — https://kenney.nl/assets/blaster-kit — SHA256 4371b52514b9749523ee649b36ded8c8c75c16d4f0f3914133b8de5f662d6ffb
+  • blaster-c.glb — https://kenney.nl/assets/blaster-kit — SHA256 cafd3c24427d763f9ec16f9a094676f4f02b4e8f8bd7ebb3dbf94690250b573c
+  • blaster-d.glb — https://kenney.nl/assets/blaster-kit — SHA256 b97149f1b00d5c9f6ca808fcc5c39715ff980a67844369cb092b6140903d85bb
+  • blaster-h.glb — https://kenney.nl/assets/blaster-kit — SHA256 a3750c44b4e3fd81e89d31f5b2079c58d0db62fcf970d80d35e553f8fadc51a5
+  • blaster-i.glb — https://kenney.nl/assets/blaster-kit — SHA256 4e4f1357707504bb00f9a1ad1088cb44d212b83977c0fb8c9c3649a33e92de8f
+  • blaster-k.glb — https://kenney.nl/assets/blaster-kit — SHA256 94c2d91e266087c342ee0590c5cacef5c32ce2de19bd655e2a03ff966ace1038
+  • blaster-l.glb — https://kenney.nl/assets/blaster-kit — SHA256 2a8d1602e8a8fa5b9fa99ddb4668cd6d16b4d232149090790f2dd0f082b8876a
+  • blaster-m.glb — https://kenney.nl/assets/blaster-kit — SHA256 bd2c4b0ebd4d57c630d69d24527b7f60c5347d978ad213a9744a3c28635a8372
+  • blaster-n.glb — https://kenney.nl/assets/blaster-kit — SHA256 532d62af957ecb1aefc43c60964e715af92497b3d53449a207b8b072b804518c
+  • grenade-a.glb — https://kenney.nl/assets/blaster-kit — SHA256 79ac5240c52c13dabc7aedff93786ded3bfadb9f72e4838c64a57e6e37b80e5f
+  • grenade-b.glb — https://kenney.nl/assets/blaster-kit — SHA256 c35260c1a53f16576d85fb1abc7b5b3fe30f86b816d95d5931bb6fd712ad5b7e
+  • scope-large-a.glb — https://kenney.nl/assets/blaster-kit — SHA256 062f55ccc727cdb6d56a5e0d246ed86fbd896addbc26bb0d71ff3136454ccc84
+  • scope-large-b.glb — https://kenney.nl/assets/blaster-kit — SHA256 5ea724d93a6bcd7d661eb6ac3e21775250d6157dde46d65cf90fe85bd4bb94da
+  • scope-small.glb — https://kenney.nl/assets/blaster-kit — SHA256 e2808f734b4095c919f9b5d6f3eb078c9eccc825d5104ed762b1b7e970fdb102
+
+- ca-world — Polygonal Mind; 4 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • AvatarBust_01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/ca-world — SHA256 927a4636d9397c614c36527c2e9cc9a5232d27bc4b79af9065e200f38369f829
+  • CAIO_Whale_01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/ca-world — SHA256 3b079c285fcfff81c01bc50d3e7e9341fe5478c199f83a77fdf461f90905bfee
+  • Head_logo_01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/ca-world — SHA256 7d1a15123e21e69b244c6bf13178729227c52000e075535c32ab3cdb347fa78f
+  • Sign_07_Exit — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/ca-world — SHA256 4cbe4f01508f772c07b7aa0e0e245e5dafe8e84eaece0e1b0ca703f890fdf5cd
+
+- Castle Kit — Kenney; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • wall-stud.glb — https://kenney.nl/assets/castle-kit — SHA256 221b0c4f513055fc9e68e8fd1c971bf8bb924a1eb07d79e478e1acfcc0faa718
+
+- Coaster Kit — Kenney; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • coaster-wood-segment.glb — https://kenney.nl/assets/coaster-kit — SHA256 413a17dc1ce2742432fc16cf16539bc1e4ec23022d82839c642075c4a75e0601
+
+- crystal-crossroads — Polygonal Mind; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Dune_Sand — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/crystal-crossroads — SHA256 a88b8d4e13f45b3f4351352a5a267d06fc3f0122df25217638fe873981fec5a2
+
+- Factory Kit — Kenney; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • crane-lift.glb — https://kenney.nl/assets/factory-kit — SHA256 4dbdedfea919a4f2a1596bc8ea4ce6a6cdf8216001425f0ca46d00b28ba11110
+  • crane-magnet.glb — https://kenney.nl/assets/factory-kit — SHA256 8f5d47454b82f519e32352963c57a822b720f4e2fd6daf1a57158650974ecde3
+
+- Fantasy Town Kit — Kenney; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • fountain-center.glb — https://kenney.nl/assets/fantasy-town-kit — SHA256 e654d1b2df17f5fae1232e3bf4196751dff87d32cb39f2f7b4b4fa73b3ba71ae
+  • wall-wood.glb — https://kenney.nl/assets/fantasy-town-kit — SHA256 5242c232f617edfd7128648af0d12a53c56c615eccc917e20199e25ce48f108f
+
+- Furniture Kit — Kenney; 25 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • floorCornerRound — https://kenney.nl/assets/furniture-kit — SHA256 d9d5392ecff520a263dd7e5b77e733da125f866002311ea65572731d90fb8990
+  • floorHalf — https://kenney.nl/assets/furniture-kit — SHA256 8cf16d67b8185f6c28f957458da92a337f0949d2e127df9a50b53ea5e8894673
+  • hoodLarge — https://kenney.nl/assets/furniture-kit — SHA256 e9b60fa02bba74d99103e8ba9d7ca99fbd99299bc57c4f5f84b2add2a6a3afcc
+  • kitchenBar — https://kenney.nl/assets/furniture-kit — SHA256 792c3d31e60c8a8d8c7a28cf7d1efe004c5a601adc1b163a8799dde32c1b559d
+  • kitchenCabinetCornerInner — https://kenney.nl/assets/furniture-kit — SHA256 8d1b69e63048424a0559d1e5c77427fab9021def7dea74cf1c4d3d8ce16e6e69
+  • kitchenCabinetUpperLow — https://kenney.nl/assets/furniture-kit — SHA256 c25293d38ad3d4338142f5bfb6832a2f7e8a069a552fc4a6730231b1b382d33e
+  • lampRoundFloor — https://kenney.nl/assets/furniture-kit — SHA256 50fe1b5b588edf15bfa9cc880f71a02a4fda6036350b24733d0ef4de5cc5e908
+  • lampRoundTable — https://kenney.nl/assets/furniture-kit — SHA256 75bb644caaa3da003b4fcad7a931722dd61cd2858aab70cf660021d5061fa1b2
+  • lampSquareCeiling — https://kenney.nl/assets/furniture-kit — SHA256 57066be51583d83ae60071e8179af275189cb2911ecb9fc24953bb930c8bf118
+  • lampSquareFloor — https://kenney.nl/assets/furniture-kit — SHA256 6466993748d8e184de9ec5b6b0af613867c50c0ce320d1898b1db9e4c27c2561
+  • lampSquareTable — https://kenney.nl/assets/furniture-kit — SHA256 70ec9211af336b1ef3b4da32590b8737b4facf219348c22e6533a1e898cdb13d
+  • lampWall — https://kenney.nl/assets/furniture-kit — SHA256 a9679ecd3be05731846f22ade97c37069598ca7a06dd9319f50230e63a1ea83c
+  • laptop — https://kenney.nl/assets/furniture-kit — SHA256 5fa8a1f4a71ab8d82ef64da77a6973ffd350c6d4557516069a4ffd4bb8d808af
+  • loungeSofaOttoman — https://kenney.nl/assets/furniture-kit — SHA256 79087654136d7d69653fdc3b52a02d7833fe13e6a0a56b8dcdf652c611dbd959
+  • pillow — https://kenney.nl/assets/furniture-kit — SHA256 6fae7c190d0b676ef3efd35e5178cef21dffb5c80e1257d8b537ad424da0e5f6
+  • pillowBlue — https://kenney.nl/assets/furniture-kit — SHA256 8326e018c09cb00c19c2c9b745f521cd7eba1169b755322b04f88440dbfef319
+  • pillowBlueLong — https://kenney.nl/assets/furniture-kit — SHA256 b643f81a863595071b7907d3d0dcf5b1b0e3bb6ad8521db37778b2242ba46bbc
+  • pillowLong — https://kenney.nl/assets/furniture-kit — SHA256 d8490ae920413fd04c85a2164ef384d67a1ca257f761dec1cc7f06fa2c027283
+  • tableRound — https://kenney.nl/assets/furniture-kit — SHA256 f8daea9124a542a00b7bdacfddac82dc468573d43e44d7b54dd6316e9695754b
+  • televisionAntenna — https://kenney.nl/assets/furniture-kit — SHA256 00eea4123b3efc7f8050fd3eaac0a83de3053c9e6cead18dc739260a429b2bb7
+  • televisionModern — https://kenney.nl/assets/furniture-kit — SHA256 d89519ad0a5f28b5b0dccb0d83209dccf610cda959578238dd21bbf9e219cfc6
+  • trashcan — https://kenney.nl/assets/furniture-kit — SHA256 e0ccc1fe50cbd05386477fdff527171d1cf7c0de2ba7ff3233f8d9561feb2561
+  • wallCorner — https://kenney.nl/assets/furniture-kit — SHA256 0e6521caee1f9282784c52e0f651084e49f575b091ad97bf25540b8049757aef
+  • wallDoorway — https://kenney.nl/assets/furniture-kit — SHA256 a55be1da05aa80c74749d0c38bd093fa5e2b1eaf21cbc9a7c3a0e6fbcfbe38e2
+  • wallDoorwayWide — https://kenney.nl/assets/furniture-kit — SHA256 877af5b239f31f12027e3cec92aa26e97d511e1ae8673a8e3d7d13302d33edf3
+
+- Gobkit Free Animal Pack Vol. 2 — Gobkit; 3 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Owl — https://gobkit.com/freebies — SHA256 e2a6c5da7ae79eabe2b18e0a7411ae3e5dec975fbedae3188ee59f14585bced6
+  • Seal — https://gobkit.com/freebies — SHA256 31932775cd439c4fd6146792c2d0c30712c5669714c283a9237d66bf9ed02cb4
+  • Whale — https://gobkit.com/freebies — SHA256 af3cbb567e64dfd41731a3325c9a13321513bd92e0b36078766d4e3934ffd6f7
+
+- Gobkit Free Animal Pack Vol.1 — Gobkit; 6 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Anglerfish — https://gobkit.com/freebies — SHA256 5f5003ca86bef864ce369d7bf63d8a65d0951d9b77e2f2b23ea3662911faf145
+  • Bat — https://gobkit.com/freebies — SHA256 4d40e65911b0344cc86f7f0efc41fcddc8621d7ac42732c61f47938e30d1f922
+  • Duck — https://gobkit.com/freebies — SHA256 0f29b191713f4159e453a9af4a36b34eba531eb6eb0778c96f36d4f0ebe4fe97
+  • Hippo — https://gobkit.com/freebies — SHA256 079875e036dd1384b801403553193e73901f6583dc18c07dc7235d74634ea777
+  • Jellyfish — https://gobkit.com/freebies — SHA256 38eb78a3d7a2a31b2b77fbb86a62f162855a1f130fa9453387f92252b68eada3
+  • Shark — https://gobkit.com/freebies — SHA256 ac57ef3ab9c718a5a0d0369754f66900c24e367694aaa4a8224f595ba82d2291
+
+- Gobkit Free Animal Pack Vol.3 — Gobkit; 6 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Bull — https://gobkit.com/freebies — SHA256 6e9bb8149851f7e777a473592fee31b20a129588ded82378624d0ae0c5259726
+  • Calf — https://gobkit.com/freebies — SHA256 90df6fa5499e310442491cae5ce91e022c1876b326162663c249271796ab2cd4
+  • HighlandCow — https://gobkit.com/freebies — SHA256 f96d28080bf8aaaf2bbaaed93af64096a5855979c9e1a633b725d29f97b31d4a
+  • HolsteinCow — https://gobkit.com/freebies — SHA256 5221359c54190401ecfae58e44049b10401db58d104f9158476f3b6600660e65
+  • Pig — https://gobkit.com/freebies — SHA256 3f6e197ac5f1838b55b4dfd61410e05904683a5fa650cdada8cd84554a8d60c2
+  • Piglet — https://gobkit.com/freebies — SHA256 ffc9b3c08f87d994d959f1fb034c1b555480724eff1cd6063585976796da18ec
+
+- Gobkit Free Animal Pack Vol.4 — Gobkit; 10 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • BlueTang — https://gobkit.com/freebies — SHA256 d3a0027afdba931e3383166f8363caff4449f0cf4d929198547c823f752b4030
+  • Doe — https://gobkit.com/freebies — SHA256 7883b74f80d6044f6867370cbff759310989f9c2562177af4d7283b7754ebe7c
+  • Elephant — https://gobkit.com/freebies — SHA256 ab6303c398e9bfcf5d247aec008c307d67398dca86362ac3db6d63a78940a19c
+  • Fox — https://gobkit.com/freebies — SHA256 6b21cee3fbfc1c84510b020d9bc75e69a4f6401e7715109f25fdcce4fe10f6bf
+  • Goose — https://gobkit.com/freebies — SHA256 a49f32e0b987776d4c4d953e853e435eb1574c173595da71b79ae716a56bcadc
+  • Hare — https://gobkit.com/freebies — SHA256 3342949e3b124441d4ac8a7bdffd93835c90752bfe0f3b7785a6cdd8f5b99cfb
+  • Hedgehog — https://gobkit.com/freebies — SHA256 85ee10753e0b23b23a5a0b4cab8e764865f664a4e0845fdc1c7f41912158fcb9
+  • Lion — https://gobkit.com/freebies — SHA256 22f8b01f5b114857a6165fadc16fef38ae1e139fbd9c7abb0c95636fa4e2e06a
+  • Squirrel — https://gobkit.com/freebies — SHA256 3ab524a913649fb08cc1fc264173a21ea04363f6f89d0d128eaaaa1ed714676f
+  • Zebra — https://gobkit.com/freebies — SHA256 c4269bd53fbbb0d5a335af7ea8dcd31433e7cf7616b9d40b7354f67377742e33
+
+- Gobkit Free Animal Pack Vol.5 — Gobkit; 8 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Chick — https://gobkit.com/freebies — SHA256 c74b1e07f052eb4a75b959abe5691cdf937971c18bfc58fab36536a4abf7c090
+  • Dingo — https://gobkit.com/freebies — SHA256 75e8bfe22ecffe2a96dc032b6fa15b57a07c777826b5c6e939f649643e9046ce
+  • Mole — https://gobkit.com/freebies — SHA256 d2abd76c175dc910a1b836cabe1cb18836ef3c41f7c331d0412cd0795668b0d8
+  • Narwhal — https://gobkit.com/freebies — SHA256 f3497a82d21198bc19be7dee07718d95bc9db29d6191d61cb51c8720cc7d9769
+  • Quail — https://gobkit.com/freebies — SHA256 462d5980c6ae0ee922e5ddd20eacccda4ff08bdd1d5baf0d767085179b6feeb1
+  • Seagull — https://gobkit.com/freebies — SHA256 2909080ed283b9c4eb4cde5d46743bd623cd26e37a868ba62a0db5ca1d591eab
+  • SeaOtter — https://gobkit.com/freebies — SHA256 27f54f879846af5ca48419da73a9e92e3b8c107b0cb0f0eabf8c89c99e99569f
+  • TasmanianDevil — https://gobkit.com/freebies — SHA256 e02ec4e264812692c86528cb36e1d6c2fbb3447aefea184b279f834f40f1b67a
+
+- Gobkit Free Bird Pack — Gobkit; 10 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Eagle — https://gobkit.com/freebies — SHA256 38b06f195c40ff6257f804ca3d09076f7a207a5e864d4262f02908352f8f1d4b
+  • Flamingo — https://gobkit.com/freebies — SHA256 15ca99527b87af6d3e13ddbe9b026b6ac0607f56ab14bf37d0e7ca36e69d1180
+  • Hummingbird — https://gobkit.com/freebies — SHA256 c080be83036f5ee91d22ea523e683a72ee994d57090534412bb13e1b46753e01
+  • Kiwi — https://gobkit.com/freebies — SHA256 3c7a6995bd6629f0fece30b839c0bb249564b2ae97fab7970a92ff5a656455b1
+  • Macaw — https://gobkit.com/freebies — SHA256 4a8584e5d3ab846a316cbe4f7ef542e1e737cc3fbbe5027b23324d8abdcdbdf9
+  • Peacock — https://gobkit.com/freebies — SHA256 c9b62944ea3f58cadff953ccbe2af7399de79bdae9422969af4e456bcdcf4cd6
+  • Pelican — https://gobkit.com/freebies — SHA256 3e2395c2303334305cc5c6ef551ce954808d3037e12cc0e85ced4f82b2eadbfd
+  • Penguin — https://gobkit.com/freebies — SHA256 1148c57f2332029904e6f7fb44f40c155ab7133345c0d3f7edd2e648ce2567de
+  • Rooster — https://gobkit.com/freebies — SHA256 9c8a1c07418653dc0f1ede704934c9ef89a0735c1ed44ec755a97aae0c15e9a6
+  • Toucan — https://gobkit.com/freebies — SHA256 4e1b93cc5a4d8de964a47b37629f198da9356b7c78faa285c4a9ee9d816ba621
+
+- Holiday Kit — Kenney; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • sled.glb — https://kenney.nl/assets/holiday-kit — SHA256 82449dafc06610390bfeee102f44476eb848beb512f8e8afef0cb8235ec07e91
+  • sled-long.glb — https://kenney.nl/assets/holiday-kit — SHA256 c586c1535fa325c93060a998ba8e620d385307a902c9dbaacde9a1b2deac0665
+
+- KayKit - Medieval Hexagon Pack — Kay Lousberg; 4 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • hill_single_B.gltf — https://kaylousberg.itch.io/kaykit-medieval-hexagon — SHA256 13e1e98fd9f771025f5bc5139a8805d111a33ae8dad426bc966eb466e8e659a2
+  • hill_single_C.gltf — https://kaylousberg.itch.io/kaykit-medieval-hexagon — SHA256 1430453fafbfc4a568fa3c793e83ccc14906118673df509a4c4aa610f1d3eca3
+  • sack.gltf — https://kaylousberg.itch.io/kaykit-medieval-hexagon — SHA256 082e46cbb5a18b84114958e52ac20614c4212ed33afca4dc561dadeda89c11e2
+  • tree_single_A.gltf — https://kaylousberg.itch.io/kaykit-medieval-hexagon — SHA256 8453f1de1ea6a8534e369cd614d71321f7bbf7db5ae66425094a51eb6191a19a
+
+- KayKit: Board Game Bits — Kay Lousberg; 12 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • coin_copper.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 a53f369e97e06ea163c9c706af5b7b8de0729c1ecf63bcb6ca31929927083bdb
+  • domino_tile_0-4.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 f499487c03bb66d18ae303ea699870dd68e7007b5bc55938b39c48ba8739c06d
+  • domino_tile_0-5.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 ed88732a5a626ab8e2c69ac35e9cdd74db5cce840ae4c234c24c25f47362fbe5
+  • domino_tile_0-6.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 1756288303b1274da5fdf2665b7f007424ed2b18dea064701cdcaebe527cb557
+  • domino_tile_1-2.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 7e8d63728bc51b79b6d7f0d3734cb749e2552a6d87515579161edb1cfb68949d
+  • domino_tile_1-3.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 285f8930c39d2d6facd12bee357bc24750f3c8017bfa3e31f5aa90e73f2d048f
+  • domino_tile_1-4.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 8672467ef8d6a6c00fda5fca78afb6b14c9cfaea713f5222e2beac3b76539adf
+  • domino_tile_2-2.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 c264365945e953690fdd710e9b95460821922b4543a9b9602db7ea0ac8a28988
+  • domino_tile_2-3.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 439a5779bf434c052ab5761cb04946f347a59c9ca091a23a466d7cca9e86ef71
+  • flag_A_blue.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 81fc593041a63c3dab896f67684aaedb77cd600e9b00b63cda418d61bfa13735
+  • pawn_B_blue.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 a35ad06994ef5f6bcda716b97a1598abc9c57aa0d4c41b41f2d0514977effcbc
+  • token_blue.gltf — https://kaylousberg.itch.io/board-game-bits — SHA256 f5a47ec9020215ef5f03bc27a8d6c352cb03c4400c2163cfe951949bbad02fbb
+
+- KayKit: Fantasy Weapons Bits — Kay Lousberg; 5 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • arrow_B.gltf — https://kaylousberg.itch.io/fantasy-weapons-bits — SHA256 9d1f557aa7f81c0664b2bb2bfec2aea018405f165dac1804564cfbf80679ee2b
+  • hammer_B.gltf — https://kaylousberg.itch.io/fantasy-weapons-bits — SHA256 4a1c2868694edeb417fb5cfd9af53501e3c24a41ba340a8f52bb8cc5860a22a5
+  • shield_C.gltf — https://kaylousberg.itch.io/fantasy-weapons-bits — SHA256 c6ba9ca81e4a19a068d18fbb196df3b783f5fbdc7a544bd37bb809f2582992fb
+  • sword_D.gltf — https://kaylousberg.itch.io/fantasy-weapons-bits — SHA256 46445c69720664a9726c6d288a16ab7fb90beb858527c8c2d0b67e1955d6785a
+  • sword_E.gltf — https://kaylousberg.itch.io/fantasy-weapons-bits — SHA256 20eee56d65575853db155232fcdeeed25577533884ff2d441a6ebf12fcddfc63
+
+- KayKit: Restaurant Bits — Kay Lousberg; 25 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • bowl.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 b22d3741faaa215697cbd2273670774c365ee8815add6c8480ba849587f4a457
+  • bowl_small.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 070acf111d435e8e02088920543b6aad814f317bdf97ae6cefff6f499459f971
+  • crate.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 b27e1a93b94f169456c08bc3aeadb604af80c82bcbbca3fbd37d35d1e933a359
+  • food_ingredient_burger_cooked.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 b802aaeb92aa0ddd309e04019f03153fea58d5fd0786d6bf3a7ec33cb9dff2a0
+  • food_ingredient_ham.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 25189dd58ae4e98407a490e135a78b9b22cd421ab5a75c9876db10acf2ad7121
+  • food_ingredient_lettuce_slice.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 04460a731692c18b566f234c36e48a715a7f1c7a78308de9bbca997746d04d96
+  • food_ingredient_potato_chopped.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 283e4daeaa1df93c215d908f29af315a61205e121f3c831868502b89b236d8b0
+  • jar_A_large.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 96b6fab43bdb672bf70ecc5d7b6047ad0102305b644fb8571a122c12d8dd7d92
+  • jar_A_medium.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 e0cd9c638eb7195e87377f47226c0878429e3891fa93f08bfa8889e63a8ee70e
+  • jar_A_small.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 065e8642304c3d96c246f33aed2d6f4c0672b8695fb1e9971f10bde356391db0
+  • ketchup.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 0368173c513c1828020eb64931e8588046788972ee97c7846ba0797afd94695c
+  • kitchencabinet.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 f17c53c4e08dde50dd981ad5d8faebe3c637d0fe9c055f2bb780229ce0968d90
+  • kitchencabinet_corner.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 fca6182d2a2dab07866add3fa24dd6d64c2e3346fb053a4a30a38f958927b2a9
+  • kitchencabinet_corner_half.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 f42ca79efeeca77baec9982378ef007ddd984dab7c9dcf05c9d74d59e4e651a7
+  • kitchencabinet_half.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 4335073dc52fbde9476a3b1cff79eadc144879964b24e3933c6a582517067076
+  • kitchencounter_straight_A.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 56c0b768eb2e2bd3cdabd0d518260cb8e61b23d4c3270837c1c2ff67d22ccfc0
+  • kitchencounter_straight_A_backsplash.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 03b8cd1f285516dcbedddb1f742926608007de4c0051af9a5792b8fdedbbe903
+  • kitchencounter_straight_B.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 4be40378696a04fe724b59a3f0042fe8923315b84604bbec6615109581e83606
+  • kitchencounter_straight_B_backsplash.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 eb2d1319ddea428ee44551635a30d70249526772ef19f37c04be2d8d8e0b2d07
+  • lid_A.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 3be62544de831fe22790447beb84599a82c4fe092a55a51d835247ae65d9c2b5
+  • lid_large.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 1f1ee4a9cfaebe09111316f0059e3bea8d162b4e0c95f80725d68381d6adef63
+  • menu.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 ba76e7e96a980628f01d14c4a499ab38d1cbcbb2a95e139ee64da6ea2e3a3bfe
+  • papertowel.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 3105aac34e17ff2f2fc4de5c63b5a46161999b33bd92d1255f6bbabba5a3c81d
+  • towelrail.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 220c9df26d7e7beec525e1a3dfe4d8465c60e4452f94ec6c3a7115990afb53c2
+  • wall_half.gltf — https://kaylousberg.itch.io/restaurant-bits — SHA256 2d84d633dda3dbc015d2d7228a6a8f10d7719dab4fe4658e9da1d5beb30f82f0
+
+- KayKit: RPG Tools Bits — Kay Lousberg; 8 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • anvil.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 b256dc2672b370c706661d26922dffe0c97e277190d7405786f12cc2d3ac740c
+  • hammer.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 eaf072acd7daf1047a5dfda8771bd434524bc20c1c1d9a05ce3abaad7f2be460
+  • mallet.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 4634f99a95e575ee47665c84c795ed45a7b01c5e7dbc3ddc087d461518bd59ae
+  • pencil_B_long.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 183b3ed7178f7cfde637cd65cc3a7295df0f9cb6a4602325ba257c50bd1eab07
+  • pencil_B_short.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 b8d77f1d4ac2775c17677395b3d4a2213585541fd7f2d8d97d5e37b4c0ae205d
+  • tongs.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 35c1b654cb7a21d7a57cdbe5e3bc91b329d8a2f6c308b6f9fe159008be2bf61d
+  • torch.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 c2c3e43cdfc3a7512c2dc810e92dbd4058da55fd2578b19a169f3996a84613b5
+  • wrench_A.gltf — https://kaylousberg.itch.io/rpg-tools-bits — SHA256 86f523eea2ca3e8a9d08418671c84c9000f2d22d93abaa9c0ea6e5ee7d10c906
+
+- lunar-year — Polygonal Mind; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • UpperLights02 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/lunar-year — SHA256 44fe93b931981a1d019908beb5a21e81eeaddee09cada569f0c5484527cf7853
+
+- Mini Market — Kenney; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • shelf-end.glb — https://kenney.nl/assets/mini-market — SHA256 02700b26d96506ae0fbb45df26f02937c8688dd440115b074ac6bb4ab39dce40
+  • wall-door-rotate.glb — https://kenney.nl/assets/mini-market — SHA256 64cbd1a8e89e88168732f9bf7a4c44ac78e250984f5a740a33b702e99a823617
+
+- Mini Skate — Kenney; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • scooter.glb — https://kenney.nl/assets/mini-skate — SHA256 4d8b03ad22317becda5e18ba797f94432f4ee67c6c5542a095fb4234f3cb2b8d
+  • skateboard.glb — https://kenney.nl/assets/mini-skate — SHA256 0ab44e8e68408dcc1b64aef29884c826f24faea6eafa4308f25f3a679167a9c0
+
+- Modelos de Bouggles na Poly Pizza — Bouggles; 9 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Blue Bowl — https://poly.pizza/m/0gi5g4Unmo — SHA256 0b0c2b8dba25ae92de12c1d49dfb14b0924c87bed0025bb447983e7c1925aea2
+  • Modern Cell Phone — https://poly.pizza/m/efSAoPsGa8 — SHA256 f38830b8a1b28988faceb0f0c9c467c87f7779978cea67c15c3523c4394a80c8
+  • Geometric Coaster — https://poly.pizza/m/ehmWXm5F6G — SHA256 89c2174c3affc40c3594470e9bc38c139092f74a6e609474771572f3240fa71e
+  • Soap Bar — https://poly.pizza/m/Jo8KZrIsc1 — SHA256 83126c75600aa7103ab975a88d5961153283e01f30f9f66f8a51def8d4f5a1e6
+  • Simple Plate — https://poly.pizza/m/KLNwXjv6VV — SHA256 8da04c4c3b9989a10eb06e32eb20f29239df0c3f1fe870ed0555e4c2e4a26bf3
+  • Blue Book — https://poly.pizza/m/PMlbblRRo8 — SHA256 b5dafb5ae7c18b4a2a9a04775a8d3dc1bbd2f928b4e4d4228e0c38ccf91ea3ce
+  • Short Bottle — https://poly.pizza/m/Rh5EoeEUU5 — SHA256 e0b07d1503569b44501f77c40c75880d82092f8b764078d1b37309e38b77aa15
+  • Beer Bottle — https://poly.pizza/m/XUSHrHnFaw — SHA256 1f45a41350fb4642c4bfb0ddc0ba8ca14acfd9e6ae5760ef54566127f61bb7bd
+  • Dining Table — https://poly.pizza/m/zvUVA5iGjk — SHA256 1cbf8c94349c2b4602b77d1a13e42147f0899b99fcdf37257e71d2ff143c0d69
+
+- Modelos de Charlie na Poly Pizza — Charlie; 1 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Zac Head — https://poly.pizza/m/zDbO9qjmct — SHA256 bf0fdc02d94207bf4ba8b0ac6ed78916f743b99ad9fbfa74dbe817c3d9fc07f8
+
+- Modelos de CircuitZ na Poly Pizza — CircuitZ; 5 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Wood Doorway 1 — https://poly.pizza/m/aft1cygEgP — SHA256 ac7123fec1bef52563e05116f5ca7a245ffdfdd1f1f2a7e7bf5096c0b2b06997
+  • Wood Base 1 — https://poly.pizza/m/BctnbHtzf1 — SHA256 8f2f54be257e55a2bd0cb32d0666d822afd30ab92603bd6c7efd5164820cc963
+  • Wood Tent 1 — https://poly.pizza/m/nYk2EGaBNh — SHA256 f9971593eee32e0db3b44dbdefa09c475ec47032c732e85ca41be0ca3c0978cb
+  • Wood Tent 2 — https://poly.pizza/m/QQ9MNNWvpf — SHA256 b6638d980748f2aaf03d2e86c83e5bbe2eff3bdfc3ab122a4a8732a8b9ff32f6
+  • Ladder — https://poly.pizza/m/xojOfYdtYB — SHA256 2e51cfa10b44a1311bd19a91a53d97999780d2fdc18ca8ff08aa7bf519d7201e
+
+- Modelos de CreativeTechLab na Poly Pizza — CreativeTechLab; 12 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Potion Yellow — https://poly.pizza/m/Ae1kPtnQVC — SHA256 5ab6ec871bf74c98c09f6ee12d733d25a326887f84e117dfc102e7357a67fcdc
+  • Book Blue — https://poly.pizza/m/aEhIaoJfjP — SHA256 586eec64e1d09327466840d02ae41d1931c03a933db7021d4f3722d5521e55b9
+  • Book Red — https://poly.pizza/m/aRXuRLvNPY — SHA256 449862420dcae70ca337166783158d48eb02c59f85f0fdfd52fc0fafe54855c9
+  • Book Yellow — https://poly.pizza/m/beczzWgCKA — SHA256 154c8901a36d51d545cec8be22585854db904e04b7d69f2ba8a122bcd2aa4a8f
+  • Crystal Bowl — https://poly.pizza/m/Eaz0fHZOTI — SHA256 5aec276c8a243c0101119f8026fd939140c32c4df95c9cf5a5b5523ac52dbf2b
+  • Potion Holder — https://poly.pizza/m/ofsMZsx7Lj — SHA256 b4dd8ca1951c9682628e989c7bbee89b0cad6f0545a105c74e74964d0527272e
+  • Candle — https://poly.pizza/m/oOj5E0h2AK — SHA256 19cdb0f67aec5b09ba12e3fa10483cc0245d43eeb8a9c05cb4f441084b6044c4
+  • Potion Green — https://poly.pizza/m/Rf3yt7NqwC — SHA256 66233b24318cb86fe8216096c9e705c6d96a82c1950d45d194c84d3f3d892ff0
+  • Potion Blue — https://poly.pizza/m/TALP3WkS2b — SHA256 c67b5cfc03aae1a282e591fb9a6643b71ca5d9b78a3f8d31e812357fd18cb883
+  • Potion Red — https://poly.pizza/m/tZmZVehpd7 — SHA256 99c46d64f70442ec2a8f7a2fbddeb520df6f4b1b1e816b6f0a1e1269c08d257e
+  • Spear — https://poly.pizza/m/v34vWSwOes — SHA256 37beb6c20be9b2fe0f3e1c9d22c3b2e1c86fa523d3a83a3ae39f0e88356928ac
+  • Book Green — https://poly.pizza/m/VuwJ2moDpw — SHA256 02507dda4c556725fdaee0d3b5194a84482343c06faa5e4c650d626c48046e2e
+
+- Modelos de CreativeTrio na Poly Pizza — CreativeTrio; 20 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Piggy Bank — https://poly.pizza/m/1KAexv0Erv — SHA256 2a5f6b012c031e69994a70ff011de6dcccb95eb9526f08c50907f1e234d71687
+  • Toolbox — https://poly.pizza/m/3ImQcIK0Gp — SHA256 7f0daa0eab14257aa6b6dac2e959289c5ce5b8fff88750b5644f97b6f29831fd
+  • Mug With Office Tool — https://poly.pizza/m/4jSgnM5WWk — SHA256 4c471ab2b474cf94fe4052636b287185c78e63f47d8b3629c88cf9b6705e8467
+  • Cup Of Tea — https://poly.pizza/m/6QBscrL7D3 — SHA256 2216de23860c95929c1627a150389b7118d48e02a8c2119059819a5406f07270
+  • Bathroom Sink — https://poly.pizza/m/7yXd2z5Kvp — SHA256 26bdaea9705a007748aa006a04772cce576f60a2cb65fba53a4b547f04ae4952
+  • End Table — https://poly.pizza/m/8gAkbKs1ii — SHA256 c236d239e9999a0d5de0d17f2204f098c22e9231581202a90e95cc1d6075137d
+  • Table Large Circular — https://poly.pizza/m/aG6qYcqcI0 — SHA256 bec63961d0f5f3a17e36961b95867e6128b91a7d77036234aa7e97ca598e69cb
+  • Tissue Box — https://poly.pizza/m/dS4MQQH5EM — SHA256 3dfa2c62aa707956b2daa8b54b781f66e339e0737c447624caac74f0000e44c8
+  • Table — https://poly.pizza/m/KndwzSWSHR — SHA256 d3b254887884b9487897d34c3ede50a668a676c553082c818537593780a20d3c
+  • Stapler — https://poly.pizza/m/mQ9uliJkPK — SHA256 7ad67162f49e6811934f375a4a16b4b50f72c1bb90dc04bd1a6125b3c64371d6
+  • Armchair — https://poly.pizza/m/myd1WSucAz — SHA256 07f945112f71ca1a2b3aff817e5009c081adf9c2bd093ac723935674245ecc4b
+  • Mallet — https://poly.pizza/m/OwK7SlAysq — SHA256 5f6e051b9a8a42276a9f0052a2bfb0274b37c0c4a70414464281718ac61b6603
+  • Monitor — https://poly.pizza/m/PvSjEbz11k — SHA256 52e01381d65cbcab7d8c8551f594d6fe1a46f6737a6174c7714bda7700c7c729
+  • Empty Box — https://poly.pizza/m/pZBpmjtvw8 — SHA256 16b9d215b614eaa43c31c84d2db8a6cdd37d55b54968fd1dd98793a4776c6bd3
+  • Chair — https://poly.pizza/m/RQZxIYo4Io — SHA256 496b7907789ff042535bbfd0db257baad541eff2c3af0d74011eb82014efbe72
+  • Chips — https://poly.pizza/m/uF1dGn3HXi — SHA256 115613bee2c488637004bd25b1e9d1c4cabd53e4cf1337b9ee2bd5967dbec57c
+  • Computer Mouse — https://poly.pizza/m/V2Ebx3pvo4 — SHA256 75ed200f645b00c86ab4580aecf9d8c72af924e306c4c987bb8426e6d043b8ed
+  • Bird House — https://poly.pizza/m/xFKC7GxgdL — SHA256 3b8391fd21f606d5efa351a611d52364c70674e9a9ac6e8337d2b1be0be92b39
+  • Globe — https://poly.pizza/m/Y4Dof9b2p5 — SHA256 68c54e28d592469c748db4f3b8c2c4bbbbd2e24cce18892918da5f89d7d43e71
+  • Desk — https://poly.pizza/m/YJyJam67hJ — SHA256 c3c85d0a0848030df3e6a5aa810066fcd8329e719726d1dbef14c9a33cef9717
+
+- Modelos de Crispy_Prawn na Poly Pizza — Crispy_Prawn; 2 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Numbat — https://poly.pizza/m/0QYrkyr8CQ — SHA256 ba36f4ece46de2d77f9cc24a7ad5708ec6b685ce8be5256a5edf38c6bfccaee3
+  • Dunnart — https://poly.pizza/m/qDc5qLB5Vf — SHA256 894d5f4803b066d8a5b4760797dcab7f186f104476ccf30302b407d05b39912a
+
+- Modelos de Dipper98 na Poly Pizza — Dipper98; 1 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Simple Cake — https://poly.pizza/m/WQx0svfnEK — SHA256 07bf19cf2f7fa4ae5300e9e59386fb4e75b2a2e76a367125ae9587a811a01571
+
+- Modelos de Dipper98 na Poly Pizza — Dipper98; 6 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Sci Fi Health Crate — https://poly.pizza/m/6lFiplBpzE — SHA256 6c96ed2f203ab1774f81ceed2f7475b5267831f64dbd6d6c572e7fe07113a660
+  • Sci Fi Floor Tile — https://poly.pizza/m/AxCAiLgvHN — SHA256 343332cb90efda2ba56393936e6e10544e1e7f88a0c28514c17c432e8fdf5187
+  • Sci Fi Wall Tile — https://poly.pizza/m/cLcPKwiQMj — SHA256 2f31450bf9811f8f534462a158d5792378d672a8d02b1f0999ec0f3f21d19e43
+  • Sci Fi Wall 2 — https://poly.pizza/m/FizMJc4GB4 — SHA256 95f067685df05e981ac547b44ab6946a8564b5eb6b8a1c20d3e5ba282ce02241
+  • Sci Fi Wall 3 — https://poly.pizza/m/LYWHc2jkDA — SHA256 47c6553539feebea29c5ba78a90e3fc6bde8052a7dc69e559f1ff363cc48a075
+  • Sci Fi Pillar — https://poly.pizza/m/XlUPviVLEo — SHA256 7bbf6bec76cd119ccb33ff63f0c77f50fbdb198b30c416890599c22b0a55bc21
+
+- Modelos de Don Carson na Poly Pizza — Don Carson; 13 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Sack - Game Asset — https://poly.pizza/m/34cZWd7Lr5o — SHA256 6a85fb7127655f684404591c6dc48a58072bba8fa5c02df9ac09d687b5e219ba
+  • VR Guys — https://poly.pizza/m/6wdhPe6iTnB — SHA256 85b41d26e1e330ce3d88c528d29411d98ceb02f24e66c1b241e746ed3cf1ade5
+  • PumpkinHead — https://poly.pizza/m/7jVPSejf98g — SHA256 d1c754e0bdf1e9fb8c9b347f243fea7a1c797483a2bc72bc449e2e1c059414e5
+  • Little Man — https://poly.pizza/m/8KU4S7I0sL8 — SHA256 fce903dec7ec767913e8247b147ad1fc9ccbfc767a9273cd3683839174010e32
+  • My Neighbor — https://poly.pizza/m/cekm2HcWMwD — SHA256 8ebf3a81294b62626c20647ebd8efc2cf31a0eca6ac39902e5bff4543144a816
+  • Broom — https://poly.pizza/m/cOMoz6gJFN — SHA256 f6b2f3fd7616ffa9514c1e3a57696e7a39a951be8168b560ed129ffe74d42201
+  • K-80 Robot — https://poly.pizza/m/dC7DQI0OY8U — SHA256 5e786b4473bc03e03bc9e9e2594a2c7dc8188960cc11ad5fc83cafcb15fddf52
+  • Paint Brush — https://poly.pizza/m/DZxhS2tNqC — SHA256 4c56b4026eb0fb759d90fc62e3323b2cdca24643b19b961207c7c07db1a0ec46
+  • Lashed to the Wheel — https://poly.pizza/m/fPRYozJRjek — SHA256 701e09c17791e981c1491ec88836fd361d3d9f2193be90befbfa8094ce6bdfb8
+  • Wagon Wheel - Game Asset — https://poly.pizza/m/fyjlH1IrEPH — SHA256 e8db151289e97b4d84ddb6a0666b1727126c81af4d1c3dcd81c40457119d9123
+  • Bottle — https://poly.pizza/m/I8yNayAGFu — SHA256 66f7819d161a6f96b5ed60d45155a9c13217f03a62dbe862448373c5e2348801
+  • Grog Bottle — https://poly.pizza/m/LeeYrSdyM0 — SHA256 ea867e01528e8de27437407e3ed7a86d4e6d5ef1d761b8f2caf924d7b999b934
+  • Tankard — https://poly.pizza/m/zEf8MLgNMc — SHA256 0009b5e3096941d06a5bfc656e0b5a0039e8a71b139a4281a6bea377a32186c8
+
+- Modelos de dook na Poly Pizza — dook; 2 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Wine bottle — https://poly.pizza/m/c4YeZgaAbhD — SHA256 114b323557391ad1dc1ee08e220a501ec733075562007086a9f453d770d02798
+  • Mousepad — https://poly.pizza/m/S5sNqsyyOs — SHA256 c3020c5d1d87ce053aa0acf9513982c7a6355e44de774ef9dbaed11c07f85034
+
+- Modelos de iPoly3D na Poly Pizza — iPoly3D; 18 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Fitness Character — https://poly.pizza/m/0UAcRHVAxA — SHA256 e1fb33ac43a2bfd3dc776e4022da30596cb34badb4bd5a431b817d61b6e6254a
+  • Crystal — https://poly.pizza/m/7iHQpCXTb7 — SHA256 4f3f29dfbae18183c45ed1f76a27bed78215809bdc18808bc8ea45d3e152af72
+  • Shuriken — https://poly.pizza/m/AlDdDB2wiJ — SHA256 1b09bc40f2320ce261a1faef9b8c2e04be28a90eb24c0e9dce2e587aa83224dd
+  • Crystal — https://poly.pizza/m/BpirJ95GzN — SHA256 c264da76535b3a8bb460daf8a1984b3141d64e29f4f8d95ec0ef2eb95a865ea0
+  • Crystal — https://poly.pizza/m/dY99VgAUtS — SHA256 1ae3c959f994fd8c0de7480a57ed383e6653b40f1a5f542c4758a5a75b73b822
+  • Fitness Character — https://poly.pizza/m/eMOTyGEAxj — SHA256 cf6fbf32074aa1711fee89139b3bcc2f283afb091cec720d326d064f7c45fdbc
+  • Stool — https://poly.pizza/m/FQj3bKSzdw — SHA256 7cac254993bc1f53bc930ec40360e60865d47be1d41b42279b33b3d3812e6757
+  • Crystal — https://poly.pizza/m/Ftu5CcnxFZ — SHA256 ea795e22110b66b6c3f1c74a5bb57aea272a39ac8f29c29b6a4b7b51a99e67e9
+  • Shuriken — https://poly.pizza/m/fW0rSClAOi — SHA256 9727927e31a006f07687d369b8e0762e8fa95e5b5fb753c250ae0a7e456d6000
+  • Shuriken — https://poly.pizza/m/Fw98O9CIbI — SHA256 6d74265b5015844c66f586facbe0bc55e3c4bc91e0272d1251cd5edde39f570c
+  • Fitness Character — https://poly.pizza/m/KX8wzUxep8 — SHA256 110d2a8e5ad4a902b592ff5b2768ba701c1820593b62f1bce8cdc587c8e6efa0
+  • Torture Device — https://poly.pizza/m/lBaQ0haR3U — SHA256 96d765ed92e28df5525c177f2470f008c538249ace8e19d346ada6f4ed4c2e99
+  • Pci E Card — https://poly.pizza/m/lHRTD47DCP — SHA256 83008c64c28fb54d63d29768f9680bdfd1bd3f4c2ada10407de58ca32ff771b3
+  • PCB — https://poly.pizza/m/P9UqSmFWRC — SHA256 61993e88c7fbbae6c04aacdd703ce1ff424315a37cb6b7dbd7716f3fa70a941c
+  • Shuriken — https://poly.pizza/m/rveBTdPRQA — SHA256 0a7c88345d0f33196d77ac3c314a1af6c20ba3a14e96249b93d0f583efec6728
+  • Voltage Regulator — https://poly.pizza/m/VfE66xZVVR — SHA256 fa81ac2b0bf285c6e9358419202172846e6910e285bbb32a741ac3e8aa9ecb84
+  • Fitness Character — https://poly.pizza/m/wnlFVKynES — SHA256 2329069a608523c0a7c8fc115b702923442fb16ff2786fb01d03a5828b488feb
+  • PCB — https://poly.pizza/m/ZvCYeJncTF — SHA256 2fd074832db1c6a934b41d9c75059d672377dec63c333d9b41a5e6e3797f2e18
+
+- Modelos de Isa Lousberg na Poly Pizza — Isa Lousberg; 26 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Floor Grass Sliced F — https://poly.pizza/m/0C0QftLRoI — SHA256 becbfea32eccfb59b4893b11ebd95c4f5d1c15713fb67bce3440374d18b040fb
+  • Floor Grass Sliced A — https://poly.pizza/m/3bICiFVz8e — SHA256 45b2051a8770a0d4273023f3be420f7317911f09ae236af74f554129f44ce540
+  • Floor Grass Sliced B — https://poly.pizza/m/4nRxZ8jvQ5 — SHA256 c222b5d6fd9e85fe6d6ee352be594cf64e5ef9f4add163119aa3a027f640bf24
+  • Bird — https://poly.pizza/m/5gurZ5QVlE — SHA256 0c1efa265d9ce6ee0c56d7725c942aeceaac2d795742f8bc83a1b7c8bdbf9ce3
+  • Bread Half — https://poly.pizza/m/6HtJ8EXnam — SHA256 b50d83ee3ff9758354c394ea8962b4a6b14a8f4d1682ac6d203a01b2d4627c8a
+  • Baguette Half — https://poly.pizza/m/b0XQXPD5yJ — SHA256 9b8c95ff05cb87e686e8c8646a9dfc12daf6cf0bfb9e5d58582fd414667e5ad9
+  • Donut — https://poly.pizza/m/bz8iOlt5Ml — SHA256 38debb4f727cacb9fcb34769e0953c2121c9a0ba44841efbb2e4f961fee91173
+  • Bread Slice — https://poly.pizza/m/c9hbmLhaJ5 — SHA256 21919b85ce8af44aca5c4419689599dc7f7b180dac29ecc482755eb0ea380988
+  • Container Bathroom B — https://poly.pizza/m/CObXZVoDoX — SHA256 6e41a4887e3b5f578210371f2aabf461035b86b084e387cf6a47e3465f2f3f57
+  • Floor Grass Sliced G — https://poly.pizza/m/emeVwxldtY — SHA256 06a898ab081fcebdaeaad78f80e87bbb4bd1cd90d3ce10f063121983259c3e41
+  • Bread Roll — https://poly.pizza/m/gz6Js1jDsV — SHA256 42f0150bc04b58e56c58a8b286065a4d0fecf70bc13a85365bc4c8aa57689041
+  • Floor Grass Sliced I — https://poly.pizza/m/H85BSvUjQp — SHA256 66cabe2a9df8437431e414e5d9cf976b7e30f923d4de17b290d215682a06686b
+  • Baguette — https://poly.pizza/m/HPvkMpqqTg — SHA256 e91beb5486329167d38d40a5c4f4af63877a042093216eb8e7991acdd63b5fb0
+  • Toothbrush Cup — https://poly.pizza/m/hVPV2M6Ix7 — SHA256 ef238a8db2170fdbee6f0101347daeaca4f0bcd9430e9dd42aa6a2251ad63199
+  • Cupcake — https://poly.pizza/m/jlt53I8KKE — SHA256 ebbee464f01fc496f6261aa4399891d2d8341ebd577cb24e195dfff77ee1e8c0
+  • Toothbrush Cup Decor — https://poly.pizza/m/KAs0bvg3w6 — SHA256 e2aef3925d175f2271b2510eb5c1f12124815109b0e1a9216fa48fda59028b58
+  • Pie Cherry — https://poly.pizza/m/oBzOxzqjLM — SHA256 e1a7b995b3ecd0dd907f9693bfadf005064e213135180894ad786e8bb6b94a2c
+  • Floor Grass Sliced D — https://poly.pizza/m/Qmm70FeXod — SHA256 700a4008581ee97ce17fe49847cf2fff15493d484a9e0bc747d87443437e28a5
+  • Container Bathroom D — https://poly.pizza/m/S4MytAYJb9 — SHA256 8f3e6884b70f8f1050cb27093a41fdabd6103d5ce7085c5b787d22305b8e882a
+  • Red Mug — https://poly.pizza/m/Su9VxfL5Yl — SHA256 820fe49e7c8e1a0169de174820013b8b738fc00f7542d8cc4e2163fde2ee226b
+  • Baguette Slice — https://poly.pizza/m/tkCkO1t4Xe — SHA256 2b323c0c15b923287df0da1d977ec9aab87ffa1295f50233a6c2133fd8f6c81c
+  • Floor Grass Sliced B — https://poly.pizza/m/UMKvhGhK90 — SHA256 54f81658c8fbe526d612df99172f2203f3170efe71bd43001f04481380cd2393
+  • Container Bathroom A — https://poly.pizza/m/urJYCyd6eL — SHA256 ba3f37603e503a6696618f20f9d6050e4d8d9e91d325bfa361c610ddb6923b18
+  • Floor Grass Sliced C — https://poly.pizza/m/vAXjl5NWbE — SHA256 2301260242f7beda53d70cd62db0a9e77e5560ed41be2e50237c0b75f7233dc3
+  • Bread — https://poly.pizza/m/y4oGHRpJVH — SHA256 02229e0b50625674434b6effda9517245a798b5503ef67cb6dfaac1214028a98
+  • Muffin — https://poly.pizza/m/YXp6JxZ2b9 — SHA256 dd5352991258db0b5b81d3e1a57549a4341d3fb203da69497b6771118feb3f77
+
+- Modelos de Isa Lousberg na Poly Pizza — Isa Lousberg; 2 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Wall Cabinet Single — https://poly.pizza/m/dhRDWoKyZF — SHA256 6ff225b771acdaf104cfd8f122041ff7d86a66e55cb007d3881cc65d482b8c8e
+  • Utensils Cup — https://poly.pizza/m/wNfyMWlPaB — SHA256 198d5ce429d360e8665b07e4f3c40d7add69088ba90401529b5b997adda49d9f
+
+- Modelos de J-Toastie na Poly Pizza — J-Toastie; 72 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Tent — https://poly.pizza/m/0LnXUwcQzk — SHA256 b12d02073a61e5d8e86434c43503eca6260ea71272961583648532eb02c54f34
+  • 2P Duct Pipe — https://poly.pizza/m/0zytTWXLdc — SHA256 a5ae5ea81870bfc7ee475b5379878163d6253b748e0780e84789a41e26ae68b8
+  • UK Outlet — https://poly.pizza/m/1DemxoAG7c — SHA256 9878501f3e2336fabad659d26825748c7ce92fb02a780ca272f022c9caf78f02
+  • Citizen 3 — https://poly.pizza/m/26UC5iU4Fk — SHA256 bb20884304a12dbcdc0757d97128d8f63007caa0fe858f5fcc0c5721300d33ca
+  • Cup — https://poly.pizza/m/3EOEqKBvy4 — SHA256 023c996c5f610957663fc6a81764eadd8788bae6049b36a2f2e601c991e19df2
+  • Rock Small — https://poly.pizza/m/4FHNRpc8qH — SHA256 43611737b25555f83a2a6ce1598e1e9a04e3652464423b80294c6408e147db5d
+  • Complex Shelf — https://poly.pizza/m/4fJCTwYSYw — SHA256 ff6ad34bf164ab79ca88ded10c11260f34f4d1f85317f4ab2b088891933c8645
+  • Concrete Barrier — https://poly.pizza/m/5Cg2oW7EFn — SHA256 d2ac9eb648fe5550ec6eb57a5289acb4db93c8bbdaa54059a51b5f58180d594b
+  • Prisoner — https://poly.pizza/m/5X70x024kR — SHA256 7b8a468af52d8b04aa78828a46abf313ad5a7fbf750e1fc3d8233eea30803db0
+  • Food Worker — https://poly.pizza/m/6cjgeTS8Pl — SHA256 8a45d1c1afb42d960430ea80433ef9035d01688c77c55ca671ea96e213f57cd7
+  • Cursor — https://poly.pizza/m/6hOi8Hu7zC — SHA256 c0c24a7191f7480a534cce99b8db351ec3772932559e923662fe1aba9c9ee4d9
+  • Bob — https://poly.pizza/m/6wwhxwBBLf — SHA256 cfe4228e372e9e846512db9066b9ca2367bd7672f0acc5b60273415bbaa21da9
+  • Coin — https://poly.pizza/m/75B5IouMS0 — SHA256 a1f1b3246802a0a306d5523dfac4946095ef51dc528b8170a3e5a8e0660fa2ae
+  • Pizza Hat — https://poly.pizza/m/7DkwsO3vro — SHA256 e590eae66600545fc35fdd4ec5b05754193412789149a38ffcb0aba56a6a9e1b
+  • Grass Platform — https://poly.pizza/m/7xmlX1JEkM — SHA256 8927427f82b68a25198df42f28737e53ee602ca13c57ad2dd76315b6c85a9e62
+  • Wooden Spike — https://poly.pizza/m/84acA3fAS1 — SHA256 5cee94edfe11d980f8237a49ebea88e6c72c232b11160b960deddaef079e43d6
+  • Island — https://poly.pizza/m/8iysYi9jCv — SHA256 6526deeb5df55567be3f8b67a5a607e8fd1883888880b5038bd77e3ffe75633d
+  • Top Hat — https://poly.pizza/m/a6B0wtVteV — SHA256 23b6ac7b1828ba96bab9f9389b016fb5b3eb5e3b3b9cb1b7e426bd1110e9c13a
+  • Travel Mug — https://poly.pizza/m/AliOd9aZm8 — SHA256 7ce0ea645ba9cbcf9931f10acfeec01e579e16eb9d84cbe84dfd0f4da2fa2382
+  • Curtain — https://poly.pizza/m/anwvbVovt5 — SHA256 69ad98282adc167f36a3c6732417dabfde82be270f59290681f2aae863532ca7
+  • Animated Character Base — https://poly.pizza/m/AZzoJo1FBm — SHA256 faa8eb423f30518785de8b3db85d208262aa36a7bdff712fcbb97e333a773416
+  • 9x19mm — https://poly.pizza/m/B2recK7hx9 — SHA256 a5dda20501405e4ecc9796f6ca7fa311aa4d418a63824c7f5a6e33f2cadb4fae
+  • Stone Platform — https://poly.pizza/m/BfEpoctX5p — SHA256 639a751a3471a7bd6aad49d1aab8a3d8887102beda4bfef4b382a74bc09617fd
+  • Chicken Bucket — https://poly.pizza/m/BFI9xp5uzQ — SHA256 9f03a272bd2f412b69312d25c4cf3b81348857ac3678d86c917400abfd46b41a
+  • Cat Bed — https://poly.pizza/m/CYEBbzLl8J — SHA256 45b4e19474d52bc744a4224e1a4d23d97bc7f36e53b4436bdaf0392bb2b83b84
+  • Key — https://poly.pizza/m/DG1cGxx2qQ — SHA256 42692da64190f56734246fe0ec3e45b4855a0b4bd3a4c44f948aa4ffad18e93a
+  • Tree — https://poly.pizza/m/DprqDP0C0y — SHA256 13fcec410be49a0da956c2460e453c1a51391c25cbc419385950d280798a42bd
+  • Cat Beanie — https://poly.pizza/m/draiTvOLMQ — SHA256 96b971457f1a293587ff22e557d0b9a40d91c4aea38665ad0ca48ff75088e612
+  • Shield — https://poly.pizza/m/eEkc80W1z3 — SHA256 40c3d7a6e8cfc72d2643c17df24470038a2e2529703443f151d9ecbca4ffd2b4
+  • Log Floating Platform — https://poly.pizza/m/F1Ibzj1e9q — SHA256 c26779603a352b7e64f69b7fffedabcc611089b285d5095a7cddadbc3ba0cb0d
+  • Floor Hole — https://poly.pizza/m/FbJAtOQ8pb — SHA256 5b3f56768760698af000fa360d8eb8d3e36b9bd7ab23a0b0c5f0f2f7dee79fc8
+  • Female Officer — https://poly.pizza/m/g6Pu2llnES — SHA256 814c096ebe9e582f2216bed99b8152231c0f8b1ae8f517f373a9dbec73518d90
+  • Car Battery — https://poly.pizza/m/hLVNyFYOOX — SHA256 dbcc239cdd38feb42a20c531478bf567679ac8979dce05f54a43d27edf058c72
+  • Floating Island — https://poly.pizza/m/HnfcEtSmUC — SHA256 a488e39844517b445e21a20a2d9b11a34bbdbd5bad98473dbf37d492b60c9c86
+  • Frog Hat — https://poly.pizza/m/IBL2UX2eOZ — SHA256 f274800b8d3a37c1f2912c466c9887ba3ba13ca8dbd7be604dbfaae1c562130e
+  • Male Officer — https://poly.pizza/m/ipEgtSYI8u — SHA256 b7f3df15dc088de0b3715d60e21e2b7eafe7335ef793a24ec64b2817dce6a384
+  • Cowboy Hat — https://poly.pizza/m/jcXfae4GiZ — SHA256 5df03eb808a8c42d7fe9b3b5cc05f6a3e8605a73c28a008abe00f742ac4f346d
+  • Large Island — https://poly.pizza/m/jLjH1jMIpH — SHA256 e56be33fc451b5271ca904fb1d8b98a784a72221dc39e5dfa372f0d546b581f0
+  • Generic Male — https://poly.pizza/m/jNp6bjMW9a — SHA256 ec5fa5770ac6f4978948d2c17c36f8f73f7769a625cbbd0ba50b81a76c14a9f2
+  • Ruler — https://poly.pizza/m/JQ6JqMl1gw — SHA256 e598622ff9a4325628bf3fd08eebcec3291bf4225afe88fc4d9bbd446728014e
+  • Dog Bed — https://poly.pizza/m/kicEL65Yxv — SHA256 f4bbf3a7074905f2b532d4e47a670dfa62627f435777a29098fb5d0f42c26078
+  • Retail Worker — https://poly.pizza/m/kpw4fiF8St — SHA256 29ce3c33046f5fbaa5e49824f570ebfee3261e98030b5fba070cc697aebf1435
+  • 2P Sloped Duct Pipe — https://poly.pizza/m/LJBqpGfZUn — SHA256 05178fbfed571afac8bb84e6bd05ba5090c8480d4065f2f24a67beabf3349918
+  • Citizen 2 — https://poly.pizza/m/M37AwJwOzy — SHA256 b86ef3b4241c8feea6a55ee209dc5993c4af08616e8404a87e8b69bf8f025183
+  • Log — https://poly.pizza/m/ncDQNqeOFj — SHA256 f3251370b0e065ae96406f77213fd8eb1ecc308ee64e379a7201840dbbf3ce11
+  • Dog Poop — https://poly.pizza/m/NwQhRNwk62 — SHA256 83ded65a25f9c51a8b59700e6cd06fbe02223831fb61c63111b1214cf3b1448a
+  • Rock Large — https://poly.pizza/m/NZHoMGnwMH — SHA256 f4b83b4530f77a033448933c18b662048293cd31bced698bd751d1a5eddc5d77
+  • 7.62x39mm — https://poly.pizza/m/olPaiJI58u — SHA256 5b5422c8729c8bcaeb97447dc916438e6e1351654ead5fd2b34dc873730cd2bf
+  • Magazine — https://poly.pizza/m/OMzty7kxKo — SHA256 3b5d1da64255581c2b8eb1bba99e388731a711a0adf19c4297c46edb66e3f224
+  • Block Character — https://poly.pizza/m/ozSIyRIcIj — SHA256 ea1fbd92c11ada5352fdc282745e4ef3cc73580f963bfe19be4476bb6b691cdf
+  • Tree — https://poly.pizza/m/prskB0KPkK — SHA256 0e6e086e97e074ae57a326d1b1ca4621d58cc87914c48e3432a0dba956a478a5
+  • Wall Shelf — https://poly.pizza/m/PSlvyjTt1M — SHA256 abeb9a3177fb712adb7d5066d37dc3ac2ca5b5d5f73c33ef2b6a97ec796cdbd2
+  • Duct Pipe — https://poly.pizza/m/q07af7KHWx — SHA256 3165caa403694bfb2723e997a2c89ace754558e1f4c709f06c0d7bc511e135a4
+  • Plate With Food — https://poly.pizza/m/qBWsdUilNU — SHA256 b76fd57f615143a1731a7b5c04a39121b7f9580455add0817ced0f9178686d4d
+  • Generic Female — https://poly.pizza/m/qot6C6GS9U — SHA256 6b17e1fe858a56ad0baa7903d873f4861019c5b7208d07955b610ff924c8b855
+  • Coin — https://poly.pizza/m/RGXyRCpspb — SHA256 879cfe30ada6f383589d9f52222f9e17e3f0ac41cefa061b1310642adeb48831
+  • Sloped Duct Pipe — https://poly.pizza/m/rs3FvofEfG — SHA256 2e606f5ff5ea9d79f9a10dc6c1fa63a30c3bfdb421450735f069179d3f5d394c
+  • Manhole Cover — https://poly.pizza/m/S6aGVNF1Iz — SHA256 5b9a8bd42766bf244d50d3866c940067e4d686f85c83ebe264e4f5216ac097eb
+  • Slime Enemy — https://poly.pizza/m/SW5h0gbCtq — SHA256 556606a351bbd50cac550c9b66dcd3b081fd36e0df34e39719393b461f3c8508
+  • Citizen 1 — https://poly.pizza/m/sYl7E9whZH — SHA256 eac6dfa9acd1b8dad261ed9f1c3d92b12286d1d42c0f7223ecd1bb9689599fc1
+  • Spray Bottle — https://poly.pizza/m/uQ6VGKpkWm — SHA256 14d95a1ece730ceb6bbb49b48878d8cd79e4ac1bde5cba4b75d671de06e9af1b
+  • Rock — https://poly.pizza/m/V7cYy0T56b — SHA256 fc41db920d6516fa2e4c6d7eb3e1e483fd8138578650392e6c0c21792cac6fc3
+  • Corner Duct Pipe — https://poly.pizza/m/VhLmUN2FMc — SHA256 4205ad52c8a2aff79925cea9a96e10a63c3db08855400495a10f6ed9328029df
+  • Fox Hat — https://poly.pizza/m/vIhmiBqBtr — SHA256 3c725d09ae9a526d587fc459d3e9465e6158c799ff4969722fc135aaaf1563f3
+  • Beanie — https://poly.pizza/m/WEGNXQAOfy — SHA256 c31d1ce29bdd965da0a5b9cb509fccf55c070ca44b5cc30b9e453081611f11fb
+  • Power Box — https://poly.pizza/m/WFVjj4vnGg — SHA256 441a372d986d28c77558ec94ee306d22a5055b293579a5f77813f8d193f22331
+  • Frog — https://poly.pizza/m/wHwEWIrtnB — SHA256 bfa542a4b8945a84f9df30e10ecf8893dbeb1a984c4d22b633c6b15971b7672e
+  • Santa Claus — https://poly.pizza/m/WQP3xjYjPy — SHA256 6773c3743b924a203b896a48d7a7618acb681349a31e9c91f2d6b4c2d79fe5d0
+  • Brain — https://poly.pizza/m/YihDCHsOPO — SHA256 dce6e858edbaa20930a7f2cfdabcbe5883762b3a9494d282cb9b1c8200a9409f
+  • Crypto Bro — https://poly.pizza/m/zGOWefrMDQ — SHA256 3192684c56e33cf29a4f472095e2e86390bfed5736abb9870d0e67035737eaa5
+  • Card Reader — https://poly.pizza/m/ZhjtUap8Ng — SHA256 18d10a6f5f76b056f69ab3083194dbfe6f88b553dbffdc390b9db4ca8ee90c5e
+  • Clanker — https://poly.pizza/m/ZTktQcKNX7 — SHA256 f8b081c800443478524623a9ddb9642fe16ed1e494abb7e14423fa4e4f25c1d8
+
+- Modelos de jeremy na Poly Pizza — jeremy; 97 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Mug — https://poly.pizza/m/02Lwi8rD8Un — SHA256 3fda0f0b307e693f72a9e4405fbe2a76e2aa67c7e16f11e1a64ce5cad0763b53
+  • Chicken drumstick — https://poly.pizza/m/06KHMUZPiGV — SHA256 b55586525bf1c226df2cd2e8a88df0e73ce033ca381ed3189cffaef7f9d2f3da
+  • Frog — https://poly.pizza/m/07-wJ9bkzul — SHA256 c9e5195b5c53350dc41d9da59622373056a20cfced7e3c4208ad63b6f8d0824a
+  • Drumstick — https://poly.pizza/m/0asfS0AAh3w — SHA256 8180f33cd3ecc6359b4546dde6f278d3f7a213207ce0b1d47960b106c7cca2b8
+  • Mountain — https://poly.pizza/m/0Fl55ZzsVzT — SHA256 3e5a552c6fcd7f584173ba60e18b6c62d7eb9fa8883d33634e69376ba0e0083f
+  • Trumpet — https://poly.pizza/m/0Mj5XgeGtKJ — SHA256 12cef4e2b4edd926bffc32ec8e140406ee6399ecb6385970d3c3a0836f3d8d80
+  • Ladybug — https://poly.pizza/m/0oADEnspgZu — SHA256 ed637061cf2ab48e860d139c14d67839eb0cfa8d43f34c7abc9770430a6780b6
+  • Bottle of wine — https://poly.pizza/m/13g9ucgxbHV — SHA256 5023bf5c77c298db0dd9a5efe35b4548038d676d882381591dd3f2b32ff928b3
+  • Shelf — https://poly.pizza/m/144BQsV4GdZ — SHA256 7b7d25032fde7185f3400d56945d1c7901bf78c2b37d06e012632c97efb544d7
+  • Whale — https://poly.pizza/m/15cXqVGk0jA — SHA256 b5f6e0e600e2624605cfa11b40a6ed8784d2b7eef246bb0efdff89afbddfada4
+  • Shark — https://poly.pizza/m/1SaSTXCFsgo — SHA256 4352ba48219462cdb11f3c2108b9ad0dec5cf84180e20af9948e965e39fe2065
+  • Mushroom — https://poly.pizza/m/2DAaKHD48ZP — SHA256 16a611820aa588ac32954cd359c6cae2280fcf944f85ec9b87a11bebf73305c5
+  • Purse — https://poly.pizza/m/2dTPEuZyLyJ — SHA256 e25a67432b7d95ed3e165fe211bf0af24d14e9fc42cc4c1713908e41ee140662
+  • Sushi — https://poly.pizza/m/2fOi78G1Czh — SHA256 3318120e6c703ed1c0a065a7b3f74942f9692e46eb41bfbad5a45c1cafe24c5f
+  • Duck — https://poly.pizza/m/2KHEgw1ztVI — SHA256 794d8fcf0836e1e2474e3020b5495f67f41d31d1fac708d70c28d5b531458b37
+  • Google cardboard — https://poly.pizza/m/2tAgPX9As4I — SHA256 952bced319a58a05a15e131d4df8112c35f87303de89ad427e2863983d9e9ea4
+  • Table Tennis Paddle — https://poly.pizza/m/2UlIPzTzLM9 — SHA256 2b9dcffb7a76900c870d528b54fb5eb6fdc1d7b323e4f0801645f1e5518eb1c4
+  • Chili Pepper — https://poly.pizza/m/2x3UVYE7D-R — SHA256 b6f7710b9c45dabcce2c0dd7948575d441859199e781b9bf85fb594dc45c6276
+  • Pizza — https://poly.pizza/m/38SXc54Igp3 — SHA256 e4503cdb692712998b0ebcac267d55528070a9e3a7bcf323e648e575bf2055e3
+  • Loaf of bread — https://poly.pizza/m/3EIIG3yWZYQ — SHA256 570aceac38f8d988cf004a52e73a1daf8e64e9b101360f81b603f12167af338e
+  • Pear — https://poly.pizza/m/3Mp-3PRh7Tb — SHA256 81624a6b8fbda3fb369bdb7f10ffaf4b31f15b902c0e8a43a663e4448fb3cd10
+  • Kangaroo — https://poly.pizza/m/3yiIERrKNQr — SHA256 0df9ad7fa123106c718be46bb2888d7c7338420a60cd6090b167e930fcb2860e
+  • Parrot — https://poly.pizza/m/3zS1cxISN0E — SHA256 759bab8db7838368e58a5f46b9a1a6cc304f3cbedfd1db360bcd63ecf00dd872
+  • Celery — https://poly.pizza/m/4-iKS5krvwN — SHA256 451be1b4396443d9b0686dcc172441fa12d71c031caebac8d7e77b433293b2b4
+  • Treasure map — https://poly.pizza/m/4hvGyOso598 — SHA256 97128f75e158bf2ae44c987b91b5168630bdd2d624539ba00037de6e452aa67c
+  • Fish — https://poly.pizza/m/52s3JpUSjmX — SHA256 e858ec8ca9f791c487afc6c265c20314d6d1ff77b56cc24e6d1d439ad89a76ff
+  • Robin — https://poly.pizza/m/53HOg-b1F4r — SHA256 b0a3a1e767364ee86c9d74eff51b38dc9b92a070fc94078ca7505d212cdce61b
+  • Bacon — https://poly.pizza/m/54fO6J9Xup7 — SHA256 358c5d357ba05c198d88920d8cb303f605ba5bbb5c8021e74af436b7d11d447f
+  • Green pepper — https://poly.pizza/m/5C7fFMm1s1W — SHA256 d5c1641a9bd1c6ed90e79ded434ba3151ba26d7d4cca8add7d89eb1d84e193fd
+  • Shrimp — https://poly.pizza/m/5HI1OYII63P — SHA256 f06541893540cf2988f3545b10afdcd360e2b2ae114d6c35b461cff36cab24a7
+  • Mustache — https://poly.pizza/m/5hWh-vW5M1Y — SHA256 82899f002b87de2db832cdba504788b764fa0f30b0ac68c57445c1c62cd3e556
+  • Sailboat — https://poly.pizza/m/5u49Hzbo5WH — SHA256 9d0ffcc4952f9801f00ac5efa23b9837f94557d60c2f785957f58fc68fc422ea
+  • Rock — https://poly.pizza/m/62bVOJt7vHv — SHA256 23fa0b57146c527620c79b13efc36fc739ff6b4a6ac462a986c3b1c209c5afa1
+  • Wall painting — https://poly.pizza/m/62zn39CRkbG — SHA256 9ef351e8be3d510213749f7f55979f9c4031b9a4ef76e286a8ad0891e3ab9734
+  • Cucumber — https://poly.pizza/m/6aGChBQiu8j — SHA256 e705c638bf1ee6ecca7996949a81f8fd84a8de36618eed6a1ee038e5da82471f
+  • Mouse — https://poly.pizza/m/6DOjEGKd8nx — SHA256 68732b81ee174c6526c060208f11f51ede0fad4308386fff84f914ae90367879
+  • Steak — https://poly.pizza/m/6Kmmf2ViaNB — SHA256 434e841c5434b9bf0a282b09d804241386f201d4e9f99187589b0b51a7837d49
+  • Bee — https://poly.pizza/m/6ktZgxSVVn1 — SHA256 874ebc5515fb27667bc48e7ba260a6606d7c9e7bf9e3e4c8ba904908e223a9ff
+  • Paper towels — https://poly.pizza/m/6Uk9nb8jRag — SHA256 32604214260a09ab80c6a1f239e241d5156ef1003221f311b7d82e1e3657237e
+  • Star — https://poly.pizza/m/7_bVjItDir2 — SHA256 d8f725ee16c3af868b95648078576c4d2e28a48a34a99698ea198f4b006de47d
+  • Rowboat — https://poly.pizza/m/7GW6GfvuKkt — SHA256 764616595acfc4d65862af1453477373125e630f98588d346cfdcf4c31031000
+  • Croissant — https://poly.pizza/m/7poXRcJV8Yj — SHA256 fb93e949e410753f7236b78f2c1bea1961a132c8000b43e064488ea91c5e4de0
+  • Table — https://poly.pizza/m/8cnrwlAWqx7 — SHA256 0e1bd04f24abbc5c2d446b5936d5af6ea138a4de69c8648075e4423e15c90acf
+  • Phone — https://poly.pizza/m/8F1Of9426Ue — SHA256 6d4c2f78597171ee8a8fab677f226112b22f1b87a1d95a64ed34e7ecea3659f6
+  • Briefcase — https://poly.pizza/m/8j8-b-RqJ76 — SHA256 0ae8692c3f863b2a431b7746f6b0ca30675cba8e9ddf828a4e2020e1548a0a82
+  • Monitor — https://poly.pizza/m/8ql7Wf9pL_6 — SHA256 69941c2781ca2c9b4072dc25dad24dcb29925dbbb1a145f0eaedb35e20a4f212
+  • Fishing pole — https://poly.pizza/m/8Qlm_vnWl11 — SHA256 2c47d79bee354ba57485382e7d3b3340499f6963540057a5e1cf656fdf9b70e2
+  • Spatula — https://poly.pizza/m/8tHx8ZNLqR9 — SHA256 dd6f30e9a36cc7fb85223710c8eab0ee0c2d359d8fa408dc3ad9ce50a9fcc341
+  • Window — https://poly.pizza/m/8VHgCLS05Du — SHA256 bec750ebd4c535a0cd306a14a6978cc5012320bd401090139f1f5db57a69b1c9
+  • Doodle — https://poly.pizza/m/93NCs2zpMq — SHA256 e05f608900c41af1692a201026c67c4650f96563f0faa13a4eb7a2209543ff2c
+  • Hoverboard — https://poly.pizza/m/95H4hdlIJnl — SHA256 e56b0baf88455a4d3117fbf10147a20d6cc9ace2e9895d1ac6c7e61277423651
+  • Spoon — https://poly.pizza/m/9_F2bQrTAmM — SHA256 f851489fbab259b9381925f403c91e992358589d3f609792f78f136c1ffdfd0c
+  • Penguin — https://poly.pizza/m/9Ift-39Akov — SHA256 6e94f9dcaf0662eb0425683611cb50ef28ca07fe28fa6c5f3e8397649302f3be
+  • Treasure trunk — https://poly.pizza/m/9sYjmY44GaD — SHA256 7749b2e4bed31ae1443d5e5217531441ef40a22078df7d2621c502a8b074c980
+  • Koala — https://poly.pizza/m/9x4UY7n27nI — SHA256 9c570e6c7648fbf7b90fe861591df056b08883a7ec8d0c64892d753c3460eb43
+  • Bulletin board — https://poly.pizza/m/9x50CBKNzPq — SHA256 3b4f7a5335eb917f16ce6b929f166a63a868fc61d51c66af6afd83cd4cf6ebfc
+  • Ant — https://poly.pizza/m/9x6pGMV83jt — SHA256 ba99d6418de9958e35d8307fda76c8a059ff1b567f3f405da7b48a5a5b129982
+  • Sunflower — https://poly.pizza/m/a9qW8wSfaaX — SHA256 99fb5bd90f7e4ad377e468937e34302f3b6335f044bf6f28d55876bc5f477091
+  • Snail — https://poly.pizza/m/abd7jfOGZ94 — SHA256 d89ddd90e4596739e5bb4d2294f696089602f45862ca6ea13cafefb8e04639d5
+  • Golf club — https://poly.pizza/m/aLshfFR-3cx — SHA256 99e43c8a5b3b37ddee7c22fee212e77310747b84e13c25d996b18b905a8c360a
+  • Glass of wine — https://poly.pizza/m/apyVDvUlu-_ — SHA256 e3f66cf161eb9e6a283a280e89076eb1f8b5a875c92f05eeafd8f70684d7f965
+  • Scooter — https://poly.pizza/m/aQ_Us04oiz1 — SHA256 56561312f25e9518c5811ece3ee2713757b0677c093ae33a4cc8be6319872b10
+  • Dictionary — https://poly.pizza/m/aQwmHJtOVl_ — SHA256 7a0cb4f6bc1bfedd684ad10082a7189c04b9db8103e2b54c547cc80dd71b79de
+  • Robot — https://poly.pizza/m/avY4wqUiyaw — SHA256 a37d989cdedd859fd72774d8d88702b6f68adbfd038fbcb5fb493b653d5d823e
+  • Button — https://poly.pizza/m/aweIphqphRJ — SHA256 28e371d80d661c73ee189bc7985965de0c1ceac9b3d39383129e003632796848
+  • Pumpkin — https://poly.pizza/m/aWOowZlI9Sq — SHA256 f3a01b2d9387444c1e5d2849d78bc79948dfc9569a27f13143599db3d610ac78
+  • Turkey — https://poly.pizza/m/b3E2cqagRPn — SHA256 aa7b48442c3629f5e4519a8843744c8093b9ee036bd18af35e151b6eccf80379
+  • Water bottle — https://poly.pizza/m/b54HnwJAXsb — SHA256 965d462d7965c9dac620b2338608fcb17100f00fd7aee3e74362e919cb159e21
+  • Pirate — https://poly.pizza/m/baCkFv7jhGo — SHA256 6527b5a00f5c1cf4372930d5ab52546e01a35739622ccbf6fe2b4e4e193ae7a9
+  • Pig — https://poly.pizza/m/bbPhEBl5Bh0 — SHA256 c23174ef396dae030e88ed7881b7dbd3b34de7e4c26c1df6e924d394e8876f49
+  • Slice of cake — https://poly.pizza/m/bKz66Oo9qkj — SHA256 d78cbeffd87be17d444749f5485883499600c7cca378e4bf63f08f7cd85053a2
+  • Fish — https://poly.pizza/m/bwK90P2j_N8 — SHA256 d118eb0d6e5817456053357f5edd38ac40d63d784aa4e8b8a929618c3c13b7a4
+  • Toast — https://poly.pizza/m/cKn6l6VdgUp — SHA256 35d19816ed40fe89246e0ea3c91efdc0756d40b2720db99c6cc099c8d8d7cab6
+  • Soda Can — https://poly.pizza/m/cNjAaDY27fQ — SHA256 89b5fc7cf247092d7b95b6f447ac02e7b4c071db8255633cfb70c62270e343d1
+  • Trainer — https://poly.pizza/m/cs7k_ENAZjQ — SHA256 cf328a73d07b1561fa642c473724138e5b4583d969714d3d0b0500a584929ac7
+  • Whiteboard — https://poly.pizza/m/cYQOKE7Wd7D — SHA256 6975425476042bf64d01aaddb23a780b79e40a17091a5281891beb46066a63b7
+  • Dove — https://poly.pizza/m/dGEa6IbVDP_ — SHA256 8b5f4ad69f5c0f2b1eae4d283d099fa40a3ac17767b0cdbdf55b705874bd7e40
+  • Halo — https://poly.pizza/m/dH-rlE_jGFc — SHA256 b835cafbd79a459660e0c0ac3ce1fc38c8ba09d43bb81e571a2383f4293b098a
+  • Pizza slice — https://poly.pizza/m/dHgavQUI4m6 — SHA256 53a6874f5cc8ebd8d8709ee21196ced72723c50fc052d4f412982a175a520653
+  • Fork — https://poly.pizza/m/dP8PiTfIgFf — SHA256 7d7d42b0abdf12ff94b0a1986dc80a8fe431595d56e9f585e9ecf2654ba7a088
+  • Kitten — https://poly.pizza/m/dXyLRVNOalM — SHA256 7bc5f7de84b012d1953008c7974b449e5f80ee03417f340ceebb316f4bef39fd
+  • Butterfly — https://poly.pizza/m/dy7HN2xaXOt — SHA256 ecbe5838f26a88079b0f5be3e4f4775669ab66c1d3e30a566a00ffe50ce35f33
+  • Lemon — https://poly.pizza/m/dYqoTOPqeas — SHA256 9857e7d22edd3c6a25ddcaa2c9ccada7eae6fc2b71a351ab7925b559be77f0cf
+  • Loaf of Bread — https://poly.pizza/m/e8b52aDvDhW — SHA256 c5acbe95861cea581838f835681a6c438373a7dc243d1cd09bdacfba37c182ab
+  • Helicopter — https://poly.pizza/m/eb7b31pjGtQ — SHA256 d43b0ef47b8bf463851f3d51684a6f2a1268c1f5331c83d2e0d3d4bdb350d0b8
+  • Toaster — https://poly.pizza/m/edIkWKMV1Wf — SHA256 26201639d0b200561c3eab07c73a731d90c8a93e995811073f741699c3a0f317
+  • Leaf — https://poly.pizza/m/ekFiuxhSR2i — SHA256 ce8ae5afbca63b24be27b3f910222b8da9a25e2ef749baf90c69a367ae4934ff
+  • Potato — https://poly.pizza/m/eKUOnuK9l4H — SHA256 c697b9eb92855fa8c13746c6a44f6e3b2f6fd0d33ebb56737a8a3bb15befacc2
+  • Football — https://poly.pizza/m/evER7mMwfhC — SHA256 71d3b457838b908a2750a95c8e2934e5b6620b0ad8bb069d7de66d52e0b47fe3
+  • Blackboard eraser — https://poly.pizza/m/ez2KsxrNkoV — SHA256 4c145f4179e0fd697c579dbcc2d8f5e1930a815772071b58fd891c4adcaf57ae
+  • Fly — https://poly.pizza/m/f8kM9xA_5sV — SHA256 c188317a90d34bd40d65f115572c97eed38abbf3ccacca7672cab7caa8dd251f
+  • Table — https://poly.pizza/m/fdtYBOniyxa — SHA256 becb8a4c4969021264316018ea5a3aa2b8cfe7837711c285bdbeaab908d969f9
+  • Ice Hockey Stick — https://poly.pizza/m/fIIrv_CwLOV — SHA256 1d985c54d5ff3cb43cf1efcab9bdc6dcc51ce42b72a54c6daa79f5f5e20e2ef2
+  • Bowtie — https://poly.pizza/m/fQGdyazJ-2m — SHA256 d74c4ba10b535e97735420de313c650e1add73bd2a4b84cd720ae339060b703c
+  • TV — https://poly.pizza/m/fsdm7OMqYLR — SHA256 f4cb549c876336079cd799d44693b53d1382000648e8b47441d791cab7967f92
+  • Rock band poster — https://poly.pizza/m/fTsh4nKZ9iK — SHA256 3148e4d4da4d4142df211780b545c6174c886afe739c05a6ff975fd2d34c35a8
+  • Glass of beer — https://poly.pizza/m/fwpcpqO5-Fn — SHA256 e709164f9b0eb9b11d441fd80ae7bc4ad1ca34e0988f084f20a3c9793c737e9a
+
+- Modelos de joney_lol na Poly Pizza — joney_lol; 9 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Ogre — https://poly.pizza/m/7oO8liwQv6 — SHA256 6f00217eb49c50ac9a69704ce0e81084f04d5ac8c40cc4652a99254a27b4275a
+  • Short Sword — https://poly.pizza/m/8euoHHy9Le — SHA256 792c244fb80d1293ca6864944f70005e8e30e2ca0854f89767394b2103fb3306
+  • Richie — https://poly.pizza/m/BwaLw2Olre — SHA256 34f78a8b0a101596a29761606c3291be462890112e58e2f2b973040e2a6f54b7
+  • Pike — https://poly.pizza/m/CcIAY7h9aE — SHA256 bc1abd651da1a65566b6e17f122f2506e51122d8389bb4cdd3d3e6d8b4ea2cc6
+  • Energy cutlass — https://poly.pizza/m/KUynuyS1h0 — SHA256 a017fde0c3981feeb032b2fb23715eddc56c8c9e0ff6fef01bb3a6d58492493a
+  • Buff man — https://poly.pizza/m/NvDx04YkKo — SHA256 e879c1e5221cd35a1b09a2657f3a6ed1d3d70607f77f6162adcd9dabcdca082d
+  • Ghoul — https://poly.pizza/m/pEwXEubhxz — SHA256 7ae9affded35bbee3fbd6d9ecffd1d9f7f0f8eaba27f4af08f91212bdd95658b
+  • Comically Large Axe — https://poly.pizza/m/RGzo9RPBZQ — SHA256 d32e077ec03d8406638916d74195f3a55676434cc7740bf3d43a510d7730d6f3
+  • Trident — https://poly.pizza/m/Z5URRESKKt — SHA256 e28a4ac672065793f62cb8033905d37147c3d4ad0ad3529026e27b56f8164db8
+
+- Modelos de madtrollstudio na Poly Pizza — madtrollstudio; 6 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Wizardus Maximus — https://poly.pizza/m/6oDxK0wqyL — SHA256 fce0eb00e33241cea1003533563bf8dcc1d41dfa3fc5579bf15863e4cb9aec69
+  • Bird — https://poly.pizza/m/F3km1zKccq — SHA256 79f12b21be6e5459ea2dcadede660f527268744843053128c0fdb015063b2a80
+  • Chick — https://poly.pizza/m/HNrEIheuPK — SHA256 c15f9788571e17a48309876b0070eea3029ec98b6e978516a1175685e0641c7c
+  • Penguin — https://poly.pizza/m/kvZRSJBz70 — SHA256 b8d974d7f08a55a0d148ec5f96cf907f1e83d9d42cb9d8e9b13c4e3fbf05cb3c
+  • Character Base — https://poly.pizza/m/qbDLeTtb8K — SHA256 cd4982608a3d6b640b2f1893f8a1acc29e397beb851257ba5cc682dd3acc7faa
+  • Soldier — https://poly.pizza/m/UL46oXeZYK — SHA256 aadcff54b57fe4fe213bdd240a02ca93a654736136e4450aab203b5b1315d135
+
+- Modelos de mastjie na Poly Pizza — mastjie; 5 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Male Fighter — https://poly.pizza/m/GorWw41SFf — SHA256 ed0511881a4c37c5a96609b939e5922a9e14a3badb74a83ef369cea89200df81
+  • Female Fighter — https://poly.pizza/m/NfMffTkeBa — SHA256 5019feb6f6965b5898604fc1299e1bdf39cff85db12b79e17e40dd49012ac18b
+  • Warrior — https://poly.pizza/m/o6i43Vacwc — SHA256 fb66de1ebef94f72dae073926af3bf5a0bf28625a2b5548dfdd6f129bda8c989
+  • Warrior — https://poly.pizza/m/RaWl2GJ0NZ — SHA256 ec6fd98a9bfb7e88ad0b5f395903da438e442d29fc816521b8b55859ca2f7939
+  • Warrior — https://poly.pizza/m/Z6ZUtm6kc1 — SHA256 4160bdbfa82959f81eeb1983879f2955552edbae15b46f0e910fb3e947b21609
+
+- Modelos de MilkAndBanana na Poly Pizza — MilkAndBanana; 51 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Lotion Bottle Small — https://poly.pizza/m/0DrOqa1GJ7 — SHA256 a342703dc759a6223f46c0ebd43b3594354442ea4ce73cb33948969cf6ca2aaa
+  • Mug — https://poly.pizza/m/0uSqGCZqE8 — SHA256 5671f8f954842b7ef2e1f1d60adbc50d25fc0f9533726308a8706deeec0afc04
+  • Wooden Pad — https://poly.pizza/m/26EMhPHvr5 — SHA256 3258adb4c9d9a485cb2b1e364ffa13edd13fc4010ffd42fb875dd58cf1dc67b7
+  • Brush Pencil — https://poly.pizza/m/3CMhmHEt90 — SHA256 7013a614b5ccd9f764c82f6cbdfac579cbae86ebc735ee027908a91c3700c9b1
+  • Glass — https://poly.pizza/m/3v7i0dz7Vg — SHA256 b05f707320781fc5a44152161c3c77980ea68ae30f4af22ac34a71becca04132
+  • Tweezer — https://poly.pizza/m/4CNnjfigk8 — SHA256 c153d43c7372cdd742e8ad429ca61289c3115dcfc49f9d7404a788420739596d
+  • Mug — https://poly.pizza/m/54cOZNS04L — SHA256 1d9b1455cf6a52ffadfb84c4011b63c4d85060c56f84cf0fab8c0f9a75931b2b
+  • Teacup — https://poly.pizza/m/903CCHbaNQ — SHA256 01ae829294f6ea9623ba56ec3f3796bf28a84d05a90b831174c209df2557e270
+  • Champagne Flute — https://poly.pizza/m/AB9TdauMqJ — SHA256 d2489d81bd053394541b118b3df985c67a5da8d2fca9404136f0c7cc5c0992a1
+  • Goblet — https://poly.pizza/m/akkmXa2s0R — SHA256 1a83efb24b565f4cc71ee039e2a1a5eb0157c79ec39bbdc7b64aeee0c71ae598
+  • Vodka Glass — https://poly.pizza/m/aMVC0Yj7UK — SHA256 4c6b9a86c9c37541032b9588cf83d5e85f8874da953df45de62cf5c0b9f9af27
+  • Bottle Lipstick — https://poly.pizza/m/ArsS5FbdQc — SHA256 06d4b9ebe6d5e69c8cf3eff7435281106d25292f261b94258f367b71302f029b
+  • Butter Knife — https://poly.pizza/m/BKnBHbosy0 — SHA256 fbd7263bfc059f56b35bd23e4a7c05101101975cf55829aa5588a19f84604601
+  • Bottle Nail Polish — https://poly.pizza/m/Blo5ACaHSb — SHA256 7aaaa53b00197a8b76c5cec8618d9feaded0dd93ffed7986c55ad760e11a5cd5
+  • Bottle Maskara — https://poly.pizza/m/C63MDfr1vN — SHA256 540c0be90c315cae7f48faf591e4a02c37292bcb50ad1e765ac477da919bb4fd
+  • Chef Knife — https://poly.pizza/m/deYbqWPM0f — SHA256 41f3190016e2fe67fda952367ad99f36e4260eb78a43f97c214dc39e8d274693
+  • Footed Pilsner — https://poly.pizza/m/dueH4RH7j4 — SHA256 914aafc52666f9f82c15ad725b1bfc8ba1d8a55409560f54b49fb800d30c718e
+  • Food Processor — https://poly.pizza/m/EmyJZv9NpR — SHA256 5b819ff7b0b8e3be609ad4b56a7d4b93e1330c87a505d7e53aed3561f7aca990
+  • Cocktail Glass — https://poly.pizza/m/FCpfirIQ0a — SHA256 73ff2e2b7cdbbe90c765c0ec4ce77b8c26930a322a3d634dcdb9f53ec124abb0
+  • Bottle Lipstick — https://poly.pizza/m/fHdBheWmuN — SHA256 b528b5d1bcaa2e81e8b679a093416ca741f1445f2d81266e512996c7e156e60d
+  • Wooden Spoon — https://poly.pizza/m/fkflKJBUP2 — SHA256 77d539590452e71bcca35b5e05f243af5edaff52fd85aa7fa273c5ba36384a7d
+  • Brush Blender Sponge — https://poly.pizza/m/fVCt5xbEen — SHA256 3bf8109422d2794c5e6d1f8d2c99fe768c8355ed261e1c895f9f2dc140faaf30
+  • Salt Shaker — https://poly.pizza/m/FvUlBBOcDO — SHA256 8a34b03ec5053064bba7eaccc982876f7ab352d6b706e4d318470b9ae9955509
+  • Brush Spoole Maskara — https://poly.pizza/m/g0zrlkMiXh — SHA256 6d0f9298be2a0068bc58db7f530c92612482e3c5143c6a0c19078293052ece7a
+  • Bottle Perfume — https://poly.pizza/m/Gcw4eo7l3H — SHA256 6547bd8958d03274100bc27fe68605d3ff6697290a8bda9e7ed2def8450b1e40
+  • Shot Glass — https://poly.pizza/m/GETjmwmkEK — SHA256 9094241287d2fed1d0bcbcd91eec339b0846fc7eb5ee99108b6a92aa0332ad77
+  • Mirror — https://poly.pizza/m/HIeVDCNgbA — SHA256 27481d35776456083234e631dba6365366c2bd906a713e4a2414c4235edb3a2e
+  • Cutting Board — https://poly.pizza/m/inI21Gcs8E — SHA256 f222edc7c95139d98e8e324fbaec7ae6f37ba0cd7acd586499b74bde83a576fb
+  • Lotion Bottle Large — https://poly.pizza/m/ixZl3I84e1 — SHA256 1be34affffcf9cca7e2b306a2de42cb3bf53f63d90faf361da40111e1c96244b
+  • Butter Knife — https://poly.pizza/m/JIal69yWh9 — SHA256 68a96b85b17b75296a8a92d1c37c6629a9e4b637d971f79e5a5396aa7f4f9d15
+  • Pizza Cutter — https://poly.pizza/m/jNyt0K6XFr — SHA256 63de9fb8a255be6f4589b5ec2db62a7d9567081f4e6dd893e534e41b129559e7
+  • Bottle Opener — https://poly.pizza/m/l2FEqhWnfC — SHA256 32533ee0ecdfe09888908f5868cbee877d99d5a4112ae16985d047b9cc8803b5
+  • Mortar and pestle — https://poly.pizza/m/luMO0il9ys — SHA256 734c7f8d3f3c2e6e3d13ff0d90062e3a537ac5840e2ddc7db6f0307655834c9d
+  • Loaf Pan — https://poly.pizza/m/luvlYXV427 — SHA256 001ab89f69f0a96bba924d31dd63b11c18a39bb98949a2afadd7b21d43e7f55b
+  • Plate Rectangle — https://poly.pizza/m/LXYMx7V8ft — SHA256 8c64aa0df7ecdd3396a48d5025b3df5cc28a541f354e82061c355cee91a57351
+  • Cleaning Pads — https://poly.pizza/m/MtaaEWkLbK — SHA256 957e5f1d91ee434e947797eec2525be5b88a1df251af9800936d290dea873d3f
+  • Weizen Glass — https://poly.pizza/m/n0mfRT90q3 — SHA256 7a96e0bf105ad7ad517ed4b7d7842a1d0056568353bd97cb334835d5d015f48f
+  • Wine Glass — https://poly.pizza/m/o3IbTABSgL — SHA256 68b9aaa36286296465419fb5d831bbbbc20dd0fd93910fa78baf8ecadd9c640d
+  • Bottle Lip Gloss — https://poly.pizza/m/ovDqsJt3xw — SHA256 217d72473d8fc2859ac3f12c1d4d058f0444ac9e361555c57957e5ac49367225
+  • Measuring Cup — https://poly.pizza/m/pV3YC6J5QC — SHA256 868b1d23eb625ddb09a3496ffe1e954500a72c47b8f732f75e9c416b436badab
+  • Tools File — https://poly.pizza/m/Q61x0IyNS9 — SHA256 c350ed7468f4b335c35a043c57d1810b3e39273fc0adc65198e690c15b74c119
+  • Measuring Cup — https://poly.pizza/m/q6i3XL52ge — SHA256 244473048166b9cf55883523f87c0cda41a27146f6e880e526f0811c0d3cba55
+  • Cutting Board — https://poly.pizza/m/Qa4RwW7AxQ — SHA256 08450bb4e5ce83267e4cae31fba5db08b1bd3d39226a90670d00d0eb41755a14
+  • Measuring Spoon — https://poly.pizza/m/QivyLZPgyP — SHA256 10ba803834171714b6864b3e8833aa988445f4a893bd10c54bd4cd8769e7c427
+  • Laddle — https://poly.pizza/m/R80obLY1z6 — SHA256 e98273fad9d1eb6b3af733ccb501db89049bd56b03e0437909d3f39b7b6db8e3
+  • Meat Mallet — https://poly.pizza/m/REc5ZeJMKH — SHA256 c706273f17176f41f96f84052bf09366839f66b571421e1593e5b897d396a127
+  • Lotion Tube — https://poly.pizza/m/tacHJc7TlK — SHA256 8e9c0f351f35ebae59e4dc03cea385723e11f52bdd99b60e5f4c883c28d2dfec
+  • Brush Blender Sponge — https://poly.pizza/m/tCLkW2n6EI — SHA256 54f0623e12ab874b8c402acf029b7e6708482d41beee8e21ea0f92c1575f366b
+  • Food Thermometer — https://poly.pizza/m/TlbiZ7hiBa — SHA256 b5ecb127ef9474178d2fc7404f2521d8a1351f70db7510f6d30a775e4a75dd77
+  • Beer Mug — https://poly.pizza/m/Zkyui3QLc9 — SHA256 0095dc8769cbbf26a27e7acba4db27946e1bb169806732cbf54c3de9571fe146
+  • Cleaning Cotton Tip — https://poly.pizza/m/ZT16Nvi46U — SHA256 597859942e47516467072280f6ca4462fab86c7c5fe82f0305b75a2a574073b5
+
+- Modelos de NicolasBrueckner na Poly Pizza — NicolasBrueckner; 1 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Birch Tree — https://poly.pizza/m/5vv8rSYAv1 — SHA256 7027a74d776326e8e8058c6bc88c3f028ed24cba02278152eff2fbf5c97f9cde
+
+- Modelos de Poly by Google na Poly Pizza — Poly by Google; 147 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Slice of cantaloupe — https://poly.pizza/m/097UT6ny1Fa — SHA256 0eca2ec3aa02b31cb84aa2aef8b26520735dbd6c3ae0f4e1e706a18e6c82f242
+  • Butter knife — https://poly.pizza/m/0eSZCu_B_DA — SHA256 05ccd5792226da79f1487026f64a4ea1ccbd167c87a0c6dafea172a73d94b1ce
+  • Chicken foot — https://poly.pizza/m/0PUqt9ID2g2 — SHA256 61903247dc7c7b50ef5228cfa033fbb4b0fef09e6ca1add41e322b7bfe0deacb
+  • Frog — https://poly.pizza/m/0QZHgL_V-Pj — SHA256 14cece24edd9ce32295f2c9b9ee11abac0236ebb280e10b4190e4646b7efc990
+  • Gold — https://poly.pizza/m/0w-WpQf7O9J — SHA256 4f885b4502c314ceb5c292c9d59fee06bd424ea82975aac13b65a5b787a76649
+  • Burger — https://poly.pizza/m/0W4JDAPuTZf — SHA256 9df2fa63b4fcc7457bc4874e04a953fc3d61ad4ba4ca985395926a86ee4115fc
+  • Seagull — https://poly.pizza/m/0WRzrtCIIRp — SHA256 844c0b7f547d47f26bb1b1b1000bb8269db222ff6cc85426b1991ee4a6d9ae96
+  • Talon — https://poly.pizza/m/0YeoyjaTKyn — SHA256 677d2d47ebc70d575ef5b1923b99492ddca79a0aca448ee687de93ce4283269e
+  • Caterpillar — https://poly.pizza/m/11rgZ0QxZ-F — SHA256 2b2e6a52c4a08e3fa0eabb670e0af7bb470ac42cf1ba908b3451999cdf9bb6d4
+  • Cat ears — https://poly.pizza/m/197Gkpt6GNV — SHA256 20fa4092fe4f0c11cf63592a5c1cbdfdc7f454384c293352854fb14d5c6f01db
+  • Sled — https://poly.pizza/m/1_Sd_OBmf5P — SHA256 6257a6246e49d14992d7dd48d123c8e6069229459c61da2ef74cbeac6714f1a1
+  • Rabbit ears — https://poly.pizza/m/1bLq_k5vHMt — SHA256 d960160fb8014e61620c441d8f5516f4929d09a39e943eff5a60e9f9d362c8b6
+  • Egg — https://poly.pizza/m/1d6ZyxLFuIi — SHA256 51413b1f74381f6fc117594b10874f55effd37c081a736bd534ebb02dc5621de
+  • Hummingbird — https://poly.pizza/m/1HreVSktbPG — SHA256 9f525b0ef1e63fabcab8f42f4d72d411b450d7d0e1d6cd7f5bfb05e43417a6f7
+  • Shark fin — https://poly.pizza/m/1L9OjE5KOlC — SHA256 4693596d2eaeddda7bd76114a2e5c5cebd99bbc62e4aabc8ea80180175490b15
+  • Strainer — https://poly.pizza/m/1PiSL-33U5q — SHA256 875bd095190be9061e146d11209d2db2c4320d54a574e48afbbffa79380c7c1f
+  • Bear claw — https://poly.pizza/m/1RoMTu0slO_ — SHA256 1abd0f890f10a9cbaf92bb3dcde062f46f45e7083cad4fae5d9872f74914b914
+  • Cup — https://poly.pizza/m/1zWEvWP2vOQ — SHA256 d40cf90fe9047fcff6e44ab01b8b043ad65f2eb6b11fb85e60432c7df055b38d
+  • Kayak — https://poly.pizza/m/20qFHKv9i2Z — SHA256 1202a627a9adc320eb299c79ec6d05acc067fde3c83c9fd1205eb6d57dd3d521
+  • Grapefruit — https://poly.pizza/m/2NsaX5Ae4cz — SHA256 1f7f0ff5c2b5febb15e72943bbe94e1a9b4ab7a753215ca7a4e41d22f83ee87d
+  • Sponge — https://poly.pizza/m/2RHCA0D2RJ2 — SHA256 072c460f03d84884a5d8962741bd4520bd9ea28729b66897c3fbb69af4871359
+  • Walkie talkie — https://poly.pizza/m/2SK5EmWHAa0 — SHA256 5d7c17b9d83b89cabc7d85b7ac4efecbdc94121f2cd308fd94748e309f32421b
+  • Poker chip — https://poly.pizza/m/2T3RWLeAudL — SHA256 9270ad643b0db6ea1dffc8860e69a9a968c7a5e59359a74214f4a39c1d1c6f22
+  • Handsaw — https://poly.pizza/m/2Z5-FkJ3AKX — SHA256 04aa36ee7048ab695d8a2930e6f051d0f212eda5e906f44a322c3aa16a4625f3
+  • Sunny side up egg — https://poly.pizza/m/32MUAyExJ8U — SHA256 a4ac30b3a5d06a9c40a5797e6c448d795aa6ff705965c0f00395532c26b605f2
+  • Jet — https://poly.pizza/m/3B3Pa6BHXn1 — SHA256 61e7b6e8ca38056b4408ad8e76b513e3c1d699b188db5527177753be53f255e7
+  • Mirror — https://poly.pizza/m/3Cmxakw58Px — SHA256 23bcbabf47e5c7e824b2cd65795c034535620d34fdf7986673a01ecfafa4a22c
+  • Toilet paper roll — https://poly.pizza/m/3fTwIG4NTg3 — SHA256 eba8f695a8a30ef8d1c6d1a902cbc06a650351b3e24bff877d6439442da3bc76
+  • Carrot — https://poly.pizza/m/3oFkNid6ofx — SHA256 887bafea8f29b5705026d4f1a352515e3540aee7dc667c580696fd984fa1e183
+  • Pyramid — https://poly.pizza/m/3pabPM-VTTH — SHA256 65569b52b3b45f925c917663c2d100ddabdf44586008b3c301bd26378ef393aa
+  • Cat eye — https://poly.pizza/m/3u1-D_bdKpx — SHA256 bc03777f8afcd569f99c961248a464dc3766711d7f779901a5d90de0fe2176c7
+  • Fish hook — https://poly.pizza/m/3xxRFD2brcq — SHA256 cb7743fcbde94393a18d318380fd1626ea7ba7bf25d97a5b49cd54503628278e
+  • Crayfish — https://poly.pizza/m/3Y2cocX0ILR — SHA256 06bc88e8df3ba1825db6a87e440d17875aebe5480a1f57f480c34963bd8aed55
+  • Papers — https://poly.pizza/m/3yBO3m5nKct — SHA256 060fdc248a247790606cbaf0408199e61f83273902b48630c2e6a5e734ee9374
+  • Cloud — https://poly.pizza/m/44cGXp6_8WD — SHA256 086ca25b075fbf6f3ec0f83eac77bef24b9512827c1b871a6adc381b4a6f666b
+  • Matchstick — https://poly.pizza/m/49-C9JTxjSa — SHA256 1430487b508880db88e04947f5d63ca0dea01d11aafcd49b11f77d4e08e706f1
+  • Rabbit ear — https://poly.pizza/m/4aEWyuIWZ7M — SHA256 ce40ff187a8278e9c754d28aa7b3094e540d1327c2ca7bb4af5e615ba485b470
+  • Tree — https://poly.pizza/m/4Cg8fDgGqVV — SHA256 0f8232b093f454a24ad56720613b5324d8d66bbe1446eebe2ac3442969f60a04
+  • Rowboat — https://poly.pizza/m/4KMMRO9_b73 — SHA256 d82142dafacb88ad337e65ca797e68c5785d84e3effe6f1fab579e9517b3a901
+  • Macaron — https://poly.pizza/m/4Md8v2GsK73 — SHA256 fdf3b170f5f1130036f33d5ffb8cf1f6084746ea0c196843b0f851e2f95dcff5
+  • Canoe — https://poly.pizza/m/4zCCrGlIqw3 — SHA256 9d39d4bf0e49e4db6f5969fc1d2f2857d5a99145e540450b0f060c1a3c86526c
+  • Stone — https://poly.pizza/m/50q_bJkLcuq — SHA256 148a82ed72af7d0af9bbf8cb79cb6d90f8c64c315a9fa759a0c87baadaf7410a
+  • Plate — https://poly.pizza/m/596EEyBvuyM — SHA256 c587c2ecde4efbbca879b92190beb3bfb1e41eea6ddd9d4828313f84805e6e72
+  • Mug — https://poly.pizza/m/5bgzr6psy9b — SHA256 a6c29bf15030a4e77b0ca8db4e599122f51df3cd7915ae19cb688395888bf67a
+  • Hal 9000 — https://poly.pizza/m/5CNAkJAhHVV — SHA256 bb46594931a73fee21fba6150b14574d14ae8576c94a89a523839c2372ab8968
+  • Paper airplane — https://poly.pizza/m/5Dzvrp9lvtN — SHA256 4e3bcd88df90407a65020bc09ba489dcbaf0682dd828fb2338e5f9a0c8e14fac
+  • Star — https://poly.pizza/m/5hrwvzpCArU — SHA256 7dbfdc8f69eafef02fc6283ded3fd3a2b621475cabcbdf7596b796542b074098
+  • Sled — https://poly.pizza/m/5m_sB-SX53W — SHA256 e6cf14326f2c5cba664dcc721404ec2c1541cf3e93fc0b27d5a02304356ec7fc
+  • Drumstick chicken — https://poly.pizza/m/5qyQzU0o9TR — SHA256 9790c806f2d91f22f0b35bcd4150cc45e96b1561f96cca295684026e3ac8ecd1
+  • Roomba — https://poly.pizza/m/5WERTPcyIMn — SHA256 f39c83a86c619180bc9d4886f207d30e63c06d53a9de22b4b00a011db2fdd2f0
+  • Bone — https://poly.pizza/m/5x7GOmvt0Tk — SHA256 76eee89a740af439b59312b274247f2980e19e26f2ac25d2dba4cb025ce3af81
+  • Squirrel — https://poly.pizza/m/64Yw0UoayhC — SHA256 068e14fb642f3b24fb9e784f01f35960dad9491d841f80ba8eaf381f6df7997a
+  • Halibut — https://poly.pizza/m/653otKgnnpx — SHA256 70dee3b6ad6cf1e56251ca4c9744356da4519c3e8fb2c53d013493c1c2e6c5a8
+  • Bottle of wine — https://poly.pizza/m/65Hf2EMEo4s — SHA256 81cfb79552de6f9edaefa85111bb52000acc098bd0dc0aefd9c8d894c458f0a3
+  • Pea pod — https://poly.pizza/m/6eu7qJsM3VQ — SHA256 fbb56bc7ebc4f86d88a8d0cb4a5c04522cf3984255dc36e44e12be2dd1c7c336
+  • Magic wand — https://poly.pizza/m/6Js5Bqj7s90 — SHA256 3f8ca0cf598795724192009f40c815bfacb78b188296c18f9c0b991eb8c20d85
+  • Shark tooth — https://poly.pizza/m/6lZSwZSWTPw — SHA256 2dccc7ad2f973bdac1f65bc0dad5b56b2131c17f6f82d6db4f81fa97e49379d1
+  • Cowbell — https://poly.pizza/m/6M8gKV365Cz — SHA256 6d025242b6c386895a17d94a504c90ffc1e61b063c81b34669b2eafd2f4c634b
+  • Spade — https://poly.pizza/m/6NStaFyk5Rw — SHA256 cd92a452cae725b862bb1f7a44e0c89b42e761ef2e10f7110b96c533c967ceae
+  • Tree — https://poly.pizza/m/6pwiq7hSrHr — SHA256 cdc33f08604ea33319480f53f7404663510052c0a565cd2509ab015897248c2b
+  • Steak — https://poly.pizza/m/6v18xZizwEy — SHA256 2327c7458712eabc118000495d0643f492e4e5c69f22842011ac6fc0bd5b99f0
+  • Venus — https://poly.pizza/m/6V99ow0chMd — SHA256 00eb109413c60820ba2ffba460a03462bfc13ade5873cbeb53758940f022195e
+  • Pirate hat — https://poly.pizza/m/73a4yE7VyqD — SHA256 dccd01561f7f9f18cfc7a0d16006b2f379e3cd810d63bb8150d1b4b116661062
+  • Paper airplane — https://poly.pizza/m/75WQH5E29tF — SHA256 a1201831eaf6f44a97835468ee24ce52778032d7a3a26916f3c9a979a758336a
+  • Tree — https://poly.pizza/m/78QXCP8b2HT — SHA256 8446de70818939943a69ba232c6eefb8674f7977a12ab8c9edfd0f0a423c4b5c
+  • Sailboat — https://poly.pizza/m/7AOnch2wREC — SHA256 ecc978fac3dd246a306c618f05ff59ccb61d8a6cb08cba65cc0dd169710cc3da
+  • Google Cardboard — https://poly.pizza/m/7BZObgggR7_ — SHA256 3f5638b6b4766ed7390bd975e0e220fab17be1fd67983aa5b7c8ca665383851c
+  • Candy cane — https://poly.pizza/m/7DbOKA1uXfK — SHA256 2c4f94a0cc216d864353c0c7c6505e416f1bca8efdeb5b27b5e59f299573ebc3
+  • Egg — https://poly.pizza/m/7FhujGTNk0I — SHA256 fce968124da21fc87c26c6846c8d177bc72d30dda5c04e03cd2fd78f06fa65c2
+  • Bottlecap — https://poly.pizza/m/7HsR9BPZpi6 — SHA256 f5fe4aa71701afabd44bf46b6551bcb2f1623360cddf73bb467a3a40bf5b44a0
+  • Acorn — https://poly.pizza/m/7kQI5Lp_yfU — SHA256 3f73dd402ea1ba096b80bb3a1ec2420a979ed93a8785db987053fc61ffa8b901
+  • Coffee bean — https://poly.pizza/m/7ONZQTx9Tuz — SHA256 a271cea526ea7b50607a6d00d5a76fe05d5a8aee2a55f7a251efacaef24d84d7
+  • Wizard hat — https://poly.pizza/m/7VVumyY7L_u — SHA256 c08943ffb2c6fd0f5096197ae70f1f0f0273917a41dc51fed92332bf3ac9c723
+  • Butterfly — https://poly.pizza/m/814CINpG3H1 — SHA256 f91015c6c140cb09b5b5c2e631a31534f1478d05adfdf2eacb10e2cc69382c63
+  • Nail — https://poly.pizza/m/8a0p2zrUFBs — SHA256 c85ba97424ae17ca8e0966afd21f8e792869c3caabf6744f6a843557d10054d6
+  • Volcano — https://poly.pizza/m/8gkFBBcS6aM — SHA256 9cd878f499550eac094b14c612ed3d9368527aae68a95c3120af4205b9eea30a
+  • Hammock — https://poly.pizza/m/8HpfK72JHLo — SHA256 c917617516ffeead1498143d3b8ef7942d13f91ea334fddd696866a2e78635eb
+  • Carrot — https://poly.pizza/m/8mSuB-1kfRm — SHA256 ff02bdc7213a90bb8ee5011c6e8f371b6db3eebba03b2d0b281d470b574af5bc
+  • Glass of milk — https://poly.pizza/m/8Om0rRz1PDg — SHA256 fbbd076ec08a2bbfef77abf1e80260dd078b632a9e47c410321308c3f46786dc
+  • Lightning bolt — https://poly.pizza/m/8rX_fFhz6XH — SHA256 205bc853b02b2560a1e103552cf966cf9665d7060835f77df66b4da4b9fa4f41
+  • Gummy bear — https://poly.pizza/m/8TMPYVGan_T — SHA256 02854b7cc27366e3c4109d5df8335197d98a1f2b99a6ceedf4668efe5256c766
+  • Robot — https://poly.pizza/m/9A6cuitiB_4 — SHA256 c0d7278809c378eea44489bb39f5b971e500e52e4f1c7114c5e6b1bf64d27c8f
+  • Crowbar — https://poly.pizza/m/9FUVwmzqucy — SHA256 48f2f94ae8d07c520c20ab35bf003ce85a107d91add4edb3c4b54043ba948415
+  • Orange — https://poly.pizza/m/9KbFqwZAqn2 — SHA256 4d33dac5f7cb2a145e93deedcda5b5f830450b5cf0838f507034eb7ea36265ef
+  • Cotton swab — https://poly.pizza/m/9LiB4eCLr43 — SHA256 b3edb701b535c367f3e46224ddd09048d32a863b125ca2c64d94d221087492ac
+  • Wall speakers — https://poly.pizza/m/9mjgaq-4kRK — SHA256 c82eb20e7d4a987cf3f19df39e8b3123f9899e90e4037a17260cda64fb42af96
+  • Mouse — https://poly.pizza/m/9Nw9BpWzqAx — SHA256 5f748a0cfc43dc2d6f991aceedcf1cd2c0433641aa10b81a405107a973cf6b9c
+  • Star — https://poly.pizza/m/9NXf-SDxJny — SHA256 33cc7c8f5a1b17177d73470473eb9b7aacdf00518553260e3abacbbbf52c8e3b
+  • Antlers — https://poly.pizza/m/9oH6TjelO-W — SHA256 5fa8608ed779fc2c944a1b99b61315afc56dbbe8f86945a64fe00c7e71a7693e
+  • Iceberg — https://poly.pizza/m/9U2KjmvOJvY — SHA256 7aa972b423f87d8652c6bbc8591879630c54705a5f8e37002a37fb9903675de8
+  • Wine bottle — https://poly.pizza/m/9x0nvCLHWpo — SHA256 b42724d2022aea28f859131e95cca2d777892ff48c554f37e21f28bcaeaeaa06
+  • Rocks — https://poly.pizza/m/9YaAwJFsHMj — SHA256 bfa562b4893491e5ab61d7b92c625ac1cffceae3d1d4e13b76bd3ab32c4ede13
+  • Cocktail — https://poly.pizza/m/a-jt3_s2xIc — SHA256 15f0a31a7d1a203bdebe4d25e7dbc3ecdf983b63ff8eb897fbd4fb382a1b40b2
+  • Cup — https://poly.pizza/m/a22X3YocUp- — SHA256 75931e7c81ed881c92dca480a1a28fba8fce67ab031d3bdf9627900c86b9b3a3
+  • Dog bowl — https://poly.pizza/m/a3frygyTZwp — SHA256 48055f5bbc7a0122f635bcf4849a0b90c88a2e5478036ede43bf136142a821f3
+  • Bull horn — https://poly.pizza/m/a47Cj9TMSSu — SHA256 4125cb13b661365027169b9958c9c7d2a7d4e1d92a2d91d6dc10c8cc1943a914
+  • Paper — https://poly.pizza/m/a6kuHAjWdYP — SHA256 4a3ffa2928a7433d5370c16792462a915bfdca4eacc664a496990959036881eb
+  • Eggplant — https://poly.pizza/m/abKWST5Odkg — SHA256 6c87f16617b19b87868217f0aad34a8a4aeed493568223466dc05d3a966d26b5
+  • Rowboat — https://poly.pizza/m/adoP7kR7S17 — SHA256 c7b42dd5e475fefbbf4e2e4dfedb736e7b33ef1f79748884487328ef66fad2a5
+  • Eraser — https://poly.pizza/m/afN5vWdot7A — SHA256 0d8368d67fd45e72eff0e8c6af877ff0586e84f5d7236a8b31e6e62f96e72880
+  • Banana — https://poly.pizza/m/ahOO6wz8sV0 — SHA256 0372edc9ea61559ae6247df523f40e7169c6ce0766d419105d8e509b657fa16e
+  • Cherry — https://poly.pizza/m/aJgYH6O01OM — SHA256 db368b4413292b46cca51cb9a3063ef2de7e083e3fb25ebbb39c9183c398444c
+  • Carabiner — https://poly.pizza/m/anKcLI1xqyp — SHA256 f1703043de2976b312dca07de81f9b832d158d42b8b1ff83e9ad3f2bfe6dd54c
+  • Cat ear — https://poly.pizza/m/aunmM6n2TTe — SHA256 e7d17b7ec17a91cd61f24921e2733d0bb5ec6063f1c1a1f206023d1b4f98329f
+  • Knight chess piece — https://poly.pizza/m/aW5HcCo0KZa — SHA256 487e9f5746dba151b242efcbbce20ad309a2871589be2c41cc206a04358702e1
+  • Butter — https://poly.pizza/m/awZTt6mwv70 — SHA256 7974b9c7904cb640704190e3cd82fe12e1249171900c463e160ab95b5b805261
+  • Cowboy hat — https://poly.pizza/m/aWzUlZtGLC0 — SHA256 81b5dd7e85b8a8dd4101947b27ac61f2613be1e2c0d364f49065926a0e3b19d8
+  • Pirate hook — https://poly.pizza/m/ay-W1oYUF-x — SHA256 0e95eb459ba628cc4b8d80c3858351013e3f380d64f74cf8a498b85271378947
+  • Tree — https://poly.pizza/m/b7ObRMma6MB — SHA256 66d4e4b5bc37fc78187430bd3028feb531125128735d5b27784391158edffdef
+  • Arrowhead — https://poly.pizza/m/bED9_LLkYVk — SHA256 3180d95cb4d769d85a18f11c09a95f1dda73d3ad5d1e94fcb8cba76ac3b38a25
+  • Paddle — https://poly.pizza/m/cJ__sUf4Dry — SHA256 3b765c54520c9fcc14a21b606a7430ba1e9479a9b7c80e7d4318892cbad0c4c0
+  • Mirror — https://poly.pizza/m/cjvm-bUFBAW — SHA256 e8b3a3110ccda864f82644c9f1c343e849fbd5acbe3cbb6afbad7a15ad727504
+  • Dog bowl — https://poly.pizza/m/cMk8S7aDHny — SHA256 b302f03adc9cde09adffa5f9f0ee23d7f7ec4eb7cce55d996559f7f3c6808a75
+  • Domestic robot — https://poly.pizza/m/cpuBFAjcz90 — SHA256 94f00949e615e66b807a909330ce698eff06e8b6d08098c515f225ee4e547e67
+  • Tablet — https://poly.pizza/m/crlQklnLvz7 — SHA256 7270c3fe5e9ff4be11e46f0d99380e7fd138e393777d1c816dd49fc534658633
+  • Golf tee — https://poly.pizza/m/cW8u8jdl5ZE — SHA256 99e2738e2139e44c2a61e3a668805161b058d06d01db43e7023ae5d2d51226f4
+  • Wolf — https://poly.pizza/m/cx7dMDUDzhG — SHA256 ebb05fb977c6f41aa0d2e2139ff6a1ed1ab4a46269cf7253cb58f2228353f1f3
+  • Fox tail — https://poly.pizza/m/d06ehO8_Elt — SHA256 d67cfa48f8ae6de198d6fb1e1beba667cdd318f6b3c8c6fef5901c017f25b102
+  • Eel — https://poly.pizza/m/dDzthiG8nr9 — SHA256 917236b70e715956bd0aed4cde01cad2a3b84e71e1600e043c2ccb4c3d335dbe
+  • Espresso cup — https://poly.pizza/m/deH_Cq5BwIK — SHA256 9716ca43e4c95bc4dc8934c93b5d16f23e951c2e7d6057816f8c79ce4039cd9d
+  • Water bottle — https://poly.pizza/m/dha06wFxUwA — SHA256 253497797adba5f43003b2fa305f2bc4dca6ffa8c974b540030c843e91b2501b
+  • Baseball bat — https://poly.pizza/m/dKpM86V7RBS — SHA256 0fce621a96ce5792488caf7b03c91713ef36dcd03730fea48224d99443003e58
+  • Olive — https://poly.pizza/m/dMrxyW6wcEl — SHA256 0e22d9e29534eebfc979160004c944fd0d5058c56aa7b2551d9e9a4e946cd95f
+  • Tree — https://poly.pizza/m/doN3tFNYqPo — SHA256 38c3ea63c5495625abcd7349e66cd9123588be1701e45ad1fb81274cbba1c401
+  • Cup — https://poly.pizza/m/dqGq-Rlzv2V — SHA256 6d51d331516f1646e6e6aac25a6f520f767cb7d8c8b9d70a1fea2c60c677543a
+  • Robot vacuum — https://poly.pizza/m/dQj7UZT-1w0 — SHA256 ae8a90eaca6019d483a1875afac2e6359dc1e5cae3075a00a3f2c9e47107152a
+  • Wine glass — https://poly.pizza/m/duQR8E3i4nu — SHA256 915557357ca818a6088374967a7860130a5e34288da1cef31efc1922346ca382
+  • Tomato slice — https://poly.pizza/m/e_Ao--Ndvfh — SHA256 29689abbccb0066513f49309c1a6cbe4975e6aefdc98d7d66ab342a41fbfdf19
+  • Dog — https://poly.pizza/m/eDmSVe4TKwF — SHA256 776d353b2ccba949a0df80cc0cc78e596a50b4a4a13cd0be4eb47a399e022639
+  • Message board — https://poly.pizza/m/eH5TLqnQgjU — SHA256 8e86685c9f675f7839f018854aaa69981c4a4d10834ee4853616af92745967ca
+  • Pirate hook — https://poly.pizza/m/eKyOgAaDCCV — SHA256 27746d2fc35e0f3025705c4541128c7ef2ac74fb3002b50b13d6eb1fd9bdaee3
+  • Tree — https://poly.pizza/m/eOL74SKw9NG — SHA256 bd5f6a847c855a48633292f99feab8537e89ec63d2c176197237cc5fd6057d06
+  • Shot glass — https://poly.pizza/m/epCXNZcP5gR — SHA256 5b13bf5100d1f7ebfb689c229dfe25c0cc7325b00a23a71d975cfe3e14e9163e
+  • Rug — https://poly.pizza/m/epuypdA3tpO — SHA256 560f8332c864f30810031ad3995a6d4813c20a7095f6c10aa502a55daec000e1
+  • Shark fin — https://poly.pizza/m/eShO8NLfc3H — SHA256 e86df1fab289a10bebdcc3da72ac26c9d3100128468f66d4cfd102d888ef1c47
+  • Ceiling fan — https://poly.pizza/m/evjKlG1pgr- — SHA256 785a4d1b044f56e773cbdb41de24527d51949257b199ad8ceee95335e4218887
+  • Chili Pepper — https://poly.pizza/m/eVVfvGBbBD9 — SHA256 f5194f666c51e0e8e4f6270aef1e0a4091be0a4b663b55c0522de7111750764d
+  • Domestic robot — https://poly.pizza/m/f4rVzJd_dgX — SHA256 6bed763b735fb47db2cf0f400ff4a3d4f94eeccbd377085f8f3aecf806c395c0
+  • Pillow — https://poly.pizza/m/f60emm1Xkas — SHA256 be45de4639d684b0a418ddfd6650209fe7db8733c3babaaa592d854970825f62
+  • Neptune — https://poly.pizza/m/fhWOlovX4vn — SHA256 92e53207bc57e30618cfd1c91a23747a6d4055c7b39c5e3b489e24d49d08786b
+  • Anchor — https://poly.pizza/m/fjAwIosTQHy — SHA256 e8cbf86b4bee709c8b96519dd763d06a8b9b02349d1b85075357d0a539f92bad
+  • Door mat — https://poly.pizza/m/fmKXUVQHydl — SHA256 49bbda1aab0381d6bceb898853ec65fa1b17a80eb43153b75a44b3da3037ec30
+  • Flying saucer — https://poly.pizza/m/fojR5i3h_nh — SHA256 0f90ee4a220de8c3e14b8fc10f72c790460c544027d6e1288407c399c218ebcc
+  • Hot dog — https://poly.pizza/m/fqaAiwcJyFW — SHA256 9504e1bebb4d2b90dc402f0dfe72f561d90482fb83237d70f0ae435e198d4175
+  • Bar of soap — https://poly.pizza/m/fRjf_kKjLV7 — SHA256 9ea6913b818c4cbfb81743632bd236c600f0428bd0238ba91113b152faf57038
+  • Espresso Pot — https://poly.pizza/m/fsqUynYjKyA — SHA256 e0fea7ea6e6170f0503b5b4139e6c7448f9c203f4a91d18f00d0bea839ece16d
+  • Airplane — https://poly.pizza/m/fzIXe2paBN9 — SHA256 fb342f027dafaab10cdabca65f1cde71c273ba42c6c81a3f39be86e7994ac904
+
+- Modelos de Polygonal Mind na Poly Pizza — Polygonal Mind; 26 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Female Character Base — https://poly.pizza/m/1ryiVvZIfD — SHA256 f34562615fefd8f4de1b4a55f75e2cf3e86761c28e14abda86846c9fe682a90c
+  • Fucked up little alien guy — https://poly.pizza/m/2gaLTM8Pim — SHA256 ef7d05b541dabe989417bce9c5a4e619b5f68a377565bd8e706089a74e2a96ca
+  • Avocado Character — https://poly.pizza/m/2lGhZbQKqS — SHA256 9fbf3449003d0cf7ea28cc379ca290f012b2a1d0c04b3f1fb566f7dba3a7a6fc
+  • Man — https://poly.pizza/m/3w4Bgw7Phn — SHA256 4f5faee909e204bf8d767a12dc1f1ec8e7d561849f0f9b798bc7a74c23d64e01
+  • Astronaut — https://poly.pizza/m/4orkFqR9c9 — SHA256 89a78ca3e53bde643b1d45f6734512290ad5ea54ffdf423baabaa98cc732e808
+  • Pin Character — https://poly.pizza/m/55CFwX3lpK — SHA256 387b78e9e60013da57d7e730decc12be6881372e254839ad26f1e121a78e7f03
+  • Skeleton Costume — https://poly.pizza/m/6DlLXFdP3r — SHA256 ff63ea16a7db0bfd59151f3819dbdb45604031c6241ba561e33431457f8c29f8
+  • Gingerbread — https://poly.pizza/m/AoZ5bbpoqh — SHA256 3584344b70f16e2fc8ec918fc732d4a3a4330054a935fc2a4c7324011f6cbc0f
+  • Adventurer — https://poly.pizza/m/BCMT02FrVE — SHA256 e246614e9938ef0a3e1f06061e0eb65d2f9e19f1f47f3f8fe089561021ce2865
+  • Ghost Character — https://poly.pizza/m/CKLHPoYhE9 — SHA256 76dd0ed4569eff8af5b730f69007abd477f1c6735198d2317dd08f130ae1655b
+  • Robot — https://poly.pizza/m/ejDr8lRglP — SHA256 c131f9ec8e73ca14beec8e9b77a2d25c44afd87858512e0bb30b8ed678bceb9b
+  • Pirate — https://poly.pizza/m/H0diBEEYW6 — SHA256 95eb182a256fac5b09773fc6fa5b0fa99bde43607535e9ceb99f008b86937beb
+  • Potato Character — https://poly.pizza/m/h9bDmhbCba — SHA256 021e68f398d39c113908db4a0693ac53344008c09315b54ef71eeed7801e01b3
+  • lil dude — https://poly.pizza/m/KGrxTUXnT1 — SHA256 41e22746a6e25a8564a174a740675ee05a5489c8c81a4a278c33db05457e494d
+  • Steak Character — https://poly.pizza/m/mCuVP11rFP — SHA256 d1a81a3dffca19512d8056a60096ac713370bd42faac921dc9928a14848b28ae
+  • Woman — https://poly.pizza/m/QeIc9Mzjzs — SHA256 9e75615156b818aab0f4fe5d69490355f07ef78eddccea9fee026a46e5415e95
+  • O — https://poly.pizza/m/qR6fLHpdXM — SHA256 d4e0eb661c9d2b667f0ec5fdda3577f1f6897b6bb4d0abeef76f13f2d21663c5
+  • Pirate Woman — https://poly.pizza/m/qRDrzfs8j9 — SHA256 2ff40e682ef5e6a37fd3f0107b31cee904ded70550869343b5c019a004555127
+  • Watermelon Character — https://poly.pizza/m/s0AbCIM11i — SHA256 0f8a118cad474807b181ba58aab306e7538afdd83306ac22d6fac8cafec4e73d
+  • Unicorn Person — https://poly.pizza/m/TLsBUOdTr7 — SHA256 4418aad590501485e30e3b8df5d6be1bba4e3a343ee6a731b5b89c2cf119ba95
+  • Woman — https://poly.pizza/m/usAZvwbH0Y — SHA256 047a24a1f6a6ae432bf77191b67c01e4041949c3fea3fcc273557be3b86f14d0
+  • Cool Shield Character — https://poly.pizza/m/vAfACsBXQT — SHA256 7915580016cee28f3dffb384b62015e4b3c43927aaa71bccdc69d9de5de68190
+  • Astronaut — https://poly.pizza/m/WVliq38EJz — SHA256 17e81b794ed423ab74e50aee218d5d330ffa5a7afe268699ac302147cc26f73d
+  • Bell Character — https://poly.pizza/m/YiFWEXU9ve — SHA256 97173722e953d8ac27744d2eaded5b3464dfb9f4986fcf1c0e0a73303b69866c
+  • Washing Machine Character — https://poly.pizza/m/yqlWv15X3l — SHA256 ff18c80b1ac272f6945939a523ae14b397424e4a3ee378f7d5e9b47c91c435b0
+  • Tall Woman — https://poly.pizza/m/yXLO5EpFHI — SHA256 d8d85f883fb26da16ae141b0a2cea0fc2d5796db961c7dd2731ef8f65e952db7
+
+- Modelos de Quaternius na Poly Pizza — Quaternius; 3 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Animated Zombie — https://poly.pizza/m/jkrEvQZb8J — SHA256 09b731f41065c736e66b5ed7769963e1eb07d5bef4173583c27fbb0cf1b81e51
+  • Animated Wizard — https://poly.pizza/m/kttbFvCl2C — SHA256 6f4455f23a7678854ec02dec134e86839ee139d6fdb5cae4cb03c965fd8599d9
+  • Witch — https://poly.pizza/m/QBEOV9ZUT8 — SHA256 db95534b680c9cc00f45d1165646cd54f70beba8df8c9cb1def10dc2251bdc9a
+
+- Modelos de Quaternius na Poly Pizza — Quaternius; 98 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Shelf Small — https://poly.pizza/m/0REJqMlmSW — SHA256 d4b22996ad1cbccaa811489c41c51f89670091ec8c01795e5a67364c1434facc
+  • Round Window — https://poly.pizza/m/0U2hTU44WK — SHA256 8fd7ca40808e5daf4fb940af328837d9588f60151b49ee0a40c2e268f028d38f
+  • Bread — https://poly.pizza/m/1gzhqdQ4vu — SHA256 f8b2f48646f5f4b53f16c40e18a7746679736f7036d4b5f8bf674c2f7485fb66
+  • Shelf Large — https://poly.pizza/m/3FmjkLClVE — SHA256 9bf0585a55c907a2449d0d068abb801ee250ae625618f2b0da563432c2ad5145
+  • Dolphin — https://poly.pizza/m/3LzFgI3GLO — SHA256 3c8bdc0440b5585c15c753a6b6a07f57a80ce3f33f58333c804069c714dd9993
+  • Propane Tank — https://poly.pizza/m/3revwBHxDC — SHA256 d38fa01373ffb00c255a877bc59686bbf7ab89ba63752a556c6e440483381bea
+  • Flowers — https://poly.pizza/m/4JgnDpC3SK — SHA256 3e4fe3a3a8791a7e1bc6f5ecc7ee317d13bb78653df02f2b03049b2b6be8e131
+  • Broccoli — https://poly.pizza/m/6exp0qAEVd — SHA256 451514b0a714674db5c28e7b923bf2660f0bd11aaba2fc19dd5945220aea782c
+  • Ketchup Bottle — https://poly.pizza/m/7jYoKP9lKw — SHA256 89b551c090be4a47056e52654f8cec2007b4d3d0bc47f0d1d030e0bf66d4172e
+  • Potion Bottle — https://poly.pizza/m/7qbuf1TS8C — SHA256 f07ab494d0606251a02de92d9ad79f67673ea9c141d2ca7f64fd6763fdb178e4
+  • Brick Wall — https://poly.pizza/m/7uEf9KAU9q — SHA256 25be4854a298ade370f78d84b2cf731c2c4b73b1cf2cf925dce42a74d6ccce84
+  • Steak — https://poly.pizza/m/abCzZiCgB0 — SHA256 822fdf954e9652373b54bca593a2c68e09adcfcc44892d5f0ab470fd728a704e
+  • Fox Statue — https://poly.pizza/m/abxyXID5EA — SHA256 62b22264c61ed4db1596dc9f1a8ffe68bca30dcbe86b23c31c17a2c7e2155acc
+  • Grass — https://poly.pizza/m/AkGoA1SaHA — SHA256 7312e2c5592476f14bbd29282f2b13d9893a63d052f0fd2b245bfc1fa66a5937
+  • Cable — https://poly.pizza/m/aoNcGMnNiG — SHA256 34811b68d70ccdf58243e1bf59b2eb82df71fcae7b1484c82477d4cc971446a4
+  • Woman — https://poly.pizza/m/AQsd9ngvKU — SHA256 bae371b11e0dcd5dbd26442025567ca9f7041781f3410259d6ec379bffcbac27
+  • Shark — https://poly.pizza/m/AyHTK3zUSG — SHA256 6d5cf3cd7ea749583b622a306cfcae4de85432efcc74a1ec6f52e5430cf13aff
+  • Fish — https://poly.pizza/m/BEcU9rjiAq — SHA256 9607de8de8a0ac2d857f271272e70e6d8d3fd19852d979c2cfbe9eafe1e4fcc5
+  • Lifeboat — https://poly.pizza/m/Bkd4KKQA4O — SHA256 2c4efdbf809ab54cd13859f7cf4bb566cfc233ddde8016ae0fa79434655606b4
+  • Fish Bone — https://poly.pizza/m/bU5RLZnq6v — SHA256 d15fc15f86f84ba38b3a0cf18e5b23651f7541433b59d045233793b2a54fb51e
+  • Ebi Nigiri — https://poly.pizza/m/C1EqYHLk95 — SHA256 c22542bd9fa8ad2c478266174952122e5b2e1f7491f2b84f2fbb247975a8c72c
+  • Bacon — https://poly.pizza/m/c5Zja0PV6W — SHA256 cb3b6d020454292819d84645bd2131012e0402651864dfc2aad0a456e9cb8a2e
+  • Pizza Slice — https://poly.pizza/m/CA4HtaaMJn — SHA256 9ced453f1b284414df8804beed642d9af4cf289669a1f7cc75a8c667a4470a90
+  • Fence End — https://poly.pizza/m/CDxtXwBZ3f — SHA256 360da973dad18529dc2196a9f738d28f20f47730b6b32ee557f38492a6d99b59
+  • Wooden Board — https://poly.pizza/m/CfQ9CnzQiy — SHA256 a00f82b9b3f26228fd616a742532a2b79387848d5c759f918809dfbf4d444d59
+  • Pallet — https://poly.pizza/m/cUAsYHDqfD — SHA256 b773bbfe85743cd14ccb95b46219d99781b6f402babcc4a7a25f4179232ba1d5
+  • Mushroom — https://poly.pizza/m/db1tjMhmiA — SHA256 bd77010f2d3844ec82b9f026e576f53b5b0e4abadf3ec7c5cbadef5864ac7e71
+  • Spaceship — https://poly.pizza/m/DbGajMHrvp — SHA256 8955e65efdd4292637d6666e3325b9515c784af8e3eca5f39fa809f0176e85f1
+  • Ice Block — https://poly.pizza/m/dEY0gPZNzG — SHA256 c6bbf5b88e0c4d2a40571e16f7a04a61df61f3bf01afde3c82bc0dd319cabd39
+  • Man in Long Sleeves — https://poly.pizza/m/DLptRuewTn — SHA256 48536b0e0ea375f0831dbf5154b4c2eafda8b6c9c19ba0996dd298f2fcc9164c
+  • ChickenCoop — https://poly.pizza/m/DM0F8siLam — SHA256 138f37ba14648259e8fa841d3501ebc05ad7b997babadc6cd5572785de9e158a
+  • Arrow Sign — https://poly.pizza/m/dwmvPHHCdq — SHA256 82e18a5f075c91d74b5e0ab1ffbf10ced35ff77819f1e9905b69433cd387b7af
+  • Sushi Nigiri — https://poly.pizza/m/ea93ie9bKj — SHA256 f8997d8d21760085479c28ac3608f4429b370982088aec5297b4e0959797be06
+  • Light Floor — https://poly.pizza/m/eBQtooeh43 — SHA256 72d57153e3f1f57e9d920cba1b83fbcd3882cc81769d5ccac64010c04a95b5e8
+  • Table Round Large — https://poly.pizza/m/eCnblJPsW8 — SHA256 863966591cae25d9b7afacd3b60ba999c0c097c2cdffddfa50d1bb176be50eed
+  • Chicken Leg — https://poly.pizza/m/Ed5NPaeT2N — SHA256 999b3f327d9a370512076b6ec629f4bec1166888b7d3df583f03558110e7535e
+  • Blank block — https://poly.pizza/m/eGpUZzsOnk — SHA256 ecba46d2c0b4fd72394da5efee697e1296a9c190157876eb96060fe649d12e20
+  • Rock Snow — https://poly.pizza/m/eZRzCg5BcR — SHA256 9b7f39090bef73ad27b48baacdd9efbceda3ed629f60acb61e83485b21a1bc58
+  • Bottle — https://poly.pizza/m/FAHsHFXfTf — SHA256 7245e26241cac72d63aa6ad9efb02b32c1d13ff2dd8648401ab14494b5d181f6
+  • Pepper Green — https://poly.pizza/m/fh3RxFIH3j — SHA256 65967854336cfe7a3d24cb9988b5d1c8ef5f5fde6a7262770bf64b2dcc42c6e0
+  • Man — https://poly.pizza/m/fjHyMd5Wxw — SHA256 40c62848350df6d13cc6eed20f30c3406a7761542236d8a9f6c3a4060d005e97
+  • Brick Wall — https://poly.pizza/m/GhSmk5IA5i — SHA256 80969153efbfafe8ad5ceb40f685c4553ab74b5f2b5361612c9d3dbfd9f2d898
+  • Square Plate — https://poly.pizza/m/Gi5sAML9iw — SHA256 108dd8e850de936f3540d360cf4d3a5ba225a9311ad504a3877719413512ae1f
+  • Pallet Broken — https://poly.pizza/m/Gp43iUyyAX — SHA256 e96a8973f03619895b5ee4cf494e705fcd78ad675faf87522a8fd40d5f7f6399
+  • Man — https://poly.pizza/m/HMnuH5geEG — SHA256 dad8fa3ca2bc7760892f9ff47f544941179e50acb2aa772cf9f035154a37fc58
+  • Cactus — https://poly.pizza/m/HsEJgRLQWX — SHA256 a4e4a3be9eb522874ce888c87216f48988da7c3cb8febcfef49c82b2adab351f
+  • Spaceship — https://poly.pizza/m/htfBk9vPfw — SHA256 cce492d64be612861d7c650bf4d1daaf517e4801a2dd0165849346b8e12e40ab
+  • Fence Center — https://poly.pizza/m/I7D7zk30rv — SHA256 11f8fb7bf7aa87c05e1ca4e6606db70d558df284873e28a2e7f3e80bbeac0b54
+  • Rail — https://poly.pizza/m/I9LDZrsr1C — SHA256 b1693e768fbc7b5a905c2ce9887d248218d764de3527e522f75cf385991e534d
+  • Soda — https://poly.pizza/m/IqXSdKUMnY — SHA256 ec994a7a4bf924d225f5f50d28dfabe22dea05f1717bcf731dfc77a2bd1d8c29
+  • Woman Casual — https://poly.pizza/m/jpKRgGDxhk — SHA256 99c4df0aaabd19022809facc68f5fb5f564d35df3a9893c273a31fdaacf68e96
+  • Sign — https://poly.pizza/m/Kg1kxfrItG — SHA256 6755f5c2746cb1f8c80a0346495d524755c8e86b23cf101e042b89eece22e758
+  • Door — https://poly.pizza/m/KGt4ztcKrM — SHA256 9a79b63bbce7f627f68026c21ceae12903a433ff3d4f7b03b5ce9666da3055ca
+  • Pot Filled — https://poly.pizza/m/kXCojdgsiN — SHA256 7d69b481f863f6d3bd124dbe5545c5e1519c113c17d174e6e014b7141c09d20d
+  • Wood Log — https://poly.pizza/m/L4E32Wee6C — SHA256 7c3489a6d7f39025dc86278f17ba005a62466061067a385fec88a61f79d03844
+  • Traffic Cone — https://poly.pizza/m/lAx8JytxGD — SHA256 70fd5c97f107914f96dfa3f197041c910c0a441ec43dc2f9db07967c3761afa2
+  • Avocado — https://poly.pizza/m/mjjd3bgEhT — SHA256 5927bf5279fccd40906dde57100d12f24dafe3bec864e9d762f4de474eec7421
+  • Man in Suit — https://poly.pizza/m/mQnGoME1ez — SHA256 31ff1539e7a9a209d4eb1107e696d798fedc7e35d84a58bbabfdc0f1b8b73763
+  • Window Small — https://poly.pizza/m/n88WAcjzTv — SHA256 08a621c03caf8a1dec0b384b1779a9b651fa22a723d9e3eac0d7368318209cbb
+  • Tree Stump with Moss — https://poly.pizza/m/nFvEbUX6LE — SHA256 194f67985d88a6e4a0857971772a292ab517306c3f6c7820a7302bba4ee40803
+  • Egg Fried — https://poly.pizza/m/NVrB2yd66v — SHA256 6eafcf7b79e0ed698dd51f77a98abf9231a3fe9553658dc20e428cac64a83413
+  • Rock Moss — https://poly.pizza/m/Oar39tFugM — SHA256 797d8d82fb0edaa3cc3bc5756773a65b9eef98b049636700add910d31f66d8f9
+  • Bread Slice — https://poly.pizza/m/OkkMwZSFTb — SHA256 63dfa6804c55da034a10039b539610639ac621147af1cb189f1950732a310943
+  • Boat — https://poly.pizza/m/OknDJkGeJ8 — SHA256 971239c4d24de2a30385acd94c09d9f76ea825488db135c88d7b3bc8c0cd5d05
+  • Goal Flag — https://poly.pizza/m/onAi7dx56P — SHA256 ad70e2772ca80b8463f2fc5474364d0d214abe90a1cc7dadc3c00d0d69f5ea45
+  • Battery — https://poly.pizza/m/OOvs45iGQg — SHA256 f5d0d274f6fc00cb183ac60a73ff89aa56c360f06e5a9b3d2591b6d35ce01039
+  • Hotdog — https://poly.pizza/m/OsWdy3VWFS — SHA256 fc7d0152dfc685283819562029d0800b667e7ddc3b830268f379b7e90371fb07
+  • Fries — https://poly.pizza/m/Ov5hMsSfa2 — SHA256 e8c6c402c7df6cc79eda90bd6dfab652eaf006aadb284b8509bc6bccd72bbd78
+  • Bottle — https://poly.pizza/m/Pc8dM9Ja4V — SHA256 d77d36ae493681ca923f90c4dfa520ee93a219fbc8569f21c96516ab47c8b7e0
+  • Animated Robot — https://poly.pizza/m/QCm7qe9uNJ — SHA256 54f1a6999cca701cdc2f8fb67bcd9a283e1154cb80cac356f031bed7c2e74cbe
+  • Window — https://poly.pizza/m/QkcvcLgHcd — SHA256 e487854eb7d239491cddcc1cc7cb11731b987a3b44043994eaf0c2dffb789973
+  • Popsicle Chocolate — https://poly.pizza/m/qrC48Q3c4s — SHA256 2d433fe92d888842efebda1de636f27c692a06af0e8c62fb503fe7fb753b34d4
+  • Gas Tank — https://poly.pizza/m/RoCvKBGkoC — SHA256 dc3559816e5689d7514196f4b7eb0481d4fcb1f90b7894abb82dff2566a9dee5
+  • Lamp — https://poly.pizza/m/RsWYHKkDhD — SHA256 f08dad2fe7711ebb650c4a2427980b25be5abb2652f9f12903988311762651a8
+  • Bear Trap — https://poly.pizza/m/rYCSWZlgdW — SHA256 67335b6c31f578faa6142ceb9bce95aafe15501ffa1668e59147ad16e26dfc30
+  • Light Floor — https://poly.pizza/m/sRBBvofo58 — SHA256 56ce5ee3b36bc6d3715d65a6a1149682dcf8a891be31f6a4e5646aedd0497154
+  • Ceiling Light — https://poly.pizza/m/sRNcgQFbLB — SHA256 5a429947d77ab820605844864c4e4c3177407caacb373bc47359cafd45812dd4
+  • Shelf Small — https://poly.pizza/m/TfdgUV2RYe — SHA256 785e674399bf18dd39567004660496e6e617a0a6053e57031a98eef2281f3d46
+  • Armor Metal — https://poly.pizza/m/TMUoxILh9w — SHA256 f584937911ef122d874fe463912f534cdb153e63fabb05fc0c10d2f629216af0
+  • Star — https://poly.pizza/m/Tyau1aS2r0 — SHA256 ed738d6e8b143812e963835550002aa5bddff70573daeda5670500d53d3b762d
+  • Mushroom Sliced — https://poly.pizza/m/VjFoJav3v7 — SHA256 3e465aed35de6d9615ba124d83dddcb2c3447bf319d9353a2a49ebbbad4870dd
+  • Bag — https://poly.pizza/m/VRfAODZ0Xk — SHA256 4f00b8e510b1f2f811b7f9fdbaef4a4acdb282c4cdf3363f8cc91462210aa959
+  • Potion Bottle — https://poly.pizza/m/WJxYta4Z96 — SHA256 3b797074b292e476cf9158c15284a463a08ab53cb29c46b3bc542473857fe057
+  • Salmon Nigiri — https://poly.pizza/m/wM171KITJX — SHA256 0e621dabb0ede33f844adb5ae7d4aa7623ee1c4ed48d49738b8abc6c520b559c
+  • Window Round — https://poly.pizza/m/WROtq6kA7t — SHA256 b008e62a747b3c2e9f0879b88943cbbcda5ccbeb72474a192e2cc81bbf526206
+  • Corndog — https://poly.pizza/m/X3DZz8qI7t — SHA256 d0f31a34a012772bf5cdc0b8804a4ebacbad0dee1c4d0da3c2959742379c9baf
+  • Water Tank Floor — https://poly.pizza/m/xgsh3kWbAM — SHA256 17a45c24bc8ed1e0bb23c61370b017ed3775a59f519f5cbb411784fa8a52f8b1
+  • Cupcake — https://poly.pizza/m/XL70IUDIrZ — SHA256 469a3d9948bd592dc0d53ebc15bc5cc53a2f097593f23a5f403a2ef693dbad07
+  • Tomato Slice — https://poly.pizza/m/xM9Pzf5V64 — SHA256 b8aa19f83c7d28176cbe3214add20debd39b2bed9d2aebe28cda2678b353653a
+  • Spaceship — https://poly.pizza/m/xNbtFQwirO — SHA256 92b2b23e047d3c786a582395f275f70b8ac7591c2484bcf3f160eafbf19bcae8
+  • Croissant — https://poly.pizza/m/xOy52a3rOF — SHA256 8c21c64c74783ee6db804a4ae05b23a179800ed432ca194e9563852f8dd880a8
+  • Fire Grenade — https://poly.pizza/m/XUmfh7lPiP — SHA256 0885ec13dc607ff78b2243984b56091bdf72571aba0b86d4280f72a1d58a8afa
+  • Water Tank — https://poly.pizza/m/XVB8vUbnZb — SHA256 09c9575645014476c2b274e29446c731675254f7a1ab540245d16ab9e230bf19
+  • Fish — https://poly.pizza/m/XWl86YFtpF — SHA256 bfea34878b92eb05d9b2c584c3a9e97abe2b402141b9c7b4b3f1ecb55a29df02
+  • Fish — https://poly.pizza/m/Ymu8ftrmuT — SHA256 6e04c645836f1ad6cabf1b999976fa74d50fd7dd23f504154ee03427eb194d51
+  • Woman in Dress — https://poly.pizza/m/zMyPlQXBzq — SHA256 53db49ba84193beb60173e94396764c86f7805752582a81dfdfd7f0889a10783
+  • Pipe — https://poly.pizza/m/zpHDL1CzGU — SHA256 ee3099ea8f908f3d5e32e4975f8d2a663612da638afe37fb5238d4fd17b75865
+  • Sushi — https://poly.pizza/m/zuyXw1xgeE — SHA256 6801971eadf9bb213f1addc8f887d4766cd6410cb43b002ebe4a0d2170d64a14
+
+- Modelos de reyshapes na Poly Pizza — reyshapes; 5 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Carving Knife — https://poly.pizza/m/8BzLBn1pRo — SHA256 adaa63d405bfa15a23028c3161f198001c7e1221f4bd9736bb0974806dc62fc0
+  • Clay Jug — https://poly.pizza/m/FfvhIuFaLu — SHA256 c203e5371b40eb11c5f5b789185bfe3f224920a712d1e191207a9888f556e1d3
+  • Coffee Filter — https://poly.pizza/m/Ia9S6Ut5yF — SHA256 017e868d656878a2cfb707eb92d44732185db373e2c0a97fa64331aa723341c2
+  • Envelope — https://poly.pizza/m/M9mVmRXHif — SHA256 5e123c5d9367a0fdd9a78dc673abaa11e71afb2f49100ae613a1dc1c6e7d8691
+  • Mannequin — https://poly.pizza/m/tYwjQJvcFX — SHA256 7d053b5b2625443497a9c92db1c68e8f6b89897ffb80bfc27c427353c41e4f2a
+
+- Modelos de Zsky na Poly Pizza — Zsky; 61 modelos; CC-BY-3.0; https://creativecommons.org/licenses/by/3.0/
+  • Fork — https://poly.pizza/m/0f7L29PUVf — SHA256 adcdee71c99a07bf8a94ede8447d8a304770cb89e45fbfc59c68450eb728421d
+  • Statue — https://poly.pizza/m/0Mkdl3SJDT — SHA256 8cc69e7bf8b3b9999d9eab2335e972767b78a25d032a6168340fa161504929e7
+  • Ceiling Lamp — https://poly.pizza/m/76VCPcN5C8 — SHA256 623dc113b06fcc07e96eb8924716ae6576ea6d6588eb71c3fcf033853a5457f4
+  • Cup Tea — https://poly.pizza/m/7vH8pAQa9m — SHA256 05ab44aeab56f5897b18f82965e36de5f3dc35558c1be83c9404b2174456c3a2
+  • Sign — https://poly.pizza/m/9UeVfOHm6k — SHA256 bbd1aecc23339db717eaf3f051f696659f64befb792503b8b626e87d94047020
+  • Grave — https://poly.pizza/m/AbFrVeMhim — SHA256 39d70bdcf88adaed83de054727b6cec774e31f878a0e1f938cd7fe7d7a8d5c25
+  • Angle Brush — https://poly.pizza/m/bAUsUHGpbx — SHA256 72ed92ce1216bbadcb005484c282ea8e0ca2c002a6e7b85049d41672582b245c
+  • Cup — https://poly.pizza/m/bdM89ih3EO — SHA256 71d627a25778636c401009cd3c89d10de5fdaa2767ea7cec078c293524b4d713
+  • Wool Carpet — https://poly.pizza/m/BEvHkYyR0C — SHA256 3654b0951624f5168d07f1831420885e424a2953b9a73c74abe01a6b5b8037c6
+  • Bench — https://poly.pizza/m/BpjfpavGY8 — SHA256 f5c508697c0fbc99122e9c90994b73ad4ea74dfd3d5024ed083af3268be9f675
+  • Sign Board — https://poly.pizza/m/EQh4uywLZ8 — SHA256 81ee46e27b200829100481bb7528e468a90e997eb958bc9e53a0911634254060
+  • Flower Bed — https://poly.pizza/m/eUCvK3Oq9z — SHA256 5fbcefc2d37ed4d1ccdb3056303ef71135415e2cbd862396f94f25ae113e13cf
+  • Rock — https://poly.pizza/m/exqqSHbNeN — SHA256 dbef79687445f262af445138ce6148687ef2899ae3b52698d1aa137deebe50ca
+  • Floating Shelf — https://poly.pizza/m/ffMG7Flbyg — SHA256 19f02d6ef2b6ddb813284f74b2a2aabbc827b7991d4ff423357f59350344ba98
+  • Parasol — https://poly.pizza/m/FLEbO2jluO — SHA256 fcd2f705d213b639695bddabc3b239dc31c5b15fbf23a1cdcde3749adccd9005
+  • Rock — https://poly.pizza/m/fM90QFMNtS — SHA256 cb65f52d259836ae8746b66ee4c7b854132f4233fa7b41b4b248c6cd862efbfc
+  • Jewel — https://poly.pizza/m/fOScYcI2Oh — SHA256 3d674fb0223b81174c71f3802bfbc3c4c33cc45f4b02af0b42251ed266da4018
+  • Single Door Tall Cabine — https://poly.pizza/m/FsZmlzy5ef — SHA256 651b308634720e1559442851c3cccba3827d8641d3ef609c70481c1de75780a3
+  • Single Door Base Cabinet — https://poly.pizza/m/FT8rQ3VsRn — SHA256 081141ad5be21038cf5dc6bad2421300c5c8a9e323b096ac331629d28c4a565f
+  • Animal Hide — https://poly.pizza/m/GaurgMNrWC — SHA256 e11707537dbcd3275d2fcf2901c3fa43061d8233e7e1386e1744f5270dbe858f
+  • Arrow — https://poly.pizza/m/gDY6DURlSX — SHA256 5bd96fc7665ed0ae5899ff575112814f2138de9ca6be63a457305e0e1dc5cf15
+  • Gymmat — https://poly.pizza/m/gHLnNRu37P — SHA256 dcbff9c8487e4c49fda3f1ce5cca011c88b2b2cb3ece2343a2cbdd5787ca88b9
+  • Fan Brush — https://poly.pizza/m/Glz5xpADO7 — SHA256 4b8af7afbc9388f33c387218b4b66ac3228fe09b0de5d12855502adcdc62e231
+  • Double Door Upper Cabin — https://poly.pizza/m/HHRCVAgbpI — SHA256 f52ec2ff7a421d89fb1b8f59bcc1bf1c1b0ded73d1a8f4ef5fc71f46b4e73131
+  • Gold Bar — https://poly.pizza/m/hUGdwBznGN — SHA256 f97cd08b13b5ba813b0a9181b7392be3e5c50525acc271082e14d8f31d4477c2
+  • Sign — https://poly.pizza/m/i5qybQrJaI — SHA256 a05a923e6671e17a67b3be7639fbe9550584f80617d727e04309936ef371d2f1
+  • Colored Pencil — https://poly.pizza/m/ImjG2F9lbc — SHA256 f525ecac91ce281bc5e66515214f2446f3fe9cce5e2540d2e612e2d5b2763232
+  • Cupcake — https://poly.pizza/m/J6cdMpGPFm — SHA256 462f5f9b05b9f2751f2f33a7bc037ce6e9e3248cbb75efccdebbd1110b39b933
+  • Bird House — https://poly.pizza/m/jSpF4LjoQp — SHA256 92360cc08d951f32d181a5dc4c639d86e54ed18841b2daa330b8fd80f8c2a6f3
+  • Cube Cabinet — https://poly.pizza/m/jZ4eFN6qTB — SHA256 e822782e01f3163649b6d4c24147e720e73bc6f41a4f3672c3aa480ca500bdf7
+  • Coffee Cup — https://poly.pizza/m/K5bW4LiHUg — SHA256 ed349a39b6689e01473f4550cfae499d03801c67f35fd99790d305a33a6340bd
+  • Grave — https://poly.pizza/m/KmXnfJxFHG — SHA256 a2650f138b36e81dc55e13918e20eb0688e76c35f507a0a8b13e12777dc26c4e
+  • Flower Bed — https://poly.pizza/m/kxvm53IIIU — SHA256 5e42822066222688b71143c31d4a4c29ea667002ca24bc20e6cc02833e50bc5a
+  • Plasma Turret — https://poly.pizza/m/mMWIyAyk3r — SHA256 c0cf10ade80aecad8de183c0c2c15e33f9a3e2f36dc474afee4d5f2b2db6f545
+  • Glass Cup — https://poly.pizza/m/MT7j5ejrmd — SHA256 fe7e102365446f573d2412eb5d2076f242acf00d0b6dfe76e8cfa1e1e19abac5
+  • Eraser — https://poly.pizza/m/MzfbMlOocQ — SHA256 18f7f3c4828c3055223591d248380294328142e6dbc572ae7f01657bb864a9b5
+  • Bottle — https://poly.pizza/m/NC8U1w5Ab7 — SHA256 efd1d19cd332cb8ec439fb126d3b623f89fc39936acb001c40140d6b79690d5b
+  • Filbert Brush — https://poly.pizza/m/nJcY2y02GG — SHA256 241db894023dcd7479d2626ef91525274d0a34897e91f5731a0e5d1c0461924c
+  • Tea Cup — https://poly.pizza/m/nrZpWEqHCB — SHA256 21ecb2cd0c3370df361b5286841140654c1509f8bfe2467d13642378777d99f4
+  • Statue — https://poly.pizza/m/NZo0rzQExF — SHA256 8748c8674597d0b48a5e36975894a3e96ac72214c80774cdabf1b0a122a6e8f2
+  • Tv — https://poly.pizza/m/olZvo1qoRs — SHA256 13e80695654eeca986befec1deedb82d2b4c242b8dcc01b465e639340f8aea58
+  • Statue — https://poly.pizza/m/OoxOKtoXsO — SHA256 a758efad812bb56ec46cd7061e54653877004983e26c2728107dfd2d334b2219
+  • Bus Stop — https://poly.pizza/m/OWczicNWhO — SHA256 c175415fd3479693138ea3c208de7e6304577e71720d8e196b1546cb23ce6c9a
+  • Rock — https://poly.pizza/m/p5J3xclZRY — SHA256 0cfed4b8812127b46180a43d1f9dce4eb617210c6c3fcbdc468e5c44e77a74d2
+  • Grass — https://poly.pizza/m/pjKtj3NYIs — SHA256 2f82c00e806f70192edf07b24a2bad5f8a231844ff14d99738f8d62bae57cdd2
+  • Rock — https://poly.pizza/m/R9QQyHdLYK — SHA256 d9926eb034ed40eab303586ae40d939fae34b368a35ac846b36f7a3e957aac03
+  • Sign — https://poly.pizza/m/rIPuil2f3w — SHA256 a3a17d826c3543b7104ab639ab19e916ddb3b73ab6cc335c13317fec47cfa8d3
+  • Plastic Cup — https://poly.pizza/m/rMlBPeMynP — SHA256 ab7b57d25e23617740e5dfcf74925b1e40914fe1244f7b27bf313b3c7eff8fee
+  • Thigh — https://poly.pizza/m/sRI669GGN6 — SHA256 8d8bb4adb3891f62678c25f98e6d70835cfad32a06ba3eefb109a069a0625586
+  • Wizard Shop — https://poly.pizza/m/tWJBgjK0mU — SHA256 35756c48ed7519d03dbfcdf611bc91a2a89d6fdcb024f3a0b0c03e00f2617711
+  • Rock — https://poly.pizza/m/UkxWNmiFFj — SHA256 05171b949580c61808faf2b068755ec4fed76dd91fe0066dc14373fcf7b2057f
+  • Round Brush — https://poly.pizza/m/uqW0Bzg6Mz — SHA256 91be2e2a9de85a817029aeb4a31e6796adb2d05e95fc0d7338c6760f373fe73c
+  • Jewel — https://poly.pizza/m/velVo80s1D — SHA256 ca4c2e136c2231367c21b3d2656f0a6bd5048c406d2a988c5b04922aaa480636
+  • Poison — https://poly.pizza/m/VtCPwA7oVR — SHA256 6ba813f57ead1e45d9f7023c4e0694bcf1ea6d5254de2df7faecdc12a6f27647
+  • Sign — https://poly.pizza/m/vyKTXzJdEw — SHA256 83a345a0113cc3e0a5ab5c207840b6aeed0a23e8bd9c1dd651d1a16646a66eec
+  • Protein Powder — https://poly.pizza/m/w9sWcWlV9i — SHA256 99f9dc8b5a5f3f272d1e4b6ed4046139c5c2aecb102c354e500cb3d871038437
+  • Table — https://poly.pizza/m/wAaFESADdd — SHA256 033e23c6cc91de07f086ad30996799b361f16440db77e78830b3ae43f0512ef4
+  • Flower Bed — https://poly.pizza/m/wibWtE6p8L — SHA256 c4cf4548f0fbe66be63f4e42a22b22d6d24264436b33854f6a3c87ad69a3fde7
+  • Wooden Arm Chair — https://poly.pizza/m/x6qMpNlvWI — SHA256 55847f783c57d4adec3e5f9a9f3a7bce0c90c72b01c84410a1c9e524a8997d20
+  • Ceiling Lamp — https://poly.pizza/m/zePBAxDGmw — SHA256 3f226d5862caa6ca6172046fea24be00afd18671523b227e8821b67295be5727
+  • Wash Brush — https://poly.pizza/m/Zi4anZfted — SHA256 f5f6f7cf0d43396f5b47a9d8683e375ed7f4fd64a8e2232b033b70a7170d83e6
+
+- Modular Buildings — Kenney; 7 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • building-block.glb — https://kenney.nl/assets/modular-buildings — SHA256 485ce7f920746197893cea2e2ccf0dc9bb42d537d80dc0e6cafb85b9ccb282d9
+  • building-corner.glb — https://kenney.nl/assets/modular-buildings — SHA256 db1e962048ed08694aa8cb3f3a195b69eb345f6a8141fbb5ce878f743ef99e4f
+  • building-corner-top.glb — https://kenney.nl/assets/modular-buildings — SHA256 c6fe69e3cc74df66385014c3255a901472d5ed0b2bc2d57733f05f7060b7f6af
+  • roof-flat-center.glb — https://kenney.nl/assets/modular-buildings — SHA256 4ab854225a63331d8829da2f7ca497f204627603158835ccd4dba74a1c8d16eb
+  • roof-flat-corner.glb — https://kenney.nl/assets/modular-buildings — SHA256 d7ea4c0cb51245670bff4c03446653f9636e35a0dbfe2e6571e81d86307d32e5
+  • roof-flat-corner-high.glb — https://kenney.nl/assets/modular-buildings — SHA256 45326b7b79fd88bb83f2f739921785a6fb5a2909285bcc8d81b9526a73a9be90
+  • roof-slanted-corner-inner.glb — https://kenney.nl/assets/modular-buildings — SHA256 74355d17b0353001413068ee6afdbb56f262ec1fe574e21ab229efd2363fe227
+
+- Nature Kit — Gobkit; 23 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • Cliff 001 — https://gobkit.com/freebies — SHA256 506660a4e112a79a96e51bde47ea00c88ba2b8a8291a209fdc279b3f60d08b70
+  • Cliff 002 — https://gobkit.com/freebies — SHA256 6d09f363ff6ed9fede168389cf9f721aecb57b80ed9c532726ebb4e75b4293c3
+  • Cliff 003 — https://gobkit.com/freebies — SHA256 5225eb58566d1ac42f9bc36351a03aa66192547e057bc0cd36ebd0c90ad857d8
+  • Grass 001 — https://gobkit.com/freebies — SHA256 c9de852b797a88c917527dc1b4602b220aed6a9319aff2f5be08acd4dc94ba60
+  • Grass 002 — https://gobkit.com/freebies — SHA256 51b87c4af15f172dcbcc9efebdddc16ce2e8bd5285b31c9766bb014d213a27ba
+  • Grass 003 — https://gobkit.com/freebies — SHA256 4d4ead25e98c45d44448b56d88ff0bc243be93d82038c4f00742258bc1263aaa
+  • Hill 001 — https://gobkit.com/freebies — SHA256 99ed4deae97b8ba1671348057d2d4044b77d9efeae0442adc02c2b5ad46685ee
+  • Hill 002 — https://gobkit.com/freebies — SHA256 5e658589acd47082090f7d840b5b36d6228d8bc294ff2e204ced849b5bd8b7e1
+  • Hill 003 — https://gobkit.com/freebies — SHA256 0379b562dc54a86b786828b7f3a6dbb00bbe08c0d3bf61d5a2082650e05401c0
+  • HillSand 001 — https://gobkit.com/freebies — SHA256 ca86eab24faeb0eb06e33000a90333184c0ba554066096278e82c461d5d3ff13
+  • HillSand 002 — https://gobkit.com/freebies — SHA256 3d9e2dc92e31149aa8de6a29839850e2976d778672a7f08426efc70aa8f9b4d9
+  • HillSand 003 — https://gobkit.com/freebies — SHA256 64095a8108b0b319c30f1a68059a5a0d8921f1bf139ca145f9efe48c267c0091
+  • MountainFar 001 — https://gobkit.com/freebies — SHA256 3069b4b4095b5fda586d41e89779b09c70a90e11cb87f4ab5f07c7f1219de184
+  • MountainFar 002 — https://gobkit.com/freebies — SHA256 0fb68e6d00772f46abce4fdeb60156ecc39710e1acd34b34fd096e8725dae58f
+  • MountainFar 003 — https://gobkit.com/freebies — SHA256 5b3a9a471a716e56c7699d5e3e37e869fdba7ed3d5e9595d11cebbc399a9ff27
+  • Reed 001 — https://gobkit.com/freebies — SHA256 87039ad18ed167e7d8ad2aeec8bdda03c625b3fd25dc2ba9db1564a63d51a94f
+  • Reed 002 — https://gobkit.com/freebies — SHA256 f51b7b7735215e4d3b88667bb23c1294800ecf3166538855aa2bbca12cc79d8a
+  • Rock 001 — https://gobkit.com/freebies — SHA256 92759f8744ff534fd46907e531389da4cbdb0e70e211438840379f16aa05d392
+  • Rock 002 — https://gobkit.com/freebies — SHA256 407eeb32744e9e53d4299093cfdb03beb0c0172001cb9ef06e98a53fce562546
+  • Rock 003 — https://gobkit.com/freebies — SHA256 d428cc65257329007a981ab513cf2dcf50ff4f51c6a1d5d517939d718609c2d8
+  • Stalactite 001 — https://gobkit.com/freebies — SHA256 0a0c3cba3846fc6e4901866d770b8bb926f2ae275a580cd7fa78f2db4e7e468c
+  • Stalactite 002 — https://gobkit.com/freebies — SHA256 19e2d9b0f4535d0a071cefb0559d16a5b4cc76c0e8dfb4656bd036c85ada762d
+  • Stalactite 003 — https://gobkit.com/freebies — SHA256 a5bbf5c5ddd7b5fba9a510ebae795bdd2ca3337d97ce983e6ad77f4843e0f76b
+
+- Prototype Kit — Kenney; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • floor-diagonal.glb — https://kenney.nl/assets/prototype-kit — SHA256 dc77573c79bb30f674f56aea836d56bb8fc45b36a6c39c90d16c3579c229d213
+
+- Retro Fantasy Kit — Kenney; 15 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • fence.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 86a8c75fa8d598dad4de3cb9765bea77a4ac5303dd85791928ea396a8898aa40
+  • fence-top.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 54dba769af5acb0662961915f8abf603eb495efc410d87b555f0611bfc834858
+  • fence-wood.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 a410dd8a23c53aaa22f9b60c54affa3d5a613a78e71e2e1d810ec3c2f31db36b
+  • overhang-fence.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 6a3cc880401921726c36796a5be5f927abdc34a23697688433ffa8db7b68cbf1
+  • structure-pole.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 90886f859548d64f6b99a889e3cde3c78d1e3699ae1a943f856db7b220ea91ff
+  • tree-large.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 d04efba5d32f2795c3a4bc13ba4308d65bfa31f4f737b70e8ec2df8a2ea1b11b
+  • tree-shrub.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 ea2bbfd9fa137708d8b6efe20e4a25e9a0236292b2f4abe5712d76cdc25c90d0
+  • wall-flat-gate.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 5569f7f4eaf075e2d6c48930447cd26d9b403a4cab8b75a8f6329ebcaf33d2ab
+  • wall-pane-paint.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 7e50fd89de9ba3f1d370ab88c7aa6d8ddf29485018405b953916af16d4d1a146
+  • wall-pane-painted-wood.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 0172c2b610667fc8e8ad2f35409b7728c57e1ee4a96b85859f5b8ddaf9ebfc1e
+  • water.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 75fb132ef4ae45ca2511e2a4864c2414915f9347c7b1483313a745beb74fbdde
+  • wood-floor.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 e8c2994f389f02621cb5f7724a42fd347d08a686756466910f7622aafafa20de
+  • wood-floor-half.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 6a88aabeb833292b59e1968b0b395acba712f06dfe05e6b78fe12ce7615c26e9
+  • wood-floor-quarter.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 74467c1ea2744f5ce8deb0c011caf1c870ad3f916095eceb984a9f1e45f05b25
+  • wood-floor-railing.glb — https://kenney.nl/assets/retro-fantasy-kit — SHA256 dd48a0a83b0a6fe4711ebb22933a761ce425eb5898eb721448ef4e3011221401
+
+- Retro Urban Kit — Kenney; 23 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • balcony-ladder-bottom.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 25454313b1662a63da8ebdde8ef28c5b5b831d2b39640fdcff9189fa5906cad3
+  • balcony-ladder-top.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 14d2b431e8b4746ea3a699dca4a335c4d98072809d694b42e8a02c1a2835b030
+  • balcony-type-a.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 044a5cf542dbbbc2cdd864642477c3571764925556579bc2a1e22211ec90d81d
+  • cliff-corner.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 ebf484f03d3409668aeea7b2bc0fa7a9973860480e3608bac8cc1542394302f8
+  • cliff-side.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 a78d6216c672543ecc18897ca88d8a121f22ac078bd869fcb1ef62e970db25aa
+  • detail-awning-small.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 8fc22f9ff9a431d0ba07913d235ff7bbb9c76c3bc0d9f16eb0ef357549826f72
+  • detail-awning-wide.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 3c9775df62f99dbc60de1ab6691fb87b4367559ea582b31a33a9ae7df0ff9308
+  • detail-barrier-strong-damaged.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 da14bec1c1ae2f1d8f8847063e07b50b7366ea16edd3a36cd7e4de19d962aece
+  • detail-barrier-strong-type-a.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 7bd2292106d97929493556fb596e77a14b9d5eba0b32521b7005e8295a7654fd
+  • detail-cables-type-a.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 1ca9aa2e80619304d1273d08c4aed92c2613ce235f0c097790467f79063bf0d4
+  • grass-corner-inner.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 ebf9eecaef129f0acda943935caa39fde6c8cfcb177b01b43fae07ec6644d6a4
+  • grass-hill.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 c5b546d45647701285a6bf907d8ba3f13400d756446ab92302a847abc12994c5
+  • planks.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 257c01c454bc6b4f3b71e9bc7d5b613350e3daf4b440bee6c93fd2235a21f6fd
+  • road-dirt-corner-inner.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 f3a28509628ce092324f489c89a0ad2a1cb88693cf901447c85a7ff3e8e9c7d4
+  • road-dirt-tile.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 c178f14bf94482fa7f4a4d4ae8e8150e647bb6dc375bac362836b03f1c63b58e
+  • tree-large.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 0f9139025720af6ff771cf804ef0cc6f7deb4c287d8e3452b7d53af6623e013e
+  • tree-pine-small.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 6ee3a377ec580865079ea848c84390e3c53c1803416048cbd940ad73dff11424
+  • tree-shrub.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 81215dea45e22c5200c582e59d061f6c01afa9d8da7a60aff4fd4ced452744fb
+  • tree-small.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 4fcbbac1bac88d67be2ce2eeaccd608d549350778eb6064a59ab0b80f6116b74
+  • truck-flat.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 d3aec93fb2dc268349eca1b60b3360d6354f02bc4a153c16ea38946b1f584f3b
+  • truck-green.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 608c6b15bf81488cf2b0cf5229e481711afb0caf583070d2794f1908ee32936a
+  • truck-green-cargo.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 580278e1cea24466dd22d3799fd63fe3d893837e129ad1b326a285e7395217b5
+  • truck-grey-cargo.glb — https://kenney.nl/assets/retro-urban-kit — SHA256 c89225f520c85c7d8e995595980bc5f8cdba7c8d5b4685cd96ecaba29ba3156c
+
+- Space Kit (Kenney) — Kenney; 4 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • supports_high — https://kenney.nl/assets/space-kit — SHA256 48a8aa7818e0f3731aa7bd825f2030089bc16340fcebdf2a4bf60ef4a933a4da
+  • supports_low — https://kenney.nl/assets/space-kit — SHA256 e1c9df6a3c85df038673699114665736030614e31fedb04b3c71b380f5adc432
+  • turret_double — https://kenney.nl/assets/space-kit — SHA256 a707823a86f895f6418df2340f2e231d7d88be6c2069d3245433299cec1f9f9c
+  • turret_single — https://kenney.nl/assets/space-kit — SHA256 ef27f43718c846297f90a0b20446b13c6a1f092cd995ea730f27d6e003efd1e0
+
+- tomb-chaser-1 — Polygonal Mind; 1 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • GhostArmature — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/tomb-chaser-1 — SHA256 e96c8191e7626a2566dc2e8b52bde10f4f0cb26c93b02d8d6512ec5b974983e1
+
+- Tower Defense Kit — Kenney; 3 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • snow-tile.glb — https://kenney.nl/assets/tower-defense-kit — SHA256 92ecb833bd7bdc1d6c13e566db063d0c55d4bf2607b0dbb1d414dc6811043ce4
+  • snow-tile-corner-inner.glb — https://kenney.nl/assets/tower-defense-kit — SHA256 1a9df13177f73166cba1941f7b361c17bb302fb661e234b279e0354bac2b40dc
+  • snow-tile-slope.glb — https://kenney.nl/assets/tower-defense-kit — SHA256 2a0c4a1e12aa2b477effb6bfc1f6e9ff6e3cad4c16c403ed0721e3bbf22ce018
+
+- towers — Polygonal Mind; 2 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • BlockChain_Bridge_Fragment_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/towers — SHA256 c76a391cd40e0f5aedec86640beb9472b4922976d63fdc65aa7dae409ad3c778
+  • LoveDeath_Bird_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/towers — SHA256 92078a06ca6bb68f63a5732adebbccfe4d0fa15315d1aae185babe9e10bb4688
+
+- Toy Car Kit — Kenney; 25 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • track-road-narrow-corner-small-ramp.glb — https://kenney.nl/assets/toy-car-kit — SHA256 4acd139023a3fe60628fa82ce58e3593a34c84fbd873df21cc70731ebc78a599
+  • track-road-narrow-curve.glb — https://kenney.nl/assets/toy-car-kit — SHA256 d00750ab37386131f3426033d7650a2baf2f7137d2591759d0157bbf95979d84
+  • track-road-narrow-straight-bump-down.glb — https://kenney.nl/assets/toy-car-kit — SHA256 749d19fa87547dfece0d6c7c7d374980e4f968d4272bf9e17c785c727ff3a1dd
+  • track-road-narrow-straight-bump-up.glb — https://kenney.nl/assets/toy-car-kit — SHA256 6ec8ccfe7902ffbee24a99ec7ec33e1cc7bbe12bfddb46deeb2b6a77caa9bc0e
+  • track-road-narrow-straight-hill-beginning.glb — https://kenney.nl/assets/toy-car-kit — SHA256 ac01166599d2efa3e65b7f255426247b098d0c9ad2f4d3718ed25654741b40ab
+  • track-road-narrow-straight-hill-complete.glb — https://kenney.nl/assets/toy-car-kit — SHA256 55c36511ad8517b4095206e6d4e8cdb6bfba62e8a2ccd637bd295d90e3adf06c
+  • track-road-narrow-straight-hill-complete-half.glb — https://kenney.nl/assets/toy-car-kit — SHA256 0f13d32224e473b778bcbd4b821d3b5b61108048a3c4d1ced829a37f31c4651b
+  • track-road-narrow-straight-hill-end.glb — https://kenney.nl/assets/toy-car-kit — SHA256 65d4889e6410151752e66ea3b17ca19c905adedc3ca50e10a9d74886ad4945f6
+  • track-road-narrow-straight-skew-left.glb — https://kenney.nl/assets/toy-car-kit — SHA256 70d8c17ff81709823484a09476e13f05ef0de43fe64fa007932b3fa4e8783231
+  • track-road-narrow-straight-skew-left-side.glb — https://kenney.nl/assets/toy-car-kit — SHA256 393e337825f420d1908583168655da7fcfdea1d94e92cdc873e730dd28797ac9
+  • track-road-narrow-straight-skew-right.glb — https://kenney.nl/assets/toy-car-kit — SHA256 461cb8f41fbaadf0f44ecb6c9286d4be929afdb1675442132c56e0e995dc5643
+  • track-road-narrow-straight-skew-right-side.glb — https://kenney.nl/assets/toy-car-kit — SHA256 921ff0ef1042f251281c442014d61c843bd565652c29898b7033adf7e672f87d
+  • track-road-wide-curve.glb — https://kenney.nl/assets/toy-car-kit — SHA256 ce3d5638b330f6021d231dd8bc67efe8ce105f26f427a9e56b213d45932e24c0
+  • track-road-wide-straight-bump-down.glb — https://kenney.nl/assets/toy-car-kit — SHA256 069bc3e84ffa1a6891d6c9d5354bcf86c6fce1697f7650e2010ca8b523ce31f7
+  • track-road-wide-straight-bump-up.glb — https://kenney.nl/assets/toy-car-kit — SHA256 4b8613b7f8c12f097d2352ce8393b7cd5f08d0931332b324ffeb33f03c1e2499
+  • track-road-wide-straight-hill-complete.glb — https://kenney.nl/assets/toy-car-kit — SHA256 834e52428dec10c5efda7177b66fc4eb227d20732a06924ba5a5460f44a71851
+  • track-road-wide-straight-hill-complete-half.glb — https://kenney.nl/assets/toy-car-kit — SHA256 7cd997e97d0bc97b3690a1755ce927801663b235073d2d581c730b6ccd98f6a5
+  • track-road-wide-straight-hill-end.glb — https://kenney.nl/assets/toy-car-kit — SHA256 35d211298c9066cdcbe2d5936b5fdfc970fe15dbbae5d73a67648f6b3399eec4
+  • track-road-wide-straight-skew-left.glb — https://kenney.nl/assets/toy-car-kit — SHA256 bb836e684f441514af1bb878aca67afce66e72110444b9695c2873486d61b6b6
+  • track-road-wide-straight-skew-left-side.glb — https://kenney.nl/assets/toy-car-kit — SHA256 20bd4ad00ce9ec5e368f020916b7d140bd21a45673a0e658ef8e5b3e5dc326ce
+  • track-road-wide-straight-skew-right.glb — https://kenney.nl/assets/toy-car-kit — SHA256 0372b0a89bb1d5a27b3d26ea06e3a5f23e010dd4b7b0b9aa744f72fc7dfca488
+  • track-road-wide-straight-skew-right-side.glb — https://kenney.nl/assets/toy-car-kit — SHA256 373d3d54a7016a27daeac56ab10b66c127a114a10a8e45d3313eede1c4047381
+  • track-striped-wide-corner-large.glb — https://kenney.nl/assets/toy-car-kit — SHA256 a2e328363c3c9a0c0f50bc7fbe53b316cfbaed2ed16fc5b4ef7a28b7ee016283
+  • track-striped-wide-corner-large-ramp.glb — https://kenney.nl/assets/toy-car-kit — SHA256 599d30a71fcf30999b94529eda055db94a5e571ea960127787a2b94caf71b1cd
+  • track-striped-wide-straight-bend-large.glb — https://kenney.nl/assets/toy-car-kit — SHA256 3f32eaac8bea4ec5feddca0df8f3d226f49f5c413c63db65455994bc17cb43a5
+
+- trash-polka — Polygonal Mind; 13 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • InteriorFloor — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 632bf23e3f60b444e14716807d518d6754a32e2f9128d46b8a47a1add23982af
+  • Lateral01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 d641ff21fbf1db5c9715dc7f9af8b3c60f2ba1637ab76f16792912cea85a7c25
+  • Lateral02 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 969fe4702b584b5ed92d3c5100d5f92afe93a4e537d71fcd96de1760d1a840e6
+  • Light01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 c87c47df471586d96a619d543df4c3a2df4667e12080d079fa3a0dbca7b64fc1
+  • Light02 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 99cc184f7889bfb4ec2b63f5c591578af34904453486f28d1928904130747295
+  • Light03 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 82acace0cf823a9d70a5fc83f7bc0ca254b31356b10642c5c17a3ea714a06ea8
+  • Light04 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 ade8c918a68d6926e708109f47820997c856d1c3c7dc03d8422eda3b250cf064
+  • Light05 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 06a49cb9ef6a2a6f7e62d219bf5ef91a6b730cb635ea14abeb594caa3223ff19
+  • Light06 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 871b3be0bd0882392bfef9cdc7e0a7c7571cf7344aeffbd708bcfbe994fc030e
+  • Screen — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 ab21adfb0c7caa98cd341d43054452cede4a1839409754eae8c64ee0debddb86
+  • Structure01 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 e14e794a7232feb445ebcf0257b7aef1d090484dd9dfc70bb5f50a8ee6347f58
+  • Structure02 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 84d0eef2d2816275740c48135767a891e1ad8139660b9613dc62ad1b1f11dee7
+  • Structure03 — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/trash-polka — SHA256 15d64be05858dddd7545b713194639bec4d8077adf93de54377821f7abc4cb45
+
+- xyz — Polygonal Mind; 22 modelos; CC0-1.0; https://creativecommons.org/publicdomain/zero/1.0/
+  • 001_Triangulon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 a69ae0afc66dfc4898ba83aea91ce061000b87d9d7f998707aff47ac97922191
+  • 002_Squaresquid_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 58351fcd2cdd380ad3849315353dad1fb950c69da49378bfcec2fb4b468804ba
+  • 006_Whormbus_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 45f06035ef09b5bffc7714f18f866359f385c774a9ecb6924b2cbcf6366389c4
+  • 008_Vguy_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 506ac80d455c149c9fb3a7c8049232634c15b0d175440dc051e5cfeb644723cc
+  • 009_Trirectankey_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 081e74dd38ba935440cb1be7acdde5eb24c7930764d11438166a1d6a65cda5f8
+  • 010_Rhombolion_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 aa6e6eb1ee38f275be7a079ddcf1095f4e430d53dc6e3ed2a6cf98d0c86eb38e
+  • 019_Boargram_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 052fed358dcaf2d9e20c83c32d01201f314c14064c0c83af3bd8ff5451cedfca
+  • 020_Octozilla_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 7a32690af4e0ee451375eabcaabc35b85796b277f7bd2b4641af255b1091b2af
+  • 022_Triplicoon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 966e8a6e98e8cc9f8d18de3549ee40540ad992b1a0cce0807912482be7917042
+  • 023_Titanoboo_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 5ce86261c0a1efaae32fe508f7033853940a6a284845a3de27a492319f382aad
+  • 027_Rombophant_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 1a8a0ec7ee8d5f9c4b6ee8566c86cc51a122ae4bea3956009f37e536e3e8adcd
+  • 031_Snailus_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 bd3d070f1cbad8d83c4c7419692d8233acc43425ae99484d1acf340aaa10729e
+  • 040_Natiangle_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 fdc662bc987db7c8fcfed78d9d6a4a96509221fd546f0c00455155604594d396
+  • 041_Beaveriangle_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 d576ad1db55d928540b44f5561d9ea3ce429372bff4f7e9b4b028cd46bb5e827
+  • 043_Firellama_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 29cee4b1c1a428edd76dd3973a5bcf8fec6c6b3a3f8e843f173a898c3f0d8edd
+  • 044_Orclygon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 aac2e9cca21480105496f0486afe9dda7eb1e05476e7b4ed7986f0740af55939
+  • 045_Mermalygon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 c490d7c59785146bc4321e7f282fefe568694e31252415f4e0f3d334246744b9
+  • 050_Binguilon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 74b68fe84e9fe90304834c4789e5e891ca387846e51c7aa001a4b25a735c7664
+  • 053_Penguiton_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 e4cc3067d49df65775c356bcec879dbcc302abd535b0c8b56e5e9d5fc5caadc8
+  • 055_Searlygon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 4678b98a523438d7b3e3cff0776afc61b0e30eca986b35c89bb445ed80649739
+  • 056_Anteategon_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 89c8582a9fd09f0add24e8d01cdd371500529f7d64f7f673e7cb7a01bc237db6
+  • 060_Polypug_Art — https://github.com/ToxSam/cc0-models-Polygonal-Mind/tree/56db2d4088512531a070d0bf3eb9d284d077528d/projects/xyz — SHA256 19fa6a6b6ed9f12cffed6f8ef5958d1fe09ee94a7db912db3778dddcbbeab84f

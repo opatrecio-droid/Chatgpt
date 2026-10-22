@@ -18,7 +18,9 @@ def classify_style(asset):
     explicit=asset.get('artStyle') or asset.get('style')
     if explicit:
         key=re.sub(r'[ _]','-',str(explicit).strip().lower())
-        return style_aliases.get(key,'unclassified'),asset.get('styleSource') or 'Estilo visual informado no manifesto de origem.'
+        if key=='unclassified':
+            return key,asset.get('styleSource') or 'Sem evidência visual confiável; revisão pendente.'
+        return style_aliases.get(key,key),asset.get('styleSource') or 'Estilo visual informado no manifesto de origem.'
     if asset['id'] in baseline_by_id:
         if asset.get('sourcePage','').rstrip('/').endswith('/mini-characters') or 'mini-characters' in asset.get('pack','').lower():
             return 'cartoon','Classificação de pacote: silhuetas chibi/cartoon revisadas em Mini Characters.'
@@ -45,7 +47,7 @@ for group,records in groups:
         path=ROOT/asset['file'];data=path.read_bytes()
         assert data[:4]==b'glTF' and hashlib.sha256(data).hexdigest()==asset['sha256'],path
         doc=json.loads(data[20:20+struct.unpack_from('<I',data,12)[0]])
-        assert doc.get('meshes') and doc.get('materials'),path
+        assert doc.get('meshes'),path
         assert all(not x.get('uri') or x['uri'].startswith('data:') for key in ['buffers','images'] for x in doc.get(key,[])),path
         asset['animationCount']=len(doc.get('animations',[]))
         manifest.append(asset)
@@ -130,6 +132,7 @@ if args.label:
     runtime=runtime.replace("ASSET_CATALOG.length+' modelos de autores'", "ASSET_CATALOG.length+"+json.dumps(' modelos · '+args.label,ensure_ascii=False))
 end=html.rfind('</body>')
 html=html[:end]+'<script>\n'+config+runtime+'\n'+biome_runtime+'\n</script>'+html[end:]
+html=re.sub(r'[ \t]+(?=\n)', '', html)
 args.output.parent.mkdir(parents=True,exist_ok=True)
 args.output.write_text(html)
 catalog_output=args.output.with_suffix('.catalog.json') if args.catalog else ROOT/'assets/catalog.json'

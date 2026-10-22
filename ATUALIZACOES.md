@@ -53,3 +53,13 @@ O estúdio independente do lote 001 está em [estudios/lote-001.zip](https://raw
 | Lote 001 | 2035 | 1000 | `6b8839e0216517f49f219747cc5ceb239af0113e72a4084b3400b01f81ced444` |
 
 O estúdio independente do lote 001 está em [estudios/lote-001.zip](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001.zip); HTML: [index.html](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001/index.html). O ZIP cumulativo original de 1.035 modelos permanece em [polyforge.zip](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/polyforge.zip).
+
+
+## Entregas independentes por lote
+
+| Lote | Total da biblioteca | Novos GLBs | SHA-256 do HTML standalone |
+| --- | ---: | ---: | --- |
+| 001 | 2.035 | 1.000 | `6b8839e0216517f49f219747cc5ceb239af0113e72a4084b3400b01f81ced444` |
+| 002 | 3.035 | 1.000 | `44ad72423245ab97a84b8b2ee776ec660825811c4fdcdba4e8fd7a0f1ff8352d` |
+
+O lote 002 tem produtos incrementais separados: [estúdio HTML](estudios/lote-002/index.html) e [ZIP somente com GLBs e documentos](downloads/modelos-3d-lote-002.zip). O pacote anterior permanece disponível sem substituição: [estúdio lote 001](estudios/lote-001/index.html), [ZIP do lote 001](estudios/lote-001.zip) e [ZIP cumulativo dos 2.035 modelos](downloads/modelos-3d.zip).
