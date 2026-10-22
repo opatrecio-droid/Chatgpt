@@ -689,6 +689,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_drivetrain",
+    "name": "Transmissão solta",
+    "originalModelName": "debris-drivetrain",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-drivetrain.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "617e76cf51dbf1a3e73889550e73de57185a2c56ec340a2da04ee531522bae76",
+    "bytes": 49320,
+    "description": "Modelo 3D original Transmissão solta do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "01363626e17ce98524ccbc8864fe06093359fdcf554613b24d8b2b65094ac68c",
+    "animationCount": 0
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -1599,6 +1622,48 @@
       "grama"
     ],
     "geometrySignature": "043267f2766c24b9e8628c95eccf3bad7ad544d0eae153049899ea5370a16a9a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_grass-leafs",
+    "name": "Grama folhas",
+    "originalModelName": "grass_leafs.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/grass_leafs.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "8bc4c0b17c2e64c34e1acbf7c4a2fd8c04cfcd7155328e61767887b2ced112c7",
+    "bytes": 4608,
+    "description": "Modelo estilizado de grama folhas, malha original do pacote Nature Kit.",
+    "tags": [
+      "grama",
+      "folhas"
+    ],
+    "geometrySignature": "049dc89bd2e097c4f939e9b58f19581be53d0de7499e752b8bf6db08922acfb7",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_grass-large",
+    "name": "Grama grande",
+    "originalModelName": "grass_large.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/grass_large.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "af49a595624abca7249824eeefb944d4baf974abeeb5b16110d175da3563d6cd",
+    "bytes": 18504,
+    "description": "Modelo estilizado de grama grande, malha original do pacote Nature Kit.",
+    "tags": [
+      "grama",
+      "grande"
+    ],
+    "geometrySignature": "04324cdbc3c3076ef4f428ecceb324080e0dadd47ca2f8b348c89ad6a90f771d",
     "animationCount": 0
   },
   {
@@ -4434,6 +4499,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_g",
+    "name": "Casa suburbana modelo G",
+    "originalModelName": "building-type-g.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_g.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "030ac7d0992a172f97cb831fb7895f624b2b1cf7307b51962917e901f7fa18b5",
+    "bytes": 105432,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo g, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "147dfb81a8109fee6528fe5663bdd917718bf1c8a4d8f6e9ee7e6147cfb26503",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -5053,6 +5141,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_building_g",
+    "name": "Edifício g",
+    "originalModelName": "building-g.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_g.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6e4b57f03d4c46b0ff06bca7da55ae84c87dcb7dfe471414dbcf968b12412624",
+    "bytes": 177416,
+    "description": "Modelo low-poly original do Kenney: edifício g, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "0438f967f2413bf4febeed800329dc476cb599f617637153eb269c8aba17b72f",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_candy_bar_wrapper",
     "name": "Embalagem de barra de chocolate",
     "originalModelName": "candy-bar-wrapper",
@@ -5192,6 +5303,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_cheese_slicer",
+    "name": "Fatiador de queijo",
+    "originalModelName": "cheese-slicer",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cheese-slicer.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "38ae60572d8c406ea6393124c575d1868efd76e7691ca01b93e3795db739bdb2",
+    "bytes": 16260,
+    "description": "Fatiador de queijo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "queijo",
+      "fatiador"
+    ],
+    "geometrySignature": "09a68ed694ff9fd6dfdc4c5a2d32c99c68315095400c0bd318b8b6b2908a634d",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_electricity_wires",
     "name": "Fiação elétrica suspensa",
     "originalModelName": "electricity-wires.glb",
@@ -5230,6 +5364,28 @@
     "bytes": 9284,
     "description": "Original Kenney Nature Kit low-poly campfire logs model, preserved from the pack GLB.",
     "originalModelName": "Campfire Logs",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_campfire-bricks",
+    "name": "Fogueira tijolos",
+    "originalModelName": "campfire_bricks.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/campfire_bricks.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ecdca761c6c07ee417261140d5449872b7f51f3671df2d536e2a03b65480563f",
+    "bytes": 10220,
+    "description": "Modelo estilizado de fogueira tijolos, malha original do pacote Nature Kit.",
+    "tags": [
+      "fogueira",
+      "tijolos",
+      "acampamento"
+    ],
+    "geometrySignature": "017e93e2c5ed29e03299c3fc662e685c0b5be661a9427ef152c8d292ac651af6",
     "animationCount": 0
   },
   {
@@ -6454,6 +6610,29 @@
       "pão"
     ],
     "geometrySignature": "0464b9ad9aef6987ad52232cd5b5098b45260c6cb2d92c16256c7ec11304b343",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cheese_cut",
+    "name": "Queijo cortado",
+    "originalModelName": "cheese-cut",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cheese-cut.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "51aabce9f5b796b4181e8893b17386055e4da90a5175b7d4b91250f4e0fba3ce",
+    "bytes": 24228,
+    "description": "Queijo cortado, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "queijo",
+      "fatiado"
+    ],
+    "geometrySignature": "0390fe0406c647fb2eeef17f757eca45ca7d4fea08a931348ae2c89d8d6d75d4",
     "animationCount": 0
   },
   {
@@ -8483,6 +8662,52 @@
       "low-poly"
     ],
     "geometrySignature": "003fd656e5df9c554f8b26516a52e44d700a4d8844fb13e96f106bf143803bd2",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_monorail_trainCargo",
+    "name": "Vagão de carga de monotrilho",
+    "originalModelName": "monorail_trainCargo",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/monorail_trainCargo.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cd8fabcc862ed1d517225082df1a6e32090ca0211cd1cf5d16db4ec9e460057f",
+    "bytes": 51296,
+    "description": "Modelo 3D original Monorail Traincargo do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00a771af460713506a55bd20cd26734c56753132819a20d69cd57d3fe4fb8cfb",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_monorail_trainBox",
+    "name": "Vagão fechado de monotrilho",
+    "originalModelName": "monorail_trainBox",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/monorail_trainBox.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "78d0a6b6616f6a4fce3f2c75d05c1e96afa2cce4e51d12fbe58f65c1abe4224a",
+    "bytes": 7860,
+    "description": "Modelo 3D original Monorail Train Box do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "02f4ae5923a507a62173d8558d8bb62801b8f74675ccd987884acfe8c3ed3c3d",
     "animationCount": 0
   },
   {

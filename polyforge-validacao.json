@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 365,
+  "catalogueCount": 375,
   "models": [
     {
-      "id": "k_actor_car_kit_debris_drivetrain_axle",
+      "id": "k_actor_car_kit_debris_drivetrain",
       "meshes": 1,
-      "triangles": 200,
+      "triangles": 412,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        2,
-        0.4916331242546635,
-        0.5780010814618783
+        1.2543229824477966,
+        0.3083333633426188,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_flower-yellowc",
+      "id": "k_nature_grass-leafs",
+      "meshes": 1,
+      "triangles": 36,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2.7339115187024783,
+        1.6614313636548297,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_grass-large",
+      "meshes": 1,
+      "triangles": 224,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        1.8630905512326015,
+        2.991866582843566
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_g",
+      "meshes": 1,
+      "triangles": 1067,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        1.0595995455906457,
+        1.6248274959423625
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_g",
+      "meshes": 1,
+      "triangles": 2006,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.1458948420614292,
+        2,
+        1.0891909710198218
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cheese_slicer",
+      "meshes": 1,
+      "triangles": 44,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.09455808761320744,
+        0.6202870591673283
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_campfire-bricks",
+      "meshes": 1,
+      "triangles": 120,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.2881500613810742,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cheese_cut",
+      "meshes": 1,
+      "triangles": 160,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.9999999999999998,
+        0.10666666304485668,
+        1.3749999805974464
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_monorail_trainCargo",
+      "meshes": 8,
+      "triangles": 816,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        1,
+        1.279999912,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_monorail_trainBox",
       "meshes": 3,
-      "triangles": 78,
+      "triangles": 100,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.9923440450867247,
-        2.1954163685595187,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_grass",
-      "meshes": 1,
-      "triangles": 132,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.9150233152245497,
-        1.9429715017740272,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_suburban_building_type_f",
-      "meshes": 1,
-      "triangles": 1616,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.5931372849792749,
-        1.9690353042727304
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_commercial_building_f",
-      "meshes": 1,
-      "triangles": 1794,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.9923213166901306,
-        2,
-        1.2167751473498571
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_bridge-woodround",
-      "meshes": 4,
-      "triangles": 336,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.8653846153846153,
+        1,
+        1.6,
         2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_bridge-woodroundnarrow",
-      "meshes": 4,
-      "triangles": 336,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.7692307692307692,
-        1.6153846153846152
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_celery_stick",
-      "meshes": 1,
-      "triangles": 52,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        0.17022446172586808,
-        2,
-        0.32666670051622043
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_ship_small",
-      "meshes": 6,
-      "triangles": 1723,
-      "textures": 6,
-      "preserved": true,
-      "bounds": [
-        0.9056603807535575,
-        1.8799093757518057,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_craft_speederD",
-      "meshes": 4,
-      "triangles": 322,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.6428571428571429,
-        1.5897647000000001
       ],
       "gl": 0
     }
