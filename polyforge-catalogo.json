@@ -741,6 +741,50 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_crops-cornstageb",
+    "name": "Cultivos milho estágio B",
+    "originalModelName": "crops_cornStageB.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_cornStageB.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "509cec80fa70356fd65cac01eaf227bc775261ed6f3af426c64eea9b20e7d05c",
+    "bytes": 9780,
+    "description": "Modelo estilizado de cultivos milho estágio B, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "milho",
+      "estágio"
+    ],
+    "geometrySignature": "09874c1a69632afb8d2835ba18f219546293c86c8ba0a66336fdc3436b63a5d0",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_crops-cornstagec",
+    "name": "Cultivos milho estágio C",
+    "originalModelName": "crops_cornStageC.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/crops_cornStageC.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "deb8b4b74247fd8dc8834cf0a954c818c76c5da9564b244a6354ec4ab65da059",
+    "bytes": 11960,
+    "description": "Modelo estilizado de cultivos milho estágio C, malha original do pacote Nature Kit.",
+    "tags": [
+      "cultivos",
+      "milho",
+      "estágio"
+    ],
+    "geometrySignature": "00012684e8c4edf4ba35c5c612f4b2ae3e634f8df254571ad6e3da363b859214",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-steps-rock",
     "name": "Degraus de rocha",
     "originalModelName": "cliff_steps_rock.glb",
@@ -2390,6 +2434,30 @@
     "animationCount": 6
   },
   {
+    "id": "k_actor_quaternius_yyzyvhg2jq",
+    "name": "Peixe-cardeal",
+    "originalModelName": "Cardinal Fish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/cardinal_fish_yyzyvhg2jq.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/YyZyVhg2Jq",
+    "sourceDownload": "https://static.poly.pizza/635431b0-7855-4f60-bd33-e79ade18ee6a.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "33753dc7fbff96825b2e2721cd659c11289598e0474f1d26130dfdcff67647bb",
+    "bytes": 150832,
+    "description": "Modelo 3D original de Cardinal Fish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "0ed30f1dcb380eb546a1dbdd1a84e97426350b4d4854f0aca75ca1adf77cec20",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_imxzbhz1ys",
     "name": "Peixe-dourado-azul",
     "originalModelName": "Blue Goldfish",
@@ -2882,6 +2950,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_castle_kit_siege_ram",
+    "name": "Ariete de cerco",
+    "originalModelName": "siege-ram.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/castle-kit/siege_ram.glb",
+    "author": "Kenney",
+    "pack": "Castle Kit",
+    "sourcePage": "https://kenney.nl/assets/castle-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "03fd582ca8b23db0ba327bb83a562e2b43fee5d455273aa9d0b37e37e9a0016f",
+    "bytes": 111180,
+    "description": "Ariete medieval protegido para atacar portões.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "castle kit"
+    ],
+    "geometrySignature": "121361282d9a7a69ba29aa3408a949602bf571f786715daf08545a9a2d917a72",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_commercial_building_skyscraper_a",
     "name": "Arranha-céu comercial A",
     "originalModelName": "building-skyscraper-a.glb",
@@ -3192,6 +3283,29 @@
       "beterraba"
     ],
     "geometrySignature": "099c45bb285c218583b744b0937f6eba0129ea53fec39027698f11516f67a24e",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cake_birthday",
+    "name": "Bolo de aniversário",
+    "originalModelName": "cake-birthday",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cake-birthday.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d8eaa6a84c479093e212b1503b1f519d3b2f68227f427b3b8262d099897e72b5",
+    "bytes": 126056,
+    "description": "Bolo de aniversário, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "bolo",
+      "de aniversário"
+    ],
+    "geometrySignature": "06908a74ab9ac578def5f73c4579e35d9144fb8614c0c88d1c8357cb1b7b0333",
     "animationCount": 0
   },
   {
@@ -3739,6 +3853,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_space_kit_machine_wireless",
+    "name": "Comunicador sem fio",
+    "originalModelName": "machine_wireless",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/machine_wireless.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9d49e70d51515bc38628fb0d6e43f4eda7f9cd5326882fd02e8815e61f2259d7",
+    "bytes": 13420,
+    "description": "Modelo 3D original Machine Wireless do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "018520771d3556d80dd5f84ff3873e20dfb21dd55be42e60f82313c8e8da356e",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_industrial_shipping_container_a",
     "name": "Contêiner de carga A",
     "originalModelName": "shipping-container-a.glb",
@@ -3874,6 +4011,29 @@
       "city kit suburban"
     ],
     "geometrySignature": "0ceaceb9ea009a38cf8801956437a44cff4444d6be0d61e626c451500572afca",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_building_kit_stairs_open",
+    "name": "Escada aberta de construção",
+    "originalModelName": "stairs-open.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/building-kit/stairs_open.glb",
+    "author": "Kenney",
+    "pack": "Building Kit",
+    "sourcePage": "https://kenney.nl/assets/building-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7a09d66ba87532805f53a7a15846ac3b59fee3befec3b67094bbeb3b1d82c1c2",
+    "bytes": 24884,
+    "description": "Escada modular aberta para edifício.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "building kit"
+    ],
+    "geometrySignature": "03b3ac2bc5c49eefd2129b73f98fa67af82a2f492c7fe894294659f5d7fcf18f",
     "animationCount": 0
   },
   {
@@ -4789,6 +4949,28 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_cabbage",
+    "name": "Repolho",
+    "originalModelName": "cabbage",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cabbage.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "37dd608086d8c40b5c17d5cc3020ba7c9efee0c3ddfa22e51d24b99f0b5945e4",
+    "bytes": 26124,
+    "description": "Repolho, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "repolho"
+    ],
+    "geometrySignature": "06daf733f2aa9fc6e7f2d2184e4602bfda6d9b8cab06dfc6357f292677db7b3d",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_road_roundabout",
     "name": "Rotatória urbana",
     "originalModelName": "road-roundabout.glb",
@@ -5354,6 +5536,29 @@
       "low-poly"
     ],
     "geometrySignature": "0038d7d5a86298b0454948591bcd5f9a507854ad175162412bc3cf16ae39dec9",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_truck",
+    "name": "Caminhão",
+    "originalModelName": "truck",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/truck.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ab3a14621adaeac01e8d78877b241fb0a6c6a1a4d333c9cf311a33cff71366bc",
+    "bytes": 188744,
+    "description": "Modelo 3D original Caminhão do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0a5e50ca0c5cf1590d7b4c19dbb9b9194943d1ab93cef9e4d5c9290b276097ec",
     "animationCount": 0
   },
   {
@@ -6039,6 +6244,29 @@
       "low-poly"
     ],
     "geometrySignature": "03b28dd062e3eeca6bc16e85e28088ae8bf7c2e6cf960db4e7c309ca89ca50ee",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_tug_b",
+    "name": "Rebocador B",
+    "originalModelName": "boat-tug-b",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-tug-b.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "82fd1d2ce39ae5d82d6adb405cd66ba218442d9a8d7d01d0e675f71b95985283",
+    "bytes": 42392,
+    "description": "Modelo 3D original Rebocador B do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "015df5a045f57abb627de5bb0474ae159ea0a0b7fffede2675766a693b53a70c",
     "animationCount": 0
   },
   {
