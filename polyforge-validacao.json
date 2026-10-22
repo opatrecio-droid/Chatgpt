@@ -1,132 +1,132 @@
 {
-  "catalogueCount": 225,
+  "catalogueCount": 235,
   "models": [
     {
-      "id": "k_nature_cliff-large-rock",
-      "meshes": 1,
-      "triangles": 32,
+      "id": "k_nature_cliff-stepscornerinner-rock",
+      "meshes": 2,
+      "triangles": 213,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
         3,
-        1.2555000186
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_cliff-rock",
-      "meshes": 1,
-      "triangles": 32,
+      "id": "k_nature_cliff-stepscorner-rock",
+      "meshes": 2,
+      "triangles": 245,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.9999999999999996,
         3,
-        0.5054999999999998
+        2.857142857142857,
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_mtd9qk5yce",
-      "meshes": 3,
-      "triangles": 1466,
+      "id": "k_actor_quaternius_4k2s68ursg",
+      "meshes": 4,
+      "triangles": 1974,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.070059838494126,
-        0.7060202806067415,
-        1.7
+        0.9476985603183304,
+        1.4960417038819327,
+        1.7000000000000002
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_broccoli",
+      "id": "k_actor_mini_characters_aid_hearing",
       "meshes": 1,
-      "triangles": 220,
+      "triangles": 48,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.7795031815351516,
-        2,
-        1.7795031815351516
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_mini_characters_wheelchair_power_deluxe",
-      "meshes": 1,
-      "triangles": 1040,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.5353269772077287,
-        1.9999999999999998,
-        1.634294648183766
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_road_crossing",
-      "meshes": 1,
-      "triangles": 104,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.03999999910593033,
+        0.6379103090078819,
+        1.576056337318108,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_desk_computerScreen",
-      "meshes": 3,
-      "triangles": 108,
+      "id": "k_actor_mini_characters_wheelchair_power",
+      "meshes": 1,
+      "triangles": 880,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.6792246136785212,
+        2,
+        1.7874679726036953
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_burger_cheese_double",
+      "meshes": 7,
+      "triangles": 392,
+      "textures": 7,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.6931217578640092,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_machine_barrel",
+      "meshes": 6,
+      "triangles": 338,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1.6470588235294121,
-        2,
-        0.7058823529411766
+        2.000000000000001,
+        1.8564065886763164,
+        1.5948698404413855
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_mini_characters_aid_sunglasses",
+      "id": "k_world_city_kit_roads_road_roundabout",
       "meshes": 1,
-      "triangles": 62,
+      "triangles": 1636,
       "textures": 1,
       "preserved": true,
       "bounds": [
         2,
-        0.5807265318884453,
-        1.1126738265696205
+        0.013333333035310108,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_boat_speed_i",
+      "id": "k_actor_watercraft_kit_boat_speed_j",
       "meshes": 1,
-      "triangles": 136,
+      "triangles": 178,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.922480630184064,
-        0.8785530221989265,
-        1.9999999999999998
+        0.8360655618710733,
+        0.5837986590267005,
+        2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_taxi",
-      "meshes": 5,
-      "triangles": 2072,
-      "textures": 5,
+      "id": "k_actor_car_kit_tractor_police",
+      "meshes": 6,
+      "triangles": 2278,
+      "textures": 6,
       "preserved": true,
       "bounds": [
-        1.0909091854883701,
-        1.0909091247999994,
+        1.1662364189793695,
+        1.4790478291133422,
         2
       ],
       "gl": 0

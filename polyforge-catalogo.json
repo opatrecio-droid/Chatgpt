@@ -1143,6 +1143,53 @@
     "animationCount": 0
   },
   {
+    "id": "k_nature_cliff-stepscornerinner-rock",
+    "name": "Penhasco degraus quina interno rocha",
+    "originalModelName": "cliff_stepsCornerInner_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_stepsCornerInner_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "e076973baeedd79dc24fe90610978cde5805d04bc629b9034b4bb34d80ded6af",
+    "bytes": 15632,
+    "description": "Modelo estilizado de penhasco degraus quina interno rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "degraus",
+      "quina",
+      "interno",
+      "rocha"
+    ],
+    "geometrySignature": "085039e4cf7ba782a4d2b7ce8e3ef4811cf6ca2ca08fef69f97a1c4162664569",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-stepscorner-rock",
+    "name": "Penhasco degraus quina rocha",
+    "originalModelName": "cliff_stepsCorner_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_stepsCorner_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5a44b8d6be16b43e007818bb55e9558aac980caae30b6b3dfb20a24c6cc7d5d3",
+    "bytes": 17544,
+    "description": "Modelo estilizado de penhasco degraus quina rocha, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "degraus",
+      "quina",
+      "rocha"
+    ],
+    "geometrySignature": "001e1cffcd8a09dfb17ceae4e8c783746ecd009d7fc22bb0e6229fbf9a7d19a9",
+    "animationCount": 0
+  },
+  {
     "id": "k_nature_cliff-diagonal-stone",
     "name": "Penhasco diagonal pedra",
     "originalModelName": "cliff_diagonal_stone.glb",
@@ -2161,6 +2208,30 @@
     "animationCount": 14
   },
   {
+    "id": "k_actor_quaternius_4k2s68ursg",
+    "name": "Peixe-leão-negro",
+    "originalModelName": "Black Lion Fish",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/black_lion_fish_4k2s68ursg.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/4k2s68UrSg",
+    "sourceDownload": "https://static.poly.pizza/2e9e3dec-41df-43b7-a35a-daed0d5e6baa.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3d500fac3e7dcbe405a57c07d703936d8037831badf7362fe7254529457d54de",
+    "bytes": 213880,
+    "description": "Modelo 3D original de Black Lion Fish, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "03fec4dcd75936b1def55979639e5ca8143a4ea91294ef3852887e7dcb15a932",
+    "animationCount": 6
+  },
+  {
     "id": "k_actor_quaternius_6jo6q4ucdh",
     "name": "Peixe-palhaço-zebra",
     "originalModelName": "Zebra Clown Fish",
@@ -2582,6 +2653,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_mini_characters_aid_hearing",
+    "name": "Aparelho auditivo",
+    "originalModelName": "aid_hearing",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/aid_hearing.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9f80cc319624e11bb3d4b2a14c951864f2649b3346d5d04424a68c8519cef29f",
+    "bytes": 15968,
+    "description": "Modelo 3D original Aid Hearing do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0006a217ead557e4dc27d66d9b3bd7ba24054c74594321cbb9fbb59b4ee31e77",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_commercial_building_skyscraper_a",
     "name": "Arranha-céu comercial A",
     "originalModelName": "building-skyscraper-a.glb",
@@ -2982,6 +3076,29 @@
       "low-poly"
     ],
     "geometrySignature": "0b2e33922d1f07b3bd4b39a89d6b66a6787c73c9fda5c98d51376880e49bbb81",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_mini_characters_wheelchair_power",
+    "name": "Cadeira de rodas elétrica",
+    "originalModelName": "wheelchair-power",
+    "category": "props",
+    "file": "assets/models/expansion/actors/mini-characters/wheelchair-power.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "0714b7081e94860ad9ed42e0a673230e36477017daf5b8f673c2211592f47d21",
+    "bytes": 85424,
+    "description": "Modelo 3D original Wheelchair Power do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "cenário",
+      "prop",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "01bf6a572bd01f7aa9ea84f4382431bda2e2b9b56c340770b73762247e19aac9",
     "animationCount": 0
   },
   {
@@ -3642,6 +3759,30 @@
     "animationCount": 0
   },
   {
+    "id": "k_props_food_burger_cheese_double",
+    "name": "Hambúrguer duplo com queijo",
+    "originalModelName": "burger-cheese-double",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/burger-cheese-double.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "33a83840791a63539ac1e6f44fb6091c4f6ebfddcf6525982fac0a18dc423989",
+    "bytes": 55140,
+    "description": "Hambúrguer duplo com queijo, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "hambúrguer",
+      "queijo",
+      "duplo"
+    ],
+    "geometrySignature": "022a28844279e7ee4f6b023fe9035b03e890d02f44af949970c1b9414bac2e61",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_roads_construction_light",
     "name": "Luz de advertência de obras",
     "originalModelName": "construction-light.glb",
@@ -3799,6 +3940,29 @@
       "low-poly"
     ],
     "geometrySignature": "07ec12e6c2066f3baa5d0756c652a0086f5b487a73d462022ba1150eb9af4b71",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_machine_barrel",
+    "name": "Máquina de barris",
+    "originalModelName": "machine_barrel",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/machine_barrel.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ecd46823928292bbb01718966bd4602a71e37a09320f3ba232d9044e909ce4ed",
+    "bytes": 23960,
+    "description": "Modelo 3D original Machine Barrel do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "023d8f1d159f60314f0b1f7aa16abd39fcdb6085114d06c2ff699ac721bc0398",
     "animationCount": 0
   },
   {
@@ -4072,6 +4236,29 @@
     "bytes": 3952,
     "description": "Original Kenney Nature Kit low-poly canoe paddle model, preserved from the pack GLB.",
     "originalModelName": "Canoe Paddle",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_road_roundabout",
+    "name": "Rotatória urbana",
+    "originalModelName": "road-roundabout.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/road_roundabout.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "75827b8f4ff12adf67421cfbeaa315b74a093fa7fda2237846db87442eb4576f",
+    "bytes": 117364,
+    "description": "Trecho modular de estrada com rotatória.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "046116f2b8cc3cb6c419017a554dfdacc0a069831ad92690e1929f1c43ef0c10",
     "animationCount": 0
   },
   {
@@ -5190,6 +5377,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_watercraft_kit_boat_speed_j",
+    "name": "Lancha esportiva J",
+    "originalModelName": "boat-speed-j",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-j.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6faffdf8acac6d7e05ff785befe7e89cba41d943564e284bc9062d6761ff208b",
+    "bytes": 29436,
+    "description": "Modelo 3D original Boat Speed J do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "00688941d21cd250fef09c245486eb535260b39ead4d21fb0521df6bfb65a1ef",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_suv",
     "name": "SUV",
     "originalModelName": "suv",
@@ -5279,6 +5489,29 @@
       "low-poly"
     ],
     "geometrySignature": "09c3e664d3d5458e482882b32045d637a3f79f8d4827db52b7ba54b475d2fe2f",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_tractor_police",
+    "name": "Trator de polícia",
+    "originalModelName": "tractor-police",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/tractor-police.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "6a3f44e4bd4ef6a9b6ebfae6e835c411744f3c4a2cd4f24acaead9177ac38801",
+    "bytes": 208688,
+    "description": "Modelo 3D original Trator de polícia do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "000ab7b11c39d825280ac006eb7706c322cd6a9dac0016be74e47d0a33ec765e",
     "animationCount": 0
   },
   {
