@@ -1,4 +1,12 @@
-# PolyForge — 2.035 modelos no mesmo arquivo
+# PolyForge — estúdio e arquivos 3D
+## Modelos 3D em pastas, sem HTML
+
+**[Baixar os 2.035 arquivos GLB em ZIP (66 MB)](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/downloads/modelos-3d.zip)**
+
+O ZIP contém a pasta `modelos-3d/`, organizada por categoria e estilo, com catálogo e créditos/licenças por arquivo. Traz 2.035 GLBs; 201 modelos contêm 2.693 clipes de animação.
+
+SHA-256: `d0e1da51bec684a127098590df95e27412eb59459f4aabe9e9c62ce063b5ab73`.
+
 
 **[Baixar o estúdio cumulativo ZIP (2.035 modelos)](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001.zip)** · [Abrir o HTML offline](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/estudios/lote-001/index.html) · [Baixar o ZIP original de 1.035 modelos](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-22/polyforge.zip)
 
