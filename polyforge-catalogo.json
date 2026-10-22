@@ -620,6 +620,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_debris_plate_b",
+    "name": "Painel de carroceria B",
+    "originalModelName": "debris-plate-b",
+    "category": "items",
+    "file": "assets/models/expansion/actors/car-kit/debris-plate-b.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3b9a9139ec410da48c080e7eb9d0b96968e2cf8069362bf9e8ef6472f6afde7b",
+    "bytes": 17804,
+    "description": "Modelo 3D original Placa de carroceria B do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0302a07628b53a4abe3b1b26f9ec1a0b716d5d1865fff7576dbcd05f7c10638a",
+    "animationCount": 0
+  },
+  {
     "id": "k_actor_car_kit_debris_bumper",
     "name": "Para-choque solto",
     "originalModelName": "debris-bumper",
@@ -2471,6 +2494,51 @@
     "bytes": 692724,
     "description": "Authored Quaternius Fern nature asset, preserving the original published geometry and materials.",
     "originalModelName": "Fern",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathbend",
+    "name": "Solo caminho curvada",
+    "originalModelName": "ground_pathBend.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathBend.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9a0009dc7a8389f12a76ba6f3b793d3fe21d31148d6b8ffde7c10b85a73a7a62",
+    "bytes": 4132,
+    "description": "Modelo estilizado de solo caminho curvada, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "curvada"
+    ],
+    "geometrySignature": "088214ac65d602678a2731e3322f926b4a9520aec9e470523fa2484aefa3087d",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_ground-pathbendbank",
+    "name": "Solo caminho curvada margem",
+    "originalModelName": "ground_pathBendBank.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/ground_pathBendBank.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9455bde3c36450d5b9cca2e7e9958c83d70c3f20f058e88ec13757d2624d9667",
+    "bytes": 4308,
+    "description": "Modelo estilizado de solo caminho curvada margem, malha original do pacote Nature Kit.",
+    "tags": [
+      "solo",
+      "caminho",
+      "curvada",
+      "margem"
+    ],
+    "geometrySignature": "0072effabc13d141be6c8409a211d82f05d251b04390c142f9a193077713deed",
     "animationCount": 0
   },
   {
@@ -4634,6 +4702,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_suburban_building_type_i",
+    "name": "Casa suburbana modelo I",
+    "originalModelName": "building-type-i.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-suburban/building_type_i.glb",
+    "author": "Kenney",
+    "pack": "City Kit Suburban",
+    "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "31df9b255d10094a45df26c601f53c6cf77154bbc63d330d0a956cf09d13461c",
+    "bytes": 81608,
+    "description": "Modelo low-poly original do Kenney: casa suburbana modelo i, copiado do pacote City Kit Suburban sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit suburban"
+    ],
+    "geometrySignature": "023c8fa2494b89f07bfdb399afad3008f613d34863e27c554b34943e67c9dea5",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -4768,6 +4859,28 @@
       "city kit suburban"
     ],
     "geometrySignature": "06f8c624d769bb366484f4c4208032d1f73c444787a171813eac286d5a211dde",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_cherries",
+    "name": "Cerejas",
+    "originalModelName": "cherries",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/cherries.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "c26b4a5f44bd6a9a6a20fe27745caa1df4532e6273fdf0a62e4045e512264b48",
+    "bytes": 24284,
+    "description": "Cerejas, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "cherries"
+    ],
+    "geometrySignature": "01117113fdc2c88063f783ce267b334cf9810e70ee9aae9c9a1ba2b9a0510253",
     "animationCount": 0
   },
   {
@@ -4906,6 +5019,28 @@
       "building kit"
     ],
     "geometrySignature": "092fd152d53e6392a9654d7f417818a3a48afcdb8a6c82c97ef33b220b177089",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_chinese",
+    "name": "Comida chinesa",
+    "originalModelName": "chinese",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/chinese.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "3dd5e72df63aeda0b6119d8eb5a04566b1c38aebc7ce41aaae6b2ca9a658e604",
+    "bytes": 30132,
+    "description": "Comida chinesa, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "chinese"
+    ],
+    "geometrySignature": "02d8f0ce20ef35cfe0e404268cf43894a71042267c582a54820277771a48937b",
     "animationCount": 0
   },
   {
@@ -5299,6 +5434,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_commercial_building_i",
+    "name": "Edifício i",
+    "originalModelName": "building-i.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-commercial/building_i.glb",
+    "author": "Kenney",
+    "pack": "City Kit Commercial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-commercial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1227d15ba7ed8f9bbf6808d6bbb70f000a4994cf410a207709ece33f252063ec",
+    "bytes": 220788,
+    "description": "Modelo low-poly original do Kenney: edifício i, copiado do pacote City Kit Commercial sem alterações na geometria ou nos materiais.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit commercial"
+    ],
+    "geometrySignature": "00f6bc4673f33d0e3ba14be65ed52edbe412bea95b4572cb78d859d5699c4bfb",
+    "animationCount": 0
+  },
+  {
     "id": "k_props_food_candy_bar_wrapper",
     "name": "Embalagem de barra de chocolate",
     "originalModelName": "candy-bar-wrapper",
@@ -5499,6 +5657,28 @@
     "bytes": 9284,
     "description": "Original Kenney Nature Kit low-poly campfire logs model, preserved from the pack GLB.",
     "originalModelName": "Campfire Logs",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_campfire-stones",
+    "name": "Fogueira stones",
+    "originalModelName": "campfire_stones.glb",
+    "category": "props",
+    "file": "assets/models/expansion/nature/nature-kit/campfire_stones.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "54869db23243a3f4905bc00bd4cd93b1037b28556ab3ef93e7a893a093791e35",
+    "bytes": 17344,
+    "description": "Modelo estilizado de fogueira stones, malha original do pacote Nature Kit.",
+    "tags": [
+      "fogueira",
+      "stones",
+      "acampamento"
+    ],
+    "geometrySignature": "1a802c6ed0261336bcddeb1b9b74cb21bc73a37f0a57479b23d9fd6590fe865d",
     "animationCount": 0
   },
   {
@@ -8864,6 +9044,52 @@
       "low-poly"
     ],
     "geometrySignature": "00a771af460713506a55bd20cd26734c56753132819a20d69cd57d3fe4fb8cfb",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_monorail_trainPassenger",
+    "name": "Vagão de passageiros de monotrilho",
+    "originalModelName": "monorail_trainPassenger",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/monorail_trainPassenger.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "1d18442a9f11fb2af12acdc035743bbebc9abd77e458650f3ccdfff706e9a024",
+    "bytes": 12464,
+    "description": "Modelo 3D original Monorail Trainpassenger do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0c3724287187d9f3bda52ba442812edd40f60d7599a4b4f4c5a28325906f8bbe",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_monorail_trainFront",
+    "name": "Vagão dianteiro de monotrilho",
+    "originalModelName": "monorail_trainFront",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/space-kit/monorail_trainFront.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "7291b45dedec952daf0e2188235518757953f82df616f7d6029a2ce5f08102f9",
+    "bytes": 17128,
+    "description": "Modelo 3D original Monorail Trainfront do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "09ada4f14f8221054f274339e7d0f0eaf25ce676706b7539d9dae2fd92bbb84c",
     "animationCount": 0
   },
   {

@@ -1,132 +1,132 @@
 {
-  "catalogueCount": 385,
+  "catalogueCount": 395,
   "models": [
     {
-      "id": "k_actor_car_kit_debris_plate_a",
+      "id": "k_actor_car_kit_debris_plate_b",
       "meshes": 1,
-      "triangles": 40,
+      "triangles": 44,
       "textures": 1,
       "preserved": true,
       "bounds": [
         1.9999999999999998,
-        0.2222222314204701,
+        0.4444444628409402,
         1.9999999999999998
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_debris_nut",
-      "meshes": 1,
-      "triangles": 40,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.7320507506720608,
-        1,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_grass-leafslarge",
-      "meshes": 1,
-      "triangles": 144,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2.9297502122650365,
-        0.8772681645268495,
-        3
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_ground-grass",
-      "meshes": 1,
-      "triangles": 2,
+      "id": "k_nature_ground-pathbend",
+      "meshes": 3,
+      "triangles": 32,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
-        0,
+        0.15000000000000002,
         3
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_suburban_building_type_h",
-      "meshes": 1,
-      "triangles": 770,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        2,
-        1.134615352873265,
-        1.4092308341257695
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_commercial_building_h",
-      "meshes": 1,
-      "triangles": 1512,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.3667252110594508,
-        2,
-        1.5589963370571256
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_campfire-planks",
-      "meshes": 1,
-      "triangles": 108,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.2285714285714286,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_cheese",
-      "meshes": 12,
-      "triangles": 576,
-      "textures": 12,
-      "preserved": true,
-      "bounds": [
-        2,
-        0.6470587126730354,
-        1.9999999999999811
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_monorail_trainFlat",
+      "id": "k_nature_ground-pathbendbank",
       "meshes": 3,
-      "triangles": 84,
+      "triangles": 38,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        0.15000000000000002,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_suburban_building_type_i",
+      "meshes": 1,
+      "triangles": 800,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        2,
+        1.1466281899445276,
+        1.5982831894163065
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_cherries",
+      "meshes": 1,
+      "triangles": 134,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.0309942653193889,
+        2,
+        1.896850643679644
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_props_food_chinese",
+      "meshes": 3,
+      "triangles": 162,
+      "textures": 3,
+      "preserved": true,
+      "bounds": [
+        1.6006681780706824,
+        1.9999999999999998,
+        1.966321551975916
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_commercial_building_i",
+      "meshes": 1,
+      "triangles": 2544,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.4761904998431121,
+        2,
+        1.5499999219463017
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_campfire-stones",
+      "meshes": 1,
+      "triangles": 264,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        2,
+        0.28752053117490606,
+        1.9063273596512509
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_monorail_trainPassenger",
+      "meshes": 4,
+      "triangles": 164,
       "textures": 0,
       "preserved": true,
       "bounds": [
         1,
-        0.5,
+        1.6,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_monorail_trainEnd",
-      "meshes": 4,
-      "triangles": 190,
+      "id": "k_actor_space_kit_monorail_trainFront",
+      "meshes": 3,
+      "triangles": 242,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        1,
-        1.6000000000000003,
+        1.1428571428571428,
+        1.5238095238095237,
         2
       ],
       "gl": 0
