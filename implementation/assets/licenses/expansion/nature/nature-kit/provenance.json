@@ -1,0 +1,18 @@
+{
+  "pack": "Nature Kit",
+  "author": "Kenney",
+  "sourcePage": "https://kenney.nl/assets/nature-kit",
+  "sourceDownload": "https://kenney.nl/media/pages/assets/nature-kit/37ac38a37b-1677698939/kenney_nature-kit.zip",
+  "downloadedArchive": "/workspace/asset-downloads/kenney_nature-kit.zip",
+  "archiveSha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
+  "archiveBytes": 10537521,
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "officialPageEvidence": "The official page identifies this as a 3D pack, 330 assets, and Creative Commons CC0.",
+  "archiveLicenseEvidence": "License.txt from the archive states Creative Commons Zero (CC0).",
+  "sourceModelFormat": "Official archive includes Models/GLTF format/*.glb; selected GLBs are copied without conversion.",
+  "sourceModelCount": 329,
+  "catalogedModelCount": 294,
+  "geometricallyDistinctModelCount": 294,
+  "duplicateGeometryModelFilesOmitted": 35
+}

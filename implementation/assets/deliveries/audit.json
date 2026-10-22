@@ -1,0 +1,361 @@
+{
+  "algorithm": "world triangles; ignores materials, UV splits, position, uniform scale, 48 axis/reflection transforms; quantization 1e-5 extent",
+  "baseline": 35,
+  "candidates": 1447,
+  "uniqueNew": 1359,
+  "duplicates": [
+    {
+      "id": "k_actor_mini_characters_aid_cane_low_vision",
+      "sameGeometryAs": "k_actor_mini_characters_aid_cane_blind"
+    },
+    {
+      "id": "k_actor_mini_characters_aid_defibrillator_red",
+      "sameGeometryAs": "k_actor_mini_characters_aid_defibrillator_green"
+    },
+    {
+      "id": "k_nature_bed",
+      "sameGeometryAs": "kenney_objects_bed"
+    },
+    {
+      "id": "k_nature_bridge-center-wood",
+      "sameGeometryAs": "k_nature_bridge-center-stone"
+    },
+    {
+      "id": "k_nature_bridge-wood",
+      "sameGeometryAs": "kenney_objects_bridge_wood"
+    },
+    {
+      "id": "k_nature_campfire-logs",
+      "sameGeometryAs": "kenney_objects_campfire_logs"
+    },
+    {
+      "id": "k_nature_canoe",
+      "sameGeometryAs": "kenney_objects_canoe"
+    },
+    {
+      "id": "k_nature_canoe-paddle",
+      "sameGeometryAs": "kenney_objects_canoe_paddle"
+    },
+    {
+      "id": "k_nature_cliff-blockslope-stone",
+      "sameGeometryAs": "k_nature_cliff-blockslope-rock"
+    },
+    {
+      "id": "k_nature_cliff-cornerinnerlarge-stone",
+      "sameGeometryAs": "k_nature_cliff-cornerinnerlarge-rock"
+    },
+    {
+      "id": "k_nature_cliff-cornerinner-stone",
+      "sameGeometryAs": "k_nature_cliff-cornerinner-rock"
+    },
+    {
+      "id": "k_nature_cliff-cornerlarge-stone",
+      "sameGeometryAs": "k_nature_cliff-cornerlarge-rock"
+    },
+    {
+      "id": "k_nature_cliff-halfcornerinner-stone",
+      "sameGeometryAs": "k_nature_cliff-halfcornerinner-rock"
+    },
+    {
+      "id": "k_nature_cliff-topdiagonal-stone",
+      "sameGeometryAs": "k_nature_cliff-topdiagonal-rock"
+    },
+    {
+      "id": "k_actor_car_kit_wheel_racing",
+      "sameGeometryAs": "k_actor_car_kit_wheel_dark"
+    },
+    {
+      "id": "k_nature_cliff-waterfalltop-stone",
+      "sameGeometryAs": "k_nature_cliff-waterfalltop-rock"
+    },
+    {
+      "id": "k_nature_cliff-waterfall-stone",
+      "sameGeometryAs": "k_nature_cliff-waterfall-rock"
+    },
+    {
+      "id": "k_nature_fence-gate",
+      "sameGeometryAs": "kenney_objects_fence_gate"
+    },
+    {
+      "id": "k_actor_watercraft_kit_cargo_container_c",
+      "sameGeometryAs": "k_actor_watercraft_kit_cargo_container_b"
+    },
+    {
+      "id": "k_actor_watercraft_kit_gate",
+      "sameGeometryAs": "k_actor_watercraft_kit_gate_finish"
+    },
+    {
+      "id": "k_nature_ground-riverend",
+      "sameGeometryAs": "k_nature_ground-pathend"
+    },
+    {
+      "id": "k_nature_ground-riverrocks",
+      "sameGeometryAs": "k_nature_ground-pathrocks"
+    },
+    {
+      "id": "k_nature_ground-riverside",
+      "sameGeometryAs": "k_nature_ground-pathside"
+    },
+    {
+      "id": "k_nature_ground-riverstraight",
+      "sameGeometryAs": "k_nature_ground-pathstraight"
+    },
+    {
+      "id": "k_world_city_kit_industrial_shipping_container_b",
+      "sameGeometryAs": "k_world_city_kit_industrial_shipping_container_a"
+    },
+    {
+      "id": "k_world_city_kit_industrial_shipping_container_c",
+      "sameGeometryAs": "k_world_city_kit_industrial_shipping_container_a"
+    },
+    {
+      "id": "k_props_food_shaker_salt",
+      "sameGeometryAs": "k_props_food_shaker_pepper"
+    },
+    {
+      "id": "k_nature_platform-stone",
+      "sameGeometryAs": "k_nature_platform-beach"
+    },
+    {
+      "id": "k_nature_pot-large",
+      "sameGeometryAs": "kenney_objects_pot_large"
+    },
+    {
+      "id": "k_nature_sign",
+      "sameGeometryAs": "kenney_objects_sign"
+    },
+    {
+      "id": "k_nature_statue-obelisk",
+      "sameGeometryAs": "kenney_objects_statue_obelisk"
+    },
+    {
+      "id": "k_nature_stone-largea",
+      "sameGeometryAs": "k_nature_rock-largea"
+    },
+    {
+      "id": "k_actor_space_kit_platform_center",
+      "sameGeometryAs": "k_nature_ground-grass"
+    },
+    {
+      "id": "k_nature_stone-largeb",
+      "sameGeometryAs": "k_nature_rock-largeb"
+    },
+    {
+      "id": "k_nature_stone-largec",
+      "sameGeometryAs": "k_nature_rock-largec"
+    },
+    {
+      "id": "k_nature_stone-larged",
+      "sameGeometryAs": "k_nature_rock-larged"
+    },
+    {
+      "id": "k_nature_stone-largee",
+      "sameGeometryAs": "k_nature_rock-largee"
+    },
+    {
+      "id": "k_nature_stone-largef",
+      "sameGeometryAs": "k_nature_rock-largef"
+    },
+    {
+      "id": "k_nature_stone-smalla",
+      "sameGeometryAs": "k_nature_rock-smalla"
+    },
+    {
+      "id": "k_nature_stone-smallb",
+      "sameGeometryAs": "k_nature_rock-smallb"
+    },
+    {
+      "id": "k_nature_stone-smallc",
+      "sameGeometryAs": "k_nature_rock-smallc"
+    },
+    {
+      "id": "k_nature_stone-smalld",
+      "sameGeometryAs": "k_nature_rock-smalld"
+    },
+    {
+      "id": "k_nature_stone-smalle",
+      "sameGeometryAs": "k_nature_rock-smalle"
+    },
+    {
+      "id": "k_nature_stone-smallf",
+      "sameGeometryAs": "k_nature_rock-smallf"
+    },
+    {
+      "id": "k_world_city_kit_roads_tile_high",
+      "sameGeometryAs": "k_nature_cliff-blockquarter-rock"
+    },
+    {
+      "id": "k_nature_stone-smallflata",
+      "sameGeometryAs": "k_nature_rock-smallflata"
+    },
+    {
+      "id": "k_nature_stone-smallflatb",
+      "sameGeometryAs": "k_nature_rock-smallflatb"
+    },
+    {
+      "id": "k_nature_stone-smallflatc",
+      "sameGeometryAs": "k_nature_rock-smallflatc"
+    },
+    {
+      "id": "k_nature_stone-smallg",
+      "sameGeometryAs": "k_nature_rock-smallg"
+    },
+    {
+      "id": "k_nature_stone-smallh",
+      "sameGeometryAs": "k_nature_rock-smallh"
+    },
+    {
+      "id": "k_nature_stone-smalltopa",
+      "sameGeometryAs": "k_nature_rock-smalltopa"
+    },
+    {
+      "id": "k_nature_stone-smalltopb",
+      "sameGeometryAs": "k_nature_rock-smalltopb"
+    },
+    {
+      "id": "k_nature_stone-talla",
+      "sameGeometryAs": "k_nature_rock-talla"
+    },
+    {
+      "id": "k_nature_stone-tallb",
+      "sameGeometryAs": "k_nature_rock-tallb"
+    },
+    {
+      "id": "k_nature_stone-tallc",
+      "sameGeometryAs": "k_nature_rock-tallc"
+    },
+    {
+      "id": "k_nature_stone-talld",
+      "sameGeometryAs": "k_nature_rock-talld"
+    },
+    {
+      "id": "k_nature_stone-talle",
+      "sameGeometryAs": "k_nature_rock-talle"
+    },
+    {
+      "id": "k_nature_stone-tallh",
+      "sameGeometryAs": "k_nature_rock-tallh"
+    },
+    {
+      "id": "k_nature_stone-talli",
+      "sameGeometryAs": "k_nature_rock-talli"
+    },
+    {
+      "id": "k_nature_stone-tallj",
+      "sameGeometryAs": "k_nature_rock-tallj"
+    },
+    {
+      "id": "k_nature_tent-detailedclosed",
+      "sameGeometryAs": "kenney_objects_tent_detailed_closed"
+    },
+    {
+      "id": "k_nature_tree-blocks-fall",
+      "sameGeometryAs": "k_nature_tree-blocks"
+    },
+    {
+      "id": "k_nature_tree-cone-dark",
+      "sameGeometryAs": "k_nature_tree-cone"
+    },
+    {
+      "id": "k_nature_tree-default-fall",
+      "sameGeometryAs": "k_nature_tree-default"
+    },
+    {
+      "id": "k_actor_space_kit_terrain",
+      "sameGeometryAs": "k_nature_ground-grass"
+    },
+    {
+      "id": "k_nature_tree-small-dark",
+      "sameGeometryAs": "k_nature_tree-small"
+    },
+    {
+      "id": "k_nature_tree-tall-fall",
+      "sameGeometryAs": "k_nature_tree-tall"
+    },
+    {
+      "id": "k_nature_tree-thin-dark",
+      "sameGeometryAs": "k_nature_tree-thin"
+    },
+    {
+      "id": "k_world_building_kit_floor_half",
+      "sameGeometryAs": "k_props_furniture_floorhalf"
+    },
+    {
+      "id": "k_world_building_kit_floor",
+      "sameGeometryAs": "k_props_furniture_floorfull"
+    },
+    {
+      "id": "k_world_building_kit_roof_flat_center",
+      "sameGeometryAs": "k_props_furniture_floorfull"
+    },
+    {
+      "id": "k_props_survival_box",
+      "sameGeometryAs": "k_actor_car_kit_box"
+    },
+    {
+      "id": "k_world_modular_buildings_door_brown",
+      "sameGeometryAs": "k_world_modular_buildings_door_brown_glass"
+    },
+    {
+      "id": "k_world_modular_buildings_door_white_glass",
+      "sameGeometryAs": "k_world_modular_buildings_door_brown_glass"
+    },
+    {
+      "id": "k_world_modular_buildings_door_white_window",
+      "sameGeometryAs": "k_world_modular_buildings_door_brown_window"
+    },
+    {
+      "id": "k_world_modular_buildings_door_white",
+      "sameGeometryAs": "k_world_modular_buildings_door_brown_glass"
+    },
+    {
+      "id": "k_world_modular_buildings_roof_slanted_flat",
+      "sameGeometryAs": "k_world_modular_buildings_roof_flat_center"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_detailed",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_detailed"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_large",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_large"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_narrow",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_narrow"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_round_low",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_round_low"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_round_middle",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_round_middle"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_round_narrow",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_round_narrow"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_round_top",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_round_top"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_round_wide",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_round_wide"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_tall",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_tall"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white_wide",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown_wide"
+    },
+    {
+      "id": "k_world_modular_buildings_window_white",
+      "sameGeometryAs": "k_world_modular_buildings_window_brown"
+    }
+  ],
+  "errors": []
+}

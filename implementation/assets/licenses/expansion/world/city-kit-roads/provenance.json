@@ -1,0 +1,13 @@
+{
+  "author": "Kenney",
+  "pack": "City Kit Roads",
+  "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+  "sourceDownload": "https://kenney.nl/media/pages/assets/city-kit-roads/74288c9459-1791628607/kenney_city-kit-roads.zip",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "archiveSha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
+  "archiveBytes": 2852289,
+  "archiveFilename": "city-kit-roads.zip",
+  "licenseEvidence": "License.txt and source-page.html from official Kenney asset page/archive.",
+  "importMethod": "Copied original self-contained GLB member from the official ZIP without geometry or material edits."
+}

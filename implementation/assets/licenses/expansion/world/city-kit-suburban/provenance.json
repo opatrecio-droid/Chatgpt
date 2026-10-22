@@ -1,0 +1,13 @@
+{
+  "author": "Kenney",
+  "pack": "City Kit Suburban",
+  "sourcePage": "https://kenney.nl/assets/city-kit-suburban",
+  "sourceDownload": "https://kenney.nl/media/pages/assets/city-kit-suburban/2c871b7af2-1745479373/kenney_city-kit-suburban_20.zip",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "archiveSha256": "5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39",
+  "archiveBytes": 3038740,
+  "archiveFilename": "city-kit-suburban.zip",
+  "licenseEvidence": "License.txt and source-page.html from official Kenney asset page/archive.",
+  "importMethod": "Copied original self-contained GLB member from the official ZIP without geometry or material edits."
+}

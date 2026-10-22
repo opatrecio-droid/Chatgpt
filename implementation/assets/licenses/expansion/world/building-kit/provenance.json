@@ -1,0 +1,13 @@
+{
+  "author": "Kenney",
+  "pack": "Building Kit",
+  "sourcePage": "https://kenney.nl/assets/building-kit",
+  "sourceDownload": "https://kenney.nl/media/pages/assets/building-kit/0de7aaa492-1743244741/kenney_building-kit.zip",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "archiveSha256": "2740ef5772fb5fb3d7aab881db22d129f6b68afe711b1a79e6d5e9e19cf3eec6",
+  "archiveBytes": 1598905,
+  "archiveFilename": "building-kit.zip",
+  "licenseEvidence": "License.txt and source-page.html from official Kenney asset page/archive.",
+  "importMethod": "Copied original self-contained GLB member from the official ZIP without geometry or material edits."
+}

@@ -1,0 +1,98 @@
+{
+  "author": "Kenney",
+  "pack": "Nature Kit (2.1)",
+  "sourcePage": "https://kenney.nl/assets/nature-kit",
+  "sourceDownload": "https://kenney.nl/media/pages/assets/nature-kit/37ac38a37b-1677698939/kenney_nature-kit.zip",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "licenseEvidence": "License.txt from the public Kenney Nature Kit archive, saved beside this file.",
+  "archive": "/workspace/asset-downloads/kenney_nature-kit.zip",
+  "archiveSha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
+  "importMethod": "Copied original GLB members from Models/GLTF format without geometry or material edits.",
+  "sourceAssets": [
+    {
+      "id": "kenney_objects_canoe",
+      "originalFilename": "canoe.glb",
+      "sha256": "ad9c7a315f55accbce8d1ee3dc853f919f01f97ab4e3096bb235d1815aed6941",
+      "bytes": 15780,
+      "file": "assets/models/objects/canoe.glb"
+    },
+    {
+      "id": "kenney_objects_canoe_paddle",
+      "originalFilename": "canoe_paddle.glb",
+      "sha256": "7f8e0bc5beacfa1e4ae12f942ab045b1f7a13a04b497859f749bf7999b99d0bd",
+      "bytes": 3952,
+      "file": "assets/models/objects/canoe_paddle.glb"
+    },
+    {
+      "id": "kenney_objects_campfire_bricks",
+      "originalFilename": "campfire_bricks.glb",
+      "sha256": "ecdca761c6c07ee417261140d5449872b7f51f3671df2d536e2a03b65480563f",
+      "bytes": 10220,
+      "file": "assets/models/objects/campfire_bricks.glb"
+    },
+    {
+      "id": "kenney_objects_campfire_logs",
+      "originalFilename": "campfire_logs.glb",
+      "sha256": "98d87cdcf9095b94fd348d0946e911dd4ca6c0956bac3318cfd2b0030b86055a",
+      "bytes": 9284,
+      "file": "assets/models/objects/campfire_logs.glb"
+    },
+    {
+      "id": "kenney_objects_bed",
+      "originalFilename": "bed.glb",
+      "sha256": "ed064d4d9e6cf0c87f9146cb38a652d0df5427b60d0486fed190ab74d9510df4",
+      "bytes": 19108,
+      "file": "assets/models/objects/bed.glb"
+    },
+    {
+      "id": "kenney_objects_tent_detailed_closed",
+      "originalFilename": "tent_detailedClosed.glb",
+      "sha256": "fe8a2f9033cc87f1ec01b6c18bae7c57b84e787b4b210328ed708a4a3f9bb994",
+      "bytes": 15460,
+      "file": "assets/models/objects/tent_detailed_closed.glb"
+    },
+    {
+      "id": "kenney_objects_pot_large",
+      "originalFilename": "pot_large.glb",
+      "sha256": "57e60214bc6ab1dc3764c9ffe80091ff45f2bfd49fbc313c1b68dcaab1537aef",
+      "bytes": 6168,
+      "file": "assets/models/objects/pot_large.glb"
+    },
+    {
+      "id": "kenney_objects_sign",
+      "originalFilename": "sign.glb",
+      "sha256": "c658c21672ecd63c5d3e53f06f875d68e6509edb1ab7e3b75374df7c61e7dd0c",
+      "bytes": 5040,
+      "file": "assets/models/objects/sign.glb"
+    },
+    {
+      "id": "kenney_objects_statue_obelisk",
+      "originalFilename": "statue_obelisk.glb",
+      "sha256": "e18013044ad6453a1850226be29f63c37d67e0002141f5f6a4d14a46bde69e00",
+      "bytes": 4416,
+      "file": "assets/models/objects/statue_obelisk.glb"
+    },
+    {
+      "id": "kenney_objects_bridge_stone",
+      "originalFilename": "bridge_stone.glb",
+      "sha256": "b8b311f525ad616fcdebb6463db8b0c7710af58eb45308b54c08bcb290a2315e",
+      "bytes": 17708,
+      "file": "assets/models/objects/bridge_stone.glb"
+    },
+    {
+      "id": "kenney_objects_bridge_wood",
+      "originalFilename": "bridge_wood.glb",
+      "sha256": "3da4c208b0f72b7f2ba42db521b62ec4b0278050c75256a6982c40d21aab5701",
+      "bytes": 15692,
+      "file": "assets/models/objects/bridge_wood.glb"
+    },
+    {
+      "id": "kenney_objects_fence_gate",
+      "originalFilename": "fence_gate.glb",
+      "sha256": "34d10d5620179b8a211a01eea837caa828c0782422f0b408e1a5838788888436",
+      "bytes": 27652,
+      "file": "assets/models/objects/fence_gate.glb"
+    }
+  ]
+}

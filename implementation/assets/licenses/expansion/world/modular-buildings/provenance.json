@@ -1,0 +1,13 @@
+{
+  "author": "Kenney",
+  "pack": "Modular Buildings",
+  "sourcePage": "https://kenney.nl/assets/modular-buildings",
+  "sourceDownload": "https://kenney.nl/media/pages/assets/modular-buildings/3253b4219a-1707397411/kenney_modular-buildings.zip",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "archiveSha256": "47e1614686b4c0fe55190e88b22ff2b8b10935edf61f37f478a9b6a99477edc6",
+  "archiveBytes": 1825490,
+  "archiveFilename": "modular-buildings.zip",
+  "licenseEvidence": "License.txt and source-page.html from official Kenney asset page/archive.",
+  "importMethod": "Copied original self-contained GLB member from the official ZIP without geometry or material edits."
+}

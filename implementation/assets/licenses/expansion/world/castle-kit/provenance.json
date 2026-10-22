@@ -1,0 +1,13 @@
+{
+  "author": "Kenney",
+  "pack": "Castle Kit",
+  "sourcePage": "https://kenney.nl/assets/castle-kit",
+  "sourceDownload": "https://kenney.nl/media/pages/assets/castle-kit/a395102d20-1711543616/kenney_castle-kit.zip",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "archiveSha256": "921f3f73927bb23106cae34bc21d5ab4b033a9fc120475e96f714a406e3169df",
+  "archiveBytes": 2232589,
+  "archiveFilename": "castle-kit.zip",
+  "licenseEvidence": "License.txt and source-page.html from official Kenney asset page/archive.",
+  "importMethod": "Copied original self-contained GLB member from the official ZIP without geometry or material edits."
+}
