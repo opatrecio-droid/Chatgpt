@@ -204,6 +204,29 @@
     "animationCount": 32
   },
   {
+    "id": "k_actor_mini_characters_character_female_e",
+    "name": "Personagem feminina E",
+    "originalModelName": "character-female-e",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/mini-characters/character-female-e.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ded17a6862c1a47bfe5a69324e195f94bf30e589c7238393b257c3546f457239",
+    "bytes": 256312,
+    "description": "Modelo 3D original de Character Female E, publicado por Kenney no pacote oficial mini-characters.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "05a920434c5ab94a56b684a499131f446d3beeae0a1b513ef315d3c75862fbe2",
+    "animationCount": 32
+  },
+  {
     "id": "k_props_food_avocado",
     "name": "Abacate",
     "originalModelName": "avocado",
@@ -246,6 +269,28 @@
       "meio"
     ],
     "geometrySignature": "063491a362ea05caa4c9b543816b0a9469152db4e2c5649bac4e5923e44e6e95",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bacon",
+    "name": "Bacon",
+    "originalModelName": "bacon",
+    "category": "items",
+    "file": "assets/models/expansion/props/food-kit/bacon.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "467583ff80898a37d8653b355819711417b95bce4d77572302047b218d822cbb",
+    "bytes": 16468,
+    "description": "Bacon, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "bacon"
+    ],
+    "geometrySignature": "07fa919590014c0584bdc3953440a077d2c6ca89fbe03a56668b02a58b427b8c",
     "animationCount": 0
   },
   {
@@ -292,6 +337,29 @@
       "low-poly"
     ],
     "geometrySignature": "0754ba27ec6de36df9610f121b852dcc4f19b27173c70713471eb6ae7ea8271a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_chimney",
+    "name": "Chaminé",
+    "originalModelName": "chimney",
+    "category": "items",
+    "file": "assets/models/expansion/actors/space-kit/chimney.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "92db1a53b46eea2f2f045fe1dcc1493b4674309f76909e4ecf1078576070b14b",
+    "bytes": 8920,
+    "description": "Modelo 3D original Chimney do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "057005cd65af32e28bfeccf99a7eaddef000ae1d1722d127630dc0be14f2814a",
     "animationCount": 0
   },
   {
@@ -672,6 +740,52 @@
       "bloco"
     ],
     "geometrySignature": "06da6f6e24ad1e0173f36c0772880de1eee060e23af4b5bcebb38882d20d7495",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-cornerlarge-rock",
+    "name": "Quina externa ampla de penhasco",
+    "originalModelName": "cliff_cornerLarge_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_cornerLarge_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "05a24065218db62977cc66032348213f6ab8e00ab6b7e359600f8c261e33704c",
+    "bytes": 2376,
+    "description": "Peça grande de quina externa para compor mudanças de direção em penhascos.",
+    "tags": [
+      "penhasco",
+      "rocha",
+      "terreno",
+      "quina"
+    ],
+    "geometrySignature": "0d4234bc0dd3b270274f0db04d46e079e816805712b39a35942a4363ad07d583",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-cornerinnerlarge-rock",
+    "name": "Quina interna ampla de penhasco",
+    "originalModelName": "cliff_cornerInnerLarge_rock.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_cornerInnerLarge_rock.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "03b7038dfc6449f646e789819014f3a26548a64ef42d028979c00df949c5d49f",
+    "bytes": 4296,
+    "description": "Peça grande de quina interna para unir paredes de penhasco em ângulo.",
+    "tags": [
+      "penhasco",
+      "rocha",
+      "terreno",
+      "quina"
+    ],
+    "geometrySignature": "06be8bca1c25d6e0121d72acc0d184b9df3e4c882349f7cf4f0ee51523fc526d",
     "animationCount": 0
   },
   {
@@ -1170,6 +1284,30 @@
     "animationCount": 24
   },
   {
+    "id": "k_actor_quaternius_rgjxf570zk",
+    "name": "Ovelha",
+    "originalModelName": "Sheep",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/sheep_rgjxf570zk.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/rgJXF570ZK",
+    "sourceDownload": "https://static.poly.pizza/d42145b6-ae20-48cd-ba36-63b03f901c32.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "0b259e1a5dbf4463901667e11529f229193a6f3869cecf30508f8cb5bbe3131f",
+    "bytes": 223324,
+    "description": "Modelo 3D original de Sheep, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "0632fd19d3ee2ad6d5c6eb18d7d496df57f5b46633e994da73937ff54db225b6",
+    "animationCount": 8
+  },
+  {
     "id": "web_animals_fox",
     "name": "Raposa",
     "category": "pets",
@@ -1458,6 +1596,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_modular_buildings_building_sample_house_a",
+    "name": "Casa modular de amostra A",
+    "originalModelName": "building-sample-house-a.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/modular-buildings/building_sample_house_a.glb",
+    "author": "Kenney",
+    "pack": "Modular Buildings",
+    "sourcePage": "https://kenney.nl/assets/modular-buildings",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5e1cb8d7cf36c7038dfd8d5df02d8e0f74b370dd408af7955b91e906cc84b130",
+    "bytes": 35920,
+    "description": "Edifício residencial montado a partir de peças modulares.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "modular buildings"
+    ],
+    "geometrySignature": "026eddb48b3c9bb9c311fd0d453da01491ec4693b45d156ed0cf51939f354bb5",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_city_kit_suburban_building_type_a",
     "name": "Casa suburbana tipo A",
     "originalModelName": "building-type-a.glb",
@@ -1501,6 +1662,29 @@
       "city kit roads"
     ],
     "geometrySignature": "0420c9b8a9817db228e3151a0c415ea6d6b480fedb3fd7264f3c9ff99cce30e2",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_building_kit_column_wide",
+    "name": "Coluna larga de construção",
+    "originalModelName": "column-wide.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/building-kit/column_wide.glb",
+    "author": "Kenney",
+    "pack": "Building Kit",
+    "sourcePage": "https://kenney.nl/assets/building-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "bec02b34705a7f4e7c4d511b64ae2bbdb2a00419397cd7affe4c1724b6bea607",
+    "bytes": 14448,
+    "description": "Coluna larga modular de suporte arquitetônico.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "building kit"
+    ],
+    "geometrySignature": "092fd152d53e6392a9654d7f417818a3a48afcdb8a6c82c97ef33b220b177089",
     "animationCount": 0
   },
   {
@@ -1791,6 +1975,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_actor_car_kit_delivery_flat",
+    "name": "Caminhão de entregas plataforma",
+    "originalModelName": "delivery-flat",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/delivery-flat.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "5aacd8194a851d90d2f6b0b50df87a729648b573bcdf4e55488c07c357ce4725",
+    "bytes": 226876,
+    "description": "Modelo 3D original Caminhão de entregas plataforma do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "01264ed61274c6326d41dd72433730b16cf532701f7d50ec40488d78b621b524",
+    "animationCount": 0
+  },
+  {
     "id": "kenney_objects_canoe",
     "name": "Canoa",
     "category": "vehicles",
@@ -1829,6 +2036,29 @@
       "low-poly"
     ],
     "geometrySignature": "04eb8c59b2f360f8108edf8946040974f1e36899bc93a1434abf59b86b72940a",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_house_b",
+    "name": "Casa-barco B",
+    "originalModelName": "boat-house-b",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-house-b.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "2ede12092f920d508c6565c0d08c55eef223d3a2bca2f0c302f5566c33e88c45",
+    "bytes": 45188,
+    "description": "Modelo 3D original Casa-barco B do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "027dd6609a010ca3685da78fce91ef452510938963ca9239e99016c286631c4c",
     "animationCount": 0
   },
   {

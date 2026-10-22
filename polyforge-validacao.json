@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 75,
+  "catalogueCount": 85,
   "models": [
     {
-      "id": "k_actor_mini_characters_character_female_d",
+      "id": "k_actor_mini_characters_character_female_e",
       "meshes": 2,
-      "triangles": 797,
+      "triangles": 756,
       "textures": 2,
       "preserved": true,
       "bounds": [
-        1.9784405445452489,
+        2.1415066864848207,
         2,
-        1.2882324256624882
+        1.471262508438477
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_xmmx6vqp3r",
+      "id": "k_actor_quaternius_rgjxf570zk",
       "meshes": 1,
-      "triangles": 2876,
+      "triangles": 2528,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.7472918940706585,
-        0.7354808296178434,
-        1.7000000000000002
+        0.6479341443971507,
+        1.0400411127542821,
+        1.6999999999999997
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_cliff-blockslope-rock",
-      "meshes": 2,
-      "triangles": 70,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        3.0000000000000004,
-        2.5000000875539286,
-        2.5000000750000027
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_roads_dumpster",
-      "meshes": 3,
-      "triangles": 234,
-      "textures": 3,
-      "preserved": true,
-      "bounds": [
-        1.4864859814363829,
-        1.1321172131400068,
-        2
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_car_kit_firetruck",
-      "meshes": 6,
-      "triangles": 2767,
-      "textures": 6,
-      "preserved": true,
-      "bounds": [
-        0.8823529737020706,
-        1.0000000438746581,
-        1.9999999999999998
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_props_food_avocado",
+      "id": "k_nature_cliff-cornerinnerlarge-rock",
       "meshes": 1,
       "triangles": 44,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.4054354696442999,
-        2,
-        1.622857222545763
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_nature_cliff-cave-rock",
-      "meshes": 1,
-      "triangles": 64,
       "textures": 0,
       "preserved": true,
       "bounds": [
         3,
         3,
-        0.5055
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_world_castle_kit_tower_hexagon_base",
+      "id": "k_world_building_kit_column_wide",
       "meshes": 1,
-      "triangles": 68,
+      "triangles": 38,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        1.3740458251448984,
+        0.5833333002196431,
         2,
-        1.189958646204649
+        0.5833333002196431
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_watercraft_kit_boat_house_a",
-      "meshes": 1,
-      "triangles": 408,
-      "textures": 1,
+      "id": "k_actor_car_kit_delivery_flat",
+      "meshes": 5,
+      "triangles": 2574,
+      "textures": 5,
       "preserved": true,
       "bounds": [
-        1.1531008844385453,
-        0.9356158885359157,
+        0.9230769907934475,
+        0.8307692550343188,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_space_kit_bones",
+      "id": "k_props_food_bacon",
       "meshes": 1,
-      "triangles": 168,
+      "triangles": 40,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.5,
+        0.11538462420187084,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_nature_cliff-cornerlarge-rock",
+      "meshes": 1,
+      "triangles": 12,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.0000000000000004,
-        1.02670066171349,
-        1.35156721615974
+        1.2555000186,
+        3,
+        1.25549997
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_modular_buildings_building_sample_house_a",
+      "meshes": 1,
+      "triangles": 312,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.095642739794091,
+        1.1437498841434786,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_house_b",
+      "meshes": 1,
+      "triangles": 380,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.9645555178932032,
+        0.7917820317769764,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_chimney",
+      "meshes": 2,
+      "triangles": 140,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        0.4,
+        2,
+        0.4
       ],
       "gl": 0
     }
