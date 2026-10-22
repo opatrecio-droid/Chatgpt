@@ -342,6 +342,29 @@
     "animationCount": 32
   },
   {
+    "id": "k_actor_mini_characters_character_male_e",
+    "name": "Personagem masculina E",
+    "originalModelName": "character-male-e",
+    "category": "characters",
+    "file": "assets/models/expansion/actors/mini-characters/character-male-e.glb",
+    "author": "Kenney",
+    "pack": "Mini Characters (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/mini-characters",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ea696cc80aefd8b4d38c374be1f44eaa1afa91b7b8b6d69a5a9984a445622213",
+    "bytes": 251000,
+    "description": "Modelo 3D original Pessoa personagem masculina E do pacote oficial mini-characters, publicado por Kenney.",
+    "tags": [
+      "pessoa",
+      "personagem",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "034fe94275d225b4f0e6722ead7810553c466d2143df99a4d5020afd6ad109aa",
+    "animationCount": 32
+  },
+  {
     "id": "web_nature_bush_with_flowers",
     "name": "Arbusto florido",
     "category": "nature",
@@ -554,6 +577,28 @@
       "amarela"
     ],
     "geometrySignature": "094150283632cb77a11798ab1a2b91c27bd3d2f90a6f9e728ac80869ac2aed01",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_flower-yellowb",
+    "name": "Flor amarela B",
+    "originalModelName": "flower_yellowB.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/flower_yellowB.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "aaa8707779a5de59f881f80185bc507b35ec3fd5f23a39d6447ef61141dcd4f5",
+    "bytes": 11256,
+    "description": "Flor amarela individual com forma distinta para variar canteiros naturais.",
+    "tags": [
+      "flor",
+      "planta",
+      "amarela"
+    ],
+    "geometrySignature": "05825018d42755dc402679ad2857a4a929fa3bc8eeaca215654d5e1e9ec4bd75",
     "animationCount": 0
   },
   {
@@ -812,6 +857,29 @@
       "parede"
     ],
     "geometrySignature": "0477444de3907bba462f476d735d1d304f1895c583b1e033b87d63496a5e555e",
+    "animationCount": 0
+  },
+  {
+    "id": "k_nature_cliff-blockcave-stone",
+    "name": "Penhasco bloco caverna pedra",
+    "originalModelName": "cliff_blockCave_stone.glb",
+    "category": "nature",
+    "file": "assets/models/expansion/nature/nature-kit/cliff_blockCave_stone.glb",
+    "author": "Kenney",
+    "pack": "Nature Kit",
+    "sourcePage": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "f02a4190d8428722f00583dc751168c84fb1227bac35c517f2dcad58cb327c7a",
+    "bytes": 5436,
+    "description": "Modelo estilizado de penhasco bloco caverna pedra, malha original do pacote Nature Kit.",
+    "tags": [
+      "penhasco",
+      "bloco",
+      "caverna",
+      "pedra"
+    ],
+    "geometrySignature": "063b3bf7bd950e42f6b52e25c23bded13994232787809c7975f64171dd22638b",
     "animationCount": 0
   },
   {
@@ -1465,6 +1533,30 @@
     "animationCount": 8
   },
   {
+    "id": "k_actor_quaternius_9nglbtpder",
+    "name": "Pombo",
+    "originalModelName": "Pigeon",
+    "category": "pets",
+    "file": "assets/models/expansion/actors/quaternius-polypizza/pigeon_9nglbtpder.glb",
+    "author": "Quaternius",
+    "pack": "Modelos Quaternius na Poly Pizza",
+    "sourcePage": "https://poly.pizza/m/9NGlBTpDEr",
+    "sourceDownload": "https://static.poly.pizza/2ad33f9e-e0d5-4a11-821b-7aafe8d13dd3.glb.br",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "df8ae4e405a14d7b7d9f9354039b39be0dfe0ac5b53d373b5b660af33deaf96c",
+    "bytes": 110548,
+    "description": "Modelo 3D original de Pigeon, publicado por Quaternius na Poly Pizza sob CC0.",
+    "tags": [
+      "animal",
+      "fauna",
+      "quaternius",
+      "low-poly"
+    ],
+    "geometrySignature": "01b0a9a06d39f8f2a9f62f25efcd5e93acbdcdd6429cb806a2fe069f31df0591",
+    "animationCount": 9
+  },
+  {
     "id": "k_actor_quaternius_u35l6up5vj",
     "name": "Porco",
     "originalModelName": "Pig",
@@ -1854,6 +1946,29 @@
       "banana"
     ],
     "geometrySignature": "0207bcd6283a0d2eda8489cd46269142cd7463c86f6914e52780d0369a8c678b",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_space_kit_desk_chairStool",
+    "name": "Banqueta de escritório",
+    "originalModelName": "desk_chairStool",
+    "category": "props",
+    "file": "assets/models/expansion/actors/space-kit/desk_chairStool.glb",
+    "author": "Kenney",
+    "pack": "Space Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/space-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "69c08bff6697b6cd373c2c18c1b638c2f88cf93fe02d2e2a62b598aff50f1cba",
+    "bytes": 6896,
+    "description": "Modelo 3D original Desk Chairstool do pacote oficial space-kit, publicado por Kenney.",
+    "tags": [
+      "objeto",
+      "item",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "19bc809b09a503be6df15dbd9de7217b0e5ad579d11ade28a1e19b50a3330c3c",
     "animationCount": 0
   },
   {
@@ -2281,6 +2396,29 @@
     "animationCount": 0
   },
   {
+    "id": "k_world_city_kit_industrial_chimney_medium",
+    "name": "Chaminé industrial média",
+    "originalModelName": "chimney-medium.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-industrial/chimney_medium.glb",
+    "author": "Kenney",
+    "pack": "City Kit Industrial",
+    "sourcePage": "https://kenney.nl/assets/city-kit-industrial",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "9cc9a43cc4e67687ce6ade02c68f9137523b11c98f05530e27a21de940e7704d",
+    "bytes": 27064,
+    "description": "Chaminé industrial de porte médio.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit industrial"
+    ],
+    "geometrySignature": "08e47b4416a648b43b2602f1aecd86d084fe83a5715c21701f4ece8f966709b2",
+    "animationCount": 0
+  },
+  {
     "id": "k_world_building_kit_column_wide",
     "name": "Coluna larga de construção",
     "originalModelName": "column-wide.glb",
@@ -2411,6 +2549,29 @@
     "bytes": 9284,
     "description": "Original Kenney Nature Kit low-poly campfire logs model, preserved from the pack GLB.",
     "originalModelName": "Campfire Logs",
+    "animationCount": 0
+  },
+  {
+    "id": "k_props_food_bottle_ketchup",
+    "name": "Garrafa de ketchup",
+    "originalModelName": "bottle-ketchup",
+    "category": "props",
+    "file": "assets/models/expansion/props/food-kit/bottle-ketchup.glb",
+    "author": "Kenney",
+    "pack": "Food Kit",
+    "sourcePage": "https://kenney.nl/assets/food-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "a4d15af612c3c1d1c0cc1cab01c550d917a9ef2dc3276f0003a1ed9e7ab1c9a1",
+    "bytes": 20388,
+    "description": "Garrafa de ketchup, modelo 3D estilizado do Food Kit.",
+    "tags": [
+      "alimento",
+      "comida",
+      "garrafa",
+      "ketchup"
+    ],
+    "geometrySignature": "02c39beb69ef2dfd7cdf443bad55d82974771abdb68e20affd0aab34e1c9b17c",
     "animationCount": 0
   },
   {
@@ -2566,6 +2727,29 @@
       "low-poly"
     ],
     "geometrySignature": "05d0d20f59313d37de7e1b2fb6cb79dbbfc6d43f8fa588ef6514a5d041007464",
+    "animationCount": 0
+  },
+  {
+    "id": "k_world_city_kit_roads_bridge_pillar_wide",
+    "name": "Pilar largo de ponte",
+    "originalModelName": "bridge-pillar-wide.glb",
+    "category": "props",
+    "file": "assets/models/expansion/world/city-kit-roads/bridge_pillar_wide.glb",
+    "author": "Kenney",
+    "pack": "City Kit Roads",
+    "sourcePage": "https://kenney.nl/assets/city-kit-roads",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "cfadd61f0c12a0ffed47d6d709266c14d1980ef52dfff38949ee33373c4ba078",
+    "bytes": 16968,
+    "description": "Pilar largo para sustentar uma ponte urbana.",
+    "tags": [
+      "urbano",
+      "construção",
+      "low-poly",
+      "city kit roads"
+    ],
+    "geometrySignature": "0059e6028ea167d8512d06780a20de9745ee78de78fee98b7c5562bc8b42be61",
     "animationCount": 0
   },
   {
@@ -3202,6 +3386,52 @@
       "low-poly"
     ],
     "geometrySignature": "0293d5a5c4129811b4a114d850c3664d1d63b71cfdd7b6fe8dcc3bc6ac27105c",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_car_kit_kart_oopi",
+    "name": "Kart Oopi",
+    "originalModelName": "kart-oopi",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/car-kit/kart-oopi.glb",
+    "author": "Kenney",
+    "pack": "Car Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/car-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "d277b5916d9d2c4a4a1614f5e2f8e8636c02d0c8db6b62863ec512dd402a10ca",
+    "bytes": 248572,
+    "description": "Modelo 3D original Kart Oopi do pacote oficial car-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "0128cd288b70dc0637f09f6e8b748e8523bce56f8fa1775a46b45c7316b1976d",
+    "animationCount": 0
+  },
+  {
+    "id": "k_actor_watercraft_kit_boat_speed_a",
+    "name": "Lancha esportiva A",
+    "originalModelName": "boat-speed-a",
+    "category": "vehicles",
+    "file": "assets/models/expansion/actors/watercraft-kit/boat-speed-a.glb",
+    "author": "Kenney",
+    "pack": "Watercraft Kit (Kenney)",
+    "sourcePage": "https://kenney.nl/assets/watercraft-kit",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "ea12b0a4807955eb84260eaeb9f92f4d6267cdee824cce8c9903ba2a14786d46",
+    "bytes": 25388,
+    "description": "Modelo 3D original Boat Speed A do pacote oficial watercraft-kit, publicado por Kenney.",
+    "tags": [
+      "veículo",
+      "transporte",
+      "kenney",
+      "low-poly"
+    ],
+    "geometrySignature": "09a14cae394b2596ab6b32b22b3eefab0f50a04ecd20cceae5cbe9acf59de4cb",
     "animationCount": 0
   },
   {

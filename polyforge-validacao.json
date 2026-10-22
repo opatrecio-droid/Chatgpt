@@ -1,133 +1,133 @@
 {
-  "catalogueCount": 135,
+  "catalogueCount": 145,
   "models": [
     {
-      "id": "k_actor_mini_characters_character_male_d",
+      "id": "k_actor_mini_characters_character_male_e",
       "meshes": 2,
-      "triangles": 711,
+      "triangles": 710,
       "textures": 2,
       "preserved": true,
       "bounds": [
-        2.1258223612732103,
+        2.2698412799886145,
         2,
-        0.9421396291964326
+        1.0117853091993378
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_quaternius_37wofocozg",
+      "id": "k_actor_quaternius_9nglbtpder",
       "meshes": 4,
-      "triangles": 5016,
+      "triangles": 2184,
       "textures": 0,
       "preserved": true,
       "bounds": [
         1.7,
-        0.9856322645699311,
-        0.5690495043750705
+        1.304325633688817,
+        1.4558024509962844
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_flower-redc",
-      "meshes": 3,
-      "triangles": 78,
+      "id": "k_nature_flower-yellowb",
+      "meshes": 2,
+      "triangles": 154,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.330283870967742,
-        3.0000000000000004,
-        2.336245935483871
+        2.600572441950051,
+        1.98804633520152,
+        3
       ],
       "gl": 0
     },
     {
-      "id": "k_world_city_kit_suburban_path_stones_messy",
+      "id": "k_world_city_kit_industrial_chimney_medium",
       "meshes": 1,
-      "triangles": 36,
+      "triangles": 160,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.8613473305242951,
-        0.05534793085869758,
-        2
+        0.467532466728222,
+        2,
+        0.467532466728222
       ],
       "gl": 0
     },
     {
-      "id": "k_actor_car_kit_kart_ooli",
+      "id": "k_actor_car_kit_kart_oopi",
       "meshes": 6,
-      "triangles": 2706,
+      "triangles": 2726,
       "textures": 6,
       "preserved": true,
       "bounds": [
-        1.3647992016577506,
+        1.36479922253131,
         1.8618494340723113,
         2
       ],
       "gl": 0
     },
     {
-      "id": "k_props_food_beet",
+      "id": "k_props_food_bottle_ketchup",
       "meshes": 1,
-      "triangles": 100,
+      "triangles": 96,
       "textures": 1,
       "preserved": true,
       "bounds": [
-        0.7385268446648122,
+        0.7331432376034315,
         2,
-        0.7385268446648122
+        0.8465609189788015
       ],
       "gl": 0
     },
     {
-      "id": "k_nature_flower-yellowa",
+      "id": "k_nature_cliff-blockcave-stone",
+      "meshes": 2,
+      "triangles": 56,
+      "textures": 0,
+      "preserved": true,
+      "bounds": [
+        3,
+        3,
+        3
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_world_city_kit_roads_bridge_pillar_wide",
+      "meshes": 1,
+      "triangles": 38,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        0.5600000023841858,
+        2,
+        0.5600000023841858
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_watercraft_kit_boat_speed_a",
+      "meshes": 1,
+      "triangles": 156,
+      "textures": 1,
+      "preserved": true,
+      "bounds": [
+        1.0593471222277209,
+        0.8902076823840159,
+        2
+      ],
+      "gl": 0
+    },
+    {
+      "id": "k_actor_space_kit_desk_chairStool",
       "meshes": 2,
       "triangles": 76,
       "textures": 0,
       "preserved": true,
       "bounds": [
-        2.47944187012987,
-        3,
-        2.821699636363636
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_world_city_kit_industrial_chimney_large",
-      "meshes": 1,
-      "triangles": 218,
-      "textures": 1,
-      "preserved": true,
-      "bounds": [
-        1.2705881098974983,
+        1.7777779041975401,
         2,
-        1.2705881098974983
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_watercraft_kit_boat_sail_b",
-      "meshes": 2,
-      "triangles": 426,
-      "textures": 2,
-      "preserved": true,
-      "bounds": [
-        0.7967211875091159,
-        2,
-        1.8166136333825285
-      ],
-      "gl": 0
-    },
-    {
-      "id": "k_actor_space_kit_desk_chairArms",
-      "meshes": 3,
-      "triangles": 128,
-      "textures": 0,
-      "preserved": true,
-      "bounds": [
-        1.4545454545454546,
-        2,
-        0.8727272727272727
+        1.7777779041975401
       ],
       "gl": 0
     }
