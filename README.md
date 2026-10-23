@@ -1,3 +1,13 @@
+## Atualização acumulada — 23/10/2026
+
+**[Baixar pacote PolyForge completo (ZIP, 1,37 GiB)](https://media.githubusercontent.com/media/opatrecio-droid/Chatgpt/polyforge-download-2026-10-23/downloads/polyforge-atualizacao-2026-10-23.zip)** — reúne o estúdio HTML 3D, 3.035 modelos GLB, biblioteca animada 2D com 1.977 bases e biblioteca animada 2.5D parcial com 1.764 pares completos. Inclui também a galeria HTML offline, catálogos, fontes, hashes e créditos.
+
+Extraia o ZIP e abra `index.html` para o estúdio 3D ou `artes-animadas.html` para pré-visualizar as artes. A geração 2.5D foi interrompida; a biblioteca ficou abaixo das 2.000 previstas e sem auditoria perceptual final.
+
+SHA-256: `25eeb7b82489b87e401f7362ba9049eec88724ea0289d8a4597b4e1ced9fe339`.
+
+---
+
 # PolyForge — estúdio e arquivos 3D
 
 ## Atualização acumulada — 3.035 modelos
