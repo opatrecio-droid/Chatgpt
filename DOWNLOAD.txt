@@ -1,14 +1,8 @@
-Polyforge — atualização 2026-10-23
+Polyforge — entrega reunida em uma pasta
 
-O pacote único tem 2,55 GB e foi dividido em duas partes para o download. Baixe as duas partes na mesma pasta. O ZIP final contém artes e modelos, além de `audio/` com o estúdio HTML e 10.000 sons categorizados.
+Pasta de download e instruções:
+https://github.com/opatrecio-droid/Chatgpt/tree/polyforge-download-2026-10-23/downloads/Polyforge-Completo
 
-Downloads:
-- Parte 1: https://media.githubusercontent.com/media/opatrecio-droid/Chatgpt/polyforge-download-2026-10-23/downloads/polyforge-atualizacao-2026-10-23.part00
-- Parte 2: https://media.githubusercontent.com/media/opatrecio-droid/Chatgpt/polyforge-download-2026-10-23/downloads/polyforge-atualizacao-2026-10-23.part01
-- SHA-256: https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/polyforge-download-2026-10-23/downloads/SHA256SUMS.txt
+Pacote único de 2,55 GB distribuído em duas partes. Inclui os modelos e artes já entregues, os estúdios HTML e 10.000 áudios. O instalador baixar-polyforge.py baixa, verifica e extrai tudo na pasta Polyforge/.
 
-Una as partes, nessa ordem:
-- Windows (Prompt de Comando): `copy /b polyforge-atualizacao-2026-10-23.part00+polyforge-atualizacao-2026-10-23.part01 polyforge-atualizacao-2026-10-23.zip`
-- macOS/Linux: `cat polyforge-atualizacao-2026-10-23.part00 polyforge-atualizacao-2026-10-23.part01 > polyforge-atualizacao-2026-10-23.zip`
-
-Confira o SHA-256 do ZIP unido: `ae249454235e2ec5c7e68f7d20b37554152634b47b8a8f6ec2244afae3d53932`. Depois extraia o ZIP. Para testar os sons, abra `audio/index.html`, carregue `audio/catalog.json` e escolha `audio/assets/` quando solicitado.
+Leia downloads/Polyforge-Completo/README.md.

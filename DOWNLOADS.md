@@ -1,3 +1,11 @@
+# Entrega atual
+
+**[Pasta completa de download — modelos, artes, HTML e 10.000 áudios](https://github.com/opatrecio-droid/Chatgpt/tree/polyforge-download-2026-10-23/downloads/Polyforge-Completo)**
+
+Pacote de 2,55 GB em duas partes, com instalador para reunir tudo em uma pasta `Polyforge/`. Abra o link para baixar e seguir as instruções.
+
+---
+
 # PolyForge — estúdio e arquivos 3D
 
 ## Atualização acumulada — 3.035 modelos
