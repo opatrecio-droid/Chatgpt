@@ -1,0 +1,20 @@
+name: Download de Ecos do Horizonte
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  anexar-html:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar e conferir o HTML publicado
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 --output ecos-do-horizonte.html https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/c644654fcfe7e7aa4c05942383de1d1d6598f69a/jogos/ecos-do-horizonte/ecos-do-horizonte.html
+          sha256sum --check <<'CHECKSUM'
+          d22b0a797fd17500ff3f96798bdfe57287bd92e1824cd264a15d13a48ebc2c55  ecos-do-horizonte.html
+          CHECKSUM
+      - name: Publicar anexo para download direto
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload ecos-do-horizonte-v1.0.0 ecos-do-horizonte.html --repo "$GITHUB_REPOSITORY" --clobber
