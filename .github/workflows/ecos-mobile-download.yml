@@ -1,0 +1,20 @@
+name: Download mobile de Ecos do Horizonte
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  anexar-html:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar e conferir o jogo mobile
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 --output ecos-do-horizonte-mobile.html https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/8ca5e1f75f391955aed7031ad4619f4152ea77f9/jogos/ecos-do-horizonte/ecos-do-horizonte-mobile.html
+          sha256sum --check <<'CHECKSUM'
+          eb606769b75f36626003aec738c1a6bbee3116fac68337985e7495bbdfa2ffe0  ecos-do-horizonte-mobile.html
+          CHECKSUM
+      - name: Publicar anexo para download direto
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload ecos-do-horizonte-mobile-v1.1.0 ecos-do-horizonte-mobile.html --repo "$GITHUB_REPOSITORY" --clobber
