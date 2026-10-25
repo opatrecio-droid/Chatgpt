@@ -1,60 +1,47 @@
-# Ecos do Horizonte — Toque 2.4
+# Ecos do Horizonte — Vale Ilustrado 2D 3.0
 
-RPG solo 2.5D em português, para jogar no celular com controles por toque. Imagens, animações, áudio, estilos e código ficam incorporados em **um único HTML de aproximadamente 26 MB**.
+RPG solo em português para jogar no celular, com cenário, personagens, criaturas, retratos e equipamentos em **2D ilustrado**. O jogo inteiro fica em **um único HTML de aproximadamente 16,5 MB**, incluindo imagens, animações, efeitos e áudio. Não precisa de pastas adicionais para jogar offline.
 
-- [Baixar diretamente o HTML 2.4](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.4.0/ecos-do-horizonte-v2.4.html).
+- [Baixar diretamente o HTML 2D 3.0](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.0.0/ecos-do-horizonte-v3.0.html).
 - [Jogar no navegador](https://ecos-horizonte-mobile.patrecio.chatgpt.site) — hospedagem da conta proprietária.
-- [Versão anterior 2.3](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.3.0/ecos-do-horizonte-v2.3.html).
+- [Versão anterior 2.4](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.4.0/ecos-do-horizonte-v2.4.html).
 
-## Toque 2.4
+## Vale Ilustrado 2D
 
-As quatro habilidades ficam em arco ao redor do ataque no canto inferior direito. Esquiva, defesa e golpe pesado ficam junto ao ataque. O movimento permanece à esquerda, com cura e corrida acima do direcional. Perto de um personagem, baú ou recurso, o botão de interação ocupa o lugar do golpe pesado; este retorna ao se afastar.
+A vila recebe casas, mercado, oficina, árvores, flores, ruínas e cristais desenhados. Os nove biomas têm vegetação e rochas próprias: palmeiras no deserto, mangues nas raízes, pinheiros da costa, árvores de cinzas na Forja e copas violetas no Eclipse. Os materiais de grama, terra, areia e pedra seguem a mesma pintura.
 
-Toques nas habilidades respondem ao pressionar e funcionam enquanto outro dedo move o personagem. **Ajustes → Controles por toque** oferece os tamanhos Menores, Padrão e Maiores, salvos no navegador. O layout se adapta ao girar a tela.
+Ari tem desenhos direcionais de caminhada, repouso e ataque para as seis famílias de armas. Há visuais de cavaleiro, lâmina longa, montante, adagas, besta, cajado e Pactário. Os inimigos terrestres têm animações e silhuetas próprias: cão de raízes, orc, arqueiro ossário, guardião de pedra, escaravelho de cristal, cogumelo e draco. Espíritos, invocações e guardiões completam o bestiário. Mira, Taren, Dália e Iara têm desenhos próprios, incluindo retratos nas conversas.
 
-**A direção de arte definitiva ainda está em avaliação.** Esta versão mantém as imagens, animações e efeitos da 2.3 como visual provisório. As referências HD-2D não foram aplicadas.
+As 16 habilidades preservam seus efeitos de classe: cortes e lâminas celestes, flechas e folhas, fogo e tempestades, marcas e correntes espectrais. Ícones de habilidades e equipamentos, barras de vida e menus acompanham a interface em azul-petróleo e dourado.
 
-Validação desta atualização: 7 tamanhos de tela, 3 perfis de controle, toque simultâneo de movimento com as 16 habilidades das quatro classes, ataque contínuo, golpe pesado, cura, defesa, interação, cancelamento de toque, rotação, persistência dos ajustes e controles de computador. Testes com Chromium e toque simulado.
+## Jogar no celular
 
-## Recursos da Alvorecer 2.3 mantidos
+Mova com o direcional à esquerda. Segure **Atacar** para repetir golpes. As quatro habilidades ficam em arco ao redor do ataque no canto inferior direito, junto à defesa, esquiva e golpe pesado. A cura fica acima do direcional esquerdo. Perto de uma pessoa, baú ou recurso, o botão de interação ocupa o lugar do golpe pesado.
 
-A câmera padrão mostra mais do mundo. Os botões − / + do minimapa ajustam a distância e salvam a escolha no navegador. O HUD ocupa menos espaço e as copas e construções ficam transparentes quando cobrem personagens próximos.
+É possível mover e usar habilidades ao mesmo tempo. **Menu → Ajustes → Controles por toque** oferece os tamanhos Menores, Padrão e Maiores. A câmera pode ser ajustada pelos botões − / + do minimapa. O jogo se adapta ao celular deitado ou em pé; deitado oferece mais espaço para os dois polegares. Os menus pausam o combate.
 
-O cenário recebe ilustrações de árvores, casas, oficina, mercado, ruínas e rochas, além de materiais de grama, terra, pedra e areia. Os caminhos se misturam ao terreno nas bordas. A densidade das árvores foi ajustada para manter a leitura do combate.
+Comece conversando com Mira. Liberte o acampamento, abra o primeiro tesouro e equipe a arma rara recebida. O painel de objetivo e o rastro dourado indicam o próximo passo. As habilidades despertam nos níveis **1, 2, 4 e 6**.
 
-Há 24 novos ícones ilustrados e efeitos distintos para as 16 habilidades. O Guardião usa cortes, proteção e lâminas celestes; o Errante, flechas, folhas e movimento; o Tecelão, fogo, gelo e tempestade; o Pactário, marcas, portais, invocações e correntes espectrais. Impactos, projéteis, aparos, esquivas e derrotas também têm resposta visual. Os efeitos essenciais permanecem no modo gráfico Leve.
+## Mundo, combate e progressão
 
-O objetivo ativo mostra uma ação direta, distância, marcador e rastro no chão. A sequência inicial pede conversar com Mira, derrotar os três guardas do acampamento, abrir o tesouro e equipar a arma rara recebida. Ao terminar, a jornada segue para as Âncoras. As habilidades despertam nos níveis **1, 2, 4 e 6**.
-
-## Mundo e progressão
-
-O mundo tem 240 × 240 células, nove regiões, nove povoados, 64 acampamentos e nove entradas de masmorras. O atlas permite ampliar, arrastar, marcar destinos e viajar entre Âncoras restauradas.
+O mundo tem 240 × 240 células, nove regiões, nove povoados, 64 acampamentos e nove entradas de masmorras. O atlas permite ampliar, arrastar, marcar destinos e viajar entre Âncoras restauradas. Masmorras têm salas conectadas, tesouros, interruptores e um guardião.
 
 Quatro classes recebem especializações no nível 8, modificadores no 15 e bônus de Mestre no 24. Há talentos, seis famílias de armas, sete espaços de equipamento, quatro conjuntos, atributos adicionais, melhorias, forja e mercado. O combate inclui sequências de três golpes, ataques pesados, vigor, esquiva, defesa, aparo, postura e reações elementais.
 
-Ari e Nimbo precisam restaurar três Âncoras e interromper a máquina de Veyr, que apaga aldeias para sustentar outras. Masmorras têm salas conectadas, tesouros, interruptores e um guardião. Expedições podem ser repetidas indefinidamente. Após o nível 60, o Legado continua; os bônus de combate têm limite para preservar o equilíbrio.
+Ari e Nimbo precisam restaurar três Âncoras e interromper a máquina de Veyr, que apaga aldeias para sustentar outras. Após a campanha, expedições podem ser repetidas indefinidamente. Depois do nível 60, o Legado continua; os bônus de combate têm limite para preservar o equilíbrio.
 
-## Menus, controles e progresso
+## Seu progresso
 
-Mova com o controle à esquerda e segure **Atacar** à direita. É possível mover e atacar ao mesmo tempo. Os menus pausam o combate e têm navegação fixa, filtros, ordenação e comparação de equipamentos. O painel de detalhes preserva a posição da lista.
+O jogo salva neste navegador. Use **Ajustes → Exportar** para guardar uma cópia JSON e **Importar** para mudar de aparelho, navegador ou arquivo. **O progresso das versões 2.x continua compatível.** Masmorras e expedições retomam na entrada do mundo ao reabrir.
 
-O progresso fica no navegador. Use **Ajustes → Exportar** para guardar uma cópia JSON e **Importar** para mudar de navegador, aparelho ou arquivo. Progresso das versões 2.x continua compatível. Masmorras e expedições retomam na entrada do mundo ao reabrir.
-
-O HTML contém todos os recursos de jogo. Se o visualizador de arquivos do aparelho não executar JavaScript, use o link de jogo no navegador.
+Se o visualizador de arquivos do aparelho não executar JavaScript, use o link de jogo no navegador.
 
 ## Validação
 
-Chromium com toque simulado em telas de 320 × 568, 390 × 844, 700 × 350 e 844 × 390: câmera, objetivos, sequência inicial, 16 habilidades, nove regiões, menus, equipamentos, combate das quatro classes, campanha, masmorras, Legado, importação e operação offline. Sem teste em aparelho físico.
+Verificações em Chromium com toque simulado: controles em sete tamanhos de tela e três perfis, movimento com habilidades simultâneas nas quatro classes, poses em oito direções, 16 habilidades, nove biomas, sequência inicial, menus, equipamentos, forja, mercado, campanha, masmorras, Legado, importação e funcionamento offline. Sem teste em aparelho físico.
 
-## Arte e créditos
+## Arte e áudio
 
-Modelos e animações de bibliotecas gratuitas sob **CC0 1.0 Universal**:
+As ilustrações 2D foram criadas para este projeto com a ferramenta de geração de imagens da OpenAI. Os desenhos foram organizados em atlas de sprites e integrados às animações do jogo. Esta edição usa os novos sprites ilustrados no lugar dos modelos renderizados das versões 2.x.
 
-- [KayKit Adventurers](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0)
-- [KayKit Skeletons](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0)
-- [KayKit Medieval Hexagon](https://kaylousberg.itch.io/kaykit-medieval-hexagon)
-- [KayKit Dungeon Remastered](https://kaylousberg.itch.io/kaykit-dungeon-remastered)
-- [Quaternius Ultimate Monsters](https://quaternius.com/packs/ultimatemonsters.html)
-- [RPG Audio — Kenney](https://kenney.nl/assets/rpg-audio)
-
-As novas ilustrações de cenário, materiais de chão, ícones e texturas de efeitos foram criadas com geração de imagens da OpenAI para este projeto. Cão das Raízes, Carapaça de Vidro, Arauto dos Esporos, Máscaras do Véu e Colosso foram modelados e animados em 3D para Ecos do Horizonte. Os créditos também estão em **Ajustes → Arte, áudio e bibliotecas**.
+Áudio: [Kenney — RPG Audio](https://kenney.nl/assets/rpg-audio), sob [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Os créditos também ficam em **Ajustes → Arte, áudio e bibliotecas**.
