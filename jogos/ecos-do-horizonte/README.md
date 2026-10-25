@@ -1,12 +1,22 @@
-# Ecos do Horizonte — Alvorecer 2.3
+# Ecos do Horizonte — Toque 2.4
 
 RPG solo 2.5D em português, para jogar no celular com controles por toque. Imagens, animações, áudio, estilos e código ficam incorporados em **um único HTML de aproximadamente 26 MB**.
 
-- [Baixar diretamente o HTML 2.3](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.3.0/ecos-do-horizonte-v2.3.html).
+- [Baixar diretamente o HTML 2.4](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.4.0/ecos-do-horizonte-v2.4.html).
 - [Jogar no navegador](https://ecos-horizonte-mobile.patrecio.chatgpt.site) — hospedagem da conta proprietária.
-- [Versão anterior 2.2](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.2.0/ecos-do-horizonte-v2.2.html).
+- [Versão anterior 2.3](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.3.0/ecos-do-horizonte-v2.3.html).
 
-## Alvorecer 2.3
+## Toque 2.4
+
+As quatro habilidades ficam em arco ao redor do ataque no canto inferior direito. Esquiva, defesa e golpe pesado ficam junto ao ataque. O movimento permanece à esquerda, com cura e corrida acima do direcional. Perto de um personagem, baú ou recurso, o botão de interação ocupa o lugar do golpe pesado; este retorna ao se afastar.
+
+Toques nas habilidades respondem ao pressionar e funcionam enquanto outro dedo move o personagem. **Ajustes → Controles por toque** oferece os tamanhos Menores, Padrão e Maiores, salvos no navegador. O layout se adapta ao girar a tela.
+
+**A direção de arte definitiva ainda está em avaliação.** Esta versão mantém as imagens, animações e efeitos da 2.3 como visual provisório. As referências HD-2D não foram aplicadas.
+
+Validação desta atualização: 7 tamanhos de tela, 3 perfis de controle, toque simultâneo de movimento com as 16 habilidades das quatro classes, ataque contínuo, golpe pesado, cura, defesa, interação, cancelamento de toque, rotação, persistência dos ajustes e controles de computador. Testes com Chromium e toque simulado.
+
+## Recursos da Alvorecer 2.3 mantidos
 
 A câmera padrão mostra mais do mundo. Os botões − / + do minimapa ajustam a distância e salvam a escolha no navegador. O HUD ocupa menos espaço e as copas e construções ficam transparentes quando cobrem personagens próximos.
 
