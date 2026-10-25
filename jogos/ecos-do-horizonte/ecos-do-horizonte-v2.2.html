@@ -1017,6 +1017,18 @@ document.addEventListener('click',e=>{
  if(handled){e.preventDefault();e.stopImmediatePropagation()}
 },true);
 document.addEventListener('change',e=>{if(e.target.id==='inventory-sort'){inventorySort=e.target.value;refreshInventory()}});
+document.addEventListener('change',async e=>{
+ if(e.target.id!=='import-input')return;e.stopImmediatePropagation();const input=e.target,file=input.files[0],message=$('#save-message'),button=$('#import-save');if(!file)return;
+ if(file.size>1000000){say('Arquivo de progresso grande demais.');input.value='';return}
+ if(button)button.disabled=true;
+ try{
+  const data=JSON.parse(await file.text()),player=data?.player,reserve=player?.inventory?.find?.(it=>it.id===player.reserveId),models=[...new Set([FAMILY_MODELS[player?.equipment?.weapon?.weapon],FAMILY_MODELS[reserve?.weapon]])].filter(Boolean);
+  if(message)message.textContent='Preparando seu progresso…';await Promise.all(models.map(ensureArt));
+  if(!input.isConnected||currentModal!=='settings')return;
+  if(loadGame(data)){saveGame();closeModal();say('Progresso importado com sucesso.');region=-1}else{if(message)message.textContent='Este arquivo não é um progresso válido de Ecos do Horizonte.';say('Este arquivo não é um progresso válido de Ecos do Horizonte.')}
+ }catch{if(message&&input.isConnected)message.textContent='Não foi possível ler este arquivo de progresso.';say('Não foi possível ler este arquivo de progresso.')}
+ finally{input.value='';if(button?.isConnected)button.disabled=false}
+},true);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&currentModal==='inventory'&&inspectorOpen){e.preventDefault();e.stopImmediatePropagation();setInspectorOpen(false)}},true);
 
 try{Object.assign(settings,JSON.parse(localStorage.getItem(SAVE+'-settings')||'{}'))}catch{}if(matchMedia('(prefers-reduced-motion: reduce)').matches){settings.particles=false;settings.shake=false}bootProfessional().then(()=>{buildWorld();makeGround();resize();let hasSave=loadGame();camera=iso(p.x,p.y);seen.add(kxy(p.x,p.y));bind();updateHUD();drawMap(mc,mini.width,mini.height);$('#loading').remove();showIntro(hasSave);requestAnimationFrame(frame);}).catch(error=>{console.error(error);$('#loading').textContent='Não foi possível preparar a arte. Reabra o arquivo.'});
