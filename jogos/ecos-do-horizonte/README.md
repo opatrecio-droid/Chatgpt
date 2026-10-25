@@ -1,10 +1,18 @@
-# Ecos do Horizonte — Vale Ilustrado 2D 3.0
+# Ecos do Horizonte — Vale Ilustrado 2D 3.1
 
-RPG solo em português para jogar no celular, com cenário, personagens, criaturas, retratos e equipamentos em **2D ilustrado**. O jogo inteiro fica em **um único HTML de aproximadamente 16,5 MB**, incluindo imagens, animações, efeitos e áudio. Não precisa de pastas adicionais para jogar offline.
+RPG solo em português para jogar no celular, com cenário, personagens, criaturas, retratos e equipamentos em **2D ilustrado**. O jogo inteiro fica em **um único HTML de aproximadamente 17,4 MB**, incluindo imagens, animações, efeitos e áudio. Não precisa de pastas adicionais para jogar offline.
 
-- [Baixar diretamente o HTML 2D 3.0](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.0.0/ecos-do-horizonte-v3.0.html).
+- [Baixar diretamente o HTML 2D 3.1](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.1.0/ecos-do-horizonte-v3.1.html).
 - [Jogar no navegador](https://ecos-horizonte-mobile.patrecio.chatgpt.site) — hospedagem da conta proprietária.
-- [Versão anterior 2.4](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.4.0/ecos-do-horizonte-v2.4.html).
+- [Versão anterior 3.0](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.0.0/ecos-do-horizonte-v3.0.html).
+
+## Painel do herói · v3.1
+
+Toque no retrato de Ari no canto superior esquerdo para abrir o painel **Herói**. A aba **Equipamentos** exibe o personagem em corpo inteiro, seis espaços de armadura ao redor dele, arma principal, reserva, atributos e conjuntos. Toque em uma peça para comparar, equipar, melhorar ou remover. A **Mochila** reúne busca por nome, tipo ou conjunto, filtros e ordenação.
+
+Na aba **Heróis**, selecione Guardião, Errante, Tecelão ou Pactário e toque em **Jogar com…**. O botão permanece visível no celular. A seleção inicial também funciona ao continuar uma jornada salva. A campanha, nível, recursos e descobertas continuam; cada herói guarda sua especialização, modificadores, talentos, equipamentos e reserva. A troca exige sair de combate e preserva a proporção de vida e energia.
+
+Um herói ainda não usado recebe uma arma inicial de sua família quando necessário, mesmo com a mochila cheia. Essas armas ficam vinculadas e não ocupam os 36 espaços normais. A reciclagem preserva equipamentos e reservas de todos os heróis.
 
 ## Vale Ilustrado 2D
 
@@ -32,13 +40,13 @@ Ari e Nimbo precisam restaurar três Âncoras e interromper a máquina de Veyr, 
 
 ## Seu progresso
 
-O jogo salva neste navegador. Use **Ajustes → Exportar** para guardar uma cópia JSON e **Importar** para mudar de aparelho, navegador ou arquivo. **O progresso das versões 2.x continua compatível.** Masmorras e expedições retomam na entrada do mundo ao reabrir.
+O jogo salva neste navegador. Use **Ajustes → Exportar** para guardar uma cópia JSON e **Importar** para mudar de aparelho, navegador ou arquivo. **O progresso das versões 2.x e 3.0 continua compatível.** Ao trocar de arquivo, exporte o progresso na versão antiga e importe na nova se o navegador não compartilhar o salvamento local. Masmorras e expedições retomam na entrada do mundo ao reabrir.
 
 Se o visualizador de arquivos do aparelho não executar JavaScript, use o link de jogo no navegador.
 
 ## Validação
 
-Verificações em Chromium com toque simulado: controles em sete tamanhos de tela e três perfis, movimento com habilidades simultâneas nas quatro classes, poses em oito direções, 16 habilidades, nove biomas, sequência inicial, menus, equipamentos, forja, mercado, campanha, masmorras, Legado, importação e funcionamento offline. Sem teste em aparelho físico.
+Verificações em Chromium com toque simulado: controles em sete tamanhos de tela e três perfis, movimento com habilidades simultâneas nas quatro classes, poses em oito direções, 16 habilidades, nove biomas, sequência inicial, menus, equipamentos, forja, mercado, campanha, masmorras, Legado, importação e funcionamento offline. Na v3.1, foram verificados ainda o painel do retrato, quatro heróis, evolução e equipamentos individuais, seleção ao continuar, mochila cheia, reciclagem protegida e migração de um salvamento real da v3.0. Sem teste em aparelho físico.
 
 ## Arte e áudio
 
