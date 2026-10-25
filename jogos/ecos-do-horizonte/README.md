@@ -1,18 +1,22 @@
-# Ecos do Horizonte — Despertar 2.1
+# Ecos do Horizonte — Rumos 2.2
 
-RPG solo 2.5D em português, com controles por toque e um mundo aberto. Imagens, animações, áudio, estilos e código ficam incorporados em **um único HTML**.
+RPG solo 2.5D em português, com controles por toque e mundo aberto. Imagens, animações, áudio, estilos e código ficam incorporados em **um único HTML**.
 
-- [Baixar diretamente o HTML 2.1](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.1.0/ecos-do-horizonte-v2.1.html).
+- [Baixar diretamente o HTML 2.2](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.2.0/ecos-do-horizonte-v2.2.html).
 - [Jogar no celular pelo navegador](https://ecos-horizonte-mobile.patrecio.chatgpt.site) — hospedagem da conta proprietária.
-- [Versão anterior 2.0](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.0.0/ecos-do-horizonte-v2.html).
+- [Versão anterior 2.1](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v2.1.0/ecos-do-horizonte-v2.1.html).
 
-## Revisão visual 2.1
+## Menus e movimento 2.2
 
-Os inimigos passam a ter silhuetas distintas das classes jogáveis: cães de raízes, carapaças, seres de esporos, espectros, golens, esqueletos, orcs e demônios. Herói e inimigos não compartilham modelos.
+A orientação das oito direções foi corrigida para todas as classes jogáveis, criaturas, NPCs e companheiros. O controle por toque considera a projeção do mapa, e as diagonais seguem a direção do dedo. A caminhada usa a distância realmente percorrida, incluindo desvio de obstáculos, recuo e investida. Ataques e habilidades preservam sua orientação durante a animação.
 
-Os personagens foram exportados novamente com mais definição e mais poses de animação. Os cenários, retratos e equipamentos também receberam imagens maiores. Câmera, luz e tratamento de cor seguem a mesma direção visual. A resolução do modo automático permanece estável; a adaptação de desempenho reduz efeitos e frequência de desenho.
+O menu tem navegação fixa, retrato do herói, objetivo atual e atalhos. A mochila permite filtrar por tipo e ordenar por raridade, nível ou espaço de equipamento. Ao selecionar uma peça, um painel compara os atributos totais que ela produzirá antes de equipar; fechar o painel preserva a posição da lista. A aba Equipado reúne as sete peças, atributos e conjuntos.
 
-A interface inclui retratos na escolha de classe, imagens dos equipamentos e melhor distribuição da mochila no celular. Avisos de interação ficam ocultos perto de inimigos para liberar a visão do combate. O carregamento prepara as artes necessárias antes de iniciar a partida.
+Ajustes de gráficos e dificuldade têm seleção direta. Telas de evolução, diário, forja, mercado, ajuda e créditos compartilham o estilo visual e a navegação. Imagens de itens não carregam suas animações completas na mochila; a arte de uma arma ainda não preparada é carregada ao equipar, com indicação de progresso.
+
+## Arte e revisão visual
+
+Heróis e inimigos usam modelos distintos: cães de raízes, carapaças, seres de esporos, máscaras espectrais, golens, esqueletos, orcs e demônios. Personagens, cenários, retratos e equipamentos usam artes renderizadas com a mesma câmera, iluminação e tratamento de cor. A resolução do modo automático permanece estável; a adaptação de desempenho reduz efeitos e frequência de desenho.
 
 ## Mundo e progressão
 
@@ -26,13 +30,13 @@ Ari e Nimbo buscam três Âncoras protegidas por guardiões antes do confronto c
 
 No celular, mova com o controle à esquerda e segure **Atacar** à direita. É possível mover e atacar simultaneamente. O menu explica as mecânicas e reúne dificuldade, som e desempenho gráfico.
 
-O progresso fica no armazenamento do navegador. Use **Ajustes → Exportar progresso** para guardar uma cópia JSON e **Importar progresso** para trocar de navegador ou arquivo. Saves da versão 2.0 continuam compatíveis. Masmorras e expedições retomam na entrada do mundo ao reabrir.
+O progresso fica no armazenamento do navegador. Use **Ajustes → Exportar** para guardar uma cópia JSON e **Importar** para trocar de navegador ou arquivo. Progresso das versões 2.0 e 2.1 continua compatível. Masmorras e expedições retomam na entrada do mundo ao reabrir.
 
 O HTML não exige downloads adicionais. Alguns visualizadores de arquivos do celular não executam JavaScript; nesses aparelhos, use o link de jogo no navegador. A validação foi feita em Chromium com toque e telas de 320 × 568 a 844 × 390, sem teste em aparelho físico.
 
 ## Arte e licenças
 
-Bibliotecas profissionais gratuitas, todas sob **CC0 1.0 Universal**:
+Bibliotecas gratuitas, todas sob **CC0 1.0 Universal**:
 
 - [KayKit Adventurers](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0)
 - [KayKit Skeletons](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0)
@@ -41,4 +45,4 @@ Bibliotecas profissionais gratuitas, todas sob **CC0 1.0 Universal**:
 - [Quaternius Ultimate Monsters](https://quaternius.com/packs/ultimatemonsters.html)
 - [RPG Audio — Kenney](https://kenney.nl/assets/rpg-audio)
 
-Cão das Raízes, Carapaça de Vidro, Arauto dos Esporos, Máscaras do Véu e Colosso, além de vegetação e fogueiras, foram modelados e animados em 3D para este projeto. Os créditos também estão em **Ajustes → Créditos e bibliotecas de arte**.
+Cão das Raízes, Carapaça de Vidro, Arauto dos Esporos, Máscaras do Véu e Colosso, além de vegetação e fogueiras, foram modelados e animados em 3D para este projeto. Créditos e licenças também estão em **Ajustes → Arte, áudio e bibliotecas**.
