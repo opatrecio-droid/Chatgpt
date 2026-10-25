@@ -1,12 +1,26 @@
-# Ecos do Horizonte — Vale Ilustrado 2D 3.1
+# Ecos do Horizonte — Vale Ilustrado 2D 3.2
 
-RPG solo em português para jogar no celular, com cenário, personagens, criaturas, retratos e equipamentos em **2D ilustrado**. O jogo inteiro fica em **um único HTML de aproximadamente 17,4 MB**, incluindo imagens, animações, efeitos e áudio. Não precisa de pastas adicionais para jogar offline.
+RPG solo em português para jogar no celular, com cenário, personagens, criaturas, retratos e equipamentos em **2D ilustrado**. O jogo inteiro fica em **um único HTML de aproximadamente 17,5 MB**, incluindo imagens, animações, efeitos e áudio. Não precisa de pastas adicionais para jogar offline.
 
-- [Baixar diretamente o HTML 2D 3.1](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.1.0/ecos-do-horizonte-v3.1.html).
+- [Baixar diretamente o HTML 2D 3.2](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.2.0/ecos-do-horizonte-v3.2.html).
 - [Jogar no navegador](https://ecos-horizonte-mobile.patrecio.chatgpt.site) — hospedagem da conta proprietária.
-- [Versão anterior 3.0](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.0.0/ecos-do-horizonte-v3.0.html).
+- [Versão anterior 3.1](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v3.1.0/ecos-do-horizonte-v3.1.html).
 
-## Painel do herói · v3.1
+## Jornada Viva · v3.2
+
+A revisão foi orientada por referências da Riot Games, Game Accessibility Guidelines, MDN, web.dev e Ian Schreiber, com pesquisa, diagnóstico e critérios de aceite registrados no [plano detalhado e resultados](plano-evolucao-v3.2.md).
+
+- **Treino de combate:** acessível pelo menu nos povoados, com alvo, contador de dano e ataques opcionais para praticar aparos. Não dá recompensas e preserva local e recursos ao sair ou recarregar.
+- **Combate mais claro:** selecionar um inimigo por toque não desloca o herói; a mira exige alvo visível, e habilidades de projétil não gastam energia sem alvo válido. Avisos de ataque têm contorno e indicação do tipo de perigo.
+- **Jornada com direção:** campanha em etapas, próximos marcos, pedidos acompanháveis, recursos e torres como destinos e atividades de preparação antes dos guardiões.
+- **Equipamentos:** comparação de dano por golpe e de dano por segundo estimado, levando em conta a velocidade da família de arma e a sequência de três golpes.
+- **Saque protegido:** a mochila cheia preserva equipamento e reserva de todos os heróis. Últimos achados mostra peças guardadas ou convertidas em fragmentos.
+- **Fronteiras:** ameaças em controles grandes, três rotas, escala aplicada às salas e ao chefe, recordes e recompensa única de conclusão.
+- **Conforto:** cache limitado de imagens e luz, fundo estático nos menus e ajustes de contraste e números de combate.
+
+O plano inclui os resultados completos, as fórmulas e as limitações de desempenho. Os testes usam Chromium com toque simulado, sem aparelho físico. Sob CPU bastante reduzida, o combate continua sendo o principal limite de fluidez; não há garantia de 60 FPS em celulares.
+
+## Painel do herói · preservado da v3.1
 
 Toque no retrato de Ari no canto superior esquerdo para abrir o painel **Herói**. A aba **Equipamentos** exibe o personagem em corpo inteiro, seis espaços de armadura ao redor dele, arma principal, reserva, atributos e conjuntos. Toque em uma peça para comparar, equipar, melhorar ou remover. A **Mochila** reúne busca por nome, tipo ou conjunto, filtros e ordenação.
 
@@ -40,7 +54,7 @@ Ari e Nimbo precisam restaurar três Âncoras e interromper a máquina de Veyr, 
 
 ## Seu progresso
 
-O jogo salva neste navegador. Use **Ajustes → Exportar** para guardar uma cópia JSON e **Importar** para mudar de aparelho, navegador ou arquivo. **O progresso das versões 2.x e 3.0 continua compatível.** Ao trocar de arquivo, exporte o progresso na versão antiga e importe na nova se o navegador não compartilhar o salvamento local. Masmorras e expedições retomam na entrada do mundo ao reabrir.
+O jogo salva neste navegador. Use **Ajustes → Exportar** para guardar uma cópia JSON e **Importar** para mudar de aparelho, navegador ou arquivo. **O progresso das versões 2.x, 3.0 e 3.1 continua compatível.** Ao trocar de arquivo, exporte o progresso na versão antiga e importe na nova se o navegador não compartilhar o salvamento local. Masmorras e expedições retomam na entrada do mundo ao reabrir.
 
 Se o visualizador de arquivos do aparelho não executar JavaScript, use o link de jogo no navegador.
 
