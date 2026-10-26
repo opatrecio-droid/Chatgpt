@@ -1,0 +1,8581 @@
+{
+  "at": "2026-10-26T18:09:01.593695+00:00",
+  "version": "5.0.0-candidata.1",
+  "sha256": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb",
+  "bytes": 7311157,
+  "acceptance": "Candidata jogável; checklist integral não aprovado.",
+  "download": {
+    "url": "https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v5.0.0-candidate.1/ecos-do-horizonte-v5-candidata.html",
+    "status": 200,
+    "contentDisposition": "attachment; filename=ecos-do-horizonte-v5-candidata.html",
+    "contentType": "application/octet-stream",
+    "bytes": 7311157,
+    "sha256": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb",
+    "matchesTestedHTML": true
+  },
+  "github": {
+    "repository": "opatrecio-droid/Chatgpt",
+    "commit": "2edf4821ca4711ae7357ee2fef69c265a1c9e0e7",
+    "blob": "3ef6f308a00e23525b409322975d1efdd8b5c22f",
+    "path": "jogos/ecos-do-horizonte/ecos-do-horizonte-v5-candidata.html",
+    "sha256": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb",
+    "bytes": 7311157
+  },
+  "site": {
+    "id": "appgdep_6adf965b353c81919004ccea6041661e",
+    "project_id": "appgprj_6adcb31e3d2881918ec98d95afa24a91",
+    "version_id": "appgprj_6adcb31e3d2881918ec98d95afa24a91~appgver_3802265a306881918e37aed7140423db",
+    "status": "succeeded",
+    "url": "https://ecos-horizonte-mobile.patrecio.chatgpt.site",
+    "updated_at": "2026-10-26T18:05:33.787832+00:00",
+    "commit_sha": "0c2b5e8d9922302b946e89dac29e4cb58d46428f",
+    "html_sha256": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb"
+  },
+  "artifactFreeze": {
+    "final": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb",
+    "previousLogicRevision": "091773bf8d443968bc897c808bf9c235bca989eca95697c592fcde9d90ff8130",
+    "lastChanges": "Padding dos submenus, textura das passarelas e filtro de decorações sobre água; testes de layout/toque, conexões das regiões e execução offline repetidos no arquivo final. Relatórios anteriores conservam seu hash real."
+  },
+  "tests": {
+    "systems-verification.json": {
+      "checks": [
+        "catalog counts and category identities are exact",
+        "600,000 rarity rolls and 6,000 deterministic affix budgets have no relic rolls or duplicate groups",
+        "three-signature cap validates resulting gear; level reforge preserves identity and quality; schema5 reload works",
+        "stash transfers persist, collection knowledge survives, duplicate imports are atomic",
+        "real v4.1 migration preserves progress, maps Epic by identity and opens actII without replay",
+        "all five regional gates block the main route, have accessible devices and connect every authored interaction after solving and reload"
+      ],
+      "errors": [],
+      "success": true,
+      "sha256": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb",
+      "verifiedAt": "2026-10-26T18:01:32.428350+00:00",
+      "elapsedSeconds": 9.46
+    },
+    "layout-touch-verification.json": {
+      "layouts": [
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "equipment",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "bag",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "stash",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "skills",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "talents",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "items",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "bestiary",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "sets",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "missions",
+          "passed": true
+        },
+        {
+          "w": 320,
+          "h": 568,
+          "tab": "heroes",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "equipment",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "bag",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "stash",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "skills",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "talents",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "items",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "bestiary",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "sets",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "missions",
+          "passed": true
+        },
+        {
+          "w": 360,
+          "h": 640,
+          "tab": "heroes",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "equipment",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "bag",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "stash",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "skills",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "talents",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "items",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "bestiary",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "sets",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "missions",
+          "passed": true
+        },
+        {
+          "w": 390,
+          "h": 844,
+          "tab": "heroes",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "equipment",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "bag",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "stash",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "skills",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "talents",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "items",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "bestiary",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "sets",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "missions",
+          "passed": true
+        },
+        {
+          "w": 568,
+          "h": 320,
+          "tab": "heroes",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "equipment",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "bag",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "stash",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "skills",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "talents",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "items",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "bestiary",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "sets",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "missions",
+          "passed": true
+        },
+        {
+          "w": 844,
+          "h": 390,
+          "tab": "heroes",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "equipment",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "bag",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "stash",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "skills",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "talents",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "items",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "bestiary",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "sets",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "missions",
+          "passed": true
+        },
+        {
+          "w": 1440,
+          "h": 900,
+          "tab": "heroes",
+          "passed": true
+        }
+      ],
+      "touch": [
+        {
+          "cls": 0,
+          "slot": 0
+        },
+        {
+          "cls": 0,
+          "slot": 1
+        },
+        {
+          "cls": 0,
+          "slot": 2
+        },
+        {
+          "cls": 0,
+          "slot": 3
+        },
+        {
+          "cls": 1,
+          "slot": 0
+        },
+        {
+          "cls": 1,
+          "slot": 1
+        },
+        {
+          "cls": 1,
+          "slot": 2
+        },
+        {
+          "cls": 1,
+          "slot": 3
+        },
+        {
+          "cls": 2,
+          "slot": 0
+        },
+        {
+          "cls": 2,
+          "slot": 1
+        },
+        {
+          "cls": 2,
+          "slot": 2
+        },
+        {
+          "cls": 2,
+          "slot": 3
+        },
+        {
+          "cls": 3,
+          "slot": 0
+        },
+        {
+          "cls": 3,
+          "slot": 1
+        },
+        {
+          "cls": 3,
+          "slot": 2
+        },
+        {
+          "cls": 3,
+          "slot": 3
+        },
+        "aim overrides simultaneous movement",
+        "drag cancellation costs no mana/cooldown"
+      ],
+      "errors": [],
+      "success": true,
+      "sha256": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb",
+      "verifiedAt": "2026-10-26T18:04:28.361366+00:00",
+      "elapsedSeconds": 32.51
+    },
+    "delivery-verification.json": {
+      "at": "2026-10-26T18:01:23.682Z",
+      "sha256": "7227f5f56e8afade31a8cd8498ec1871edc4c706f432e6f19e4ce08111cec4fb",
+      "errors": [],
+      "externalRequests": [],
+      "fileOpening": {
+        "verified": false,
+        "reason": "The managed Chromium blocks file:// with ERR_BLOCKED_BY_ADMINISTRATOR; offline test serves the identical local HTML via an intercepted document request."
+      },
+      "offlineDocument": {
+        "started": true,
+        "scheme": "http:",
+        "externalRequests": 0
+      },
+      "heroSwitch": [
+        1,
+        2,
+        3
+      ],
+      "chromiumHeapSnapshot": {
+        "usedJSHeapBytes": 20109367,
+        "totalJSHeapBytes": 26608595,
+        "limitJSHeapBytes": 4395630592
+      },
+      "limits": "Chromium desktop with touch emulation. This environment blocks file://; direct-file opening and physical Android/iOS controls are not verified. Heap snapshot excludes GPU and browser process memory.",
+      "success": true,
+      "verifiedAt": "2026-10-26T18:01:34.762979+00:00",
+      "elapsedSeconds": 11.78
+    },
+    "campaign-verification.json": {
+      "at": "2026-10-26T17:54:35.197Z",
+      "sha256": "091773bf8d443968bc897c808bf9c235bca989eca95697c592fcde9d90ff8130",
+      "errors": [],
+      "result": [
+        {
+          "act": 0,
+          "completed": [
+            "quest.refuge.0",
+            "quest.refuge.1",
+            "quest.refuge.2",
+            "quest.refuge.3",
+            "quest.refuge.4",
+            "quest.refuge.5",
+            "quest.refuge.6",
+            "quest.refuge.7"
+          ],
+          "relic": "relic.0",
+          "idempotent": true,
+          "objective": {
+            "x": 25.5,
+            "y": 29,
+            "title": "Novos caminhos esperam",
+            "step": "Volte à Âncora para viajar à próxima região.",
+            "id": "travel"
+          }
+        },
+        {
+          "act": 1,
+          "completed": [
+            "quest.coast.0",
+            "quest.coast.1",
+            "quest.coast.2",
+            "quest.coast.3",
+            "quest.coast.4",
+            "quest.coast.5",
+            "quest.coast.6",
+            "quest.coast.7"
+          ],
+          "relic": "relic.1",
+          "idempotent": true,
+          "objective": {
+            "x": 19,
+            "y": 23,
+            "title": "Novos caminhos esperam",
+            "step": "Volte à Âncora para viajar à próxima região.",
+            "id": "travel"
+          }
+        },
+        {
+          "act": 2,
+          "completed": [
+            "quest.garden.0",
+            "quest.garden.1",
+            "quest.garden.2",
+            "quest.garden.3",
+            "quest.garden.4",
+            "quest.garden.5",
+            "quest.garden.6",
+            "quest.garden.7"
+          ],
+          "relic": "relic.2",
+          "idempotent": true,
+          "objective": {
+            "x": 19,
+            "y": 23,
+            "title": "Novos caminhos esperam",
+            "step": "Volte à Âncora para viajar à próxima região.",
+            "id": "travel"
+          }
+        },
+        {
+          "act": 3,
+          "completed": [
+            "quest.archive.0",
+            "quest.archive.1",
+            "quest.archive.2",
+            "quest.archive.3",
+            "quest.archive.4",
+            "quest.archive.5",
+            "quest.archive.6",
+            "quest.archive.7"
+          ],
+          "relic": "relic.3",
+          "idempotent": true,
+          "objective": {
+            "x": 19,
+            "y": 23,
+            "title": "Novos caminhos esperam",
+            "step": "Volte à Âncora para viajar à próxima região.",
+            "id": "travel"
+          }
+        },
+        {
+          "act": 4,
+          "completed": [
+            "quest.forge.0",
+            "quest.forge.1",
+            "quest.forge.2",
+            "quest.forge.3",
+            "quest.forge.4",
+            "quest.forge.5",
+            "quest.forge.6",
+            "quest.forge.7"
+          ],
+          "relic": "relic.4",
+          "idempotent": true,
+          "objective": {
+            "x": 19,
+            "y": 23,
+            "title": "Novos caminhos esperam",
+            "step": "Volte à Âncora para viajar à próxima região.",
+            "id": "travel"
+          }
+        },
+        {
+          "act": 5,
+          "completed": [
+            "quest.eclipse.0",
+            "quest.eclipse.1",
+            "quest.eclipse.2",
+            "quest.eclipse.3",
+            "quest.eclipse.4",
+            "quest.eclipse.5",
+            "quest.eclipse.6",
+            "quest.eclipse.7"
+          ],
+          "relic": "relic.5",
+          "idempotent": true,
+          "objective": {
+            "x": 19,
+            "y": 23,
+            "title": "Novos caminhos esperam",
+            "step": "Escolha com Nimbo como o mundo guardará suas memórias.",
+            "id": "travel"
+          }
+        }
+      ],
+      "endings": [
+        {
+          "choice": "share",
+          "persisted": true,
+          "objects": [
+            "ending-visitor-5",
+            "ending-market-5"
+          ],
+          "equal": true
+        },
+        {
+          "choice": "preserve",
+          "persisted": true,
+          "objects": [
+            "ending-guardian-5",
+            "ending-guardian-person-5"
+          ],
+          "equal": true
+        },
+        {
+          "choice": "free",
+          "persisted": true,
+          "objects": [
+            "ending-garden-5",
+            "ending-flower-5-1",
+            "ending-flower-5-2",
+            "ending-flower-5-3",
+            "ending-flower-5-4",
+            "ending-flower-5-5",
+            "ending-storyteller-5"
+          ],
+          "equal": true
+        }
+      ],
+      "signature": [
+        {
+          "withSignature": false,
+          "afterMark": 7
+        },
+        {
+          "withSignature": true,
+          "afterMark": 10
+        }
+      ],
+      "success": true
+    },
+    "persistence-verification.json": {
+      "sha256": "091773bf8d443968bc897c808bf9c235bca989eca95697c592fcde9d90ff8130",
+      "errors": [],
+      "closeBefore": {
+        "pendingPromise": true,
+        "local": 111
+      },
+      "closeAfter": {
+        "gold": 777,
+        "local": 111
+      },
+      "recovery": {
+        "gold": 777,
+        "recovered": true,
+        "continue": true
+      },
+      "unavailable": {
+        "saved": false,
+        "pause": "Exporte uma cópia da jornada",
+        "backup": "Exporte uma cópia da jornada",
+        "exported": true
+      },
+      "success": true
+    },
+    "encounters-verification.json": {
+      "sha256": "091773bf8d443968bc897c808bf9c235bca989eca95697c592fcde9d90ff8130",
+      "errors": [],
+      "rhythm": [
+        {
+          "pattern": 0,
+          "delay": 0.48,
+          "damage": 119.67499999999995
+        },
+        {
+          "pattern": 1,
+          "delay": 0.48,
+          "damage": 119.67499999999995
+        },
+        {
+          "pattern": 2,
+          "delay": 1.15,
+          "damage": 285.3788461538461
+        }
+      ],
+      "bolt": {
+        "announced": 3.141592653589793,
+        "actual": 3.141592653589793
+      },
+      "devices": {
+        "rows": [
+          {
+            "disabled": true,
+            "name": "Estrutura silenciada",
+            "idempotent": true
+          },
+          {
+            "disabled": true,
+            "name": "Estrutura silenciada",
+            "idempotent": true
+          },
+          {
+            "disabled": true,
+            "name": "Estrutura silenciada",
+            "idempotent": true
+          }
+        ],
+        "disabled": 3,
+        "zones": 0,
+        "broken": 3
+      },
+      "routeRewards": [
+        {
+          "route": 0,
+          "xp": 2359,
+          "shards": 37,
+          "gold": 526,
+          "clears": 1,
+          "idempotent": true
+        },
+        {
+          "route": 1,
+          "xp": 2712,
+          "shards": 37,
+          "gold": 526,
+          "clears": 1,
+          "idempotent": true
+        },
+        {
+          "route": 2,
+          "xp": 2359,
+          "shards": 39,
+          "gold": 526,
+          "clears": 1,
+          "idempotent": true
+        }
+      ],
+      "success": true
+    },
+    "integration-verification.json": {
+      "at": "2026-10-26T17:58:37.923Z",
+      "sha256": "091773bf8d443968bc897c808bf9c235bca989eca95697c592fcde9d90ff8130",
+      "checks": [
+        {
+          "label": "pause freezes the game clock and pending echoes; scene changes cancel delayed attacks",
+          "value": {
+            "before": {
+              "time": 0,
+              "pending": 1,
+              "count": 3,
+              "cd": 3.899248
+            },
+            "paused": {
+              "time": 0,
+              "pending": 1,
+              "count": 3,
+              "cd": 3.899248
+            },
+            "halfway": 1,
+            "after": 0,
+            "queued": 1,
+            "entering": 0
+          }
+        },
+        {
+          "label": "expedition threat 10 applies announced HP/damage multipliers across all three routes",
+          "value": [
+            {
+              "threat": 1,
+              "route": 0,
+              "normal": 7810,
+              "boss": 203419,
+              "damage": 383.56481481481484,
+              "poise": 140
+            },
+            {
+              "threat": 1,
+              "route": 1,
+              "normal": 7810,
+              "boss": 203419,
+              "damage": 414.25000000000006,
+              "poise": 140
+            },
+            {
+              "threat": 1,
+              "route": 2,
+              "normal": 7810,
+              "boss": 203419,
+              "damage": 383.56481481481484,
+              "poise": 175
+            },
+            {
+              "threat": 10,
+              "route": 0,
+              "normal": 14839,
+              "boss": 459726.94000000006,
+              "damage": 659.7314814814815,
+              "poise": 171.5
+            },
+            {
+              "threat": 10,
+              "route": 1,
+              "normal": 14839,
+              "boss": 459726.94000000006,
+              "damage": 712.5100000000001,
+              "poise": 171.5
+            },
+            {
+              "threat": 10,
+              "route": 2,
+              "normal": 14839,
+              "boss": 459726.94000000006,
+              "damage": 659.7314814814815,
+              "poise": 214.375
+            }
+          ]
+        },
+        {
+          "label": "200 complete expedition/return cycles retain bounded per-run ledgers and a valid save",
+          "value": {
+            "runs": 200,
+            "clears": 200,
+            "rewardLedger": 14,
+            "clearedLedger": 4,
+            "saveBytes": 16729,
+            "reload": true,
+            "scene": "world",
+            "finite": true
+          }
+        },
+        {
+          "label": "40,000 seeded legal build configurations preserve budgets, caps and finite attributes",
+          "value": {
+            "cases": 40000,
+            "fail": [],
+            "samples": [
+              {
+                "cls": 0,
+                "level": 31,
+                "tech": {
+                  "earned": 15,
+                  "spent": 15,
+                  "available": 0,
+                  "deficit": 0
+                },
+                "talent": {
+                  "earned": 15,
+                  "spent": 10,
+                  "available": 5,
+                  "deficit": 0
+                },
+                "damage": 103.49999999999999
+              },
+              {
+                "cls": 1,
+                "level": 57,
+                "tech": {
+                  "earned": 23,
+                  "spent": 23,
+                  "available": 0,
+                  "deficit": 0
+                },
+                "talent": {
+                  "earned": 28,
+                  "spent": 12,
+                  "available": 16,
+                  "deficit": 0
+                },
+                "damage": 154.03500000000003
+              },
+              {
+                "cls": 2,
+                "level": 3,
+                "tech": {
+                  "earned": 1,
+                  "spent": 1,
+                  "available": 0,
+                  "deficit": 0
+                },
+                "talent": {
+                  "earned": 1,
+                  "spent": 1,
+                  "available": 0,
+                  "deficit": 0
+                },
+                "damage": 27.36
+              },
+              {
+                "cls": 3,
+                "level": 15,
+                "tech": {
+                  "earned": 7,
+                  "spent": 7,
+                  "available": 0,
+                  "deficit": 0
+                },
+                "talent": {
+                  "earned": 7,
+                  "spent": 7,
+                  "available": 0,
+                  "deficit": 0
+                },
+                "damage": 49.77
+              }
+            ]
+          }
+        },
+        {
+          "label": "400 invest/respec/save/load cycles preserve exact points for all four heroes",
+          "value": [
+            {
+              "cls": 0,
+              "cycles": 100,
+              "tech": {
+                "earned": 24,
+                "spent": 0,
+                "available": 24,
+                "deficit": 0
+              },
+              "talent": {
+                "earned": 30,
+                "spent": 0,
+                "available": 30,
+                "deficit": 0
+              }
+            },
+            {
+              "cls": 1,
+              "cycles": 100,
+              "tech": {
+                "earned": 24,
+                "spent": 0,
+                "available": 24,
+                "deficit": 0
+              },
+              "talent": {
+                "earned": 30,
+                "spent": 0,
+                "available": 30,
+                "deficit": 0
+              }
+            },
+            {
+              "cls": 2,
+              "cycles": 100,
+              "tech": {
+                "earned": 24,
+                "spent": 0,
+                "available": 24,
+                "deficit": 0
+              },
+              "talent": {
+                "earned": 30,
+                "spent": 0,
+                "available": 30,
+                "deficit": 0
+              }
+            },
+            {
+              "cls": 3,
+              "cycles": 100,
+              "tech": {
+                "earned": 24,
+                "spent": 0,
+                "available": 24,
+                "deficit": 0
+              },
+              "talent": {
+                "earned": 30,
+                "spent": 0,
+                "available": 30,
+                "deficit": 0
+              }
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "success": true,
+      "verifiedAt": "2026-10-26T17:59:34.403676+00:00",
+      "elapsedSeconds": 59.2
+    },
+    "item-effects-verification.json": {
+      "sha256": "3bb6759b525290bc8fe1e0d44d9e93476fa6f242923013f1b80f11d8d0139be4",
+      "errors": [],
+      "signatures": [
+        {
+          "id": "legend.0",
+          "event": "heavy",
+          "effect": "burst",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.1",
+          "event": "parry",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.2",
+          "event": "crit",
+          "effect": "bleed",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.3",
+          "event": "dodge",
+          "effect": "ward",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.4",
+          "event": "heavy",
+          "effect": "frost",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.5",
+          "event": "mark",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.6",
+          "event": "parry",
+          "effect": "burst",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.7",
+          "event": "hurt",
+          "effect": "ward",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.8",
+          "event": "crit",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.9",
+          "event": "dodge",
+          "effect": "burst",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.10",
+          "event": "thermal",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.11",
+          "event": "pet",
+          "effect": "mark",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.12",
+          "event": "cast",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.13",
+          "event": "kill",
+          "effect": "heal",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.14",
+          "event": "hurt",
+          "effect": "ward",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.15",
+          "event": "cast",
+          "effect": "ward",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.16",
+          "event": "heavy",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.17",
+          "event": "mark",
+          "effect": "burst",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.18",
+          "event": "parry",
+          "effect": "heal",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.19",
+          "event": "dodge",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.20",
+          "event": "dodge",
+          "effect": "frost",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.21",
+          "event": "kill",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.22",
+          "event": "cast",
+          "effect": "heal",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "legend.23",
+          "event": "pet",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "relic.0",
+          "event": "parry",
+          "effect": "ward",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "relic.1",
+          "event": "cast",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "relic.2",
+          "event": "crit",
+          "effect": "energy",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "relic.3",
+          "event": "hurt",
+          "effect": "ward",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "relic.4",
+          "event": "heavy",
+          "effect": "burst",
+          "consumed": true,
+          "internalCooldown": true
+        },
+        {
+          "id": "relic.5",
+          "event": "kill",
+          "effect": "heal",
+          "consumed": true,
+          "internalCooldown": true
+        }
+      ],
+      "crafting": {
+        "rows": [
+          {
+            "id": "base.sword.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.sword.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.sword.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.sword.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.daggers.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.daggers.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.daggers.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.daggers.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.spear.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.spear.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.spear.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.spear.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.greatsword.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.greatsword.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.greatsword.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.greatsword.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.bow.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.bow.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.bow.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.bow.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.staff.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.staff.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.staff.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.staff.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.head.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.head.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.head.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.head.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.body.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.body.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.body.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.body.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.hands.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.hands.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.hands.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.hands.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.legs.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.legs.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.legs.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.legs.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.boots.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.boots.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.boots.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.boots.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.cloak.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.cloak.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.cloak.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "base.cloak.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.0",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.1",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.2",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.3",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.4",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.5",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.6",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.7",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.8",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.9",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.10",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.11",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.12",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.13",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.14",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.15",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.16",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.17",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.18",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.19",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.20",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.21",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.22",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          },
+          {
+            "id": "legend.23",
+            "ok": true,
+            "identity": true,
+            "debit": true
+          }
+        ],
+        "recipes": 24
+      },
+      "sets": [
+        {
+          "set": 0,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        },
+        {
+          "set": 1,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        },
+        {
+          "set": 2,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        },
+        {
+          "set": 3,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        },
+        {
+          "set": 4,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        },
+        {
+          "set": 5,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        },
+        {
+          "set": 6,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        },
+        {
+          "set": 7,
+          "four": 4,
+          "two": 2,
+          "one": 1,
+          "loaded": true,
+          "signatures": 0
+        }
+      ],
+      "success": true
+    },
+    "edge-verification.json": {
+      "success": true,
+      "fullBudgetsAllHeroes": true,
+      "trainingCooldownAndResources": true,
+      "deathEditBlocked": true,
+      "respawnTimersConsistent": true,
+      "acyclicGraphsAndNoDuplicateGrants": true,
+      "repairedBleedAndParryRanks": true,
+      "exactV41Backup": true,
+      "atomicImport": true,
+      "offline": true,
+      "externalRequests": [],
+      "errors": [],
+      "sha256": "091773bf8d443968bc897c808bf9c235bca989eca95697c592fcde9d90ff8130",
+      "verifiedAt": "2026-10-26T17:59:31.913848+00:00",
+      "elapsedSeconds": 56.85
+    },
+    "loot-verification.json": {
+      "checks": [
+        "enemy rewards spawn actual ground items, no automatic inventory, no duplicate on repeated death",
+        "chest item must be collected with the real touch button and retains the same art in bag and inspector",
+        "full bag leaves the exact item on the ground, preserves gear and currencies, pickup is atomic",
+        "save/load preserves uncollected ground equipment, safe location and globally unique item ids",
+        "interior leftovers return to the entrance on exit and on reload, without deletion",
+        "duplicate ids and malformed ground loot are rejected without replacing progress",
+        "pickup requires proximity and clear line of sight, preventing collection through walls",
+        "all 174 equipment renderings have distinct embedded artwork, including 24 legendary and six relic items",
+        "bursts coalesce into one compact side notice, bounded queue and journal history",
+        "secondary notices wait for combat to end; immediate feedback still appears"
+      ],
+      "errors": [],
+      "external": [],
+      "success": true
+    }
+  },
+  "calibrationEarlierStationaryTarget": {
+    "success": true,
+    "simulationSecondsPerCase": 60,
+    "cases": 252,
+    "anchors": [
+      {
+        "level": 1,
+        "median": 92.86535529648478,
+        "min": 72.1263505892305,
+        "max": 114.24846005419111,
+        "ratio": 1.5840044466529553
+      },
+      {
+        "level": 10,
+        "median": 285.4819911486235,
+        "min": 216.05618667528458,
+        "max": 306.1721843902427,
+        "ratio": 1.4170951968637462
+      },
+      {
+        "level": 20,
+        "median": 495.0207560874246,
+        "min": 446.72165689141417,
+        "max": 590.9319899297752,
+        "ratio": 1.3228192115015696
+      },
+      {
+        "level": 30,
+        "median": 777.5815269722194,
+        "min": 661.7743215723917,
+        "max": 927.4760572602019,
+        "ratio": 1.401499011107739
+      },
+      {
+        "level": 40,
+        "median": 1117.7798859312363,
+        "min": 849.979089361387,
+        "max": 1398.3377769256263,
+        "ratio": 1.64514373874331
+      },
+      {
+        "level": 50,
+        "median": 1442.0279610036093,
+        "min": 1074.4917851234059,
+        "max": 1714.0533341547643,
+        "ratio": 1.5952223719959893
+      },
+      {
+        "level": 60,
+        "median": 1816.242886739923,
+        "min": 1399.0934782135698,
+        "max": 2038.4196731706663,
+        "ratio": 1.4569574548895896
+      }
+    ],
+    "results": [
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 1,
+        "rarity": 1,
+        "damage": 6566.662223186186,
+        "dps": 109.44437038643643,
+        "hits": 135,
+        "hp": 186,
+        "mp": 112,
+        "crit": 0.136334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 1,
+        "rarity": 2,
+        "damage": 6854.907603251467,
+        "dps": 114.24846005419111,
+        "hits": 144,
+        "hp": 186,
+        "mp": 112,
+        "crit": 0.136797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 1,
+        "rarity": 3,
+        "damage": 6557.828836078144,
+        "dps": 109.29714726796907,
+        "hits": 136,
+        "hp": 192,
+        "mp": 109,
+        "crit": 0.142634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 10,
+        "rarity": 1,
+        "damage": 16536.154585909266,
+        "dps": 275.6025764318211,
+        "hits": 147,
+        "hp": 434,
+        "mp": 114,
+        "crit": 0.139233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 10,
+        "rarity": 2,
+        "damage": 17611.790752057033,
+        "dps": 293.5298458676172,
+        "hits": 154,
+        "hp": 434,
+        "mp": 113,
+        "crit": 0.139908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 10,
+        "rarity": 3,
+        "damage": 16570.474679824478,
+        "dps": 276.1745779970746,
+        "hits": 147,
+        "hp": 457,
+        "mp": 111,
+        "crit": 0.148416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 20,
+        "rarity": 1,
+        "damage": 25038.790703096194,
+        "dps": 417.3131783849366,
+        "hits": 145,
+        "hp": 685,
+        "mp": 115,
+        "crit": 0.142454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 20,
+        "rarity": 2,
+        "damage": 27539.248605920748,
+        "dps": 458.9874767653458,
+        "hits": 155,
+        "hp": 685,
+        "mp": 114,
+        "crit": 0.143364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 20,
+        "rarity": 3,
+        "damage": 26516.724167778528,
+        "dps": 441.94540279630877,
+        "hits": 148,
+        "hp": 738,
+        "mp": 113,
+        "crit": 0.154841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 30,
+        "rarity": 1,
+        "damage": 38674.924631381786,
+        "dps": 644.5820771896964,
+        "hits": 155,
+        "hp": 1048,
+        "mp": 116,
+        "crit": 0.145675,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 30,
+        "rarity": 2,
+        "damage": 39706.459294343505,
+        "dps": 661.7743215723917,
+        "hits": 155,
+        "hp": 1048,
+        "mp": 115,
+        "crit": 0.14682,
+        "cdr": 0.02579,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 30,
+        "rarity": 3,
+        "damage": 38607.03089033049,
+        "dps": 643.4505148388415,
+        "hits": 147,
+        "hp": 1156,
+        "mp": 115,
+        "crit": 0.16126600000000002,
+        "cdr": 0.030203,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 40,
+        "rarity": 1,
+        "damage": 51033.972631931494,
+        "dps": 850.5662105321916,
+        "hits": 154,
+        "hp": 1491,
+        "mp": 117,
+        "crit": 0.148896,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 40,
+        "rarity": 2,
+        "damage": 50998.74536168322,
+        "dps": 849.979089361387,
+        "hits": 156,
+        "hp": 1491,
+        "mp": 116,
+        "crit": 0.150277,
+        "cdr": 0.031089,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 40,
+        "rarity": 3,
+        "damage": 48285.01547096826,
+        "dps": 804.750257849471,
+        "hits": 147,
+        "hp": 1663,
+        "mp": 118,
+        "crit": 0.167691,
+        "cdr": 0.036411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 50,
+        "rarity": 1,
+        "damage": 68755.77884064293,
+        "dps": 1145.9296473440488,
+        "hits": 154,
+        "hp": 1806,
+        "mp": 119,
+        "crit": 0.152117,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 50,
+        "rarity": 2,
+        "damage": 67301.99306787025,
+        "dps": 1121.6998844645043,
+        "hits": 157,
+        "hp": 1806,
+        "mp": 117,
+        "crit": 0.153733,
+        "cdr": 0.03639,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 50,
+        "rarity": 3,
+        "damage": 65603.70186460919,
+        "dps": 1093.3950310768198,
+        "hits": 147,
+        "hp": 2056,
+        "mp": 120,
+        "crit": 0.17411500000000002,
+        "cdr": 0.042618,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 60,
+        "rarity": 1,
+        "damage": 79633.19311460936,
+        "dps": 1327.2198852434892,
+        "hits": 154,
+        "hp": 2121,
+        "mp": 120,
+        "crit": 0.155338,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 60,
+        "rarity": 2,
+        "damage": 86489.05437524094,
+        "dps": 1441.484239587349,
+        "hits": 164,
+        "hp": 2121,
+        "mp": 119,
+        "crit": 0.15719,
+        "cdr": 0.041689000000000004,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 0,
+        "level": 60,
+        "rarity": 3,
+        "damage": 82721.56109965005,
+        "dps": 1378.6926849941674,
+        "hits": 146,
+        "hp": 2464,
+        "mp": 122,
+        "crit": 0.18054,
+        "cdr": 0.048824,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 1,
+        "rarity": 1,
+        "damage": 6410.424011607941,
+        "dps": 106.84040019346568,
+        "hits": 69,
+        "hp": 186,
+        "mp": 112,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 1,
+        "rarity": 2,
+        "damage": 6631.72050566065,
+        "dps": 110.52867509434417,
+        "hits": 72,
+        "hp": 186,
+        "mp": 112,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 1,
+        "rarity": 3,
+        "damage": 6810.688325376238,
+        "dps": 113.51147208960397,
+        "hits": 69,
+        "hp": 192,
+        "mp": 109,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 10,
+        "rarity": 1,
+        "damage": 17584.398771569606,
+        "dps": 293.07331285949346,
+        "hits": 82,
+        "hp": 388,
+        "mp": 114,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 10,
+        "rarity": 2,
+        "damage": 18168.051269695414,
+        "dps": 302.80085449492356,
+        "hits": 84,
+        "hp": 388,
+        "mp": 113,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 10,
+        "rarity": 3,
+        "damage": 19368.141624922784,
+        "dps": 322.8023604153797,
+        "hits": 81,
+        "hp": 411,
+        "mp": 111,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 20,
+        "rarity": 1,
+        "damage": 34175.261882553365,
+        "dps": 569.5876980425561,
+        "hits": 83,
+        "hp": 613,
+        "mp": 115,
+        "crit": 0.062454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 20,
+        "rarity": 2,
+        "damage": 35455.91939578651,
+        "dps": 590.9319899297752,
+        "hits": 84,
+        "hp": 613,
+        "mp": 114,
+        "crit": 0.063364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 20,
+        "rarity": 3,
+        "damage": 36612.0798687527,
+        "dps": 610.2013311458783,
+        "hits": 80,
+        "hp": 666,
+        "mp": 113,
+        "crit": 0.074841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 30,
+        "rarity": 1,
+        "damage": 51915.74731993354,
+        "dps": 865.2624553322257,
+        "hits": 83,
+        "hp": 938,
+        "mp": 116,
+        "crit": 0.065675,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 30,
+        "rarity": 2,
+        "damage": 55648.56343561211,
+        "dps": 927.4760572602019,
+        "hits": 88,
+        "hp": 938,
+        "mp": 115,
+        "crit": 0.06682,
+        "cdr": 0.02579,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 30,
+        "rarity": 3,
+        "damage": 58499.7192600413,
+        "dps": 974.9953210006883,
+        "hits": 81,
+        "hp": 1047,
+        "mp": 115,
+        "crit": 0.081266,
+        "cdr": 0.030203,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 40,
+        "rarity": 1,
+        "damage": 71214.6744872223,
+        "dps": 1186.911241453705,
+        "hits": 83,
+        "hp": 1189,
+        "mp": 117,
+        "crit": 0.068896,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 40,
+        "rarity": 2,
+        "damage": 73860.70499036739,
+        "dps": 1231.0117498394566,
+        "hits": 88,
+        "hp": 1189,
+        "mp": 116,
+        "crit": 0.070277,
+        "cdr": 0.031089,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 40,
+        "rarity": 3,
+        "damage": 79933.35743552925,
+        "dps": 1332.2226239254876,
+        "hits": 82,
+        "hp": 1361,
+        "mp": 118,
+        "crit": 0.087691,
+        "cdr": 0.036411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 50,
+        "rarity": 1,
+        "damage": 86807.90757641535,
+        "dps": 1446.7984596069225,
+        "hits": 84,
+        "hp": 1441,
+        "mp": 131,
+        "crit": 0.072117,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 50,
+        "rarity": 2,
+        "damage": 90686.08773117335,
+        "dps": 1511.4347955195558,
+        "hits": 89,
+        "hp": 1441,
+        "mp": 129,
+        "crit": 0.073733,
+        "cdr": 0.03639,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 50,
+        "rarity": 3,
+        "damage": 92612.6725461128,
+        "dps": 1543.5445424352133,
+        "hits": 82,
+        "hp": 1691,
+        "mp": 132,
+        "crit": 0.094115,
+        "cdr": 0.042618,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 60,
+        "rarity": 1,
+        "damage": 103749.16191384208,
+        "dps": 1729.1526985640346,
+        "hits": 84,
+        "hp": 1890,
+        "mp": 138,
+        "crit": 0.075338,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 60,
+        "rarity": 2,
+        "damage": 113746.42759501249,
+        "dps": 1895.7737932502082,
+        "hits": 90,
+        "hp": 1890,
+        "mp": 137,
+        "crit": 0.07719000000000001,
+        "cdr": 0.041689000000000004,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 1,
+        "level": 60,
+        "rarity": 3,
+        "damage": 117291.08247068051,
+        "dps": 1954.8513745113419,
+        "hits": 82,
+        "hp": 2233,
+        "mp": 140,
+        "crit": 0.10054,
+        "cdr": 0.048824,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 1,
+        "rarity": 1,
+        "damage": 5786.3495893619565,
+        "dps": 96.43915982269928,
+        "hits": 220,
+        "hp": 186,
+        "mp": 112,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 1,
+        "rarity": 2,
+        "damage": 5849.712280740973,
+        "dps": 97.49520467901623,
+        "hits": 221,
+        "hp": 186,
+        "mp": 112,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 1,
+        "rarity": 3,
+        "damage": 5888.053471833779,
+        "dps": 98.13422453056299,
+        "hits": 216,
+        "hp": 192,
+        "mp": 109,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 10,
+        "rarity": 1,
+        "damage": 15267.625655548316,
+        "dps": 254.46042759247194,
+        "hits": 232,
+        "hp": 388,
+        "mp": 114,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 10,
+        "rarity": 2,
+        "damage": 15481.91162190801,
+        "dps": 258.03186036513347,
+        "hits": 233,
+        "hp": 388,
+        "mp": 113,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 10,
+        "rarity": 3,
+        "damage": 15738.089363662051,
+        "dps": 262.30148939436754,
+        "hits": 228,
+        "hp": 411,
+        "mp": 111,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 20,
+        "rarity": 1,
+        "damage": 28614.25999697654,
+        "dps": 476.90433328294233,
+        "hits": 232,
+        "hp": 637,
+        "mp": 115,
+        "crit": 0.062454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 20,
+        "rarity": 2,
+        "damage": 29346.775323846126,
+        "dps": 489.1129220641021,
+        "hits": 233,
+        "hp": 637,
+        "mp": 114,
+        "crit": 0.063364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 20,
+        "rarity": 3,
+        "damage": 29421.139693595633,
+        "dps": 490.3523282265939,
+        "hits": 228,
+        "hp": 690,
+        "mp": 113,
+        "crit": 0.074841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 30,
+        "rarity": 1,
+        "damage": 40878.682574181796,
+        "dps": 681.3113762363632,
+        "hits": 232,
+        "hp": 1048,
+        "mp": 134,
+        "crit": 0.065675,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 30,
+        "rarity": 2,
+        "damage": 42806.195349080794,
+        "dps": 713.4365891513465,
+        "hits": 238,
+        "hp": 1048,
+        "mp": 133,
+        "crit": 0.06682,
+        "cdr": 0.02579,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 30,
+        "rarity": 3,
+        "damage": 44216.112194452704,
+        "dps": 736.9352032408784,
+        "hits": 232,
+        "hp": 1156,
+        "mp": 133,
+        "crit": 0.081266,
+        "cdr": 0.030203,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 40,
+        "rarity": 1,
+        "damage": 56250.47763383077,
+        "dps": 937.5079605638462,
+        "hits": 235,
+        "hp": 1329,
+        "mp": 135,
+        "crit": 0.068896,
+        "cdr": 0.07,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 40,
+        "rarity": 2,
+        "damage": 59491.721997902736,
+        "dps": 991.5286999650456,
+        "hits": 241,
+        "hp": 1329,
+        "mp": 134,
+        "crit": 0.070277,
+        "cdr": 0.10108900000000001,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 40,
+        "rarity": 3,
+        "damage": 62082.287527645225,
+        "dps": 1034.7047921274204,
+        "hits": 236,
+        "hp": 1501,
+        "mp": 136,
+        "crit": 0.087691,
+        "cdr": 0.106411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 50,
+        "rarity": 1,
+        "damage": 70703.07982516325,
+        "dps": 1178.3846637527208,
+        "hits": 239,
+        "hp": 1609,
+        "mp": 137,
+        "crit": 0.072117,
+        "cdr": 0.07,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 50,
+        "rarity": 2,
+        "damage": 76197.96273105602,
+        "dps": 1269.9660455176004,
+        "hits": 247,
+        "hp": 1609,
+        "mp": 135,
+        "crit": 0.073733,
+        "cdr": 0.10639000000000001,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 50,
+        "rarity": 3,
+        "damage": 74418.66629491252,
+        "dps": 1240.3111049152087,
+        "hits": 236,
+        "hp": 1859,
+        "mp": 138,
+        "crit": 0.094115,
+        "cdr": 0.11261800000000001,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 60,
+        "rarity": 1,
+        "damage": 85078.68841527154,
+        "dps": 1417.9781402545257,
+        "hits": 239,
+        "hp": 1890,
+        "mp": 138,
+        "crit": 0.075338,
+        "cdr": 0.07,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 60,
+        "rarity": 2,
+        "damage": 91885.13136516465,
+        "dps": 1531.4188560860775,
+        "hits": 247,
+        "hp": 1890,
+        "mp": 137,
+        "crit": 0.07719000000000001,
+        "cdr": 0.11168900000000001,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 0,
+        "style": 2,
+        "level": 60,
+        "rarity": 3,
+        "damage": 91289.91826736621,
+        "dps": 1521.498637789437,
+        "hits": 236,
+        "hp": 2233,
+        "mp": 140,
+        "crit": 0.10054,
+        "cdr": 0.11882400000000001,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 1,
+        "rarity": 1,
+        "damage": 5581.438281043137,
+        "dps": 93.02397135071895,
+        "hits": 138,
+        "hp": 174,
+        "mp": 127,
+        "crit": 0.186334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 1,
+        "rarity": 2,
+        "damage": 5440.173309932704,
+        "dps": 90.66955516554506,
+        "hits": 140,
+        "hp": 174,
+        "mp": 127,
+        "crit": 0.186797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 1,
+        "rarity": 3,
+        "damage": 5551.892041217215,
+        "dps": 92.53153402028691,
+        "hits": 139,
+        "hp": 180,
+        "mp": 124,
+        "crit": 0.20763399999999999,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 10,
+        "rarity": 1,
+        "damage": 16143.242294411571,
+        "dps": 269.0540382401929,
+        "hits": 274,
+        "hp": 376,
+        "mp": 129,
+        "crit": 0.24923299999999998,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 10,
+        "rarity": 2,
+        "damage": 17126.330113512347,
+        "dps": 285.43883522520576,
+        "hits": 277,
+        "hp": 376,
+        "mp": 128,
+        "crit": 0.249908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 10,
+        "rarity": 3,
+        "damage": 17394.456897421715,
+        "dps": 289.90761495702856,
+        "hits": 272,
+        "hp": 398,
+        "mp": 126,
+        "crit": 0.273416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 20,
+        "rarity": 1,
+        "damage": 27367.760703196607,
+        "dps": 456.1293450532768,
+        "hits": 285,
+        "hp": 601,
+        "mp": 130,
+        "crit": 0.332454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 20,
+        "rarity": 2,
+        "damage": 27885.481848609088,
+        "dps": 464.75803081015147,
+        "hits": 292,
+        "hp": 601,
+        "mp": 129,
+        "crit": 0.333364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 20,
+        "rarity": 3,
+        "damage": 27613.354290818254,
+        "dps": 460.22257151363755,
+        "hits": 287,
+        "hp": 653,
+        "mp": 128,
+        "crit": 0.35,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 30,
+        "rarity": 1,
+        "damage": 44029.0130533719,
+        "dps": 733.8168842228649,
+        "hits": 286,
+        "hp": 825,
+        "mp": 131,
+        "crit": 0.35,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 30,
+        "rarity": 2,
+        "damage": 46090.50319710449,
+        "dps": 768.1750532850748,
+        "hits": 293,
+        "hp": 825,
+        "mp": 130,
+        "crit": 0.35,
+        "cdr": 0.02579,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 30,
+        "rarity": 3,
+        "damage": 44394.210273369295,
+        "dps": 739.9035045561549,
+        "hits": 288,
+        "hp": 921,
+        "mp": 130,
+        "crit": 0.35,
+        "cdr": 0.030203,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 40,
+        "rarity": 1,
+        "damage": 66516.94052379511,
+        "dps": 1108.6156753965852,
+        "hits": 290,
+        "hp": 1050,
+        "mp": 132,
+        "crit": 0.35,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 40,
+        "rarity": 2,
+        "damage": 68231.47621828655,
+        "dps": 1137.1912703047758,
+        "hits": 295,
+        "hp": 1050,
+        "mp": 131,
+        "crit": 0.35,
+        "cdr": 0.031089,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 40,
+        "rarity": 3,
+        "damage": 69402.67508051767,
+        "dps": 1156.711251341961,
+        "hits": 294,
+        "hp": 1201,
+        "mp": 133,
+        "crit": 0.35,
+        "cdr": 0.036411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 50,
+        "rarity": 1,
+        "damage": 84323.12959744222,
+        "dps": 1405.3854932907038,
+        "hits": 286,
+        "hp": 1274,
+        "mp": 134,
+        "crit": 0.35,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 50,
+        "rarity": 2,
+        "damage": 87728.2128427926,
+        "dps": 1462.13688071321,
+        "hits": 295,
+        "hp": 1274,
+        "mp": 132,
+        "crit": 0.35,
+        "cdr": 0.03639,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 50,
+        "rarity": 3,
+        "damage": 86460.10124151145,
+        "dps": 1441.0016873585241,
+        "hits": 284,
+        "hp": 1495,
+        "mp": 135,
+        "crit": 0.35,
+        "cdr": 0.042618,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 60,
+        "rarity": 1,
+        "damage": 99569.47581295593,
+        "dps": 1659.4912635492656,
+        "hits": 284,
+        "hp": 1499,
+        "mp": 153,
+        "crit": 0.35,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 60,
+        "rarity": 2,
+        "damage": 106252.85187664509,
+        "dps": 1770.8808646107514,
+        "hits": 302,
+        "hp": 1499,
+        "mp": 152,
+        "crit": 0.35,
+        "cdr": 0.041689000000000004,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 0,
+        "level": 60,
+        "rarity": 3,
+        "damage": 104856.84144496625,
+        "dps": 1747.6140240827708,
+        "hits": 291,
+        "hp": 1802,
+        "mp": 155,
+        "crit": 0.35,
+        "cdr": 0.048824,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 1,
+        "rarity": 1,
+        "damage": 6760.635983719512,
+        "dps": 112.6772663953252,
+        "hits": 352,
+        "hp": 174,
+        "mp": 112,
+        "crit": 0.10633400000000001,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 1,
+        "rarity": 2,
+        "damage": 6669.123702840106,
+        "dps": 111.15206171400176,
+        "hits": 353,
+        "hp": 174,
+        "mp": 112,
+        "crit": 0.106797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 1,
+        "rarity": 3,
+        "damage": 6836.653770047701,
+        "dps": 113.94422950079502,
+        "hits": 354,
+        "hp": 180,
+        "mp": 109,
+        "crit": 0.11263400000000001,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 10,
+        "rarity": 1,
+        "damage": 17241.84153036187,
+        "dps": 287.36402550603117,
+        "hits": 377,
+        "hp": 376,
+        "mp": 114,
+        "crit": 0.10923300000000001,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 10,
+        "rarity": 2,
+        "damage": 17751.586035761226,
+        "dps": 295.8597672626871,
+        "hits": 376,
+        "hp": 376,
+        "mp": 113,
+        "crit": 0.109908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 10,
+        "rarity": 3,
+        "damage": 18183.277316859247,
+        "dps": 303.0546219476541,
+        "hits": 374,
+        "hp": 398,
+        "mp": 111,
+        "crit": 0.11841600000000001,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 20,
+        "rarity": 1,
+        "damage": 30448.467165089354,
+        "dps": 507.47445275148925,
+        "hits": 388,
+        "hp": 601,
+        "mp": 121,
+        "crit": 0.11245400000000001,
+        "cdr": 0.1,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 20,
+        "rarity": 2,
+        "damage": 31162.14396858526,
+        "dps": 519.3690661430877,
+        "hits": 392,
+        "hp": 601,
+        "mp": 120,
+        "crit": 0.113364,
+        "cdr": 0.120491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 20,
+        "rarity": 3,
+        "damage": 31526.295762700993,
+        "dps": 525.4382627116833,
+        "hits": 390,
+        "hp": 653,
+        "mp": 119,
+        "crit": 0.12484100000000001,
+        "cdr": 0.123998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 30,
+        "rarity": 1,
+        "damage": 48601.00638518365,
+        "dps": 810.0167730863942,
+        "hits": 390,
+        "hp": 825,
+        "mp": 134,
+        "crit": 0.16567500000000002,
+        "cdr": 0.1,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 30,
+        "rarity": 2,
+        "damage": 49322.158691777084,
+        "dps": 822.0359781962848,
+        "hits": 393,
+        "hp": 825,
+        "mp": 133,
+        "crit": 0.16682000000000002,
+        "cdr": 0.12579,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 30,
+        "rarity": 3,
+        "damage": 51606.5306022222,
+        "dps": 860.10884337037,
+        "hits": 389,
+        "hp": 921,
+        "mp": 133,
+        "crit": 0.18126600000000004,
+        "cdr": 0.130203,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 40,
+        "rarity": 1,
+        "damage": 67508.35241423492,
+        "dps": 1125.1392069039152,
+        "hits": 391,
+        "hp": 1050,
+        "mp": 135,
+        "crit": 0.16889600000000002,
+        "cdr": 0.1,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 40,
+        "rarity": 2,
+        "damage": 70873.69270209425,
+        "dps": 1181.228211701571,
+        "hits": 413,
+        "hp": 1050,
+        "mp": 134,
+        "crit": 0.170277,
+        "cdr": 0.131089,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 40,
+        "rarity": 3,
+        "damage": 71025.6203887238,
+        "dps": 1183.7603398120632,
+        "hits": 389,
+        "hp": 1201,
+        "mp": 136,
+        "crit": 0.18769100000000002,
+        "cdr": 0.136411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 50,
+        "rarity": 1,
+        "damage": 80258.82678841484,
+        "dps": 1337.6471131402473,
+        "hits": 394,
+        "hp": 1274,
+        "mp": 137,
+        "crit": 0.17211700000000002,
+        "cdr": 0.13,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 50,
+        "rarity": 2,
+        "damage": 89843.29445053474,
+        "dps": 1497.3882408422458,
+        "hits": 419,
+        "hp": 1274,
+        "mp": 135,
+        "crit": 0.17373300000000003,
+        "cdr": 0.16639,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 50,
+        "rarity": 3,
+        "damage": 88768.26591542244,
+        "dps": 1479.471098590374,
+        "hits": 396,
+        "hp": 1495,
+        "mp": 138,
+        "crit": 0.19411500000000004,
+        "cdr": 0.172618,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 60,
+        "rarity": 1,
+        "damage": 104010.66738145525,
+        "dps": 1733.5111230242542,
+        "hits": 398,
+        "hp": 1499,
+        "mp": 138,
+        "crit": 0.23533800000000002,
+        "cdr": 0.14500000000000002,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 60,
+        "rarity": 2,
+        "damage": 111696.2945321457,
+        "dps": 1861.604908869095,
+        "hits": 418,
+        "hp": 1499,
+        "mp": 137,
+        "crit": 0.23719,
+        "cdr": 0.186689,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 1,
+        "level": 60,
+        "rarity": 3,
+        "damage": 112463.94502052056,
+        "dps": 1874.3990836753428,
+        "hits": 403,
+        "hp": 1802,
+        "mp": 140,
+        "crit": 0.26054,
+        "cdr": 0.193824,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 1,
+        "rarity": 1,
+        "damage": 5629.028449468167,
+        "dps": 93.81714082446946,
+        "hits": 139,
+        "hp": 174,
+        "mp": 127,
+        "crit": 0.186334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 1,
+        "rarity": 2,
+        "damage": 5440.173309932704,
+        "dps": 90.66955516554506,
+        "hits": 140,
+        "hp": 174,
+        "mp": 127,
+        "crit": 0.186797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 1,
+        "rarity": 3,
+        "damage": 5551.892041217215,
+        "dps": 92.53153402028691,
+        "hits": 139,
+        "hp": 180,
+        "mp": 124,
+        "crit": 0.20763399999999999,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 10,
+        "rarity": 1,
+        "damage": 15637.388887151328,
+        "dps": 260.6231481191888,
+        "hits": 258,
+        "hp": 376,
+        "mp": 147,
+        "crit": 0.18923299999999998,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 10,
+        "rarity": 2,
+        "damage": 17131.508824322467,
+        "dps": 285.52514707204114,
+        "hits": 263,
+        "hp": 376,
+        "mp": 146,
+        "crit": 0.189908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 10,
+        "rarity": 3,
+        "damage": 16930.008738992135,
+        "dps": 282.1668123165356,
+        "hits": 262,
+        "hp": 398,
+        "mp": 144,
+        "crit": 0.213416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 20,
+        "rarity": 1,
+        "damage": 27598.419488660747,
+        "dps": 459.9736581443458,
+        "hits": 266,
+        "hp": 601,
+        "mp": 166,
+        "crit": 0.212454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 20,
+        "rarity": 2,
+        "damage": 28507.544249970382,
+        "dps": 475.1257374995064,
+        "hits": 271,
+        "hp": 601,
+        "mp": 165,
+        "crit": 0.213364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 20,
+        "rarity": 3,
+        "damage": 28661.917960548424,
+        "dps": 477.69863267580706,
+        "hits": 271,
+        "hp": 653,
+        "mp": 164,
+        "crit": 0.239841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 30,
+        "rarity": 1,
+        "damage": 43871.50386301687,
+        "dps": 731.1917310502812,
+        "hits": 281,
+        "hp": 825,
+        "mp": 167,
+        "crit": 0.305675,
+        "cdr": 0.045,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 30,
+        "rarity": 2,
+        "damage": 45042.06076539101,
+        "dps": 750.7010127565169,
+        "hits": 285,
+        "hp": 825,
+        "mp": 166,
+        "crit": 0.30682,
+        "cdr": 0.07078999999999999,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 30,
+        "rarity": 3,
+        "damage": 45147.46206141117,
+        "dps": 752.4577010235195,
+        "hits": 285,
+        "hp": 921,
+        "mp": 166,
+        "crit": 0.33626599999999995,
+        "cdr": 0.07520299999999999,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 40,
+        "rarity": 1,
+        "damage": 62243.28167096166,
+        "dps": 1037.388027849361,
+        "hits": 289,
+        "hp": 1050,
+        "mp": 168,
+        "crit": 0.30889599999999995,
+        "cdr": 0.045,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 40,
+        "rarity": 2,
+        "damage": 64514.67825037398,
+        "dps": 1075.244637506233,
+        "hits": 295,
+        "hp": 1050,
+        "mp": 167,
+        "crit": 0.31027699999999997,
+        "cdr": 0.07608899999999999,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 40,
+        "rarity": 3,
+        "damage": 65846.08488263872,
+        "dps": 1097.4347480439787,
+        "hits": 289,
+        "hp": 1201,
+        "mp": 169,
+        "crit": 0.34269099999999997,
+        "cdr": 0.081411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 50,
+        "rarity": 1,
+        "damage": 79485.44935522646,
+        "dps": 1324.7574892537743,
+        "hits": 289,
+        "hp": 1274,
+        "mp": 170,
+        "crit": 0.312117,
+        "cdr": 0.045,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 50,
+        "rarity": 2,
+        "damage": 85315.14247764052,
+        "dps": 1421.9190412940086,
+        "hits": 297,
+        "hp": 1274,
+        "mp": 168,
+        "crit": 0.313733,
+        "cdr": 0.08138999999999999,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 50,
+        "rarity": 3,
+        "damage": 89738.5100912653,
+        "dps": 1495.6418348544216,
+        "hits": 290,
+        "hp": 1495,
+        "mp": 171,
+        "crit": 0.34911499999999995,
+        "cdr": 0.087618,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 60,
+        "rarity": 1,
+        "damage": 100412.55089826978,
+        "dps": 1673.542514971163,
+        "hits": 289,
+        "hp": 1499,
+        "mp": 171,
+        "crit": 0.315338,
+        "cdr": 0.045,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 60,
+        "rarity": 2,
+        "damage": 105156.67946121514,
+        "dps": 1752.6113243535858,
+        "hits": 301,
+        "hp": 1499,
+        "mp": 170,
+        "crit": 0.31718999999999997,
+        "cdr": 0.086689,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 1,
+        "style": 2,
+        "level": 60,
+        "rarity": 3,
+        "damage": 109332.582376432,
+        "dps": 1822.2097062738665,
+        "hits": 293,
+        "hp": 1802,
+        "mp": 173,
+        "crit": 0.35,
+        "cdr": 0.09382399999999999,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 1,
+        "rarity": 1,
+        "damage": 5535.673691436162,
+        "dps": 92.2612281906027,
+        "hits": 217,
+        "hp": 166,
+        "mp": 147,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 1,
+        "rarity": 2,
+        "damage": 5703.66932564547,
+        "dps": 95.0611554274245,
+        "hits": 219,
+        "hp": 166,
+        "mp": 147,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 1,
+        "rarity": 3,
+        "damage": 6128.49409147374,
+        "dps": 102.141568191229,
+        "hits": 218,
+        "hp": 171,
+        "mp": 144,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 10,
+        "rarity": 1,
+        "damage": 16574.656201787417,
+        "dps": 276.2442700297903,
+        "hits": 258,
+        "hp": 368,
+        "mp": 149,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 10,
+        "rarity": 2,
+        "damage": 17706.53039639257,
+        "dps": 295.10883993987613,
+        "hits": 261,
+        "hp": 368,
+        "mp": 148,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 10,
+        "rarity": 3,
+        "damage": 18356.01195725961,
+        "dps": 305.9335326209935,
+        "hits": 260,
+        "hp": 389,
+        "mp": 146,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 20,
+        "rarity": 1,
+        "damage": 30068.876298210518,
+        "dps": 501.1479383035086,
+        "hits": 257,
+        "hp": 592,
+        "mp": 150,
+        "crit": 0.062454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 20,
+        "rarity": 2,
+        "damage": 32535.41374609862,
+        "dps": 542.2568957683103,
+        "hits": 264,
+        "hp": 592,
+        "mp": 149,
+        "crit": 0.063364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 20,
+        "rarity": 3,
+        "damage": 32815.57640857311,
+        "dps": 546.9262734762185,
+        "hits": 262,
+        "hp": 644,
+        "mp": 148,
+        "crit": 0.074841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 30,
+        "rarity": 1,
+        "damage": 46074.05711456173,
+        "dps": 767.9009519093621,
+        "hits": 266,
+        "hp": 817,
+        "mp": 151,
+        "crit": 0.065675,
+        "cdr": 0.05,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 30,
+        "rarity": 2,
+        "damage": 48551.687943299476,
+        "dps": 809.1947990549912,
+        "hits": 271,
+        "hp": 817,
+        "mp": 150,
+        "crit": 0.06682,
+        "cdr": 0.07579,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 30,
+        "rarity": 3,
+        "damage": 51637.97381687778,
+        "dps": 860.632896947963,
+        "hits": 264,
+        "hp": 912,
+        "mp": 150,
+        "crit": 0.081266,
+        "cdr": 0.080203,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 40,
+        "rarity": 1,
+        "damage": 78338.57780664864,
+        "dps": 1305.642963444144,
+        "hits": 265,
+        "hp": 1041,
+        "mp": 152,
+        "crit": 0.068896,
+        "cdr": 0.05,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 40,
+        "rarity": 2,
+        "damage": 83900.26661553758,
+        "dps": 1398.3377769256263,
+        "hits": 275,
+        "hp": 1041,
+        "mp": 151,
+        "crit": 0.070277,
+        "cdr": 0.081089,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 40,
+        "rarity": 3,
+        "damage": 86116.1684450711,
+        "dps": 1435.2694740845184,
+        "hits": 266,
+        "hp": 1192,
+        "mp": 153,
+        "crit": 0.087691,
+        "cdr": 0.086411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 50,
+        "rarity": 1,
+        "damage": 97738.23699630487,
+        "dps": 1628.9706166050812,
+        "hits": 271,
+        "hp": 1266,
+        "mp": 166,
+        "crit": 0.072117,
+        "cdr": 0.095,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 50,
+        "rarity": 2,
+        "damage": 102843.20004928586,
+        "dps": 1714.0533341547643,
+        "hits": 280,
+        "hp": 1266,
+        "mp": 164,
+        "crit": 0.073733,
+        "cdr": 0.13139,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 50,
+        "rarity": 3,
+        "damage": 107147.78689410476,
+        "dps": 1785.7964482350794,
+        "hits": 277,
+        "hp": 1486,
+        "mp": 167,
+        "crit": 0.094115,
+        "cdr": 0.13761800000000002,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 60,
+        "rarity": 1,
+        "damage": 111734.19103589475,
+        "dps": 1862.2365172649124,
+        "hits": 272,
+        "hp": 1643,
+        "mp": 173,
+        "crit": 0.075338,
+        "cdr": 0.095,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 60,
+        "rarity": 2,
+        "damage": 122305.18039023998,
+        "dps": 2038.4196731706663,
+        "hits": 283,
+        "hp": 1643,
+        "mp": 172,
+        "crit": 0.07719000000000001,
+        "cdr": 0.136689,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 0,
+        "level": 60,
+        "rarity": 3,
+        "damage": 128513.83191698986,
+        "dps": 2141.8971986164975,
+        "hits": 278,
+        "hp": 1945,
+        "mp": 175,
+        "crit": 0.10054,
+        "cdr": 0.143824,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 1,
+        "rarity": 1,
+        "damage": 5535.673691436162,
+        "dps": 92.2612281906027,
+        "hits": 217,
+        "hp": 166,
+        "mp": 147,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 1,
+        "rarity": 2,
+        "damage": 5703.66932564547,
+        "dps": 95.0611554274245,
+        "hits": 219,
+        "hp": 166,
+        "mp": 147,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 1,
+        "rarity": 3,
+        "damage": 6128.49409147374,
+        "dps": 102.141568191229,
+        "hits": 218,
+        "hp": 171,
+        "mp": 144,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 10,
+        "rarity": 1,
+        "damage": 14452.287001140083,
+        "dps": 240.87145001900137,
+        "hits": 258,
+        "hp": 368,
+        "mp": 149,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 10,
+        "rarity": 2,
+        "damage": 15333.978107955887,
+        "dps": 255.56630179926478,
+        "hits": 261,
+        "hp": 368,
+        "mp": 148,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 10,
+        "rarity": 3,
+        "damage": 16049.844309816688,
+        "dps": 267.49740516361146,
+        "hits": 260,
+        "hp": 389,
+        "mp": 146,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 20,
+        "rarity": 1,
+        "damage": 29515.61632765935,
+        "dps": 491.9269387943225,
+        "hits": 284,
+        "hp": 613,
+        "mp": 150,
+        "crit": 0.062454,
+        "cdr": 0.22499999999999998,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 20,
+        "rarity": 2,
+        "damage": 30055.715406644824,
+        "dps": 500.92859011074705,
+        "hits": 288,
+        "hp": 613,
+        "mp": 149,
+        "crit": 0.063364,
+        "cdr": 0.245491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 20,
+        "rarity": 3,
+        "damage": 31091.00964153491,
+        "dps": 518.1834940255818,
+        "hits": 286,
+        "hp": 664,
+        "mp": 148,
+        "crit": 0.074841,
+        "cdr": 0.248998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 30,
+        "rarity": 1,
+        "damage": 43880.07363391693,
+        "dps": 731.3345605652822,
+        "hits": 293,
+        "hp": 901,
+        "mp": 169,
+        "crit": 0.065675,
+        "cdr": 0.27499999999999997,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 30,
+        "rarity": 2,
+        "damage": 47219.28003956184,
+        "dps": 786.988000659364,
+        "hits": 302,
+        "hp": 901,
+        "mp": 168,
+        "crit": 0.06682,
+        "cdr": 0.3,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 30,
+        "rarity": 3,
+        "damage": 48383.15555963581,
+        "dps": 806.3859259939302,
+        "hits": 296,
+        "hp": 995,
+        "mp": 168,
+        "crit": 0.081266,
+        "cdr": 0.3,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 40,
+        "rarity": 1,
+        "damage": 59925.704123013806,
+        "dps": 998.7617353835634,
+        "hits": 292,
+        "hp": 1148,
+        "mp": 170,
+        "crit": 0.068896,
+        "cdr": 0.27499999999999997,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 40,
+        "rarity": 2,
+        "damage": 65902.11009346182,
+        "dps": 1098.3685015576968,
+        "hits": 303,
+        "hp": 1148,
+        "mp": 169,
+        "crit": 0.070277,
+        "cdr": 0.3,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 40,
+        "rarity": 3,
+        "damage": 67146.88790346486,
+        "dps": 1119.114798391081,
+        "hits": 296,
+        "hp": 1299,
+        "mp": 171,
+        "crit": 0.087691,
+        "cdr": 0.3,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 50,
+        "rarity": 1,
+        "damage": 78119.1324476585,
+        "dps": 1301.9855407943082,
+        "hits": 295,
+        "hp": 1396,
+        "mp": 172,
+        "crit": 0.072117,
+        "cdr": 0.27499999999999997,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 50,
+        "rarity": 2,
+        "damage": 84154.7397282456,
+        "dps": 1402.57899547076,
+        "hits": 308,
+        "hp": 1396,
+        "mp": 170,
+        "crit": 0.073733,
+        "cdr": 0.3,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 50,
+        "rarity": 3,
+        "damage": 84489.56783459957,
+        "dps": 1408.1594639099928,
+        "hits": 296,
+        "hp": 1615,
+        "mp": 173,
+        "crit": 0.094115,
+        "cdr": 0.3,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 60,
+        "rarity": 1,
+        "damage": 106661.83166919058,
+        "dps": 1777.6971944865097,
+        "hits": 296,
+        "hp": 1643,
+        "mp": 173,
+        "crit": 0.075338,
+        "cdr": 0.27499999999999997,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 60,
+        "rarity": 2,
+        "damage": 119636.28275466664,
+        "dps": 1993.9380459111105,
+        "hits": 308,
+        "hp": 1643,
+        "mp": 172,
+        "crit": 0.07719000000000001,
+        "cdr": 0.3,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 1,
+        "level": 60,
+        "rarity": 3,
+        "damage": 124068.04832134662,
+        "dps": 2067.800805355777,
+        "hits": 297,
+        "hp": 1945,
+        "mp": 175,
+        "crit": 0.10054,
+        "cdr": 0.3,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 1,
+        "rarity": 1,
+        "damage": 4889.604661846896,
+        "dps": 81.4934110307816,
+        "hits": 212,
+        "hp": 174,
+        "mp": 132,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 1,
+        "rarity": 2,
+        "damage": 4977.237449814717,
+        "dps": 82.95395749691195,
+        "hits": 214,
+        "hp": 174,
+        "mp": 132,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 1,
+        "rarity": 3,
+        "damage": 5401.852622447467,
+        "dps": 90.03087704079113,
+        "hits": 214,
+        "hp": 179,
+        "mp": 129,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 10,
+        "rarity": 1,
+        "damage": 12237.927059812018,
+        "dps": 203.96545099686696,
+        "hits": 250,
+        "hp": 424,
+        "mp": 134,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 10,
+        "rarity": 2,
+        "damage": 12963.371200517075,
+        "dps": 216.05618667528458,
+        "hits": 252,
+        "hp": 424,
+        "mp": 133,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 10,
+        "rarity": 3,
+        "damage": 13854.891584918121,
+        "dps": 230.91485974863537,
+        "hits": 250,
+        "hp": 445,
+        "mp": 131,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 20,
+        "rarity": 1,
+        "damage": 25065.17316791097,
+        "dps": 417.7528861318495,
+        "hits": 231,
+        "hp": 764,
+        "mp": 135,
+        "crit": 0.062454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 20,
+        "rarity": 2,
+        "damage": 26803.29941348485,
+        "dps": 446.72165689141417,
+        "hits": 238,
+        "hp": 764,
+        "mp": 134,
+        "crit": 0.063364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 20,
+        "rarity": 3,
+        "damage": 26672.42085693605,
+        "dps": 444.5403476156008,
+        "hits": 233,
+        "hp": 822,
+        "mp": 133,
+        "crit": 0.074841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 30,
+        "rarity": 1,
+        "damage": 42523.04518365935,
+        "dps": 708.7174197276559,
+        "hits": 240,
+        "hp": 1053,
+        "mp": 136,
+        "crit": 0.065675,
+        "cdr": 0.05,
+        "leech": 0,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 30,
+        "rarity": 2,
+        "damage": 45292.46583914752,
+        "dps": 754.8744306524586,
+        "hits": 244,
+        "hp": 1053,
+        "mp": 135,
+        "crit": 0.06682,
+        "cdr": 0.07579,
+        "leech": 0.005469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 30,
+        "rarity": 3,
+        "damage": 47967.574490640174,
+        "dps": 799.4595748440029,
+        "hits": 237,
+        "hp": 1159,
+        "mp": 135,
+        "crit": 0.081266,
+        "cdr": 0.080203,
+        "leech": 0.002989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 40,
+        "rarity": 1,
+        "damage": 57434.70149975288,
+        "dps": 957.2450249958814,
+        "hits": 236,
+        "hp": 1343,
+        "mp": 137,
+        "crit": 0.068896,
+        "cdr": 0.05,
+        "leech": 0,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 40,
+        "rarity": 2,
+        "damage": 61519.958914776245,
+        "dps": 1025.332648579604,
+        "hits": 245,
+        "hp": 1343,
+        "mp": 136,
+        "crit": 0.070277,
+        "cdr": 0.081089,
+        "leech": 0.006593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 40,
+        "rarity": 3,
+        "damage": 62859.88144711723,
+        "dps": 1047.6646907852871,
+        "hits": 236,
+        "hp": 1512,
+        "mp": 138,
+        "crit": 0.087691,
+        "cdr": 0.086411,
+        "leech": 0.0036030000000000003,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 50,
+        "rarity": 1,
+        "damage": 72474.84698730079,
+        "dps": 1207.914116455013,
+        "hits": 237,
+        "hp": 1632,
+        "mp": 139,
+        "crit": 0.072117,
+        "cdr": 0.05,
+        "leech": 0,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 50,
+        "rarity": 2,
+        "damage": 76113.99186408223,
+        "dps": 1268.5665310680372,
+        "hits": 245,
+        "hp": 1632,
+        "mp": 137,
+        "crit": 0.073733,
+        "cdr": 0.08639,
+        "leech": 0.007718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 50,
+        "rarity": 3,
+        "damage": 79404.14746643975,
+        "dps": 1323.4024577739958,
+        "hits": 236,
+        "hp": 1878,
+        "mp": 140,
+        "crit": 0.094115,
+        "cdr": 0.092618,
+        "leech": 0.004217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 60,
+        "rarity": 1,
+        "damage": 85780.83633179907,
+        "dps": 1429.6806055299846,
+        "hits": 254,
+        "hp": 1922,
+        "mp": 140,
+        "crit": 0.075338,
+        "cdr": 0.05,
+        "leech": 0,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 60,
+        "rarity": 2,
+        "damage": 93002.81714682085,
+        "dps": 1550.046952447014,
+        "hits": 266,
+        "hp": 1922,
+        "mp": 139,
+        "crit": 0.07719000000000001,
+        "cdr": 0.091689,
+        "leech": 0.008841000000000002,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 2,
+        "style": 2,
+        "level": 60,
+        "rarity": 3,
+        "damage": 96629.22300878867,
+        "dps": 1610.487050146478,
+        "hits": 255,
+        "hp": 2259,
+        "mp": 142,
+        "crit": 0.10054,
+        "cdr": 0.098824,
+        "leech": 0.004831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 1,
+        "rarity": 1,
+        "damage": 4906.13072183682,
+        "dps": 81.76884536394701,
+        "hits": 106,
+        "hp": 178,
+        "mp": 127,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 1,
+        "rarity": 2,
+        "damage": 4937.58381943384,
+        "dps": 82.29306365723068,
+        "hits": 107,
+        "hp": 178,
+        "mp": 127,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 1,
+        "rarity": 3,
+        "damage": 5321.956874509849,
+        "dps": 88.6992812418308,
+        "hits": 106,
+        "hp": 184,
+        "mp": 124,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 10,
+        "rarity": 1,
+        "damage": 16021.291414096702,
+        "dps": 267.0215235682784,
+        "hits": 220,
+        "hp": 380,
+        "mp": 129,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 10,
+        "rarity": 2,
+        "damage": 16931.370787559044,
+        "dps": 282.1895131259841,
+        "hits": 224,
+        "hp": 380,
+        "mp": 128,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 10,
+        "rarity": 3,
+        "damage": 16846.995837696973,
+        "dps": 280.7832639616162,
+        "hits": 222,
+        "hp": 402,
+        "mp": 126,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 20,
+        "rarity": 1,
+        "damage": 30911.46756801021,
+        "dps": 515.1911261335034,
+        "hits": 274,
+        "hp": 605,
+        "mp": 168,
+        "crit": 0.062454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 20,
+        "rarity": 2,
+        "damage": 32687.136848687685,
+        "dps": 544.7856141447947,
+        "hits": 282,
+        "hp": 605,
+        "mp": 167,
+        "crit": 0.063364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 20,
+        "rarity": 3,
+        "damage": 33609.02913685613,
+        "dps": 560.1504856142689,
+        "hits": 278,
+        "hp": 657,
+        "mp": 166,
+        "crit": 0.074841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 30,
+        "rarity": 1,
+        "damage": 48104.46624863126,
+        "dps": 801.7411041438543,
+        "hits": 277,
+        "hp": 829,
+        "mp": 169,
+        "crit": 0.065675,
+        "cdr": 0,
+        "leech": 0.01,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 30,
+        "rarity": 2,
+        "damage": 50205.01886381505,
+        "dps": 836.7503143969175,
+        "hits": 282,
+        "hp": 829,
+        "mp": 168,
+        "crit": 0.06682,
+        "cdr": 0.02579,
+        "leech": 0.015469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 30,
+        "rarity": 3,
+        "damage": 53255.30200213725,
+        "dps": 887.5883667022875,
+        "hits": 281,
+        "hp": 925,
+        "mp": 168,
+        "crit": 0.081266,
+        "cdr": 0.030203,
+        "leech": 0.012989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 40,
+        "rarity": 1,
+        "damage": 70071.42034552414,
+        "dps": 1167.8570057587356,
+        "hits": 274,
+        "hp": 1054,
+        "mp": 170,
+        "crit": 0.068896,
+        "cdr": 0,
+        "leech": 0.01,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 40,
+        "rarity": 2,
+        "damage": 75900.69820074587,
+        "dps": 1265.0116366790978,
+        "hits": 286,
+        "hp": 1054,
+        "mp": 169,
+        "crit": 0.070277,
+        "cdr": 0.031089,
+        "leech": 0.016593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 40,
+        "rarity": 3,
+        "damage": 76687.24459100957,
+        "dps": 1278.1207431834928,
+        "hits": 281,
+        "hp": 1206,
+        "mp": 171,
+        "crit": 0.087691,
+        "cdr": 0.036411,
+        "leech": 0.013603,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 50,
+        "rarity": 1,
+        "damage": 90014.27454161539,
+        "dps": 1500.2379090269233,
+        "hits": 384,
+        "hp": 1278,
+        "mp": 172,
+        "crit": 0.072117,
+        "cdr": 0,
+        "leech": 0.02,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 50,
+        "rarity": 2,
+        "damage": 96300.76361729689,
+        "dps": 1605.0127269549482,
+        "hits": 396,
+        "hp": 1278,
+        "mp": 170,
+        "crit": 0.073733,
+        "cdr": 0.03639,
+        "leech": 0.027718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 50,
+        "rarity": 3,
+        "damage": 102631.69982050009,
+        "dps": 1710.5283303416682,
+        "hits": 389,
+        "hp": 1500,
+        "mp": 173,
+        "crit": 0.094115,
+        "cdr": 0.042618,
+        "leech": 0.024217000000000002,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 60,
+        "rarity": 1,
+        "damage": 107103.19791474829,
+        "dps": 1785.0532985791383,
+        "hits": 384,
+        "hp": 1657,
+        "mp": 173,
+        "crit": 0.075338,
+        "cdr": 0,
+        "leech": 0.025,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 60,
+        "rarity": 2,
+        "damage": 113496.78365113685,
+        "dps": 1891.6130608522808,
+        "hits": 402,
+        "hp": 1657,
+        "mp": 172,
+        "crit": 0.07719000000000001,
+        "cdr": 0.041689000000000004,
+        "leech": 0.03,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 0,
+        "level": 60,
+        "rarity": 3,
+        "damage": 121698.61256698436,
+        "dps": 2028.3102094497394,
+        "hits": 390,
+        "hp": 1961,
+        "mp": 175,
+        "crit": 0.10054,
+        "cdr": 0.048824,
+        "leech": 0.029831000000000003,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 1,
+        "rarity": 1,
+        "damage": 5196.737979470635,
+        "dps": 86.61229965784392,
+        "hits": 101,
+        "hp": 178,
+        "mp": 112,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 1,
+        "rarity": 2,
+        "damage": 5183.861491278434,
+        "dps": 86.39769152130724,
+        "hits": 102,
+        "hp": 178,
+        "mp": 112,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 1,
+        "rarity": 3,
+        "damage": 5570.731573968347,
+        "dps": 92.84552623280578,
+        "hits": 101,
+        "hp": 184,
+        "mp": 109,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 10,
+        "rarity": 1,
+        "damage": 17923.81403716806,
+        "dps": 298.73023395280103,
+        "hits": 209,
+        "hp": 380,
+        "mp": 114,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 10,
+        "rarity": 2,
+        "damage": 18370.331063414564,
+        "dps": 306.1721843902427,
+        "hits": 213,
+        "hp": 380,
+        "mp": 113,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 10,
+        "rarity": 3,
+        "damage": 18960.82551856112,
+        "dps": 316.01375864268533,
+        "hits": 213,
+        "hp": 402,
+        "mp": 111,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 20,
+        "rarity": 1,
+        "damage": 32824.79682964457,
+        "dps": 547.0799471607428,
+        "hits": 318,
+        "hp": 625,
+        "mp": 115,
+        "crit": 0.062454,
+        "cdr": 0,
+        "leech": 0.02,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 20,
+        "rarity": 2,
+        "damage": 34951.67902875899,
+        "dps": 582.5279838126498,
+        "hits": 325,
+        "hp": 625,
+        "mp": 114,
+        "crit": 0.063364,
+        "cdr": 0.020491,
+        "leech": 0.024345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 20,
+        "rarity": 3,
+        "damage": 35824.93186634825,
+        "dps": 597.0821977724707,
+        "hits": 323,
+        "hp": 678,
+        "mp": 113,
+        "crit": 0.074841,
+        "cdr": 0.023998,
+        "leech": 0.022374,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 30,
+        "rarity": 1,
+        "damage": 47816.870264521436,
+        "dps": 796.9478377420239,
+        "hits": 318,
+        "hp": 914,
+        "mp": 116,
+        "crit": 0.065675,
+        "cdr": 0,
+        "leech": 0.03,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 30,
+        "rarity": 2,
+        "damage": 50373.85534589816,
+        "dps": 839.5642557649694,
+        "hits": 327,
+        "hp": 914,
+        "mp": 115,
+        "crit": 0.06682,
+        "cdr": 0.02579,
+        "leech": 0.03,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 30,
+        "rarity": 3,
+        "damage": 51884.38092388219,
+        "dps": 864.7396820647032,
+        "hits": 323,
+        "hp": 1010,
+        "mp": 115,
+        "crit": 0.081266,
+        "cdr": 0.030203,
+        "leech": 0.03,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 40,
+        "rarity": 1,
+        "damage": 69720.97802866333,
+        "dps": 1162.016300477722,
+        "hits": 321,
+        "hp": 1162,
+        "mp": 117,
+        "crit": 0.068896,
+        "cdr": 0,
+        "leech": 0.03,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 40,
+        "rarity": 2,
+        "damage": 73951.67638147764,
+        "dps": 1232.527939691294,
+        "hits": 329,
+        "hp": 1162,
+        "mp": 116,
+        "crit": 0.070277,
+        "cdr": 0.031089,
+        "leech": 0.03,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 40,
+        "rarity": 3,
+        "damage": 76292.14252206782,
+        "dps": 1271.5357087011303,
+        "hits": 323,
+        "hp": 1314,
+        "mp": 118,
+        "crit": 0.087691,
+        "cdr": 0.036411,
+        "leech": 0.03,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 50,
+        "rarity": 1,
+        "damage": 85258.63483166695,
+        "dps": 1420.977247194449,
+        "hits": 319,
+        "hp": 1409,
+        "mp": 119,
+        "crit": 0.072117,
+        "cdr": 0,
+        "leech": 0.03,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 50,
+        "rarity": 2,
+        "damage": 90670.14158946164,
+        "dps": 1511.1690264910274,
+        "hits": 329,
+        "hp": 1409,
+        "mp": 117,
+        "crit": 0.073733,
+        "cdr": 0.03639,
+        "leech": 0.03,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 50,
+        "rarity": 3,
+        "damage": 97640.81707766737,
+        "dps": 1627.3469512944562,
+        "hits": 323,
+        "hp": 1631,
+        "mp": 120,
+        "crit": 0.094115,
+        "cdr": 0.042618,
+        "leech": 0.03,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 60,
+        "rarity": 1,
+        "damage": 108343.23631212709,
+        "dps": 1805.7206052021181,
+        "hits": 319,
+        "hp": 1657,
+        "mp": 120,
+        "crit": 0.075338,
+        "cdr": 0,
+        "leech": 0.03,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 60,
+        "rarity": 2,
+        "damage": 114906.74896504966,
+        "dps": 1915.1124827508277,
+        "hits": 333,
+        "hp": 1657,
+        "mp": 119,
+        "crit": 0.07719000000000001,
+        "cdr": 0.041689000000000004,
+        "leech": 0.03,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 1,
+        "level": 60,
+        "rarity": 3,
+        "damage": 123310.48196821686,
+        "dps": 2055.174699470281,
+        "hits": 325,
+        "hp": 1961,
+        "mp": 122,
+        "crit": 0.10054,
+        "cdr": 0.048824,
+        "leech": 0.03,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 1,
+        "rarity": 1,
+        "damage": 4373.510774143504,
+        "dps": 72.89184623572507,
+        "hits": 101,
+        "hp": 187,
+        "mp": 112,
+        "crit": 0.056334,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 1,
+        "rarity": 2,
+        "damage": 4327.58103535383,
+        "dps": 72.1263505892305,
+        "hits": 102,
+        "hp": 187,
+        "mp": 112,
+        "crit": 0.056797,
+        "cdr": 0.010421999999999999,
+        "leech": 0.00221,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 1,
+        "rarity": 3,
+        "damage": 4728.144171278546,
+        "dps": 78.80240285464244,
+        "hits": 102,
+        "hp": 193,
+        "mp": 109,
+        "crit": 0.062634,
+        "cdr": 0.012206000000000002,
+        "leech": 0.001208,
+        "tech": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 0,
+          "spent": 0,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 10,
+        "rarity": 1,
+        "damage": 13162.88716045571,
+        "dps": 219.38145267426182,
+        "hits": 210,
+        "hp": 438,
+        "mp": 114,
+        "crit": 0.059233,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 10,
+        "rarity": 2,
+        "damage": 13838.447449450252,
+        "dps": 230.64079082417086,
+        "hits": 213,
+        "hp": 438,
+        "mp": 113,
+        "crit": 0.059908,
+        "cdr": 0.015191000000000001,
+        "leech": 0.003221,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 10,
+        "rarity": 3,
+        "damage": 14244.566965521342,
+        "dps": 237.40944942535572,
+        "hits": 213,
+        "hp": 460,
+        "mp": 111,
+        "crit": 0.068416,
+        "cdr": 0.017791,
+        "leech": 0.0017599999999999998,
+        "tech": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 5,
+          "spent": 5,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 20,
+        "rarity": 1,
+        "damage": 25133.756903041576,
+        "dps": 418.89594838402627,
+        "hits": 210,
+        "hp": 780,
+        "mp": 115,
+        "crit": 0.062454,
+        "cdr": 0,
+        "leech": 0,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 20,
+        "rarity": 2,
+        "damage": 27268.998589110524,
+        "dps": 454.48330981850876,
+        "hits": 217,
+        "hp": 780,
+        "mp": 114,
+        "crit": 0.063364,
+        "cdr": 0.020491,
+        "leech": 0.004345,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 20,
+        "rarity": 3,
+        "damage": 27449.735687898064,
+        "dps": 457.49559479830106,
+        "hits": 214,
+        "hp": 839,
+        "mp": 113,
+        "crit": 0.074841,
+        "cdr": 0.023998,
+        "leech": 0.0023740000000000002,
+        "tech": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 10,
+          "spent": 10,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 30,
+        "rarity": 1,
+        "damage": 38531.18117726821,
+        "dps": 642.1863529544702,
+        "hits": 209,
+        "hp": 1069,
+        "mp": 116,
+        "crit": 0.065675,
+        "cdr": 0,
+        "leech": 0.01,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 30,
+        "rarity": 2,
+        "damage": 41108.05283063495,
+        "dps": 685.1342138439159,
+        "hits": 219,
+        "hp": 1069,
+        "mp": 115,
+        "crit": 0.06682,
+        "cdr": 0.02579,
+        "leech": 0.015469,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 30,
+        "rarity": 3,
+        "damage": 42029.05648789456,
+        "dps": 700.4842747982426,
+        "hits": 214,
+        "hp": 1177,
+        "mp": 115,
+        "crit": 0.081266,
+        "cdr": 0.030203,
+        "leech": 0.012989,
+        "tech": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 15,
+          "spent": 15,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 40,
+        "rarity": 1,
+        "damage": 49828.17807859128,
+        "dps": 830.469634643188,
+        "hits": 212,
+        "hp": 1520,
+        "mp": 117,
+        "crit": 0.068896,
+        "cdr": 0,
+        "leech": 0.01,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 40,
+        "rarity": 2,
+        "damage": 53641.54601980462,
+        "dps": 894.0257669967436,
+        "hits": 219,
+        "hp": 1520,
+        "mp": 116,
+        "crit": 0.070277,
+        "cdr": 0.031089,
+        "leech": 0.016593,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 40,
+        "rarity": 3,
+        "damage": 54195.50582981618,
+        "dps": 903.2584304969364,
+        "hits": 215,
+        "hp": 1691,
+        "mp": 118,
+        "crit": 0.087691,
+        "cdr": 0.036411,
+        "leech": 0.013603,
+        "tech": {
+          "earned": 20,
+          "spent": 19,
+          "available": 1,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 20,
+          "spent": 20,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 50,
+        "rarity": 1,
+        "damage": 60071.010262330215,
+        "dps": 1001.1835043721702,
+        "hits": 210,
+        "hp": 1844,
+        "mp": 137,
+        "crit": 0.072117,
+        "cdr": 0,
+        "leech": 0.01,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 50,
+        "rarity": 2,
+        "damage": 64469.50710740435,
+        "dps": 1074.4917851234059,
+        "hits": 219,
+        "hp": 1844,
+        "mp": 135,
+        "crit": 0.073733,
+        "cdr": 0.03639,
+        "leech": 0.017718,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 50,
+        "rarity": 3,
+        "damage": 69901.3267846907,
+        "dps": 1165.0221130781783,
+        "hits": 214,
+        "hp": 2092,
+        "mp": 138,
+        "crit": 0.094115,
+        "cdr": 0.042618,
+        "leech": 0.014217,
+        "tech": {
+          "earned": 22,
+          "spent": 19,
+          "available": 3,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 25,
+          "spent": 25,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 60,
+        "rarity": 1,
+        "damage": 77341.36213949992,
+        "dps": 1289.0227023249986,
+        "hits": 210,
+        "hp": 2167,
+        "mp": 138,
+        "crit": 0.075338,
+        "cdr": 0,
+        "leech": 0.01,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 60,
+        "rarity": 2,
+        "damage": 83945.60869281419,
+        "dps": 1399.0934782135698,
+        "hits": 224,
+        "hp": 2167,
+        "mp": 137,
+        "crit": 0.07719000000000001,
+        "cdr": 0.041689000000000004,
+        "leech": 0.018841000000000004,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      },
+      {
+        "cls": 3,
+        "style": 2,
+        "level": 60,
+        "rarity": 3,
+        "damage": 89156.49891105399,
+        "dps": 1485.9416485175666,
+        "hits": 216,
+        "hp": 2508,
+        "mp": 140,
+        "crit": 0.10054,
+        "cdr": 0.048824,
+        "leech": 0.014831,
+        "tech": {
+          "earned": 24,
+          "spent": 19,
+          "available": 5,
+          "deficit": 0
+        },
+        "talent": {
+          "earned": 30,
+          "spent": 30,
+          "available": 0,
+          "deficit": 0
+        }
+      }
+    ],
+    "errors": [],
+    "limit": "Automated stationary-target rotations; does not measure human enjoyment, full survival or campaign duration."
+  },
+  "graphics": {
+    "atlasCount": 25,
+    "atlasDecodedRGBABytes": 21705728,
+    "atlasDecodedMiB": 20.7,
+    "terrainChunkCacheMaximumBytes": 16777216,
+    "terrainChunkCacheLowMaximumBytes": 8388608,
+    "glyphCacheMaximumEntries": 256,
+    "images": [
+      {
+        "atlas": "ground",
+        "width": 1024,
+        "height": 32,
+        "decodedRGBABytes": 131072
+      },
+      {
+        "atlas": "props",
+        "width": 1024,
+        "height": 228,
+        "decodedRGBABytes": 933888
+      },
+      {
+        "atlas": "icons",
+        "width": 1024,
+        "height": 96,
+        "decodedRGBABytes": 393216
+      },
+      {
+        "atlas": "portraits",
+        "width": 1024,
+        "height": 96,
+        "decodedRGBABytes": 393216
+      },
+      {
+        "atlas": "hero0",
+        "width": 1024,
+        "height": 216,
+        "decodedRGBABytes": 884736
+      },
+      {
+        "atlas": "hero1",
+        "width": 1024,
+        "height": 216,
+        "decodedRGBABytes": 884736
+      },
+      {
+        "atlas": "hero2",
+        "width": 1024,
+        "height": 216,
+        "decodedRGBABytes": 884736
+      },
+      {
+        "atlas": "hero3",
+        "width": 1024,
+        "height": 216,
+        "decodedRGBABytes": 884736
+      },
+      {
+        "atlas": "foes",
+        "width": 1024,
+        "height": 216,
+        "decodedRGBABytes": 884736
+      },
+      {
+        "atlas": "people",
+        "width": 1024,
+        "height": 168,
+        "decodedRGBABytes": 688128
+      },
+      {
+        "atlas": "actionhero0",
+        "width": 1024,
+        "height": 273,
+        "decodedRGBABytes": 1118208
+      },
+      {
+        "atlas": "actionhero1",
+        "width": 1024,
+        "height": 273,
+        "decodedRGBABytes": 1118208
+      },
+      {
+        "atlas": "actionhero2",
+        "width": 1024,
+        "height": 273,
+        "decodedRGBABytes": 1118208
+      },
+      {
+        "atlas": "actionhero3",
+        "width": 1024,
+        "height": 273,
+        "decodedRGBABytes": 1118208
+      },
+      {
+        "atlas": "equipment",
+        "width": 336,
+        "height": 336,
+        "decodedRGBABytes": 451584
+      },
+      {
+        "atlas": "creaturesA",
+        "width": 480,
+        "height": 528,
+        "decodedRGBABytes": 1013760
+      },
+      {
+        "atlas": "creaturesB",
+        "width": 480,
+        "height": 528,
+        "decodedRGBABytes": 1013760
+      },
+      {
+        "atlas": "creaturesC",
+        "width": 480,
+        "height": 528,
+        "decodedRGBABytes": 1013760
+      },
+      {
+        "atlas": "creaturesD",
+        "width": 480,
+        "height": 528,
+        "decodedRGBABytes": 1013760
+      },
+      {
+        "atlas": "creaturesE",
+        "width": 480,
+        "height": 528,
+        "decodedRGBABytes": 1013760
+      },
+      {
+        "atlas": "creaturesF",
+        "width": 480,
+        "height": 528,
+        "decodedRGBABytes": 1013760
+      },
+      {
+        "atlas": "items2",
+        "width": 768,
+        "height": 768,
+        "decodedRGBABytes": 2359296
+      },
+      {
+        "atlas": "legends",
+        "width": 384,
+        "height": 320,
+        "decodedRGBABytes": 491520
+      },
+      {
+        "atlas": "abilities2",
+        "width": 288,
+        "height": 192,
+        "decodedRGBABytes": 221184
+      },
+      {
+        "atlas": "abilityForms",
+        "width": 864,
+        "height": 192,
+        "decodedRGBABytes": 663552
+      }
+    ],
+    "limit": "Decoded atlas size and configured cache bounds; does not measure physical device GPU/process memory."
+  },
+  "pending": [
+    "Sessões humanas de onboarding e duração de seis jornadas novas; 24 horas não aferidas.",
+    "Aparelhos Android e iPhone físicos, incluindo abertura direta do HTML; file:// bloqueado pela política do Chromium gerenciado.",
+    "Revisão da identidade de 72 formas e 30 assinaturas: parte compartilha perfis/consumidores.",
+    "Cobertura completa de alvo móvel, grupo, guarda, controle, combinações e contrajogo de todas as fichas.",
+    "Revisão qualitativa de variedade de missões/mapas, arte e diversão; os 116 critérios globais não estão todos encerrados."
+  ]
+}
