@@ -1,3 +1,17 @@
+# Ecos do Horizonte v5 — candidata de campanha
+
+**[Baixar o HTML diretamente](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v5.0.0-candidate.1/ecos-do-horizonte-v5-candidata.html)** · [Jogar no Site do proprietário](https://ecos-horizonte-mobile.patrecio.chatgpt.site)
+
+Seis regiões, 48 missões, 12 masmorras, quatro heróis, seis raridades, itens com afixos/assinaturas, forja, baú, talentos, bestiário e códice de itens. Tudo incorporado em um arquivo de aproximadamente 7.31 MB. Toque no retrato superior para abrir o hub do herói.
+
+A meta de 24 horas e a qualidade da jornada ainda precisam de avaliação humana. A candidata tem pendências de variedade de formas/assinaturas e cobertura integral do checklist; não é uma declaração de 100% de aceite. [Leia as alterações, os testes e as pendências](melhorias-v5-candidata.md).
+
+Para trazer sua jornada, exporte o `.json` em **Pausa → Salvar e importar** e importe na nova versão. As versões anteriores continuam nos links abaixo.
+
+---
+
+## Versões anteriores preservadas
+
 # Ecos do Horizonte · v5 · Prévia 01 de construções
 
 **[Baixar o jogo em um único HTML — download direto](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v5.0.0-preview.1/ecos-do-horizonte-v5-previa-01.html)** · [Jogar no Site do proprietário](https://ecos-horizonte-mobile.patrecio.chatgpt.site)
