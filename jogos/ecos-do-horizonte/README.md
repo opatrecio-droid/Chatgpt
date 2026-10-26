@@ -1,3 +1,13 @@
+# Ecos do Horizonte — versão mais recente
+
+**[Baixar diretamente a candidata 2 — HTML único, 7,34 MB](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v5.0.0-candidate.2/ecos-do-horizonte-v5-candidata-02.html)**
+
+[Jogar no navegador](https://ecos-horizonte-mobile.patrecio.chatgpt.site) · [Mudanças e limites](melhorias-v5-candidata-02.md) · [Verificação](verificacao-v5-candidata-02.json)
+
+Formas de habilidade e assinaturas de equipamentos aprofundadas, campos visuais e recompensas principais ajustadas. Implementação pesada e medições complementares pelo GPT-6.1 Terra com raciocínio extra alto; revisão e entrega pelo agente principal. A campanha ainda não tem 24 horas comprovadas nem aprovação integral do checklist. Os arquivos das versões anteriores continuam disponíveis abaixo.
+
+---
+
 # Ecos do Horizonte v5 — candidata de campanha
 
 **[Baixar o HTML diretamente](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v5.0.0-candidate.1/ecos-do-horizonte-v5-candidata.html)** · [Jogar no Site do proprietário](https://ecos-horizonte-mobile.patrecio.chatgpt.site)
