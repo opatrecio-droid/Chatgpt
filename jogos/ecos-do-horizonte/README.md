@@ -1,3 +1,17 @@
+# Ecos do Horizonte · v5 · Prévia 01 de construções
+
+**[Baixar o jogo em um único HTML — download direto](https://github.com/opatrecio-droid/Chatgpt/releases/download/ecos-do-horizonte-v5.0.0-preview.1/ecos-do-horizonte-v5-previa-01.html)** · [Jogar no Site do proprietário](https://ecos-horizonte-mobile.patrecio.chatgpt.site)
+
+Primeira etapa jogável do plano v5: 24 pontos de técnica e 30 de talento por herói; seis técnicas por classe, ranks, formas exclusivas, três ramos de talentos, afinidade no nível 20 e redistribuição gratuita. Toque no retrato superior e abra **Habilidades** ou **Evolução**. Edite perto da Âncora ou no treino com golpes pausados.
+
+O HTML tem cerca de 3 MB e incorpora imagens, sons e animações. Preserva saques físicos, notificações compactas e conteúdo da 4.1. A migração usa uma chave própria e conserva o salvamento anterior. Para outro aparelho/navegador, exporte a jornada da versão antiga e importe o `.json` na nova.
+
+[Alterações e verificação desta prévia](melhorias-v5-previa-01.md). Itemização ampliada, bestiário, novos mapas/missões, arte final e campanha de 24 horas continuam no plano de expansão. A duração não foi validada em sessões humanas.
+
+---
+
+## Versão 4.1 preservada
+
 # Ecos do Horizonte — A Vila que Esqueceu · v4.1
 
 RPG de aventura em pixel art, com controles para celular, em **um único HTML de aproximadamente 3 MB**. Imagens, animações e sons estão incluídos. O jogo não pede arquivos de outras pastas e funciona sem conexão após o download.
