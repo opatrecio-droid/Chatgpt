@@ -52,12 +52,19 @@
 
 <section id="s-battle" class="screen" hidden>
   <div class="b-stage" id="b-stage"><canvas id="cv-battle" aria-label="Batalha"></canvas></div>
-  <div class="b-panel">
-    <div class="foes" id="foes"></div>
-    <div class="b-log" id="b-log" aria-live="polite"></div>
-    <div class="party" id="party"></div>
-    <div class="cmds" id="cmds"></div>
+  <div class="bt-top">
+    <button class="bt-chat" id="bt-chat" type="button" aria-label="Registro de combate"><i aria-hidden="true"></i><span>Registro</span></button>
+    <div class="bt-queue" id="bt-queue" aria-label="Ordem de turnos"></div>
+    <button class="bt-qbtn" id="bt-qbtn" type="button" aria-label="Lista de combatentes"><i aria-hidden="true"></i></button>
   </div>
+  <div class="bt-foe" id="bt-foe"></div>
+  <div class="bt-order" id="bt-order" hidden></div>
+  <div class="b-log" id="b-log" aria-live="polite"></div>
+  <div class="bt-action" id="bt-action" hidden></div>
+  <div class="bt-quick" id="bt-quick" hidden></div>
+  <div class="cmds" id="cmds"></div>
+  <div class="foes" id="foes" hidden></div>
+  <div class="party" id="party" hidden></div>
 </section>
 
 <div id="overlay" class="sheet" hidden role="dialog" aria-modal="true" aria-label="Menu">

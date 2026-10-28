@@ -1,0 +1,77 @@
+/* Tela de combate no estilo do original (v3.27.3): ver ESPECIFICACAO-TELAS.md.
+   Vem depois de style-09.css e substitui as regras antigas de #s-battle. */
+#s-battle{display:block;position:fixed;inset:0;background:#15291c;overflow:hidden;color:#f3ead8;font-family:var(--f-b);-webkit-user-select:none;user-select:none}
+#s-battle .b-stage{position:absolute;inset:0;height:100%!important;box-shadow:none}
+#s-battle .b-stage canvas{width:100%;height:100%;display:block}
+#s-battle .bt-top,#s-battle .bt-foe,#s-battle .bt-order,#s-battle .b-log,#s-battle .bt-action,#s-battle .bt-quick,#s-battle .cmds{position:absolute;z-index:3}
+
+/* topo: registro, fila de iniciativa, botão da lista */
+.bt-top{top:calc(8px + env(safe-area-inset-top,0px));left:8px;right:8px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;pointer-events:none}
+.bt-top>*{pointer-events:auto}
+.bt-chat{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 9px;border:1px solid #5a4d46;border-radius:6px;background:#1c1613e6;color:#e9dfd0;font:600 13px var(--f-b);cursor:pointer;box-shadow:0 2px 6px #0007}
+.bt-chat i{width:18px;height:15px;border-radius:7px;background:#e8c9a0;position:relative;display:block;box-shadow:inset 0 -3px 0 #c89c68}
+.bt-chat i::after{content:"";position:absolute;left:4px;bottom:-5px;border:4px solid transparent;border-top-color:#e8c9a0;border-bottom:0}
+.bt-queue{display:flex;gap:2px;margin-left:auto;padding-top:1px}
+.bt-q{position:relative;width:36px;height:36px;border-radius:50%;border:2px solid #8d8d8d;background:#3a3a3a;overflow:hidden;box-shadow:0 2px 4px #0008;flex:none}
+.bt-q.foe{border-color:#e0a23a;background:#6a4a1c}
+.bt-q.now{width:42px;height:42px;margin-top:-3px;border-color:#ffe08a;box-shadow:0 0 0 2px #ffe08a88,0 2px 6px #000a}
+.bt-q img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;image-rendering:pixelated;display:block}
+.bt-qbtn{width:42px;height:42px;border-radius:50%;border:2px solid #cfc7b8;background:#2a221de6;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 6px #000a;flex:none}
+.bt-qbtn i{width:14px;height:20px;display:block;background:
+  linear-gradient(#f0e7d6,#f0e7d6) 0 4px/14px 3px no-repeat,linear-gradient(#f0e7d6,#f0e7d6) 0 10px/14px 3px no-repeat,linear-gradient(#f0e7d6,#f0e7d6) 0 16px/14px 3px no-repeat}
+.bt-qbtn[aria-expanded="true"]{background:#5a4a38}
+.bt-queue.off{display:none}
+
+/* inimigo principal: barra larga, nome, nível e Codex */
+.bt-foe{top:calc(54px + env(safe-area-inset-top,0px));left:8px;right:8px;pointer-events:none}
+.bt-foe .bar-boss{position:relative;height:26px;border:2px solid #d8d0c2;border-radius:4px;background:#2a0b0b;box-shadow:0 0 0 2px #1a0c0c,0 3px 8px #0009;overflow:hidden}
+.bt-foe .bar-boss i{position:absolute;inset:0 auto 0 0;background:linear-gradient(#e03030,#a01212 60%,#7c0c0c);transition:width .35s}
+.bt-foe .bar-boss b{position:absolute;inset:0;display:grid;place-items:center;font:700 14px var(--f-b);letter-spacing:.04em;text-shadow:0 1px 2px #000,0 0 3px #000;color:#fff}
+.bt-foe .who{margin-top:6px;text-shadow:1px 1px 0 #000,0 0 6px #000,0 0 3px #000}
+.bt-foe .who h2{margin:0;font:700 20px/1.05 var(--f-t);font-variant:small-caps;letter-spacing:.02em;color:#f8f0e0}
+.bt-foe .who p{margin:2px 0 0;font:500 14px var(--f-b);color:#e8dfce}
+.bt-foe .who .cdx{display:inline-flex;align-items:center;gap:5px;margin-top:10px;pointer-events:auto;cursor:pointer;background:none;border:0;padding:2px 0;color:#f4ecdc;font:500 17px var(--f-b);text-shadow:1px 1px 0 #000,0 0 5px #000}
+.bt-foe .who .cdx img{width:18px;height:18px;image-rendering:pixelated}
+
+/* lista de combatentes */
+.bt-order{top:calc(100px + env(safe-area-inset-top,0px));right:8px;width:min(280px,72%);background:#1a1411f2;border:1px solid #6b5d52;border-radius:8px;padding:8px;box-shadow:0 8px 24px #000b;z-index:6}
+.bt-order h3{margin:0 0 6px;font:700 13px var(--f-t);letter-spacing:.08em;text-transform:uppercase;color:#cbbfae}
+.bt-order .row{display:grid;grid-template-columns:26px 1fr;gap:2px 8px;align-items:center;padding:3px 0;font-size:14px}
+.bt-order .row img{width:26px;height:26px;grid-row:span 2;object-fit:contain;image-rendering:pixelated}
+.bt-order .row .m{height:6px;border-radius:3px;background:#2a0b0b;overflow:hidden}.bt-order .row .m i{display:block;height:100%;background:#d83a34}
+.bt-order .row.foe b{color:#ffcf7a}
+
+/* registro (canto superior direito, sem caixa) */
+#s-battle .b-log{top:calc(152px + env(safe-area-inset-top,0px));right:10px;left:auto;width:min(62%,300px);max-height:34%;overflow:hidden;display:flex;flex-direction:column;align-items:flex-end;text-align:right;pointer-events:none;font:500 15px/1.22 var(--f-b);text-shadow:1px 1px 0 #000,0 0 5px #000,0 0 3px #000}
+#s-battle .b-log p{margin:0 0 3px;color:#e9e3d6;opacity:.72}
+#s-battle .b-log p:last-child{opacity:1;color:#fff;font-weight:700}
+#s-battle .b-log p.bad{color:#ff9a62}#s-battle .b-log p.good{color:#b9f09a}#s-battle .b-log p.gold{color:#ffd86a}
+
+/* faixa com a ação do ator */
+.bt-action{top:calc(176px + env(safe-area-inset-top,0px));left:10px;min-width:104px;padding:7px 14px 8px;background:#1b1512f0;border:2px solid #e9e1d3;border-radius:5px;text-align:center;box-shadow:0 3px 10px #000a;pointer-events:none}
+.bt-action small{display:block;font:500 12px var(--f-b);color:#c9bfae}
+.bt-action b{display:block;font:600 18px var(--f-b);color:#fff;margin-top:1px}
+
+/* atalho de poção */
+.bt-quick{right:8px;bottom:calc(var(--commands-height,200px) + 16px + env(safe-area-inset-bottom,0px));width:min(46%,170px)}
+.bt-quick button{width:100%;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 6px 6px;border:2px solid #cdbfae88;border-radius:8px;background:#2b211dd9;color:#eadfce;font:600 11px/1.1 var(--f-b);letter-spacing:.07em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 8px #0008}
+.bt-quick button img{width:20px;height:20px;image-rendering:pixelated}
+
+/* grade de comandos 2 × 3 */
+#s-battle .cmds{left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:8px 10px calc(10px + env(safe-area-inset-bottom,0px));max-width:620px;margin-inline:auto;background:linear-gradient(transparent,#0007 30%);width:auto!important;max-height:none;overflow:visible}
+.bt-cmd{position:relative;min-height:clamp(52px,7.6dvh,68px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 6px 7px;border:2px solid #cdbfae66;border-radius:8px;background:linear-gradient(#4a3b36e8,#352a26ee);color:#efe6d6;font:600 clamp(13px,3.5vw,16px)/1.1 var(--f-b);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 8px #0009,inset 0 1px 0 #ffffff14}
+.bt-cmd:active{transform:translateY(1px);filter:brightness(1.12)}
+.bt-cmd img{width:22px;height:22px;image-rendering:pixelated;display:block}
+.bt-cmd b{font-weight:600}
+.bt-cmd small{position:absolute;left:0;right:0;bottom:3px;font:500 10px var(--f-b);letter-spacing:.06em;color:#bfb3a2;text-transform:none}
+.bt-cmd em{position:absolute;top:4px;right:7px;font:500 10px var(--f-b);font-style:normal;letter-spacing:.08em;color:#cbbfae}
+.bt-cmd[disabled]{opacity:.48;cursor:default;filter:none}
+.bt-cmd:focus-visible{outline:3px solid #ffd86a;outline-offset:2px}
+#s-battle .cmds.list{max-height:46dvh;overflow:auto;align-content:start}
+#s-battle .cmds.list .bt-cmd{min-height:54px;letter-spacing:.06em;flex-direction:row;gap:8px;justify-content:flex-start;padding-left:12px;text-align:left}
+#s-battle .cmds.list .bt-cmd small{position:static;margin-left:auto;padding-right:4px;color:#d7cbb9}
+#s-battle .cmds.list .bt-cmd em{position:static;margin-left:auto}
+#s-battle .cmds .back{grid-column:1/-1;justify-content:center}
+@media (max-height:640px){.bt-foe .who h2{font-size:17px}.bt-cmd{min-height:46px}.bt-action{top:calc(160px + env(safe-area-inset-top,0px))}#s-battle .b-log{top:calc(136px + env(safe-area-inset-top,0px))}}
+@media (min-width:700px){.bt-foe{left:max(8px,calc(50% - 310px));right:max(8px,calc(50% - 310px))}.bt-top{left:max(8px,calc(50% - 310px));right:max(8px,calc(50% - 310px))}}
+#s-battle.bt-covered :is(.bt-top,.bt-foe,.bt-order,.b-log,.bt-action,.bt-quick){visibility:hidden}

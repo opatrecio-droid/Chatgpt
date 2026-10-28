@@ -47,6 +47,12 @@
  },
  {
   "pasta": "src",
+  "arquivo": "batalha.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
   "arquivo": "html-10.html"
  },
  {
@@ -72,6 +78,12 @@
  {
   "pasta": "src",
   "arquivo": "jogo.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "batalha.js",
   "abre": "<script>",
   "fecha": "</script>"
  },
