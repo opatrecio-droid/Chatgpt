@@ -52,7 +52,8 @@ Legenda de certeza: **A** = visto numa imagem/texto oficial · **B** = vem do AP
 | Abas do herói | Grupo, Inventário, Equipamento, Loja de Runas, Opções; Arena e Gauntlet também apareceram | Status, Inventário, Equipamento, Loja de Runas | A |
 | Inventário | Barra lateral + grade de 3 colunas, ícone com anel de brilho conforme a qualidade, nome colorido, "Level N" embaixo, ouro e orns no topo | Barra lateral + grade de 2 colunas, ícone à esquerda do nome | A |
 | Categorias | Novo, Curativos, Itens, Armas, Cabeça, Armadura, Secundário, Pernas, Acessórios, Amities, Materiais, Adornos, Outros | Já inclui essas e mais Relíquias, Moedas, Peixe, Lixo | A / B |
-| Classes | Aba "Classe | Especialização"; grade de 3 colunas com nome em versalete sobre o sprite | A conferir | A |
+| Classes | Atual (vídeo do usuário, 28/10/2026): cabeçalho "Caminho do Mago · OMNIMANCIA" com setas para os caminhos vizinhos ("Bravura" à esquerda, "Magia das Sombras" à direita); linhas por tier com estrelas e "NÍVEL N"; silhueta nas classes bloqueadas; "Feitiços: N" e "Habilidades: N" em cada cartão; dois cartões lado a lado nas ramificações. Linha do Mago: Mago (1) → Arquimago (25) → Mago da Corte (50) → Mago-Espadachim ou Místico (75) → Druida (100) | O **layout** já copia o original, mas o **conteúdo é inventado**: 22 classes em 5 tiers (Soldado, Escudeiro, Aprendiz Arcano, Feiticeiro…), e os caminhos se chamam "Sabedoria" e "Astúcia" em vez de "Omnimancia" e "Magia das Sombras". O catálogo tem as 82 classes reais com tier, preço e habilidades, mas não diz quem leva a quem | A (vídeo) / B |
+| Classes de 2022 | A grade de 3 colunas das capturas antigas não vale mais: o Druida estava no tier 3 e hoje está no 5 | A |
 
 ## Regras e progressão
 
