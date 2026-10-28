@@ -6,7 +6,7 @@ Reconstrução offline e independente de **Hero of Aethric**, da Northern Forge 
 
 | Pasta | Conteúdo | No git |
 |---|---|---|
-| `src/` | HTML, CSS e JavaScript do jogo. `jogo.js` é o motor herdado; `batalha`, `classes`, `classes-detalhe`, `mundo`, `vilas`, `hud`, `regras`, `mapa` e `opcoes` (`.js`/`.css`) são as camadas da versão 5; `manifesto.json` dá a ordem de montagem | sim |
+| `src/` | HTML, CSS e JavaScript do jogo. `jogo.js` é o motor herdado; `batalha`, `classes`, `classes-detalhe`, `textos-habilidades`, `mundo`, `vilas`, `hud`, `regras`, `mapa` e `opcoes` (`.js`/`.css`) são as camadas da versão 5; `manifesto.json` dá a ordem de montagem | sim |
 | `dados/` | Catálogo do Codex (`aethric-data.js`) e as imagens/fontes que o jogo embute (`assets/`) | não |
 | `tools/` | `extrair.py`, `montar.py` e `empacotar-apk.py` | sim |
 | `tests/` | Capturas de tela e testes no Chromium | sim |

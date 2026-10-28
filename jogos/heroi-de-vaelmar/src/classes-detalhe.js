@@ -11,7 +11,19 @@
 
   /* textos lidos nas telas de detalhe do vídeo (chave do catálogo) */
   const LONGA = {
-    c_92: 'Um soldado Lyonessese que pode imbuir seus ataques com propriedades elementais. Pode empunhar o equipamento do guerreiro.',
+    c_0: 'Uma classe corpo a corpo que favorece ataques físicos e força bruta em vez de magia. Pode usar armas e armaduras mais pesadas.',
+    c_2: 'Uma classe de luta astuta, que favorece a velocidade e o dano à defesa. Pode usar armaduras leves, adagas e arcos.',
+    c_97: 'Um novato no manejo de grandes feras nórdicas. Pode empunhar o equipamento do guerreiro ou do ladino.',
+    c_92: 'Um soldado Lyonesse que pode imbuir seus ataques com propriedades elementares. Pode empunhar o equipamento do guerreiro.',
+    c_93: 'Um guerreiro treinado na arte defensiva da esgrima. Pode empunhar o equipamento do guerreiro.',
+    c_95: 'Um cavaleiro graduado de Lyonesse armado até os dentes em mythril. Ele aprende artes com armas mais complexas e pode manejar o equipamento do guerreiro.',
+    c_96: 'Uma força de elite do reino de Lyonesse, habilidosa em ataques elementais. É naturalmente forte contra as forças das trevas e da luz e pode manejar equipamentos tanto do guerreiro quanto do mago.',
+    c_31: 'Uma força de elite do reino de Annwn, habilidoso em ofensas elementais. É naturalmente forte contra Magia arcana, e pode utilizar os equipamentos de guerreiro e ladino.',
+    c_10: 'Uma classe híbrida que mistura Defesa e Magia. Ele pode usar equipamentos de guerreiro e de mago.',
+    c_101: 'Um guerreiro que domina a arte de domesticar dragões. Pode empunhar o equipamento do guerreiro ou de ladino.',
+    c_39: 'Uma das ordens mais altas de guerreiros e valquírias nórdicos. É imune à magia de Dragão, possui vínculos especiais com animais e pode usar o equipamento do guerreiro ou mago.',
+    c_36: 'Um guerreiro sagrado e corajoso de Lyonesse, versado em métodos de guarda e sobrevivência. É imune à magia sagrada e pode usar o equipamento do guerreiro.',
+    c_38: 'Um ladino disposto a se arriscar em técnicas arcanas perdidas. É imune à magia Arcana e pode usar equipamentos do ladino.',
     c_24: 'Uma classe híbrida que favorece tudo, menos magia. Ele pode empunhar equipamentos tanto de ladinos quanto de cavaleiros.',
     c_1: 'Um indivíduo habilidoso que prefere a magia à força. Pode usar cajados e mantos.',
     c_4: 'Um mago de Avalon que aprendeu o básico da conjuração mágica. Pode empunhar o equipamento do mago.',
@@ -26,16 +38,19 @@
     c_57: 'Uma classe histórica daqueles alinhados aos Dragões, esta classe traz contos, poemas e canções de guerra para a batalha e favorece armas não convencionais. O ataque deles é determinado pelos atributos de Ataque e Magia, é imune à magia de Dragão e pode empunhar qualquer peça de equipamento encontrada.',
   };
   const ARMAS = {
+    c_0: 'Espadas', c_2: 'Adagas', c_97: 'Machados e martelos, Varas', c_93: 'Espadas, Varas', c_95: 'Espadas, Varas', c_96: 'Espadas, Varas, Machados e martelos', c_31: 'Espadas, Espadas curvas, Varas, Machados e martelos',
+    c_10: 'Cajado, Espadas', c_101: 'Machados e martelos, Instrumentos', c_39: 'Varas, Machados e martelos, Instrumentos', c_36: 'Espadas, Machados e martelos',
     c_92: 'Espadas, Varas', c_24: 'Varas, Espadas curvas, Espadas, Machados e martelos, Adagas', c_1: 'Cajado', c_4: 'Cajado, Arquicajados', c_11: 'Cajado, Espadas curvas',
     c_87: 'Arquicajados, Espadas curvas', c_88: 'Cajado, Arquicajados', c_29: 'Cajado, Arquicajados, Varas, Espadas curvas', c_52: 'Cajado, Arquicajados',
     c_90: 'Adagas, Espadas, Espadas curvas', c_98: 'Machados e martelos, Varas', c_30: 'Cajado, Arquicajados, Espadas, Machados e martelos',
     c_57: 'Instrumentos, Arquicajados, Machados e martelos, Varas',
   };
-  const SLOTS = { c_92: 3, c_24: 4, c_1: 4, c_4: 5, c_11: 5, c_87: 8, c_88: 8, c_29: 10, c_52: 14, c_90: 9, c_98: 5, c_30: 9, c_57: 14 };
+  const SLOTS = { c_0: 2, c_2: 2, c_97: 4, c_93: 4, c_95: 7, c_96: 9, c_31: 8, c_10: 6, c_101: 7, c_39: 10, c_36: 8, c_92: 3, c_24: 4, c_1: 4, c_4: 5, c_11: 5, c_87: 8, c_88: 8, c_29: 10, c_52: 14, c_90: 9, c_98: 5, c_30: 9, c_57: 14 };
 
   /* bônus de atributos lidos no vídeo (herói de nível 17). Viram multiplicadores sobre os atributos base
      do nível 17 e depois valem em qualquer nível; classes sem medição continuam com o multiplicador genérico */
   const DELTA17 = {
+    c_2:  { hp: -68, mp: 7, mag: 3, def: -2, res: -2, dex: 10 },
     c_1:  { hp: -105, mp: 81, atk: -5, mag: 19, def: -9, res: 8 },
     c_11: { hp: -68, mp: 103, mag: 19, def: -2, res: -2, dex: 13 },
     c_87: { hp: -72, mp: 136, atk: -5, mag: 27, def: -9, res: 8 },
@@ -45,6 +60,12 @@
     c_52: { hp: 733, mp: 315, atk: 1, mag: 122, def: 1, res: 36, dex: 32 },
     c_90: { hp: 70, mp: 133, atk: 12, mag: 27, def: -7, res: 8, dex: 11 },
     c_98: { hp: 40, atk: 2 },
+    c_95: { hp: 118, mp: 51, atk: 20, mag: -4, def: 2, res: 2, dex: 4 },
+    c_96: { hp: 313, mp: 92, atk: 28, mag: -4, def: 4, res: 4, dex: 4 },
+    c_31: { hp: 313, mp: 51, atk: 28, mag: -4, def: 4, res: 4, dex: 4 },
+    c_39: { hp: 265, mp: 136, atk: 31, mag: 47, def: -3, res: 27 },
+    c_101: { hp: 13, mp: 19, atk: 13, def: 2, res: 2, dex: 4 },
+    c_10: { mp: 81, mag: 19 },
     c_30: { hp: 176, mp: 136, atk: 3, mag: 42, def: -5, res: 19 },
     c_57: { hp: 1078, mp: 236, atk: 107, mag: 123, def: 24, res: 101 },
   };
@@ -65,10 +86,14 @@
 
   /* ---------- texto das habilidades ---------- */
   const EL_PT = { fogo: 'Fogo', agua: 'Água', terra: 'Terra', raio: 'Raio', sagrado: 'Sagrado', sombrio: 'Sombrio', arcano: 'Arcano', dragao: 'Dragão' };
+  /* textos do jogo lidos no vídeo (src/textos-habilidades.js); sem entrada, usa-se o texto montado dos dados */
+  const chave = t => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const TXT_HAB = window.TEXTO_HAB || {}, TXT_PASS = window.TEXTO_PASSIVA || {};
   const efeito = n => { const d = Rules.effectDef(n); return d && d.name && d.name !== n ? d.name : n; };
   const STAT_ART = { Att: 'o Ataque', Atk: 'o Ataque', Mag: 'a Magia', Def: 'a Defesa', Res: 'a Resistência', Dex: 'a Destreza', Crit: 'o Crítico', All: 'todos os atributos' };
   const parteStat = n => { const m = /^(?:T\. )?(Att|Atk|Mag|Def|Res|Dex|Crit|All) (↑+|↓+)$/.exec(n); return m && { art: STAT_ART[m[1]], up: m[2][0] === '↑', forte: m[2].length > 1 }; };
   function descSpell(r) {
+    if (TXT_HAB[chave(r.name)]) return TXT_HAB[chave(r.name)];
     const pw = r.power || [], temP = pw.length && pw[0] > 0, out = [], el = EL_PT[r.element];
     if (temP) {
       let s = r.type === 'mag' ? 'Causa dano mágico' + (el ? ' de ' + el : '') : 'Ataque físico' + (el ? ' de ' + el : '');
@@ -100,8 +125,9 @@
     'Status Protection': 'Proteção contra Status', 'Bestial Bond': 'Vínculo Bestial', Manaflasks: 'Frascos de Mana', Bloodflasks: 'Frascos de Sangue', 'Mana Siphon': 'Sifão de Mana',
     'Avidity Chance': 'Chance de Avidez', Healing: 'Cura', 'Follower Act': 'Ação do Seguidor', 'Follower Stats': 'Stats do Seguidor', 'Recharge HP on Crit': 'Recarregar HP com o Crítico',
     'Life Siphon': 'Sifão da Vida', 'Follower/Summon AI': 'IA do Seguidor/Invocações', 'Mana Rush': 'Carga de Mana', 'Valhalla Power': 'Poder de Valhalla', 'Follower Protect': 'Proteção do Seguidor',
-    'Hybrid Damage': 'Dano Híbrido', 'Elemental Weaknesses': 'Fraquezas Elementais', 'Max Dodge Chance': 'Esquiva Máxima', 'View Distance': 'Distância de Visão' };
-  const efxPt = line => line.split(' / ').map(p => { const i = p.indexOf(':'); if (i < 0) return p; const lab = p.slice(0, i), val = p.slice(i + 1).replace('Level', 'Nível').replace(/turns?/, 'turnos'); return (EFX[lab] || lab) + ':' + val; }).join(' / ');
+    'Hybrid Damage': 'Dano Híbrido', 'Elemental Weaknesses': 'Fraquezas Elementais', 'Max Dodge Chance': 'Chance Máxima de Esquiva', 'View Distance': 'Interaction Range',
+    'Mana-Ward Recovery': 'Recuperação de Mana-Guarda', 'Ward Power': 'Poder da Guarda', 'Damage to Ward': 'Danos à Guarda', 'Self Damage Reduction': 'Redução de Auto Dano', Causes: 'Causa' };
+  const efxPt = line => line.split(' / ').map(p => { const i = p.indexOf(':'); if (i < 0) return p; const lab = p.slice(0, i), val = p.slice(i + 1).replace('Level', 'Nível'); return (EFX[lab] || lab) + ':' + val; }).join(' / ');
   /* [nome, descrição, prefixos dos bônus do catálogo]. Sem entrada: nome em inglês, como o jogo faz com algumas */
   const PASSIVA = {
     'Mana Siphon': ['Sifão de Mana', 'Há uma grande chance de que uma habilidade ou feitiço não consuma mana.', ['Mana Siphon']],
@@ -119,7 +145,6 @@
     'Beast Mode': ['Modo Fera', 'Seus atributos aumentam à medida que você derrota animais selvagens.', []],
     Efficacious: ['Efficacious', 'Additional damage is dealt when exploiting elemental weaknesses, while partial damage is dealt when hitting elemental immunities. Additionally, when casting a multi-turn spell, damage taken will be reduced.', ['Elemental Weaknesses', 'Spell Casting Damage', 'Elemental Immunity Damage']],
     'Crest of Lyonesse': ['Emblema de Lyonesse', 'Seus atributos aumentam à medida que você derrota os inimigos fanáticos ou ressurgidos.', []],
-    Omnimancy: ['Onimancia', 'Você tem conexão com os elementos. Ocasionalmente, você estará imune a danos de qualquer elemento.', []],
     Recharge: ['Recarga', 'Conseguir um acerto crítico restaurará HP e mana.', ['Recharge HP on Crit']],
     'Dragon Slayer': ['Matador de Dragões', 'Seus atributos aumentam à medida que você derrota Dragões.', []],
     'Hybrid Monster': ['Monstro Híbrido', 'Você tem conexão com os grandes Dragões. Seu atributo de Ataque aumenta um pouco sua Magia, enquanto a Magia aumenta o Ataque.', ['Hybrid Damage']],
@@ -128,14 +153,26 @@
     'Valhallan Strength': ['Força de Valhalla', 'Seus ataques podem causar praga e danos críticos com mais frequência. Seu Seguidor também é mais forte e pode atacar com mais frequência.', ['Crit Chance', 'Follower Stats', 'Follower Act']],
     'Valhallan Dissonance': ['Dissonância de Valhalla', 'Seu seguidor é um pouco mais forte e deve atacar mais frequentemente. Adicionalmente, você e seu seguidor ficarão ambos mais poderosos à medida que seu HP diminui em batalha.', ['Valhalla Power', 'Low HP', 'Follower Stats', 'Follower Act']],
     'Valhallan Protection': ['Proteção de Valhalla', 'Qualquer Seguidor tem a chance de te proteger em batalha.', ['Follower Protect']],
+    /* abaixo, nomes e bônus vistos no segundo vídeo; a descrição vem de textos-habilidades.js */
+    'Critical Hits': ['Danos Críticos', '', ['Crit Chance']], 'Siphon Ward': ['Guarda Sifonada', '', ['Mana-Ward Recovery']],
+    Bastille: ['Bastilha', '', ['Ward Start', 'Ward Recovery', '+High Ward', 'Ward Power']], 'Eternal Light': ['Luz Eterna', '', ['View Distance']],
+    'Mystic Feather': ['Pena Mística', '', ['Max Dodge Chance']], 'Crest of Annwn': ['Emblema de Annwn', '', []], 'Arcane Mastery': ['Maestria Arcana', '', ['Causes']],
+    'Dungeon Crawler': ['Explorador de Masmorras', '', []], Resurgence: ['Ressurgimento', '', ['Low HP']], 'High Tenacity': ['Alta Tenacidade', '', ['Self Damage Reduction']],
+    Saboteur: ['Sabotador', '', ['Damage to Ward']], "Realm's Light": ['Luz do Reino', '', ['View Distance', 'Causes']], Iconoclast: ['Iconoclasta', '', ['Low Mana']],
+    Omnimancy: ['Onimancia', '', []], 'School of Avalon': ['Escola de Avalon', '', []], Nekromancy: ['Necromancia', '', []], 'Weaved Elements': ['Elementos Entrelaçados', '', ['+Weaved Elements']],
+    'Ascension Synergy': ['Sinergia de Ascensão', '', ['Follower Ascension Level']],
+    /* nomes exatos que o jogo escreve de outro jeito que "nome + algarismo" */
+    'Manaflasks II': ['Frasco de Mana II', '', ['Manaflasks']], 'Manaflasks III': ['Frascos de Mana III', '', ['Manaflasks']], Bloodflasks: ['Frascos de Sangue', '', ['Manaflasks', 'Bloodflasks']],
+    'Bloodflasks II': ['Frascos de Sangue II', '', ['Manaflasks', 'Bloodflasks']], 'Steadfast III': ['Steadfast III', '', ['Status Protection']],
   };
   const ROMANO = /^(.*?)(?: (I{1,3}|IV|V))?$/;
   function passivas(k) {
     const row = rowOf(k), fx = (row.effects || []).slice(), usado = new Set();
     const itens = (row.abilities || []).map(nome => {
-      const [, stem, num] = nome.match(ROMANO), def = PASSIVA[stem], pt = def ? def[0] + (num ? ' ' + num : '') : nome;
+      const [, stem, num] = nome.match(ROMANO), exato = PASSIVA[nome], def = exato || PASSIVA[stem], pt = exato ? exato[0] : def ? def[0] + (num ? ' ' + num : '') : nome;
       const linhas = def ? fx.filter((e, i) => def[2].some(p => e.startsWith(p)) && !usado.has(i) && (usado.add(i), true)) : [];
-      return '<div class="cd-it"><b>' + iconImg(['spark'], 16) + esc(pt) + '</b>' + (def ? '<p>' + esc(def[1]) + '</p>' : '') + linhas.map(l => '<span class="cd-meta">' + esc(efxPt(l)) + '</span>').join('') + '</div>';
+      const texto = TXT_PASS[chave(pt)] || (def && def[1]);
+      return '<div class="cd-it"><b>' + iconImg(['spark'], 16) + esc(pt) + '</b>' + (texto ? '<p>' + esc(texto) + '</p>' : '') + linhas.map(l => '<span class="cd-meta">' + esc(efxPt(l)) + '</span>').join('') + '</div>';
     });
     const sobra = fx.filter((e, i) => !usado.has(i));
     return itens.join('') + (sobra.length ? '<div class="cd-it"><span class="cd-meta">' + sobra.map(l => esc(efxPt(l))).join('<br>') + '</span></div>' : '');

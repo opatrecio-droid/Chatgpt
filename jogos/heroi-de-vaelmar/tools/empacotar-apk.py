@@ -6,7 +6,7 @@ manifesto. Este script troca assets/game.html, atualiza versão, nome do app e i
 pacote (para instalar AO LADO da versão antiga, sem desinstalar nem perder o progresso) e assina
 com v1+v2+v3. A chave de assinatura 4.4.0 não é conhecida, então a assinatura é nova.
 
-  python3 tools/empacotar-apk.py Heroi-de-Vaelmar-Offline-4.4.0.apk --versao 5.1.0 --codigo 50100
+  python3 tools/empacotar-apk.py Heroi-de-Vaelmar-Offline-4.4.0.apk --versao 5.1.1 --codigo 50101
 
 Requer Java (javac) e baixa o apksig do Google Maven na primeira execução.
 """
@@ -102,9 +102,9 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('base', type=Path, help='APK base (4.4.0)')
     ap.add_argument('--html', type=Path, default=RAIZ / 'dist' / 'game.html')
-    ap.add_argument('--versao', default='5.1.0'); ap.add_argument('--codigo', type=int, default=50100)
+    ap.add_argument('--versao', default='5.1.1'); ap.add_argument('--codigo', type=int, default=50101)
     ap.add_argument('--pacote', default='com.vaelmar.offline5'); ap.add_argument('--nome', default='Herói de Vaelmar 5')
-    ap.add_argument('--saida', type=Path, default=RAIZ / 'dist' / 'Heroi-de-Vaelmar-Offline-5.1.0.apk')
+    ap.add_argument('--saida', type=Path, default=RAIZ / 'dist' / 'Heroi-de-Vaelmar-Offline-5.1.1.apk')
     ap.add_argument('--chave', type=Path, default=CHAVE); ap.add_argument('--senha', default='vaelmar')
     ap.add_argument('--docs', nargs='*', type=Path, default=[])
     a = ap.parse_args()

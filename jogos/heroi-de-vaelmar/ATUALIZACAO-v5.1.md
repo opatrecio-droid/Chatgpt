@@ -1,5 +1,7 @@
 # Herói de Vaelmar 5.1 — classes como no segundo vídeo
 
+**5.1.1:** as páginas de habilidades, passivas e frascos agora mostram **o texto do próprio jogo**, lido nos quadros do vídeo (301 habilidades e 62 passivas, incluindo os textos que o jogo deixa em inglês). Também entraram o texto, as armas, os slots e os bônus de mais 8 classes (Escudeiro, Templário, Paladino, Magistrado, Mago-Espadachim, Dragão, Frei, Gatuno e Guerreiro).
+
 Esta versão usa o **segundo vídeo** do jogo original (v3.27.3, caminhos de classe e telas de detalhe). Detalhes: [ESPECIFICACAO-TELAS.md](ESPECIFICACAO-TELAS.md). O que ainda é aproximação está em [AUDITORIA-FIDELIDADE.md](AUDITORIA-FIDELIDADE.md). A 5.0 continua descrita em [ATUALIZACAO-v5.0.md](ATUALIZACAO-v5.0.md).
 
 ## O que mudou
@@ -10,7 +12,7 @@ Esta versão usa o **segundo vídeo** do jogo original (v3.27.3, caminhos de cla
 
 **Detalhe da classe (novo)**
 - Tocar num cartão abre a tela cheia do original: estrelas, nome grande, sprite, descrição, armas preferidas, slots, **linha de bônus de atributos** (`HP −105 Mana +81 …`), botões `HABILIDADES/FEITIÇOS`, `PASSIVAS` e `FRASCOS DE MANA`.
-- Páginas internas com a lista de habilidades (nível, mana, «Poder» calculado com os seus atributos), passivas (com os bônus do Codex) e frascos de mana.
+- Páginas internas com a lista de habilidades (descrição do jogo, nível, mana, «Poder» calculado com os seus atributos), passivas (com os bônus do Codex) e frascos de mana.
 - Classe disponível: botão verde **SEGURE PARA DESBLOQUEAR** (a barra enche em 1 s) e `Custos: N orns`. Classe já sua: `USAR CLASSE`. Classe bloqueada: `Requer nível N`.
 
 **Números**
@@ -19,8 +21,8 @@ Esta versão usa o **segundo vídeo** do jogo original (v3.27.3, caminhos de cla
 ## O que continua diferente
 
 - Caminho de **Valhalla** (Adestrador de Lobos → … → Beowulf): visto só a partir do nível 50; ainda não existe no clone (as classes aparecem em «Classes especiais»).
-- As descrições das habilidades são montadas a partir dos dados do Codex; o jogo tem textos próprios, mais ricos. O «Poder» é uma estimativa (ataque ou magia × poder / 1000 × 1,16).
-- Textos longos das classes: só para as 13 classes que o vídeo mostrou; as outras usam um texto curto gerado.
+- Habilidades e passivas que **não** apareceram no vídeo (cerca de 70 das classes dos três caminhos e quase todas as de Valhalla por dentro) usam um texto montado a partir dos dados do Codex. O «Poder» é uma estimativa (ataque ou magia × poder / 1000 × 1,16).
+- Texto longo, armas e slots da classe: só para as classes que o vídeo mostrou com nitidez; as outras usam um texto curto gerado.
 - Continuam valendo as diferenças da 5.0 (menu principal incompleto, câmera livre, abas de opções, combate em grupo, servidor).
 
 ## Instalação

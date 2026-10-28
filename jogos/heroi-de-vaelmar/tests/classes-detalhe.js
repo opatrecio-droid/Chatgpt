@@ -37,6 +37,13 @@ const afirma = (ok, msg) => { if (!ok) { console.log('FALHOU:', msg); process.ex
   const lista = await page.evaluate(() => { mBody.innerHTML = mClass('c_5', 'skills'); return [...document.querySelectorAll('.cd-it')].map(e => e.innerText.replace(/\n+/g, ' | ')); });
   console.log(lista.slice(0, 3));
   afirma(/Nível 25/.test(lista[0]) && /Poder: \d/.test(lista[0]), 'Peregrino/Ladino: habilidade com nível e poder');
+  // textos reais do vídeo (não os montados do catálogo)
+  afirma(/Ataque com chance de envenenamento\./.test(lista[0]), 'Golpe Venenoso usa o texto do jogo: ' + lista[0]);
+  const reais = await page.evaluate(() => ({ n: Object.keys(window.TEXTO_HAB).length, p: Object.keys(window.TEXTO_PASSIVA).length, avidez: (() => { mBody.innerHTML = mClass('c_5', 'passives'); return document.querySelector('.cd-it p')?.textContent; })(),
+    mago: (() => { mBody.innerHTML = mClass('c_87', 'skills'); return [...document.querySelectorAll('.cd-it p')].filter(p => /Invoque|Evoque/.test(p.textContent)).length; })() }));
+  console.log(JSON.stringify(reais));
+  afirma(reais.n > 250 && reais.p > 50, 'tabelas de textos carregadas');
+  afirma(/turno adicional/.test(reais.avidez), 'passiva Avidez com texto do jogo');
 
   // desbloquear segurando: solta antes de 1 s não compra; segura 1,3 s compra
   await page.evaluate(() => { closeModal(); openModal(mClass, 'mago'); modal.classList.add('cd-full'); }); await page.waitForTimeout(300);
