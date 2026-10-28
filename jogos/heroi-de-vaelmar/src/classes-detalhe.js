@@ -77,7 +77,8 @@
   }
   if (CLASSES.c_92) for (const s of STATS) CLASSES.c_92.m[s] = 1; /* o Soldado de Infantaria não tem bônus no vídeo */
 
-  const delta = k => { const c = CLASSES[k], b = baseStats(S.lvl); return STATS.map(s => [s, Math.round(b[s] * (c.m[s] || 1) - b[s])]).filter(([, v]) => v); };
+  /* a linha compara com a classe que você está usando agora (a tela original mostra o que muda se trocar) */
+  const delta = k => { const c = CLASSES[k], cur = CLASSES[S.cls] || c, b = baseStats(S.lvl); return STATS.map(s => [s, Math.round(b[s] * ((c.m[s] || 1) - (cur.m[s] || 1)))]).filter(([, v]) => v); };
   const signed = v => (v > 0 ? '+' : '−') + fmt(Math.abs(v));
   const deltaHtml = k => {
     const d = delta(k); if (!d.length) return '';
@@ -270,4 +271,17 @@
     ACT.unlock({ dataset: { k: b.dataset.k } });
   });
   modal.addEventListener('contextmenu', e => { if (e.target.closest('.cd-hold')) e.preventDefault(); });
+
+  /* arma preferida: +5% de ataque e magia quando a arma da mão principal é de um tipo preferido da classe. Vale uma vez só e
+     não se soma ao da especialização (guia de comunidade, vídeo antigo). Só para as classes com lista vista; o Guerreiro
+     já tem um bônus próprio no motor. */
+  const TIPO_PT = { Swords: 'Espadas', Staffs: 'Cajado', Archistaffs: 'Arquicajados', 'Axes & Hammers': 'Machados e martelos', Daggers: 'Adagas', 'Curved swords': 'Espadas curvas', Instruments: 'Instrumentos', Polearms: 'Varas' };
+  const armaPreferida = set => {
+    const c = CLASSES[S.cls], lista = ARMAS[c.original]; if (!lista || c.original === 'c_0') return false;
+    const it = equippedIn(set || 'padrao', 'weapon'), tipo = it && Catalog.byKey[it.catalogKey]?.facts?.Type;
+    return !!tipo && lista.split(', ').includes(TIPO_PT[tipo]);
+  };
+  window.armaPreferida = armaPreferida;
+  const statsSemArma = stats;
+  stats = set => { const st = statsSemArma(set); if (armaPreferida(set)) { st.atk *= 1.05; st.mag *= 1.05; } return st; };
 })();

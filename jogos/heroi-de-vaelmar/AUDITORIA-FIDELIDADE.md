@@ -55,6 +55,10 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 | HP do Lorde Goblin nível 8 | Igual | 170; a fórmula para outros chefes de tier 1 é inferida |
 | HP de monstros comuns | Próximo | 32 para o Rato nível 4 (no vídeo ficou em ≈27); sem mais pontos |
 | Fórmula de dano | Igual (um ponto) | o ataque básico do vídeo (22) bate com a fórmula embutida |
+| Fraqueza ×2, resistência ×0,5, imunidade 0; facção +25% / −25%; números azuis e vermelhos | Próximo | regras de guias da comunidade (vídeos antigos), não conferidas no seu cliente; ver [REGRAS-OBSERVADAS.md](REGRAS-OBSERVADAS.md) |
+| Bônus de arma preferida (+5% ataque e magia) | Próximo | só para as classes com lista vista; mesma fonte |
+| Linha de bônus da classe comparada com a classe atual | Igual | a tela original compara com a classe usada |
+| Elemento no equipamento, status por elemento, taxas de ação do seguidor, invocadores, especializações | Falta | descritos nos guias; faltam telas do seu cliente para conferir |
 
 ## Menus e telas fora do mundo
 

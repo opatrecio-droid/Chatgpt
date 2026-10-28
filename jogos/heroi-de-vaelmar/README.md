@@ -30,6 +30,7 @@ node tests/combate-vitoria.js              # partida completa até a vitória
 node tests/classes-caminhos.js             # os três caminhos de classe
 node tests/classes-detalhe.js              # modal da classe, páginas e desbloqueio segurando
 node tests/classes-ingles.js               # procura texto em inglês nas telas de todas as classes
+node tests/regras-elementos.js             # fraqueza, facção, cor dos números, arma preferida
 node tests/mundo-regras.js                 # avisos do mundo e obstáculos
 node tests/migracao.js game-antigo.html    # save da versão antiga abre na nova
 
@@ -44,6 +45,7 @@ A extração só termina se o HTML remontado for idêntico, byte a byte, ao orig
 - [ATUALIZACAO-v5.1.md](ATUALIZACAO-v5.1.md) e [ATUALIZACAO-v5.0.md](ATUALIZACAO-v5.0.md): o que mudou, o que continua diferente, como instalar.
 - [ESPECIFICACAO-TELAS.md](ESPECIFICACAO-TELAS.md): cada tela do original, como aparece no vídeo de referência.
 - [AUDITORIA-FIDELIDADE.md](AUDITORIA-FIDELIDADE.md): comparação com o original, com o nível de certeza de cada linha.
+- [REGRAS-OBSERVADAS.md](REGRAS-OBSERVADAS.md): regras de jogo de guias da comunidade (elementos, facção, classes, seguidores, invocadores) e o que já está no clone.
 
 ## Requisitos
 

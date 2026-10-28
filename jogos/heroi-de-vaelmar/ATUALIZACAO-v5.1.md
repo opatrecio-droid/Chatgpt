@@ -1,5 +1,7 @@
 # Herói de Vaelmar 5.1 — classes como no segundo vídeo
 
+**5.3.0:** regras tiradas de cinco vídeos-guia da comunidade (detalhes e o que ficou pendente em [REGRAS-OBSERVADAS.md](REGRAS-OBSERVADAS.md)): fraqueza passa a dobrar o dano (era ×1,5); o dano recebido do seu elemento de facção cai 25% (era 20%); números **azuis** na fraqueza e **vermelhos** no dano resistido; **+5% de ataque e magia** com arma do tipo preferido da classe; a linha de bônus do detalhe da classe agora compara com a classe que você está usando. Mudam um pouco o equilíbrio das lutas: monstros fracos ao seu elemento morrem mais rápido.
+
 **5.2.0:** o quarto caminho, **Valhala** (Caminho do Adestrador), existe: Treinador → Adestrador de Lobos → Adestrador de Espíritos → Dragão → Grande Dragão → Frei → Bahamute → Beowulf, do nível 50 ao 225. Os caminhos agora formam uma fila como no original (Bravura › Omnimancia › Magia das Sombras › Valhala), com a seta apagada nas pontas.
 
 **5.1.2:** todo o texto em inglês das telas de classe foi traduzido para o português (descrições de habilidades e passivas, rótulos de bônus, nomes de status e de passivas). Ficam como o jogo escreve só os nomes próprios de feitiços (Infernus Mire, Tidal Stormflare, Gale Volcanis, Ultima…). Os nomes de passivas que não apareceram no vídeo (Passo de EXP, Caminho de Valhalla, Invocador Novato…) são tradução minha, sem texto de descrição.

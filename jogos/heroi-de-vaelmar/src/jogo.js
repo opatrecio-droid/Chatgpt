@@ -3600,7 +3600,7 @@ const Rules=(()=>{
   for(const [k,e]of Object.entries(f.effects||{})){if(e.fresh){e.fresh=false;continue;}if(e.remaining>0&&--e.remaining===0)delete f.effects[k];}
   if(f.wardFresh)f.wardFresh=false;else f.wardTurns=Math.max(0,(f.wardTurns||0)-1);
  }
- function elementMult(t,el){if(t.immune?.includes(el))return 0;if(t.weak?.includes(el))return 1.5;if(t.eres?.includes(el))return .5;return 1;}
+ function elementMult(t,el){if(t.immune?.includes(el))return 0;if(t.weak?.includes(el))return 2;if(t.eres?.includes(el))return .5;return 1;}
  function damage(a,t,o={},rand=Math.random){
   init(a);init(t);const stat=o.stat||'atk',attack=stat==='both'?(effective(a,'atk')+effective(a,'mag'))*.5:effective(a,stat==='mag'?'mag':'atk'),defense=effective(t,stat==='mag'?'res':'def'),element=o.elem||'fis';
   for(const e of Object.values(a.effects))if(effectDef(e.name).miss&&rand()<effectDef(e.name).miss)return {d:0,miss:true,el:element};
@@ -3609,12 +3609,12 @@ const Rules=(()=>{
   const m1=finite(o.penetration,pow[0]),m2=o.outputRange?o.outputRange[0]+rand()*(o.outputRange[1]-o.outputRange[0]):finite(o.output,pow[1]===pow[0]||!pow[0]?1:1+rand()*(pow[1]/pow[0]-1));
   const isSkill=!!(o.powerRange||o.penetration),statBuff=stat==='both'?1:multiplier(a,stat==='mag'?'mag':'atk');
   let n=Math.max(0,(isSkill?attack/Math.max(.01,statBuff):attack)*m1-defense/2)*m2*(isSkill?statBuff:1)*(.925+rand()*.15);
-  const el=elementMult(t,element);n*=el;if(a.faction&&a.faction===element)n*=1.25;if(t.faction&&t.faction===element)n*=.8;
+  const el=elementMult(t,element);n*=el;if(a.faction&&a.faction===element)n*=1.25;if(t.faction&&t.faction===element)n*=.75;
   for(const e of Object.values(a.effects)){const d=effectDef(e.name);if(d.damage)n*=d.damage;}
   const baseCrit=o.critAbsolute==null?(stat==='mag'?0:finite(a.crit,5)):o.critAbsolute+(finite(a.crit,5)-5);
   const critChance=clamp(baseCrit*multiplier(a,'crit'),0,100),crit=rand()*100<critChance;if(crit)n*=finite(a.critDamage,2);
   if(o.exec&&t.hp<t.maxhp*.35)n*=2;
-  return {d:Math.max(0,Math.round(finite(n))),crit,el:element,note:el===0?'Imune':el>1?'Fraqueza':el===.5?'Resistiu':''};
+  return {d:Math.max(0,Math.round(finite(n))),crit,el:element,note:el===0?'Imune':el>1?'Fraqueza':el===.5?'Resistiu':'',reduced:!!(t.faction&&t.faction===element)};
  }
  function receive(t,amount,{dot=false}={}){
   init(t);const n=Math.max(0,Math.round(finite(amount)));let absorbed=0;
@@ -3784,7 +3784,7 @@ renderParty=()=>{if(!B)return;renderFoes();const pcs=[B.hero,...(B.summons||[]).
 const baseRenderFoes=renderFoes;renderFoes=()=>{baseRenderFoes();if(!B)return;document.querySelectorAll('#foes .foe').forEach((el,i)=>{const f=B.foes[i];el.querySelector('.st').textContent=Object.values(f.effects||{}).map(e=>e.name).join(' · ');});};
 calcHit=(a,t,o)=>Rules.damage(a,t,{...o,elem:o.elem||'fis'});
 applyDamage=(t,d)=>Rules.receive(t,d).hpLoss;
-hitTarget=async(a,t,o={})=>{if(!t||t.hp<=0)return {d:0};const r=Rules.damage(a,t,o),[x,y]=cxPos(t);if(r.miss){floatText(x,y,r.dodge?'Esquivou':'Errou','#c8c4dc');sayMore(r.dodge?'Esquivou!':'Mas errou!','bad');await wait(120);return r;}const received=Rules.receive(t,r.d);r.dealt=received.hpLoss;floatText(x,y,''+r.d+(r.crit?'!':''),r.crit?'#ffe14a':t.hero?'#ff9988':'#ffffff');fxBurst(x,y,r.el,r.crit);(t.hero?sfx.hurt:sfx.hit)();if(r.crit)sayMore('Golpe crítico!','gold');if(r.note)say(t.n+': '+r.note+'.');if(a.hero&&o.stat!=='mag'&&r.d>0){const weapon=equippedIn(setOfMode(B.mode),'weapon'),row=weapon&&Catalog.byKey[weapon.catalogKey];for(const effect of row?.sections.Causes||[])Rules.applyEffect(t,effect.nameEn,probability(effect));}if(o.drain){a.hp=Math.min(a.maxhp,a.hp+Math.round(r.d*o.drain));}if(!t.hero&&!t.summon&&!t.rival){cx(t.key).el[r.el]=r.note||'norm';}if(t.hp<=0){say(t.n+' caiu.');t.alpha=0;dismissSummons(t.id);fxBurst(x,y,'puff',t.boss);}renderParty();await wait(S.reduceMotion?30:160);return r;};
+hitTarget=async(a,t,o={})=>{if(!t||t.hp<=0)return {d:0};const r=Rules.damage(a,t,o),[x,y]=cxPos(t);if(r.miss){floatText(x,y,r.dodge?'Esquivou':'Errou','#c8c4dc');sayMore(r.dodge?'Esquivou!':'Mas errou!','bad');await wait(120);return r;}const received=Rules.receive(t,r.d);r.dealt=received.hpLoss;floatText(x,y,''+r.d+(r.crit?'!':''),r.note==='Fraqueza'?'#5fb0ff':(r.note==='Resistiu'||r.reduced)?'#ff5a4a':r.crit?'#ffe14a':t.hero?'#ff9988':'#ffffff');fxBurst(x,y,r.el,r.crit);(t.hero?sfx.hurt:sfx.hit)();if(r.crit)sayMore('Golpe crítico!','gold');if(r.note)say(t.n+': '+r.note+'.');if(a.hero&&o.stat!=='mag'&&r.d>0){const weapon=equippedIn(setOfMode(B.mode),'weapon'),row=weapon&&Catalog.byKey[weapon.catalogKey];for(const effect of row?.sections.Causes||[])Rules.applyEffect(t,effect.nameEn,probability(effect));}if(o.drain){a.hp=Math.min(a.maxhp,a.hp+Math.round(r.d*o.drain));}if(!t.hero&&!t.summon&&!t.rival){cx(t.key).el[r.el]=r.note||'norm';}if(t.hp<=0){say(t.n+' caiu.');t.alpha=0;dismissSummons(t.id);fxBurst(x,y,'puff',t.boss);}renderParty();await wait(S.reduceMotion?30:160);return r;};
 pickFoeTarget=()=>{const targets=[B.hero,...B.summons.filter(f=>f.hp>0)];return pick(targets);};
 const probability=e=>Math.max(0,Math.min(1,((String(e.meta||'').match(/([\d.]+)%/)||[])[1]||100)/100));
 function actionEffects(actor,target,row,{landed=true}={}){
