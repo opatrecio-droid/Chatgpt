@@ -36,6 +36,7 @@
 
   /* ---------- trilhas: distância até a polilinha de cada estrada ---------- */
   const ROAD_PATHS = []; let roadIndex = null; const CELL = 64;
+  window.MAP_ROADS = ROAD_PATHS; /* para o mapa-múndi */
   const baseRoad = road;
   road = function (a, b) {
     const steps = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) * 2), pts = [];

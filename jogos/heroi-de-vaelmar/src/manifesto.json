@@ -65,6 +65,12 @@
  },
  {
   "pasta": "src",
+  "arquivo": "mapa.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
   "arquivo": "html-10.html"
  },
  {
@@ -126,6 +132,12 @@
  {
   "pasta": "src",
   "arquivo": "regras.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "mapa.js",
   "abre": "<script>",
   "fecha": "</script>"
  },
