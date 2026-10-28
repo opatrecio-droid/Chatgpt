@@ -101,6 +101,12 @@
  },
  {
   "pasta": "src",
+  "arquivo": "mundo.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
   "arquivo": "html-16.html"
  },
  {
