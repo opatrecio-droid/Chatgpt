@@ -125,6 +125,12 @@
  },
  {
   "pasta": "src",
+  "arquivo": "regras.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
   "arquivo": "html-16.html"
  },
  {

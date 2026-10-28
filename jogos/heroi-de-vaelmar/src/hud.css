@@ -1,2 +1,8 @@
 #w-banner{position:absolute;left:50%;top:calc(8px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:12;max-width:min(88vw,460px);padding:9px 18px;border:2px solid #f0e3cf;border-radius:6px;background:#241d19ee;color:#fff;font:600 16px/1.2 var(--f-b);text-align:center;box-shadow:0 4px 12px #000a;pointer-events:none}
 #w-banner.warn{background:#a2502f;border-color:#f1d9bc}
+
+/* cabeçalho do mundo: nome da área pequeno e linha de missão centralizada, como no original */
+#s-world .w-top{top:calc(env(safe-area-inset-top,0px) + 12px);padding-inline:96px}
+#s-world .w-top h2{font:700 18px/1.1 var(--f-t);letter-spacing:.1em;text-transform:uppercase;text-wrap:balance}
+#s-world #w-stars{display:none}
+#s-world #world-quest{left:50%;right:auto;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 44px);width:max-content;max-width:calc(100vw - 150px);text-align:center;font:500 14px/1.2 var(--f-b);color:#fff;text-shadow:1px 1px 0 #000,0 0 5px #000}

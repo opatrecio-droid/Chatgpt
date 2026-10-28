@@ -3849,7 +3849,7 @@ battle=async opts=>{
  if(opts.resume){BattleState.restore(B,opts.resume);if(B.mode==='arena'){B.hero.hp=opts.resume.hero.hp;B.hero.mp=opts.resume.hero.mp;}}
  BS.fx=[];BS.floats=[];BS.target=false;logEl.innerHTML='';show('battle');sizeBattle();layoutBattle();renderParty();
  for(const f of B.foes)if(!f.rival)cx(f.key).seen=1;
- if(!opts.resume&&Math.max(...B.foes.map(f=>f.dex*.15+(f.boss?3:0)))+Math.random()*6>B.hero.init+Math.random()*6){say('O inimigo toma a iniciativa.');beginEnemyPhase();}
+ if(!opts.resume&&Math.max(...B.foes.map(f=>f.dex*1.5+(f.boss?10:0)))+Math.random()*6>B.hero.init+Math.random()*6){say('O inimigo toma a iniciativa.');beginEnemyPhase();}
  let result=null;checkpointBattle();
  while(!result){
   const h=B.hero;if(h.hp<=0){result='lose';break;}if(B.foes.every(f=>f.hp<=0)){result='win';break;}
