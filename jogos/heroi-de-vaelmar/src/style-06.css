@@ -1,0 +1,14 @@
+
+.screen{height:var(--app-height,100dvh);max-height:var(--app-height,100dvh)}
+#s-battle{display:grid;grid-template-rows:minmax(110px,38%) minmax(0,1fr);height:var(--app-height,100dvh);overflow:hidden}
+.b-stage{height:auto!important;min-height:0}
+.b-panel{min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;align-content:stretch;gap:6px;padding-top:7px;overflow:hidden}
+.b-panel .foes{max-height:16dvh;min-height:0;overflow:auto}
+.b-panel .b-log{min-height:0;overflow:auto;display:block;font-size:clamp(13px,3.5vw,16px);line-height:1.25;overscroll-behavior:contain}
+.b-panel .party{max-height:17dvh;overflow:auto;min-height:0}
+.pc .v{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:2px 10px;justify-content:flex-start;font-size:12px}
+.pc>.fine{grid-column:1/-1}.pc .bar{min-width:0}
+.cmds{flex-shrink:0;min-height:0;gap:7px;max-height:34dvh;overflow:auto;padding:2px}
+.cmds .btn{min-height:44px;padding:8px 5px;font-size:clamp(14px,3.7vw,18px)}
+.cmds.list{max-height:34dvh}.cmds .btn small{font-size:11px;line-height:1.15}
+@media(max-height:650px){#s-battle{grid-template-rows:minmax(100px,30%) minmax(0,1fr)}.b-panel{padding-top:5px;padding-bottom:max(6px,env(safe-area-inset-bottom,0px));gap:4px}.b-panel .foes{max-height:15dvh}.b-panel .party{max-height:16dvh}.pc{padding:4px 6px}.pc .v{font-size:11px}.foe{padding:4px 6px}.cmds .btn{padding:5px;min-height:42px}}

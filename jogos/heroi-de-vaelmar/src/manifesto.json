@@ -1,0 +1,92 @@
+[
+ {
+  "pasta": "src",
+  "arquivo": "html-01.html"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "style-02.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-03.html"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "style-04.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-05.html"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "style-06.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-07.html"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "style-08.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "style-09.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-10.html"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "erros-de-boot.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-12.html"
+ },
+ {
+  "pasta": "dados",
+  "arquivo": "aethric-data.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-14.html"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "jogo.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-16.html"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "script-17.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "html-18.html"
+ }
+]

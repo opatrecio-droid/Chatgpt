@@ -1,0 +1,70 @@
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg=="></head><body>
+<noscript><p class="boot-info">Este visualizador não executa jogos. Baixe o arquivo, extraia o ZIP e abra index.html no Chrome, Edge, Firefox ou Safari com JavaScript ativado.</p></noscript>
+<section id="s-title">
+  <div class="wrap">
+    <div class="logo">
+      <small>RPG por turnos · mundo aberto · offline</small>
+      <h1>Herói de Vaelmar</h1><p class="fine">Aethric · edição offline independente</p>
+      <div class="row-spr" id="title-spr" aria-hidden="true"></div>
+    </div>
+    <p id="boot-status" class="boot-info" role="status">Preparando o mundo… Se esta mensagem permanecer, baixe o arquivo e abra no navegador, fora da prévia do aplicativo.</p>
+    <pre id="boot-error" class="boot-info" hidden></pre>
+    <div class="card" id="continue-box" hidden>
+      <p class="lbl">Aventura salva</p>
+      <p id="continue-info"></p>
+      <button class="btn gold" id="btn-continue">Continuar</button>
+    </div>
+    <div class="card">
+      <div class="field"><label class="lbl" for="hero-name">Nome do herói</label><input id="hero-name" maxlength="24" value="Aren" autocomplete="off"></div>
+      <p class="lbl">Classe inicial</p>
+      <div class="cls-row" id="cls-row"></div>
+      <p class="fine" id="cls-desc"></p>
+      <button class="btn gold" id="btn-start" disabled>Começar aventura</button>
+    </div>
+    <div class="card"><b class="t">Campanha offline · nível 1–250</b><p class="fine">Explore 16 regiões, evolua em dez tiers e conquiste prêmios de chefes. No computador: WASD ou setas; no celular: toque no chão e nos monstros.</p><div class="row"><button class="btn" id="btn-import-title">Importar aventura</button><span class="fine">Sem conta e sem internet</span></div></div>
+    <p class="fine" style="text-align:center">Toque no chão para andar. Toque num monstro para lutar. O progresso fica salvo neste navegador.</p><p class="fine" style="text-align:center;font-size:12px">Sprites das classes, monstros e edifícios: Northern Forge Studios. Fontes no arquivo de créditos. Adaptação independente.</p>
+  </div>
+</section>
+
+<section id="s-world" class="screen" hidden>
+  <canvas id="cv-world" aria-label="Mundo de Vaelmar. Toque no chão para andar."></canvas>
+  <div class="w-top outl"><h2 id="w-zone"></h2><p id="w-stars"></p></div>
+  <div id="world-quest" class="outl"></div>
+  <div class="w-dial"><canvas id="cv-dial" width="28" height="28" aria-hidden="true"></canvas><span id="w-buffs" class="outl"></span></div>
+  <div class="w-left">
+    <button class="rbtn sm" id="daily-shortcut" data-open="rewards" aria-label="Recompensas diárias e Astraltree"></button>
+    <button class="rbtn sm" id="btn-resume" hidden><span class="disc" id="ic-resume"></span><span class="outl">Retomar</span></button>
+    <button class="rbtn sm" id="btn-home"><span class="disc" id="ic-home"></span><span class="outl">Origem</span></button>
+    <button class="rbtn sm" id="btn-gates"><span class="disc" id="ic-gates"></span><span class="outl">Portais</span></button>
+    <button class="rbtn sm" id="btn-raid"><span class="disc" data-ic="ic_quest"></span><span class="outl">Desafio</span></button>
+  </div>
+  <div class="gold-chip outl"><span id="w-gold"></span><span id="w-ess"></span></div>
+  <div id="tip" class="tip" hidden role="button" tabindex="0"><div class="tip-k"></div><b class="tip-n"></b><span class="tip-a"></span></div>
+  <nav class="w-bar" aria-label="Menu principal">
+    <button class="rbtn" data-open="codex"><span class="disc" data-ic="ic_codex"></span><span class="outl">Codex</span></button>
+    <button class="rbtn" data-open="quests"><span class="disc" data-ic="ic_quest"></span><span class="outl">Missões</span><i class="lvl-badge" id="q-badge" hidden>!</i></button>
+    <button class="rbtn hero-btn" data-open="main"><span class="disc"><img class="pix" id="hero-face" alt=""></span><i class="lvl-badge" id="h-lvl"></i>
+      <span class="hero-bars"><i class="hp"><b id="hb-hp"></b></i><i class="mp"><b id="hb-mp"></b></i></span></button>
+    <button class="rbtn" data-open="items"><span class="disc" data-ic="ic_items"></span><span class="outl">Itens</span></button>
+    <button class="rbtn" data-open="map"><span class="disc" data-ic="ic_map"></span><span class="outl">Mapa</span></button>
+  </nav>
+</section>
+
+<section id="s-battle" class="screen" hidden>
+  <div class="b-stage" id="b-stage"><canvas id="cv-battle" aria-label="Batalha"></canvas></div>
+  <div class="b-panel">
+    <div class="foes" id="foes"></div>
+    <div class="b-log" id="b-log" aria-live="polite"></div>
+    <div class="party" id="party"></div>
+    <div class="cmds" id="cmds"></div>
+  </div>
+</section>
+
+<div id="overlay" class="sheet" hidden role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="sheet-scroll" id="sheet-scroll"><div class="sheet-in" id="p-body"></div></div>
+  <div class="sheet-foot" id="sheet-foot"><button class="rclose" id="p-close" aria-label="Fechar">✕</button></div>
+</div>
+<div id="modal" class="modal" hidden><div class="modal-card" id="modal-body" role="dialog" aria-modal="true"></div></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<input type="file" id="save-file" accept=".json,application/json" hidden>
