@@ -29,6 +29,7 @@ node tests/capturas.js minha-versao        # todas as telas principais
 node tests/combate-vitoria.js              # partida completa até a vitória
 node tests/classes-caminhos.js             # os três caminhos de classe
 node tests/classes-detalhe.js              # modal da classe, páginas e desbloqueio segurando
+node tests/classes-ingles.js               # procura texto em inglês nas telas de todas as classes
 node tests/mundo-regras.js                 # avisos do mundo e obstáculos
 node tests/migracao.js game-antigo.html    # save da versão antiga abre na nova
 

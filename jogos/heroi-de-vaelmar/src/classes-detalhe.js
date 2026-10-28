@@ -89,7 +89,16 @@
   /* textos do jogo lidos no vídeo (src/textos-habilidades.js); sem entrada, usa-se o texto montado dos dados */
   const chave = t => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
   const TXT_HAB = window.TEXTO_HAB || {}, TXT_PASS = window.TEXTO_PASSIVA || {};
-  const efeito = n => { const d = Rules.effectDef(n); return d && d.name && d.name !== n ? d.name : n; };
+  const ST_PT = { Rot: 'Podridão', Blight: 'Praga', Frozen: 'Congelado', Paralyzed: 'Paralisado', Burning: 'Em chamas', Blind: 'Cego', Poisoned: 'Envenenado', Stunned: 'Atordoado', Asleep: 'Adormecido', Lulled: 'Adormecido',
+    Bleeding: 'Sangrando', Petrified: 'Petrificado', Tempered: 'Temperamento', Frenzy: 'Frenesi', 'Iron Pauldrons': 'Ombreiras de Ferro', 'Iron Greaves': 'Grevas de Ferro', 'Mythril Pauldrons': 'Ombreiras de Mythril',
+    'Mythril Greaves': 'Grevas de Mythril', 'Spiked Pauldrons': 'Ombreiras Cravadas', 'Spiked Greaves': 'Grevas Cravadas', Fire: 'Fogo', Water: 'Água', Earth: 'Terra', Lightning: 'Raio', Holy: 'Sagrado', Dark: 'Sombrio', Wind: 'Vento',
+    Dragon: 'Dragão', Drake: 'Dragão', Aligned: 'Alinhado', Sigil: 'Sigilo', Immune: 'Imune', Target: 'Alvo', Dmg: 'Dano', Att: 'Atq', Atk: 'Atq', Dex: 'Des', Crit: 'Crít', All: 'Tudo' };
+  /* nome de status em português: tabela do motor, depois a tabela acima, palavra por palavra */
+  const efeito = n => {
+    const d = Rules.effectDef(n); if (d && d.name && d.name !== n) return d.name;
+    if (ST_PT[n]) return ST_PT[n];
+    return n.replace(/^T\. /, 'Temp. ').replace(/([A-Za-z]+?)(blight)\b/i, (m, a) => 'Praga ' + (ST_PT[a[0].toUpperCase() + a.slice(1)] || a)).replace(/\b[A-Za-z]+\b/g, w => ST_PT[w] || w);
+  };
   const STAT_ART = { Att: 'o Ataque', Atk: 'o Ataque', Mag: 'a Magia', Def: 'a Defesa', Res: 'a Resistência', Dex: 'a Destreza', Crit: 'o Crítico', All: 'todos os atributos' };
   const parteStat = n => { const m = /^(?:T\. )?(Att|Atk|Mag|Def|Res|Dex|Crit|All) (↑+|↓+)$/.exec(n); return m && { art: STAT_ART[m[1]], up: m[2][0] === '↑', forte: m[2].length > 1 }; };
   function descSpell(r) {
@@ -123,12 +132,27 @@
   /* ---------- passivas ---------- */
   const EFX = { 'Collateral Chance': 'Chance Colateral', 'Collateral Damage': 'Dano Colateral', 'Ward Start': 'Início da Guarda', 'Ward Recovery': 'Recuperação da Guarda', 'Second Chance': 'Segunda Chance',
     'Status Protection': 'Proteção contra Status', 'Bestial Bond': 'Vínculo Bestial', Manaflasks: 'Frascos de Mana', Bloodflasks: 'Frascos de Sangue', 'Mana Siphon': 'Sifão de Mana',
-    'Avidity Chance': 'Chance de Avidez', Healing: 'Cura', 'Follower Act': 'Ação do Seguidor', 'Follower Stats': 'Stats do Seguidor', 'Recharge HP on Crit': 'Recarregar HP com o Crítico',
+    'Avidity Chance': 'Chance de Avidez', Healing: 'Cura', 'Follower Act': 'Ação do Seguidor', 'Follower Stats': 'Atributos do Seguidor', 'Recharge HP on Crit': 'Recarregar HP com o Crítico',
     'Life Siphon': 'Sifão da Vida', 'Follower/Summon AI': 'IA do Seguidor/Invocações', 'Mana Rush': 'Carga de Mana', 'Valhalla Power': 'Poder de Valhalla', 'Follower Protect': 'Proteção do Seguidor',
-    'Hybrid Damage': 'Dano Híbrido', 'Elemental Weaknesses': 'Fraquezas Elementais', 'Max Dodge Chance': 'Chance Máxima de Esquiva', 'View Distance': 'Interaction Range',
-    'Mana-Ward Recovery': 'Recuperação de Mana-Guarda', 'Ward Power': 'Poder da Guarda', 'Damage to Ward': 'Danos à Guarda', 'Self Damage Reduction': 'Redução de Auto Dano', Causes: 'Causa' };
-  const efxPt = line => line.split(' / ').map(p => { const i = p.indexOf(':'); if (i < 0) return p; const lab = p.slice(0, i), val = p.slice(i + 1).replace('Level', 'Nível'); return (EFX[lab] || lab) + ':' + val; }).join(' / ');
-  /* [nome, descrição, prefixos dos bônus do catálogo]. Sem entrada: nome em inglês, como o jogo faz com algumas */
+    'Hybrid Damage': 'Dano Híbrido', 'Elemental Weaknesses': 'Fraquezas Elementais', 'Max Dodge Chance': 'Chance Máxima de Esquiva', 'View Distance': 'Alcance de Interação',
+    'Mana-Ward Recovery': 'Recuperação de Mana-Guarda', 'Ward Power': 'Poder da Guarda', 'Damage to Ward': 'Danos à Guarda', 'Self Damage Reduction': 'Redução de Auto Dano', Causes: 'Causa', Gives: 'Concede',
+    'Crit Chance': 'Chance de Crítico', 'Spell Casting Damage': 'Dano ao Lançar Feitiço', 'Elemental Immunity Damage': 'Dano de Imunidade Elemental', 'Low HP → Stats': 'HP Baixo → Atributos',
+    'Low Mana → Stats': 'Mana Baixa → Atributos', '+High Ward → Stats': '+Guarda Alta → Atributos', 'Follower Ascension Level': 'Nível de Ascensão do Seguidor', 'Debuff Fade': 'Dissipação de Debuff',
+    'Buff Duration': 'Duração de Buff', 'Summon Spell Start': 'Início de Feitiço de Invocação', 'Summon Stats': 'Atributos da Invocação', '+Guidelight': '+Luz-Guia', 'Summon Protection': 'Proteção da Invocação',
+    'EXP Walk': 'EXP ao Andar', 'Mana Walk': 'Mana ao Andar', 'Summon Pact Power': 'Poder do Pacto de Invocação', '+Second Chance': '+Segunda Chance', '+Weaved Elements': '+Elementos Entrelaçados',
+    'Charon Ritual Chance': 'Chance do Ritual de Caronte', 'Souls Collected → Stats': 'Almas Coletadas → Atributos', 'Sacrifice Effects': 'Efeitos de Sacrifício', 'Apex Rate': 'Taxa de Ápice',
+    'Apex Start': 'Início do Ápice', 'Apex Effect': 'Efeito do Ápice', 'Apex Used → Stats': 'Ápice Usado → Atributos', 'Apex Power': 'Poder do Ápice', 'Gold Bonus': 'Bônus de Ouro',
+    'Follower Turn Chance': 'Chance de Turno do Seguidor', 'Turn Chance': 'Chance de Turno', 'Effect Chance': 'Chance de Efeito', 'Off-hands': 'Mãos Secundárias', 'Two-handed Power': 'Poder de Duas Mãos',
+    'Counter Chance (PvE)': 'Chance de Contra-ataque (PvE)', 'Collateral Damage HP Recovery': 'Recuperação de HP por Dano Colateral', Ward: 'Guarda', 'Dark Damage': 'Dano Sombrio', 'Holy Damage': 'Dano Sagrado',
+    'Mana Reduction': 'Redução de Mana', 'Damage Limit Break': 'Quebra do Limite de Dano', Sigils: 'Sigilos', 'Crit Damage': 'Dano Crítico', 'Critical Chain': 'Corrente Crítica',
+    'Settlement/Area Defense': 'Defesa de Assentamento/Área', 'Crit Status Fade Chance': 'Chance de Dissipar Status com Crítico' };
+  const efxPt = line => line.split(' / ').map(p => {
+    const i = p.indexOf(':'); if (i < 0) return p;
+    const lab = p.slice(0, i); let val = p.slice(i + 1).replace('Level', 'Nível').replace(/\bturns?\b/, 'turnos');
+    if (lab === 'Causes' || lab === 'Gives') val = val.split(',').map(x => x.replace(/^(\s*)(.*?)(\s*\(.*)?$/, (m, a, nome, pct) => a + efeito(nome) + (pct || ''))).join(',');
+    return (EFX[lab] || lab) + ':' + val;
+  }).join(' / ');
+  /* [nome, descrição, prefixos dos bônus do catálogo]. Sem entrada: o nome do catálogo */
   const PASSIVA = {
     'Mana Siphon': ['Sifão de Mana', 'Há uma grande chance de que uma habilidade ou feitiço não consuma mana.', ['Mana Siphon']],
     Avidity: ['Avidez', 'Em batalha, ocasionalmente você receberá um turno adicional após performar uma ação.', ['Avidity Chance']],
@@ -143,7 +167,6 @@
     'Life Siphon': ['Sifão da Vida', 'Você geralmente recupera HP ao causar dano a um oponente.', ['Life Siphon']],
     'Mana Rush': ['Carga de Mana', 'Você pode canalizar mana para escapar de ser derrotado na batalha.', ['Mana Rush']],
     'Beast Mode': ['Modo Fera', 'Seus atributos aumentam à medida que você derrota animais selvagens.', []],
-    Efficacious: ['Efficacious', 'Additional damage is dealt when exploiting elemental weaknesses, while partial damage is dealt when hitting elemental immunities. Additionally, when casting a multi-turn spell, damage taken will be reduced.', ['Elemental Weaknesses', 'Spell Casting Damage', 'Elemental Immunity Damage']],
     'Crest of Lyonesse': ['Emblema de Lyonesse', 'Seus atributos aumentam à medida que você derrota os inimigos fanáticos ou ressurgidos.', []],
     Recharge: ['Recarga', 'Conseguir um acerto crítico restaurará HP e mana.', ['Recharge HP on Crit']],
     'Dragon Slayer': ['Matador de Dragões', 'Seus atributos aumentam à medida que você derrota Dragões.', []],
@@ -162,10 +185,23 @@
     Omnimancy: ['Onimancia', '', []], 'School of Avalon': ['Escola de Avalon', '', []], Nekromancy: ['Necromancia', '', []], 'Weaved Elements': ['Elementos Entrelaçados', '', ['+Weaved Elements']],
     'Ascension Synergy': ['Sinergia de Ascensão', '', ['Follower Ascension Level']],
     /* nomes exatos que o jogo escreve de outro jeito que "nome + algarismo" */
+    Efficacious: ['Eficaz', '', ['Elemental Weaknesses', 'Spell Casting Damage', 'Elemental Immunity Damage']],
+    /* nomes sem texto no vídeo: tradução minha, para não deixar inglês na tela */
+    'Gold Bonus': ['Bônus de Ouro', '', ['Gold Bonus']], 'EXP Step': ['Passo de EXP', '', ['EXP Walk']], 'Mana Step': ['Passo de Mana', '', ['Mana Walk']], 'Valhallan Way': ['Caminho de Valhalla', '', ['Follower Act', 'Follower Stats']],
+    Guardian: ['Guardião', '', ['Settlement/Area Defense']], 'Staying Power': ['Poder de Permanência', '', []], Apex: ['Ápice', '', ['Apex']], 'Power of the Gods': ['Poder dos Deuses', '', []],
+    'Paired Essence': ['Essência Pareada', '', []], 'Novice Summoner': ['Invocador Novato', '', []], 'Adept Summoner': ['Invocador Adepto', '', []], 'Experienced Summoner': ['Invocador Experiente', '', []],
+    'Summoner of Auriga': ['Invocador de Auriga', '', []], 'Summoner of Hydrus': ['Invocador de Hydrus', '', []], Battalions: ['Batalhões', '', []], 'Charon Ritual': ['Ritual de Caronte', '', ['Charon Ritual Chance']],
+    'Apex (Ara)': ['Ápice (Ara)', '', ['Apex']], 'Apex (Ursa)': ['Ápice (Ursa)', '', ['Apex']], Ara: ['Ara', '', []], Ursa: ['Ursa', '', []], Hercules: ['Hércules', '', []], Dorado: ['Dorado', '', []],
+    'Ascended Summons': ['Invocações Ascendidas', '', []], 'Critical Chain': ['Corrente Crítica', '', ['Critical Chain']], 'Critical Poise': ['Equilíbrio Crítico', '', []],
+    Demigod: ['Semideus', '', []], 'Demigod (Ara)': ['Semideus (Ara)', '', []], 'Demigod (Ursa)': ['Semideus (Ursa)', '', []], "Dorado's Guard": ['Guarda de Dorado', '', []],
+    'Elysian Balance': ['Equilíbrio Elísio', '', []], 'Enhanced Bestial Bonds': ['Vínculos Bestiais Aprimorados', '', []], 'Grand Summoner': ['Grande Invocador', '', []],
+    'Grand Summoner of Auriga': ['Grande Invocador de Auriga', '', []], 'Grand Summoner of Hydrus': ['Grande Invocador de Hydrus', '', []], 'Mana Feather': ['Pena de Mana', '', []],
+    'The Deity': ['A Divindade', '', []], 'The Deity (Ara)': ['A Divindade (Ara)', '', []], 'The Deity (Ursa)': ['A Divindade (Ursa)', '', []], 'Unstable Omnimancy': ['Onimancia Instável', '', []],
+    Hydrus: ['Hydrus', '', []], Auriga: ['Auriga', '', []], 'Elysian Guidelight': ['Luz-Guia Elísia', '', ['+Guidelight']],
     'Manaflasks II': ['Frasco de Mana II', '', ['Manaflasks']], 'Manaflasks III': ['Frascos de Mana III', '', ['Manaflasks']], Bloodflasks: ['Frascos de Sangue', '', ['Manaflasks', 'Bloodflasks']],
-    'Bloodflasks II': ['Frascos de Sangue II', '', ['Manaflasks', 'Bloodflasks']], 'Steadfast III': ['Steadfast III', '', ['Status Protection']],
+    'Bloodflasks II': ['Frascos de Sangue II', '', ['Manaflasks', 'Bloodflasks']], 'Steadfast III': ['Inabalável III', '', ['Status Protection']],
   };
-  const ROMANO = /^(.*?)(?: (I{1,3}|IV|V))?$/;
+  const ROMANO = /^(.*?)(?: (I{1,3}|IV|VI{0,3}|IX|X))?$/;
   function passivas(k) {
     const row = rowOf(k), fx = (row.effects || []).slice(), usado = new Set();
     const itens = (row.abilities || []).map(nome => {

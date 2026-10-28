@@ -1,5 +1,7 @@
 # Herói de Vaelmar 5.1 — classes como no segundo vídeo
 
+**5.1.2:** todo o texto em inglês das telas de classe foi traduzido para o português (descrições de habilidades e passivas, rótulos de bônus, nomes de status e de passivas). Ficam como o jogo escreve só os nomes próprios de feitiços (Infernus Mire, Tidal Stormflare, Gale Volcanis, Ultima…). Os nomes de passivas que não apareceram no vídeo (Passo de EXP, Caminho de Valhalla, Invocador Novato…) são tradução minha, sem texto de descrição.
+
 **5.1.1:** as páginas de habilidades, passivas e frascos agora mostram **o texto do próprio jogo**, lido nos quadros do vídeo (301 habilidades e 62 passivas, incluindo os textos que o jogo deixa em inglês). Também entraram o texto, as armas, os slots e os bônus de mais 8 classes (Escudeiro, Templário, Paladino, Magistrado, Mago-Espadachim, Dragão, Frei, Gatuno e Guerreiro).
 
 Esta versão usa o **segundo vídeo** do jogo original (v3.27.3, caminhos de classe e telas de detalhe). Detalhes: [ESPECIFICACAO-TELAS.md](ESPECIFICACAO-TELAS.md). O que ainda é aproximação está em [AUDITORIA-FIDELIDADE.md](AUDITORIA-FIDELIDADE.md). A 5.0 continua descrita em [ATUALIZACAO-v5.0.md](ATUALIZACAO-v5.0.md).
