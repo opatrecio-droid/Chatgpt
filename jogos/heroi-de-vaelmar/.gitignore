@@ -3,3 +3,6 @@ dist/
 node_modules/
 tests/saida/
 __pycache__/
+tools/java/*.jar
+tools/java/*.class
+*.apk
