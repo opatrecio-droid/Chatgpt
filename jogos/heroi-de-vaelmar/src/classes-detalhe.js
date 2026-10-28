@@ -6,7 +6,7 @@
    catálogo. A lista de habilidades e o "Poder" são calculados com os dados e os atributos do clone. */
 (() => {
   const rowOf = k => Catalog.byKey[CLASSES[k].original] || {};
-  const caster = k => CLASSES[k].gear[0] === 'mago';
+  const caster = k => window.classeConjuradora(k);
   const GEAR_PT = { guerreiro: 'guerreiro', ladino: 'ladino', mago: 'mago' };
 
   /* textos lidos nas telas de detalhe do vídeo (chave do catálogo) */

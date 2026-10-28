@@ -1,4 +1,4 @@
-# Herói de Vaelmar 5.0 — auditoria de fidelidade
+# Herói de Vaelmar 5.x — auditoria de fidelidade
 
 Comparação entre o clone e o **Hero of Aethric v3.27.3**, com base em duas gravações de tela do jogo original enviadas pelo usuário (28/10/2026) e nos dados do Codex. Nada vem do cliente comercial: ele não foi extraído e não será.
 
@@ -34,13 +34,13 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 
 | Elemento | Estado | Observação |
 |---|---|---|
-| Telas de Caminhos (Bravura, Omnimancia, Magia das Sombras) | Igual | cabeçalho, estrelas, cartões, silhuetas, contagens reais |
+| Telas de Caminhos (Bravura, Omnimancia, Magia das Sombras, Valhala) | Igual | cabeçalho, estrelas, cartões, silhuetas, contagens reais; os caminhos formam uma fila e as pontas têm a seta apagada |
 | Guerreiro, Mago e Ladrão, tiers 1–10 (nomes, ordem, descrições, contagens) | Igual | vistos nos dois vídeos; "Adepto" foi associado ao Lanceiro do catálogo pelos equipamentos |
-| Detalhe da classe (tela cheia, armas, slots, bônus de atributos, botões) | Igual (estrutura) | textos longos só para 13 classes vistas; as outras recebem um texto montado do catálogo |
+| Detalhe da classe (tela cheia, armas, slots, bônus de atributos, botões) | Igual (estrutura) | texto longo, armas e slots para 22 classes vistas; as outras recebem um texto montado do catálogo |
 | Páginas Habilidades/Feitiços, Passivas e Frascos de Mana | Igual (texto) | 301 descrições de habilidades, 62 de passivas e 11 de frascos, lidas do vídeo; as que não apareceram usam texto montado. Mana e nível vêm do catálogo; «Poder» é estimado pelos atributos |
 | Segure para desbloquear + custo em orns | Igual | tempo de 1 s é estimativa |
 | Bônus de atributos por classe | Próximo | 18 classes calibradas com o que o vídeo mostrou (herói nível 17); as demais usam o multiplicador genérico do clone |
-| Caminho de Valhalla (Adestrador) | Falta | visto a partir do nível 50; as classes existem no catálogo mas o clone ainda não tem o caminho |
+| Caminho de Valhala (Adestrador): Treinador → Beowulf | Igual | níveis 50–225, descrições e contagens vistos no vídeo; classes sem ramificação |
 | Regra de desbloqueio e preços | Próximo | nível exigido bate com o vídeo (1, 25, 50…225); os preços são os do Codex, o vídeo só mostrou 2.500 orns do Mago |
 
 ## Status e números
@@ -75,7 +75,7 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 
 ## Próximos passos, em ordem
 
-1. Topo do caminho de Valhalla (níveis 1–25) e a tela de seguidores.
+1. A tela de seguidores e as classes especiais (prêmios de desafio, celestiais).
 2. Menu principal: `Aparência`, `Caminhos Arcanos` e `Feitos` (precisa saber o que fazem).
 3. Combate: menus de habilidades e itens abertos, e combate em grupo.
 4. Dentro de Loton e de outra cidade, andando devagar (confere os layouts das vilas).

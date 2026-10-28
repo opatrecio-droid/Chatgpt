@@ -1,5 +1,7 @@
 # Herói de Vaelmar 5.1 — classes como no segundo vídeo
 
+**5.2.0:** o quarto caminho, **Valhala** (Caminho do Adestrador), existe: Treinador → Adestrador de Lobos → Adestrador de Espíritos → Dragão → Grande Dragão → Frei → Bahamute → Beowulf, do nível 50 ao 225. Os caminhos agora formam uma fila como no original (Bravura › Omnimancia › Magia das Sombras › Valhala), com a seta apagada nas pontas.
+
 **5.1.2:** todo o texto em inglês das telas de classe foi traduzido para o português (descrições de habilidades e passivas, rótulos de bônus, nomes de status e de passivas). Ficam como o jogo escreve só os nomes próprios de feitiços (Infernus Mire, Tidal Stormflare, Gale Volcanis, Ultima…). Os nomes de passivas que não apareceram no vídeo (Passo de EXP, Caminho de Valhalla, Invocador Novato…) são tradução minha, sem texto de descrição.
 
 **5.1.1:** as páginas de habilidades, passivas e frascos agora mostram **o texto do próprio jogo**, lido nos quadros do vídeo (301 habilidades e 62 passivas, incluindo os textos que o jogo deixa em inglês). Também entraram o texto, as armas, os slots e os bônus de mais 8 classes (Escudeiro, Templário, Paladino, Magistrado, Mago-Espadachim, Dragão, Frei, Gatuno e Guerreiro).
@@ -22,7 +24,6 @@ Esta versão usa o **segundo vídeo** do jogo original (v3.27.3, caminhos de cla
 
 ## O que continua diferente
 
-- Caminho de **Valhalla** (Adestrador de Lobos → … → Beowulf): visto só a partir do nível 50; ainda não existe no clone (as classes aparecem em «Classes especiais»).
 - Habilidades e passivas que **não** apareceram no vídeo (cerca de 70 das classes dos três caminhos e quase todas as de Valhalla por dentro) usam um texto montado a partir dos dados do Codex. O «Poder» é uma estimativa (ataque ou magia × poder / 1000 × 1,16).
 - Texto longo, armas e slots da classe: só para as classes que o vídeo mostrou com nitidez; as outras usam um texto curto gerado.
 - Continuam valendo as diferenças da 5.0 (menu principal incompleto, câmera livre, abas de opções, combate em grupo, servidor).
