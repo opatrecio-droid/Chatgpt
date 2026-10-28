@@ -3320,7 +3320,7 @@ function refreshContinue() {
 }
 function enterWorld(fresh) {
   SND = S.snd !== false; for(const k of SETS) S.sets[k]=S.sets[k]||{}; document.body.classList.toggle('reduced-motion',!!S.reduceMotion);
-  if (!S.pos) { const c = poiPx(POI.alvorada); S.pos = { x:c.x, y:c.y + 24 }; }
+  if (!S.pos) { const c = poiPx(POI.origin || POI.alvorada); S.pos = { x:c.x, y:c.y + 24 }; }
   H.x = S.pos.x; H.y = S.pos.y; H.path = []; H.goal = null; H.resume = null;
   EX.mons = []; EX.clicks = []; EX.spawnT = 0; EX.bossT = 3; CHUNKS.clear(); EX.fog.clear(); EX.fogSig = '';
   buildEntities(); ensureDaily(); show('world'); updateHUD(); drawDial(); questCheck(); save();
@@ -4150,7 +4150,7 @@ const StateSchema=(()=>{
   o.expedition=null;if(record(raw.expedition)&&DUNGEONS[raw.expedition.key]){const e=raw.expedition;o.expedition={key:e.key,floor:integer(e.floor,1,1,DUNGEONS[e.key].floors+1),carry:carry(e.carry),activeBattle:combat(e.activeBattle,'dungeon')};}
   o.arenaSession=record(raw.arenaSession)?{run:typeof raw.arenaSession.run==='string'?raw.arenaSession.run:uid(),keepHp:number(raw.arenaSession.keepHp,o.hp),keepMp:number(raw.arenaSession.keepMp,o.mp),rewarded:!!raw.arenaSession.rewarded,won:!!raw.arenaSession.won,combat:combat(raw.arenaSession.combat,'arena')}:null;
   if(o.arenaSession?.combat||o.expedition?.activeBattle||Object.values(o.raidProgress).some(p=>p.combat))o.endless.active=false;
-  o.lastTown=POI[raw.lastTown]?.kind==='town'?raw.lastTown:'loton';o.pos=!legacy&&record(raw.pos)&&Number.isFinite(raw.pos.x)&&Number.isFinite(raw.pos.y)&&raw.pos.x>=0&&raw.pos.x<WW*TILE&&raw.pos.y>=0&&raw.pos.y<WH*TILE?{x:raw.pos.x,y:raw.pos.y}:null;
+  o.lastTown=['town','origin'].includes(POI[raw.lastTown]?.kind)?raw.lastTown:'loton';o.pos=!legacy&&record(raw.pos)&&Number.isFinite(raw.pos.x)&&Number.isFinite(raw.pos.y)&&raw.pos.x>=0&&raw.pos.x<WW*TILE&&raw.pos.y>=0&&raw.pos.y<WH*TILE?{x:raw.pos.x,y:raw.pos.y}:null;
   if(legacy){o.legacyQuest=raw.quest;o.legacyMigrated=true;o.daily=null;o.lastTown='loton';}
   o.faction=['fogo','agua','terra','raio'].includes(raw.faction)?raw.faction:null;o.snd=raw.snd!==false;o.reduceMotion=!!raw.reduceMotion;
   for(const it of [...o.bag,...o.forge.map(f=>f.it)])if(/^i[0-9a-z]+$/.test(it.id)){const n=parseInt(it.id.slice(1),36);if(Number.isSafeInteger(n)&&n<Number.MAX_SAFE_INTEGER-10000)UID=Math.max(UID,n+1);}

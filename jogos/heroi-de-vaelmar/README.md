@@ -32,6 +32,7 @@ node tests/classes-detalhe.js              # modal da classe, páginas e desbloq
 node tests/classes-ingles.js               # procura texto em inglês nas telas de todas as classes
 node tests/regras-elementos.js             # fraqueza, facção, cor dos números, arma preferida, elemento no equipamento
 node tests/frascos.js                      # frascos de mana e de sangue em combate
+node tests/inicio.js                       # a aventura nova começa na Cidade de Origem
 node tests/mundo-regras.js                 # avisos do mundo e obstáculos
 node tests/migracao.js game-antigo.html    # save da versão antiga abre na nova
 

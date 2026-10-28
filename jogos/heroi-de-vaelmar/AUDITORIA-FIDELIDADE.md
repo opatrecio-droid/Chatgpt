@@ -4,6 +4,12 @@ Comparação entre o clone e o **Hero of Aethric v3.27.3**, com base em duas gra
 
 Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, detalhes diferentes · **Inferido** = completei sem ver · **Falta** = não existe ainda.
 
+## Começo do jogo
+
+| Elemento | Estado | Observação |
+|---|---|---|
+| Aventura nova começa na Cidade de Origem; primeira missão «Encontre Escudeiro Samson em Loton.» | Próximo | tirado do mapa e da linha de missão do vídeo 1; o vídeo não mostra a criação do personagem, então o ponto exato de partida é meu |
+
 ## Combate
 
 | Elemento | Estado | Observação |

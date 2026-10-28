@@ -45,6 +45,8 @@ A tela de encontro (0:56, 1:20, 6:08) já existe no clone: escurecida, `Rato / N
 - **Barra inferior**: CODEX · MISSÕES · retrato do herói com barras de HP/mana · ITENS · MAPA. (O clone já tem.)
 - Modais de progressão: `THE ASTRALTREE` (painel marrom-escuro, imagem, texto, botão verde `CONTINUAR`), `Missão Concluída` com recompensas (`400 ouro`, `150 orns`, `510 experiência`, `Astralseed`). Toasts de conquista: `Conquista desbloqueada!`, `Monster Slayer I · Rara · 500 XP`.
 
+**Começo da aventura (inferido do mapa do vídeo 1):** o mapa mostra `CIDADE DE ORIGEM` a noroeste de `LOTON` (com o marcador `Escudeiro Samson`) e a linha de missão do começo é `Encontre Escudeiro Samson em Loton.`. O clone começa uma aventura nova ao lado da Cidade de Origem, com cartão `Cidade · CIDADE DE ORIGEM · Toque para entrar`. O vídeo não mostra a criação do personagem; a posição exata do primeiro passo é minha.
+
 ## Mapa-múndi (0:08–0:20)
 
 Fundo cinza-escuro. **Só o que você já explorou aparece**, em bege hachurado; o resto é cinza liso. Rótulos em versalete espaçado (`BOSQUES DE LOTON`, `CIDADE DE ORIGEM`, `LOTON`, `LOCAL DE DESCANSO`), com um cartão `Cidade` + nome ao enquadrar uma cidade. Pontos de evento (`GIANT PUMPKIN`, `HAUNTED HOUSE`, `REFÚGIO DO DULLAHAN`) aparecem como halos brancos difusos. Pode ser arrastado. Controles: ✕ e um botão de centralizar, embaixo; aba com seta `›` na borda esquerda.
