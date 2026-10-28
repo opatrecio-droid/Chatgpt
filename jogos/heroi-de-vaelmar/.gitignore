@@ -2,3 +2,4 @@ dados/
 dist/
 node_modules/
 tests/saida/
+__pycache__/
