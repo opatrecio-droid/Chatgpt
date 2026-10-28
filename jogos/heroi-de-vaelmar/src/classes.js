@@ -1,0 +1,96 @@
+/* ===== Caminhos de classe no estilo do original (v3.27.3) =====
+   Árvore por caminho (Bravura · Omnimancia · Magia das Sombras), cartões como no vídeo do usuário
+   e contagens reais de feitiços/habilidades do catálogo. Referência: ESPECIFICACAO-TELAS.md.
+
+   VERIFICADO no vídeo: Guerreiro (tiers 1–10) e Mago (tiers 1–5).
+   INFERIDO: restante do Mago e todo o Ladrão. A simetria dos equipamentos do catálogo (campo `gear`)
+   fecha com o que foi visto: no tier 4 os híbridos são Mago-Espadachim (guerreiro+mago),
+   Místico (mago+ladrão) e Lanceiro (guerreiro+ladrão); no tier 7, Paladino, Arquidruida e Magistrado.
+   Ver INFERIDO abaixo; trocar por dados reais quando houver vídeo dos caminhos que faltam. */
+(() => {
+  const c = Catalog.canonicalClass;
+  /* [tier 1, …, tier 10]; cada tier é uma lista de chaves do catálogo */
+  const TREE = {
+    guerreiro: [['c_0'], ['c_92'], ['c_93'], ['c_24', 'c_10'], ['c_94'], ['c_95'], ['c_96', 'c_31'], ['c_36'], ['c_50'], ['c_54']],
+    mago:      [['c_1'], ['c_4'], ['c_86'], ['c_10', 'c_11'], ['c_87'], ['c_88'], ['c_96', 'c_29'], ['c_37'], ['c_52'], ['c_55']],
+    ladino:    [['c_2'], ['c_5'], ['c_89'], ['c_11', 'c_24'], ['c_91'], ['c_90'], ['c_31', 'c_29'], ['c_38'], ['c_51'], ['c_56']],
+  };
+  /* tiers cujo conteúdo não aparece no vídeo (índice 0 = tier 1) */
+  const INFERIDO = { guerreiro: [], mago: [5, 6, 7, 8, 9], ladino: [1, 2, 3, 4, 5, 6, 7, 8, 9] };
+  window.CLASS_INFERIDO = INFERIDO;
+
+  const PATH_META = {
+    guerreiro: { n: 'Caminho do Guerreiro', v: 'Bravura', emblem: '#2f7fd8' },
+    mago:      { n: 'Caminho do Mago', v: 'Omnimancia', emblem: '#b05ae8' },
+    ladino:    { n: 'Caminho do Ladrão', v: 'Magia das Sombras', emblem: '#7a4ad0' },
+  };
+  /* nomes do jogo que diferem do Codex; descrições vistas no vídeo */
+  const NOME = { c_24: 'Adepto' };
+  const DESC = {
+    c_0: 'Um lutador com a Cavalaria em seu futuro.', c_92: 'Um novato no campo de batalha.', c_93: 'Em caminho para Aspirante a Cavaleiro.', c_94: 'Temido no campo de batalha.',
+    c_95: 'Com poder de mythril.', c_36: 'Com espada e poder divino.', c_50: 'Temperado e robusto.',
+    c_1: 'Um jovem aprendiz de magos de Avalon.', c_4: 'Um mago graduado.', c_86: 'Um mago reconhecido pela realeza.', c_87: 'Praticando magia de feras e da natureza.',
+  };
+  const keyOf = k => c(k);
+
+  for (const [pk, tiers] of Object.entries(TREE)) {
+    Object.assign(PATHS[pk], PATH_META[pk]);
+    PATHS[pk].tiers = tiers.map(list => list.map(keyOf).filter(k => CLASSES[k]));
+  }
+  const ORDER = ['guerreiro', 'mago', 'ladino'];
+  const STAR_COL = ['#fff', '#fff', '#fff', '#f5d76e', '#6fd25a', '#4f9cf0', '#a15cf0', '#ef5a5a', '#f07ab8', '#f0963c'];
+  const starsHtml = t => t <= 4 ? '<span style="color:' + STAR_COL[t - 1] + '">' + '★'.repeat(t) + '</span>' : '<span style="color:' + STAR_COL[t - 1] + '">★</span> <small>' + t + '</small>';
+
+  const emblem = (pk, size = 26) => '<svg class="cp-emblem" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" aria-hidden="true">' + ({
+    guerreiro: '<path d="M12 2 20 5v7c0 5-3.6 8.6-8 10-4.4-1.4-8-5-8-10V5z" fill="#2a63b4" stroke="#bcd6ff" stroke-width="1.4"/><path d="M12 6l4 2v4c0 2.8-1.8 4.8-4 5.8-2.2-1-4-3-4-5.8V8z" fill="#4fa0f0"/>',
+    mago: '<circle cx="12" cy="12" r="9.5" fill="#2b1f4a" stroke="#d9c8ff" stroke-width="1.2"/><path d="M12 3l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#f0a63c"/><circle cx="12" cy="12" r="2.4" fill="#7ad0ff"/>',
+    ladino: '<circle cx="12" cy="12" r="9.5" fill="#241040" stroke="#c9b0ff" stroke-width="1.2"/><path d="M12 4a8 8 0 1 0 8 8 5.5 5.5 0 0 1-8-8z" fill="#9a62f0"/><circle cx="16" cy="8" r="1.6" fill="#e9dcff"/>',
+  }[pk]) + '</svg>';
+
+  const counts = k => {
+    const row = Catalog.byKey[CLASSES[k].original] || {}, sk = row.sections?.Skills || [], ab = row.sections?.Abilities || [];
+    const caster = CLASSES[k].gear[0] === 'mago';
+    return '<span class="cp-n">' + iconImg(caster ? ['staff', { orb: '#6e8cff' }] : ['sword', { metal: '#d8e0ec' }], 16) + (caster ? 'Feitiços' : 'Habilidades') + ': ' + sk.length + '</span>' +
+      '<span class="cp-n">' + iconImg(['spark'], 16) + 'Habilidades: ' + ab.length + '</span>';
+  };
+  const nameOf = k => NOME[CLASSES[k].original] || CLASSES[k].n;
+  const descOf = k => DESC[CLASSES[k].original] || '';
+  const showSprite = st => st === 'cur' || st === 'own' || st === 'avail';
+  /* silhueta por CSS: silhouette() congelaria um sprite do catálogo que ainda não carregou */
+  const spriteHtml = (k, st, size) => showSprite(st) ? sprImg(classSpr(k), size) : '<span class="cp-sil">' + sprImg(classSpr(k), size) + '</span>';
+  function card(k, two) {
+    const st = clState(k);
+    const cls = 'cp-card' + (two ? ' two' : '') + ' st-' + st;
+    if (two) {
+      const paths = ORDER.filter(p => CLASSES[k].gear.includes(p));
+      return '<button class="' + cls + '" data-act="clinfo" data-k="' + k + '">' + spriteHtml(k, st, 64) + '<b>' + esc(nameOf(k)) + '</b><span class="cp-paths">' + paths.map(p => emblem(p, 14)).join('') + '</span></button>';
+    }
+    return '<button class="' + cls + '" data-act="clinfo" data-k="' + k + '">' + spriteHtml(k, st, 56) + '<span class="cp-body"><b>' + esc(nameOf(k)) + '</b><span class="cp-desc">' + esc(descOf(k)) + '</span><span class="cp-counts">' + counts(k) + '</span></span></button>';
+  }
+  function specials() {
+    const used = new Set(ORDER.flatMap(p => PATHS[p].tiers.flat()));
+    const rest = Object.keys(CLASSES).filter(k => !used.has(k) && CLASSES[k].tier <= 7).sort((a, b) => CLASSES[a].tier - CLASSES[b].tier);
+    if (!rest.length) return '';
+    return '<h3 class="cp-sec">Classes especiais</h3><p class="fine" style="text-align:center">Prêmios de desafio, missões e eventos. Não fazem parte dos caminhos.</p><div class="cp-grid">' + rest.map(k => card(k, true)).join('') + '</div>';
+  }
+
+  vClasses = () => {
+    const pk = P.path || pathOf(), i = ORDER.indexOf(pk), PA = PATHS[pk];
+    const prev = PATHS[ORDER[(i + 2) % 3]], next = PATHS[ORDER[(i + 1) % 3]], pPrev = ORDER[(i + 2) % 3], pNext = ORDER[(i + 1) % 3];
+    let h = '<div class="cp-bar"><button data-act="path" data-d="-1" aria-label="Caminho anterior"><span class="ar">‹</span>' + emblem(pPrev, 28) + '<small>' + esc(prev.v) + '</small></button>' +
+      '<div class="cp-title"><small>' + esc(PA.n) + '</small><b>' + emblem(pk, 22) + esc(PA.v.toUpperCase()) + '</b></div>' +
+      '<button data-act="path" data-d="1" aria-label="Próximo caminho">' + emblem(pNext, 28) + '<span class="ar">›</span><small>' + esc(next.v) + '</small></button></div>';
+    PA.tiers.forEach((list, ti) => {
+      const t = ti + 1;
+      if (ti) h += '<div class="cp-chev" aria-hidden="true">︾</div>';
+      h += '<div class="cp-tier"><span class="st">' + starsHtml(t) + '</span><span class="lv">NÍVEL ' + Math.max(1, TIER_CAP[t - 1]) + '</span></div>';
+      h += list.length > 1 ? '<div class="cp-duo">' + list.map(k => card(k, true)).join('') + '</div>' : list.map(k => card(k, false)).join('');
+    });
+    h += box('Especialização', '<p class="fine">A partir do nível 20. Vale para qualquer classe. A primeira escolha é grátis; trocar custa 2.000 orns.</p>' + Object.keys(SPECS).map(k => {
+      const sp = SPECS[k], cost = S.specUsed ? 2000 : 0, on = S.spec === k;
+      return '<div class="srow"><span style="min-width:0"><b>' + sp.n + '</b><br><span class="fine">' + sp.d + '</span></span>' + (on ? '<span class="badge y">Ativa</span>' : S.lvl < 20 ? '<span class="badge">Nível 20</span>' : btn('spec', cost ? 'Trocar · ' + fmt(cost) : 'Escolher', 'data-k="' + k + '"' + (S.ess < cost ? ' disabled' : ''))) + '</div>';
+    }).join(''));
+    return h + specials();
+  };
+  VIEWS.classes.r = vClasses;
+})();

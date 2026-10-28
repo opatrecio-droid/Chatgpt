@@ -1,0 +1,34 @@
+/* Caminhos de classe no estilo do original (v3.27.3). */
+.cp-bar{position:sticky;top:0;z-index:3;background:#0d0b0a;margin:0 calc(-1 * max(14px,env(safe-area-inset-left,0px)));padding:calc(env(safe-area-inset-top,0px) + 8px) 8px 8px;display:grid;grid-template-columns:78px 1fr 78px;align-items:center;border-bottom:2px solid #5a5048;box-shadow:0 4px 10px #0009}
+.cp-bar button{font:inherit;background:none;border:0;color:#cfc6b8;cursor:pointer;display:grid;justify-items:center;align-content:center;gap:2px;position:relative;padding:2px 0}
+.cp-bar button small{font-size:11px;color:#b9ae9f;max-width:76px;line-height:1.05;text-align:center}
+.cp-bar button .ar{position:absolute;top:2px;font-size:26px;line-height:1;color:#d8d0c4}
+.cp-bar button:first-child .ar{left:0}.cp-bar button:last-child .ar{right:0}
+.cp-title{text-align:center}
+.cp-title small{display:block;font-size:14px;color:#bfb5a6}
+.cp-title b{display:inline-flex;align-items:center;gap:6px;font:700 21px/1.1 var(--f-t);letter-spacing:.03em}
+.cp-emblem{flex:none}
+.cp-tier{display:flex;justify-content:space-between;align-items:flex-end;margin:12px 4px 4px}
+.cp-tier .st{font-size:15px;letter-spacing:1px}.cp-tier .st small{font-size:14px;color:#e8e0d2;margin-left:1px}
+.cp-tier .lv{font:700 19px var(--f-t);font-variant:small-caps;letter-spacing:.04em;color:#f3ead8}
+.cp-chev{text-align:center;color:#d9d1c4;font-size:22px;line-height:.5;margin:8px 0 2px}
+
+.cp-card{width:100%;text-align:left;font:inherit;color:#f1e9dc;cursor:pointer;display:grid;grid-template-columns:62px minmax(0,1fr);gap:4px 12px;align-items:center;padding:10px 12px;background:linear-gradient(#1b1715,#141110);border:2px solid #4c443d;border-radius:10px;box-shadow:0 5px 12px #0008}
+.cp-card .pix,.cp-card img{image-rendering:pixelated}
+.cp-body{display:grid;gap:3px;min-width:0}
+.cp-body b{font:700 19px/1.05 var(--f-t);font-variant:small-caps;letter-spacing:.03em}
+.cp-desc{font-size:13px;color:#cbbfae;line-height:1.2}
+.cp-counts{display:flex;justify-content:flex-end;gap:14px;flex-wrap:wrap;margin-top:2px}
+.cp-n{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:#d8cfc0}
+.cp-n img{width:16px;height:16px}
+.cp-sil img{filter:brightness(0) drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);opacity:.92}
+.cp-card.st-cur{border-color:#5b86f0;box-shadow:0 0 0 2px #5b86f088,0 5px 12px #0008}
+.cp-card.st-avail,.cp-card.st-quest{border-color:#d0524a}
+.cp-card.st-prize .cp-body b,.cp-card.st-lock .cp-body b{color:#e9dfd0}
+
+.cp-duo,.cp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cp-card.two{grid-template-columns:1fr;justify-items:center;text-align:center;gap:6px;padding:14px 8px 12px;min-height:132px;align-content:center;position:relative}
+.cp-card.two b{font:700 16px/1.1 var(--f-t);font-variant:small-caps;letter-spacing:.03em;overflow-wrap:anywhere}
+.cp-paths{position:absolute;top:6px;right:7px;display:flex;gap:2px}
+.cp-sec{font:700 20px var(--f-t);text-align:center;margin:26px 0 4px;letter-spacing:.05em}
+.cp-title b{font-size:clamp(15px,4.7vw,21px);white-space:nowrap}
