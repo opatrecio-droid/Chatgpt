@@ -71,6 +71,12 @@
  },
  {
   "pasta": "src",
+  "arquivo": "opcoes.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
   "arquivo": "html-10.html"
  },
  {
@@ -138,6 +144,12 @@
  {
   "pasta": "src",
   "arquivo": "mapa.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "opcoes.js",
   "abre": "<script>",
   "fecha": "</script>"
  },

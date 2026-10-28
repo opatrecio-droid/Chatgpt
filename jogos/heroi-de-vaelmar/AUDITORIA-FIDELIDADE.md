@@ -26,7 +26,7 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 | Área bloqueada: "Você não está pronto para se aventurar." | Igual | |
 | Cabeçalho (nome da área, linha de missão) | Próximo | |
 | Coluna esquerda e mostrador | Próximo | o original tem Bate-papo e Árvore Astral; o clone mantém Recompensas, Origem, Portais, Desafio e Masmorra |
-| Mapa-múndi com névoa de exploração | Falta | o original mostra só o explorado, em cinza e bege; o clone ainda tem o mapa colorido |
+| Mapa-múndi com névoa de exploração | Próximo | cinza e bege hachurado, rótulos espaçados, ✕ e ◇; a geografia é a do mapa comunitário |
 | Ciclo dia/noite | Igual (aparência) | a duração do ciclo não foi medida |
 | Geografia e posição das cidades | Inferido | polígonos de um mapa comunitário, não o mapa real |
 
@@ -59,7 +59,7 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 |---|---|---|
 | Inventário (categorias, busca, detalhes do item) | Próximo | |
 | Menu principal | Falta | faltam `Aparência`, `Caminhos Arcanos` (função desconhecida) e `Feitos` |
-| Opções | Falta | o original tem abas, joystick, câmera livre, modo canhoto e FPS |
+| Opções | Próximo | aba Jogabilidade igual ao vídeo, com joystick, modo canhoto e FPS funcionando; câmera livre/invertida e as outras abas não foram vistas |
 | Título | Próximo | o original tem cartões Jogar/Reinos/Loja/Opções; o clone mantém o formulário |
 | Codex | Próximo | |
 | Loja de Runas, Aparência | Falta | no original vendem pacotes por dinheiro real; não serão reproduzidos |
@@ -73,7 +73,6 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 ## Próximos passos, em ordem
 
 1. Vídeo curto com: Caminho do Ladrão inteiro, Caminho do Mago acima do nível 100 e Guerreiro no tier 10 (fecha as inferências).
-2. Mapa-múndi com névoa de exploração.
-3. Opções e menu principal como no vídeo.
-4. Combate: menus de habilidades e itens abertos, e combate em grupo.
-5. Dentro de Loton e de outra cidade, andando devagar (confere os layouts das vilas).
+2. Menu principal: `Aparência`, `Caminhos Arcanos` e `Feitos` (precisa saber o que fazem).
+3. Combate: menus de habilidades e itens abertos, e combate em grupo.
+4. Dentro de Loton e de outra cidade, andando devagar (confere os layouts das vilas).

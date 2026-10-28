@@ -19,6 +19,11 @@ Esta versão foi refeita a partir de uma **gravação de tela do jogo original**
 - Tocar num monstro longe mostra `Aproxime-se para desafiar este monstro`. Tentar entrar numa área de nível alto mostra `Você não está pronto para se aventurar.` Sem névoa preta.
 - Nome da área pequeno no topo e linha de missão centralizada.
 
+**Mapa e opções**
+- Mapa-múndi com névoa de exploração: fundo cinza, só o que você já viu aparece em bege hachurado, rótulos em versalete espaçado, cartão "Cidade" nas vilas, arrastar e pinçar, botões ✕ e ◇ (centralizar) e aba lateral com as viagens. A exploração fica no save.
+- Opções com as abas Jogabilidade, Gráficos, Personagem e Notificações. Funcionam: efeitos sonoros, música, desativar música de batalha, controles **Simples** ou **Joystick**, modo canhoto (joystick passa para o lado esquerdo), contador de FPS, animações reduzidas.
+- Menu principal com a entrada Patreon (abre um aviso: precisa de internet).
+
 **Números (lidos no vídeo)**
 - Guerreiro nível 12: HP 220, mana 27, ataque 25, defesa 21, magia 6, resistência 18, destreza 16, iniciativa 24. O crescimento até o nível 24 segue esses pontos; acima disso mantém o ritmo anterior para não desequilibrar a masmorra automática, a arena e a economia.
 - Iniciativa = 1,5 × destreza.
@@ -28,8 +33,7 @@ Esta versão foi refeita a partir de uma **gravação de tela do jogo original**
 
 ## O que continua diferente
 
-- Mapa-múndi: o original só mostra o que você explorou, em cinza com bege hachurado; o clone ainda tem o mapa colorido completo.
-- Menu principal: faltam `Aparência`, `Caminhos Arcanos` e `Feitos`. Opções: faltam abas, joystick, câmera livre e modo canhoto.
+- Menu principal: faltam `Aparência`, `Caminhos Arcanos` (função desconhecida) e `Feitos`. Opções: não há câmera livre nem câmera invertida (o vídeo não mostrou o efeito), vibração, nem as abas Gráficos/Personagem/Notificações com o conteúdo do original (só a aba Jogabilidade foi vista).
 - Caminho do Ladrão e Mago acima do nível 100: precisam de um vídeo desses trechos para sair da inferência.
 - Combate: a ordem de turnos mostra a ordem real do motor (herói, aliados, inimigos); o original ordena por iniciativa. Habilidades de grupo e combate em grupo não foram vistos no vídeo.
 - Arte do terreno, das construções e dos sprites: usa as imagens do Codex já embutidas e arte própria; não é o mapa nem os tiles do cliente comercial.
