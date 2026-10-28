@@ -59,6 +59,12 @@
  },
  {
   "pasta": "src",
+  "arquivo": "classes-detalhe.css",
+  "abre": "<style>",
+  "fecha": "</style>"
+ },
+ {
+  "pasta": "src",
   "arquivo": "hud.css",
   "abre": "<style>",
   "fecha": "</style>"
@@ -138,6 +144,12 @@
  {
   "pasta": "src",
   "arquivo": "regras.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "classes-detalhe.js",
   "abre": "<script>",
   "fecha": "</script>"
  },

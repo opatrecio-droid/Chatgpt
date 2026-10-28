@@ -1,0 +1,28 @@
+# Herói de Vaelmar 5.1 — classes como no segundo vídeo
+
+Esta versão usa o **segundo vídeo** do jogo original (v3.27.3, caminhos de classe e telas de detalhe). Detalhes: [ESPECIFICACAO-TELAS.md](ESPECIFICACAO-TELAS.md). O que ainda é aproximação está em [AUDITORIA-FIDELIDADE.md](AUDITORIA-FIDELIDADE.md). A 5.0 continua descrita em [ATUALIZACAO-v5.0.md](ATUALIZACAO-v5.0.md).
+
+## O que mudou
+
+**Caminhos de classe — agora sem inferência**
+- Mago e Ladrão completos, tiers 1–10, com os nomes e a ordem do jogo: Mago → … → Tecelão de Feitiços → **Arquidruida | Paladino** → Necromante → Ominimante → Herege. Ladrão (Magia das Sombras) → Gatuno → Ladino → Feiticeiro das Sombras → **Místico | Adepto** → Majestoso → Feiticeiro das Sombras → **Magistrado | Arquidruida** → Arcânico → Nyx → Viajante de Domínios.
+- As descrições dos cartões e as contagens de feitiços/habilidades conferem com o vídeo em todos os cartões.
+
+**Detalhe da classe (novo)**
+- Tocar num cartão abre a tela cheia do original: estrelas, nome grande, sprite, descrição, armas preferidas, slots, **linha de bônus de atributos** (`HP −105 Mana +81 …`), botões `HABILIDADES/FEITIÇOS`, `PASSIVAS` e `FRASCOS DE MANA`.
+- Páginas internas com a lista de habilidades (nível, mana, «Poder» calculado com os seus atributos), passivas (com os bônus do Codex) e frascos de mana.
+- Classe disponível: botão verde **SEGURE PARA DESBLOQUEAR** (a barra enche em 1 s) e `Custos: N orns`. Classe já sua: `USAR CLASSE`. Classe bloqueada: `Requer nível N`.
+
+**Números**
+- 11 classes (Mago, Místico, Druida, Lanceiro/Adepto, Tecelão, Arquidruida, Ominimante, Feiticeiro das Sombras, Adestrador de Lobos, Grande Dragão, Beowulf) passaram a ter os bônus de atributos que o vídeo mostrou, para um herói de nível 17. O Soldado de Infantaria ficou sem bônus, como no vídeo. As demais continuam com o multiplicador genérico do clone.
+
+## O que continua diferente
+
+- Caminho de **Valhalla** (Adestrador de Lobos → … → Beowulf): visto só a partir do nível 50; ainda não existe no clone (as classes aparecem em «Classes especiais»).
+- As descrições das habilidades são montadas a partir dos dados do Codex; o jogo tem textos próprios, mais ricos. O «Poder» é uma estimativa (ataque ou magia × poder / 1000 × 1,16).
+- Textos longos das classes: só para as 13 classes que o vídeo mostrou; as outras usam um texto curto gerado.
+- Continuam valendo as diferenças da 5.0 (menu principal incompleto, câmera livre, abas de opções, combate em grupo, servidor).
+
+## Instalação
+
+Igual à 5.0: pacote `com.vaelmar.offline5`, instala ao lado da 4.4.0 e **atualiza a 5.0** por cima (mesma chave de assinatura de teste, versão 5.1.0). O progresso é mantido.

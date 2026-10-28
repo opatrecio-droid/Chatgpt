@@ -2,21 +2,21 @@
    Árvore por caminho (Bravura · Omnimancia · Magia das Sombras), cartões como no vídeo do usuário
    e contagens reais de feitiços/habilidades do catálogo. Referência: ESPECIFICACAO-TELAS.md.
 
-   VERIFICADO no vídeo: Guerreiro (tiers 1–10) e Mago (tiers 1–5).
-   INFERIDO: restante do Mago e todo o Ladrão. A simetria dos equipamentos do catálogo (campo `gear`)
-   fecha com o que foi visto: no tier 4 os híbridos são Mago-Espadachim (guerreiro+mago),
-   Místico (mago+ladrão) e Lanceiro (guerreiro+ladrão); no tier 7, Paladino, Arquidruida e Magistrado.
-   Ver INFERIDO abaixo; trocar por dados reais quando houver vídeo dos caminhos que faltam. */
+   VERIFICADO nos dois vídeos: Guerreiro, Mago e Ladrão, tiers 1–10. As contagens de habilidades do
+   catálogo batem com as do jogo em todos os cartões (por isso Peregrino = "Ladino", Criador de sombras =
+   "Feiticeiro das Sombras", Feiticeiro = "Tecelão de Feitiços", Arcano = "Arcânico"). Híbridos do tier 4:
+   Mago-Espadachim (guerreiro+mago), Místico (mago+ladrão) e Lanceiro, que o jogo chama de "Adepto"
+   (guerreiro+ladrão); no tier 7: Paladino, Arquidruida e Magistrado. */
 (() => {
   const c = Catalog.canonicalClass;
   /* [tier 1, …, tier 10]; cada tier é uma lista de chaves do catálogo */
   const TREE = {
     guerreiro: [['c_0'], ['c_92'], ['c_93'], ['c_24', 'c_10'], ['c_94'], ['c_95'], ['c_96', 'c_31'], ['c_36'], ['c_50'], ['c_54']],
-    mago:      [['c_1'], ['c_4'], ['c_86'], ['c_10', 'c_11'], ['c_87'], ['c_88'], ['c_96', 'c_29'], ['c_37'], ['c_52'], ['c_55']],
+    mago:      [['c_1'], ['c_4'], ['c_86'], ['c_10', 'c_11'], ['c_87'], ['c_88'], ['c_29', 'c_96'], ['c_37'], ['c_52'], ['c_55']],
     ladino:    [['c_2'], ['c_5'], ['c_89'], ['c_11', 'c_24'], ['c_91'], ['c_90'], ['c_31', 'c_29'], ['c_38'], ['c_51'], ['c_56']],
   };
-  /* tiers cujo conteúdo não aparece no vídeo (índice 0 = tier 1) */
-  const INFERIDO = { guerreiro: [], mago: [5, 6, 7, 8, 9], ladino: [1, 2, 3, 4, 5, 6, 7, 8, 9] };
+  /* tiers cujo conteúdo não foi visto no vídeo (índice 0 = tier 1); hoje não resta nenhum */
+  const INFERIDO = { guerreiro: [], mago: [], ladino: [] };
   window.CLASS_INFERIDO = INFERIDO;
 
   const PATH_META = {
@@ -24,12 +24,15 @@
     mago:      { n: 'Caminho do Mago', v: 'Omnimancia', emblem: '#b05ae8' },
     ladino:    { n: 'Caminho do Ladrão', v: 'Magia das Sombras', emblem: '#7a4ad0' },
   };
-  /* nomes do jogo que diferem do Codex; descrições vistas no vídeo */
-  const NOME = { c_24: 'Adepto' };
+  /* nomes do jogo que diferem do Codex; descrições vistas nos vídeos */
+  const NOME = { c_2: 'Gatuno', c_5: 'Ladino', c_24: 'Adepto', c_38: 'Arcânico', c_88: 'Tecelão de Feitiços', c_89: 'Feiticeiro das Sombras' };
   const DESC = {
     c_0: 'Um lutador com a Cavalaria em seu futuro.', c_92: 'Um novato no campo de batalha.', c_93: 'Em caminho para Aspirante a Cavaleiro.', c_94: 'Temido no campo de batalha.',
     c_95: 'Com poder de mythril.', c_36: 'Com espada e poder divino.', c_50: 'Temperado e robusto.',
     c_1: 'Um jovem aprendiz de magos de Avalon.', c_4: 'Um mago graduado.', c_86: 'Um mago reconhecido pela realeza.', c_87: 'Praticando magia de feras e da natureza.',
+    c_88: 'Lançar e lançar novamente.', c_37: 'Uma das magias proibidas.', c_52: 'Mestre dos elementos.',
+    c_2: 'Um ladino despreparado.', c_5: 'Um ladino com treinamento.', c_89: 'Um com as sombras.', c_91: 'Treinado nas artes arcanas de Annwn.', c_90: 'Mais habilidoso nas sombras.',
+    c_38: 'Um assassino de Annwn.', c_51: 'Assassino elusivo de Annwn.', c_56: 'Mestre dos ocultos.',
   };
   const keyOf = k => c(k);
 
@@ -41,6 +44,8 @@
   const STAR_COL = ['#fff', '#fff', '#fff', '#f5d76e', '#6fd25a', '#4f9cf0', '#a15cf0', '#ef5a5a', '#f07ab8', '#f0963c'];
   const starsHtml = t => t <= 4 ? '<span style="color:' + STAR_COL[t - 1] + '">' + '★'.repeat(t) + '</span>' : '<span style="color:' + STAR_COL[t - 1] + '">★</span> <small>' + t + '</small>';
 
+  window.classStarsHtml = starsHtml;
+  window.CLASS_DESC = DESC;
   const emblem = (pk, size = 26) => '<svg class="cp-emblem" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" aria-hidden="true">' + ({
     guerreiro: '<path d="M12 2 20 5v7c0 5-3.6 8.6-8 10-4.4-1.4-8-5-8-10V5z" fill="#2a63b4" stroke="#bcd6ff" stroke-width="1.4"/><path d="M12 6l4 2v4c0 2.8-1.8 4.8-4 5.8-2.2-1-4-3-4-5.8V8z" fill="#4fa0f0"/>',
     mago: '<circle cx="12" cy="12" r="9.5" fill="#2b1f4a" stroke="#d9c8ff" stroke-width="1.2"/><path d="M12 3l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#f0a63c"/><circle cx="12" cy="12" r="2.4" fill="#7ad0ff"/>',
@@ -53,7 +58,8 @@
     return '<span class="cp-n">' + iconImg(caster ? ['staff', { orb: '#6e8cff' }] : ['sword', { metal: '#d8e0ec' }], 16) + (caster ? 'Feitiços' : 'Habilidades') + ': ' + sk.length + '</span>' +
       '<span class="cp-n">' + iconImg(['spark'], 16) + 'Habilidades: ' + ab.length + '</span>';
   };
-  const nameOf = k => NOME[CLASSES[k].original] || CLASSES[k].n;
+  const nameOf = k => NOME[CLASSES[k].original] || CLASSES[k].n.split(' / ')[0];
+  window.classNome = nameOf;
   const descOf = k => DESC[CLASSES[k].original] || '';
   const showSprite = st => st === 'cur' || st === 'own' || st === 'avail';
   /* silhueta por CSS: silhouette() congelaria um sprite do catálogo que ainda não carregou */

@@ -71,10 +71,25 @@ Cada tier: estrelas à esquerda e `NÍVEL N` à direita, depois cartão(ões). C
 Tiers: nível 1, 25, 50, 75, 100, 125, 150, 175, 200, 225. Estrelas: 1–4 brancas/douradas; 5 verde, 6 azul, 7 roxa, 8 vermelha, 9 rosa, 10 laranja.
 
 **Caminho do Guerreiro (visto):** Guerreiro (1) · Soldado de Infantaria (25) · Escudeiro (50) · **Adepto | Mago-Espadachim** (75) · Cavalaria (100) · Templário (125) · **Paladino | Magistrado** (150) · Vanguarda do Atlas (175) · Guarda Titânico (200) · Gilgamés (225).
-**Caminho do Mago (visto até o nível 100):** Mago (1) · Arquimago (25) · Mago da Corte (50) · **Mago-Espadachim | Místico** (75) · Druida (100).
-O caminho do Ladrão e o final do caminho do Mago **não apareceram** no vídeo.
+**Caminho do Mago (visto, segundo vídeo):** Mago (1) · Arquimago (25) · Mago da Corte (50) · **Mago-Espadachim | Místico** (75) · Druida (100) · Tecelão de Feitiços (125) · **Arquidruida | Paladino** (150) · Necromante (175) · Ominimante (200) · Herege (225).
+**Caminho do Ladrão, «Magia das Sombras» (visto, segundo vídeo):** Gatuno (1) · Ladino (25) · Feiticeiro das Sombras (50) · **Místico | Adepto** (75) · Majestoso (100) · Feiticeiro das Sombras (125) · **Magistrado | Arquidruida** (150) · Arcânico (175) · Nyx (200) · Viajante de Domínios (225). Descrições: Gatuno «Um ladino despreparado.», Ladino «Um ladino com treinamento.», Feiticeiro das Sombras (50) «Um com as sombras.», Majestoso «Treinado nas artes arcanas de Annwn.», Feiticeiro das Sombras (125) «Mais habilidoso nas sombras.», Arcânico «Um assassino de Annwn.», Nyx «Assassino elusivo de Annwn.», Viajante de Domínios «Mestre dos ocultos.».
+**Quarto caminho, «Valhalla» (Caminho do Adestrador; vizinho do Ladrão na seta `›`):** (visto a partir do nível 50) Treinador (50) · Adestrador de Lobos (75) · Adestrador de Espíritos (100) · Dragão (125) · Grande Dragão (150) · Frei (175) · Bahamute (200) · Beowulf (225). O clone ainda não tem esse caminho; essas classes ficam em «Classes especiais».
 
-Os números dos cartões batem com o catálogo: Guerreiro 3/1, Soldado de Infantaria 6/2, Escudeiro 6/2, Cavalaria 7/3, Templário 5/3, Vanguarda do Atlas 11/5, Guarda Titânico 9/5, Mago 9/1, Arquimago 8/2, Mago da Corte 8/2, Druida 11/4.
+Mapeamento com o catálogo (as contagens batem em todos os cartões): Gatuno = Ladrão (c_2), Ladino = Peregrino (c_5), Feiticeiro das Sombras (50) = Criador de sombras (c_89), Feiticeiro das Sombras (125) = c_90, Tecelão de Feitiços = Feiticeiro (c_88), Arcânico = Arcano (c_38), Adepto = Lanceiro (c_24, inferido pelos equipamentos).
+Contagens dos cartões: Guerreiro 3/1, Soldado de Infantaria 6/2, Escudeiro 6/2, Cavalaria 7/3, Templário 5/3, Vanguarda do Atlas 11/5, Guarda Titânico 9/5, Mago 9/1, Arquimago 8/2, Mago da Corte 8/2, Druida 11/4, Tecelão 9/4, Necromante 13/4, Ominimante 28/7, Gatuno 6/1, Ladino 9/2, Feiticeiro das Sombras 8/3 e 6/4, Majestoso 5/3, Arcânico 10/6, Nyx 6/6, Viajante de Domínios 7/7.
+
+### Detalhe da classe (toque num cartão)
+
+Tela cheia escurecida (o caminho aparece bem apagado atrás), conteúdo centralizado, rolável, com o botão redondo `✕` fixo embaixo:
+1. Estrelas do tier (`★★` … `★ 6` colorida) e, abaixo, o **nome em versalete grande**; sprite da classe (colorido mesmo se bloqueada).
+2. Descrição longa; `Armas preferidas: Cajado, Arquicajados`; `[cajado] Slots de feitiço: 8` (ou `[espada] Slots de habilidade: 3`).
+3. Linha de bônus de atributos em verde (positivo) e laranja (negativo): `HP −105  Mana +81  Atq −5  Mag +19  Def −9  Res +8`. Só aparecem os atributos com diferença.
+4. Botões `HABILIDADES` (conjuradores: `FEITIÇOS`) e `PASSIVAS`; nas classes com Frascos de Mana, um terceiro, largo, `FRASCOS DE MANA`.
+5. Classe disponível: botão verde `SEGURE PARA DESBLOQUEAR` (barra dourada enche da esquerda) e `Custos: [orn] 2.500 orns`.
+
+Páginas internas: lista de títulos no alto (`HABILIDADES`/`FEITIÇOS`, `HABILIDADES PASSIVAS`, `FRASCOS DE MANA`); o ativo fica maior e sublinhado e o conteúdo vem logo abaixo. Habilidade: `Nome (Nível N)`, descrição, `30 mana · Poder: 31` (intervalo e repetições: `14-31 (x2)`). O «Poder» depende dos atributos do herói (cerca de ataque × poder/1000). Passiva: nome em versalete, descrição e linhas de bônus (`Chance de Avidez: +10%`). Alguns textos o próprio jogo deixa em inglês (`Efficacious`, descrição dos frascos).
+
+Bônus lidos (herói nível 17): Mago −105/+81/−5/+19/−9/+8 · Místico HP −68, Mana +103, Mag +19, Def −2, Res −2, Des +13 · Druida −72/+136/−5/+27/−9/+8 · Adepto Mana +15, Atq +6, Mag −1, Des +4 · Tecelão +27/+136/−1/+33/−7/+13 · Arquidruida +176/+209/−1/+54/−5/+19, Des +17 · Ominimante +733/+315/+1/+122/+1/+36, Des +32 · Feiticeiro das Sombras +70/+133/+12/+27/−7/+8, Des +11 · Adestrador de Lobos HP +40, Atq +2 · Grande Dragão +176/+136/+3/+42/−5/+19 · Beowulf +1.078/+236/+107/+123/+24/+101. Soldado de Infantaria não mostra linha (sem bônus).
 
 ## Inventário e equipamento (3:28–3:52, 2:40)
 
@@ -92,4 +107,4 @@ Equipamento: abas `Padrão | Masmorra | PvP | Incursões`; slots `CABEÇA`, `ARM
 
 ## O que o vídeo não mostrou
 
-Caminho do Ladrão; Mago a partir do nível 100; Guerreiro no nível 225; seguidores; guildas; arena; torres; incursões; vila de origem em construção; interior de Loton; combate com habilidades abertas; combate em grupo; menu de itens do combate.
+O topo do caminho de Valhalla (níveis 1–25); a tela de seguidores; guildas; arena; torres; incursões; vila de origem em construção; interior de Loton; combate com habilidades abertas; combate em grupo; menu de itens do combate.

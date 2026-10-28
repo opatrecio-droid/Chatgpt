@@ -1,6 +1,6 @@
 # Herói de Vaelmar 5.0 — auditoria de fidelidade
 
-Comparação entre o clone e o **Hero of Aethric v3.27.3**, com base numa gravação de tela do jogo original enviada pelo usuário (28/10/2026) e nos dados do Codex. Nada vem do cliente comercial: ele não foi extraído e não será.
+Comparação entre o clone e o **Hero of Aethric v3.27.3**, com base em duas gravações de tela do jogo original enviadas pelo usuário (28/10/2026) e nos dados do Codex. Nada vem do cliente comercial: ele não foi extraído e não será.
 
 Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, detalhes diferentes · **Inferido** = completei sem ver · **Falta** = não existe ainda.
 
@@ -35,10 +35,13 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 | Elemento | Estado | Observação |
 |---|---|---|
 | Telas de Caminhos (Bravura, Omnimancia, Magia das Sombras) | Igual | cabeçalho, estrelas, cartões, silhuetas, contagens reais |
-| Guerreiro, tiers 1–10 | Igual | visto no vídeo. "Adepto" foi associado ao Lanceiro do catálogo |
-| Mago, tiers 1–5 | Igual | visto no vídeo |
-| Mago a partir do tier 6 e todo o Ladrão | Inferido | pela simetria do campo `gear` do catálogo (híbridos: Mago-Espadachim, Místico, Lanceiro no tier 4; Paladino, Arquidruida, Magistrado no tier 7) |
-| Regra de desbloqueio e preços | Próximo | herdados do 4.4.0; o vídeo não mostrou a compra |
+| Guerreiro, Mago e Ladrão, tiers 1–10 (nomes, ordem, descrições, contagens) | Igual | vistos nos dois vídeos; "Adepto" foi associado ao Lanceiro do catálogo pelos equipamentos |
+| Detalhe da classe (tela cheia, armas, slots, bônus de atributos, botões) | Igual (estrutura) | textos longos só para 13 classes vistas; as outras recebem um texto montado do catálogo |
+| Páginas Habilidades/Feitiços, Passivas e Frascos de Mana | Próximo | nome, nível e mana vêm do catálogo; a descrição é montada dos dados (o jogo tem texto próprio); «Poder» é estimado pelos atributos |
+| Segure para desbloquear + custo em orns | Igual | tempo de 1 s é estimativa |
+| Bônus de atributos por classe | Próximo | 11 classes calibradas com o que o vídeo mostrou (herói nível 17); as demais usam o multiplicador genérico do clone |
+| Caminho de Valhalla (Adestrador) | Falta | visto a partir do nível 50; as classes existem no catálogo mas o clone ainda não tem o caminho |
+| Regra de desbloqueio e preços | Próximo | nível exigido bate com o vídeo (1, 25, 50…225); os preços são os do Codex, o vídeo só mostrou 2.500 orns do Mago |
 
 ## Status e números
 
@@ -72,7 +75,7 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 
 ## Próximos passos, em ordem
 
-1. Vídeo curto com: Caminho do Ladrão inteiro, Caminho do Mago acima do nível 100 e Guerreiro no tier 10 (fecha as inferências).
+1. Topo do caminho de Valhalla (níveis 1–25) e a tela de seguidores.
 2. Menu principal: `Aparência`, `Caminhos Arcanos` e `Feitos` (precisa saber o que fazem).
 3. Combate: menus de habilidades e itens abertos, e combate em grupo.
 4. Dentro de Loton e de outra cidade, andando devagar (confere os layouts das vilas).
