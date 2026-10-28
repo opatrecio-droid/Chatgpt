@@ -28,11 +28,26 @@ Fonte: cinco vídeos de guia de um criador da comunidade que você enviou (class
 | Você escolhe uma facção no nível 10. Dano do **seu** elemento: +25%. Dano recebido do seu elemento: −25% | **aplicado**: o recebido era −20%, agora −25% |
 | Fraqueza do inimigo = **dano dobrado**; resistência = metade; imunidade = zero | **aplicado**: a fraqueza era ×1,5, agora ×2 |
 | Cor dos números: amarelo é normal, **vermelho** é resistido (ou facção reduzida), **azul** é fraqueza | **aplicado** (azul e vermelho são novos) |
-| Equipamento com elemento dá 50% de redução contra aquele elemento (depois da penetração). Só armas podem ter o elemento trocado (alquimista: fogo, água, terra, raio; forja demoníaca: sagrado, sombrio, dragão); o elemento da arma **não** protege | pendente (o clone não tem elemento em equipamento) |
-| Habilidade com elemento no nome ignora o elemento da arma. Habilidade sem elemento usa o elemento da arma da mão principal; sem elemento na arma, é físico. O físico não pode ser resistido; feitiços "sem elemento" também não | pendente |
-| Dano de um elemento tem chance de causar o status daquele elemento; o elemento da arma também sorteia o seu status mesmo que a habilidade seja de outro elemento | pendente |
-| Feitiços arcanos usam o **maior** entre magia e ataque (confirmado no blog oficial) | pendente (o clone usa a média nos híbridos) |
+| Equipamento com elemento dá 50% de redução contra aquele elemento (depois da penetração). Só armas podem ter o elemento trocado (alquimista: fogo, água, terra, raio; forja demoníaca: sagrado, sombrio, dragão); o elemento da arma **não** protege | **aplicado** (5.4.0): peça de armadura, mão secundária ou acessório com elemento no Codex resiste a esse elemento (×0,5); o elemento da arma não protege. Ainda **pendente**: trocar o elemento da arma no alquimista / forja demoníaca (o clone não tem essas estações) |
+| Habilidade com elemento no nome ignora o elemento da arma. Habilidade sem elemento usa o elemento da arma da mão principal; sem elemento na arma, é físico. O físico não pode ser resistido; feitiços "sem elemento" também não | **aplicado** (5.4.0): o ataque básico e as habilidades físicas sem elemento usam o elemento da arma; habilidade com elemento próprio, habilidade «Físico» e feitiço sem elemento não. Feitiço de dois ou mais elementos («dano misto») acerta o elemento a que o alvo é fraco, se houver |
+| Dano de um elemento tem chance de causar o status daquele elemento; o elemento da arma também sorteia o seu status mesmo que a habilidade seja de outro elemento | **aplicado** (5.4.0) com chance de 5% por golpe — **número meu**, o guia não diz qual é. Fogo→Em chamas, água→Congelado, terra→Putrefação, raio→Paralisado, dragão→Praga (sagrado, sombrio e arcano não têm status próprio visto) |
+| Feitiços arcanos usam o **maior** entre magia e ataque (confirmado no blog oficial) | **aplicado** (5.4.0): os feitiços «Híbrido dinâmico» do Codex usam o maior dos dois (e a resistência como defesa); os híbridos comuns continuam com a média |
 | Chefes e monstros têm fraquezas, resistências e imunidades, que o Codex lista | pendente (o catálogo do clone não traz esses campos) |
+
+## Frascos de Mana e de Sangue
+
+Fonte: textos das passivas e dos feitiços de frasco lidos no vídeo 2 (301 habilidades) e a capacidade de cada classe no Codex. **Aplicado em 5.4.0**, com os números de carga como aproximação.
+
+| Regra | Estado |
+|---|---|
+| A capacidade vem da classe (Codex: «Manaflasks: +N / Bloodflasks: +N»). «Frascos de Mana III» começa com meio frasco de mana; «Frascos de Sangue», com meio de mana e meio de sangue; «Frascos de Sangue II», com um de mana e meio de sangue | **aplicado** |
+| Feitiços elementais carregam os Frascos de Mana; explorar fraqueza carrega mais rápido; feitiços de vários elementos («Raio de Calor», «Terra Congelada»…) carregam mais rápido que os outros | **aplicado**: ¼ de frasco por feitiço, ×2 na fraqueza, ×2 em feitiço de dois ou mais elementos — **números meus** |
+| Feitiços (de qualquer tipo) carregam os Frascos de Sangue | **aplicado**: ⅕ de frasco por feitiço — **número meu** |
+| Só se libera um feitiço de frasco com frasco cheio. Feitiços que «dependem da carga» (Aumento de Mana, Tempestade Elemental, Inflexão, Necromancia, Banimento) gastam todos os frascos cheios | **aplicado** |
+| Raio de Mana e Raio de Sangue: nunca erram e perfuram a Resistência (clone: a metade). Raio de Sangue pode dar crítico. Aumento de Mana atinge todos (poder 500 × frascos) e pode dar turno extra se pegar mais de um alvo. Tempestade Elemental põe Congelado, Paralisado, Putrefação ou Em chamas, ignorando imunidades, em tantos alvos quantos frascos. Inflexão dá Defesa e Resistência por (1 + frascos) turnos. Repetição repete o último feitiço da batalha. Chamado da Natureza invoca animais (2). Necromancia invoca esqueletos (um por frasco de sangue). Banimento remove invocações inimigas. Omniflask: poder 2500, todos os elementos, +50% por frasco extra gasto (mana cheio adicional e sangue cheio) — **os +50% são meus** | **aplicado** |
+| Infusões (120 de mana): Sangue converte frascos de mana em frascos de sangue, Mana faz o contrário, Guarda esvazia a barra de Guarda para carregar os frascos em ordem | **aplicado** |
+| Marca Alinhada e Tempestade de Marca (Marcas), Gotejamento de Mana e Perda de Sangue (sem texto) | **pendente**: ficam fora do menu de combate |
+| Turno extra: Avidez («Avidity Chance» das classes) dá um turno adicional depois da ação | **aplicado** com a chance do Codex |
 
 ## Seguidores (pets)
 
@@ -61,3 +76,4 @@ Combate em paisagem com grade [habilidade rápida | Ataque | habilidade rápida 
 1. Gravação da aba **Especialização** e da lista de **pré-requisitos** das classes, no seu cliente.
 2. Gravação do combate com o menu de habilidades e de itens abertos (continua sendo o maior buraco).
 3. Uma tela de seguidor (Status → Seguidor) com as taxas de ação.
+4. Uma gravação de combate com uma classe de frascos (Mago da Corte em diante) para conferir quanto cada feitiço carrega e quanto cada frasco rende.

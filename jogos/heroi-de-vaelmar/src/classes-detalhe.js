@@ -9,66 +9,13 @@
   const caster = k => window.classeConjuradora(k);
   const GEAR_PT = { guerreiro: 'guerreiro', ladino: 'ladino', mago: 'mago' };
 
-  /* textos lidos nas telas de detalhe do vídeo (chave do catálogo) */
-  const LONGA = {
-    c_0: 'Uma classe corpo a corpo que favorece ataques físicos e força bruta em vez de magia. Pode usar armas e armaduras mais pesadas.',
-    c_2: 'Uma classe de luta astuta, que favorece a velocidade e o dano à defesa. Pode usar armaduras leves, adagas e arcos.',
-    c_97: 'Um novato no manejo de grandes feras nórdicas. Pode empunhar o equipamento do guerreiro ou do ladino.',
-    c_92: 'Um soldado Lyonesse que pode imbuir seus ataques com propriedades elementares. Pode empunhar o equipamento do guerreiro.',
-    c_93: 'Um guerreiro treinado na arte defensiva da esgrima. Pode empunhar o equipamento do guerreiro.',
-    c_95: 'Um cavaleiro graduado de Lyonesse armado até os dentes em mythril. Ele aprende artes com armas mais complexas e pode manejar o equipamento do guerreiro.',
-    c_96: 'Uma força de elite do reino de Lyonesse, habilidosa em ataques elementais. É naturalmente forte contra as forças das trevas e da luz e pode manejar equipamentos tanto do guerreiro quanto do mago.',
-    c_31: 'Uma força de elite do reino de Annwn, habilidoso em ofensas elementais. É naturalmente forte contra Magia arcana, e pode utilizar os equipamentos de guerreiro e ladino.',
-    c_10: 'Uma classe híbrida que mistura Defesa e Magia. Ele pode usar equipamentos de guerreiro e de mago.',
-    c_101: 'Um guerreiro que domina a arte de domesticar dragões. Pode empunhar o equipamento do guerreiro ou de ladino.',
-    c_39: 'Uma das ordens mais altas de guerreiros e valquírias nórdicos. É imune à magia de Dragão, possui vínculos especiais com animais e pode usar o equipamento do guerreiro ou mago.',
-    c_36: 'Um guerreiro sagrado e corajoso de Lyonesse, versado em métodos de guarda e sobrevivência. É imune à magia sagrada e pode usar o equipamento do guerreiro.',
-    c_38: 'Um ladino disposto a se arriscar em técnicas arcanas perdidas. É imune à magia Arcana e pode usar equipamentos do ladino.',
-    c_24: 'Uma classe híbrida que favorece tudo, menos magia. Ele pode empunhar equipamentos tanto de ladinos quanto de cavaleiros.',
-    c_1: 'Um indivíduo habilidoso que prefere a magia à força. Pode usar cajados e mantos.',
-    c_4: 'Um mago de Avalon que aprendeu o básico da conjuração mágica. Pode empunhar o equipamento do mago.',
-    c_11: 'Uma classe híbrida que mistura destreza e magia. Pode empunhar equipamentos tanto de ladino quanto de mago.',
-    c_87: 'Um mago habilidoso na arte de canalizar os poderes das feras em batalha. Pode empunhar equipamentos do mago.',
-    c_88: 'Um usuário de magia muito habilidoso que pode lançar feitiços repetidamente. Tem uma boa chance de lançar feitiços de graça e pode empunhar equipamentos do mago.',
-    c_29: 'Um poderoso mago habilidoso na arte de canalizar os poderes das feras em batalha. É naturalmente forte contra os poderes da luz e das trevas e pode manejar equipamentos de ladino e mago.',
-    c_52: 'Um mago não ortodoxo de Avalon que alcançou verdadeira afinidade com todos os quatro elementos básicos. Ele pode lançar feitiços multi-elementais e ocasionalmente pode resistir ao dano de qualquer elemento básico. Ele pode usar o equipamento do mago.',
-    c_90: 'Um lutador místico de Annwn que mistura magia e destreza. Ele pode desviar dos ataques de maneira mais eficaz à medida que os danos são causados e pode usar equipamentos do ladino e do mago.',
-    c_98: 'Um manipulador novato de grandes feras nórdicas. Pode empunhar o equipamento do guerreiro ou do ladino.',
-    c_30: 'Aquele que cavalga com o mais poderoso dos Dragões. É naturalmente forte contra a magia de Dragão e pode usar equipamentos do guerreiro e do mago.',
-    c_57: 'Uma classe histórica daqueles alinhados aos Dragões, esta classe traz contos, poemas e canções de guerra para a batalha e favorece armas não convencionais. O ataque deles é determinado pelos atributos de Ataque e Magia, é imune à magia de Dragão e pode empunhar qualquer peça de equipamento encontrada.',
-  };
-  const ARMAS = {
-    c_0: 'Espadas', c_2: 'Adagas', c_97: 'Machados e martelos, Varas', c_93: 'Espadas, Varas', c_95: 'Espadas, Varas', c_96: 'Espadas, Varas, Machados e martelos', c_31: 'Espadas, Espadas curvas, Varas, Machados e martelos',
-    c_10: 'Cajado, Espadas', c_101: 'Machados e martelos, Instrumentos', c_39: 'Varas, Machados e martelos, Instrumentos', c_36: 'Espadas, Machados e martelos',
-    c_92: 'Espadas, Varas', c_24: 'Varas, Espadas curvas, Espadas, Machados e martelos, Adagas', c_1: 'Cajado', c_4: 'Cajado, Arquicajados', c_11: 'Cajado, Espadas curvas',
-    c_87: 'Arquicajados, Espadas curvas', c_88: 'Cajado, Arquicajados', c_29: 'Cajado, Arquicajados, Varas, Espadas curvas', c_52: 'Cajado, Arquicajados',
-    c_90: 'Adagas, Espadas, Espadas curvas', c_98: 'Machados e martelos, Varas', c_30: 'Cajado, Arquicajados, Espadas, Machados e martelos',
-    c_57: 'Instrumentos, Arquicajados, Machados e martelos, Varas',
-  };
-  const SLOTS = { c_0: 2, c_2: 2, c_97: 4, c_93: 4, c_95: 7, c_96: 9, c_31: 8, c_10: 6, c_101: 7, c_39: 10, c_36: 8, c_92: 3, c_24: 4, c_1: 4, c_4: 5, c_11: 5, c_87: 8, c_88: 8, c_29: 10, c_52: 14, c_90: 9, c_98: 5, c_30: 9, c_57: 14 };
-
-  /* bônus de atributos lidos no vídeo (herói de nível 17). Viram multiplicadores sobre os atributos base
-     do nível 17 e depois valem em qualquer nível; classes sem medição continuam com o multiplicador genérico */
-  const DELTA17 = {
-    c_2:  { hp: -68, mp: 7, mag: 3, def: -2, res: -2, dex: 10 },
-    c_1:  { hp: -105, mp: 81, atk: -5, mag: 19, def: -9, res: 8 },
-    c_11: { hp: -68, mp: 103, mag: 19, def: -2, res: -2, dex: 13 },
-    c_87: { hp: -72, mp: 136, atk: -5, mag: 27, def: -9, res: 8 },
-    c_24: { mp: 15, atk: 6, mag: -1, dex: 4 },
-    c_88: { hp: 27, mp: 136, atk: -1, mag: 33, def: -7, res: 13 },
-    c_29: { hp: 176, mp: 209, atk: -1, mag: 54, def: -5, res: 19, dex: 17 },
-    c_52: { hp: 733, mp: 315, atk: 1, mag: 122, def: 1, res: 36, dex: 32 },
-    c_90: { hp: 70, mp: 133, atk: 12, mag: 27, def: -7, res: 8, dex: 11 },
-    c_98: { hp: 40, atk: 2 },
-    c_95: { hp: 118, mp: 51, atk: 20, mag: -4, def: 2, res: 2, dex: 4 },
-    c_96: { hp: 313, mp: 92, atk: 28, mag: -4, def: 4, res: 4, dex: 4 },
-    c_31: { hp: 313, mp: 51, atk: 28, mag: -4, def: 4, res: 4, dex: 4 },
-    c_39: { hp: 265, mp: 136, atk: 31, mag: 47, def: -3, res: 27 },
-    c_101: { hp: 13, mp: 19, atk: 13, def: 2, res: 2, dex: 4 },
-    c_10: { mp: 81, mag: 19 },
-    c_30: { hp: 176, mp: 136, atk: 3, mag: 42, def: -5, res: 19 },
-    c_57: { hp: 1078, mp: 236, atk: 107, mag: 123, def: 24, res: 101 },
-  };
+  /* texto, armas, slots e bônus lidos nas telas de detalhe do vídeo: ver src/classes-dados.js */
+  const V = window.CLASSE_VISTA || {};
+  const tabela = campo => Object.fromEntries(Object.entries(V).filter(([, d]) => d[campo] != null).map(([k, d]) => [k, d[campo]]));
+  const LONGA = tabela('desc'), ARMAS = tabela('armas'), SLOTS = tabela('slots');
+  /* os bônus viram multiplicadores sobre os atributos base do nível 17 (o do herói do vídeo) e depois valem em qualquer nível;
+     classes sem medição continuam com o multiplicador genérico */
+  const DELTA17 = tabela('delta');
   const STATS = ['hp', 'mp', 'atk', 'mag', 'def', 'res', 'dex'], STAT_LBL = { hp: 'HP', mp: 'Mana', atk: 'Atq', mag: 'Mag', def: 'Def', res: 'Res', dex: 'Des' };
   const REF = baseStats(17);
   for (const [key, d] of Object.entries(DELTA17)) {
@@ -123,7 +70,7 @@
   /* "Poder" como o jogo mostra: dano esperado com os atributos atuais (ataque nas habilidades, magia nos feitiços) */
   function poder(r) {
     const pw = r.power || []; if (!pw.length || !(pw[0] > 0)) return '0';
-    const st = stats(), v = x => Math.floor((r.type === 'mag' ? st.mag : st.atk) * x / 1000 * 1.16);
+    const st = stats(), base = SKILLS[r.key]?.stat === 'max' ? Math.max(st.mag, st.atk) : r.type === 'mag' ? st.mag : st.atk, v = x => Math.floor(base * x / 1000 * 1.16);
     const a = v(pw[0]), b = pw.length > 1 ? v(pw[pw.length - 1]) : null;
     return (b != null && b !== a ? a + '-' + b : String(a)) + (r.hits > 1 ? ' (x' + r.hits + ')' : '');
   }
@@ -275,7 +222,7 @@
   /* arma preferida: +5% de ataque e magia quando a arma da mão principal é de um tipo preferido da classe. Vale uma vez só e
      não se soma ao da especialização (guia de comunidade, vídeo antigo). Só para as classes com lista vista; o Guerreiro
      já tem um bônus próprio no motor. */
-  const TIPO_PT = { Swords: 'Espadas', Staffs: 'Cajado', Archistaffs: 'Arquicajados', 'Axes & Hammers': 'Machados e martelos', Daggers: 'Adagas', 'Curved swords': 'Espadas curvas', Instruments: 'Instrumentos', Polearms: 'Varas' };
+  const TIPO_PT = { Swords: 'Espadas', Staffs: 'Cajado', Archistaffs: 'Arquicajados', 'Axes & Hammers': 'Machados e martelos', Daggers: 'Adagas', 'Curved swords': 'Espadas curvas', Instruments: 'Instrumentos', Polearms: 'Varas', Bows: 'Arcos', Greatbows: 'Grandes Arcos' };
   const armaPreferida = set => {
     const c = CLASSES[S.cls], lista = ARMAS[c.original]; if (!lista || c.original === 'c_0') return false;
     const it = equippedIn(set || 'padrao', 'weapon'), tipo = it && Catalog.byKey[it.catalogKey]?.facts?.Type;

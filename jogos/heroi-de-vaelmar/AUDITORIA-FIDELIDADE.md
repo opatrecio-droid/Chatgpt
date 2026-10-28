@@ -58,7 +58,11 @@ Legenda: **Igual** = confere com o vídeo · **Próximo** = mesma estrutura, det
 | Fraqueza ×2, resistência ×0,5, imunidade 0; facção +25% / −25%; números azuis e vermelhos | Próximo | regras de guias da comunidade (vídeos antigos), não conferidas no seu cliente; ver [REGRAS-OBSERVADAS.md](REGRAS-OBSERVADAS.md) |
 | Bônus de arma preferida (+5% ataque e magia) | Próximo | só para as classes com lista vista; mesma fonte |
 | Linha de bônus da classe comparada com a classe atual | Igual | a tela original compara com a classe usada |
-| Elemento no equipamento, status por elemento, taxas de ação do seguidor, invocadores, especializações | Falta | descritos nos guias; faltam telas do seu cliente para conferir |
+| Feitiços arcanos usam o maior entre magia e ataque | Próximo | confirmado no blog oficial; híbridos comuns seguem na média |
+| Elemento no equipamento (resistência da armadura, elemento da arma no ataque básico e nas habilidades físicas sem elemento, feitiço de vários elementos) | Próximo | regras de guias da comunidade; o Codex dá o elemento de 288 itens |
+| Status por elemento (5% por golpe) | Inferido | o guia só diz que existe chance; o 5% é meu |
+| Frascos de Mana e de Sangue em combate (medidor, botão, 10 feitiços, infusões, turno extra) | Próximo | capacidade e textos são do jogo; cargas e poder por frasco são aproximação |
+| Taxas de ação do seguidor, invocadores, especializações | Falta | descritos nos guias; faltam telas do seu cliente para conferir |
 
 ## Menus e telas fora do mundo
 

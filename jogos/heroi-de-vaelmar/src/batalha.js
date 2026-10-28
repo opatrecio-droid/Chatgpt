@@ -156,7 +156,7 @@
         { v: 'skill', l: 'Habilidade', ic: iconImg(['sword', { metal: '#b9c6e6' }], 22) },
         { v: 'flee', l: 'Fugir', ic: iconImg('boots', 22), dis: !B.canFlee },
         { v: 'item', l: 'Item', ic: iconImg('pocao_p', 22), dis: B.mode === 'arena' },
-      ]);
+      ].concat(window.Frascos && window.Frascos.ativos() ? [{ v: 'flask', l: 'Frascos', cls: 'wide', ic: iconImg('pocao_p', 22), s: window.Frascos.resumo() }] : []));
       if (v && v.__quick) return { k: 'item', key: v.__quick };
       if (v === 'atk') { const t = await pickTarget(); if (t) return { k: 'atk', t }; }
       else if (v === 'quick') { const a = await skillAction(S.equipped.find(k => SKILLS[k])); if (a) return a; }
@@ -169,6 +169,7 @@
         if (!own.length) { say('Sem poções.'); continue; }
         const key = await choose(own.map(k => ({ v: k, l: itemName(k) + ' ×' + qty(k), s: ITEMS[k]?.d || '' })).concat([{ v: 'back', l: 'Voltar' }]), 'list');
         if (key !== 'back') return { k: 'item', key };
+      } else if (v === 'flask') { const a = await window.Frascos.escolher(); if (a) return a;
       } else if (v === 'guard' || v === 'flee') return { k: v };
     }
   };

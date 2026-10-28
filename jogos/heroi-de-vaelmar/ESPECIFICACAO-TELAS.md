@@ -29,6 +29,8 @@ De cima para baixo:
     | `DEFENDER` | `HABILIDADE` (abre as demais habilidades) |
     | `FUGIR` (ícone) | `ITEM` (ícone de poção) |
 
+    **Frascos (inferido, o vídeo não mostra uma classe com frascos):** para as classes com Frascos de Mana/Sangue e a partir do tier em que ganham o primeiro feitiço de frasco, o clone acrescenta um botão largo `FRASCOS` (com `Mana 1,5/2 · Sangue 0,5/2` embaixo) abaixo da grade, que abre a lista de feitiços de frasco com `N cheios` no canto. Sob a barra de mana do herói aparece uma fileira de frascos pequenos (azul = mana, vermelho = sangue, dourado quando cheios). A posição e o desenho são meus; só os textos e as regras vêm do jogo.
+
 A tela de encontro (0:56, 1:20, 6:08) já existe no clone: escurecida, `Rato / Nível 4`, sprite com barra vermelha, botão verde `BATALHA`, `Drops` (`???` ou o item conhecido), `Codex`, `Você está pronto para a batalha.`, botão ✕ redondo embaixo.
 
 ## Mundo (0:00, 4:56–6:16)

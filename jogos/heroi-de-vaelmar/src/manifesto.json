@@ -149,7 +149,25 @@
  },
  {
   "pasta": "src",
+  "arquivo": "elementos.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "frascos.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
   "arquivo": "textos-habilidades.js",
+  "abre": "<script>",
+  "fecha": "</script>"
+ },
+ {
+  "pasta": "src",
+  "arquivo": "classes-dados.js",
   "abre": "<script>",
   "fecha": "</script>"
  },

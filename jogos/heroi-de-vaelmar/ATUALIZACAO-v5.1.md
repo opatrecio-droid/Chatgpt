@@ -1,5 +1,12 @@
 # Herói de Vaelmar 5.1 — classes como no segundo vídeo
 
+**5.4.0:** três regras do guia que não dependiam de você e as classes que faltavam.
+- **Elementos no equipamento.** Peça de armadura, mão secundária ou acessório com elemento (o Codex traz 288 itens assim) resiste àquele elemento (metade do dano). O elemento da arma **não** protege. O ataque básico e as habilidades físicas sem elemento passam a usar o elemento da arma, que também tem uma chance de causar o status dele (5%, número meu: o guia não diz qual é). Feitiço de dois ou mais elementos acerta o elemento a que o alvo é fraco.
+- **Feitiços arcanos** (e os outros «Híbrido dinâmico») usam o maior entre magia e ataque.
+- **Frascos de Mana e de Sangue em combate**, para as 18 classes que os têm: medidor azul/vermelho sob a barra de mana, botão **Frascos** no menu de batalha, carga por feitiço elemental (mais rápida na fraqueza e nos feitiços de dois elementos), 10 feitiços de frasco (Raio de Mana, Aumento de Mana, Tempestade Elemental, Inflexão, Repetição, Chamado da Natureza, Omniflask, Raio de Sangue, Necromancia, Banimento) e as 3 infusões. O turno extra (que esses feitiços e a Avidez dão) agora existe.
+- **Classes que estavam borradas** no vídeo 2 foram relidas: 38 classes têm agora texto, armas, slots e linha de bônus do jogo.
+- O que ficou fora e por quê: Marca Alinhada, Tempestade de Marca, Gotejamento de Mana e Perda de Sangue (sem texto ou dependem de Marcas), e as cargas exatas (aproximação marcada em [REGRAS-OBSERVADAS.md](REGRAS-OBSERVADAS.md)).
+
 **5.3.0:** regras tiradas de cinco vídeos-guia da comunidade (detalhes e o que ficou pendente em [REGRAS-OBSERVADAS.md](REGRAS-OBSERVADAS.md)): fraqueza passa a dobrar o dano (era ×1,5); o dano recebido do seu elemento de facção cai 25% (era 20%); números **azuis** na fraqueza e **vermelhos** no dano resistido; **+5% de ataque e magia** com arma do tipo preferido da classe; a linha de bônus do detalhe da classe agora compara com a classe que você está usando. Mudam um pouco o equilíbrio das lutas: monstros fracos ao seu elemento morrem mais rápido.
 
 **5.2.0:** o quarto caminho, **Valhala** (Caminho do Adestrador), existe: Treinador → Adestrador de Lobos → Adestrador de Espíritos → Dragão → Grande Dragão → Frei → Bahamute → Beowulf, do nível 50 ao 225. Os caminhos agora formam uma fila como no original (Bravura › Omnimancia › Magia das Sombras › Valhala), com a seta apagada nas pontas.
