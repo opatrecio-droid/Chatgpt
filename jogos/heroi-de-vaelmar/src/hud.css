@@ -1,0 +1,2 @@
+#w-banner{position:absolute;left:50%;top:calc(8px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:12;max-width:min(88vw,460px);padding:9px 18px;border:2px solid #f0e3cf;border-radius:6px;background:#241d19ee;color:#fff;font:600 16px/1.2 var(--f-b);text-align:center;box-shadow:0 4px 12px #000a;pointer-events:none}
+#w-banner.warn{background:#a2502f;border-color:#f1d9bc}

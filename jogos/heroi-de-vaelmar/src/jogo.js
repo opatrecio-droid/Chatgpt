@@ -1874,7 +1874,12 @@ function onTapWorld(e) {
   if (busy || cur !== 'world' || !overlayClosed()) return;
   const p = screenToWorld(e);
   const m = EX.mons.filter(m => Math.abs(m.x - p.x) < 17 && p.y > m.y - 32 && p.y < m.y + 8).sort((a, b) => Math.hypot(a.x - p.x, a.y - p.y) - Math.hypot(b.x - p.x, b.y - p.y))[0];
-  if (m) { const keep = H.goal && H.goal.type === 'move' && H.path.length ? { ...H.goal } : null; if (walkTo(m.x, m.y, { type:'mon', m })) { H.resumeGoal = keep; } sfx.click(); return; }
+  if (m) {
+    /* como no original: o monstro só aceita o desafio quando o herói está perto o bastante */
+    if (Math.hypot(m.x - H.x, m.y - H.y) <= (typeof INTERACT_RANGE !== 'undefined' ? INTERACT_RANGE : 70)) { H.path = []; H.goal = null; EX.mark = null; sfx.click(); startMapBattle(m); }
+    else { worldBanner('Aproxime-se para desafiar este monstro', 'warn'); sfx.click(); }
+    return;
+  }
   const [wtx, wty] = tileOf(p.x, p.y);
   if (TMAP[wty * WW + wtx] === T.WATER && !zoneLocked(ZGRID[wty * WW + wtx])) {
     if (Math.hypot(p.x - H.x, p.y - H.y) < 110) { startFishing(); return; }

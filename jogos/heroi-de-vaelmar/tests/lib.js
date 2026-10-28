@@ -22,7 +22,7 @@ async function abrir({ arquivo = HTML_PADRAO, largura = 393, altura = 851, hora 
   await page.getByText('Começar aventura').click();
   await page.waitForTimeout(2500);
   const ok = page.locator('button:visible', { hasText: 'Continuar' }).first();
-  if (await ok.count()) await ok.tap();
+  if (await ok.count()) await (largura < 700 ? ok.tap() : ok.click());
   await page.waitForTimeout(800);
   return { browser, page, erros, rede };
 }
