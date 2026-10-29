@@ -4,7 +4,7 @@ Galeria de 25 propostas de arte em pixel art 2.5D frontal, enviadas para revisã
 
 ## Ver e comentar
 
-- [Baixar o pacote ZIP para revisar offline](https://github.com/opatrecio-droid/Chatgpt/releases/download/reino-artes-opcao-a-v1.0.0/artes-opcao-a-download.zip)
+- [Baixar o pacote ZIP para revisar offline](https://raw.githubusercontent.com/opatrecio-droid/Chatgpt/ChatGPT/jogos/reino-dos-seis-portoes/artes-opcao-a/artes-opcao-a-download.zip)
 - [Abrir a pasta pública com a galeria e os PNGs individuais](https://github.com/opatrecio-droid/Chatgpt/tree/ChatGPT/jogos/reino-dos-seis-portoes/artes-opcao-a)
 - As artes individuais estão em [`png/`](png/).
 
