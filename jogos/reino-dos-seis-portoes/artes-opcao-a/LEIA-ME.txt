@@ -1,0 +1,5 @@
+REVISÃO DAS ARTES — OPÇÃO A
+
+Abra index.html para revisar a galeria. Cada prédio tem seu PNG individual na pasta png/. As artes são propostas aguardando aprovação e não foram aplicadas ao jogo.
+
+A galeria funciona localmente, sem internet, mantendo index.html junto da pasta png/.
