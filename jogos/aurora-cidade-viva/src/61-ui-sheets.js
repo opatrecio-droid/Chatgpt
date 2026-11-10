@@ -17,7 +17,7 @@
   const bar = (fn, cls) => '<div class="bar ' + (cls || '') + '"><i ' + v.W(fn) + '></i></div>';
   const rank = (r) => '<i class="rank" style="background:' + G.RANK_COLOR[r] + '">' + G.RANKS[r] + '</i>';
   const thumbs = {};
-  const bldThumb = (id) => { const l = G.bLvl(id), k = id + '|' + (l <= 0 ? 0 : l < 3 ? 1 : l < 6 ? 2 : l < 10 ? 3 : 4); if (!thumbs[k]) thumbs[k] = A.building(id, l, 0).cv.toDataURL(); return thumbs[k]; };
+  const bldThumb = (id) => { const l = G.bLvl(id), k = id + '|' + (l <= 0 ? 0 : l < 3 ? 1 : l < 6 ? 2 : l < 10 ? 3 : 4); if (!thumbs[k]) thumbs[k] = A.building(id, Math.max(1, l), 0).cv.toDataURL(); return thumbs[k]; };
   const pct = (x) => Math.round(x * 100) + '%';
   const itemLine = (it) => { const s = G.itemStats(it); const a = []; if (s.atk) a.push('Atq +' + G.fmt(s.atk)); if (s.def) a.push('Def +' + G.fmt(s.def)); if (s.hp) a.push('Vida +' + G.fmt(s.hp)); if (s.crit) a.push('Crít +' + pct(s.crit)); return a.join(' · '); };
   const gi = (it) => '<i class="gi px gi-' + it.type + ' rar' + it.rar + '"' + (it.plus ? ' data-t="+' + it.plus + '"' : '') + ' style="box-shadow:inset 0 -3px 0 ' + G.tierColor(it.tier) + '"></i>';

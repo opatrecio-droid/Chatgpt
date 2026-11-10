@@ -234,7 +234,7 @@
     S._stGen = 1; S.pop = 12; S.happy = 70;
     for (const id of G.BLD_IDS) if (G.BLD[id].built) S.b[id] = { lvl: 1 };
     for (const z of G.ZONES) S.zones[z.id] = { tier: 0, maxTier: 0, gauge: 0, kills: 0, bossKills: 0, boss: 0, lock: 0 };
-    const mk = (name, cls, traits) => { const h = G.makeHero({ name, cls, traits, potions: 3, gold: 15 }); S.heroes.push(h); return h; };
+    const mk = (name, cls, traits) => { const h = G.makeHero({ name, cls, traits, potions: 2, gold: 15 }); S.heroes.push(h); return h; };
     const k = mk('Kael', 'esp', ['corajoso', 'impulsivo']), m = mk('Mira', 'arq', ['ambicioso', 'focado']), t = mk('Tobo', 'mag', ['medroso', 'sortudo']);
     k.look = { skin: 1, hair: 2, style: 1, seed: 11 }; m.look = { skin: 0, hair: 6, style: 3, seed: 22 }; t.look = { skin: 2, hair: 4, style: 4, seed: 33 };
     [k, m, t].forEach((h, i) => { h.x = 42 + i * 1.6; h.y = 56.2; h.tThink = 1.5 + i * 1.2; });

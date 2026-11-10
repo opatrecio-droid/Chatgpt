@@ -294,8 +294,8 @@ textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--li
 #title .m2{width:54px;height:54px;right:34%;top:19%;background:radial-gradient(circle at 35% 35%,#e8d0ff,#a880e8 60%,#6a48b0);box-shadow:0 0 40px rgba(180,130,255,.4)}
 #title .stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff 50%,transparent),radial-gradient(1px 1px at 28% 40%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 44% 12%,#cfe 50%,transparent),radial-gradient(1px 1px at 62% 30%,#fff 50%,transparent),radial-gradient(1px 1px at 78% 52%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 88% 34%,#fdf 50%,transparent),radial-gradient(1px 1px at 8% 56%,#fff 50%,transparent),radial-gradient(1px 1px at 36% 66%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 54% 48%,#fff 50%,transparent),radial-gradient(1px 1px at 20% 80%,#fff 50%,transparent),radial-gradient(1px 1px at 70% 74%,#fff 50%,transparent),radial-gradient(1px 1px at 92% 70%,#fff 50%,transparent);animation:tw 5s ease-in-out infinite alternate}
 @keyframes tw{to{opacity:.55}}
-#title .hill{position:absolute;left:-10%;right:-10%;bottom:-6%;height:34%;background:#060914;border-radius:50% 50% 0 0/100% 100% 0 0}
-#title .sky{position:absolute;left:0;right:0;bottom:22%;height:120px;display:flex;align-items:flex-end;justify-content:center;gap:0;opacity:.95}
+#title .hill{position:absolute;left:-60%;right:-60%;bottom:-4%;height:22%;background:#060914;border-radius:50% 50% 0 0/100% 100% 0 0}
+#title .sky{position:absolute;left:0;right:0;bottom:16%;height:120px;display:flex;align-items:flex-end;justify-content:center;gap:0;opacity:.95}
 #title .sky i{display:block;background:#060914;width:28px;position:relative}
 #title .sky i::after{content:"";position:absolute;left:50%;top:38%;width:5px;height:7px;margin-left:-2.5px;background:#ffd98a;box-shadow:0 0 8px #ffd98a;border-radius:1px}
 #title .inner{position:relative;z-index:2;width:min(100%,360px);display:flex;flex-direction:column;align-items:center;text-align:center}
@@ -2247,7 +2247,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
         else if (plan === 'work') {
           const d = G.BLD[n.at];
           if (d.site) { p = SITE_SPOTS[n.at](); n.goal = 'toil'; n.until = S.t + G.rnd(10, 22); if (Math.random() < 0.18) { p = Wd.door(G.bOk('mercado') ? 'mercado' : 'guilda'); n.goal = 'in'; n.until = S.t + 40; n.carry = n.at === 'fazenda' ? 'trigo' : n.at === 'lenharia' ? 'madeira' : 'pedra'; } }
-          else if (Math.random() < 0.55) { p = Wd.door(n.at); n.goal = 'in'; n.until = S.t + G.rnd(20, 45); }
+          else if (Math.random() < 0.4) { p = Wd.door(n.at); n.goal = 'in'; n.until = S.t + G.rnd(14, 30); }
           else { const dr = Wd.door(n.at); p = Wd.nearestWalk(dr[0] + G.rnd(-2.2, 2.2), dr[1] + G.rnd(0.1, 0.9)); n.goal = 'toil'; n.until = S.t + G.rnd(8, 16); }
         } else if (plan === 'lunch') { if (G.bOk('taverna') && Math.random() < 0.6) { p = Wd.door('taverna'); n.goal = 'in'; } else { p = G.pick(Wd.idle); n.goal = 'stand'; } }
         else { // lazer
@@ -2543,7 +2543,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     S._stGen = 1; S.pop = 12; S.happy = 70;
     for (const id of G.BLD_IDS) if (G.BLD[id].built) S.b[id] = { lvl: 1 };
     for (const z of G.ZONES) S.zones[z.id] = { tier: 0, maxTier: 0, gauge: 0, kills: 0, bossKills: 0, boss: 0, lock: 0 };
-    const mk = (name, cls, traits) => { const h = G.makeHero({ name, cls, traits, potions: 3, gold: 15 }); S.heroes.push(h); return h; };
+    const mk = (name, cls, traits) => { const h = G.makeHero({ name, cls, traits, potions: 2, gold: 15 }); S.heroes.push(h); return h; };
     const k = mk('Kael', 'esp', ['corajoso', 'impulsivo']), m = mk('Mira', 'arq', ['ambicioso', 'focado']), t = mk('Tobo', 'mag', ['medroso', 'sortudo']);
     k.look = { skin: 1, hair: 2, style: 1, seed: 11 }; m.look = { skin: 0, hair: 6, style: 3, seed: 22 }; t.look = { skin: 2, hair: 4, style: 4, seed: 33 };
     [k, m, t].forEach((h, i) => { h.x = 42 + i * 1.6; h.y = 56.2; h.tThink = 1.5 + i * 1.2; });
@@ -3630,7 +3630,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       if (id === 'taverna' && lvl > 0 && S.res.refeicao < 1) { mark = '!'; col = '#ff9a9a'; label = 'Taverna sem comida'; }
       if (id === 'alquimista' && lvl > 0 && S.res.pocao < 1) { mark = '!'; col = '#ff9a9a'; label = 'Sem poções'; }
       ctx.font = fontS; ctx.textAlign = 'center'; const tw = ctx.measureText(label).width, ph = Math.round(parseInt(fontS.split(' ')[1]) * 1.55), pw = tw + ph * 0.9;
-      const lx = Math.round(cx - pw / 2), ly = Math.round(Math.max(ty - ph, 2));
+      const lx = Math.round(cx - pw / 2), ly = Math.round(ty - ph);
       ctx.fillStyle = bg; rr(lx, ly, pw, ph, ph / 2); ctx.fill();
       ctx.fillStyle = col; ctx.textBaseline = 'middle'; ctx.fillText(label, cx, ly + ph / 2 + 1); ctx.textBaseline = 'alphabetic';
       if (mark) { const bob = Math.sin(R.t * 4) * 2 * dpr; const r = ph * 0.52; ctx.fillStyle = mark === '!' ? '#e85a5a' : '#58c070'; ctx.beginPath(); ctx.arc(lx + pw + r * 0.6, ly + ph / 2 + bob, r, 0, 6.283); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle'; ctx.fillText(mark, lx + pw + r * 0.6, ly + ph / 2 + bob + 1); ctx.textBaseline = 'alphabetic'; }
@@ -3928,7 +3928,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     R.sel = sel; const el = $('#inspect'); inspV.reset();
     if (!sel) { el.classList.remove('on'); $('#quest').style.display = ''; return; }
     let h = '';
-    if (sel.type === 'hero') { const x = sel.ref; h = '<i class="ip px" style="background-image:url(' + UI.portrait(x) + ')"></i><span class="it"><b>' + esc(x.name) + ' · ' + G.heroTitle(x) + ' ' + inspV.T(() => 'Nv ' + x.lvl) + '</b>' + inspV.T(() => G.stateLabel(x)) + '</span><button class="btn sm pri" data-a="herod:' + x.id + '">Ficha</button>'; }
+    if (sel.type === 'hero') { const x = sel.ref; h = '<i class="ip px" style="background-image:url(' + UI.portrait(x) + ')"></i><span class="it"><b>' + esc(x.name) + ' · ' + inspV.T(() => 'Nv ' + x.lvl) + '</b>' + inspV.T(() => G.stateLabel(x)) + '</span><button class="btn sm pri" data-a="herod:' + x.id + '">Ficha</button>'; }
     else if (sel.type === 'mon') { const m = sel.ref, d = G.MON[m.k]; h = '<i class="ip px" style="background-image:url(' + A.monPortrait(m.k) + ')"></i><span class="it"><b>' + (m.elite ? 'Elite · ' : '') + d.name + ' Nv ' + m.lvl + '</b>' + inspV.T(() => (m.dead ? 'Abatido' : 'Vida ' + G.fmt(Math.max(0, m.hp)) + ' / ' + G.fmt(m.hpMax))) + '</span><button class="btn sm" data-a="mark">' + ic('target') + 'Alvo</button>'; }
     else if (sel.type === 'npc') { const n = sel.ref; h = '<i class="ip px" style="background-image:url(' + A.portrait(A.npcLook(n)) + ')"></i><span class="it"><b>' + esc(n.name) + '</b><span>' + n.job + (n.at && G.BLD[n.at] ? ' · ' + G.BLD[n.at].short : '') + '</span></span>'; if (!n.guard) { n.say = G.pick(G.BARKS.npc); n.sayT = 3.5; } }
     el.innerHTML = h + '<button class="btn sm" data-a="unsel">' + ic('close') + '</button>';
@@ -4000,7 +4000,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (R.sel) { inspV.refresh(); if (R.sel.type === 'mon' && (R.sel.ref.dead || R.sel.ref.gone)) UI.inspect(null); }
     if (UI.sheet) UI.sheetRefresh();
     /* barra de chefe */
-    let boss = null; for (const m of G.mons) if (m.boss && !m.dead && (m.tgt || m.hp < m.hpMax)) { boss = m; break; }
+    let boss = null; for (const m of G.mons) if (m.boss && !m.dead && m.tgt) { boss = m; break; }
     const bb = $('#bossbar');
     if (boss) { const d = G.MON[boss.k]; if (bossN !== boss.id) { bossN = boss.id; $('#bb-n').textContent = d.name + ' · Nv ' + boss.lvl; bb.classList.add('on'); } $('#bb-f').style.width = Math.round(100 * Math.max(0, boss.hp) / boss.hpMax) + '%'; $('#bb-p').textContent = Math.round(100 * Math.max(0, boss.hp) / boss.hpMax) + '%'; }
     else if (bossN !== '') { bossN = ''; bb.classList.remove('on'); }
@@ -4058,7 +4058,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const bar = (fn, cls) => '<div class="bar ' + (cls || '') + '"><i ' + v.W(fn) + '></i></div>';
   const rank = (r) => '<i class="rank" style="background:' + G.RANK_COLOR[r] + '">' + G.RANKS[r] + '</i>';
   const thumbs = {};
-  const bldThumb = (id) => { const l = G.bLvl(id), k = id + '|' + (l <= 0 ? 0 : l < 3 ? 1 : l < 6 ? 2 : l < 10 ? 3 : 4); if (!thumbs[k]) thumbs[k] = A.building(id, l, 0).cv.toDataURL(); return thumbs[k]; };
+  const bldThumb = (id) => { const l = G.bLvl(id), k = id + '|' + (l <= 0 ? 0 : l < 3 ? 1 : l < 6 ? 2 : l < 10 ? 3 : 4); if (!thumbs[k]) thumbs[k] = A.building(id, Math.max(1, l), 0).cv.toDataURL(); return thumbs[k]; };
   const pct = (x) => Math.round(x * 100) + '%';
   const itemLine = (it) => { const s = G.itemStats(it); const a = []; if (s.atk) a.push('Atq +' + G.fmt(s.atk)); if (s.def) a.push('Def +' + G.fmt(s.def)); if (s.hp) a.push('Vida +' + G.fmt(s.hp)); if (s.crit) a.push('Crít +' + pct(s.crit)); return a.join(' · '); };
   const gi = (it) => '<i class="gi px gi-' + it.type + ' rar' + it.rar + '"' + (it.plus ? ' data-t="+' + it.plus + '"' : '') + ' style="box-shadow:inset 0 -3px 0 ' + G.tierColor(it.tier) + '"></i>';

@@ -1,0 +1,55 @@
+/* Roteiro de teste no navegador: abre o jogo, percorre telas, captura imagens e relata erros.
+   Uso: node tools/play.js <pasta_saida> [largura] [altura] */
+const path = require('path'); const { chromium } = require('playwright');
+(async () => {
+  const out = process.argv[2] || '/tmp', w = +process.argv[3] || 390, h = +process.argv[4] || 844;
+  const b = await chromium.launch();
+  const p = await b.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: w < 600 ? 2 : 1, isMobile: w < 600, hasTouch: w < 600 });
+  const errs = [];
+  p.on('pageerror', (e) => errs.push('ERRO ' + e.message + '\n' + (e.stack || '').split('\n').slice(0, 3).join('\n')));
+  p.on('console', (m) => { if (m.type() === 'error') errs.push('console: ' + m.text()); });
+  await p.goto('file://' + path.join(__dirname, '..', 'aurora-cidade-viva-19.html'));
+  await p.waitForTimeout(1500);
+  const shot = async (n) => { await p.screenshot({ path: path.join(out, 'p-' + n + '.png') }); };
+  const click = async (sel) => { try { await p.click(sel, { timeout: 3000 }); } catch (e) { errs.push('clique falhou: ' + sel); } await p.waitForTimeout(350); };
+  await click('[data-a="t-new"]'); await p.waitForTimeout(1200); await shot('01-tutorial');
+  for (let i = 0; i < 5; i++) await click('[data-a="tnext"]');
+  await p.waitForTimeout(800); await shot('02-hud');
+  await p.evaluate(() => { G.S.speed = 3; G.S.gold += 5000; G.S.res.madeira += 300; G.S.res.pedra += 300; G.S.res.minerio += 100; G.S.res.gosma = 60; G.S.res.couro = 60; });
+  await click('#nav-reino'); await shot('03-reino');
+  await click('[data-a="tab:obras"]'); await shot('04-obras');
+  await click('[data-a="upg:enfermaria"]'); await click('[data-a="upg:ferraria"]'); await click('[data-a="upg:alquimista"]'); await shot('05-obras2');
+  await click('[data-a="tab:publicas"]'); await shot('06-publicas');
+  await click('[data-a="tab:mercado"]'); await shot('07-mercado');
+  await click('#nav-herois'); await shot('08-herois');
+  await click('.sh-body [data-a^="herod:"]'); await shot('09-heroi');
+  await p.evaluate(() => { document.querySelector('#sheet .sh-body').scrollTop = 700; }); await p.waitForTimeout(300); await shot('10-heroi2');
+  await click('[data-a="back"]');
+  await click('.sh-body [data-a="portal"]'); await shot('11-portal');
+  await click('[data-a="summon:gold"]'); await p.waitForTimeout(600); await shot('12-candidatos');
+  await click('[data-a="hire:0"]'); await p.waitForTimeout(800); await shot('13-contratado');
+  await click('#nav-forja'); await shot('14-forja');
+  await click('[data-a^="craft:"]'); await click('[data-a="tab:arsenal"]'); await shot('15-vitrine');
+  await click('#nav-missoes'); await shot('16-jornada');
+  await click('[data-a="tab:contratos"]'); await shot('17-contratos');
+  await click('[data-a="tab:zonas"]'); await shot('18-zonas');
+  await click('[data-a="tab:fenda"]'); await shot('19-fenda');
+  await click('#nav-mais'); await shot('20-bencaos');
+  await click('[data-a="tab:bestiario"]'); await shot('21-bestiario');
+  await click('[data-a="tab:cronicas"]'); await shot('22-conquistas');
+  await click('[data-a="tab:opcoes"]'); await shot('23-opcoes');
+  await click('#sheet [data-a="close"]');
+  await click('[data-a="map"]'); await shot('24-mapa'); await click('[data-a="mclose"]');
+  await click('[data-a="decrees"]'); await shot('25-decretos'); await click('[data-a="decrees"]');
+  await p.evaluate(() => { G.R.follow = G.S.heroes[0].id; G.UI.inspect({ type: 'hero', ref: G.S.heroes[0] }); });
+  await p.waitForTimeout(12000); await shot('26-cacada');
+  /* teste do pisca-pisca: mutações do DOM em 3 s com um painel aberto */
+  await click('#nav-herois');
+  const mut = await p.evaluate(() => new Promise((res) => { let n = 0, big = 0; const tags = {}; const mo = new MutationObserver((l) => { for (const m of l) { n++; if (m.type === 'childList' && (m.addedNodes.length || m.removedNodes.length)) { big++; const el = m.target; const k = (el.id || el.className || el.tagName) + ''; tags[k.slice(0, 40)] = (tags[k.slice(0, 40)] || 0) + 1; } } }); mo.observe(document.getElementById('app'), { subtree: true, childList: true, attributes: true, characterData: true }); setTimeout(() => { mo.disconnect(); res({ total: n, estruturais: big, onde: tags }); }, 3000); }));
+  console.log('mutações em 3 s (painel aberto, 3×):', JSON.stringify(mut));
+  await shot('27-final');
+  const st = await p.evaluate(() => ({ dia: G.S.day, hora: G.clockStr(G.S.clock), ouro: Math.round(G.S.gold), herois: G.S.heroes.map((h) => h.name + ' nv' + h.lvl + ' ' + h.state), abates: G.S.stats.kills, mons: G.mons.length, npcs: G.npcs.filter((n) => !n.inside).length }));
+  console.log(JSON.stringify(st));
+  console.log(errs.length ? errs.join('\n') : 'sem erros');
+  await b.close();
+})();

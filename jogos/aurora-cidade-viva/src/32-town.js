@@ -187,7 +187,7 @@
         else if (plan === 'work') {
           const d = G.BLD[n.at];
           if (d.site) { p = SITE_SPOTS[n.at](); n.goal = 'toil'; n.until = S.t + G.rnd(10, 22); if (Math.random() < 0.18) { p = Wd.door(G.bOk('mercado') ? 'mercado' : 'guilda'); n.goal = 'in'; n.until = S.t + 40; n.carry = n.at === 'fazenda' ? 'trigo' : n.at === 'lenharia' ? 'madeira' : 'pedra'; } }
-          else if (Math.random() < 0.55) { p = Wd.door(n.at); n.goal = 'in'; n.until = S.t + G.rnd(20, 45); }
+          else if (Math.random() < 0.4) { p = Wd.door(n.at); n.goal = 'in'; n.until = S.t + G.rnd(14, 30); }
           else { const dr = Wd.door(n.at); p = Wd.nearestWalk(dr[0] + G.rnd(-2.2, 2.2), dr[1] + G.rnd(0.1, 0.9)); n.goal = 'toil'; n.until = S.t + G.rnd(8, 16); }
         } else if (plan === 'lunch') { if (G.bOk('taverna') && Math.random() < 0.6) { p = Wd.door('taverna'); n.goal = 'in'; } else { p = G.pick(Wd.idle); n.goal = 'stand'; } }
         else { // lazer

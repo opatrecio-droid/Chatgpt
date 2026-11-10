@@ -278,8 +278,8 @@ textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--li
 #title .m2{width:54px;height:54px;right:34%;top:19%;background:radial-gradient(circle at 35% 35%,#e8d0ff,#a880e8 60%,#6a48b0);box-shadow:0 0 40px rgba(180,130,255,.4)}
 #title .stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff 50%,transparent),radial-gradient(1px 1px at 28% 40%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 44% 12%,#cfe 50%,transparent),radial-gradient(1px 1px at 62% 30%,#fff 50%,transparent),radial-gradient(1px 1px at 78% 52%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 88% 34%,#fdf 50%,transparent),radial-gradient(1px 1px at 8% 56%,#fff 50%,transparent),radial-gradient(1px 1px at 36% 66%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 54% 48%,#fff 50%,transparent),radial-gradient(1px 1px at 20% 80%,#fff 50%,transparent),radial-gradient(1px 1px at 70% 74%,#fff 50%,transparent),radial-gradient(1px 1px at 92% 70%,#fff 50%,transparent);animation:tw 5s ease-in-out infinite alternate}
 @keyframes tw{to{opacity:.55}}
-#title .hill{position:absolute;left:-10%;right:-10%;bottom:-6%;height:34%;background:#060914;border-radius:50% 50% 0 0/100% 100% 0 0}
-#title .sky{position:absolute;left:0;right:0;bottom:22%;height:120px;display:flex;align-items:flex-end;justify-content:center;gap:0;opacity:.95}
+#title .hill{position:absolute;left:-60%;right:-60%;bottom:-4%;height:22%;background:#060914;border-radius:50% 50% 0 0/100% 100% 0 0}
+#title .sky{position:absolute;left:0;right:0;bottom:16%;height:120px;display:flex;align-items:flex-end;justify-content:center;gap:0;opacity:.95}
 #title .sky i{display:block;background:#060914;width:28px;position:relative}
 #title .sky i::after{content:"";position:absolute;left:50%;top:38%;width:5px;height:7px;margin-left:-2.5px;background:#ffd98a;box-shadow:0 0 8px #ffd98a;border-radius:1px}
 #title .inner{position:relative;z-index:2;width:min(100%,360px);display:flex;flex-direction:column;align-items:center;text-align:center}

@@ -183,7 +183,7 @@
     R.sel = sel; const el = $('#inspect'); inspV.reset();
     if (!sel) { el.classList.remove('on'); $('#quest').style.display = ''; return; }
     let h = '';
-    if (sel.type === 'hero') { const x = sel.ref; h = '<i class="ip px" style="background-image:url(' + UI.portrait(x) + ')"></i><span class="it"><b>' + esc(x.name) + ' · ' + G.heroTitle(x) + ' ' + inspV.T(() => 'Nv ' + x.lvl) + '</b>' + inspV.T(() => G.stateLabel(x)) + '</span><button class="btn sm pri" data-a="herod:' + x.id + '">Ficha</button>'; }
+    if (sel.type === 'hero') { const x = sel.ref; h = '<i class="ip px" style="background-image:url(' + UI.portrait(x) + ')"></i><span class="it"><b>' + esc(x.name) + ' · ' + inspV.T(() => 'Nv ' + x.lvl) + '</b>' + inspV.T(() => G.stateLabel(x)) + '</span><button class="btn sm pri" data-a="herod:' + x.id + '">Ficha</button>'; }
     else if (sel.type === 'mon') { const m = sel.ref, d = G.MON[m.k]; h = '<i class="ip px" style="background-image:url(' + A.monPortrait(m.k) + ')"></i><span class="it"><b>' + (m.elite ? 'Elite · ' : '') + d.name + ' Nv ' + m.lvl + '</b>' + inspV.T(() => (m.dead ? 'Abatido' : 'Vida ' + G.fmt(Math.max(0, m.hp)) + ' / ' + G.fmt(m.hpMax))) + '</span><button class="btn sm" data-a="mark">' + ic('target') + 'Alvo</button>'; }
     else if (sel.type === 'npc') { const n = sel.ref; h = '<i class="ip px" style="background-image:url(' + A.portrait(A.npcLook(n)) + ')"></i><span class="it"><b>' + esc(n.name) + '</b><span>' + n.job + (n.at && G.BLD[n.at] ? ' · ' + G.BLD[n.at].short : '') + '</span></span>'; if (!n.guard) { n.say = G.pick(G.BARKS.npc); n.sayT = 3.5; } }
     el.innerHTML = h + '<button class="btn sm" data-a="unsel">' + ic('close') + '</button>';
@@ -255,7 +255,7 @@
     if (R.sel) { inspV.refresh(); if (R.sel.type === 'mon' && (R.sel.ref.dead || R.sel.ref.gone)) UI.inspect(null); }
     if (UI.sheet) UI.sheetRefresh();
     /* barra de chefe */
-    let boss = null; for (const m of G.mons) if (m.boss && !m.dead && (m.tgt || m.hp < m.hpMax)) { boss = m; break; }
+    let boss = null; for (const m of G.mons) if (m.boss && !m.dead && m.tgt) { boss = m; break; }
     const bb = $('#bossbar');
     if (boss) { const d = G.MON[boss.k]; if (bossN !== boss.id) { bossN = boss.id; $('#bb-n').textContent = d.name + ' · Nv ' + boss.lvl; bb.classList.add('on'); } $('#bb-f').style.width = Math.round(100 * Math.max(0, boss.hp) / boss.hpMax) + '%'; $('#bb-p').textContent = Math.round(100 * Math.max(0, boss.hp) / boss.hpMax) + '%'; }
     else if (bossN !== '') { bossN = ''; bb.classList.remove('on'); }

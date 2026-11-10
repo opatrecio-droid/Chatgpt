@@ -218,7 +218,7 @@
       if (id === 'taverna' && lvl > 0 && S.res.refeicao < 1) { mark = '!'; col = '#ff9a9a'; label = 'Taverna sem comida'; }
       if (id === 'alquimista' && lvl > 0 && S.res.pocao < 1) { mark = '!'; col = '#ff9a9a'; label = 'Sem poções'; }
       ctx.font = fontS; ctx.textAlign = 'center'; const tw = ctx.measureText(label).width, ph = Math.round(parseInt(fontS.split(' ')[1]) * 1.55), pw = tw + ph * 0.9;
-      const lx = Math.round(cx - pw / 2), ly = Math.round(Math.max(ty - ph, 2));
+      const lx = Math.round(cx - pw / 2), ly = Math.round(ty - ph);
       ctx.fillStyle = bg; rr(lx, ly, pw, ph, ph / 2); ctx.fill();
       ctx.fillStyle = col; ctx.textBaseline = 'middle'; ctx.fillText(label, cx, ly + ph / 2 + 1); ctx.textBaseline = 'alphabetic';
       if (mark) { const bob = Math.sin(R.t * 4) * 2 * dpr; const r = ph * 0.52; ctx.fillStyle = mark === '!' ? '#e85a5a' : '#58c070'; ctx.beginPath(); ctx.arc(lx + pw + r * 0.6, ly + ph / 2 + bob, r, 0, 6.283); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle'; ctx.fillText(mark, lx + pw + r * 0.6, ly + ph / 2 + bob + 1); ctx.textBaseline = 'alphabetic'; }
