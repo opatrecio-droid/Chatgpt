@@ -95,10 +95,10 @@
       const S = G.S; x.drawImage(mc, 0, 0);
       x.font = '700 13px "Aurora Cinzel",serif'; x.textAlign = 'center'; x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)';
       const label = (t, wx, wy, c) => { x.strokeText(t, wx * sc, wy * sc); x.fillStyle = c; x.fillText(t, wx * sc, wy * sc); };
-      for (const z of G.ZONES) { const r = z.rect, open = G.zoneUnlocked(z); if (!open) { x.fillStyle = 'rgba(8,10,20,.6)'; x.fillRect(r[0] * sc, r[1] * sc, (r[2] - r[0] + 1) * sc, (r[3] - r[1] + 1) * sc); } label(open ? z.name.split(' ')[0] + ' ' + G.zoneLvl(z, S.zones[z.id].tier) : 'Reino ' + z.unlock, (r[0] + r[2]) / 2 + 0.5, (r[1] + r[3]) / 2, open ? '#fff3c4' : '#9aa3b8'); }
+      for (const z of G.ZONES) { const r = z.rect, open = G.zoneUnlocked(z); if (!open) { x.fillStyle = 'rgba(8,10,20,.6)'; x.fillRect(r[0] * sc, r[1] * sc, (r[2] - r[0] + 1) * sc, (r[3] - r[1] + 1) * sc); } label(open ? z.name.split(' ')[0] + ' ' + G.zoneLvl(z, S.zones[z.id].tier) : 'Reino nv ' + z.unlock, (r[0] + r[2]) / 2 + 0.5, (r[1] + r[3]) / 2, open ? '#fff3c4' : '#9aa3b8'); }
       label('Aurora', 44, 54.5, '#fff3c4'); label(G.riftOpen() ? 'Fenda ' + S.rift.floor : 'Cratera', 12.5, 90, '#e6b0ff');
       for (const m of G.mons) if (m.boss && !m.dead) { x.fillStyle = '#d070ff'; x.beginPath(); x.arc(m.x * sc, m.y * sc, 7, 0, 6.283); x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 2; x.stroke(); x.strokeStyle = 'rgba(10,12,24,.85)'; x.lineWidth = 3; }
-      for (const h of S.heroes) { if (h.state === 'recover') continue; x.fillStyle = h.state === 'fallen' ? '#ff5050' : G.RANK_COLOR[h.rank]; x.beginPath(); x.arc(h.x * sc, h.y * sc, 5, 0, 6.283); x.fill(); x.lineWidth = 1.5; x.strokeStyle = '#10141f'; x.stroke(); x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)'; }
+      for (const h of S.heroes) { if (h.state === 'recover') continue; x.fillStyle = h.state === 'fallen' ? '#ff5050' : '#ffffff'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 6, 0, 6.283); x.fill(); x.lineWidth = 3; x.strokeStyle = G.RANK_COLOR[h.rank]; x.stroke(); x.lineWidth = 1; x.strokeStyle = '#10141f'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 8, 0, 6.283); x.stroke(); x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)'; }
       const [a, b] = R.screenToWorld(0, 0), [c, d] = R.screenToWorld(window.innerWidth, window.innerHeight); x.strokeStyle = '#ffffff'; x.lineWidth = 2; x.strokeRect(a * sc, b * sc, (c - a) * sc, (d - b) * sc);
     };
     paint(); clearInterval(mapTimer); mapTimer = setInterval(() => { if ($('#mapc')) paint(); else clearInterval(mapTimer); }, 600);

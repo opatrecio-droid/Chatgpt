@@ -15,12 +15,16 @@ ranks E→SSS, elenco de moradores), com arte procedural própria e um único HU
 - `tools/shot.js` — capturas de tela no celular/desktop para revisar a arte.
 
 ## Etapas
-- [ ] 1. Núcleo, dados e simulação (heróis, monstros, cidade, economia)
-- [ ] 2. Arte procedural (personagens, monstros, construções, terreno) e renderização
-- [ ] 3. HUD e telas (Reino, Heróis, Forja, Missões, Mais)
-- [ ] 4. Áudio, tutorial, eventos, progresso offline
-- [ ] 5. Balanceamento medido por simulação + teste de pisca-pisca no celular
-- [ ] 6. README e entrega
+- [x] 1. Núcleo, dados e simulação (heróis, monstros, cidade, economia)
+- [x] 2. Arte procedural (personagens, monstros, construções, terreno) e renderização
+- [x] 3. HUD e telas (Reino, Heróis, Forja, Missões, Mais)
+- [x] 4. Áudio, tutorial, eventos, progresso offline
+- [x] 5. Balanceamento medido por simulação + teste de pisca-pisca no celular
+- [x] 6. README e entrega
+- [ ] 7. Polimento extra (opcional): praça, arena da Cratera, mais variedade visual
 
 ## Notas de retomada
-(atualizado a cada etapa concluída)
+- Tudo acima está no ar na branch. `node tools/build.js` regenera o HTML.
+- Testes: `node tools/sim.js 60`, `node tools/play.js <pasta>`, `node tools/play2.js <pasta>`.
+- Última medição (robô ativo, 60 dias): Rank D dia 3, C dia 11, B dia ~20, A dia ~35-40;
+  ~1,5 queda/dia; Maré vencida por quem joga bem, perdida por quem negligencia.

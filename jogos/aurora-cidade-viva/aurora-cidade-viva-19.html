@@ -113,7 +113,7 @@ svg.i{width:1em;height:1em;fill:currentColor;flex:none;display:block}
 #bossbar b{display:flex;justify-content:space-between;font-family:"Aurora Cinzel",serif;font-size:12px;color:#e6b0ff;margin-bottom:4px}
 
 /* avisos */
-#toasts{position:absolute;left:50%;top:calc(var(--sat) + 190px);transform:translateX(-50%);width:min(92vw,400px);display:flex;flex-direction:column;gap:6px;pointer-events:none;z-index:8}
+#toasts{position:absolute;left:50%;top:calc(var(--sat) + 208px);transform:translateX(-50%);width:min(92vw,400px);display:flex;flex-direction:column;gap:6px;pointer-events:none;z-index:8}
 .toast{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:rgba(16,21,38,.94);border:1px solid var(--line2);box-shadow:0 6px 16px rgba(0,0,0,.4);font-weight:700;font-size:12.5px;animation:tin .25s ease-out,tout .4s ease-in 3s forwards}
 .toast svg{font-size:16px;color:var(--gold2);flex:none}
 .toast.good{border-color:rgba(95,207,124,.55)} .toast.good svg{color:var(--good)}
@@ -313,7 +313,7 @@ textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--li
   #shade{display:none}
   #nav{left:50%;right:auto;width:520px;transform:translateX(-50%);bottom:10px;border:1px solid var(--line);border-radius:20px;height:var(--navh)}
   #toasts{top:calc(var(--sat) + 16px)}
-  #fabs{right:16px} #fabs-l{left:16px}
+  #fabs{right:16px;bottom:calc(var(--navh) + 26px)} #fabs-l{left:16px;bottom:calc(var(--navh) + 26px)} #quest,#inspect{bottom:calc(var(--navh) + 26px)}
 }
 @media (max-height:640px){ #sheet{height:72vh} #toasts{top:calc(var(--sat) + 150px)} }
 @media (max-width:360px){ .chip{padding:0 7px;font-size:12px} .ctl button{width:40px} }
@@ -1926,11 +1926,11 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
 
   /* ================= Maré da Fenda ================= */
-  G.mareLevel = () => { const S = G.S, a = G.avgHeroLvl(); return Math.max(1, Math.round(G.clamp(1 + S.realm.lvl * 1.8, a - 4, a + 2) * (1 - S.mare.ease))); };
+  G.mareLevel = () => { const S = G.S, a = G.avgHeroLvl(); return Math.max(1, Math.round(G.clamp(1 + S.realm.lvl * 2.2, a - 2, a + 3) * (1 - S.mare.ease))); };
   G.mareStart = () => {
     const S = G.S; if (S.mare.active) return;
     const gate = G.pick(['n', 's', 'w', 'e'].filter((g) => g !== 'e' || S.realm.lvl >= 6));
-    const total = Math.round(G.clamp(6 + S.realm.lvl * 1.7, 7, 70) * (1 - S.mare.ease * 0.6) * (S.mare.wins + S.mare.losses === 0 ? 0.65 : 1));
+    const total = Math.round(G.clamp(8 + S.realm.lvl * 2, 9, 80) * (1 - S.mare.ease * 0.6) * (S.mare.wins + S.mare.losses === 0 ? 0.65 : 1));
     S.mare.active = { gate, total, spawned: 0, killed: 0, breach: 0, lvl: G.mareLevel(), t: 0, next: 2, start: S.t };
     G.log('A Maré da Fenda rompeu pelo portão ' + ({ n: 'norte', s: 'sul', w: 'oeste', e: 'leste' })[gate] + '! Todos às armas!', 'boss');
     G.toast('A Maré da Fenda chegou!', 'boss', 'skull'); G.sfx('horn'); G.emit('mare', { on: 1 });
@@ -4490,10 +4490,10 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       const S = G.S; x.drawImage(mc, 0, 0);
       x.font = '700 13px "Aurora Cinzel",serif'; x.textAlign = 'center'; x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)';
       const label = (t, wx, wy, c) => { x.strokeText(t, wx * sc, wy * sc); x.fillStyle = c; x.fillText(t, wx * sc, wy * sc); };
-      for (const z of G.ZONES) { const r = z.rect, open = G.zoneUnlocked(z); if (!open) { x.fillStyle = 'rgba(8,10,20,.6)'; x.fillRect(r[0] * sc, r[1] * sc, (r[2] - r[0] + 1) * sc, (r[3] - r[1] + 1) * sc); } label(open ? z.name.split(' ')[0] + ' ' + G.zoneLvl(z, S.zones[z.id].tier) : 'Reino ' + z.unlock, (r[0] + r[2]) / 2 + 0.5, (r[1] + r[3]) / 2, open ? '#fff3c4' : '#9aa3b8'); }
+      for (const z of G.ZONES) { const r = z.rect, open = G.zoneUnlocked(z); if (!open) { x.fillStyle = 'rgba(8,10,20,.6)'; x.fillRect(r[0] * sc, r[1] * sc, (r[2] - r[0] + 1) * sc, (r[3] - r[1] + 1) * sc); } label(open ? z.name.split(' ')[0] + ' ' + G.zoneLvl(z, S.zones[z.id].tier) : 'Reino nv ' + z.unlock, (r[0] + r[2]) / 2 + 0.5, (r[1] + r[3]) / 2, open ? '#fff3c4' : '#9aa3b8'); }
       label('Aurora', 44, 54.5, '#fff3c4'); label(G.riftOpen() ? 'Fenda ' + S.rift.floor : 'Cratera', 12.5, 90, '#e6b0ff');
       for (const m of G.mons) if (m.boss && !m.dead) { x.fillStyle = '#d070ff'; x.beginPath(); x.arc(m.x * sc, m.y * sc, 7, 0, 6.283); x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 2; x.stroke(); x.strokeStyle = 'rgba(10,12,24,.85)'; x.lineWidth = 3; }
-      for (const h of S.heroes) { if (h.state === 'recover') continue; x.fillStyle = h.state === 'fallen' ? '#ff5050' : G.RANK_COLOR[h.rank]; x.beginPath(); x.arc(h.x * sc, h.y * sc, 5, 0, 6.283); x.fill(); x.lineWidth = 1.5; x.strokeStyle = '#10141f'; x.stroke(); x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)'; }
+      for (const h of S.heroes) { if (h.state === 'recover') continue; x.fillStyle = h.state === 'fallen' ? '#ff5050' : '#ffffff'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 6, 0, 6.283); x.fill(); x.lineWidth = 3; x.strokeStyle = G.RANK_COLOR[h.rank]; x.stroke(); x.lineWidth = 1; x.strokeStyle = '#10141f'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 8, 0, 6.283); x.stroke(); x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)'; }
       const [a, b] = R.screenToWorld(0, 0), [c, d] = R.screenToWorld(window.innerWidth, window.innerHeight); x.strokeStyle = '#ffffff'; x.lineWidth = 2; x.strokeRect(a * sc, b * sc, (c - a) * sc, (d - b) * sc);
     };
     paint(); clearInterval(mapTimer); mapTimer = setInterval(() => { if ($('#mapc')) paint(); else clearInterval(mapTimer); }, 600);

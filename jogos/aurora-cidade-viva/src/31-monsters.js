@@ -196,11 +196,11 @@
   };
 
   /* ================= Maré da Fenda ================= */
-  G.mareLevel = () => { const S = G.S, a = G.avgHeroLvl(); return Math.max(1, Math.round(G.clamp(1 + S.realm.lvl * 1.8, a - 4, a + 2) * (1 - S.mare.ease))); };
+  G.mareLevel = () => { const S = G.S, a = G.avgHeroLvl(); return Math.max(1, Math.round(G.clamp(1 + S.realm.lvl * 2.2, a - 2, a + 3) * (1 - S.mare.ease))); };
   G.mareStart = () => {
     const S = G.S; if (S.mare.active) return;
     const gate = G.pick(['n', 's', 'w', 'e'].filter((g) => g !== 'e' || S.realm.lvl >= 6));
-    const total = Math.round(G.clamp(6 + S.realm.lvl * 1.7, 7, 70) * (1 - S.mare.ease * 0.6) * (S.mare.wins + S.mare.losses === 0 ? 0.65 : 1));
+    const total = Math.round(G.clamp(8 + S.realm.lvl * 2, 9, 80) * (1 - S.mare.ease * 0.6) * (S.mare.wins + S.mare.losses === 0 ? 0.65 : 1));
     S.mare.active = { gate, total, spawned: 0, killed: 0, breach: 0, lvl: G.mareLevel(), t: 0, next: 2, start: S.t };
     G.log('A Maré da Fenda rompeu pelo portão ' + ({ n: 'norte', s: 'sul', w: 'oeste', e: 'leste' })[gate] + '! Todos às armas!', 'boss');
     G.toast('A Maré da Fenda chegou!', 'boss', 'skull'); G.sfx('horn'); G.emit('mare', { on: 1 });

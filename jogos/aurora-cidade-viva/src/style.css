@@ -97,7 +97,7 @@ svg.i{width:1em;height:1em;fill:currentColor;flex:none;display:block}
 #bossbar b{display:flex;justify-content:space-between;font-family:"Aurora Cinzel",serif;font-size:12px;color:#e6b0ff;margin-bottom:4px}
 
 /* avisos */
-#toasts{position:absolute;left:50%;top:calc(var(--sat) + 190px);transform:translateX(-50%);width:min(92vw,400px);display:flex;flex-direction:column;gap:6px;pointer-events:none;z-index:8}
+#toasts{position:absolute;left:50%;top:calc(var(--sat) + 208px);transform:translateX(-50%);width:min(92vw,400px);display:flex;flex-direction:column;gap:6px;pointer-events:none;z-index:8}
 .toast{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:rgba(16,21,38,.94);border:1px solid var(--line2);box-shadow:0 6px 16px rgba(0,0,0,.4);font-weight:700;font-size:12.5px;animation:tin .25s ease-out,tout .4s ease-in 3s forwards}
 .toast svg{font-size:16px;color:var(--gold2);flex:none}
 .toast.good{border-color:rgba(95,207,124,.55)} .toast.good svg{color:var(--good)}
@@ -297,7 +297,7 @@ textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--li
   #shade{display:none}
   #nav{left:50%;right:auto;width:520px;transform:translateX(-50%);bottom:10px;border:1px solid var(--line);border-radius:20px;height:var(--navh)}
   #toasts{top:calc(var(--sat) + 16px)}
-  #fabs{right:16px} #fabs-l{left:16px}
+  #fabs{right:16px;bottom:calc(var(--navh) + 26px)} #fabs-l{left:16px;bottom:calc(var(--navh) + 26px)} #quest,#inspect{bottom:calc(var(--navh) + 26px)}
 }
 @media (max-height:640px){ #sheet{height:72vh} #toasts{top:calc(var(--sat) + 150px)} }
 @media (max-width:360px){ .chip{padding:0 7px;font-size:12px} .ctl button{width:40px} }
