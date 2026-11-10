@@ -1,0 +1,10 @@
+ANDAMENTO DA v22 (apagar antes de publicar)
+
+Etapa 1 — núcleo + patches + build + testes sem tela
+  [x] mod/36-companheiros.js escrito (espólio no chão, mascotes, Viveiro, fusão, Incursões, Caminhos, migração)
+  [ ] patches22.py + build.py
+  [ ] testes antigos passando no núcleo da v22
+  [ ] testes/sistemas-v22.js
+Etapa 2 — arte e render: [ ]
+Etapa 3 — interface: [ ]
+Etapa 4 — navegador e campanha v21 x v22: [ ]
