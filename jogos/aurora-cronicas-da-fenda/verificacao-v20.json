@@ -1,0 +1,123 @@
+{
+ "versao": "20.0",
+ "build": "Aurora_ciclo_031_vocacoes",
+ "data": "2026-11-10",
+ "arquivos": {
+  "aurora-cidade-viva-20.html": {
+   "bytes": 931028,
+   "sha256": "b8d3ae94b221fd4877b21d73cf8c43c30020bb5162910d775411e1e562885824"
+  },
+  "aurora-cidade-viva-19.html": {
+   "bytes": 815446,
+   "sha256": "a199b99b924a60030cf07aa713a3ccfe2443ae3a3f853d200d4f66c1c94bb229"
+  }
+ },
+ "montagem": {
+  "reproduzivel": true,
+  "comando": "python3 fontes-v20/build.py aurora-cidade-viva-19.html aurora-cidade-viva-20.html",
+  "sintaxe": "node --check: ok"
+ },
+ "testes_de_sistemas": {
+  "aprovados": 42,
+  "reprovados": 0,
+  "itens": [
+   "save v19: campos novos criados e mascate sorteado",
+   "save v19: heróis migrados (8 slots, artes, despertar)",
+   "save v19: pontos de Arte retroativos (nível 35, rank B) = 43",
+   "save v19: renascido recebe bônus de pontos = 123",
+   "save v19: 2 dias de jogo sem erro (0)",
+   "serializa e recarrega",
+   "Tomé, o tratador, mora na cidade",
+   "lote do Estábulo: porta livre, base bloqueada",
+   "há caminho da praça ao Estábulo",
+   "as 36 vocações: 24 heróis mudaram de classe duas vezes (48)",
+   "não dá para trocar de ramo sem redefinir",
+   "redefinir vocação por Selos",
+   "treino de habilidades com Tomos",
+   "Arte da Força até 100 (+40% do ataque-base): 434 → 531",
+   "distribuição automática gastou 160",
+   "redistribuir devolve os pontos",
+   "meditar compra 1 ponto",
+   "Despertar 4/4: vida 3577 → 4591",
+   "Transcendência segura a primeira queda do dia",
+   "as 6 espécies foram domadas",
+   "Draco: mais velocidade e +8 de bolsa",
+   "ração leva a montaria ao nível 10 (216)",
+   "trocar de montaria libera a anterior",
+   "sem ração: montarias com fome",
+   "com ração: 1 por montaria em uso",
+   "decoração completa: 10 enfeites × 3 níveis, Encanto 138",
+   "estátua bloqueia o ladrilho; arco não bloqueia",
+   "ruas continuam transitáveis com os enfeites",
+   "forja produz os 15 tipos de peça (15)",
+   "peça reservada não é desmontada",
+   "desmonte devolve material: {\"quitina\":2,\"tendao\":1,\"minerio\":4,\"po_estelar\":26}",
+   "armazém cheio bloqueia a forja",
+   "desmontar tudo (Comum): 210 peças",
+   "cura paga: 608 moedas",
+   "ordem em massa",
+   "mascate vende uma vez cada oferta",
+   "ordenações de caçadores",
+   "6 dias com 24 heróis de vocação: sem erros ()",
+   "todas as 36 habilidades de vocação foram usadas em combate",
+   "abates: 4778 · quedas: 52 · chefes: 36",
+   "atributos finitos e vida dentro do máximo",
+   "heróis compraram peças novas sozinhos (mín 3, máx 8 de 8)"
+  ]
+ },
+ "simulacao_sem_tela": {
+  "descricao": "jogo novo, jogador automático mínimo, 10 dias de jogo, passo de 0,05 s",
+  "v20_semente_3": {
+   "days": 11,
+   "realm": 4,
+   "kills": 1596,
+   "falls": 4,
+   "bosses": 3,
+   "nerr": 0
+  },
+  "v20_semente_7": {
+   "days": 11,
+   "realm": 4,
+   "kills": 1431,
+   "falls": 8,
+   "bosses": 3,
+   "nerr": 0
+  },
+  "v20_semente_9": {
+   "days": 11,
+   "realm": 4,
+   "kills": 1447,
+   "falls": 14,
+   "bosses": 6,
+   "nerr": 0
+  },
+  "v19_semente_7_referencia": {
+   "days": 11,
+   "realm": 4,
+   "kills": 1522,
+   "falls": 18,
+   "bosses": 4,
+   "nerr": 0
+  }
+ },
+ "navegador": {
+  "motor": "Chromium (Playwright), 412x915 e 1280x800",
+  "erros_de_pagina_ou_console": 0,
+  "conferido": [
+   "jogo novo, apresentação e guia da v20",
+   "lista de caçadores, ficha e as cinco abas",
+   "mudança de classe e Artes por clique real",
+   "Reino: Decoração, Estábulo e Mascate",
+   "Armazém e Forja com as peças novas",
+   "enfeites e Estábulo desenhados no mapa",
+   "heróis montados fora das muralhas",
+   "save da v19 gravado no localStorage e continuado na v20",
+   "exportar e importar save"
+  ]
+ },
+ "limites": [
+  "equilíbrio conferido por simulação curta e cenários forçados, não por campanha longa jogada por pessoa",
+  "sem teste em aparelho físico; apenas emulação de tela de celular no Chromium",
+  "trajes, asas, mascote, seletor de dificuldade e decoração de posição livre não foram implementados"
+ ]
+}
