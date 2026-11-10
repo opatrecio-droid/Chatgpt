@@ -5,8 +5,8 @@
 G.PW = (l) => Math.pow(1.075, l - 1);      // poder do mundo (monstros, equipamento)
 G.HW = (l) => Math.pow(1.052, l - 1);      // crescimento natural do herói
 G.PM = (l) => Math.pow(1.062, l - 1);      // preços dos serviços
-G.xpNeed = (l) => Math.round(26 * Math.pow(l, 1.55) * Math.pow(1.045, l));
-G.realmNeed = (l) => Math.round(90 * Math.pow(l, 1.75));
+G.xpNeed = (l) => Math.round(45 * Math.pow(l, 0.8) * Math.pow(1.062, l - 1));
+G.realmNeed = (l) => Math.round(250 * Math.pow(l, 1.45));
 
 /* ---------- ranks ---------- */
 G.RANKS = ['E', 'D', 'C', 'B', 'A', 'S', 'SS', 'SSS'];
@@ -146,13 +146,13 @@ G.MON = {
   magma:   { name: 'Golem de Magma', fam: 'golem', pal: ['#5a3a34', '#2f1c18', '#ff8a3a'], hp: 2.6, atk: 1.5, spd: 1.2, int: 2.0, rng: 1.4, lo: 2, mat: 'a', def: 2.2, burn: 1, size: 1.45 },
   cultista: { name: 'Cultista da Brasa', fam: 'goblin', pal: ['#d8a888', '#9a6a4c', '#f8d8c0'], robe: '#8a1c1c', hp: 0.95, atk: 1.5, spd: 1.9, int: 1.8, rng: 4.8, lo: 1, mat: 'b', ranged: '#ff8a3a', gold: 1.8, size: 1.05 },
   /* chefes */
-  anciao:  { name: 'Ancião da Matilha', fam: 'wolf', pal: ['#4a4f5a', '#262a33', '#e85d5d'], boss: 1, hp: 26, atk: 2.1, spd: 2.4, int: 1.5, rng: 1.7, size: 2.3 },
-  lich:    { name: 'Lich de Ocre', fam: 'lich', pal: ['#e6dcc4', '#a89c80', '#59b8d9'], boss: 1, hp: 24, atk: 2.4, spd: 1.6, int: 1.9, rng: 5.2, ranged: '#59b8d9', size: 2.0 },
-  hidra:   { name: 'Hidra da Fenda', fam: 'hydra', pal: ['#7a5aa8', '#4a3470', '#e6c0ff'], boss: 1, hp: 32, atk: 2.3, spd: 1.3, int: 1.3, rng: 2.2, size: 2.5 },
-  brumas:  { name: 'Mãe das Brumas', fam: 'hydra', pal: ['#4a9a8a', '#266a5c', '#d8fff0'], boss: 1, hp: 34, atk: 2.4, spd: 1.4, int: 1.3, rng: 2.2, poison: 1, size: 2.6 },
-  wyrm:    { name: 'Wyrm Glacial', fam: 'dragon', pal: ['#8ad0f0', '#4a94c0', '#ffffff'], boss: 1, hp: 36, atk: 2.6, spd: 1.7, int: 1.6, rng: 2.4, size: 2.8 },
-  dragao:  { name: 'Dragão das Cinzas', fam: 'dragon', pal: ['#c84a3a', '#84241c', '#ffd070'], boss: 1, hp: 40, atk: 2.8, spd: 1.7, int: 1.5, rng: 2.6, burn: 1, size: 3.0 },
-  arauto:  { name: 'Arauto da Fenda', fam: 'lich', pal: ['#3a2a5a', '#1c1234', '#d070ff'], boss: 1, hp: 30, atk: 2.5, spd: 1.8, int: 1.6, rng: 5.0, ranged: '#d070ff', size: 2.2 },
+  anciao:  { name: 'Ancião da Matilha', fam: 'wolf', pal: ['#4a4f5a', '#262a33', '#e85d5d'], boss: 1, hp: 34, atk: 1.5, spd: 2.4, int: 1.5, rng: 1.7, size: 2.3 },
+  lich:    { name: 'Lich de Ocre', fam: 'lich', pal: ['#e6dcc4', '#a89c80', '#59b8d9'], boss: 1, hp: 30, atk: 1.7, spd: 1.6, int: 1.9, rng: 5.2, ranged: '#59b8d9', size: 2.0 },
+  hidra:   { name: 'Hidra da Fenda', fam: 'hydra', pal: ['#7a5aa8', '#4a3470', '#e6c0ff'], boss: 1, hp: 38, atk: 1.6, spd: 1.3, int: 1.3, rng: 2.2, size: 2.5 },
+  brumas:  { name: 'Mãe das Brumas', fam: 'hydra', pal: ['#4a9a8a', '#266a5c', '#d8fff0'], boss: 1, hp: 40, atk: 1.7, spd: 1.4, int: 1.3, rng: 2.2, poison: 1, size: 2.6 },
+  wyrm:    { name: 'Wyrm Glacial', fam: 'dragon', pal: ['#8ad0f0', '#4a94c0', '#ffffff'], boss: 1, hp: 42, atk: 1.8, spd: 1.7, int: 1.6, rng: 2.4, size: 2.8 },
+  dragao:  { name: 'Dragão das Cinzas', fam: 'dragon', pal: ['#c84a3a', '#84241c', '#ffd070'], boss: 1, hp: 46, atk: 1.9, spd: 1.7, int: 1.5, rng: 2.6, burn: 1, size: 3.0 },
+  arauto:  { name: 'Arauto da Fenda', fam: 'lich', pal: ['#3a2a5a', '#1c1234', '#d070ff'], boss: 1, hp: 34, atk: 1.7, spd: 1.8, int: 1.6, rng: 5.0, ranged: '#d070ff', size: 2.2 },
 };
 G.MON_IDS = Object.keys(G.MON);
 G.FAM_NAME = { slime: 'Gosmas', wolf: 'Feras', boar: 'Bestas', goblin: 'Goblinoides', skeleton: 'Mortos-vivos', bat: 'Alados', golem: 'Colossos', orc: 'Brutos', spider: 'Aracnídeos', specter: 'Espíritos', lich: 'Arcanos', hydra: 'Serpes', dragon: 'Dragões' };
@@ -277,7 +277,7 @@ G.BLD = {
     desc: 'Trigo para as refeições e ervas para as poções.' },
   lenharia:   { name: 'Lenharia', short: 'Lenharia', plot: [68, 24], cost: 130, mat: 0.8, sign: 'axe', roof: '#7a5236', wall: 'timber', cid: 1, site: 1, staff: ['Nuno'],
     desc: 'Madeira para construir e para arcos, cajados e couraças.' },
-  pedreira:   { name: 'Pedreira de Ocre', short: 'Pedreira', plot: [20, 72], cost: 200, mat: 0.9, sign: 'pick', roof: '#5c5852', wall: 'stone', cid: 2, site: 1, staff: ['Pedro'],
+  pedreira:   { name: 'Pedreira de Ocre', short: 'Pedreira', plot: [20, 72], cost: 200, mat: 0.9, sign: 'pick', roof: '#5c5852', wall: 'stone', cid: 1, site: 1, staff: ['Pedro'],
     desc: 'Pedra para as obras e minério para a forja.' },
 };
 G.BLD_IDS = Object.keys(G.BLD);
@@ -290,9 +290,9 @@ G.bCost = (id, l) => { // custo para chegar ao nível l
   const cost = {};
   const m = d.mat;
   cost.madeira = Math.round(12 * m * Math.pow(1.42, l - 1));
-  if (l >= 2 || d.wall === 'stone' || d.wall === 'marble' || d.wall === 'tower') cost.pedra = Math.round(8 * m * Math.pow(1.42, l - 1));
+  if (l >= 2 || d.wall === 'marble' || d.wall === 'tower') cost.pedra = Math.round(8 * m * Math.pow(1.42, l - 1));
   if (l >= 4) cost.minerio = Math.round(5 * m * Math.pow(1.4, l - 3));
-  if (l >= 5) { const z = Math.min(6, Math.ceil((l - 4) / 2)); cost[G.ZMATS[z].e] = 1 + Math.floor((l - 5) / 4); }
+  if (l >= 5 && (l - 5) % 3 === 0) { const z = Math.min(6, 1 + (l - 5) / 3); cost[G.ZMATS[z].e] = l >= 23 ? 1 + Math.floor((l - 20) / 3) : 1; }
   if (l >= 3) { const z = Math.min(6, Math.ceil((l - 2) / 2)); cost[G.ZMATS[z].a] = Math.round(4 * m * (l - 1)); }
   return { gold, cost };
 };
@@ -339,6 +339,18 @@ G.BLESS = [
 ];
 G.blessCost = (lvl) => 1 + Math.floor(lvl * 0.75);
 G.bless = (id) => { const d = G.BLESS.find((b) => b.id === id); return 1 + ((G.S.bless[id] || 0) * d.per * (1 + 0.1 * G.bLvl('santuario'))) / 100; };
+
+/* ---------- obras públicas (sumidouro infinito de moedas) ---------- */
+G.WORKS = [
+  { id: 'estradas', name: 'Estradas Pavimentadas', per: 2, unit: '% de velocidade dos heróis', icon: 'road', desc: 'Menos tempo na estrada, mais tempo caçando.' },
+  { id: 'muralhas', name: 'Muralhas Reforçadas', per: 3, unit: '% de dano das torres e guardas', icon: 'shield', desc: 'Durante a Maré, a cidade revida com mais força.' },
+  { id: 'celeiros', name: 'Celeiros Reais', per: 6, unit: '% de armazém e +2% de produção', icon: 'bag', desc: 'Guarda mais e desperdiça menos.' },
+  { id: 'academia', name: 'Academia de Guerra', per: 2, unit: '% de experiência', icon: 'star', desc: 'Veteranos ensinam os novatos.' },
+  { id: 'feira', name: 'Feira Permanente', per: 5, unit: '% de dízimo e preço de venda', icon: 'coin', desc: 'Comércio o ano inteiro.' },
+];
+G.workCost = (lvl) => Math.round(350 * Math.pow(1.4, lvl));
+G.work = (id) => { const d = G.WORKS.find((w) => w.id === id); return 1 + ((G.S.works && G.S.works[id]) || 0) * d.per / 100; };
+G.workLvl = (id) => (G.S.works && G.S.works[id]) || 0;
 
 /* ---------- decretos (poderes do jogador) ---------- */
 G.DECREES = [

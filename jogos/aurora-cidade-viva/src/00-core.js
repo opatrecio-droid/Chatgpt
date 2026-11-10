@@ -87,7 +87,7 @@ G.newState = () => ({
   heroes: [], inv: [], nextId: 1,
   zones: {},        // id -> { tier, maxTier, gauge, kills, bossKills }
   rift: { floor: 1, best: 0, dayDone: 0, run: null },
-  bless: {}, bestiary: {}, ach: {}, achSeen: {},
+  bless: {}, works: {}, bestiary: {}, ach: {}, achSeen: {},
   quest: { step: 0, done: false, decree: null, decreeN: 0 },
   daily: { day: 0, list: [], streak: 0, lastFull: 0, claimed: false },
   mare: { next: 6, ease: 0, wins: 0, losses: 0, active: null, warned: 0 },
