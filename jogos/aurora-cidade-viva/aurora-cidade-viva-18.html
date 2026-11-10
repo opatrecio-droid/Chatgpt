@@ -54117,7 +54117,8 @@ C.journalHTML=()=>'<section><h3>Seu caminho até a Fenda</h3><ol class="c10-road
   }
 })();
 
-</script><!-- ASCENSAO:INICIO -->
+</script>
+<!-- ASCENSAO:INICIO -->
 <style id="aurora-ascensao-styles">
 /* ===== Ciclo 029 — AURORA: ASCENSÃO (HUD único e Salão do Reino) ===== */
 :root {
@@ -54332,6 +54333,7 @@ button.asc-chip:hover { border-color: var(--asc-gold); }
 .asc-hub-body { padding: 18px 22px 22px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; min-height: 0; scrollbar-width: thin; scrollbar-color: rgba(217, 178, 95, .4) transparent; }
 .asc-hub-body > * { flex: none; }
 .asc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.asc-stats:has(> :nth-child(6)) { grid-template-columns: repeat(3, 1fr); }
 .asc-stat { display: grid; gap: 4px; padding: 11px 13px; border: 1px solid var(--asc-line2); border-radius: 11px; background: rgba(0, 0, 0, .26); }
 .asc-stat small { font: 700 9.5px/1.2 var(--asc-ui); letter-spacing: .11em; text-transform: uppercase; color: var(--asc-mut); }
 .asc-stat b { font: 700 19px/1.1 var(--asc-ui); font-variant-numeric: tabular-nums; color: var(--asc-ink); }
@@ -54461,6 +54463,7 @@ button.asc-chip:hover { border-color: var(--asc-gold); }
   .asc-hub-tabs { padding: 0 8px; }
   .asc-hub-tabs button { padding: 0 10px; }
   .asc-hub-body { padding: 14px 12px 20px; }
+  .asc-stats:has(> :nth-child(6)) { grid-template-columns: repeat(2, 1fr); }
   .asc-hero-card, .asc-rift { flex-direction: column; text-align: center; gap: 12px; }
   .asc-row { justify-content: center; }
   .asc-card { flex-wrap: wrap; }
@@ -55795,7 +55798,7 @@ button.asc-chip:hover { border-color: var(--asc-gold); }
         '<div class="asc-stats">' +
           this.stat('Prêmio deste andar', fmt(r.gold) + ' moedas', '+' + r.selos + ' Selo' + (r.selos > 1 ? 's' : '') + ' · ' + r.xp + ' Renome') +
           this.stat('Recorde', 'Andar ' + a.rift.best, fmt(a.bossKills) + ' guardiões caídos') +
-          this.stat('A cada 5 andares', '3 Selos', 'e equipamento primordial') +
+          this.stat('A cada 5 andares', '3 Selos', 'além do item primordial do guardião') +
         '</div>' +
         '<section class="asc-note"><p>Se o guardião for forte demais, sele a Fenda sem perder o andar, fortaleça os heróis (forja, Bênçãos, Maestria) e volte depois.</p></section>';
     },

@@ -562,7 +562,7 @@
         '<div class="asc-stats">' +
           this.stat('Prêmio deste andar', fmt(r.gold) + ' moedas', '+' + r.selos + ' Selo' + (r.selos > 1 ? 's' : '') + ' · ' + r.xp + ' Renome') +
           this.stat('Recorde', 'Andar ' + a.rift.best, fmt(a.bossKills) + ' guardiões caídos') +
-          this.stat('A cada 5 andares', '3 Selos', 'e equipamento primordial') +
+          this.stat('A cada 5 andares', '3 Selos', 'além do item primordial do guardião') +
         '</div>' +
         '<section class="asc-note"><p>Se o guardião for forte demais, sele a Fenda sem perder o andar, fortaleça os heróis (forja, Bênçãos, Maestria) e volte depois.</p></section>';
     },
