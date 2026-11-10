@@ -31,6 +31,7 @@
     for (let j = 0; j < lh; j++) for (let i = 0; i < lw; i++) { n1[j * lw + i] = nz(i * 0.5, j * 0.5, 1); n2[j * lw + i] = nz(i * 0.5 + 40, j * 0.5 + 17, 2); n3[j * lw + i] = nz(i * 0.11, j * 0.11, 3); }
     const tAt = (px, py) => { const tx = px >> 4, ty = py >> 4; return tx < 0 || ty < 0 || tx >= tw || ty >= th ? T.FOREST : tile[ty * tw + tx]; };
     const stoneC = [C('#b4b0a7'), C('#a6a299'), C('#9a968d'), C('#bfbbb2')], mortar = C('#7d7870');
+    const plazaC = [C('#d6c8a8'), C('#cdbf9f'), C('#dfd2b4'), C('#e8dcc0'), C('#9c8f74'), C('#b9795a'), C('#a86a4e')];
     for (let py = 0; py < h; py++) {
       for (let px = 0; px < w; px++) {
         const li = (py >> 2) * lw + (px >> 2);
@@ -52,6 +53,18 @@
           const dd = Math.hypot(bx - cx, (by - cy) * 1.15);
           c = dd < 3.2 && by < cy ? cp[2] : dd < 5.6 ? cp[0] : dd < 7 ? cp[1] : cp[3];
           if (hsh < 0.04) c = cp[2];
+        } else if (t === T.COBBLE && px >= 38 * 16 && px < 50 * 16 && py >= 48 * 16 && py < 60 * 16) {
+          /* praça: calçamento em anéis ao redor da fonte */
+          const dx = px - 44 * 16, dy = py - 54 * 16, r = Math.hypot(dx, dy);
+          if (r < 92) {
+            const ring = (r / 9) | 0, seg = 6 + ring * 5, fr = (Math.atan2(dy, dx) / 6.2832 + 0.5) * seg + ring * 0.5, cell = Math.floor(fr);
+            const edge = (fr - cell) * (6.2832 * Math.max(4, r) / seg);
+            if (r % 9 < 1 || edge < 1) c = plazaC[4]; else { c = plazaC[(hash2(cell, ring + 50) * 3) | 0]; if (r % 9 < 2) c = plazaC[3]; if (ring === 9 || ring === 4) c = plazaC[5 + ((cell + ring) & 1)]; }
+          } else {
+            const row = py >> 3, ox = (row & 1) * 6, col = (px + ox) / 12 | 0, fx = (px + ox) % 12, fy = py & 7;
+            if (fx === 0 || fy === 0) c = plazaC[4]; else c = plazaC[(hash2(col, row) * 3) | 0];
+          }
+          if (hsh < 0.02) c = plazaC[4];
         } else if (t === T.COBBLE) {
           const row = py >> 3, ox = (row & 1) * 6, col = (px + ox) / 12 | 0, fx = (px + ox) % 12, fy = py & 7;
           if (fx === 0 || fy === 0) c = mortar; else { c = stoneC[(hash2(col, row) * 4) | 0]; if (fy === 1 || fx === 1) c = stoneC[3]; if (hsh < 0.03) c = mortar; }
@@ -99,6 +112,10 @@
         case 'bones': dot(px - 4, py - 2, '#e6dcc4', 8, 1); dot(px - 5, py - 3, '#e6dcc4', 2, 3); dot(px + 3, py - 3, '#e6dcc4', 2, 3); dot(px - 1, py - 5, '#f4ecd8', 4, 3); dot(px, py - 4, INK); dot(px + 2, py - 4, INK); dot(px - 4, py - 1, '#a89c80', 8, 1); p.flat = 1; break;
       }
     }
+    /* círculo rúnico da Cratera e marcas dos covis dos chefes */
+    { const [cx, cy] = G.CRATER.center; x.lineWidth = 2; for (const [rad, col] of [[58, 'rgba(208,112,255,.75)'], [44, 'rgba(160,90,240,.55)'], [20, 'rgba(230,190,255,.7)']]) { x.strokeStyle = col; x.beginPath(); x.ellipse(cx * TS, cy * TS, rad, rad * 0.62, 0, 0, 6.283); x.stroke(); }
+      for (let a = 0; a < 8; a++) { const ax = cx * TS + Math.cos(a * 0.785) * 51, ay = cy * TS + Math.sin(a * 0.785) * 51 * 0.62; x.fillStyle = '#e6c0ff'; x.fillRect(ax - 2, ay - 2, 4, 4); x.fillStyle = '#7a34b8'; x.fillRect(ax - 1, ay - 1, 2, 2); } }
+    for (const z of G.ZONES) { const [lx, ly] = z.lair; x.strokeStyle = 'rgba(20,14,30,.35)'; x.lineWidth = 2; x.setLineDash([5, 4]); x.beginPath(); x.ellipse(lx * TS, ly * TS, 46, 28, 0, 0, 6.283); x.stroke(); x.setLineDash([]); }
     /* plantações: fileiras de trigo e de ervas */
     for (const f of Wd.fields) for (let ty = f.y0; ty <= f.y1; ty++) for (let tx = f.x0; tx <= f.x1; tx++) for (let r = 0; r < 2; r++) for (let i = 0; i < 4; i++) {
       const px = tx * TS + 2 + i * 4, py = ty * TS + 3 + r * 8;
