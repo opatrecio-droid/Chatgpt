@@ -3,26 +3,29 @@
 Cidade viva de caçadores em um único arquivo HTML: os heróis caçam sozinhos, você ergue a cidade,
 forja o equipamento e enfrenta a Fenda. Funciona offline, no celular ou no computador.
 
-## v20 "Vocações" — versão mais recente
+## v21 "Legado" — versão mais recente
 
-**Arquivo:** [aurora-cidade-viva-20.html](aurora-cidade-viva-20.html) (baixe e abra no navegador)
+**Arquivo:** [aurora-cidade-viva-21.html](aurora-cidade-viva-21.html) (baixe e abra no navegador)
 
-Novidades: árvore de vocações com 36 classes e habilidades, Artes Secretas, Despertar, montarias e
-Estábulo, oito peças de equipamento, Armazém com desmonte, decoração da praça e o Mascate errante.
-O save da v19 continua valendo. [Mecânicas, árvores e limites](melhorias-v20.md) ·
-[Verificação](verificacao-v20.json)
+Novidades sobre a v20: trajes, asas e mascotes que aparecem no mapa, relíquias dos chefes, quatro
+níveis de dificuldade, enfeites que mudam de lugar e 18 Caminhos com recompensas. Saves da v19 e da
+v20 continuam valendo. [O que mudou e a campanha de teste](melhorias-v21.md) ·
+[Verificação](verificacao-v21.json)
 
 | | | | |
 |---|---|---|---|
-| ![Caçadores](telas-v20/01-cacadores.png) | ![Ficha](telas-v20/02-ficha.png) | ![Vocações](telas-v20/03-vocacoes.png) | ![Artes Secretas](telas-v20/04-artes.png) |
-| ![Estábulo](telas-v20/05-estabulo.png) | ![Decoração](telas-v20/06-decoracao.png) | ![Armazém](telas-v20/07-armazem.png) | ![Praça](telas-v20/08-praca.png) |
+| ![Praça](telas-v21/01-praca.png) | ![Ficha](telas-v21/02-ficha.png) | ![Ateliê](telas-v21/03-atelie.png) | ![Habilidades](telas-v21/04-habilidades.png) |
+| ![Caminhos](telas-v21/05-caminhos.png) | ![Dificuldade](telas-v21/06-dificuldade.png) | ![Armazém › Ateliê](telas-v21/07-armazem-atelie.png) | ![Mover enfeite](telas-v21/08-mover-enfeite.png) |
 
 ## Versões anteriores
 
+- [aurora-cidade-viva-20.html](aurora-cidade-viva-20.html) — v20 "Vocações": árvore de vocações, Artes
+  Secretas, Despertar, montarias, oito peças de equipamento, Armazém e decoração.
+  [Mecânicas e árvores](melhorias-v20.md) · [Verificação](verificacao-v20.json) · capturas em `telas-v20/`.
 - [aurora-cidade-viva-19.html](aurora-cidade-viva-19.html) — v19 "Reforjada", base desta versão.
 
-## Fontes da v20
+## Fontes
 
-A v20 é montada a partir da v19 por `fontes-v20/build.py`: uma lista de trocas pontuais no código
-existente (`patches_core.py`, `patches_ui.py`) e quatro arquivos novos em `fontes-v20/mod/`
-(lógica, arte, interface e estilos). `sh fontes-v20/testar.sh` remonta e verifica.
+Cada versão é montada a partir da anterior por um script: `fontes-v20/build.py` leva a v19 à v20 e
+`fontes-v21/build.py` leva a v20 à v21. Cada pasta tem a lista de trocas pontuais no código existente,
+os arquivos novos em `mod/` (lógica, arte, interface e estilos) e um `testar.sh` que remonta e verifica.

@@ -1,0 +1,12 @@
+
+/* ---------- v21: guarda-roupa, dificuldade ---------- */
+.dollw{display:flex;justify-content:center;align-items:flex-start;gap:6px;margin:10px 0 8px}
+.dollw .doll{margin:0;gap:6px 8px}
+.dside{display:flex;flex-direction:column;gap:6px;flex:none;width:50px}
+.dside .ds{height:64px;width:50px}
+.ds.sp .gi{border-color:#b98ff5!important;background-color:rgba(138,90,232,.16);display:grid;place-items:center;color:#c9a4ff;font-size:22px;background-size:36px 36px;font-style:normal}
+.ds.sp.vz .gi{opacity:.62;border-style:dashed}
+.ds.sp small{color:#c9a4ff}
+.ctl button.dif{width:50px;font-size:17px;align-content:center;gap:1px}
+.dif small{display:block;font-size:8.5px;font-weight:900;letter-spacing:.02em;line-height:1}
+@media (max-width:360px){ .dside,.dside .ds{width:44px} .dollw .doll{grid-template-columns:54px 84px 54px;gap:6px 4px} .ds.sp .gi{width:40px;height:40px} }
