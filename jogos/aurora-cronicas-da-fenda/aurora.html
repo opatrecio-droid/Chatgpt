@@ -8389,22 +8389,33 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     return best;
   };
   /* três rivais, do mais fácil ao mais difícil (chances-alvo 82%, 62% e 38%), estáveis até o próximo duelo */
-  G.arenaOffers = () => {
+  /* v24 (2C.6): o cálculo (60–190 ms) é feito em três passos, um rival por passo, para a interface poder espalhá-lo em tarefas curtas
+     (UI.arenaWarm) em vez de travar um quadro. G.arenaOffers() continua síncrona (simulador, janela de equipe) e dá o mesmo resultado. */
+  let offWork = null;
+  G.arenaOffersReady = () => { const a = G.arena(); return !!a.off && a.off.k === offerKey(); };
+  G.arenaOffersStep = () => {
     const a = G.arena(), k = offerKey();
-    if (!a.off || a.off.k !== k) {
+    if (a.off && a.off.k === k) return true;
+    if (!offWork || offWork.k !== k) {
       const ref = G.arenaRef(), sea = seasonOf(nowMs()), rng = G.seeded(G.hash('off|' + k));
       const pool = RIVALS.filter((r) => r.size <= ref.count).map((r) => ({ r, d: Math.abs(G.arenaRatio(r.i, sea) - 0.98) + rng() * 0.25 })).sort((x, y) => x.d - y.d).slice(0, 9).sort(() => rng() - 0.5);
-      const out = [];
-      [0.82, 0.62, 0.38].forEach((tg, q) => {
-        const c = pool[q]; if (!c) return;
-        const r = calibrate(c.r.i, ref, tg), ratio = Math.round(r.ratio * 1000) / 1000;
-        /* a chance mostrada vem de uma simulação maior, a mesma que a janela de equipe usa para a equipe automática */
-        const pv = G.arenaPreview(c.r.i, G.arenaAutoTeam(c.r.size), ratio);
-        out.push({ i: c.r.i, ratio, ch: Math.round(pv.chance * 100) / 100 });
-      });
-      out.sort((x, y) => y.ch - x.ch);
-      a.off = { k, l: out };
+      offWork = { k, ref, pool, out: [], q: 0 };
     }
+    const w = offWork, tg = [0.82, 0.62, 0.38][w.q], c = w.pool[w.q];
+    if (c) {
+      const r = calibrate(c.r.i, w.ref, tg), ratio = Math.round(r.ratio * 1000) / 1000;
+      /* a chance mostrada vem de uma simulação maior, a mesma que a janela de equipe usa para a equipe automática */
+      const pv = G.arenaPreview(c.r.i, G.arenaAutoTeam(c.r.size), ratio);
+      w.out.push({ i: c.r.i, ratio, ch: Math.round(pv.chance * 100) / 100 });
+    }
+    if (++w.q < 3) return false;
+    w.out.sort((x, y) => y.ch - x.ch);
+    a.off = { k, l: w.out }; offWork = null;
+    return true;
+  };
+  G.arenaOffers = () => {
+    let n = 0; while (!G.arenaOffersStep() && ++n < 8);
+    const a = G.arena();
     return a.off.l.map((x) => ({ i: x.i, ch: x.ch, ratio: x.ratio, label: G.arenaLabel(x.ch), pts: G.arenaWinPts(x.ch), ins: G.arenaWinIns(x.ch) }));
   };
   /* tudo o que a tela precisa para uma equipe contra o rival i: realização, chance (com esta equipe) e rótulo */
@@ -8829,6 +8840,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const tabDuelo = (a) => {
     const S = G.S; let h = '';
     if (S.heroes.length < 3) return h + '<div class="empty">A Arena exige pelo menos 3 heróis em Aurora.</div>';
+    if (!G.arenaOffersReady()) { UI.arenaWarm(0); return h + '<div class="card"><p class="mut" style="text-align:center;margin:6px 0">Chamando os campeões rivais…</p></div>'; }   // o cálculo corre em tarefas curtas (2C.6)
     const offers = G.arenaOffers(), tk = G.arenaTickets();
     if (!S.tut.seen.arena) h += '<div class="card hl"><p class="ar-intro"><b>Como funciona.</b> Cada dia traz <b>5 tíquetes</b>. Escolha um dos três campeões rivais, monte a equipe (do tamanho que ele enviar) e a luta é decidida pelos atributos reais dos seus heróis, com formação de frente e fundo. Vitórias dão <b>pontos</b> (ligas semanais) e <b>Insígnias</b> (Loja). Os heróis lutam como ecos de luz: ninguém se fere e ninguém sai da caçada.</p></div>';
     h += '<div class="sec">Adversários de hoje</div>';
@@ -9008,7 +9020,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* ================= o duelo animado ================= */
   let duel = null;
   const stopDuel = () => { if (duel) { cancelAnimationFrame(duel.raf); clearTimeout(duel.to); duel = null; } };
-  const ftHtml = (f, look) => '<div class="arft' + (f.side ? ' r' : '') + '" id="ft' + f.id + '"><span class="nm">' + esc(f.name) + '</span><i class="px arsp" style="background-image:url(' + sprite(look) + ')"></i><span class="arhb"><i id="hb' + f.id + '"></i></span></div>';
+  const ftHtml = (f, look) => '<div class="arft' + (f.side ? ' r' : '') + '" id="ft' + f.id + '"><i class="px arsp" style="background-image:url(' + sprite(look) + ')"></i><span class="arhb"><i id="hb' + f.id + '"></i></span><span class="nm">' + esc(f.name) + '</span></div>';
   const duelModal = (res) => {
     stopDuel();
     const F = res.sim.F, nA = res.team.length, riv = G.arenaRival(res.rival.i), cols = { '0-1': [], '0-0': [], '1-0': [], '1-1': [] };
@@ -9027,8 +9039,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const mhp = {}; for (const f of F) mhp[f.id] = f.mhp;
     duel = { res, i: 0, t0: performance.now(), rate, raf: 0, to: 0, done: false, mhp, dur };
     const fxEl = $('#ar-fx'), logEl = $('#ar-log'), stage = $('.ar-stage');
-    const pos = (id) => { const el = $('#ft' + id); if (!el || !stage) return { x: 100, y: 100 }; const r = el.getBoundingClientRect(), s = stage.getBoundingClientRect(); return { x: r.left - s.left + r.width / 2, y: r.top - s.top + 6 }; };
-    const pop = (id, txt, cls, extra) => { if (!fxEl) return; const p = pos(id), b = document.createElement('b'); b.textContent = txt; b.className = cls || ''; b.style.left = (p.x + (Math.random() * 14 - 7)) + 'px'; b.style.top = p.y + 'px'; if (extra) for (const k in extra) b.style.setProperty(k, extra[k]); fxEl.appendChild(b); setTimeout(() => b.remove(), 1200); };
+    const pos = (id, dy) => { const el = $('#ft' + id + ' .arsp') || $('#ft' + id); if (!el || !stage) return { x: 100, y: 100 }; const r = el.getBoundingClientRect(), s = stage.getBoundingClientRect(); return { x: r.left - s.left + r.width / 2, y: r.top - s.top + (dy == null ? 26 : dy) }; };   // 2C.6: a partir do retrato, longe do nome
+    const pop = (id, txt, cls, extra) => { if (!fxEl) return; const p = pos(id, cls === 'arsk' ? 2 : null), b = document.createElement('b'); b.textContent = txt; b.className = cls || ''; b.style.left = (p.x + (Math.random() * 14 - 7)) + 'px'; b.style.top = p.y + 'px'; if (extra) for (const k in extra) b.style.setProperty(k, extra[k]); fxEl.appendChild(b); setTimeout(() => b.remove(), 1200); };
     const flash = (id, c, ms) => { const el = $('#ft' + id); if (!el) return; el.classList.add(c); setTimeout(() => el.classList.remove(c), ms || 170); };
     const setHp = (id, hp) => { const b = $('#hb' + id); if (b) b.style.width = Math.max(0, Math.min(100, 100 * hp / mhp[id])) + '%'; };
     const nameOf = (id) => (F[id] ? F[id].name : '');
@@ -9083,11 +9095,18 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       '<div class="acts"><button class="btn" data-a="arback">Voltar à Arena</button>' + (tk.total > 0 ? '<button class="btn pri" data-a="aragain">Duelar de novo (' + tk.total + ')</button>' : '') + '</div></div>';
     void L;
     S0().tut.seen.arena = 1;
-    setTimeout(() => { try { G.arenaOffers(); } catch (e) { /* os próximos adversários ficam prontos enquanto a cerimônia aparece */ } }, 700);
+    UI.arenaWarm(500);                                                  // os próximos adversários ficam prontos, em tarefas curtas, enquanto a cerimônia aparece
     setTimeout(() => { const r = $('.ar-res'); if (r) r.scrollIntoView({ block: 'end', behavior: 'smooth' }); }, 120);
     G.emit('arena', { t: 'result' });
   };
   const S0 = () => G.S;
+  /* prepara os adversários do momento sem travar o quadro: um rival por tarefa (≈25–60 ms cada, antes 60–190 ms de uma vez) */
+  let warmT = 0;
+  UI.arenaWarm = (delay) => {
+    if (warmT || !G.S) return;
+    const step = () => { warmT = 0; if (!G.S || !G.M.running) return; let done = true; try { done = G.arenaOffersStep(); } catch (e) { console.error(e); } if (done) dirty(); else warmT = setTimeout(step, 24); };
+    warmT = setTimeout(step, delay == null ? 30 : delay + 30);
+  };
   UI.ACT.arback = () => { UI.closeModal(); view = 'duelo'; UI.open('missoes', 'arena'); };
   UI.ACT.aragain = () => { UI.closeModal(); view = 'duelo'; UI.open('missoes', 'arena'); setTimeout(() => { const o = G.arenaOffers(); if (o.length) teamModal(Math.min(1, o.length - 1)); }, 30); };
 
@@ -10468,6 +10487,20 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   };
   const rfN = UI.refresh;
   UI.refresh = () => { rfN(); const t = performance.now(); if (t - nrT > 900 && G.S && G.M.running) { nrT = t; nrwRefresh(); } };
+
+  /* ================= 2C.6 HUD e legibilidade ================= */
+  css.textContent += '\n' + [
+    /* áreas de toque >= 40 px nos chips do HUD sem engordar o visual: a área sensível passa da borda (só na vertical) */
+    '.chip{position:relative}',
+    '.chip::after{content:"";position:absolute;left:-1px;right:-1px;top:-5px;bottom:-5px}',
+    '.wk{position:relative;overflow:visible!important}.wk b{flex:none}.wk small{min-width:0;overflow:hidden;text-overflow:ellipsis}',
+    '.sorte{position:relative;white-space:nowrap;flex:none}',
+    '.pwr::after,.sorte::after,.wk::after{content:"";position:absolute;left:-1px;right:-1px;top:-8px;bottom:-8px}',
+    /* duelo: o nome fica sob a barra de vida, os números sobem só até o topo do retrato e o palco não corta a 4ª coluna em 360 px */
+    '.arft .nm{margin-top:2px;font-size:9.5px;line-height:1.15}',
+    '@keyframes ardn{0%{opacity:0;margin-top:8px;scale:.6}12%{opacity:1;margin-top:0;scale:1.15}100%{opacity:0;margin-top:-26px;scale:1}}',
+    '@media (max-width:420px){.ar-stage.bg .arft{width:62px}.ar-stage.bg .arft .arsp{width:54px;height:62px;background-size:54px 62px}.ar-stage.bg .arft .arhb{width:50px}.ar-stage.bg .arft .nm{max-width:60px}}',
+  ].join('\n');
 
   /* @@fim67 */
 })();

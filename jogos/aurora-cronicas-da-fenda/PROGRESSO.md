@@ -82,7 +82,7 @@ Notas técnicas do lote 2-B (para o lote 2-C):
 - [x] 2C.3 Poder da peça correto
 - [x] 2C.4 Códex de Inscrições
 - [x] 2C.5 Próxima recompensa no HUD
-- [ ] 2C.6 HUD mais limpo
+- [x] 2C.6 HUD mais limpo
 - [ ] 2C.7 Versão 24.0
 
 ### Depois do ciclo 2
