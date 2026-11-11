@@ -81,7 +81,7 @@ Notas técnicas do lote 2-B (para o lote 2-C):
 - [x] 2C.2 Fila única de janelas
 - [x] 2C.3 Poder da peça correto
 - [x] 2C.4 Códex de Inscrições
-- [ ] 2C.5 Próxima recompensa no HUD
+- [x] 2C.5 Próxima recompensa no HUD
 - [ ] 2C.6 HUD mais limpo
 - [ ] 2C.7 Versão 24.0
 

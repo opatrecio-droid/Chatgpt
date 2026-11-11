@@ -10025,6 +10025,52 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const tk1 = G.tick;
   G.tick = (dt) => { tk1(dt); cxT -= dt; if (cxT <= 0) { cxT = 2; if (cxDirty && G.S) { cxDirty = false; G.codexSync(false); } } };
 
+  /* ================= 2C.5 Próxima recompensa ================= */
+  /* Junta o que está mais perto de render algo: contrato do dia, conquista, promoção, marco de poder, calendário, tíquete da Arena e
+     marco do Códex. Devolve { best, all }: best = o item a mostrar. Cada item: { id, k: categoria, t: texto curto, ic: ícone, cur, n, pct (barra),
+     rk (para ordenar), ready (já dá para receber), go (ação data-a ao tocar), pr (prioridade entre os prontos: menor primeiro) }. */
+  G.nextReward = () => {
+    const S = G.S, out = [];
+    let bc = null;
+    for (const c of S.daily.list) {
+      if (c.claimed) continue;
+      const o = { id: 'ct' + c.t, k: 'Contrato', t: c.t, ic: 'scroll', cur: c.p, n: c.n, pct: Math.min(1, c.p / c.n), ready: c.p >= c.n, go: 'open:missoes:contratos', pr: 2 };
+      if (o.ready) o.t = 'cumprido, receba o prêmio';
+      if (!bc || o.pct > bc.pct) bc = o;
+    }
+    if (bc) out.push(bc);
+    else if (S.daily.list.length && !S.daily.claimed) out.push({ id: 'ctbau', k: 'Contratos', t: 'baú do dia pronto', ic: 'chest', cur: 1, n: 1, pct: 1, ready: true, go: 'open:missoes:contratos', pr: 2 });
+    let ba = null;
+    for (const a of G.ACH) {
+      const tier = G.achTier(a), got = S.ach[a.id] || 0;
+      if (tier > got) { if (!ba || !ba.ready) ba = { id: 'ac' + a.id, k: 'Conquista', t: a.name, ic: 'trophy', cur: 1, n: 1, pct: 1, ready: true, go: 'open:mais:cronicas', pr: 3 }; continue; }
+      if (tier >= a.tiers.length || (ba && ba.ready)) continue;
+      const prev = tier ? a.tiers[tier - 1] : 0, next = a.tiers[tier], v = S.stats[a.stat] || 0, pct = Math.max(0, Math.min(1, (v - prev) / (next - prev)));
+      if (!ba || pct > ba.pct) ba = { id: 'ac' + a.id + tier, k: 'Conquista', t: a.name, ic: 'trophy', cur: v, n: next, pct, ready: false, go: 'open:mais:cronicas', pr: 3 };
+    }
+    if (ba) out.push(ba);
+    let bp = null;
+    for (const h of S.heroes) {
+      const q = G.promoReq(h); if (!q) continue;
+      let o;
+      if (G.canPromote(h)) o = { id: 'pr' + h.id, k: 'Promoção', t: h.name + ' pode subir', ic: 'up', cur: 1, n: 1, pct: 1, ready: true, go: 'herod:' + h.id, pr: 4 };
+      else if (h.lvl < q.lvl) o = { id: 'pr' + h.id, k: 'Promoção', t: h.name + ' · nível ' + h.lvl + '/' + q.lvl, ic: 'up', cur: h.lvl, n: q.lvl, pct: h.lvl / q.lvl, ready: false, go: 'herod:' + h.id, pr: 4 };
+      else o = { id: 'pr' + h.id, k: 'Promoção', t: h.name + ' · falta material', ic: 'up', cur: 1, n: 1, pct: 0.85, ready: false, go: 'herod:' + h.id, pr: 4 };
+      if (!bp || o.ready && !bp.ready || o.ready === bp.ready && o.pct > bp.pct) bp = o;
+    }
+    if (bp) out.push(bp);
+    if (G.nextPowerMark && S.lendas) { const m = G.nextPowerMark(); out.push({ id: 'pw' + m.i, k: 'Poder', t: 'marco de ' + G.fmt(m.v), ic: 'crown', cur: Math.round(m.from + m.pct * (m.v - m.from)), n: m.v, pct: m.pct, ready: false, go: 'open:mais:recordes', pr: 6 }); }
+    const cs = G.calState && G.calState();
+    if (cs && cs.ok && (S.stats.played >= 400 || (G.ret().cal.arm && S.t >= G.ret().cal.arm))) out.push({ id: 'cal', k: 'Calendário', t: 'dia ' + cs.next, ic: 'gift', cur: 1, n: 1, pct: 1, ready: true, go: 'cal', pr: 1 });
+    if (G.arenaOpen && G.arenaOpen()) { const tk = G.arenaTickets(); if (tk.total > 0) out.push({ id: 'ar', k: 'Arena', t: tk.total + (tk.total > 1 ? ' tíquetes' : ' tíquete') + ' para duelar', ic: 'target', cur: tk.total, n: Math.max(tk.max, tk.total), pct: Math.min(1, tk.total / Math.max(1, tk.max)), rk: 0.8, ready: false, go: 'open:missoes:arena', pr: 7 }); }
+    const cn = G.codexNext();
+    if (cn) out.push({ id: 'cdx' + cn.m.id, k: 'Códex', t: cn.m.n, ic: 'book', cur: cn.cur, n: cn.t, pct: cn.pct, ready: false, go: 'open:mais:codex', pr: 8 });
+    for (const o of out) if (o.rk == null) o.rk = o.pct;
+    const ready = out.filter((o) => o.ready).sort((a, b) => a.pr - b.pr);
+    const best = ready.length ? ready[0] : out.slice().sort((a, b) => b.rk - a.rk || a.pr - b.pr)[0] || null;
+    return { best, all: out };
+  };
+
   /* @@fim3B */
 })();
 
@@ -10372,6 +10418,56 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       if (UI.sheet && UI.sheet.name === 'mais' && UI.sheet.tab === 'codex') UI.sheetDirty();
     }
   });
+
+  /* ================= 2C.5 Próxima recompensa (uma linha acima da barra da Jornada) ================= */
+  css.textContent += '\n' + [
+    '#nrw{position:absolute;left:50%;padding-bottom:3px!important;transform:translateX(-50%);bottom:calc(var(--navh) + var(--sab) + 12px + var(--qh,46px) + 6px);width:min(calc(100vw - 124px),360px);z-index:6;display:none;align-items:center;gap:7px;min-height:40px;padding:0 10px;text-align:left;font:inherit;color:inherit}',
+    '#nrw.on{display:flex}',
+    '#nrw .ni{flex:none;width:20px;height:20px;color:var(--gold2)}#nrw .ni svg{width:100%;height:100%}',
+    '#nrw .nt{flex:1;min-width:0;font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '#nrw .nt b{color:var(--gold2);font-weight:800;margin-right:4px}',
+    '#nrw .nbar{position:absolute;left:10px;right:10px;bottom:4px;height:3px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden}',
+    '#nrw .nbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .5s}',
+    '#nrw .nv{flex:none;min-width:30px;text-align:right;font-size:11px;font-weight:800;color:var(--mut)}',
+    '#nrw.rdy{border-color:var(--gold2);animation:glow 1.4s infinite}',
+    '#nrw.rdy .nbar{display:none}',
+    '#nrw.rdy .nv{color:#1a1408;background:linear-gradient(180deg,#f7dc92,#d8a544);padding:3px 7px;border-radius:8px}',
+    '@media (min-width:860px){#nrw{bottom:calc(var(--navh) + 26px + var(--qh,46px) + 6px)}}',
+  ].join('\n');
+  UI.NEWS.v24.rows.push(['book', 'Códex de Inscrições', 'Mais › Códex guarda cada inscrição (16 tipos × 5 qualidades) e cada peça que você já viu, com marcos e prêmios. Há um atalho na Forja.'],
+    ['target', 'Próxima recompensa', 'Uma linha acima da Jornada mostra o que está mais perto de render algo: contrato, conquista, promoção, calendário, marco de poder. Toque para ir até lá.']);
+  const bdN = UI.build;
+  UI.build = () => { bdN(); const q = $('#quest'); if (q && !$('#nrw')) q.insertAdjacentHTML('afterend', '<button id="nrw" class="glass" data-a="open:mais:codex"><span class="ni"></span><span class="nt"></span><span class="nbar"><i></i></span><span class="nv"></span></button>'); };
+  let nrKey = '', nrPct = -1, nrAct = '', nrCur = null, nrSince = 0, nrT = 0, nrQh = 0;
+  const nrwRefresh = () => {
+    const el = $('#nrw'), q = $('#quest'); if (!el || !q) return;
+    const S = G.S;
+    if (!S.tut.done || (S.tut.guide && S.quest.step <= 4) || q.style.display === 'none' || !q.offsetHeight) { el.classList.remove('on'); return; }
+    if (q.offsetHeight !== nrQh) { nrQh = q.offsetHeight; document.documentElement.style.setProperty('--qh', nrQh + 'px'); }
+    const r = G.nextReward(); let best = r.best;
+    /* histerese: só troca de item se o novo for bem melhor, ou o atual sumiu, ou o novo já está pronto */
+    if (best && nrCur) {
+      const cur = r.all.find((o) => o.id === nrCur);
+      if (cur && best.id !== cur.id && !(best.ready && !cur.ready) && (best.rk - cur.rk < 0.12 || performance.now() - nrSince < 8000) && !(cur.ready && best.ready && best.pr < cur.pr)) best = cur;
+    }
+    if (!best) { el.classList.remove('on'); nrCur = null; return; }
+    if (best.id !== nrCur) { nrCur = best.id; nrSince = performance.now(); }
+    el.classList.add('on');
+    const key = best.id + '|' + best.t + '|' + best.ready;
+    if (key !== nrKey) {
+      nrKey = key;
+      el.querySelector('.ni').innerHTML = ic(best.ic);
+      el.querySelector('.nt').innerHTML = '<b>' + esc(best.k) + '</b>' + esc(best.t);
+      el.classList.toggle('rdy', !!best.ready);
+    }
+    if (best.go !== nrAct) { nrAct = best.go; el.setAttribute('data-a', best.go); }
+    const p = best.ready ? 100 : Math.round(best.pct * 100);
+    if (p !== nrPct) { nrPct = p; el.querySelector('.nbar i').style.width = p + '%'; }
+    const nv = best.ready ? 'Pronto' : best.id === 'ar' || best.n > 1 && best.n <= 99 && best.id.indexOf('pr') === 0 ? best.cur + '/' + best.n : p + '%';
+    const nvEl = el.querySelector('.nv'); if (nvEl.textContent !== nv) nvEl.textContent = nv;
+  };
+  const rfN = UI.refresh;
+  UI.refresh = () => { rfN(); const t = performance.now(); if (t - nrT > 900 && G.S && G.M.running) { nrT = t; nrwRefresh(); } };
 
   /* @@fim67 */
 })();
