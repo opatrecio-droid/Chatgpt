@@ -37,7 +37,7 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - [x] 1B.1 Tela de retorno com cartas para virar
 - [x] 1B.2 Calendário de 7 dias
 - [x] 1B.3 Criatura da sorte tocável
-- [ ] 1B.4 Semana temática com prazo real
+- [x] 1B.4 Semana temática com prazo real
 
 ### Depois do ciclo 1
 - [ ] Avaliação do líder (simulador + navegador) e notas novas em `AVALIACAO.md`

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Simulador headless do Aurora.
-   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge]
+   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge] [--week=forja|cacada|portal|ouro|none]
    Roda o jogo sem tela (G.HEADLESS) com um jogador-robô simples e imprime uma linha do tempo de
    "momentos de recompensa" e métricas de ritmo. Sai com código 1 se houver exceção na simulação. */
 'use strict';
@@ -11,6 +11,7 @@ const opt = (k, d) => { const a = args.find((x) => x.startsWith('--' + k + '='))
 const MIN = +opt('min', 120);               // minutos reais simulados (velocidade 1×)
 const SEED = +opt('seed', 1);
 const QUIET = args.includes('--quiet');
+const WEEK = opt('week', '');                  // v24: força a semana temática (sem isso vale a semana real do relógio)
 const REFORGE = !args.includes('--noreforge');   // v23: o robô também reforja inscrições (só se o jogo tiver a função)
 
 const html = fs.readFileSync(file, 'utf8');
@@ -26,6 +27,7 @@ ctx.globalThis = ctx;
 vm.createContext(ctx);
 try { vm.runInContext(m[1], ctx, { filename: 'aurora.js' }); } catch (e) { console.error('ERRO ao carregar:', e.stack); process.exit(1); }
 const G = ctx.G; G.DEBUG = true;
+if (WEEK && 'weekForce' in G) G.weekForce = WEEK;
 G.W.init && G.W.init();
 G.newGame();
 const S = () => G.S;
@@ -114,7 +116,7 @@ const gaps = []; for (let i = 1; i < moments.length; i++) gaps.push(moments[i].t
 gaps.sort((a, b) => a - b);
 const med = gaps.length ? gaps[Math.floor(gaps.length / 2)] : 0, max = gaps.length ? gaps[gaps.length - 1] : 0;
 const first = (k) => { const x = moments.find((m) => m.k === k); return x ? (x.t / 60).toFixed(1) + ' min' : '—'; };
-console.log('Aurora sim · ' + path.basename(file) + ' · ' + MIN + ' min simulados em ' + secs.toFixed(1) + ' s · semente ' + SEED);
+console.log('Aurora sim · ' + path.basename(file) + ' · ' + MIN + ' min simulados em ' + secs.toFixed(1) + ' s · semente ' + SEED + (G.week ? ' · semana ' + G.week().id : ''));
 console.log('Amostras a cada 10 min:'); for (const x of samples) console.log('  ' + JSON.stringify(x));
 console.log('Momentos: ' + moments.length + ' ' + JSON.stringify(byK));
 console.log('Intervalo entre momentos: mediana ' + med.toFixed(0) + ' s, maior ' + max.toFixed(0) + ' s');
