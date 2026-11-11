@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Simulador headless do Aurora.
-   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge] [--week=forja|cacada|portal|ouro|none]   (v25: o robô também duela na Arena)
+   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge] [--week=forja|cacada|portal|ouro|none] [--save=arquivo.json]   (v25: o robô também duela na Arena; v26: relata títulos, Herói do Dia, recordes e marcos de poder)
    Roda o jogo sem tela (G.HEADLESS) com um jogador-robô simples e imprime uma linha do tempo de
    "momentos de recompensa" e métricas de ritmo. Sai com código 1 se houver exceção na simulação. */
 'use strict';
@@ -41,6 +41,12 @@ const origLog = G.log;
 G.log = (msg, kind) => { if (kind === 'epic' || kind === 'boss') mark(kind, msg); return origLog(msg, kind); };
 
 const stats = { reforges: 0, accepted: 0, perfect: 0 };
+/* v26: Lendas — títulos desbloqueados, Herói do Dia, recordes e marcos de poder (com o minuto de cada um) */
+const lendas = { titles: [], marks: [], hod: [], recs: 0, hodIds: {} };
+G.on('titulo', (d) => { if (d.t) lendas.titles.push({ t: T0(), n: d.h.name, id: d.t.id }); });
+G.on('pmark', (d) => { lendas.marks.push({ t: T0(), v: d.v, rw: d.rw }); });
+G.on('hod', (d) => { lendas.hod.push({ t: T0(), d: d.d, n: d.name, why: d.why }); lendas.hodIds[d.id] = 1; });
+G.on('recorde', () => { lendas.recs++; });
 /* v25: a Arena usa um relógio próprio (G.arenaNow). Aqui cada dia de jogo vale um dia da Arena, começando numa segunda-feira, para o robô
    duelar até 5 vezes por dia de jogo e a temporada virar a cada 7 dias de jogo (testa o fim de temporada e o baú). */
 const arena = { duels: 0, wins: 0, ch: 0, leagues: [], lastSea: -1 };
@@ -151,7 +157,17 @@ if (G.arena && S().arena && S().arena.open) {
   console.log('Arena: ' + arena.duels + ' duelos · ' + arena.wins + ' vitórias (' + (arena.duels ? (100 * arena.wins / arena.duels).toFixed(1) : '0') + '%, chance estimada média ' + (arena.duels ? (100 * arena.ch / arena.duels).toFixed(0) : '0') + '%)' +
     ' · liga final ' + (last ? L[last.liga].name + ' (' + last.pts + ' pts, ' + last.pos + 'º)' : '—') + ' · ' + a.hist.length + ' temporadas: ' + Object.keys(cnt).map((k) => k + ' ×' + cnt[k]).join(', ') + ' · Insígnias ' + a.ins + ' · títulos ' + a.titulos.reduce((n, t) => n + t.n, 0));
 }
+if (G.kingPower && S().lendas) {
+  const L = S().lendas, P = G.kingPowerParts(true), fm = (v) => v >= 1e6 ? (v / 1e6).toString().replace('.', ',') + 'M' : v >= 1e3 ? (v / 1e3).toString().replace('.', ',') + 'k' : String(v);
+  const uniq = {}; for (const x of lendas.titles) uniq[x.id] = 1;
+  const per = S().heroes.map((h) => G.titleCount(h)).join('/');
+  console.log('Lendas: ' + lendas.titles.length + ' títulos desbloqueados (' + Object.keys(uniq).length + ' de ' + G.TITLES.length + ' diferentes; por herói ' + per + ') · primeiro título em ' + (lendas.titles.length ? (lendas.titles[0].t / 60).toFixed(1) + ' min' : '—') + ' · Herói do Dia: ' + lendas.hod.length + ' dias com ' + Object.keys(lendas.hodIds).length + ' heróis diferentes · recordes anunciados ' + lendas.recs);
+  console.log('Poder do Reino: ' + P.t + ' (heróis ' + P.h + ' · construções ' + P.b + ' · bênçãos ' + P.s + ' · obras ' + P.w + ') · marcos: ' + (lendas.marks.length ? lendas.marks.map((x) => fm(x.v) + '@' + (x.t / 60).toFixed(0) + 'm').join(' ') : '—') + (L.pw.back ? ' (+' + L.pw.back + ' já alcançados no início)' : ''));
+  if (!QUIET || args.includes('--titles')) { const by = {}; for (const x of lendas.titles) (by[x.id] = by[x.id] || []).push((x.t / 60).toFixed(0)); console.log('Títulos (id: minutos): ' + G.TITLES.map((t) => t.id + ' [' + (by[t.id] ? by[t.id].length + ': ' + by[t.id].slice(0, 6).join(',') : '—') + ']').join(' · ')); }
+  const rc = L.rec; console.log('Recordes: ' + G.RECS_ORDER.map((k) => G.RECS[k].name + ' ' + (rc[k] ? G.recText(k, rc[k]) : '—')).join(' · '));
+}
 console.log('Primeira promoção: ' + first('promo') + ' · primeiro momento épico: ' + first('epic'));
 if (!QUIET) for (const x of moments.slice(0, 60)) console.log('  [' + (x.t / 60).toFixed(1) + 'm] ' + x.k + ': ' + String(x.txt).slice(0, 110));
+if (opt('save', '')) { fs.writeFileSync(opt('save', ''), G.serialize()); console.log('Save gravado em ' + opt('save', '')); }
 if (errors.length) { console.log('\nERROS (' + errors.length + '):'); for (const e of errors.slice(0, 10)) console.log(e.split('\n').slice(0, 4).join('\n')); process.exit(1); }
 console.log('\nSem erros.');

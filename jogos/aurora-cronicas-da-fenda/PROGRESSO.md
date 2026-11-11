@@ -62,8 +62,8 @@ Notas técnicas do lote 2-A (para os lotes 2-B/2-C):
 - Ganchos mínimos no código antigo (61-ui-sheets): `UI.SHEETS = SHEETS`, `'-arena'` no relatório diário e `q.tag` no cartão da Jornada.
 
 ### Lote 2-B — Lendas pessoais e Poder do Reino
-- [ ] 2B.1 Livro de Feitos
-- [ ] 2B.2 Títulos
+- [x] 2B.1 Livro de Feitos
+- [x] 2B.2 Títulos
 - [ ] 2B.3 Herói do Dia
 - [ ] 2B.4 Poder do Reino, recordes e marcos
 
