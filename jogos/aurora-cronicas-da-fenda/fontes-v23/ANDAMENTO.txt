@@ -1,0 +1,7 @@
+Aurora v23 "Ofícios" — andamento (curto)
+
+Etapa 1 (núcleo): EM ANDAMENTO
+  pronto (não testado): build.py, patches23.py (trocas do núcleo conferidas contra a v22), mod/37-oficios.js
+  falta: placeholders de UI/CSS para o build montar, testes antigos no núcleo v23, testes/sistemas-v23.js, save22.js, testar.sh
+Etapa 2 (interface): NÃO INICIADA — painel do prédio, cardápios, encomendas, vozes, guia v23
+Etapa 3 (verificação): NÃO INICIADA — navegador, campanhas v22 × v23 (6+ sementes), Difícil 30 dias, desempenho
