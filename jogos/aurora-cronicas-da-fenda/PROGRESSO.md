@@ -43,8 +43,8 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - [x] Avaliação do líder (simulador + navegador) e notas novas em `AVALIACAO.md` → **Diversão 8,0 · Viciante 7,7**
 
 ### Lote 2-A — Arena das Duas Luas (`PLANO-CICLO-2.md`)
-- [ ] 2A.1 Reinos rivais
-- [ ] 2A.2 Duelo (determinístico, animado, funciona sem tela)
+- [x] 2A.1 Reinos rivais
+- [x] 2A.2 Duelo (determinístico, animado, funciona sem tela)
 - [ ] 2A.3 Tíquetes e temporada semanal com ligas
 - [ ] 2A.4 Loja de Insígnias + sumidouro de moedas
 - [ ] 2A.5 Acesso, passo da Jornada e eventos de duelo
