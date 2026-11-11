@@ -7846,14 +7846,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* Luminho: um filhote de luz com antenas de estrela, asinhas e uma lua na testa (16×16, dois quadros) */
   const lumPix = (f) => {
     const p = new A.Pix(16, 16), B = '#ffe3a0', S = '#f0b648', L = '#fff8dc', W = '#c8ecff', WS = '#8ec5f5', GOLD = '#ffd35a', PINK = '#ff9ab0';
-    if (f) { p.ell(2.4, 9.2, 2.5, 1.8, W); p.ell(13.6, 9.2, 2.5, 1.8, W); p.set(1, 9, WS); p.set(14, 9, WS); p.set(2, 8, '#ffffff'); p.set(13, 8, '#ffffff'); }
-    else { p.ell(2.9, 6.2, 2.1, 3.3, W); p.ell(13.1, 6.2, 2.1, 3.3, W); p.col(2, 5, 8, WS); p.col(13, 5, 8, WS); p.set(3, 4, '#ffffff'); p.set(12, 4, '#ffffff'); }
+    if (f) { p.ell(2.1, 9.4, 2.4, 1.7, W); p.ell(13.9, 9.4, 2.4, 1.7, W); p.set(0, 9, WS); p.set(15, 9, WS); p.set(1, 8, '#ffffff'); p.set(14, 8, '#ffffff'); }
+    else { p.ell(2, 6.3, 1.9, 3.3, W); p.ell(14, 6.3, 1.9, 3.3, W); p.col(0, 5, 7, WS); p.col(15, 5, 7, WS); p.set(1, 4, '#ffffff'); p.set(14, 4, '#ffffff'); }
     p.line(6, 4, 5, 2, S); p.line(10, 4, 11, 2, S); p.set(5, 1, GOLD); p.set(11, 1, GOLD); p.set(4, 1, '#fff3b0'); p.set(6, 1, '#fff3b0'); p.set(10, 1, '#fff3b0'); p.set(12, 1, '#fff3b0');
-    p.ell(8, 9, 5.4, 4.6, B); p.ell(8.4, 10.9, 3.5, 2.4, L); p.row(4, 11, 12, S); p.row(5, 10, 13, S);
-    p.set(7, 5, GOLD); p.set(8, 5, GOLD); p.set(7, 4, GOLD);
+    p.ell(8, 9, 4.7, 4.5, B); p.ell(8.4, 10.7, 3.1, 2.4, L); p.row(5, 10, 13, S);
+    p.set(7, 5, GOLD); p.set(8, 5, GOLD); p.set(8, 4, GOLD);
     p.rect(5, 7, 2, 3, INK); p.rect(9, 7, 2, 3, INK); p.set(5, 7, '#ffffff'); p.set(9, 7, '#ffffff'); p.set(6, 9, '#6a5a8a'); p.set(10, 9, '#6a5a8a');
-    p.set(3, 10, PINK); p.set(4, 10, PINK); p.set(11, 10, PINK); p.set(12, 10, PINK);
-    p.set(7, 11, INK); p.set(8, 11, INK); p.set(6, 10, INK); p.set(9, 10, INK);
+    p.set(4, 10, PINK); p.set(5, 10, PINK); p.set(10, 10, PINK); p.set(11, 10, PINK);
+    p.set(7, 11, INK); p.set(8, 11, INK);
     p.rect(5, 14, 2, 1, S); p.rect(9, 14, 2, 1, S);
     return p.outline(INK);
   };
@@ -7865,7 +7865,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
   UI.lumSheet = lumSheet;
   const drawLucky = (c, X, Y, z) => {
-    const ctx = R.ctx, px = Math.round(X(c.x)), py = Math.round(Y(c.y)), sc = Math.max(2, Math.round(z * 1.5)), w = 16 * sc;
+    const ctx = R.ctx, px = Math.round(X(c.x)), py = Math.round(Y(c.y)), sc = Math.max(3, Math.round(z * 2)), w = 16 * sc;
     const left = c.life - c.t, blink = left < 3.2 && Math.floor(R.t * 9) % 2;
     /* rastro de brilho */
     for (let i = 0; i < c.tr.length; i++) {
@@ -7875,8 +7875,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     ctx.globalAlpha = blink ? 0.45 : 1;
     /* sombra no chão e halo */
     ctx.fillStyle = 'rgba(10,16,30,.2)'; ctx.beginPath(); ctx.ellipse(px, Math.round(Y(c.y + 1.9)), 5 * z, 1.9 * z, 0, 0, 6.283); ctx.fill();
-    const hr = 17 * z * (1 + 0.1 * Math.sin(R.t * 5)), g = ctx.createRadialGradient(px, py, 2, px, py, hr);
-    g.addColorStop(0, 'rgba(255,240,180,.7)'); g.addColorStop(0.5, 'rgba(255,214,110,.25)'); g.addColorStop(1, 'rgba(255,214,110,0)');
+    const hr = 21 * z * (1 + 0.1 * Math.sin(R.t * 5)), g = ctx.createRadialGradient(px, py, 2, px, py, hr);
+    g.addColorStop(0, 'rgba(255,238,160,.85)'); g.addColorStop(0.45, 'rgba(255,208,90,.38)'); g.addColorStop(1, 'rgba(255,214,110,0)');
     ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, hr, 0, 6.283); ctx.fill();
     /* anel de toque */
     const rk = (R.t * 0.8) % 1; ctx.globalAlpha = (blink ? 0.45 : 1) * (1 - rk) * 0.55; ctx.strokeStyle = '#ffe9a0'; ctx.lineWidth = Math.max(1, z * 0.7); ctx.beginPath(); ctx.arc(px, py, (11 + 12 * rk) * z, 0, 6.283); ctx.stroke();
