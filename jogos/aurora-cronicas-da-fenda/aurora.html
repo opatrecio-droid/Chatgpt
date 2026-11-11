@@ -8348,7 +8348,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.arenaLabel = (ch) => (ch >= 0.72 ? { t: 'Fácil', c: '#5fcf7c' } : ch >= 0.46 ? { t: 'Justo', c: '#e2b659' } : { t: 'Difícil', c: '#ee8a4a' });
 
   /* ================= tíquetes ================= */
-  const tkRoll = (a) => { const d = today(); if (a.tk.d !== d) a.tk = { d, n: 0, b: 0, t: 0 }; return a.tk; };
+  /* só avança: voltar o relógio do aparelho não devolve tíquetes */
+  const tkRoll = (a) => { const d = today(); if (d > a.tk.d) a.tk = { d, n: 0, b: 0, t: 0 }; return a.tk; };
   G.arenaTickets = () => {
     const a = G.arena(), tk = tkRoll(a), max = G.ARENA.tickets, free = Math.max(0, max - tk.n);
     return { free, xt: a.xt, total: free + a.xt, max, used: tk.n, bought: tk.b, buyCost: tk.b < G.ARENA.coreCost.length ? G.ARENA.coreCost[tk.b] : 0, canBuy: tk.b < G.ARENA.coreCost.length, today: tk.t };
@@ -8508,8 +8509,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       G.log('A Arena das Duas Luas abriu suas portas! Missões › Arena.', 'epic'); G.emit('arena', { t: 'open' });
     }
     const sea = seasonOf(nowMs());
-    if (a.sea !== sea.idx) closeSeason(a, sea);
-    if (a.rd.d !== sea.dn) a.rd = { d: sea.dn, p: G.arenaStanding(sea).me };       // posição de hoje cedo, para "subiu N posições hoje"
+    if (sea.idx > a.sea) closeSeason(a, sea);
+    if (sea.dn > a.rd.d) a.rd = { d: sea.dn, p: G.arenaStanding(sea).me };       // posição de hoje cedo, para "subiu N posições hoje"
     return true;
   };
 
@@ -8522,7 +8523,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     { id: 'po', name: 'Pó de Reforja ×10', cost: 30, stock: 3, icon: 'hammer', res: { po_reforja: 10 }, desc: 'Para reforjar as inscrições das peças.' },
     { id: 'tomo', name: 'Tomos de Técnica ×3', cost: 36, stock: 3, icon: 'book', res: { tomo: 3 }, desc: 'Sobem o nível das habilidades e pagam mudanças de classe.' },
   ];
-  G.arenaShopState = () => { const a = G.arena(), w = seasonOf(nowMs()).idx; if (a.shop.w !== w) a.shop = { w, b: {} }; return a.shop; };
+  G.arenaShopState = () => { const a = G.arena(), w = seasonOf(nowMs()).idx; if (w > a.shop.w) a.shop = { w, b: {} }; return a.shop; };
   G.arenaShopLeft = (it) => it.stock - (G.arenaShopState().b[it.id] || 0);
   G.arenaShopBuy = (id) => {
     const a = G.arena(), it = G.ARENA_SHOP.find((x) => x.id === id), S = G.S; if (!it) return { ok: false, why: 'Item inexistente' };
@@ -8560,7 +8561,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     { id: 'tiq', name: 'Tíquete extra', u: 6, grow: 1.5, max: 5, icon: 'scroll', desc: 'Mais um duelo hoje, sem gastar Núcleos.' },
     { id: 'bandeira', name: 'Bandeira da Arena', u: 12, grow: 1, max: 1, icon: 'flag', desc: '+30% de moedas dos abates por 3 dias de Aurora (15 minutos de jogo).' },
   ];
-  G.arenaCoinState = () => { const a = G.arena(), d = today(); if (a.cs.d !== d) a.cs = { d, b: {} }; return a.cs; };
+  G.arenaCoinState = () => { const a = G.arena(), d = today(); if (d > a.cs.d) a.cs = { d, b: {} }; return a.cs; };
   G.arenaCoinPrice = (it) => Math.round(G.arenaCoinUnit() * it.u * Math.pow(it.grow, G.arenaCoinState().b[it.id] || 0));
   G.arenaCoinBuy = (id) => {
     const S = G.S, a = G.arena(), it = G.ARENA_COIN.find((x) => x.id === id), cs = G.arenaCoinState(); if (!it) return { ok: false, why: 'Item inexistente' };
@@ -8956,7 +8957,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const pts = G.arenaRivalPts(i, sea.idx, sea.dis);
     let h = '<div class="eyebrow">' + esc(riv.type === 'cla' ? 'Clã' : riv.name.split(' ')[0]) + '</div><h2>' + esc(riv.name) + '</h2><div style="display:flex;justify-content:center;margin:8px 0">' + emblem(riv, 64) + '</div>' +
       '<p class="lead" style="margin:4px 0 8px"><b class="gold">' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + '</b><br>“' + esc(riv.motto) + '”</p>' +
-      '<div class="ar-st2"><div class="stat"><small>Estilo</small><b style="font-size:12.5px">' + riv.style + '</b></div><div class="stat"><small>Pontos</small><b>' + G.fmt(pts) + '</b></div><div class="stat"><small>Poder base</small><b>' + Math.round(riv.r0 * 100) + '%</b></div></div>';
+      '<div class="ar-st2"><div class="stat"><small>Estilo</small><b style="font-size:12.5px">' + riv.style + '</b></div><div class="stat"><small>Pontos</small><b>' + G.fmt(pts) + '</b></div><div class="stat"><small>Heróis</small><b>' + riv.size + '</b></div></div>';
     h += '<div class="sec">Campeões (nível para o seu poder de hoje)</div>';
     for (const x of rz.heroes) {
       const look = rLook(x.h, riv), cl = G.CLASSES[x.h.cls];
