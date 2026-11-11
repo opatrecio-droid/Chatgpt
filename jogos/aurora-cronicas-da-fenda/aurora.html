@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="cidade-viva-build" content="Aurora_ciclo_034_forja_sorte">
+<meta name="cidade-viva-build" content="Aurora_ciclo_035_rivais_e_lendas">
 <title>Aurora — Crônicas da Fenda</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230d1220'/><circle cx='26' cy='30' r='15' fill='%23e2b659'/><circle cx='33' cy='25' r='13' fill='%230d1220'/><circle cx='45' cy='42' r='6' fill='%23b58cf2'/></svg>">
 <style>
@@ -455,12 +455,12 @@ textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--li
 <div id="app"></div>
 <script>
 /* ===== 00-core.js ===== */
-/* Aurora — Crônicas da Fenda · v23 "Forja da Sorte"
+/* Aurora — Crônicas da Fenda · v24 "Rivais e Lendas"
    00-core: utilitários, barramento de eventos, relógio e estado. Sem DOM. */
 'use strict';
 var G = (typeof globalThis !== 'undefined' ? globalThis : window).G = {};
-G.VERSION = '23.0';
-G.BUILD = 'Aurora_ciclo_034_forja_sorte';
+G.VERSION = '24.0';
+G.BUILD = 'Aurora_ciclo_035_rivais_e_lendas';
 G.SAVE_KEY = 'aurora.v19.save';
 G.HEADLESS = typeof document === 'undefined';
 
@@ -6041,7 +6041,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     t.innerHTML = '<div class="stars"></div><div class="moon m1"></div><div class="moon m2"></div><div class="sky">' + sky + '</div><div class="hill"></div>' +
       '<div class="inner"><div class="eyebrow">Cidade Viva</div><h1>Aurora</h1><div class="sub">Crônicas da Fenda</div><p class="tag">Sob duas luas, um reino de caçadores espera por você.<br>Erga a cidade, forje lendas, enfrente a Fenda.</p>' +
       (has ? '<button class="btn pri" data-a="t-continue">Continuar jornada</button><button class="btn" data-a="t-new">Nova jornada</button>' : '<button class="btn pri" data-a="t-new">Iniciar jornada</button>') +
-      '<button class="btn" data-a="t-import">Importar save</button><div class="ver">v' + G.VERSION + ' · Forja da Sorte · salva sozinho neste aparelho</div></div>';
+      '<button class="btn" data-a="t-import">Importar save</button><div class="ver">v' + G.VERSION + ' · Rivais e Lendas · salva sozinho neste aparelho</div></div>';
     t.classList.add('on');
   };
   UI.ACT['t-continue'] = () => { G.emit('audio-unlock'); G.M.start(false); };
@@ -6581,7 +6581,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
         return '<div class="tog"><span>' + ic('vol').replace('class="i"', 'class="i" style="display:inline;vertical-align:-2px"') + ' Efeitos sonoros</span><input type="range" min="0" max="100" value="' + Math.round(o.sfx * 100) + '" data-opt="sfx"></div><div class="tog"><span>Música ambiente</span><input type="range" min="0" max="100" value="' + Math.round(o.music * 100) + '" data-opt="music"></div>' +
           '<button class="tog" data-a="opt:lowFx"><span>Modo leve<small>Menos partículas e sem sombras de nuvens. Ajuda em aparelhos antigos.</small></span><i class="sw' + (o.lowFx ? ' on' : '') + '"></i></button>' +
           '<div class="sec">Jornada salva</div><p class="mut" style="font-size:12px;margin-bottom:8px">O jogo salva sozinho neste aparelho a cada 20 segundos. Exporte o código para guardar ou levar para outro aparelho.</p><div class="grid2"><button class="btn" data-a="export">' + ic('save') + 'Exportar</button><button class="btn" data-a="import">' + ic('save') + 'Importar</button></div><button class="btn wide" style="margin-top:8px" data-a="tutorial">' + ic('info') + 'Rever a apresentação</button><button class="btn wide" style="margin-top:8px;color:#ff9a9a" data-a="reset">' + ic('trash') + 'Apagar e recomeçar</button>' +
-          '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "Forja da Sorte"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
+          '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "Rivais e Lendas"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
       }
       return '';
     },
