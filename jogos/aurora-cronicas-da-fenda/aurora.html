@@ -4043,26 +4043,26 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* ================= Inscrições ================= */
   /* Cada peça Incomum ou melhor nasce com inscrições sorteadas. Cada inscrição tem uma qualidade de 1 a 5
      (5 = perfeita). Valor = base × multiplicador da qualidade × fator do nível da peça.
-     k = chave do total somado no herói · v = valor base (qualidade 3, nível 6) · sc = peso na pontuação da peça (v24: calibrado pelo
-     efeito real no poder do herói; ver 3B-clareza). */
+     k = chave do total somado no herói · v = valor base (qualidade 3, nível 6) · sc = peso na pontuação da peça (escolha de peças dos heróis);
+     pw = peso de exibição do Poder da peça (v24: calibrado pelo efeito real no poder do herói; ver 3B-clareza). */
   const pc = (v) => { const x = v * 100; return (x < 10 ? x.toFixed(1) : String(Math.round(x))).replace('.', ','); };
   G.INS = {
     furia:       { name: 'da Fúria',       k: 'atk',     v: 0.06,  sc: 200,  txt: (v) => '+' + pc(v) + '% de ataque' },
-    colosso:     { name: 'do Colosso',     k: 'hp',      v: 0.07,  sc: 200,  txt: (v) => '+' + pc(v) + '% de vida' },
-    muralha:     { name: 'da Muralha',     k: 'def',     v: 0.08,  sc: 56,   txt: (v) => '+' + pc(v) + '% de defesa' },
+    colosso:     { name: 'do Colosso',     k: 'hp',      v: 0.07,  sc: 150, pw: 200,  txt: (v) => '+' + pc(v) + '% de vida' },
+    muralha:     { name: 'da Muralha',     k: 'def',     v: 0.08,  sc: 90,  pw: 56,   txt: (v) => '+' + pc(v) + '% de defesa' },
     falcao:      { name: 'do Falcão',      k: 'crit',    v: 0.03,  sc: 140,  txt: (v) => '+' + pc(v) + '% de chance crítica' },
-    ruina:       { name: 'da Ruína',       k: 'critDmg', v: 0.12,  sc: 19,   txt: (v) => '+' + pc(v) + '% de dano crítico' },
+    ruina:       { name: 'da Ruína',       k: 'critDmg', v: 0.12,  sc: 25,  pw: 19,   txt: (v) => '+' + pc(v) + '% de dano crítico' },
     vendaval:    { name: 'do Vendaval',    k: 'aspd',    v: 0.05,  sc: 200,  txt: (v) => '+' + pc(v) + '% de velocidade de ataque' },
-    sanguessuga: { name: 'da Sanguessuga', k: 'ls',      v: 0.025, sc: 280,  txt: (v) => 'Rouba ' + pc(v) + '% do dano como vida' },
-    fonte:       { name: 'da Fonte',       k: 'regen',   v: 0.004, sc: 6000, txt: (v) => 'Regenera ' + pc(v) + '% da vida por segundo' },
-    nevoa:       { name: 'da Névoa',       k: 'eva',     v: 0.025, sc: 220,  txt: (v) => '+' + pc(v) + '% de esquiva' },
-    mercador:    { name: 'do Mercador',    k: 'gold',    v: 0.08,  sc: 80,   txt: (v) => '+' + pc(v) + '% de moedas dos abates' },
-    garimpo:     { name: 'do Garimpo',     k: 'drop',    v: 0.08,  sc: 80,   txt: (v) => '+' + pc(v) + '% de espólio' },
-    sabio:       { name: 'do Sábio',       k: 'xp',      v: 0.08,  sc: 100,  txt: (v) => '+' + pc(v) + '% de experiência' },
+    sanguessuga: { name: 'da Sanguessuga', k: 'ls',      v: 0.025, sc: 300, pw: 280,  txt: (v) => 'Rouba ' + pc(v) + '% do dano como vida' },
+    fonte:       { name: 'da Fonte',       k: 'regen',   v: 0.004, sc: 4000, pw: 6000, txt: (v) => 'Regenera ' + pc(v) + '% da vida por segundo' },
+    nevoa:       { name: 'da Névoa',       k: 'eva',     v: 0.025, sc: 200, pw: 220,  txt: (v) => '+' + pc(v) + '% de esquiva' },
+    mercador:    { name: 'do Mercador',    k: 'gold',    v: 0.08,  sc: 100, pw: 80,   txt: (v) => '+' + pc(v) + '% de moedas dos abates' },
+    garimpo:     { name: 'do Garimpo',     k: 'drop',    v: 0.08,  sc: 100, pw: 80,   txt: (v) => '+' + pc(v) + '% de espólio' },
+    sabio:       { name: 'do Sábio',       k: 'xp',      v: 0.08,  sc: 120, pw: 100,  txt: (v) => '+' + pc(v) + '% de experiência' },
     algoz:       { name: 'do Algoz',       k: 'elite',   v: 0.10,  sc: 60,   txt: (v) => '+' + pc(v) + '% de dano contra elites e chefes' },
-    espinhos:    { name: 'dos Espinhos',   k: 'thorns',  v: 0.06,  sc: 140,  txt: (v) => 'Devolve ' + pc(v) + '% do dano recebido' },
-    mestria:     { name: 'da Mestria',     k: 'cdr',     v: 0.04,  sc: 60,   txt: (v) => '-' + pc(v) + '% de recarga das habilidades' },
-    peregrino:   { name: 'do Peregrino',   k: 'spd',     v: 0.06,  sc: 32,   txt: (v) => '+' + pc(v) + '% de velocidade de movimento' },
+    espinhos:    { name: 'dos Espinhos',   k: 'thorns',  v: 0.06,  sc: 200, pw: 140,  txt: (v) => 'Devolve ' + pc(v) + '% do dano recebido' },
+    mestria:     { name: 'da Mestria',     k: 'cdr',     v: 0.04,  sc: 150, pw: 60,   txt: (v) => '-' + pc(v) + '% de recarga das habilidades' },
+    peregrino:   { name: 'do Peregrino',   k: 'spd',     v: 0.06,  sc: 40,  pw: 32,   txt: (v) => '+' + pc(v) + '% de velocidade de movimento' },
   };
   G.INS_IDS = Object.keys(G.INS);
   G.INS_Q = ['', 'Tosca', 'Simples', 'Boa', 'Fina', 'Perfeita'];
@@ -9931,7 +9931,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
 'use strict';
 (function () {
   /* ================= 2C.3 Poder da peça ================= */
-  /* Poder da peça = G.itemScore: atributos-base da peça + o valor de CADA inscrição. O peso de cada inscrição (G.INS[id].sc) vem da
+  /* Poder da peça = atributos-base da peça + o valor de CADA inscrição. O peso de cada inscrição (G.INS[id].pw) vem da
      elasticidade do poder do herói (raiz de dano×vida efetiva, como em G.arenaHeroPow): +1% de ataque ou de vida vale +0,5% de poder,
      +1 ponto de crítico 0,35, esquiva 0,55, roubo de vida 0,7, regeneração por segundo ~15×, espinhos 0,35; dano contra elites e chefes,
      recarga e movimento valem a fatia de combate em que agem; moedas, espólio e experiência não entram em combate e valem ~0,2–0,25.
@@ -9939,10 +9939,11 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   G.insPower = (it, list) => {
     let s = 0; if (!list || !list.length) return 0;
     const U = G.PW(G.TIER_LVL(it.tier));
-    for (const e of list) { const d = G.INS[e[0]]; if (d) s += d.sc * U * G.insVal(it, e[0], e[1]); }
+    for (const e of list) { const d = G.INS[e[0]]; if (d) s += (d.pw != null ? d.pw : d.sc) * U * G.insVal(it, e[0], e[1]); }
     return s;
   };
-  G.piecePower = (it) => G.itemScore(it);
+  /* atributos-base (a pontuação sem inscrições, a mesma que a IA usa) + inscrições pesadas por pw. A IA dos heróis segue em G.itemScore. */
+  G.piecePower = (it) => G.itemScore(Object.assign({}, it, { ins: [] })) + G.insPower(it, it.ins);
   const rel = (a, b) => (a > 0 ? b / a - 1 : b > 0 ? 1 : 0);
   /* compara a peça a (a atual) com b (a nova): pct = poder total da peça, ins = só o conjunto de inscrições (null se nenhuma tem).
      same: a diferença é menor que 1% ("igual"). Frações: 0,12 = 12% melhor. */
