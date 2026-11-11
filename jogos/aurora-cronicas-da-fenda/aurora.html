@@ -4043,25 +4043,26 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* ================= Inscrições ================= */
   /* Cada peça Incomum ou melhor nasce com inscrições sorteadas. Cada inscrição tem uma qualidade de 1 a 5
      (5 = perfeita). Valor = base × multiplicador da qualidade × fator do nível da peça.
-     k = chave do total somado no herói · v = valor base (qualidade 3, nível 6) · sc = peso na pontuação da peça. */
+     k = chave do total somado no herói · v = valor base (qualidade 3, nível 6) · sc = peso na pontuação da peça (v24: calibrado pelo
+     efeito real no poder do herói; ver 3B-clareza). */
   const pc = (v) => { const x = v * 100; return (x < 10 ? x.toFixed(1) : String(Math.round(x))).replace('.', ','); };
   G.INS = {
     furia:       { name: 'da Fúria',       k: 'atk',     v: 0.06,  sc: 200,  txt: (v) => '+' + pc(v) + '% de ataque' },
-    colosso:     { name: 'do Colosso',     k: 'hp',      v: 0.07,  sc: 150,  txt: (v) => '+' + pc(v) + '% de vida' },
-    muralha:     { name: 'da Muralha',     k: 'def',     v: 0.08,  sc: 90,   txt: (v) => '+' + pc(v) + '% de defesa' },
+    colosso:     { name: 'do Colosso',     k: 'hp',      v: 0.07,  sc: 200,  txt: (v) => '+' + pc(v) + '% de vida' },
+    muralha:     { name: 'da Muralha',     k: 'def',     v: 0.08,  sc: 56,   txt: (v) => '+' + pc(v) + '% de defesa' },
     falcao:      { name: 'do Falcão',      k: 'crit',    v: 0.03,  sc: 140,  txt: (v) => '+' + pc(v) + '% de chance crítica' },
-    ruina:       { name: 'da Ruína',       k: 'critDmg', v: 0.12,  sc: 25,   txt: (v) => '+' + pc(v) + '% de dano crítico' },
+    ruina:       { name: 'da Ruína',       k: 'critDmg', v: 0.12,  sc: 19,   txt: (v) => '+' + pc(v) + '% de dano crítico' },
     vendaval:    { name: 'do Vendaval',    k: 'aspd',    v: 0.05,  sc: 200,  txt: (v) => '+' + pc(v) + '% de velocidade de ataque' },
-    sanguessuga: { name: 'da Sanguessuga', k: 'ls',      v: 0.025, sc: 300,  txt: (v) => 'Rouba ' + pc(v) + '% do dano como vida' },
-    fonte:       { name: 'da Fonte',       k: 'regen',   v: 0.004, sc: 4000, txt: (v) => 'Regenera ' + pc(v) + '% da vida por segundo' },
-    nevoa:       { name: 'da Névoa',       k: 'eva',     v: 0.025, sc: 200,  txt: (v) => '+' + pc(v) + '% de esquiva' },
-    mercador:    { name: 'do Mercador',    k: 'gold',    v: 0.08,  sc: 100,  txt: (v) => '+' + pc(v) + '% de moedas dos abates' },
-    garimpo:     { name: 'do Garimpo',     k: 'drop',    v: 0.08,  sc: 100,  txt: (v) => '+' + pc(v) + '% de espólio' },
-    sabio:       { name: 'do Sábio',       k: 'xp',      v: 0.08,  sc: 120,  txt: (v) => '+' + pc(v) + '% de experiência' },
+    sanguessuga: { name: 'da Sanguessuga', k: 'ls',      v: 0.025, sc: 280,  txt: (v) => 'Rouba ' + pc(v) + '% do dano como vida' },
+    fonte:       { name: 'da Fonte',       k: 'regen',   v: 0.004, sc: 6000, txt: (v) => 'Regenera ' + pc(v) + '% da vida por segundo' },
+    nevoa:       { name: 'da Névoa',       k: 'eva',     v: 0.025, sc: 220,  txt: (v) => '+' + pc(v) + '% de esquiva' },
+    mercador:    { name: 'do Mercador',    k: 'gold',    v: 0.08,  sc: 80,   txt: (v) => '+' + pc(v) + '% de moedas dos abates' },
+    garimpo:     { name: 'do Garimpo',     k: 'drop',    v: 0.08,  sc: 80,   txt: (v) => '+' + pc(v) + '% de espólio' },
+    sabio:       { name: 'do Sábio',       k: 'xp',      v: 0.08,  sc: 100,  txt: (v) => '+' + pc(v) + '% de experiência' },
     algoz:       { name: 'do Algoz',       k: 'elite',   v: 0.10,  sc: 60,   txt: (v) => '+' + pc(v) + '% de dano contra elites e chefes' },
-    espinhos:    { name: 'dos Espinhos',   k: 'thorns',  v: 0.06,  sc: 200,  txt: (v) => 'Devolve ' + pc(v) + '% do dano recebido' },
-    mestria:     { name: 'da Mestria',     k: 'cdr',     v: 0.04,  sc: 150,  txt: (v) => '-' + pc(v) + '% de recarga das habilidades' },
-    peregrino:   { name: 'do Peregrino',   k: 'spd',     v: 0.06,  sc: 40,   txt: (v) => '+' + pc(v) + '% de velocidade de movimento' },
+    espinhos:    { name: 'dos Espinhos',   k: 'thorns',  v: 0.06,  sc: 140,  txt: (v) => 'Devolve ' + pc(v) + '% do dano recebido' },
+    mestria:     { name: 'da Mestria',     k: 'cdr',     v: 0.04,  sc: 60,   txt: (v) => '-' + pc(v) + '% de recarga das habilidades' },
+    peregrino:   { name: 'do Peregrino',   k: 'spd',     v: 0.06,  sc: 32,   txt: (v) => '+' + pc(v) + '% de velocidade de movimento' },
   };
   G.INS_IDS = Object.keys(G.INS);
   G.INS_Q = ['', 'Tosca', 'Simples', 'Boa', 'Fina', 'Perfeita'];
@@ -4213,8 +4214,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     G.emit('inv');
     return { perfect };
   };
-  /* mudança de poder da reforja pendente, em fração (+0,12 = 12% melhor) */
-  G.reforgeDelta = (it) => { if (!it || !it.rfp) return 0; const a = G.itemScore(it), b = G.itemScore(Object.assign({}, it, { ins: it.rfp })); return a > 0 ? b / a - 1 : 0; };
+  /* mudança de poder da reforja pendente: ver G.reforgeDelta em 3B-clareza */
   /* ================= Garantia do Portal ================= */
   /* Cada sorteio de candidatos pago com moedas, sem nenhum Épico ou melhor, soma 1 ao contador. Com 10, o sorteio seguinte
      garante pelo menos um candidato Épico. A invocação com Núcleos já garante Raro+ e não mexe no contador. */
@@ -6954,7 +6954,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const ok = S.heroes.filter((h) => { const c = G.CLASSES[h.cls]; return (g.kind !== 'arma' && g.kind !== 'armadura') || c.w === it.type || c.a === it.type; });
     let h = '<div class="eyebrow">Presente do trono</div><h2>' + G.itemName(it) + '</h2><p class="lead">O herói recebe de graça (você abre mão da venda) e ganha ânimo. O equipamento antigo volta para o Armazém.</p>';
     if (!ok.length) h += '<div class="empty">Nenhum herói usa este tipo de equipamento.</div>';
-    for (const x of ok) { const cur = x.gear[g.kind]; const better = !cur || G.itemScore(it) > G.itemScore(cur); h += '<button class="opt" data-a="mgift:' + id + ':' + x.id + '"><b>' + UI.rank(x.rank) + ' ' + esc(x.name) + ' <span class="mut" style="font-weight:700">Nv ' + x.lvl + '</span></b><span class="' + (better ? 'good' : 'bad') + '">' + (cur ? 'Usa ' + G.itemName(cur) + (better ? ' — este é melhor' : ' — o atual é melhor') : 'Sem ' + G.SLOT[g.kind].toLowerCase()) + '</span></button>'; }
+    for (const x of ok) { const cur = x.gear[g.kind]; const cm = cur ? G.pieceCmp(cur, it) : null, better = !cur || cm.pct > 0; h += '<button class="opt" data-a="mgift:' + id + ':' + x.id + '"><b>' + UI.rank(x.rank) + ' ' + esc(x.name) + ' <span class="mut" style="font-weight:700">Nv ' + x.lvl + '</span></b><span class="' + (cm && cm.same ? '' : better ? 'good' : 'bad') + '">' + (cur ? 'Usa ' + G.itemName(cur) + ' — ' + (cm.same ? 'poder igual (menos de 1%)' : (better ? 'esta é melhor: ' : 'a atual é melhor: ') + UI.pctSpan(cm.pct) + ' de poder') : 'Sem ' + G.SLOT[g.kind].toLowerCase()) + '</span></button>'; }
     UI.modal(h + '<div class="acts"><button class="btn" data-a="mclose">Cancelar</button></div>', { pause: false });
   };
   UI.ACT.mgift = (a) => { const S = G.S, it = S.inv.find((i) => i.id === +a[0]), h = S.heroes.find((x) => x.id === +a[1]); if (it && h && G.equip(h, it)) { UI.toast(h.name + ' recebeu ' + G.itemName(it) + '.', 'good', 'gift'); G.emit('heroes'); } UI.closeModal(); };
@@ -7137,7 +7137,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       const col = (list, cls) => '<div class="rfcol' + (cls ? ' ' + cls : '') + '"><h4>' + (cls ? 'DEPOIS' : 'ANTES') + '</h4>' + (list && list.length ? '<div class="insl">' + list.map((e, i) => insRow(it, e).replace('<div class="ins ', '<div style="--i:' + i + '" class="ins ')).join('') + '</div>' : '<div class="ins none">Sem inscrições</div>') + '</div>';
       UI.modal('<div class="eyebrow">Reforja · Ferraria</div><h2 class="rar' + it.rar + '">' + G.itemName(it) + '</h2><p class="lead" style="margin:6px 4px 0">As inscrições foram sorteadas de novo. <b>Manter</b> fica com as de agora; <b>Aceitar</b> troca pelas novas.</p><div class="rfgrid">' + col(it.ins, '') + col(it.rfp, 'new') + '</div>' +
         (perfect ? '<div class="rfperf">★ INSCRIÇÃO PERFEITA! ★</div>' : '') +
-        '<div class="rfdelta">Poder da peça: <b class="' + (d > 0.005 ? 'good' : d < -0.005 ? 'bad' : '') + '">' + (d > 0.005 ? '+' + dp + '%' : d < -0.005 ? '-' + dp + '%' : 'igual') + '</b></div>' +
+        UI.cmpLine(it) +
         '<div class="acts"><button class="btn" data-a="mrfk:' + tag + '">Manter</button><button class="btn pri" data-a="mrfa:' + tag + '">' + ic('check') + 'Aceitar</button></div>', { pause: false, lock: true });
       if (perfect) { G.sfx('perfect'); }
       return;
@@ -9907,6 +9907,37 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
 })();
 
 ;
+/* ===== 3B-clareza.js ===== */
+/* 3B-clareza: v24 — Poder da peça (2C.3), Códex de Inscrições (2C.4) e próxima recompensa (2C.5). Simulação, sem DOM. */
+'use strict';
+(function () {
+  /* ================= 2C.3 Poder da peça ================= */
+  /* Poder da peça = G.itemScore: atributos-base da peça + o valor de CADA inscrição. O peso de cada inscrição (G.INS[id].sc) vem da
+     elasticidade do poder do herói (raiz de dano×vida efetiva, como em G.arenaHeroPow): +1% de ataque ou de vida vale +0,5% de poder,
+     +1 ponto de crítico 0,35, esquiva 0,55, roubo de vida 0,7, regeneração por segundo ~15×, espinhos 0,35; dano contra elites e chefes,
+     recarga e movimento valem a fatia de combate em que agem; moedas, espólio e experiência não entram em combate e valem ~0,2–0,25.
+     Tudo na mesma unidade dos atributos-base (ataque×4, vida×1 …), então somar e comparar é coerente. */
+  G.insPower = (it, list) => {
+    let s = 0; if (!list || !list.length) return 0;
+    const U = G.PW(G.TIER_LVL(it.tier));
+    for (const e of list) { const d = G.INS[e[0]]; if (d) s += d.sc * U * G.insVal(it, e[0], e[1]); }
+    return s;
+  };
+  G.piecePower = (it) => G.itemScore(it);
+  const rel = (a, b) => (a > 0 ? b / a - 1 : b > 0 ? 1 : 0);
+  /* compara a peça a (a atual) com b (a nova): pct = poder total da peça, ins = só o conjunto de inscrições (null se nenhuma tem).
+     same: a diferença é menor que 1% ("igual"). Frações: 0,12 = 12% melhor. */
+  G.pieceCmp = (a, b) => {
+    const pa = G.piecePower(a), pb = G.piecePower(b), pct = rel(pa, pb);
+    const ia = G.insPower(a, a.ins), ib = G.insPower(b, b.ins);
+    return { pa, pb, pct, ins: ia > 0 || ib > 0 ? rel(ia, ib) : null, same: Math.abs(pct) < 0.01 };
+  };
+  G.reforgeDelta = (it) => (it && it.rfp ? G.pieceCmp(it, Object.assign({}, it, { ins: it.rfp })).pct : 0);
+
+  /* @@fim3B */
+})();
+
+;
 /* ===== 67-ui-clareza.js ===== */
 /* 67-ui-clareza: v24 — guia que aponta o próximo toque (2C.1), fila única de janelas (2C.2), códex de inscrições (2C.4),
    próxima recompensa (2C.5) e ajustes de legibilidade do HUD (2C.6). Só interface. */
@@ -10032,6 +10063,16 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       app.insertAdjacentHTML('beforeend', '<div id="guide"><i class="gd-ring p"></i><i class="gd-ring"></i><div class="gd-hand">' + HAND + '</div><div class="gd-tip"><span></span><button class="gd-x" data-a="gdoff" title="Dispensar dicas">' + ic('close') + '</button></div></div>');
       gd = $('#guide'); requestAnimationFrame(guideFrame);
     }
+  };
+
+  /* ================= 2C.3 Poder da peça: +N% / −N% com cor ================= */
+  UI.pctTxt = (x) => (x < 0 ? '−' : '+') + Math.round(Math.abs(x) * 100) + '%';
+  UI.pctSpan = (x) => (Math.abs(x) < 0.01 ? '<b>igual</b>' : '<b class="' + (x > 0 ? 'good' : 'bad') + '">' + UI.pctTxt(x) + '</b>');
+  /* linha da reforja: poder da peça (todas as inscrições pesam) e, abaixo, só o conjunto de inscrições */
+  UI.cmpLine = (it) => {
+    const c = G.pieceCmp(it, Object.assign({}, it, { ins: it.rfp }));
+    return '<div class="rfdelta">Poder da peça: ' + UI.pctSpan(c.pct) + (c.same ? ' <small class="mut">(menos de 1%)</small>' : '') +
+      (c.ins != null ? '<br><small class="mut">só as inscrições: ' + UI.pctSpan(c.ins) + '</small>' : '') + '</div>';
   };
 
   /* ================= 2C.2 fila única de janelas ================= */
