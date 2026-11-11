@@ -19,7 +19,7 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - `AVALIACAO.md` — rubrica de diversão/vício e notas de cada ciclo.
 
 ## Estado atual
-- Ciclo 1 — pesquisa concluída (`pesquisa/`). Rubrica e notas da base em `AVALIACAO.md` (Diversão 7,2 · Viciante 5,8).
+- Ciclo 1 concluído (v23.0): Diversão 7,2 → 8,0 · Viciante 5,8 → 7,7. Ciclo 2 em andamento (`PLANO-CICLO-2.md`).
 - Método (desde 16:30 UTC de 11/11): **um lote por vez, direto na branch `ccr-5878aa8d-eltmr3`**, com commit e
   push a cada item concluído e o item marcado abaixo. Assim nada se perde se o limite de uso pausar a sessão.
 - Para retomar: o próximo item é o primeiro `[ ]` da lista. Relance um Sonnet (esforço extra alto) com o
@@ -40,8 +40,32 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - [x] 1B.4 Semana temática com prazo real
 
 ### Depois do ciclo 1
-- [ ] Avaliação do líder (simulador + navegador) e notas novas em `AVALIACAO.md`
-- [ ] Ciclo 2 (`PLANO-CICLO-2.md`)
+- [x] Avaliação do líder (simulador + navegador) e notas novas em `AVALIACAO.md` → **Diversão 8,0 · Viciante 7,7**
+
+### Lote 2-A — Arena das Duas Luas (`PLANO-CICLO-2.md`)
+- [ ] 2A.1 Reinos rivais
+- [ ] 2A.2 Duelo (determinístico, animado, funciona sem tela)
+- [ ] 2A.3 Tíquetes e temporada semanal com ligas
+- [ ] 2A.4 Loja de Insígnias + sumidouro de moedas
+- [ ] 2A.5 Acesso, passo da Jornada e eventos de duelo
+- [ ] 2A.6 Robô do simulador duela; taxa de vitória 55–70%
+
+### Lote 2-B — Lendas pessoais e Poder do Reino
+- [ ] 2B.1 Livro de Feitos
+- [ ] 2B.2 Títulos
+- [ ] 2B.3 Herói do Dia
+- [ ] 2B.4 Poder do Reino, recordes e marcos
+
+### Lote 2-C — Clareza, coleção e próxima recompensa
+- [ ] 2C.1 Tutorial que aponta
+- [ ] 2C.2 Fila única de janelas
+- [ ] 2C.3 Poder da peça correto
+- [ ] 2C.4 Códex de Inscrições
+- [ ] 2C.5 Próxima recompensa no HUD
+- [ ] 2C.6 HUD mais limpo
+
+### Depois do ciclo 2
+- [ ] Avaliação do líder e notas novas em `AVALIACAO.md`
 
 ## Histórico
 | Data | Ciclo | Etapa | Resultado |
@@ -51,3 +75,4 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 | 2026-11-11 | 1 | Lotes 1-A e 1-B em paralelo pararam no limite de 5 h; as worktrees se perderam no reinício do contêiner | Refeito em série, com push por item |
 | 2026-11-11 | 1 | Lote 1-A concluído (v23.0): inscrições, reforja, cerimônia, garantia do Portal, jogo novo sem novidades | Capturas em `capturas/ciclo1-a/`; simulador sem erros |
 | 2026-11-11 | 1 | Lote 1-B concluído: cartas de retorno, calendário de 7 dias, criatura da sorte, semana temática (módulos `38-retorno` e `64-ui-retorno`) | Capturas em `capturas/ciclo1-b/`; simulador sem erros e idêntico à base 23.0 quando nenhuma semana está ativa (`--week=none`) |
+| 2026-11-11 | 1 | Lote 1-B concluído; avaliação do ciclo 1 | Diversão 8,0 · Viciante 7,7 |

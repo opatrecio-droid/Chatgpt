@@ -64,3 +64,37 @@ maior vazio 408 s (minutos 3–10), primeira promoção aos 13 min, nenhum erro.
 | V9 | 5 | Eventos aleatórios e Lua Rubra; **nada com prazo real** |
 | V10 | 7 | Relatório do dia e Nível de Reino; falta "Poder do Reino" e recordes |
 | **Viciante** | **5,8** | |
+
+---
+
+## Ciclo 1 — avaliação da v23.0 (lotes 1-A e 1-B) · 2026-11-11
+
+Evidência: jogo novo no Chromium (412×860) por 100 s registrando cada janela — só o tutorial da Rosa no
+início e o calendário aos 81 s; capturas de `capturas/ciclo1-a/` e `capturas/ciclo1-b/`; simulador 3 h
+(sementes 1 e 2): 256/224 momentos (base: 223/210), mediana 19/25 s entre momentos (base 27/28 s),
+maior vazio 315/319 s (base 408/319 s), zero erros; save da v22 abre sem erros.
+
+| # | Antes | Agora | Evidência / o que falta para 10 |
+|---|---|---|---|
+| D1 | 5 | 8 | Início limpo. Falta: tutorial mais curto e interativo (seta/pulso no próximo toque), primeira decisão < 30 s |
+| D2 | 8 | 8 | A criatura da sorte dá vida. Falta: heróis comentarem feitos e rivais |
+| D3 | 7 | 9 | Feixe, clarão, carta que vira, cartas de retorno. Falta: comemorar recordes/marcos de poder |
+| D4 | 7 | 8 | Reforja e cartas criam decisões; maior vazio caiu de 408 s para ~315 s |
+| D5 | 7 | 7 | Sem mudança: falta história e feitos pessoais |
+| D6 | 8 | 8 | Falta duelo contra rivais |
+| D7 | 8 | 8 | Falta meta semanal competitiva |
+| D8 | 7 | 7 | HUD mais cheio (faixa da semana, chip de buff); reforja mostra "Poder da peça: igual" mesmo mudando muito; save antigo empilha retorno + 3 novidades + calendário |
+| D9 | 7 | 9 | Inscrições criam builds; falta códex para perseguir conjuntos perfeitos |
+| D10 | 8 | 8 | Sem erros; moedas acumulam (90k–156k às 3 h no robô) sem nada que valha comprar no meio do jogo |
+| **Diversão** | **7,2** | **8,0** | |
+| V1 | 5 | 9 | Inscrições + garantia do Portal + semana do Portal |
+| V2 | 5 | 9 | Reforja Manter/Aceitar + aprimoramento +N |
+| V3 | 7 | 8 | Falta "próxima recompensa" sempre visível |
+| V4 | 5 | 9 | Cartas de retorno |
+| V5 | 6 | 9 | Calendário de 7 dias + contratos + sequência |
+| V6 | 8 | 8 | Falta códex de inscrições/peças |
+| V7 | 8 | 8 | — |
+| V8 | 2 | 2 | **Ainda sem competição** |
+| V9 | 5 | 8 | Semana temática com prazo; falta chefe da semana |
+| V10 | 7 | 7 | Falta Poder do Reino e recordes |
+| **Viciante** | **5,8** | **7,7** | |
