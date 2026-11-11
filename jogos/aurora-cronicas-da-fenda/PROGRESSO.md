@@ -20,12 +20,32 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 
 ## Estado atual
 - Ciclo 1 — pesquisa concluída (`pesquisa/`). Rubrica e notas da base em `AVALIACAO.md` (Diversão 7,2 · Viciante 5,8).
-- Em andamento: lotes 1-A (forja-loteria) e 1-B (retorno diário) com dois Sonnet em paralelo, cada um em sua worktree.
-- Próximo passo: juntar as duas branches em `aurora.html`, rodar simulador + navegador, reavaliar a rubrica e lançar o ciclo 2 (`PLANO-CICLO-2.md`).
-- Se a sessão foi interrompida antes da junção: verifique `git branch -a` e `git worktree list` por branches dos lotes; se sumiram, relance os lotes conforme `PLANO-CICLO-1.md`.
+- Método (desde 16:30 UTC de 11/11): **um lote por vez, direto na branch `ccr-5878aa8d-eltmr3`**, com commit e
+  push a cada item concluído e o item marcado abaixo. Assim nada se perde se o limite de uso pausar a sessão.
+- Para retomar: o próximo item é o primeiro `[ ]` da lista. Relance um Sonnet (esforço extra alto) com o
+  lote correspondente de `PLANO-CICLO-1.md`, dizendo quais itens já estão `[x]`.
+
+### Lote 1-A — forja-loteria e primeiro minuto
+- [ ] 1A.1 Jogo novo sem janelas de novidades de versões antigas
+- [ ] 1A.2 Inscrições aleatórias nos equipamentos (efeitos reais)
+- [ ] 1A.3 Reforja "manter ou aceitar" + Pó de Reforja do desmonte
+- [ ] 1A.4 Cerimônia de raridade (Épico+, maior para Lendário/Mítico)
+- [ ] 1A.5 Garantia do Portal (10 sorteios)
+- [ ] 1A.6 Versão 23.0
+
+### Lote 1-B — voltar é um presente
+- [ ] 1B.1 Tela de retorno com cartas para virar
+- [ ] 1B.2 Calendário de 7 dias
+- [ ] 1B.3 Criatura da sorte tocável
+- [ ] 1B.4 Semana temática com prazo real
+
+### Depois do ciclo 1
+- [ ] Avaliação do líder (simulador + navegador) e notas novas em `AVALIACAO.md`
+- [ ] Ciclo 2 (`PLANO-CICLO-2.md`)
 
 ## Histórico
 | Data | Ciclo | Etapa | Resultado |
 |---|---|---|---|
 | 2026-11-11 | 1 | Base v22 copiada para o repositório; pesquisa disparada | — |
 | 2026-11-11 | 1 | Pesquisa (3 relatórios), simulador `ferramentas/sim.js`, rubrica e plano | Diversão 7,2 · Viciante 5,8 |
+| 2026-11-11 | 1 | Lotes 1-A e 1-B em paralelo pararam no limite de 5 h; as worktrees se perderam no reinício do contêiner | Refeito em série, com push por item |
