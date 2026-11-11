@@ -93,7 +93,7 @@
     const S = G.S, bid = h.dest, act = h.act, D = G.SVC[bid], own = !!D && D.act === act;
     if (act === 'eat' && !(S.res.refeicao >= 1)) { h.state = 'town'; G.bark(h, 'hungry', 0.6); return; }
     if (h._waitB !== bid) h._waitN = 0;
-    const cap = G.bldCap(bid), crit = act === 'eat' ? h.fome < 8 : h.hp < st.hp * 0.3;
+    const cap = G.bldCap(bid), crit = act === 'eat' ? h.fome <= 0 : h.hp < st.hp * 0.3;
     if (cap && !crit && G.bldIn(bid) >= cap) {
       if ((h._waitN || 0) < G.WAIT_MAX) return wait(h, bid);
       S.stats.svcExtra = (S.stats.svcExtra || 0) + 1;   // terceira tentativa: atendido mesmo lotado

@@ -46,3 +46,25 @@ add("if (h.hp < st.hp * 0.85 && G.bOk('enfermaria') && h.gold >= G.price(h, 'hea
 add("const c = G.price(h, 'revive') * 2; if (!G.spend(c, 'cura')) return false;", "const c = G.reviveCost(h); if (!G.spend(c, 'cura')) return false;")
 add("if (h.state === 'recover' || h.state === 'fallen') return G.price(h, 'revive') * 2;", "if (h.state === 'recover' || h.state === 'fallen') return G.reviveCost(h);")
 add("h.state = 'town'; h.inside = null; h.hp = st.hp * 0.6; h.wound = S.t + 150;", "h.state = 'town'; h.inside = null; h.hp = st.hp * G.reviveHp(); h.wound = S.t + 150;")
+
+# ---------- interface ----------
+# ícone de fala (Vozes da cidade)
+add("    trash: '<path", "    chat: '<path fill-rule=\"evenodd\" d=\"M4 3h16a2 2 0 012 2v10a2 2 0 01-2 2h-8.500L6.500 21.500V17H4a2 2 0 01-2-2V5a2 2 0 012-2zm3.500 6.500a1.500 1.500 0 100 3 1.500 1.500 0 000-3zm4.500 0a1.500 1.500 0 100 3 1.500 1.500 0 000-3zm4.500 0a1.500 1.500 0 100 3 1.500 1.500 0 000-3z\"/>',\n    trash: '<path")
+# tocar numa construção abre o painel do prédio
+add("    else if (r.type === 'bld') UI.open('reino', 'obras', { bld: r.id });", "    else if (r.type === 'bld') { if (UI.bldPanel) UI.bldPanel(r.id); else UI.open('reino', 'obras', { bld: r.id }); }")
+# Reino › Prédios: botão de informação em cada cartão
+add("'</h3><p>' + (l ? bldEffect(id, l) : d.desc) + '</p></div></div>';",
+    "'</h3><p>' + (l ? bldEffect(id, l) : d.desc) + '</p></div><button class=\"btn sm bpi\" data-a=\"bp:' + id + '\" aria-label=\"Painel do prédio\">' + ic('info') + '</button></div>';")
+add("<div class=\"gr\"><h3>' + d.name + '</h3><p>Requer Cidadela nível ' + d.cid + '. ' + d.desc + '</p></div></div></div>';",
+    "<div class=\"gr\"><h3>' + d.name + '</h3><p>Requer Cidadela nível ' + d.cid + '. ' + d.desc + '</p></div><button class=\"btn sm bpi\" data-a=\"bp:' + id + '\" aria-label=\"Painel do prédio\">' + ic('info') + '</button></div></div>';")
+# Reino › Mercado: encomendas da caravana
+add("        h += mascateCard();", "        h += mascateCard() + ordSec(v);")
+add("'-saque': 'Saque da Maré' };", "'-saque': 'Saque da Maré', '-encomendas': 'Encomendas da caravana', reembolso: 'Encomendas canceladas' };")
+# guia de novidades da v23
+add("else if (!G.S.tut.seen.v22 && UI.compGuide) UI.compGuide(); }", "else if (!G.S.tut.seen.v22 && UI.compGuide) UI.compGuide(); else if (!G.S.tut.seen.v23 && UI.ofiGuide) UI.ofiGuide(); }")
+# ficha: efeitos em curso (bem alimentado, descansado, ferido)
+add("' poções · espólio ' + v.T(() => x.bagN + ' / ' + G.bagCap(x)) + '</p>';",
+    "' poções · espólio ' + v.T(() => x.bagN + ' / ' + G.bagCap(x)) + '</p><p class=\"efl\">' + v.T(() => G.effText(x)) + '</p>';")
+# ficha: reerguer com o custo da dificuldade
+add("v.Dis(() => G.S.gold < G.price(x, 'revive') * 2) + '>' + ic('heart') + 'Reerguer · ' + G.fmt(G.price(x, 'revive') * 2) + '</button>",
+    "v.Dis(() => G.S.gold < G.reviveCost(x)) + '>' + ic('heart') + 'Reerguer · ' + v.T(() => G.fmt(G.reviveCost(x))) + '</button>")
