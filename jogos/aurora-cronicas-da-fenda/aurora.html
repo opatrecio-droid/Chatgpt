@@ -4032,7 +4032,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.newGame = () => {
     const S = ng0();
     S.tut.seen = S.tut.seen || {};
-    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = 1;
+    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = S.tut.seen.v24 = 1;
     return S;
   };
 
@@ -6011,7 +6011,6 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     hud.refresh(); rosterV.refresh(); refreshRosterIcons(); navV.refresh(); decV.refresh(); refreshQuest();
     if (R.sel) { inspV.refresh(); if (R.sel.type === 'mon' && (R.sel.ref.dead || R.sel.ref.gone)) UI.inspect(null); }
     if (UI.sheet) UI.sheetRefresh();
-    if (G.S.tut.done && !UI.modalOpen) { if (!G.S.tut.seen.v20 && UI.vocGuide) UI.vocGuide(); else if (!G.S.tut.seen.v21 && UI.legGuide) UI.legGuide(); else if (!G.S.tut.seen.v22 && UI.compGuide) UI.compGuide(); }
     /* barra de chefe */
     let boss = null; for (const m of G.mons) if (m.boss && !m.dead && m.tgt) { boss = m; break; }
     const bb = $('#bossbar');
@@ -6024,12 +6023,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const wireEvents = () => {
     G.on('toast', (d) => UI.toast(d.m, d.k, d.icon));
     G.on('heroes', buildRoster); G.on('promo', buildRoster); G.on('bld', () => { buildRoster(); });
-    G.on('start', (d) => { $('#title').classList.remove('on'); buildRoster(); questSig = ''; UI.refresh(); if (d.off) UI.offlineModal(d.off); else if (!G.S.tut.done) setTimeout(() => UI.tutorial(), 600); });
+    G.on('start', (d) => { $('#title').classList.remove('on'); buildRoster(); questSig = ''; UI.refresh(); if (d.off) UI.queueModal(UI.PRIO.retorno, () => UI.offlineModal(d.off), 'retorno'); if (!G.S.tut.done) UI.queueModal(UI.PRIO.tut, () => { if (G.S.tut.done) return false; UI.tutorial(); }, 'tut'); });
     G.on('realm', (d) => { UI.banner(d.threatUp ? 'A ameaça cresce: ' + d.threatUp : 'O renome de Aurora cresce', 'Nível de Reino ' + d.lvl, '+' + G.fmt(d.gold) + ' moedas · +' + d.selos + ' Selo' + (d.selos > 1 ? 's' : '') + (d.unlocked.length ? ' · Novo: ' + d.unlocked.join(', ') : '')); });
     G.on('boss', (d) => { UI.banner('Um chefe despertou', G.MON[G.ZONE[d.z].boss].name, G.ZONE[d.z].name); });
-    G.on('mare', (d) => { if (d.on) UI.banner('Às armas!', 'Maré da Fenda', 'Invasores marcham sobre Aurora'); else UI.mareModal(d); });
+    G.on('mare', (d) => { if (d.on) UI.banner('Às armas!', 'Maré da Fenda', 'Invasores marcham sobre Aurora'); else UI.queueModal(UI.PRIO.evento, () => UI.mareModal(d)); });
     G.on('rift', () => {});
-    G.on('event', (e) => UI.eventModal(e));
+    G.on('event', (e) => UI.queueModal(UI.PRIO.evento, () => { if (G.S.ev.pending !== e.id) return false; UI.eventModal(e); }, 'evento'));
     G.on('newday', (t) => { UI.toast('Dia ' + G.S.day + ' — ontem: +' + G.fmt(t._in) + ' / −' + G.fmt(t._out) + ' moedas', 'info', 'sun'); });
     G.on('camzone', (zi) => { const el = $('#zonechip'); const z = zi >= 0 && zi < G.ZONES.length ? G.ZONES[zi] : null; const name = z ? z.name + ' · Nv ' + G.zoneLvl(z, G.S.zones[z.id].tier) : zi === 7 ? 'Cratera da Fenda' : zi === 8 ? 'Aurora' : zi === 9 ? 'Mata dos Lenhadores' : ''; if (!name) { el.classList.remove('on'); return; } el.textContent = name; el.classList.add('on'); clearTimeout(zoneT); zoneT = setTimeout(() => el.classList.remove('on'), 2600); });
     for (const ev of ['bld', 'inv', 'heroes', 'daily', 'quest', 'bless', 'works', 'realm', 'rift', 'mare', 'ach', 'newday', 'promo', 'bosskill', 'boss', 'eventdone', 'hour', 'stable', 'decor', 'cos', 'diff', 'pets', 'inc']) G.on(ev, () => UI.sheetDirty(ev));
@@ -6469,13 +6468,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     dall: (a) => { const r = +a[0], n = G.S.inv.filter((it) => !it.lock && it.rar === r).length; if (!n) return; UI.confirm('Desmontar ' + n + ' peça(s)?', 'Todas as peças de raridade ' + G.RAR[r] + ' que não estão reservadas viram material (metade da receita, Pó de Reforja' + (r ? ' e Pó Estelar' : '') + '). Não há como desfazer.', 'Desmontar tudo', () => { const o = G.dismantleAll(r); if (o.n) UI.toast(o.n + ' peça(s) desmontada(s): ' + Object.keys(o.tot).map((k) => '+' + o.tot[k] + ' ' + G.RES[k].name.split(' ').slice(0, G.RES[k].sp ? 3 : 1).join(' ')).join(', '), 'good', 'hammer'); }); },
   });
   /* guia das novidades: aparece uma vez, depois da apresentação */
-  UI.vocGuide = () => {
-    G.S.tut.seen.v20 = 1;
-    UI.modal('<div class="eyebrow">Aurora · Vocações</div><h2>Novos caminhos</h2><p class="lead">A ficha de cada herói ganhou cinco abas. Toque em um herói e explore.</p>' +
-      [['spark', 'Vocações', 'No Rank C e no Rank A o herói muda de classe: dois ramos, quatro destinos, uma 2ª e uma 3ª habilidade.'], ['book', 'Artes Secretas', '15 artes de 0 a 100. Cada nível, promoção e chefe rende pontos.'], ['star', 'Despertar', 'Quatro estágios com Cristais de Alma e Pó Estelar.'], ['shoe', 'Montarias', 'O Estábulo (Cidadela 3) doma seis espécies e faz ração.'], ['anvil', '8 peças de equipamento', 'Elmo, botas, manoplas, cinturão e anel abrem com a Ferraria.'], ['chest', 'Armazém e Decoração', 'Reserve, desmonte em lote e enfeite a praça por bônus e Encanto.']]
-        .map(([i, t, d]) => '<div class="row" style="margin-bottom:9px"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px;color:var(--gold2)">' + ic(i) + '</span><div class="gr"><b style="font-size:13px">' + t + '</b><br><span class="mut" style="font-size:12px">' + d + '</span></div></div>').join('') +
-      '<div class="acts"><button class="btn pri" data-a="mclose">Entendi</button></div>');
-  };
+  UI.NEWS = UI.NEWS || {};
+  UI.NEWS.v20 = { t: 'Vocações e ficha do herói', n: 'Aurora · Vocações', lead: 'A ficha de cada herói ganhou cinco abas. Toque em um herói e explore.', rows: [['spark', 'Vocações', 'No Rank C e no Rank A o herói muda de classe: dois ramos, quatro destinos, uma 2ª e uma 3ª habilidade.'], ['book', 'Artes Secretas', '15 artes de 0 a 100. Cada nível, promoção e chefe rende pontos.'], ['star', 'Despertar', 'Quatro estágios com Cristais de Alma e Pó Estelar.'], ['shoe', 'Montarias', 'O Estábulo (Cidadela 3) doma seis espécies e faz ração.'], ['anvil', '8 peças de equipamento', 'Elmo, botas, manoplas, cinturão e anel abrem com a Ferraria.'], ['chest', 'Armazém e Decoração', 'Reserve, desmonte em lote e enfeite a praça por bônus e Encanto.']] };
+  UI.vocGuide = () => UI.whatsNew && UI.whatsNew(['v20']);
 
   /* ================= FORJA ================= */
   let forgeTier = 0;
@@ -6747,13 +6742,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     pathclaim: (a) => { const t = G.pathClaim(a[0]); if (t) { UI.toast('Caminho concluído: ' + t, 'good', 'chest'); draw(false); } },
     artautotog: (a) => { const h = hid(a[0]); if (!h) return; h.autoArt = h.autoArt ? 0 : 1; if (h.autoArt) G.artAuto(h); draw(false); },
   });
-  UI.legGuide = () => {
-    G.S.tut.seen.v21 = 1;
-    UI.modal('<div class="eyebrow">Aurora · Legado</div><h2>O que há de novo</h2>' +
-      [['shirt', 'Trajes e asas', 'Os espaços roxos ao lado do herói abrem o Ateliê. Cada peça muda o visual e dá um bônus.'], ['crown', 'Relíquias', 'Cada chefe de zona guarda uma. A 3ª vitória garante.'], ['skull', 'Dificuldade', 'A caveira no alto da tela troca entre Fácil, Normal, Difícil e Pesadelo.'], ['flower', 'Enfeites móveis', 'Reino › Decoração › Mover: toque no ladrilho onde quer cada peça.'], ['map', 'Caminhos', 'Missões › Caminhos: objetivos livres com recompensas.']]
-        .map(([i, t, d]) => '<div class="row" style="margin-bottom:9px"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px;color:var(--gold2)">' + ic(i) + '</span><div class="gr"><b style="font-size:13px">' + t + '</b><br><span class="mut" style="font-size:12px">' + d + '</span></div></div>').join('') +
-      '<div class="acts"><button class="btn pri" data-a="mclose">Entendi</button></div>');
-  };
+  UI.NEWS.v21 = { t: 'Legado: trajes, relíquias e dificuldade', n: 'Aurora · Legado', rows: [['shirt', 'Trajes e asas', 'Os espaços roxos ao lado do herói abrem o Ateliê. Cada peça muda o visual e dá um bônus.'], ['crown', 'Relíquias', 'Cada chefe de zona guarda uma. A 3ª vitória garante.'], ['skull', 'Dificuldade', 'A caveira no alto da tela troca entre Fácil, Normal, Difícil e Pesadelo.'], ['flower', 'Enfeites móveis', 'Reino › Decoração › Mover: toque no ladrilho onde quer cada peça.'], ['map', 'Caminhos', 'Missões › Caminhos: objetivos livres com recompensas.']] };
+  UI.legGuide = () => UI.whatsNew && UI.whatsNew(['v21']);
 
   /* ================= v22: mascotes, Viveiro, espólio no chão e Incursões ================= */
   const petImg = (k, w) => '<i class="px pimg" style="width:' + w + 'px;height:' + Math.round(w * 12 / 14) + 'px;background-image:url(' + A.petURL(k) + ')"></i>';
@@ -6876,17 +6866,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (!d || !d.end || !d.last) return; const L = d.last;
     if (L.win) UI.banner('Incursão vencida · Grau ' + G.roman(L.g), L.k ? G.PETS[L.k].name + ' ' + G.RAR[L.rar] : 'Vitória', L.pet ? 'Um ovo chocou no Viveiro' : 'Viveiro cheio: o ovo virou Pó Estelar e Cristal de Alma');
   });
-  UI.compGuide = () => {
-    G.S.tut.seen.v22 = 1;
-    UI.modal('<div class="eyebrow">Aurora v22 · Companheiros</div><h2>O que há de novo</h2>' +
-      [['bag', 'Espólio no chão', 'Metade do que os monstros soltam vai para a bolsa do herói; a outra metade cai no chão e some depois de um tempo. Toque no brilho para mandar direto ao Armazém.'],
+  UI.NEWS.v22 = { t: 'Companheiros: mascotes e Incursões', n: 'Aurora v22 · Companheiros', rows: [['bag', 'Espólio no chão', 'Metade do que os monstros soltam vai para a bolsa do herói; a outra metade cai no chão e some depois de um tempo. Toque no brilho para mandar direto ao Armazém.'],
         ['paw', 'Mascotes de verdade', 'Cada herói leva um mascote que recolhe o que caiu e entrega na Guilda junto com ele. Toque no espaço roxo «Mascote» da ficha.'],
         ['star', 'Raridade e papéis', 'Raridade maior carrega mais. Alguns lançam Fraqueza nos monstros, outros dão vida e curam o dono.'],
         ['skull', 'Incursões', 'Missões › Incursões, a partir do Nível de Reino 6: elites, um Alfa e um ovo de mascote no fim. Graus altos chocam crias raras.'],
-        ['chest', 'Viveiro e fusão', 'Armazém › Ateliê › Viveiro: três mascotes da mesma raridade viram um da raridade seguinte.']]
-        .map(([i, t, d]) => '<div class="row" style="margin-bottom:9px"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px;color:var(--gold2)">' + ic(i) + '</span><div class="gr"><b style="font-size:13px">' + t + '</b><br><span class="mut" style="font-size:12px">' + d + '</span></div></div>').join('') +
-      '<div class="acts"><button class="btn pri" data-a="mclose">Entendi</button></div>');
-  };
+        ['chest', 'Viveiro e fusão', 'Armazém › Ateliê › Viveiro: três mascotes da mesma raridade viram um da raridade seguinte.']] };
+  UI.compGuide = () => UI.whatsNew && UI.whatsNew(['v22']);
   document.addEventListener('input', (e) => { const k = e.target.getAttribute && e.target.getAttribute('data-opt'); if (k && G.S) { G.S.opts[k] = +e.target.value / 100; G.emit('opts'); } });
 })();
 
@@ -7214,8 +7199,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
   const pump = () => {
     if (cur) { if ($('#modal .rc[data-cid="' + cur.cid + '"]')) return; Q.unshift(cur.d); cur = null; }   // outra janela tomou o lugar: a carta volta à fila
-    if (!Q.length || UI.modalOpen || !G.S || !G.S.tut.done || !G.M.running) return;
-    showCard(Q.shift());
+    if (Q.length) UI.queueModal(UI.PRIO.cerimonia, () => { if (!Q.length || !G.M.running) return false; showCard(Q.shift()); }, 'cartas');
   };
   UI.ACT.rcflip = () => { if (cur) flip(cur.cid); };
   UI.ACT.rclock = (a) => { const it = G.S.inv.find((i) => i.id === +a[0]) || (cur && cur.d.it); if (!it) return; G.toggleLock(it); const b = $('#rclock'); if (b) b.innerHTML = ic(it.lock ? 'lock' : 'unlock') + (it.lock ? 'Reservada' : 'Reservar'); UI.sheetDirty(); };
@@ -7827,14 +7811,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   UI.closeModal = () => { lastClose = performance.now(); cm0(); };
   G.on('start', () => { startAt = performance.now(); lastLuckyV = null; });
   const pump = () => {
-    const S = G.S; if (!S || !G.M.running || UI.modalOpen || !S.tut.done) return;
-    const now = performance.now(); if (now - lastClose < 700 || now - startAt < 500) return;
+    const S = G.S; if (!S || !G.M.running) return;
     const r = G.ret();
-    if (r.off && r.off.cards && r.off.cards.length) { UI.offlineModal(r.off); return; }           // a página foi fechada sem entregar: mesmas cartas
+    if (r.off && r.off.cards && r.off.cards.length) UI.queueModal(UI.PRIO.retorno, () => { const o = G.ret().off; if (!o || !o.cards || !o.cards.length) return false; UI.offlineModal(o); }, 'retorno');   // a página foi fechada sem entregar: mesmas cartas
+    if (!S.tut.done) return;
     const st = G.calState(), c = r.cal;
     if (st.ok && c.shown !== st.today) {
-      if (!c.arm) c.arm = S.t + (S.stats.played < 400 ? 75 : 2);                                // jogo novo: só depois da apresentação e de um respiro
-      if (S.t >= c.arm) { c.shown = st.today; UI.calModal(); }
+      if (!c.arm) c.arm = S.t + (S.stats.played < 400 ? 150 : 2);                               // jogo novo: só depois da apresentação, das primeiras missões e de um respiro
+      if (S.t >= c.arm) UI.queueModal(UI.PRIO.calendario, () => { const s2 = G.calState(); if (!s2.ok) return false; G.ret().cal.shown = s2.today; UI.calModal(); }, 'calendario');
     }
   };
   const rf1 = UI.refresh;
@@ -9126,8 +9110,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const startAt0 = { t: 0 };
   G.on('start', () => { startAt0.t = performance.now(); });
   const pump = () => {
-    const S = G.S; if (!S || !G.M.running || UI.modalOpen || !S.tut.done || performance.now() - startAt0.t < 1500) return;
-    const a = S.arena; if (a && a.pend) seasonModal(a.pend);
+    const S = G.S; if (!S || !G.M.running) return;
+    const a = S.arena; if (a && a.pend) UI.queueModal(UI.PRIO.arena, () => { const a2 = G.S.arena; if (!a2 || !a2.pend) return false; seasonModal(a2.pend); }, 'arena-bau');
   };
   const rf1 = UI.refresh;
   UI.refresh = () => { rf1(); pump(); };
@@ -9892,8 +9876,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const n = $('#pm-n'); if (n) roll(n, d.v, 1100);
   };
   const pump = () => {
-    if (!Q.length || UI.modalOpen || !G.S || !G.S.tut.done || !G.M.running) return;
-    showMark(Q.shift());
+    if (Q.length) UI.queueModal(UI.PRIO.cerimonia, () => { if (!Q.length) return false; showMark(Q.shift()); }, 'marcos');
   };
   G.on('pmark', (d) => { Q.push(d); const chip = $('#pwr'); if (chip) { chip.classList.remove('big', 'up'); void chip.offsetWidth; chip.classList.add('big'); } setTimeout(pump, 500); });
   G.on('start', () => { Q = []; cur = null; });
@@ -10049,6 +10032,113 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       app.insertAdjacentHTML('beforeend', '<div id="guide"><i class="gd-ring p"></i><i class="gd-ring"></i><div class="gd-hand">' + HAND + '</div><div class="gd-tip"><span></span><button class="gd-x" data-a="gdoff" title="Dispensar dicas">' + ic('close') + '</button></div></div>');
       gd = $('#guide'); requestAnimationFrame(guideFrame);
     }
+  };
+
+  /* ================= 2C.2 fila única de janelas ================= */
+  /* Nenhuma janela abre por cima de outra. Quem quer abrir uma janela sozinha (retorno, novidades, baú da Arena, calendário,
+     cerimônias, eventos) chama UI.queueModal(prioridade, fn, chave); a fila abre uma de cada vez, a de menor prioridade
+     primeiro, com ~600 ms de respiro depois de cada fechamento. fn() abre a janela (e devolve false se já não vale a pena).
+     Janelas que o jogador abre com um toque continuam abrindo na hora. */
+  const PRIO = (UI.PRIO = { tut: 0, retorno: 1, novidades: 2, arena: 3, calendario: 4, cerimonia: 5, evento: 6 });
+  const GAP = 600;
+  let QQ = [], lastCloseT = 0, qSeq = 0, qTimer = 0, showingKey = '';
+  const qSoon = (ms) => { clearTimeout(qTimer); qTimer = setTimeout(qPump, Math.max(0, ms)); };
+  UI.queueModal = (prio, fn, key) => {
+    if (key && (showingKey === key || QQ.some((e) => e.key === key))) return;
+    QQ.push({ prio, fn, key: key || '', seq: ++qSeq });
+    qSoon(0);
+  };
+  UI.queueBusy = () => QQ.length > 0 || UI.modalOpen;
+  UI.queueLog = [];                                                // para testes: { t, key } de cada janela aberta pela fila
+  const qPump = () => {
+    if (!QQ.length || !G.S || !G.M.running || UI.modalOpen) return;
+    const wait = GAP - (performance.now() - lastCloseT);
+    if (wait > 0) return qSoon(wait + 15);
+    QQ.sort((a, b) => a.prio - b.prio || a.seq - b.seq);
+    const i = QQ.findIndex((e) => e.prio <= PRIO.retorno || G.S.tut.done);
+    if (i < 0) return;
+    const e = QQ.splice(i, 1)[0];
+    try { e.fn(); } catch (err) { console.error(err); }
+    if (UI.modalOpen) { showingKey = e.key; UI.queueLog.push({ t: Math.round(performance.now()), key: e.key || ('p' + e.prio) }); if (UI.queueLog.length > 60) UI.queueLog.shift(); }
+    else if (QQ.length) qSoon(40);                                 // não abriu nada: tenta a próxima
+  };
+  const cmQ = UI.closeModal;
+  UI.closeModal = () => { const was = UI.modalOpen; lastCloseT = performance.now(); showingKey = ''; cmQ(); if (was && QQ.length) qSoon(GAP + 20); };
+  G.on('start', () => { lastCloseT = performance.now() - 200; qSoon(420); });   // a primeira janela espera um instante depois do início
+
+  /* ---------- novidades: UMA janela só, com seções recolhíveis das versões que o jogador ainda não viu ---------- */
+  UI.NEWS = UI.NEWS || {};
+  UI.NEWS.v24 = { t: 'Forja da Sorte, Arena e Lendas', n: 'Aurora v23 e v24', rows: [
+    ['anvil', 'Inscrições e Reforja', 'Peças Incomuns ou melhores nascem com inscrições sorteadas (qualidade 1 a 5). Na Ferraria, reforje e escolha: manter ou aceitar. O Pó de Reforja sai do desmonte.'],
+    ['spark', 'Cartas de raridade e Garantia', 'Peça Épica ou melhor revela uma carta. No Portal, a cada 10 sorteios sem Épico, o próximo é garantido.'],
+    ['gift', 'Voltar é um presente', 'Cartas de retorno (uma por hora fora), calendário de 7 dias, criatura da sorte para tocar e uma semana temática com prazo.'],
+    ['trophy', 'Arena das Duas Luas', 'Missões › Arena: duele contra reinos rivais, ganhe pontos e Insígnias e suba de liga a cada temporada semanal.'],
+    ['crown', 'Lendas e Poder do Reino', 'Livro de Feitos e 31 títulos na ficha de cada herói, o Herói do Dia e o Poder do Reino (a coroa no alto da tela) com marcos e recordes.'],
+  ] };
+  const NEWS_ORDER = ['v24', 'v22', 'v21', 'v20'];
+  const newsPending = () => { const s = (G.S && G.S.tut && G.S.tut.seen) || {}; return NEWS_ORDER.filter((k) => !s[k] && UI.NEWS[k]); };
+  UI.whatsNew = (keys) => {
+    keys = (keys && keys.length ? keys : newsPending()).filter((k) => UI.NEWS[k]);
+    if (!keys.length) return false;
+    keys.sort((a, b) => NEWS_ORDER.indexOf(a) - NEWS_ORDER.indexOf(b));
+    const seen = G.S.tut.seen || (G.S.tut.seen = {}); for (const k of keys) seen[k] = 1;
+    const row = ([i, t, d]) => '<div class="row" style="margin-bottom:9px"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px;color:var(--gold2)">' + ic(i) + '</span><div class="gr"><b style="font-size:13px">' + t + '</b><br><span class="mut" style="font-size:12px">' + d + '</span></div></div>';
+    const sec = (k, i) => { const d = UI.NEWS[k]; return '<details class="nv"' + (i === 0 ? ' open' : '') + '><summary><b>' + d.t + '</b><small>' + d.rows.length + (d.rows.length === 1 ? ' novidade' : ' novidades') + '</small></summary><div class="nb">' + (d.lead ? '<p class="mut" style="font-size:12px;margin:2px 0 8px">' + d.lead + '</p>' : '') + d.rows.map(row).join('') + '</div></details>'; };
+    UI.modal('<div class="eyebrow">Aurora v' + G.VERSION.replace(/\.0$/, '') + '</div><h2>O que mudou desde a sua última visita</h2><p class="lead" style="margin-bottom:6px">' + (keys.length > 1 ? 'Estas novidades chegaram enquanto você estava fora. Abra uma seção para ler.' : 'Esta novidade chegou enquanto você estava fora.') + '</p>' +
+      keys.map(sec).join('') + '<div class="acts nv-acts"><button class="btn pri" data-a="mclose">Entendi</button></div>');
+    return true;
+  };
+  css.textContent += '\n' + [
+    '.nv{margin-top:8px;border:1px solid var(--line2);border-radius:12px;background:rgba(0,0,0,.2);overflow:hidden}',
+    '.nv summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 12px;cursor:pointer;list-style:none;font-family:"Aurora Cinzel",serif;font-size:13px;letter-spacing:.03em;color:var(--gold2)}',
+    '.nv summary::-webkit-details-marker{display:none}',
+    '.nv summary small{margin-left:auto;white-space:nowrap;font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:700;color:var(--mut);letter-spacing:0}',
+    '.nv summary::after{content:"";flex:none;width:7px;height:7px;border-right:2px solid var(--gold2);border-bottom:2px solid var(--gold2);transform:rotate(45deg);margin:-3px 2px 0 6px;transition:transform .2s}',
+    '.nv[open] summary::after{transform:rotate(-135deg);margin-top:3px}',
+    '.nv .nb{padding:4px 12px 4px}',
+    '.nv-acts{position:sticky;bottom:-16px;margin:8px -16px -16px!important;padding:12px 16px 16px;background:linear-gradient(180deg,rgba(16,21,42,0),#10152a 32%)}',
+    '.toast{position:relative}.toast .tx{flex:none;margin-left:auto;padding:1px 7px;border-radius:9px;background:rgba(226,182,89,.2);color:var(--gold2);font-size:11px;font-weight:800}',
+  ].join('\n');
+
+  /* ---------- avisos (toasts): no máximo 3, repetidos agrupam com ×N, e sempre abaixo do HUD (nunca sobre o chip de Poder) ---------- */
+  UI.toast = (m, k, icon) => {
+    const box = $('#toasts'); if (!box) return;
+    k = k || '';
+    for (const t of box.children) {
+      if (t.dataset.m === m && t.dataset.k === k) {
+        const n = (+t.dataset.n || 1) + 1; t.dataset.n = n;
+        let b = t.querySelector('.tx'); if (!b) { b = document.createElement('b'); b.className = 'tx'; t.appendChild(b); }
+        b.textContent = '×' + n;
+        t.style.animation = 'none'; void t.offsetWidth; t.style.animation = '';
+        clearTimeout(t._to); t._to = setTimeout(() => t.remove(), 3500);
+        return;
+      }
+    }
+    while (box.children.length >= 3) box.firstChild.remove();
+    const t = document.createElement('div'); t.className = 'toast ' + k; t.dataset.m = m; t.dataset.k = k;
+    t.innerHTML = ic(icon || (k === 'bad' ? 'skull' : k === 'good' ? 'check' : 'info')) + '<span>' + esc(m) + '</span>';
+    box.appendChild(t); t._to = setTimeout(() => t.remove(), 3500);
+  };
+
+  css.textContent += '\n' + [
+    '@media (max-width:859px){#app #toasts{top:calc(var(--hudb,200px) + 8px)}}',
+    '#app #toasts{z-index:16}',
+  ].join('\n');
+  const hudWatch = () => {
+    const h = $('#hud'); if (!h) return;
+    const set = () => document.documentElement.style.setProperty('--hudb', Math.ceil(h.getBoundingClientRect().bottom) + 'px');
+    set(); if (window.ResizeObserver) new ResizeObserver(set).observe(h); window.addEventListener('resize', set);
+  };
+  const bdH = UI.build; UI.build = () => { bdH(); hudWatch(); };
+
+  /* ---------- engate no laço de atualização (4×/s) ---------- */
+  const rfQ = UI.refresh;
+  UI.refresh = () => {
+    rfQ();
+    const S = G.S; if (!S || !G.M.running) return;
+    if (S.tut.done && newsPending().length) UI.queueModal(PRIO.novidades, () => { if (!newsPending().length) return false; UI.whatsNew(); }, 'novidades');
+    if (S.ev && S.ev.pending && G.EVENTS) { const e = G.EVENTS.find((x) => x.id === S.ev.pending); if (e) UI.queueModal(PRIO.evento, () => { if (G.S.ev.pending !== e.id) return false; UI.eventModal(e); }, 'evento'); }   // evento que ficou pendente num save
+    if (QQ.length && !UI.modalOpen) qPump();
   };
 
   /* @@fim67 */
