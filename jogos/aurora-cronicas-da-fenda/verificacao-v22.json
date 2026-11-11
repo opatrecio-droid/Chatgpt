@@ -12,7 +12,7 @@
   "sintaxe": "node --check: ok"
  },
  "testes_de_sistemas": {
-  "aprovados": 139,
+  "aprovados": 138,
   "reprovados": 0,
   "por_arquivo": {
    "sistemas-v20": 42,
@@ -20,7 +20,6 @@
    "sistemas-v22": 71
   },
   "itens": [
-   "tmp/tmp.yipPPzNhxn/v22.html 1035145",
    "save v19: campos novos criados e mascate sorteado",
    "save v19: heróis migrados (8 slots, artes, despertar)",
    "save v19: pontos de Arte retroativos (nível 35, rank B) = 43",
