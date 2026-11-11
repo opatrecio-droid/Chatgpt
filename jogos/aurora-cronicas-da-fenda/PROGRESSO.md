@@ -64,8 +64,17 @@ Notas técnicas do lote 2-A (para os lotes 2-B/2-C):
 ### Lote 2-B — Lendas pessoais e Poder do Reino
 - [x] 2B.1 Livro de Feitos
 - [x] 2B.2 Títulos
-- [ ] 2B.3 Herói do Dia
+- [x] 2B.3 Herói do Dia
 - [ ] 2B.4 Poder do Reino, recordes e marcos
+
+Notas técnicas do lote 2-B (para o lote 2-C):
+- Código novo: `3A-lendas.js` (simulação, sem DOM) e `66-ui-lendas.js` (telas), antes de `90-main.js`, depois dos blocos 39/65. Estado: `h.feitos` em cada herói (salvo com o herói; `G.feitos(h)` cria sob demanda e, em herói de save antigo, estima elites/chefes/gasto pelos números que já existiam) e `S.lendas` (`G.lendas()`: `rec` recordes, `pw` poder e marcos, `hod` Herói do Dia, `hh` histórico).
+- Tudo entra por wrappers e eventos, com contadores O(1): `G.killMon`, `G.dmgToMon`, `G.heroFall`, `G.promote`, `G.rebirth`, `G.relicRoll`, `G.riftWin`, `G.newDay`, `G.earn` (+ `G.updateHero` só para saber qual herói pagou), `G.heroBonus` (bônus do título exibido; troca marca `h._dirty`), `G.tick` (poder 1×/s, peça mais forte a cada 5 s), `G.afterLoad`/`G.newGame`. Eventos novos: `'titulo' {h,t,auto,set}`, `'hod'`, `'recorde' {key,r}`, `'pmark' {i,v,rw}`.
+- Títulos: `G.TITLES` (31, dois deles da Arena concedidos à equipe quando a temporada fecha em Diamante/Lenda), só o título exibido (`h.feitos.ts`) dá bônus (≤ 5% por atributo). `G.titleSet(h,id)`, `G.titleOf(h)`, `G.titleProgress(h,t)`. Herói de save antigo ganha os títulos que já merecia em silêncio e um único aviso.
+- Poder do Reino: `G.kingPower()` / `G.kingPowerParts()` (heróis = `G.arenaHeroPow` × 2,3; construções 18/nível, Cidadela ×3; bênçãos 22; obras 16). Pesos em `G.LENDAS`. Marcos em `G.POWER_MARKS` (1k, 2,5k, 5k, 7,5k, 10k, 15k, 20k, 25k, 30k, 40k, 50k… depois ×1,6); prêmio por marco em `G.powerPrize(i)` (Núcleo nos pares, Selo nos ímpares, Pó de Reforja sempre), concedido na hora na simulação; a cerimônia (carta curta) só abre com `!UI.modalOpen` e tutorial concluído. `G.nextPowerMark()` devolve `{ i, v, from, pct, rw }`: é o que a "próxima recompensa" do HUD (2C.5) deve ler.
+- Recordes: `G.RECS` (golpe, abates/dia, moedas/dia, peça mais forte, andar da Fenda, sequência de duelos); aviso "Novo recorde!" só depois de aquecer (`warm`) e com intervalo mínimo por recorde (`cd`). Aba "Recordes" em Mais (também abre pelo chip de Poder no HUD).
+- Ganchos mínimos no código antigo (61-ui-sheets): `HTABS` ganhou `['feitos','trophy','Feitos']`, `UI.feitosTab(x)` no `heroDetail`, `UI.hTitle(x)` no cabeçalho da ficha e `UI.hTitle(x,1)` no cartão da lista, e `UI.vw = () => v` (vínculos ao vivo para abas externas). O cartão do Herói do Dia entra no "Livro-caixa de ontem" por um wrapper de `SHEETS.reino.render`; o chip de Poder entra em `#hudx` (linha da semana temática) por um wrapper de `UI.build`.
+- Simulador: `--save=arquivo.json` grava o estado final; o relatório ganhou as linhas "Lendas", "Poder do Reino" (com o minuto de cada marco) e "Recordes" (`--titles` mostra os minutos de cada título).
 
 ### Lote 2-C — Clareza, coleção e próxima recompensa
 - [ ] 2C.1 Tutorial que aponta
