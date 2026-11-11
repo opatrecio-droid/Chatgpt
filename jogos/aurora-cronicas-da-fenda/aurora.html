@@ -5923,12 +5923,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* ---------- jornada (rodapé) ---------- */
   let questSig = '';
   const refreshQuest = () => {
-    const q = G.questCur(), el = $('#quest'); const sig = q.t + '|' + q.done;
+    const q = G.questCur(), el = $('#quest'), pre = !q.done && G.questPrereq ? G.questPrereq() : null; const sig = q.t + '|' + q.done + '|' + (pre ? pre.txt : '');
     if (sig !== questSig) {
       questSig = sig; questV.reset();
-      el.classList.toggle('done', q.done);
-      el.setAttribute('data-a', q.done ? 'questclaim' : 'open:missoes:jornada');
-      el.innerHTML = '<span class="qi">' + ic(q.done ? 'chest' : 'scroll') + '</span><span class="qt"><b>' + esc(q.t) + '</b><div class="bar"><i ' + questV.W(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }) + '></i></div></span><span class="qn">' + (q.done ? 'Resgatar' : questV.T(() => { const c = G.questCur(); return G.fmt(c.cur) + '/' + G.fmt(c.n); })) + '</span>';
+      el.classList.toggle('done', q.done); el.classList.toggle('pre', !!pre);
+      el.setAttribute('data-a', q.done ? 'questclaim' : pre && pre.first.k === 'bld' ? 'gopre' : 'open:missoes:jornada');
+      el.innerHTML = '<span class="qi">' + ic(q.done ? 'chest' : 'scroll') + '</span><span class="qt"><b>' + esc(q.t) + '</b>' + (pre ? '<small class="qpre">' + esc(pre.txt) + '</small>' : '<div class="bar"><i ' + questV.W(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }) + '></i></div>') + '</span><span class="qn">' + (q.done ? 'Resgatar' : questV.T(() => { const c = G.questCur(); return G.fmt(c.cur) + '/' + G.fmt(c.n); })) + '</span>';
     } else questV.refresh();
   };
 
@@ -6511,7 +6511,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       if (tab === 'jornada') {
         const q = G.questCur(); const rw = [];
         for (const k in q.r) rw.push(k === 'gold' ? ic('coin') + G.fmt(q.r.gold) : k === 'selos' ? ic('seal') + q.r.selos : k === 'nucleos' ? ic('core') + q.r.nucleos : '<i class="px ri-' + k + '" style="width:16px;height:16px"></i>' + q.r[k]);
-        let h = '<div class="card hl"><p class="cz gold" style="font-size:11px;letter-spacing:.2em">' + (q.tag ? q.tag : q.decree ? 'DECRETO REAL ' + (S.quest.decreeN + 1) : 'CAPÍTULO ' + q.idx + ' DE ' + G.QUESTS.length) + '</p><h3 style="font-size:15.5px;margin-top:4px">' + esc(q.t) + '</h3><p>' + esc(q.h) + '</p><div style="margin-top:8px">' + bar(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }, 'big') + '</div><div class="row" style="margin-top:8px"><div class="gr"><div class="costs" style="margin:0">' + rw.map((x) => '<span class="cost">' + x + '</span>').join('') + '</div></div><button class="btn pri" data-a="questclaim" ' + v.Dis(() => !G.questCur().done) + '>' + ic('chest') + 'Resgatar</button></div></div>';
+        let h = '<div class="card hl"><p class="cz gold" style="font-size:11px;letter-spacing:.2em">' + (q.tag ? q.tag : q.decree ? 'DECRETO REAL ' + (S.quest.decreeN + 1) : 'CAPÍTULO ' + q.idx + ' DE ' + G.QUESTS.length) + '</p><h3 style="font-size:15.5px;margin-top:4px">' + esc(q.t) + '</h3><p>' + esc(q.h) + '</p>' + (UI.preCard ? UI.preCard() : '') + '<div style="margin-top:8px">' + bar(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }, 'big') + '</div><div class="row" style="margin-top:8px"><div class="gr"><div class="costs" style="margin:0">' + rw.map((x) => '<span class="cost">' + x + '</span>').join('') + '</div></div><button class="btn pri" data-a="questclaim" ' + v.Dis(() => !G.questCur().done) + '>' + ic('chest') + 'Resgatar</button></div></div>';
         if (!q.decree) { const nx = G.QUESTS.slice(S.quest.step + (q.tag ? 0 : 1), S.quest.step + (q.tag ? 2 : 3)); if (nx.length) h += '<div class="sec">A seguir</div>' + nx.map((d) => '<div class="card lock"><div class="row">' + ic('lock') + '<div class="gr"><b style="font-size:12.5px">' + esc(d.t) + '</b></div></div></div>').join(''); }
         h += '<div class="sec">Crônica de Aurora</div>';
         for (const l of S.log.slice(-14).reverse()) h += '<div class="logl ' + l.k + '"><small>Dia ' + l.d + ' · ' + G.clockStr(l.c) + '</small>' + esc(l.m) + '</div>';
@@ -10136,7 +10136,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* alvo do momento: { el | r, text, key, round } ou null */
   const guideTarget = () => {
     const S = G.S; if (!S || !S.tut || !S.tut.guide || !S.tut.done || !G.M.running) return null;
-    const st = S.quest.step; if (st > 4) { S.tut.guide = 0; return null; }
+    const st = S.quest.step; if (st > (UI.GUIDE_LAST || 4)) { S.tut.guide = 0; return null; }
     const q = G.questCur(), modal = UI.modalOpen;
     if (q.done) {                                                    // missão cumprida: falta resgatar
       if (modal) return null;
@@ -10162,6 +10162,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       const b = $('#roster .hc.add'); return vis(b) ? { el: b, text: 'Toque no + para chamar um herói.', key: 's0a' } : null;
     }
     if (modal) return null;
+    if (UI.guideExtra && st !== 0 && st !== 2 && st !== 3 && st !== 4) return UI.guideExtra(q, st);
     if (st === 2 || st === 3) {
       const id = st === 2 ? 'enfermaria' : 'ferraria', nm = st === 2 ? 'a Enfermaria' : 'a Ferraria';
       if (sheetOn('reino')) {
@@ -10182,6 +10183,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     return null;
   };
   UI.guideTarget = guideTarget;
+  UI.gd = { vis, covered, sheetOn, tabBtn }; UI.guideActive = () => gdOn;
   const guideHide = () => { if (gdOn) { gdOn = false; gd.classList.remove('on'); gdKey = ''; } };
   const guideFrame = () => {
     requestAnimationFrame(guideFrame);
@@ -10462,7 +10464,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const nrwRefresh = () => {
     const el = $('#nrw'), q = $('#quest'); if (!el || !q) return;
     const S = G.S;
-    if (!S.tut.done || (S.tut.guide && S.quest.step <= 4) || q.style.display === 'none' || !q.offsetHeight) { el.classList.remove('on'); return; }
+    if (!S.tut.done || (S.tut.guide && (S.quest.step <= 4 || (UI.guideActive && UI.guideActive()))) || q.style.display === 'none' || !q.offsetHeight) { el.classList.remove('on'); return; }
     if (q.offsetHeight !== nrQh) { nrQh = q.offsetHeight; document.documentElement.style.setProperty('--qh', nrQh + 'px'); }
     const r = G.nextReward(); let best = r.best;
     /* histerese: só troca de item se o novo for bem melhor, ou o atual sumiu, ou o novo já está pronto */
@@ -10504,6 +10506,162 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   ].join('\n');
 
   /* @@fim67 */
+})();
+
+;
+/* ===== 3F-atrito.js ===== */
+/* 3F-atrito: v25 — último atrito (lote 3-D): pré-requisitos da Jornada (3D.1), recuo e aviso de perigo (3D.3), peças que caem e Pergaminho de Proteção (3D.4)
+   e moedas paradas (3D.5). Simulação, sem DOM. */
+'use strict';
+(function () {
+  /* ================= 3D.1 pré-requisitos da Jornada ================= */
+  /* Missões de obra ("Construa …", "Melhore …") nomeiam a construção e o nível (q.n). Se o alvo ainda não está liberado, a cadeia de
+     pré-requisitos sai de G.bAvailable/G.bMax/G.cidReq (as mesmas regras de G.canUpgrade): Cidadela nível N e, abaixo dela, Nível de Reino M.
+     Missões de chefe, de Fenda e de promoção têm o seu próprio pré-requisito (região fechada, Reino 5, nível do herói). Nada é caso a caso:
+     a barra da Jornada, o guia e a aba Jornada leem G.questPrereq(). */
+  G.questBuild = () => {
+    const q = G.questCur(); if (!q || q.decree || !/^(Construa|Melhore)\b/.test(q.t)) return null;
+    let id = G.BLD_IDS.find((i) => q.t.indexOf(G.BLD[i].name) >= 0) || G.BLD_IDS.find((i) => G.BLD[i].short && q.t.indexOf(G.BLD[i].short) >= 0);
+    return id ? { id, lvl: q.n, name: G.BLD[id].name } : null;
+  };
+  G.buildPrereqs = (id, lvl) => {
+    const S = G.S, out = []; let cur = id, want = lvl;
+    for (let g = 0; g < 6; g++) {
+      const have = G.bLvl(cur); if (have >= want) break;
+      const l = have + 1, b = S.b[cur];
+      if (!G.bAvailable(cur)) { const n = G.BLD[cur].cid; out.push({ k: 'bld', id: 'cidadela', lvl: n }); cur = 'cidadela'; want = n; continue; }
+      if (b && b.dmg) { out.push({ k: 'repair', id: cur }); break; }
+      if (cur === 'cidadela' && S.realm.lvl < G.cidReq(l)) { out.push({ k: 'realm', lvl: G.cidReq(l) }); break; }
+      if (cur !== 'cidadela' && l > G.bMax(cur)) { const n = l - 2; out.push({ k: 'bld', id: 'cidadela', lvl: n }); cur = 'cidadela'; want = n; continue; }
+      break;
+    }
+    return out;
+  };
+  /* promoção: o herói mais perto do rank pedido e o que ainda lhe falta (Guilda e nível; moedas e emblema são "faltam materiais") */
+  G.promoPrereqs = (rank) => {
+    let best = null;
+    for (const h of G.S.heroes) if (h.rank === rank - 1 && (!best || h.lvl > best.lvl)) best = h;
+    if (!best) return [];
+    const q = G.promoReq(best), out = [];
+    if (G.bLvl('guilda') < q.guilda) out.push({ k: 'bld', id: 'guilda', lvl: q.guilda });
+    if (best.lvl < q.lvl) out.push({ k: 'hlvl', lvl: q.lvl, have: best.lvl, name: best.name });
+    return out;
+  };
+  const stepTxt = (p) => p.k === 'bld' ? G.BLD[p.id].short + ' nível ' + p.lvl : p.k === 'realm' ? 'Nível de Reino ' + p.lvl : p.k === 'hlvl' ? 'um herói no nível ' + p.lvl : 'consertar ' + G.BLD[p.id].short;
+  G.preStepTxt = stepTxt;
+  /* { goal, steps: [do mais próximo ao mais distante], txt } ou null quando nada impede o passo atual (só faltam moedas e materiais) */
+  G.questPrereq = () => {
+    const q = G.questCur(); if (!q || q.done || q.decree) return null;
+    let steps = [], goal = null;
+    const b = G.questBuild();
+    if (b) { goal = b.name; steps = G.buildPrereqs(b.id, b.lvl); }
+    else {
+      const z = G.ZONES.find((zz) => q.t.indexOf(G.MON[zz.boss].name) >= 0);
+      if (z) { if (!G.zoneUnlocked(z)) { goal = G.MON[z.boss].name; steps = [{ k: 'realm', lvl: z.unlock }]; } }
+      else if (/Fenda Infinita/.test(q.t)) { if (!G.riftOpen()) { goal = 'a Fenda Infinita'; steps = [{ k: 'realm', lvl: 5 }]; } }
+      else { const m = /^Promova .* Rank (\w+)$/.exec(q.t), r = m ? G.RANKS.indexOf(m[1]) : -1; if (r > 0) { goal = 'Rank ' + m[1]; steps = G.promoPrereqs(r); } }
+    }
+    if (!steps.length) return null;
+    const first = steps[0], root = steps[steps.length - 1];
+    return { goal, steps, first, root, txt: 'Antes: ' + stepTxt(first) + (steps.length > 1 ? ' · ' + (root.k === 'realm' ? 'Reino ' + root.lvl : stepTxt(root)) : '') };
+  };
+
+  /* @@fim3F */
+})();
+
+;
+/* ===== 6B-ui-atrito.js ===== */
+/* 6B-ui-atrito: v25 — interface do lote 3-D: guia completo (3D.1), HUD compacto (3D.2), alerta de herói em perigo (3D.3),
+   peças no chão e +N com proteção (3D.4), vibração e tremor (3D.5). Só interface. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, A = G.A, R = G.R, ic = UI.ic, esc = UI.esc, $ = UI.$;
+  const css = document.createElement('style');
+  css.textContent = [
+    /* 3D.1: pré-requisito na barra da Jornada (no lugar da barrinha de progresso) */
+    '#quest .qpre{display:block;margin-top:3px;font-size:10.5px;font-weight:800;color:var(--gold2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '#quest.pre .qn{display:none}',
+    '.prebox{margin:8px 0 2px;padding:8px 10px;border-radius:10px;border:1px solid rgba(226,182,89,.5);background:rgba(226,182,89,.09)}',
+    '.prebox b{color:var(--gold2)}.prebox ol{margin:5px 0 0;padding-left:18px;font-size:12.5px;line-height:1.45}',
+    '.prebox .btn{margin-top:8px}',
+  ].join('\n');
+  document.head.appendChild(css);
+
+  /* ================= 3D.1 guia completo e pré-requisitos ================= */
+  /* A mão cobre toda a Jornada até "Construa o Mercado" (passo 13). Passos que pedem toque apontam o toque, com a cadeia de
+     pré-requisitos de G.questPrereq() na frente (Cidadela, Nível de Reino, nível do herói); passos que o jogo cumpre sozinho
+     (abates, nível, chefe) mostram uma dica curta junto da barra da Jornada por alguns segundos. Os passos 0, 2, 3 e 4 seguem na 67. */
+  UI.GUIDE_LAST = 13;
+  const MASC = { mercado: 1, treino: 1, santuario: 1, estabulo: 1 };
+  const art = (id) => (MASC[id] ? 'o ' : 'a ') + G.BLD[id].name;
+  let pasStep = -1, pasT0 = 0;
+  /* dica passiva: some depois de alguns segundos em cada passo; nunca fica por cima de painel aberto */
+  const hint = (st, text, ms) => {
+    const now = performance.now();
+    if (pasStep !== st) { pasStep = st; pasT0 = now; }
+    if (now - pasT0 > (ms || 16000) || R.sel) return null;
+    const e = $('#quest'); if (!UI.gd.vis(e) || UI.gd.covered(e)) return null;
+    return { el: e, text, key: 'pas' + st };
+  };
+  const buildTarget = (st, p) => {
+    const id = p.id, G0 = UI.gd, rep = p.k === 'repair', lvl = G.bLvl(id);
+    const verb = rep ? 'conserte' : lvl ? 'melhore' : 'construa', k = 'b' + st + id;
+    if (G0.sheetOn('reino')) {
+      if (UI.sheet.tab !== 'obras') { const t = G0.tabBtn('obras'); return G0.vis(t) ? { el: t, text: 'Abra a aba Prédios.', key: k + 't' } : null; }
+      const b = $('#sheet [data-a="' + (rep ? 'repair:' : 'upg:') + id + '"]') || $('#bc-' + id);
+      if (b) return { el: b, text: b.disabled ? 'Faltam moedas ou materiais: seus heróis vão juntar.' : 'Toque para ' + (rep ? 'consertar ' : lvl ? 'melhorar ' : 'construir ') + art(id) + '.', key: k + 'b', scroll: 1 };
+      return null;
+    }
+    return { el: $('#nav-reino'), text: 'Abra o Reino e ' + verb + ' ' + art(id) + '.', key: k + 'n' };
+  };
+  const contractTarget = (st) => {
+    const S = G.S, G0 = UI.gd, ready = S.daily.list.findIndex((c) => !c.claimed && c.p >= c.n);
+    if (G0.sheetOn('missoes')) {
+      if (UI.sheet.tab !== 'contratos') { const t = G0.tabBtn('contratos'); return G0.vis(t) ? { el: t, text: 'Abra a aba Contratos.', key: 'c' + st + 't' } : null; }
+      const b = ready >= 0 ? $('#sheet [data-a="contract:' + ready + '"]') : null;
+      return b ? { el: b, text: 'Toque em Receber.', key: 'c' + st + 'b', scroll: 1 } : null;
+    }
+    if (ready >= 0) return { el: $('#nav-missoes'), text: 'Um contrato está pronto! Abra Missões e receba.', key: 'c' + st + 'n' };
+    const now = performance.now(); if (pasStep !== st) { pasStep = st; pasT0 = now; }
+    return now - pasT0 < 20000 ? { el: $('#nav-missoes'), text: 'Abra Missões › Contratos. Seus heróis os cumprem sozinhos.', key: 'c' + st + 'o' } : null;
+  };
+  const promoTarget = (st) => {
+    const S = G.S, G0 = UI.gd, h = S.heroes.find((x) => G.canPromote(x)); if (!h) return null;
+    if (G0.sheetOn('herois')) {
+      const pb = $('#sheet [data-a="promote:' + h.id + '"]'); if (pb) return { el: pb, text: 'Toque em Promover.', key: 'p' + st + 'b', scroll: 1 };
+      const c = $('#sheet [data-a="herod:' + h.id + '"]'); if (c) return { el: c, text: h.name + ' pode ser promovido. Toque no cartão.', key: 'p' + st + 'c', scroll: 1 };
+      return null;
+    }
+    return { el: $('#nav-herois'), text: h.name + ' pode ser promovido! Abra Heróis.', key: 'p' + st + 'n' };
+  };
+  UI.guideExtra = (q, st) => {
+    const pre = G.questPrereq(), b = G.questBuild(), p = pre ? (pre.root.k === 'realm' ? pre.root : pre.first) : b ? { k: 'bld', id: b.id, lvl: b.lvl } : null;
+    if (p) {
+      if (p.k === 'realm') return hint(st, 'Primeiro, o Nível de Reino ' + p.lvl + ': construir, vencer chefes e cumprir missões o fazem subir.', 22000);
+      if (p.k === 'hlvl') return hint(st, 'Primeiro, ' + G.preStepTxt(p) + '. Eles sobem de nível caçando.', 22000);
+      return buildTarget(st, p);
+    }
+    if (/contrato/i.test(q.t)) return contractTarget(st);
+    if (/^Promova/.test(q.t)) return promoTarget(st) || hint(st, q.h);
+    return hint(st, q.h + (q.n > 1 ? ' (' + q.cur + '/' + q.n + ')' : ''));
+  };
+  /* barra da Jornada com pré-requisito: toque leva direto à obra de que o passo depende */
+  UI.ACT.gopre = () => {
+    const p = G.questPrereq(), f = p && p.first;
+    if (f && (f.k === 'bld' || f.k === 'repair')) UI.open('reino', 'obras', { bld: f.id });
+    else if (f && f.k === 'hlvl') UI.open('herois', 'lista');
+    else UI.open('missoes', 'jornada');
+  };
+  /* caixa "Antes" da aba Missões › Jornada */
+  UI.preCard = () => {
+    const p = G.questPrereq(); if (!p) return '';
+    const f = p.first, go = f.k === 'bld' || f.k === 'repair' ? 'Ir para ' + G.BLD[f.id].short : f.k === 'hlvl' ? 'Abrir Heróis' : '';
+    return '<div class="prebox"><b>Antes, falta isto' + (p.goal ? ' para ' + esc(p.goal) : '') + ':</b><ol>' + p.steps.map((s) => '<li>' + esc(G.preStepTxt(s).replace(/^./, (c) => c.toUpperCase())) + (s.k === 'realm' ? ' <small class="mut">(agora ' + G.S.realm.lvl + ')</small>' : s.k === 'hlvl' ? ' <small class="mut">(' + esc(s.name) + ' está no ' + s.have + ')</small>' : '') + '</li>').join('') + '</ol>' +
+      (go ? '<button class="btn sm pri" data-a="gopre">' + go + '</button>' : '') + '</div>';
+  };
+
+  /* @@fim6B */
 })();
 
 ;

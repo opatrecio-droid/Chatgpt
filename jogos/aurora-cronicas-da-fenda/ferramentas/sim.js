@@ -182,6 +182,8 @@ if (G.kingPower && S().lendas) {
   const rc = L.rec; console.log('Recordes: ' + G.RECS_ORDER.map((k) => G.RECS[k].name + ' ' + (rc[k] ? G.recText(k, rc[k]) : '—')).join(' · '));
 }
 if (G.codexStats && S().codex) { const cs = G.codexStats(); console.log('Códex: ' + cs.slots + '/' + cs.slotsMax + ' registros de inscrição (' + cs.ids + '/' + cs.idsMax + ' tipos, ' + cs.perf + ' perfeitas) · peças ' + cs.cells + '/' + cs.cellsMax + ' · marcos ' + Object.keys(S().codex.ms).length + '/' + G.CODEX_MS.length + ': ' + (codexMs.length ? codexMs.map((x) => x.id + '@' + (x.t / 60).toFixed(0) + 'm').join(' ') : '—')); }
+/* 3-D: quedas (heróis derrubados) — linha estável para a tabela por semente */
+console.log('Quedas: ' + S().stats.falls + ' · abates ' + S().stats.kills + ' · Nível de Reino ' + S().realm.lvl + ' · heróis ' + S().heroes.length);
 console.log('Primeira promoção: ' + first('promo') + ' · primeiro momento épico: ' + first('epic'));
 if (!QUIET) for (const x of moments.slice(0, 60)) console.log('  [' + (x.t / 60).toFixed(1) + 'm] ' + x.k + ': ' + String(x.txt).slice(0, 110));
 if (opt('save', '')) { fs.writeFileSync(opt('save', ''), G.serialize()); console.log('Save gravado em ' + opt('save', '')); }
