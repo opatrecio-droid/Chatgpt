@@ -26,7 +26,7 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
   lote correspondente de `PLANO-CICLO-1.md`, dizendo quais itens já estão `[x]`.
 
 ### Lote 1-A — forja-loteria e primeiro minuto
-- [ ] 1A.1 Jogo novo sem janelas de novidades de versões antigas
+- [x] 1A.1 Jogo novo sem janelas de novidades de versões antigas
 - [ ] 1A.2 Inscrições aleatórias nos equipamentos (efeitos reais)
 - [ ] 1A.3 Reforja "manter ou aceitar" + Pó de Reforja do desmonte
 - [ ] 1A.4 Cerimônia de raridade (Épico+, maior para Lendário/Mítico)

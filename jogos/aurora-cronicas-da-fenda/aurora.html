@@ -4022,6 +4022,22 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 })();
 
 ;
+/* ===== 37-forja-sorte.js ===== */
+/* 37-forja-sorte: v23 — a forja vira loteria (inscrições aleatórias nas peças, reforja, Pó de Reforja,
+   cerimônia de raridade), garantia do Portal e jogo novo sem janelas de novidades antigas. Sem DOM. */
+'use strict';
+(function () {
+  /* ================= jogo novo: as janelas de novidades são para quem vem de versões antigas ================= */
+  const ng0 = G.newGame;
+  G.newGame = () => {
+    const S = ng0();
+    S.tut.seen = S.tut.seen || {};
+    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = 1;
+    return S;
+  };
+})();
+
+;
 /* ===== 40-art.js ===== */
 /* 40-art: motor de pixel art procedural — buffer de pixels, cores, personagens e ícones.
    Toda a arte do jogo é desenhada por código: um estilo só, leve e nítido em qualquer tela. */
