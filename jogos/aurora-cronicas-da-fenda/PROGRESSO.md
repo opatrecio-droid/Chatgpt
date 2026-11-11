@@ -22,6 +22,12 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - Ciclo 1 (v23.0): Diversão 7,2 → 8,0 · Viciante 5,8 → 7,7. Ciclo 2 (v24.0): Diversão 8,7 · Viciante 9,2. Ciclo 3 em andamento (`PLANO-CICLO-3.md`).
 - Método (desde 16:30 UTC de 11/11): **um lote por vez, direto na branch `ccr-5878aa8d-eltmr3`**, com commit e
   push a cada item concluído e o item marcado abaixo. Assim nada se perde se o limite de uso pausar a sessão.
+- **Ciclo 3 em paralelo (autorizado pelo usuário em 11/11, 20:3x UTC)**: 3-A roda na branch principal; 3-B, 3-C e
+  3-D rodam em worktrees e enviam para `ccr-5878aa8d-eltmr3-lote-3b`, `-lote-3c`, `-lote-3d`, com o andamento em
+  `lotes/3b.md`, `lotes/3c.md`, `lotes/3d.md` (dentro de cada branch auxiliar). Se pausar: relançar cada lote numa
+  worktree a partir da sua branch auxiliar (o prompt manda `git reset --hard origin/<branch>` e seguir do primeiro `[ ]`).
+  Quando os quatro terminarem: juntar as três branches na principal (blocos novos ficam todos antes de `90-main.js`;
+  conflitos ali = manter os dois lados), marcar a lista abaixo, subir a versão para 25.0 e avaliar.
 - Para retomar: o próximo item é o primeiro `[ ]` da lista. Relance um Sonnet (esforço extra alto) com o
   lote correspondente de `PLANO-CICLO-1.md`, dizendo quais itens já estão `[x]`.
 
