@@ -45,10 +45,21 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 ### Lote 2-A — Arena das Duas Luas (`PLANO-CICLO-2.md`)
 - [x] 2A.1 Reinos rivais
 - [x] 2A.2 Duelo (determinístico, animado, funciona sem tela)
-- [ ] 2A.3 Tíquetes e temporada semanal com ligas
-- [ ] 2A.4 Loja de Insígnias + sumidouro de moedas
-- [ ] 2A.5 Acesso, passo da Jornada e eventos de duelo
-- [ ] 2A.6 Robô do simulador duela; taxa de vitória 55–70%
+- [x] 2A.3 Tíquetes e temporada semanal com ligas
+- [x] 2A.4 Loja de Insígnias + sumidouro de moedas
+- [x] 2A.5 Acesso, passo da Jornada e eventos de duelo
+- [x] 2A.6 Robô do simulador duela; taxa de vitória 55–70% (6 h, sementes 1/2/3: 61,3% / 62,8% / 62,5%)
+
+Notas técnicas do lote 2-A (para os lotes 2-B/2-C):
+- Código novo: `39-arena.js` (simulação, sem DOM) e `65-ui-arena.js` (telas), antes de `90-main.js`. Estado em `S.arena` (inicialização preguiçosa, `G.arena()`).
+- Evento `G.emit('duelo', { win, ids, rival: { i, name, ratio, size, ch, label }, pts, streak, ins, mvp: { name, dmg, cls }, t })` a cada duelo; `G.emit('arena', { t: 'open'|'duel'|'season'|'shop'|'coin'|'ticket'|'result' })` para o resto.
+- `S.arena.titulos = [{ id: 'arena_diamante'|'arena_lenda', name, liga, sea, n }]` (título exclusivo de Diamante+); `S.arena.hist` guarda as últimas 8 temporadas; `S.stats.duels`/`duelWins` contam duelos.
+- Relógio próprio `G.arenaNow()` (padrão: `Date.now()`); o simulador o troca por um relógio virtual (1 dia de jogo = 1 dia da Arena).
+- Equilíbrio num só lugar: `G.ARENA` (tíquetes, custo de Núcleos, K dos rivais, pontos diários dos rivais, vida ×2,2 e cura ×0,5 no duelo, passo 0,2 s) e `G.ARENA_LEAGUES` (pontos de cada liga e baú).
+- Heróis em caçada **podem** duelar: o duelo é uma exibição de "ecos de luz" (usa os atributos reais, sem ânimo/ferimento) e não tira ninguém do mapa, então duelar nunca pune quem está caçando.
+- O rival envia 3–5 heróis (fixo por reino) e o jogador monta equipe do mesmo tamanho; o poder de cada herói rival espelha o do herói do jogador na mesma posição (vocação e nível das habilidades incluídos) e a razão final (70%–140%) é calibrada por simulação para a chance-alvo de cada vaga (Fácil/Justo/Difícil).
+- Passo da Jornada inserido sem mexer em `G.QUESTS`: `G.questCur` devolve "Vença um duelo na Arena" (`S.quest.arena = 1` ao resgatar) assim que `S.quest.step >= 22` e a Arena está aberta; saves antigos não pulam nem repetem passos.
+- Ganchos mínimos no código antigo (61-ui-sheets): `UI.SHEETS = SHEETS`, `'-arena'` no relatório diário e `q.tag` no cartão da Jornada.
 
 ### Lote 2-B — Lendas pessoais e Poder do Reino
 - [ ] 2B.1 Livro de Feitos

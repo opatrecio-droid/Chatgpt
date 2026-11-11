@@ -7973,7 +7973,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     tickets: 5,                       // tíquetes grátis por dia real
     coreCost: [2, 3, 5, 8, 12],       // Núcleos por tíquete extra comprado no dia (1º, 2º, …)
     K: 1.0,                           // escala geral dos rivais (calibrada no simulador)
-    pday: 75,                         // pontos diários de um rival médio
+    pday: 88,                         // pontos diários de um rival médio
     growth: 0.012,                    // crescimento do poder dos rivais por dia da temporada
     enrage: 40,                       // segundos de duelo até a Lua Rubra enfurecer os dois lados
     cap: 90,                          // duração máxima do duelo (segundos)
@@ -8345,7 +8345,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     for (let j = 0; j < n; j++) if (G.arenaSim(bpA, bpB, G.hash(key + '#' + j)).win) w++;
     return w / n;
   };
-  G.arenaLabel = (ch) => (ch >= 0.68 ? { t: 'Fácil', c: '#5fcf7c' } : ch >= 0.38 ? { t: 'Justo', c: '#e2b659' } : { t: 'Difícil', c: '#ee8a4a' });
+  G.arenaLabel = (ch) => (ch >= 0.72 ? { t: 'Fácil', c: '#5fcf7c' } : ch >= 0.46 ? { t: 'Justo', c: '#e2b659' } : { t: 'Difícil', c: '#ee8a4a' });
 
   /* ================= tíquetes ================= */
   const tkRoll = (a) => { const d = today(); if (a.tk.d !== d) a.tk = { d, n: 0, b: 0, t: 0 }; return a.tk; };
@@ -8405,14 +8405,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     }
     return best;
   };
-  /* três rivais, do mais fácil ao mais difícil (chances-alvo 78%, 58% e 35%), estáveis até o próximo duelo */
+  /* três rivais, do mais fácil ao mais difícil (chances-alvo 82%, 62% e 38%), estáveis até o próximo duelo */
   G.arenaOffers = () => {
     const a = G.arena(), k = offerKey();
     if (!a.off || a.off.k !== k) {
       const ref = G.arenaRef(), sea = seasonOf(nowMs()), rng = G.seeded(G.hash('off|' + k));
       const pool = RIVALS.filter((r) => r.size <= ref.count).map((r) => ({ r, d: Math.abs(G.arenaRatio(r.i, sea) - 0.98) + rng() * 0.25 })).sort((x, y) => x.d - y.d).slice(0, 9).sort(() => rng() - 0.5);
       const out = [];
-      [0.78, 0.58, 0.35].forEach((tg, q) => {
+      [0.82, 0.62, 0.38].forEach((tg, q) => {
         const c = pool[q]; if (!c) return;
         const r = calibrate(c.r.i, ref, tg), ratio = Math.round(r.ratio * 1000) / 1000;
         /* a chance mostrada vem de uma simulação maior, a mesma que a janela de equipe usa para a equipe automática */
@@ -8667,7 +8667,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 .ar-rk .nm{flex:1;min-width:0;font-weight:800;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ar-rk .nm small{display:block;font-weight:600;color:var(--mut);font-size:10.5px}
 .ar-rk .pt2{font-weight:900;font-size:13px;color:var(--gold2)}
-.ar-rk.me{background:linear-gradient(90deg,rgba(226,182,89,.3),rgba(226,182,89,.08));box-shadow:0 0 0 1px var(--gold),0 0 14px rgba(226,182,89,.35);position:sticky;top:0;bottom:0;z-index:2}
+.ar-rk.me{background:linear-gradient(90deg,#4e4020,#2c2b42);box-shadow:0 0 0 1px var(--gold),0 0 14px rgba(226,182,89,.35);position:sticky;top:0;bottom:0;z-index:2}
 .ar-rk.me .ps{color:var(--gold2)}
 .ar-rk .emb{flex:none}
 .ar-sep{font-family:"Aurora Cinzel",serif;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--lc);margin:10px 4px 4px;display:flex;align-items:center;gap:8px}
@@ -8697,6 +8697,11 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 .ar-hr .fm span.on{background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408}
 .ar-hr .ck{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.25);flex:none;display:grid;place-items:center;color:#1a1408;font-size:13px}
 .ar-hr.on .ck{background:var(--gold);border-color:var(--gold2)}
+.ar-tm .tmf{position:sticky;bottom:-16px;margin:6px -16px -16px;padding:8px 16px 14px;background:linear-gradient(180deg,rgba(16,21,42,0),#10152a 18%);z-index:3}
+.ar-res .acts{position:sticky;bottom:-16px;margin:10px -16px -16px;padding:10px 16px 14px;background:linear-gradient(180deg,rgba(16,21,42,0),#10152a 22%);z-index:3}
+.ar-ch2{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ar-ch2 b{font-family:"Aurora Cinzel",serif;font-size:19px}
+.ar-ch2 .lb{font-size:12px;font-weight:900}
 .ar-ch{margin:8px 0 2px;padding:9px 10px;border-radius:12px;background:rgba(0,0,0,.25);text-align:center}
 .ar-ch b{font-size:20px;font-family:"Aurora Cinzel",serif}
 .ar-ch .bar{margin-top:6px}
@@ -8732,7 +8737,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 @keyframes arspin{to{transform:rotate(360deg)}}
 .ar-fx{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
 .ar-fx b{position:absolute;font-weight:900;font-size:14px;color:#ffd0d0;text-shadow:0 1px 3px #000,0 0 6px #000;white-space:nowrap;animation:ardn .95s ease-out forwards;transform:translate(-50%,0)}
-.ar-fx b.arcr{font-size:20px;color:#ffd35a}
+.ar-fx b.arcr{font-size:19px;color:#ffd35a}
 .ar-fx b.arhl{color:#9af0b0}
 .ar-fx b.arms{font-size:10px;color:#cfd5e4;font-weight:800}
 .ar-fx b.arsg{font-size:11px;color:#bfe9ff;font-weight:800}
@@ -8818,7 +8823,11 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 
   /* ---------- estado da tela ---------- */
   let view = 'duelo', tm = null;
-  const dirty = () => { if (UI.sheet) UI.sheetDirty(); };
+  /* o painel só se redesenha quando não há janela por cima (os cálculos dos adversários pesam um pouco) */
+  let late = false;
+  const dirty = () => { if (!UI.sheet) return; if (UI.modalOpen) late = true; else UI.sheetDirty(); };
+  const cm0 = UI.closeModal;
+  UI.closeModal = () => { cm0(); if (late) { late = false; if (UI.sheet) UI.sheetDirty(); } };
 
   /* ================= a aba "Arena" ================= */
   const lockedHtml = () => '<div class="card hl ar-lk"><div style="opacity:.8">' + emblem({ c1: '#3a4256', c2: '#98a2ba', pat: 'plain', sym: 'moon' }, 54) + '</div><h3 class="cz" style="justify-content:center">Arena das Duas Luas</h3><p>Reinos rivais mandam seus campeões medir forças com os seus. Abre com <b class="gold">Cidadela nível 3</b> ou <b class="gold">Nível de Reino 6</b>, o que vier primeiro.</p></div>';
@@ -8832,6 +8841,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       (tk.canBuy ? '<button class="btn sm' + (G.S.nucleos >= tk.buyCost ? ' vio' : '') + '" data-a="arbuytk"' + (G.S.nucleos >= tk.buyCost ? '' : ' disabled') + '>' + ic('core') + '+1 · ' + tk.buyCost + '</button>' : '') + '</div></div>' +
       '<div class="seg arseg">' + [['duelo', 'Duelar'], ['ranking', 'Ranking'], ['loja', 'Loja']].map(([k, l]) => '<button data-a="arview:' + k + '" class="' + (view === k ? 'on' : '') + '">' + l + (k === 'loja' && a.ctr > 0 ? ' •' : '') + '</button>').join('') + '</div>';
   };
+  const avgLv = (rz) => Math.round(rz.heroes.reduce((a, x) => a + x.L, 0) / Math.max(1, rz.heroes.length));
   const miniTeam = (rz, riv) => '<div class="mini">' + rz.heroes.map((x) => '<i class="px" title="' + esc(x.h.name) + '" style="background-image:url(' + port(rLook(x.h, riv)) + ');border-color:' + rarCol(x.h.rar) + '"></i>').join('') + '</div>';
   const tabDuelo = (a) => {
     const S = G.S; let h = '';
@@ -8843,7 +8853,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     offers.forEach((o, k) => {
       const riv = G.arenaRival(o.i), rz = G.arenaRealize(o.i, o.ratio), dc = o.label.c;
       h += '<div class="arof">' + emblem(riv, 40) + '<div class="gr"><h4>' + esc(riv.name) + '</h4><div class="sb">' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + ' · ' + riv.size + ' heróis · ' + riv.style + '</div>' +
-        '<div style="margin-top:5px;display:flex;gap:6px;align-items:center"><span class="dif" style="--dc:' + dc + '">' + o.label.t + ' · ' + Math.round(o.ch * 100) + '%</span><span class="mut" style="font-size:11px;font-weight:700">Poder ' + Math.round(o.ratio * 100) + '%</span></div>' + miniTeam(rz, riv) + '</div>' +
+        '<div style="margin-top:5px;display:flex;gap:6px;align-items:center"><span class="dif" style="--dc:' + dc + '">' + o.label.t + ' · ' + Math.round(o.ch * 100) + '%</span><span class="mut" style="font-size:11px;font-weight:700">Nv médio ' + avgLv(rz) + '</span></div>' + miniTeam(rz, riv) + '</div>' +
         '<div class="rt"><div class="rw">' + ic('star') + '+' + o.pts + ' ' + insIc(12) + '+' + o.ins + '</div><button class="btn sm pri" data-a="arfight:' + k + '"' + (tk.total < 1 ? ' disabled' : '') + '>' + ic('sword') + 'Desafiar</button><button class="btn sm" data-a="arriv:' + o.i + '">Ver reino</button></div></div>';
     });
     if (tk.total < 1) h += '<p class="mut" style="text-align:center;font-size:11.5px">Os tíquetes voltam à meia-noite. Dá para comprar mais com Núcleos (botão acima) ou com moedas, na Loja.</p>';
@@ -8972,9 +8982,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     let ch = null, lb = null;
     if (ok) { const pv = G.arenaPreview(o.i, tm.sel, o.ratio); ch = pv.chance; lb = pv.label; }
     const pts = ok ? G.arenaWinPts(ch) : o.pts, ins = ok ? G.arenaWinIns(ch) : o.ins;
-    return '<div class="ar-ch">' + (ok ? '<b style="color:' + lb.c + '">' + Math.round(ch * 100) + '%</b><div style="font-size:12px;font-weight:800;color:' + lb.c + '">' + lb.t + '</div><div class="bar"><i style="width:' + Math.round(ch * 100) + '%;background:' + lb.c + '"></i></div>' : '<span class="mut" style="font-size:12.5px">Escolha ' + n + ' heróis (' + tm.sel.length + ' de ' + n + ')</span>') + '</div>' +
-      '<div class="costs" style="justify-content:center"><span class="cost">' + ic('star') + 'Vitória: +' + pts + ' pontos</span><span class="cost">' + insIc(14) + '+' + ins + '</span></div>' +
-      '<div class="acts"><button class="btn" data-a="mclose">Voltar</button><button class="btn" data-a="arauto">Sugerir</button><button class="btn pri" data-a="argo"' + (ok && tk.total > 0 ? '' : ' disabled') + '>' + ic('sword') + 'Lutar!</button></div>';
+    return '<div class="ar-ch2">' + (ok ? '<b style="color:' + lb.c + '">' + Math.round(ch * 100) + '%</b><span class="lb" style="color:' + lb.c + '">' + lb.t + '</span><div class="bar big" style="flex:1"><i style="width:' + Math.round(ch * 100) + '%;background:' + lb.c + '"></i></div>' : '<span class="mut" style="font-size:12.5px;flex:1">Escolha ' + n + ' heróis (' + tm.sel.length + ' de ' + n + ')</span>') +
+      '<span class="cost">' + ic('star') + '+' + pts + '</span><span class="cost">' + insIc(14) + '+' + ins + '</span></div>' +
+      '<div class="acts" style="margin-top:0"><button class="btn" data-a="mclose">Voltar</button><button class="btn" data-a="arauto">Sugerir</button><button class="btn pri" data-a="argo"' + (ok && tk.total > 0 ? '' : ' disabled') + '>' + ic('sword') + 'Lutar!</button></div>';
   };
   const tmList = () => {
     const S = G.S, riv = G.arenaRival(tm.offer.i), n = riv.size, mx = tmPower();
@@ -8991,9 +9001,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const riv = G.arenaRival(o.i), rz = G.arenaRealize(o.i, o.ratio), n = riv.size;
     tm = { k, offer: o, sel: G.arenaTeam(n) };
     UI.modal('<div class="ar-tm"><div class="eyebrow">Desafio na Arena</div><h2>' + esc(riv.name) + '</h2>' +
-      '<div class="rv">' + emblem(riv, 44) + '<div class="gr"><b>' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + '</b>Envia <b style="display:inline;font-size:12.5px">' + n + ' heróis</b> · ' + riv.style + ' · Poder ' + Math.round(o.ratio * 100) + '%' + miniTeam(rz, riv) + '</div></div>' +
-      '<p class="mut" style="font-size:11.5px;margin:4px 2px 8px;line-height:1.4">Monte uma equipe de ' + n + ' heróis. <b>Frente</b> recebe os golpes corpo a corpo; <b>Fundo</b> fica protegido, mas arqueiros e magos inimigos alcançam qualquer um.</p>' +
-      '<div id="tm-list">' + tmList() + '</div><div id="tm-foot">' + tmFoot() + '</div></div>', { pause: true, onClose: () => { tm = null; } });
+      '<div class="rv">' + emblem(riv, 44) + '<div class="gr"><b>' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + '</b>Envia <b style="display:inline;font-size:12.5px">' + n + ' heróis</b> · ' + riv.style + ' · Nv médio ' + avgLv(rz) + miniTeam(rz, riv) + '</div></div>' +
+      '<p class="mut" style="font-size:11.5px;margin:4px 2px 8px;line-height:1.4">Escolha ' + n + ' heróis. <b>Frente</b> toma os golpes corpo a corpo; <b>Fundo</b> fica protegido, mas arqueiros e magos alcançam todos.</p>' +
+      '<div id="tm-list">' + tmList() + '</div><div id="tm-foot" class="tmf">' + tmFoot() + '</div></div>', { pause: true, onClose: () => { tm = null; } });
   };
   Object.assign(UI.ACT, {
     arfight: (a) => teamModal(+a[0]),
@@ -9015,7 +9025,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* ================= o duelo animado ================= */
   let duel = null;
   const stopDuel = () => { if (duel) { cancelAnimationFrame(duel.raf); clearTimeout(duel.to); duel = null; } };
-  const ftHtml = (f, look) => '<div class="arft' + (f.side ? ' r' : '') + '" id="ft' + f.id + '"><span class="nm">' + esc(f.name) + '</span><i class="px sp" style="background-image:url(' + sprite(look) + ')"></i><span class="arhb"><i id="hb' + f.id + '"></i></span></div>';
+  const ftHtml = (f, look) => '<div class="arft' + (f.side ? ' r' : '') + '" id="ft' + f.id + '"><span class="nm">' + esc(f.name) + '</span><i class="px arsp" style="background-image:url(' + sprite(look) + ')"></i><span class="arhb"><i id="hb' + f.id + '"></i></span></div>';
   const duelModal = (res) => {
     stopDuel();
     const F = res.sim.F, nA = res.team.length, riv = G.arenaRival(res.rival.i), cols = { '0-1': [], '0-0': [], '1-0': [], '1-1': [] };
@@ -9044,7 +9054,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       switch (e.k) {
         case 'hit': case 'thorn': case 'dot':
           setHp(e.b, e.hp); flash(e.b, 'hit'); if (e.k === 'hit' && e.a >= 0) flash(e.a, 'atk', 190);
-          pop(e.b, (e.c ? 'CRÍTICO ' : '') + G.fmt(e.v), e.c ? 'arcr' : e.k === 'thorn' ? 'arsg' : '', null);
+          pop(e.b, G.fmt(e.v) + (e.c ? '!' : ''), e.c ? 'arcr' : e.k === 'thorn' ? 'arsg' : '', null);
           G.sfx(e.c ? 'crit' : 'hit'); break;
         case 'miss': pop(e.b, 'esquivou!', 'arms'); if (e.a >= 0) flash(e.a, 'atk', 190); break;
         case 'shield': pop(e.b, 'escudo', 'arsg'); break;
@@ -9074,8 +9084,6 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     };
     duel.finish = finish;
     duel.raf = requestAnimationFrame(step);
-    /* enquanto a luta roda, já prepara os próximos adversários (a simulação deles pesa um pouco) */
-    setTimeout(() => { try { G.arenaOffers(); } catch (e) { /* ok */ } }, 400);
   };
   UI.ACT.arskip = () => { if (duel && !duel.done) duel.finish(true); };
   const showResult = (res) => {
@@ -9092,6 +9100,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       '<div class="acts"><button class="btn" data-a="arback">Voltar à Arena</button>' + (tk.total > 0 ? '<button class="btn pri" data-a="aragain">Duelar de novo (' + tk.total + ')</button>' : '') + '</div></div>';
     void L;
     S0().tut.seen.arena = 1;
+    setTimeout(() => { try { G.arenaOffers(); } catch (e) { /* os próximos adversários ficam prontos enquanto a cerimônia aparece */ } }, 700);
+    setTimeout(() => { const r = $('.ar-res'); if (r) r.scrollIntoView({ block: 'end', behavior: 'smooth' }); }, 120);
     G.emit('arena', { t: 'result' });
   };
   const S0 = () => G.S;
@@ -9123,10 +9133,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const rf1 = UI.refresh;
   UI.refresh = () => { rf1(); pump(); };
   G.on('arena', (d) => {
-    if (d.t === 'open') { UI.banner('Novidade em Aurora', 'Arena das Duas Luas', 'Missões › Arena'); G.sfx('realm'); UI.arenaSyncTab && UI.arenaSyncTab(); }
+    if (d.t === 'open') { UI.banner('Novidade em Aurora', 'A Arena abriu!', 'Arena das Duas Luas · Missões › Arena'); G.sfx('realm'); UI.arenaSyncTab && UI.arenaSyncTab(); }
     if (d.t === 'duel' || d.t === 'season' || d.t === 'shop' || d.t === 'coin' || d.t === 'ticket' || d.t === 'open') dirty();
   });
-  G.on('duelo', () => { UI.sheetDirty && UI.sheetDirty(); });
   /* asas exclusivas: uma lua pálida e uma lua violeta (desenho próprio) */
   const ws0 = A.wingSheet;
   let moonWings = null;

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Simulador headless do Aurora.
-   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge] [--week=forja|cacada|portal|ouro|none]
+   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge] [--week=forja|cacada|portal|ouro|none]   (v25: o robô também duela na Arena)
    Roda o jogo sem tela (G.HEADLESS) com um jogador-robô simples e imprime uma linha do tempo de
    "momentos de recompensa" e métricas de ritmo. Sai com código 1 se houver exceção na simulação. */
 'use strict';
@@ -41,6 +41,13 @@ const origLog = G.log;
 G.log = (msg, kind) => { if (kind === 'epic' || kind === 'boss') mark(kind, msg); return origLog(msg, kind); };
 
 const stats = { reforges: 0, accepted: 0, perfect: 0 };
+/* v25: a Arena usa um relógio próprio (G.arenaNow). Aqui cada dia de jogo vale um dia da Arena, começando numa segunda-feira, para o robô
+   duelar até 5 vezes por dia de jogo e a temporada virar a cada 7 dias de jogo (testa o fim de temporada e o baú). */
+const arena = { duels: 0, wins: 0, ch: 0, leagues: [], lastSea: -1 };
+if (G.arenaNow) {
+  const b0 = new Date(); b0.setHours(0, 0, 0, 0); b0.setDate(b0.getDate() - ((b0.getDay() + 6) % 7));
+  G.arenaNow = () => b0.getTime() + ((S().day - 1) + S().clock / 1440) * 86400000;
+}
 /* ---------- jogador-robô ---------- */
 let thinkT = 0;
 const bot = () => {
@@ -70,7 +77,20 @@ const bot = () => {
       }
     }
     if (REFORGE && G.reforgeRoll) reforgeBot(st);
+    if (G.arenaOpen) arenaBot(st);
   } catch (e) { errors.push('bot: ' + e.stack); }
+};
+/* v25: duela na Arena enquanto houver tíquete grátis do dia, sempre contra o adversário do meio, com a melhor equipe automática */
+const arenaBot = (st) => {
+  if (!G.arenaOpen() || st.heroes.length < 3) return;
+  G.arenaSync();
+  for (let guard = 0; guard < 8 && G.arenaTickets().free > 0; guard++) {
+    const of = G.arenaOffers(); if (!of.length) break;
+    const k = Math.floor((of.length - 1) / 2), rv = G.arenaRival(of[k].i), team = G.arenaAutoTeam(rv.size);
+    const r = G.arenaDuel({ ids: team.map((x) => x.id), rows: Object.fromEntries(team.map((x) => [x.id, x.r])), off: k });
+    if (r.err) { errors.push('arena: ' + r.err); break; }
+    arena.duels++; if (r.win) arena.wins++; arena.ch += of[k].ch;
+  }
 };
 /* v23: junta Pó de Reforja desmontando sobras comuns quando o armazém enche e reforja a peça equipada mais fraca;
    aceita a reforja só se o poder da peça subir (como um jogador atento faria). */
@@ -124,6 +144,12 @@ if (G.rollIns) {
   const gear = []; for (const h of S().heroes) for (const k in h.gear) if (h.gear[k]) gear.push(h.gear[k]);
   const ins = gear.reduce((a, it) => a + (it.ins ? it.ins.length : 0), 0), perf = gear.reduce((a, it) => a + G.insPerfect(it.ins), 0);
   console.log('Inscrições: ' + ins + ' nas ' + gear.length + ' peças equipadas (' + perf + ' perfeitas) · forjadas ' + S().stats.crafted + ' · reforjas ' + stats.reforges + ' (aceitas ' + stats.accepted + ') · Pó de Reforja ' + Math.floor(S().res.po_reforja || 0) + (G.S.sorte ? ' · garantia do Portal ' + G.S.sorte.pity + '/10' : ''));
+}
+if (G.arena && S().arena && S().arena.open) {
+  const a = S().arena, L = G.ARENA_LEAGUES, last = a.hist[a.hist.length - 1];
+  const cnt = {}; for (const h of a.hist) cnt[L[h.liga].name] = (cnt[L[h.liga].name] || 0) + 1;
+  console.log('Arena: ' + arena.duels + ' duelos · ' + arena.wins + ' vitórias (' + (arena.duels ? (100 * arena.wins / arena.duels).toFixed(1) : '0') + '%, chance estimada média ' + (arena.duels ? (100 * arena.ch / arena.duels).toFixed(0) : '0') + '%)' +
+    ' · liga final ' + (last ? L[last.liga].name + ' (' + last.pts + ' pts, ' + last.pos + 'º)' : '—') + ' · ' + a.hist.length + ' temporadas: ' + Object.keys(cnt).map((k) => k + ' ×' + cnt[k]).join(', ') + ' · Insígnias ' + a.ins + ' · títulos ' + a.titulos.reduce((n, t) => n + t.n, 0));
 }
 console.log('Primeira promoção: ' + first('promo') + ' · primeiro momento épico: ' + first('epic'));
 if (!QUIET) for (const x of moments.slice(0, 60)) console.log('  [' + (x.t / 60).toFixed(1) + 'm] ' + x.k + ': ' + String(x.txt).slice(0, 110));
