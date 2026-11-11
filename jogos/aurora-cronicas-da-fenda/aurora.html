@@ -9934,6 +9934,97 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   };
   G.reforgeDelta = (it) => (it && it.rfp ? G.pieceCmp(it, Object.assign({}, it, { ins: it.rfp })).pct : 0);
 
+  /* ================= 2C.4 Códex de Inscrições ================= */
+  /* S.codex = { ins: { id: máscara de qualidades vistas (bit q, 1..5) }, gear: { tier: máscara de raridades (bit r, 0..5) },
+     ms: { marco: 1 }, fresh: registros novos desde a última visita ao Códex, back: marcos que já valiam quando o Códex nasceu }.
+     Registra tudo o que passa pelo Armazém e pelos heróis (forja, presentes, cartas, reforja aceita) e, ao carregar um save que
+     ainda não tinha Códex, o que já existe: em silêncio, sem prêmios nem cerimônias em massa. */
+  G.CODEX_TIERS = 6;                                    // linhas fixas da grade de peças; tiers acima aparecem quando surgem
+  const cx = (G.codex = () => { const S = G.S; return S.codex || (S.codex = { ins: {}, gear: {}, ms: {}, fresh: 0, back: 0 }); });
+  const pop = (m) => { let n = 0; for (let q = 0; q < 8; q++) if (m & (1 << q)) n++; return n; };
+  G.codexStats = () => {
+    const c = cx(); let slots = 0, ids = 0, perf = 0, cells = 0, tiers = 0, rm = 0, mx = -1;
+    for (const id of G.INS_IDS) { const m = c.ins[id] || 0; if (m) { ids++; slots += pop(m); if (m & 32) perf++; } }
+    for (let t = 1; t <= G.CODEX_TIERS; t++) { const m = c.gear[t] || 0; if (m) tiers++; cells += pop(m); }
+    for (const t in c.gear) rm |= c.gear[t];
+    for (let r = 0; r < 6; r++) if (rm & (1 << r)) mx = r;
+    return { slots, slotsMax: G.INS_IDS.length * 5, ids, idsMax: G.INS_IDS.length, perf, cells, cellsMax: G.CODEX_TIERS * 6, tiers, rars: pop(rm), mx };
+  };
+  /* marcos: v(stats) >= t. rw = prêmio ({ nucleos, selos, po_reforja, gold }). big = cerimônia maior */
+  G.CODEX_MS = [
+    { id: 'i10',   n: 'Dez registros', d: 'Veja 10 combinações de inscrição e qualidade.', ic: 'book', t: 10, v: (s) => s.slots, rw: { po_reforja: 5 } },
+    { id: 'i30',   n: 'Trinta registros', d: 'Veja 30 combinações de inscrição e qualidade.', ic: 'book', t: 30, v: (s) => s.slots, rw: { nucleos: 1, po_reforja: 10 } },
+    { id: 'i60',   n: 'Sessenta registros', d: 'Veja 60 combinações de inscrição e qualidade.', ic: 'book', t: 60, v: (s) => s.slots, rw: { nucleos: 2, po_reforja: 20 } },
+    { id: 'ids',   n: 'Todas as inscrições vistas', d: 'Veja cada uma das 16 inscrições, em qualquer qualidade.', ic: 'star', t: 16, v: (s) => s.ids, rw: { selos: 2, nucleos: 2, po_reforja: 15 }, big: 1 },
+    { id: 'perf5', n: '5 inscrições perfeitas', d: 'Tenha 5 inscrições diferentes na qualidade Perfeita.', ic: 'spark', t: 5, v: (s) => s.perf, rw: { nucleos: 3, selos: 1 } },
+    { id: 'perf16', n: 'Todas perfeitas', d: 'Tenha as 16 inscrições na qualidade Perfeita.', ic: 'crown', t: 16, v: (s) => s.perf, rw: { nucleos: 6, selos: 4 }, big: 1 },
+    { id: 'i80',   n: 'Códex das Inscrições completo', d: 'Veja as 80 combinações: 16 inscrições, cada qualidade.', ic: 'trophy', t: 80, v: (s) => s.slots, rw: { nucleos: 8, selos: 5, po_reforja: 40 }, big: 1 },
+    { id: 'epic',  n: 'Primeiro Épico', d: 'Tenha uma peça Épica.', ic: 'anvil', t: 1, v: (s) => (s.mx >= 3 ? 1 : 0), rw: { nucleos: 1 } },
+    { id: 'leg',   n: 'Primeiro Lendário', d: 'Tenha uma peça Lendária.', ic: 'anvil', t: 1, v: (s) => (s.mx >= 4 ? 1 : 0), rw: { nucleos: 2, selos: 1 } },
+    { id: 'myt',   n: 'Primeiro Mítico', d: 'Tenha uma peça Mítica.', ic: 'crown', t: 1, v: (s) => (s.mx >= 5 ? 1 : 0), rw: { nucleos: 3, selos: 2 }, big: 1 },
+    { id: 'rars',  n: 'Uma peça de cada raridade', d: 'De Comum a Mítica: uma peça de cada.', ic: 'gift', t: 6, v: (s) => s.rars, rw: { nucleos: 2, po_reforja: 15 } },
+    { id: 'tiers', n: 'Uma peça de cada tier', d: 'Uma peça de cada um dos 6 primeiros tiers da forja.', ic: 'anvil', t: 6, v: (s) => s.tiers, rw: { selos: 2, po_reforja: 15 } },
+    { id: 'g18',   n: 'Dezoito peças no códex', d: 'Preencha 18 das 36 casas da grade de peças.', ic: 'chest', t: 18, v: (s) => s.cells, rw: { nucleos: 2, selos: 1 } },
+    { id: 'g36',   n: 'Arsenal completo', d: 'Preencha as 36 casas: todo tier em toda raridade.', ic: 'trophy', t: 36, v: (s) => s.cells, rw: { nucleos: 8, selos: 5, po_reforja: 40 }, big: 1 },
+  ];
+  /* registra uma peça; devolve os registros novos [{ k:'i', id, q } | { k:'g', tier, rar }] */
+  const noteItem = (c, it) => {
+    const out = [];
+    if (!it || it.tier == null || it.rar == null) return out;
+    const gm = c.gear[it.tier] || 0, gb = 1 << it.rar;
+    if (!(gm & gb)) { c.gear[it.tier] = gm | gb; out.push({ k: 'g', tier: it.tier, rar: it.rar }); }
+    if (it.ins) for (const e of it.ins) { const m = c.ins[e[0]] || 0, b = 1 << e[1]; if (G.INS[e[0]] && !(m & b)) { c.ins[e[0]] = m | b; out.push({ k: 'i', id: e[0], q: e[1] }); } }
+    return out;
+  };
+  G.codexCheck = (silent) => {
+    const c = cx(), s = G.codexStats(), got = [];
+    for (const m of G.CODEX_MS) {
+      if (c.ms[m.id] || m.v(s) < m.t) continue;
+      c.ms[m.id] = 1;
+      if (silent) { c.back++; continue; }
+      const txt = G.giveReward(m.rw, 'codex');
+      G.log('Códex: "' + m.n + '". Recompensa: ' + txt + '.', 'epic'); G.sfx('quest');
+      G.emit('codex', { t: 'ms', m, txt }); got.push(m);
+    }
+    return got;
+  };
+  G.codexNote = (it, silent) => {
+    const c = cx(), news = noteItem(c, it);
+    if (news.length) { if (!silent) { c.fresh += news.length; G.emit('codex', { t: 'new', news }); } G.codexCheck(silent); }
+    return news.length;
+  };
+  /* varre o Armazém e os heróis (o que já existe) */
+  G.codexSync = (silent) => {
+    const S = G.S, c = cx(); let n = 0; const all = [];
+    for (const it of S.inv) n += noteItem(c, it).length || 0;
+    for (const h of S.heroes) for (const k in h.gear) if (h.gear[k]) n += noteItem(c, h.gear[k]).length || 0;
+    void all;
+    if (n && !silent) { c.fresh += n; G.emit('codex', { t: 'new', news: [], n }); }
+    if (n || silent) G.codexCheck(silent);
+    return n;
+  };
+  /* marco mais próximo (para a "próxima recompensa"): { m, cur, t, pct } */
+  G.codexNext = () => {
+    const c = cx(), s = G.codexStats(); let best = null;
+    for (const m of G.CODEX_MS) { if (c.ms[m.id]) continue; const cur = Math.min(m.t, m.v(s)), pct = cur / m.t; if (!best || pct > best.pct || (pct === best.pct && m.t < best.m.t)) best = { m, cur, t: m.t, pct }; }
+    return best;
+  };
+  /* ganchos */
+  const cr0 = G.craft;
+  G.craft = (type, tier, master, silent) => { const it = cr0(type, tier, master, silent); if (it) G.codexNote(it); return it; };
+  const gi0 = G.giveItem;
+  G.giveItem = (d, quiet) => { const it = gi0(d, quiet); if (it) G.codexNote(it); return it; };
+  const ra0 = G.reforgeAccept;
+  G.reforgeAccept = (it) => { const r = ra0(it); if (r && it) G.codexNote(it); return r; };
+  const ng1 = G.newGame;
+  G.newGame = () => { const S = ng1(); cx(); return S; };
+  const al1 = G.afterLoad;
+  G.afterLoad = () => { const first = !G.S.codex; al1(); G.codexSync(first); };
+  let cxT = 0, cxDirty = false;
+  G.on('inv', () => { cxDirty = true; });
+  const tk1 = G.tick;
+  G.tick = (dt) => { tk1(dt); cxT -= dt; if (cxT <= 0) { cxT = 2; if (cxDirty && G.S) { cxDirty = false; G.codexSync(false); } } };
+
   /* @@fim3B */
 })();
 
@@ -10181,6 +10272,106 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     if (S.ev && S.ev.pending && G.EVENTS) { const e = G.EVENTS.find((x) => x.id === S.ev.pending); if (e) UI.queueModal(PRIO.evento, () => { if (G.S.ev.pending !== e.id) return false; UI.eventModal(e); }, 'evento'); }   // evento que ficou pendente num save
     if (QQ.length && !UI.modalOpen) qPump();
   };
+
+  /* ================= 2C.4 Códex de Inscrições (Mais › Códex) ================= */
+  css.textContent += '\n' + [
+    '.cdxq,.cdxr{display:grid;grid-template-columns:minmax(0,1fr) repeat(5,38px);gap:4px;align-items:center}',
+    '.cdxq{margin:2px 0 4px;font-size:9.5px;font-weight:800;text-align:center;color:var(--mut)}',
+    '.cdxq b{font-weight:800}',
+    '.cdxr{width:100%;margin:0 0 4px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left}',
+    'button.cdxr{cursor:pointer}',
+    '.cdxr.g,.cdxq.g{grid-template-columns:minmax(0,1fr) repeat(6,36px)}',
+    '.cdxr .nm{font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}',
+    '.cdxr.off .nm{color:var(--mut);letter-spacing:.2em}',
+    '.cdxc{height:32px;border-radius:9px;display:grid;place-items:center;font-style:normal;font-size:12.5px;font-weight:800;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:#58607a}',
+    '.cdxc.on{color:var(--qc);border-color:var(--qc);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04));text-shadow:0 0 8px var(--qc)}',
+    '.cdxc.on.q5{box-shadow:0 0 12px rgba(255,211,90,.55);animation:cdxg 2.4s ease-in-out infinite alternate}',
+    '@keyframes cdxg{from{box-shadow:0 0 6px rgba(255,211,90,.35)}to{box-shadow:0 0 14px rgba(255,211,90,.75)}}',
+    '.cdxs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}',
+    '.cdxs small{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);font-weight:700;margin-bottom:3px}',
+    '.cdxs small b{color:var(--gold2)}',
+    '.cdxm{display:flex;gap:10px;align-items:center;padding:8px 10px;margin-bottom:6px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line2)}',
+    '.cdxm.done{border-color:rgba(95,207,124,.45);background:rgba(95,207,124,.07)}',
+    '.cdxm .ck{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(226,182,89,.14);color:var(--gold2);font-size:16px}',
+    '.cdxm.done .ck{background:rgba(95,207,124,.2);color:var(--good)}',
+    '.cdxm .gr{min-width:0;flex:1}',
+    '.cdxm b{display:block;font-size:12.5px}',
+    '.cdxm small{display:block;font-size:11px;color:var(--mut);line-height:1.3}',
+    '.cdxm .bar{margin-top:5px}',
+    '.cdxm .rw{display:flex;flex-direction:column;gap:3px;align-items:flex-end;flex:none}',
+    '.cdxm .rw span{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:800;color:#e9edf8}',
+    '.cdxm .rw svg{width:13px;height:13px}',
+    '.cdxd{display:flex;align-items:center;gap:8px;padding:6px 9px;margin-top:5px;border-radius:10px;background:rgba(255,255,255,.05);border-left:3px solid var(--qc)}',
+    '.cdxd i{flex:none;font-style:normal;font-size:9px;letter-spacing:1px;color:var(--qc);white-space:nowrap}',
+    '.cdxd b{flex:none;color:var(--qc);font-size:12px}',
+    '.cdxd em{font-style:normal;font-size:12px;color:#cfd5e4;min-width:0}',
+    '.cdxd.no{opacity:.55;border-left-color:#556}',
+  ].join('\n');
+  const insShort = (id) => G.INS[id].name.replace(/^(da|do|dos|das|de) /, '');
+  const tierShort = (t) => G.tierName(t).replace(/^(de|da|das|do|dos) /, '');
+  const RARS3 = ['Com', 'Inc', 'Rar', 'Épi', 'Len', 'Mít'];
+  const rwChips = (rw) => '<div class="rw">' + (rw.nucleos ? '<span>' + ic('core') + '+' + rw.nucleos + '</span>' : '') + (rw.selos ? '<span>' + ic('seal') + '+' + rw.selos + '</span>' : '') +
+    (rw.po_reforja ? '<span><i class="px ri-po_reforja" style="width:14px;height:14px"></i>+' + rw.po_reforja + '</span>' : '') + (rw.gold ? '<span>' + ic('coin') + '+' + G.fmt(rw.gold) + '</span>' : '') + '</div>';
+  const codexTab = () => {
+    const c = G.codex(), s = G.codexStats(); c.fresh = 0;
+    const pc = (a, b) => Math.round(100 * a / b);
+    let h = '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:22px;color:var(--gold2)">' + ic('book') + '</span><div class="gr"><h3>Códex de Inscrições</h3><p>Tudo o que você já viu em peças forjadas ou ganhas. As casas escuras esperam ser descobertas; completar a coleção rende prêmios.</p></div></div>' +
+      '<div class="cdxs"><div><small>Inscrições <b>' + s.slots + '/' + s.slotsMax + '</b></small><div class="bar"><i style="width:' + pc(s.slots, s.slotsMax) + '%"></i></div></div><div><small>Peças <b>' + s.cells + '/' + s.cellsMax + '</b></small><div class="bar"><i style="width:' + pc(s.cells, s.cellsMax) + '%"></i></div></div></div></div>';
+    h += '<div class="sec">Inscrições · 16 tipos × 5 qualidades</div><div class="cdxq">' + '<span></span>' + [1, 2, 3, 4, 5].map((q) => '<b style="color:' + G.INS_QCOL[q] + '">' + G.INS_Q[q] + '</b>').join('') + '</div>';
+    for (const id of G.INS_IDS) {
+      const m = c.ins[id] || 0, cells = [1, 2, 3, 4, 5].map((q) => (m & (1 << q) ? '<i class="cdxc on q' + q + '" style="--qc:' + G.INS_QCOL[q] + '">' + q + '</i>' : '<i class="cdxc">?</i>')).join('');
+      h += m ? '<button class="cdxr" data-a="cdxi:' + id + '"><span class="nm">' + insShort(id) + '</span>' + cells + '</button>' : '<div class="cdxr off"><span class="nm">? ? ?</span>' + cells + '</div>';
+    }
+    let tmax = G.CODEX_TIERS; for (const t in c.gear) if (+t > tmax && c.gear[t]) tmax = Math.min(12, +t);
+    h += '<div class="sec">Peças · tier × raridade</div><div class="cdxq g"><span></span>' + RARS3.map((n, r) => '<b style="color:' + G.RAR_COLOR[r] + '">' + n + '</b>').join('') + '</div>';
+    for (let t = 1; t <= tmax; t++) {
+      const m = c.gear[t] || 0;
+      h += '<div class="cdxr g' + (m ? '' : ' off') + '"><span class="nm">' + (m || t <= 2 ? tierShort(t) : '? ? ?') + '</span>' + [0, 1, 2, 3, 4, 5].map((r) => (m & (1 << r) ? '<i class="cdxc on" style="--qc:' + G.RAR_COLOR[r] + '">✦</i>' : '<i class="cdxc">?</i>')).join('') + '</div>';
+    }
+    const left = G.CODEX_MS.filter((m) => !c.ms[m.id]).map((m) => ({ m, p: Math.min(m.t, m.v(s)) / m.t })).sort((a, b) => b.p - a.p), done = G.CODEX_MS.filter((m) => c.ms[m.id]);
+    h += '<div class="sec">Marcos do Códex · ' + done.length + '/' + G.CODEX_MS.length + '</div>';
+    for (const { m, p } of left) h += '<div class="cdxm"><span class="ck">' + ic(m.ic) + '</span><div class="gr"><b>' + m.n + '</b><small>' + m.d + '</small><div class="bar"><i style="width:' + Math.round(p * 100) + '%"></i></div></div>' + rwChips(m.rw) + '</div>';
+    for (const m of done) h += '<div class="cdxm done"><span class="ck">' + ic('check') + '</span><div class="gr"><b>' + m.n + '</b><small>' + m.d + '</small></div>' + rwChips(m.rw) + '</div>';
+    if (c.back) h += '<p class="mut" style="font-size:11.5px;text-align:center;margin-top:6px">' + c.back + (c.back === 1 ? ' marco já estava alcançado' : ' marcos já estavam alcançados') + ' quando o Códex foi criado.</p>';
+    return h;
+  };
+  UI.ACT.cdxi = (a) => {
+    const id = a[0], d = G.INS[id], m = G.codex().ins[id] || 0; if (!d || !m) return;
+    UI.modal('<div class="eyebrow">Códex · Inscrição</div><h2>' + insShort(id) + '</h2>' +
+      '<p class="mut" style="text-align:center;font-size:11.5px;margin:0 0 6px">Valores numa peça do tier 6 (a qualidade e o tier da peça mudam o valor).</p>' +
+      [1, 2, 3, 4, 5].map((q) => '<div class="cdxd' + (m & (1 << q) ? '' : ' no') + '" style="--qc:' + G.INS_QCOL[q] + '"><i>' + '●'.repeat(q) + '○'.repeat(5 - q) + '</i><b>' + G.INS_Q[q] + '</b><em>' + (m & (1 << q) ? esc(G.insText({ tier: 6 }, id, q)) : 'Ainda não vista') + '</em></div>').join('') +
+      '<div class="acts"><button class="btn pri" data-a="mclose">Fechar</button></div>', { pause: false });
+  };
+  const M1 = UI.SHEETS && UI.SHEETS.mais;
+  if (M1) {
+    const mr1 = M1.render;
+    M1.render = function (tab, sub) { return tab === 'codex' ? codexTab() : mr1.call(M1, tab, sub); };
+    const k = M1.tabs.findIndex((t) => t[0] === 'recordes');
+    M1.tabs.splice(k < 0 ? M1.tabs.length : k, 0, ['codex', 'Códex']);
+  }
+  const mb1 = UI.badges.mais; UI.badges.mais = () => mb1() + (G.S && G.S.codex && G.S.codex.fresh > 0 && !(UI.sheet && UI.sheet.name === 'mais' && UI.sheet.tab === 'codex') ? 1 : 0);
+  /* atalho na Forja (junto da nota sobre inscrições) */
+  const fn1 = UI.forjaNote;
+  UI.forjaNote = () => { const s = G.codexStats(); return (fn1 ? fn1() : '') + '<button class="btn sm wide" style="margin:0 0 10px" data-a="open:mais:codex">' + ic('book') + 'Códex de Inscrições · ' + s.slots + '/' + s.slotsMax + '</button>'; };
+  /* avisos: registros novos se juntam num só aviso (no máximo um a cada ~6 s); marcos têm aviso próprio */
+  let cdxQ = 0, cdxOne = null, cdxTm = 0, cdxLast = 0;
+  const cdxFlush = () => {
+    const n = cdxQ, one = cdxOne; cdxQ = 0; cdxOne = null; if (!n) return;
+    cdxLast = performance.now();
+    const msg = n === 1 && one ? (one.k === 'i' ? 'Códex: nova inscrição, ' + insShort(one.id) + ' (' + G.INS_Q[one.q] + ')' : 'Códex: nova peça, ' + tierShort(one.tier) + ' ' + G.RAR[one.rar]) : 'Códex: ' + n + ' registros novos';
+    UI.toast(msg, one && one.k === 'i' && one.q === 5 ? 'epic' : 'info', 'book');
+  };
+  G.on('codex', (d) => {
+    if (d.t === 'new') {
+      cdxQ += d.news.length || d.n || 0; cdxOne = d.news.length === 1 ? d.news[0] : cdxQ === 1 ? cdxOne : null;
+      clearTimeout(cdxTm); cdxTm = setTimeout(cdxFlush, Math.max(1500, 6000 - (performance.now() - cdxLast)));
+      if (UI.sheet && UI.sheet.name === 'mais' && UI.sheet.tab === 'codex') UI.sheetDirty();
+    } else if (d.t === 'ms') {
+      UI.toast('Marco do Códex: ' + d.m.n + '! ' + d.txt, 'epic', 'book');
+      if (d.m.big) UI.banner('Marco do Códex', d.m.n, d.txt);
+      if (UI.sheet && UI.sheet.name === 'mais' && UI.sheet.tab === 'codex') UI.sheetDirty();
+    }
+  });
 
   /* @@fim67 */
 })();

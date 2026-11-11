@@ -47,6 +47,9 @@ G.on('titulo', (d) => { if (d.t) lendas.titles.push({ t: T0(), n: d.h.name, id: 
 G.on('pmark', (d) => { lendas.marks.push({ t: T0(), v: d.v, rw: d.rw }); });
 G.on('hod', (d) => { lendas.hod.push({ t: T0(), d: d.d, n: d.name, why: d.why }); lendas.hodIds[d.id] = 1; });
 G.on('recorde', () => { lendas.recs++; });
+/* v27: Códex de Inscrições — minuto de cada marco */
+const codexMs = [];
+G.on('codex', (d) => { if (d.t === 'ms') codexMs.push({ t: T0(), id: d.m.id }); });
 /* v25: a Arena usa um relógio próprio (G.arenaNow). Aqui cada dia de jogo vale um dia da Arena, começando numa segunda-feira, para o robô
    duelar até 5 vezes por dia de jogo e a temporada virar a cada 7 dias de jogo (testa o fim de temporada e o baú). */
 const arena = { duels: 0, wins: 0, ch: 0, leagues: [], lastSea: -1 };
@@ -166,6 +169,7 @@ if (G.kingPower && S().lendas) {
   if (!QUIET || args.includes('--titles')) { const by = {}; for (const x of lendas.titles) (by[x.id] = by[x.id] || []).push((x.t / 60).toFixed(0)); console.log('Títulos (id: minutos): ' + G.TITLES.map((t) => t.id + ' [' + (by[t.id] ? by[t.id].length + ': ' + by[t.id].slice(0, 6).join(',') : '—') + ']').join(' · ')); }
   const rc = L.rec; console.log('Recordes: ' + G.RECS_ORDER.map((k) => G.RECS[k].name + ' ' + (rc[k] ? G.recText(k, rc[k]) : '—')).join(' · '));
 }
+if (G.codexStats && S().codex) { const cs = G.codexStats(); console.log('Códex: ' + cs.slots + '/' + cs.slotsMax + ' registros de inscrição (' + cs.ids + '/' + cs.idsMax + ' tipos, ' + cs.perf + ' perfeitas) · peças ' + cs.cells + '/' + cs.cellsMax + ' · marcos ' + Object.keys(S().codex.ms).length + '/' + G.CODEX_MS.length + ': ' + (codexMs.length ? codexMs.map((x) => x.id + '@' + (x.t / 60).toFixed(0) + 'm').join(' ') : '—')); }
 console.log('Primeira promoção: ' + first('promo') + ' · primeiro momento épico: ' + first('epic'));
 if (!QUIET) for (const x of moments.slice(0, 60)) console.log('  [' + (x.t / 60).toFixed(1) + 'm] ' + x.k + ': ' + String(x.txt).slice(0, 110));
 if (opt('save', '')) { fs.writeFileSync(opt('save', ''), G.serialize()); console.log('Save gravado em ' + opt('save', '')); }
