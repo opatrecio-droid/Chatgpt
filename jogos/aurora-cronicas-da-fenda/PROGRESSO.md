@@ -20,7 +20,9 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 
 ## Estado atual
 - Ciclo 1 — pesquisa concluída (`pesquisa/`). Rubrica e notas da base em `AVALIACAO.md` (Diversão 7,2 · Viciante 5,8).
-- Próximo passo: lotes 1-A e 1-B (`PLANO-CICLO-1.md`) com o Sonnet; depois juntar, avaliar e planejar o ciclo 2 (Arena).
+- Em andamento: lotes 1-A (forja-loteria) e 1-B (retorno diário) com dois Sonnet em paralelo, cada um em sua worktree.
+- Próximo passo: juntar as duas branches em `aurora.html`, rodar simulador + navegador, reavaliar a rubrica e lançar o ciclo 2 (`PLANO-CICLO-2.md`).
+- Se a sessão foi interrompida antes da junção: verifique `git branch -a` e `git worktree list` por branches dos lotes; se sumiram, relance os lotes conforme `PLANO-CICLO-1.md`.
 
 ## Histórico
 | Data | Ciclo | Etapa | Resultado |
