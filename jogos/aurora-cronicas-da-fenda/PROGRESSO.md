@@ -19,7 +19,7 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - `AVALIACAO.md` — rubrica de diversão/vício e notas de cada ciclo.
 
 ## Estado atual
-- Ciclo 1 concluído (v23.0): Diversão 7,2 → 8,0 · Viciante 5,8 → 7,7. Ciclo 2 em andamento (`PLANO-CICLO-2.md`).
+- Ciclo 1 (v23.0): Diversão 7,2 → 8,0 · Viciante 5,8 → 7,7. Ciclo 2 (v24.0): Diversão 8,7 · Viciante 9,2. Ciclo 3 em andamento (`PLANO-CICLO-3.md`).
 - Método (desde 16:30 UTC de 11/11): **um lote por vez, direto na branch `ccr-5878aa8d-eltmr3`**, com commit e
   push a cada item concluído e o item marcado abaixo. Assim nada se perde se o limite de uso pausar a sessão.
 - Para retomar: o próximo item é o primeiro `[ ]` da lista. Relance um Sonnet (esforço extra alto) com o
@@ -95,6 +95,31 @@ Notas técnicas do lote 2-C:
 - HUD (2C.6): chips com área de toque ≥ 40 px (pseudo-elemento vertical), duelo com nome sob a barra de vida e números sobre o retrato, palco sem cortar a 4ª coluna em 360 px. `G.arenaOffers()` ganhou `G.arenaOffersStep()`/`G.arenaOffersReady()` (um rival por passo, ≈25–60 ms) e a interface espalha o cálculo com `UI.arenaWarm()`: abrir a Arena passou de 102 ms bloqueados para 6 ms, sem tarefas longas; o simulador chama a versão síncrona e o resultado é idêntico.
 
 ### Depois do ciclo 2
+- [x] Avaliação do líder e notas novas em `AVALIACAO.md` → **Diversão 8,7 · Viciante 9,2**
+
+### Lote 3-A — Colosso da Semana (`PLANO-CICLO-3.md`)
+- [ ] 3A.1 Colosso semanal com vida persistente
+- [ ] 3A.2 Ranking de dano, marcos e baú/relíquia
+- [ ] 3A.3 Funciona sem tela + fila de janelas
+
+### Lote 3-B — Nêmesis, visitantes e laços
+- [ ] 3B.1 Nêmesis e revanche (+ notícia no retorno)
+- [ ] 3B.2 Visitantes rivais na cidade
+- [ ] 3B.3 Laços entre heróis
+
+### Lote 3-C — Renascimento que dá vontade
+- [ ] 3C.1 Pontos de Renascimento e traços
+- [ ] 3C.2 Prévia e cerimônia
+- [ ] 3C.3 Ritmo do primeiro renascimento (6–10 h)
+
+### Lote 3-D — Último atrito
+- [ ] 3D.1 Guia completo e pré-requisitos visíveis
+- [ ] 3D.2 HUD 360×640
+- [ ] 3D.3 Quedas raras e dramáticas
+- [ ] 3D.4 Peças inscritas de elites/chefes + proteção no +N
+- [ ] 3D.5 Vibração/tremor e sugestão de Obras; versão 25.0
+
+### Depois do ciclo 3
 - [ ] Avaliação do líder e notas novas em `AVALIACAO.md`
 
 ## Histórico
@@ -109,3 +134,4 @@ Notas técnicas do lote 2-C:
 | 2026-11-11 | 2 | Lote 2-B concluído: Livro de Feitos, 31 títulos, Herói do Dia, Poder do Reino, recordes e marcos (módulos `3A-lendas` e `66-ui-lendas`) | Capturas em `capturas/ciclo2-b/`; simulador sem erros (primeiro título 9 min, marcos de poder 1k@4m, 2,5k@26m, 5k@43m, 10k@79m, 25k@129m); ritmo igual ao de antes (3 sementes: 7.087 → 7.136 abates em 170 min) |
 | 2026-11-11 | 2 | Lotes 2-A (Arena) e 2-B (lendas, Poder do Reino) concluídos; 2-C parou no limite de 5 h (renova 21:30 UTC) antes do 1º item | Retomada agendada para 21:32 UTC |
 | 2026-11-11 | 2 | Lote 2-C concluído (v24.0): tutorial que aponta, fila única de janelas, Poder da peça, Códex, próxima recompensa, HUD (módulos `3B-clareza` e `67-ui-clareza`) | Capturas em `capturas/ciclo2-c/`; primeira decisão em ~13 s (ritmo humano simulado); retorno → novidades → calendário sem sobreposição; simulador sem erros |
+| 2026-11-11 | 2 | Lote 2-C concluído (v24.0); avaliação do ciclo 2; robô do simulador segue a Jornada | Diversão 8,7 · Viciante 9,2 |

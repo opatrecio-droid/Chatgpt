@@ -98,3 +98,39 @@ maior vazio 315/319 s (base 408/319 s), zero erros; save da v22 abre sem erros.
 | V9 | 5 | 8 | Semana temática com prazo; falta chefe da semana |
 | V10 | 7 | 7 | Falta Poder do Reino e recordes |
 | **Viciante** | **5,8** | **7,7** | |
+
+---
+
+## Ciclo 2 — avaliação da v24.0 (lotes 2-A, 2-B, 2-C) · 2026-11-11
+
+Evidência: jogo novo no Chromium (412×860) por 100 s — só 2 falas da Rosa e a mão pulsante no Portal;
+capturas de `capturas/ciclo2-a/`, `ciclo2-b/`, `ciclo2-c/`; simulador 3 h com o robô **agora seguindo a
+Jornada** (sementes 1–3): 267/251/256 momentos, mediana 24–26 s, maior vazio 237/280/351 s, zero erros;
+Arena 58–64% de vitórias, ligas Platina/Diamante; marcos de poder a cada ~18 min; Códex 60–77/80.
+Observação de método: o vazio de ~11 min no começo que aparecia antes era do robô (construía o mais barato,
+não o que a Jornada pedia); corrigido em `ferramentas/sim.js` (`--questless` mantém o robô antigo).
+
+| # | C1 | C2 | Evidência / o que falta para 10 |
+|---|---|---|---|
+| D1 | 8 | 9 | Rosa em 2 falas, mão no próximo toque, primeira decisão ~13 s. Falta: guia em todos os passos iniciais; a missão "Construa o Campo de Treino" não avisa que exige Cidadela 3 (o robô travou nela) |
+| D2 | 8 | 8 | Falta: rivais e heróis "vivendo" no mapa — visitantes, falas sobre feitos, laços entre heróis |
+| D3 | 9 | 9 | Marcos, recordes, cerimônias. Falta: vibração no celular e tremor de tela nos picos; sons conferidos só por script |
+| D4 | 8 | 9 | Duelo, reforja, Códex, próxima recompensa |
+| D5 | 7 | 9 | Livro de Feitos, 31 títulos, Herói do Dia. Falta: laços (amizade/rivalidade) entre heróis |
+| D6 | 8 | 9 | Arena e marcos. Falta: um evento-espetáculo semanal (chefe colossal) |
+| D7 | 8 | 9 | Próxima recompensa + Jornada + liga |
+| D8 | 7 | 8 | Fila única de janelas, toasts agrupados, poder da peça certo. Falta: HUD em 360×640 ainda corta a faixa da semana e ocupa muita tela; pré-requisitos escondidos nas missões |
+| D9 | 9 | 9 | Falta: sinergias (conjuntos de inscrições, formação × classes) |
+| D10 | 8 | 8 | Sem erros. Quedas variam muito (16–62 em 3 h); moedas acumulam (70k–200k) quando o jogador não usa as Obras |
+| **Diversão** | **8,0** | **8,7** | |
+| V1 | 9 | 9 | Falta: peças inscritas caindo de elites/chefes (hoje só material) |
+| V2 | 9 | 9 | Falta: proteção/garantia visível no aprimoramento +N |
+| V3 | 8 | 9 | Próxima recompensa sempre visível; maior vazio ainda 4–6 min |
+| V4 | 9 | 9 | Falta: o retorno mencionar o que rivais/Arena fizeram enquanto você esteve fora |
+| V5 | 9 | 10 | Calendário + contratos + tíquetes diários + temporada semanal |
+| V6 | 8 | 10 | Códex 80 + 36, bestiário, conquistas, 31 títulos, trajes, mascotes |
+| V7 | 8 | 8 | Renascimento só em SSS nível 80 (muito longe, sem prévia); falta pontos de renascimento para moldar traços |
+| V8 | 2 | 9 | Arena com 40 rivais, ligas e loja. Falta: rival pessoal (nêmesis) e revanche |
+| V9 | 8 | 9 | Temporada e semana temática. Falta: evento-chefe com prazo |
+| V10 | 7 | 10 | Poder do Reino, recordes, marcos, relatório, Herói do Dia |
+| **Viciante** | **7,7** | **9,2** | |

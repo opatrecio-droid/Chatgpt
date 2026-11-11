@@ -11,6 +11,7 @@ const opt = (k, d) => { const a = args.find((x) => x.startsWith('--' + k + '='))
 const MIN = +opt('min', 120);               // minutos reais simulados (velocidade 1×)
 const SEED = +opt('seed', 1);
 const QUIET = args.includes('--quiet');
+const QUESTLESS = args.includes('--questless');   // robô antigo: ignora a Jornada ao construir
 const WEEK = opt('week', '');                  // v24: força a semana temática (sem isso vale a semana real do relógio)
 const REFORGE = !args.includes('--noreforge');   // v23: o robô também reforja inscrições (só se o jogo tiver a função)
 
@@ -71,9 +72,20 @@ const bot = () => {
     }
     for (const h of st.heroes) if (G.canPromote(h)) G.promote(h);
     for (const h of st.heroes) if (G.canRebirth && G.canRebirth(h)) G.rebirth(h);
-    // construir/melhorar: o mais barato que der
-    const opts = G.BLD_IDS.map((id) => [id, G.canUpgrade(id)]).filter(([, r]) => r.ok).sort((a, b) => a[1].c.gold - b[1].c.gold);
-    if (opts.length && st.gold > opts[0][1].c.gold * 1.2) G.upgrade(opts[0][0]);
+    // construir/melhorar: primeiro o que a Jornada pede (como um jogador seguindo a missão); senão, o mais barato
+    const qt = (G.questCur && G.questCur().t) || '';
+    const want = G.BLD_IDS.find((id) => qt.indexOf(G.BLD[id].name) >= 0 || (G.BLD[id].short && qt.indexOf(G.BLD[id].short) >= 0));
+    let done = false;
+    if (want && !QUESTLESS) {
+      const r = G.canUpgrade(want);
+      if (r.ok) done = G.upgrade(want);
+      else if (/Cidadela/.test(r.why || '') && G.canUpgrade('cidadela').ok) done = G.upgrade('cidadela');
+      else if (r.c) done = true;   // só falta dinheiro/material para o pedido da Jornada: junte para ele
+    }
+    if (!done) {
+      const opts = G.BLD_IDS.map((id) => [id, G.canUpgrade(id)]).filter(([, r]) => r.ok).sort((a, b) => a[1].c.gold - b[1].c.gold);
+      if (opts.length && st.gold > opts[0][1].c.gold * 1.2) G.upgrade(opts[0][0]);
+    }
     if (G.BLESS) for (const b of G.BLESS) G.buyBless(b.id);
     // forjar o que os heróis precisam (até 2 por decisão), como um jogador atento faria
     if (G.bOk('ferraria')) {
