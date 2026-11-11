@@ -4158,6 +4158,52 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (it.ins && it.ins.length) { let f = 1; for (const e of it.ins) f += 0.02 + 0.02 * e[1]; p = Math.round(p * f); }
     return p;
   };
+  /* ================= Reforja ================= */
+  /* Ferraria nível 2+: sorteia de novo todas as inscrições de uma peça. O resultado fica pendente na peça (it.rfp)
+     até o jogador escolher entre Manter (descarta o novo) e Aceitar (troca). O custo sobe a cada reforja da peça. */
+  G.PO_YIELD = [1, 2, 4, 7, 12, 20];             // Pó de Reforja do desmonte, por raridade
+  const dy0 = G.dismantleYield;
+  G.dismantleYield = (it) => {
+    const out = dy0(it), n = Math.round((G.PO_YIELD[it.rar] || 0) * (1 + 0.1 * (it.tier - 1)));
+    if (n > 0) out.po_reforja = n;
+    return out;
+  };
+  G.reforgeCost = (it) => {
+    const rf = Math.min(12, it.rf || 0), base = G.itemPrice({ type: it.type, tier: it.tier, rar: 0, plus: 0 });
+    return { gold: Math.round(base * (0.8 + 0.25 * it.rar) * Math.pow(1.3, rf)), po: Math.ceil(Math.max(1, it.rar) * 1.5 * (1 + 0.5 * rf)) };
+  };
+  G.canReforge = (it) => {
+    const S = G.S;
+    if (!it) return { ok: false, why: '' };
+    if (!G.bOk('ferraria') || G.bLvl('ferraria') < 2) return { ok: false, why: 'Requer Ferraria nível 2' };
+    if (it.rar < 1) return { ok: false, why: 'Peças comuns não têm inscrições' };
+    if (it.rfp) return { ok: false, why: 'Escolha entre manter ou aceitar a reforja atual', pending: 1 };
+    const c = G.reforgeCost(it);
+    if (S.gold < c.gold) return { ok: false, why: 'Faltam moedas', c };
+    if ((S.res.po_reforja || 0) < c.po) return { ok: false, why: 'Falta Pó de Reforja', c };
+    return { ok: true, c };
+  };
+  G.reforgeRoll = (it) => {
+    const r = G.canReforge(it); if (!r.ok) return r;
+    G.spend(r.c.gold, 'forja'); G.addRes('po_reforja', -r.c.po);
+    it.rf = (it.rf || 0) + 1;
+    it.rfp = G.rollIns(it.rar, it.tier, false);
+    G.S.stats.reforged = (G.S.stats.reforged || 0) + 1;
+    G.sfx('forge'); G.emit('inv');
+    return r;
+  };
+  G.reforgeKeep = (it) => { if (!it || !it.rfp) return false; delete it.rfp; G.emit('inv'); return true; };
+  G.reforgeAccept = (it) => {
+    if (!it || !it.rfp) return null;
+    const perfect = G.insPerfect(it.rfp);
+    it.ins = it.rfp; delete it.rfp;
+    if (perfect) { G.S.stats.perfect = (G.S.stats.perfect || 0) + perfect; G.log('A reforja deu uma inscrição perfeita a ' + G.itemName(it) + '!', 'good'); }
+    for (const h of G.S.heroes) for (const k in h.gear) if (h.gear[k] === it) h._dirty = true;
+    G.emit('inv');
+    return { perfect };
+  };
+  /* mudança de poder da reforja pendente, em fração (+0,12 = 12% melhor) */
+  G.reforgeDelta = (it) => { if (!it || !it.rfp) return 0; const a = G.itemScore(it), b = G.itemScore(Object.assign({}, it, { ins: it.rfp })); return a > 0 ? b / a - 1 : 0; };
 })();
 
 ;
@@ -6370,7 +6416,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     whslot: (a) => { whSlot = a[0]; draw(false); },
     lock: (a) => { const it = G.S.inv.find((i) => i.id === +a[0]); if (it) { G.toggleLock(it); UI.toast(it.lock ? 'Peça reservada: os heróis não compram.' : 'Peça liberada para venda.', 'info', it.lock ? 'lock' : 'unlock'); } },
     dis: (a) => { const it = G.S.inv.find((i) => i.id === +a[0]); if (!it) return; const y = G.dismantle(it); if (y) UI.toast('Desmontado: ' + Object.keys(y).map((k) => '+' + y[k] + ' ' + G.RES[k].name).join(', '), 'good', 'hammer'); },
-    dall: (a) => { const r = +a[0], n = G.S.inv.filter((it) => !it.lock && it.rar === r).length; if (!n) return; UI.confirm('Desmontar ' + n + ' peça(s)?', 'Todas as peças de raridade ' + G.RAR[r] + ' que não estão reservadas viram material (metade da receita' + (r ? ' e Pó Estelar' : '') + '). Não há como desfazer.', 'Desmontar tudo', () => { const o = G.dismantleAll(r); if (o.n) UI.toast(o.n + ' peça(s) desmontada(s): ' + Object.keys(o.tot).map((k) => '+' + o.tot[k] + ' ' + G.RES[k].name.split(' ')[0]).join(', '), 'good', 'hammer'); }); },
+    dall: (a) => { const r = +a[0], n = G.S.inv.filter((it) => !it.lock && it.rar === r).length; if (!n) return; UI.confirm('Desmontar ' + n + ' peça(s)?', 'Todas as peças de raridade ' + G.RAR[r] + ' que não estão reservadas viram material (metade da receita, Pó de Reforja' + (r ? ' e Pó Estelar' : '') + '). Não há como desfazer.', 'Desmontar tudo', () => { const o = G.dismantleAll(r); if (o.n) UI.toast(o.n + ' peça(s) desmontada(s): ' + Object.keys(o.tot).map((k) => '+' + o.tot[k] + ' ' + G.RES[k].name.split(' ').slice(0, G.RES[k].sp ? 3 : 1).join(' ')).join(', '), 'good', 'hammer'); }); },
   });
   /* guia das novidades: aparece uma vez, depois da apresentação */
   UI.vocGuide = () => {
@@ -6951,6 +6997,21 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     '.insb{display:flex;justify-content:flex-end;margin-top:6px}',
     '.hins{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}',
     '.hins .pill b{color:var(--gold2)}',
+    '.rfgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}',
+    '.rfcol{min-width:0;border-radius:12px;padding:8px 7px 7px;background:rgba(0,0,0,.22);border:1px solid var(--line2)}',
+    '.rfcol h4{margin:0 0 6px;font-family:"Aurora Cinzel",serif;font-size:11px;letter-spacing:.2em;text-align:center;color:var(--mut)}',
+    '.rfcol.new{border-color:var(--line);background:linear-gradient(180deg,rgba(226,182,89,.12),rgba(0,0,0,.2))}',
+    '.rfcol.new h4{color:var(--gold2)}',
+    '.rfcol .insl{margin-top:0;gap:5px}',
+    '.rfcol .ins{flex-wrap:wrap;gap:1px 6px;padding:4px 6px}',
+    '.rfcol .ins em{flex-basis:100%;font-size:11px}',
+    '.rfcol.new .ins{animation:rfin .5s cubic-bezier(.2,1.3,.4,1) backwards;animation-delay:calc(var(--i,0) * .28s + .1s)}',
+    '@keyframes rfin{from{opacity:0;transform:translateX(14px) scale(.96)}}',
+    '.rfcol .none{font-size:11.5px;text-align:center;border-left:0}',
+    '.rfperf{margin-top:8px;text-align:center;font-family:"Aurora Cinzel",serif;font-weight:700;letter-spacing:.14em;font-size:12px;color:#ffd35a;text-shadow:0 0 12px rgba(255,211,90,.85);animation:rfp 1.1s ease-in-out infinite alternate}',
+    '@keyframes rfp{from{opacity:.65;transform:scale(.98)}to{opacity:1;transform:scale(1.04)}}',
+    '.rfdelta{margin-top:10px;text-align:center;font-size:12.5px;color:#cfd5e4}',
+    '.rfdelta b{font-weight:900}',
   ].join('\n');
   document.head.appendChild(css);
 
@@ -6969,7 +7030,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     let h = '';
     if (it.ins && it.ins.length) h = UI.insList(it, it.ins);
     else if (!it.ins) h = '<div class="ins none">Peça antiga, sem inscrições.</div>';
-    return h ? '<div class="insl">' + h + '</div>' : '';
+    if (!h) return '';
+    if (o.card) h += '<div class="insb"><button class="btn sm" data-a="mrf:' + it.id + ':0">' + ic('spark') + 'Reforjar inscrições</button></div>';
+    return '<div class="insl">' + h + '</div>';
   };
   /* inscrições somadas de um herói (ficha) */
   UI.insHero = (x) => {
@@ -6988,9 +7051,42 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const c = G.upgradeCost(it), max = Math.min(15, 4 + G.bLvl('ferraria')), S = G.S;
     const nxt = Object.assign({}, it, { plus: it.plus + 1 });
     const can = G.bOk('ferraria') && it.plus < max && S.gold >= c.gold && G.hasRes(c.cost);
+    const rf = G.canReforge(it);
+    const rfOff = !rf.ok && !rf.pending && !rf.c;
+    const rfBtn = it.rar < 1 ? '' : '<button class="btn vio wide" style="margin-top:10px" data-a="mrf:' + id + ':' + (hid || 0) + '"' + (rfOff ? ' disabled' : '') + '>' + ic('spark') + (it.rfp ? 'Ver reforja pendente' : 'Reforjar inscrições') + '</button>' + (rfOff ? '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:5px">' + rf.why + '.</p>' : '');
     UI.modal('<div class="eyebrow">' + G.RAR[it.rar] + '</div><h2 class="rar' + it.rar + '">' + G.itemName(it) + '</h2><div style="display:flex;justify-content:center;margin:12px 0">' + UI.gi(it).replace('class="gi', 'style="width:64px;height:64px;background-size:52px 52px" class="gi') + '</div><p class="lead" style="margin-bottom:4px">' + UI.itemLine(it) + (it.plus < max ? '<br><span class="good">+' + (it.plus + 1) + ': ' + UI.itemLine(nxt) + '</span>' : '<br>No limite da Ferraria (+' + max + ').') + '</p>' + UI.insHtml(it, { modal: 1 }) + (msg ? '<p class="lead ' + (msg.win ? 'good' : 'bad') + '" style="font-weight:800;margin-bottom:0">' + (msg.win ? 'Aprimorado!' : 'A têmpera falhou. Os materiais se perderam.') + '</p>' : '') +
-      (it.plus < max ? UI.cost(c.gold, c.cost, '<span class="cost">chance ' + Math.round(c.chance * 100) + '%</span>') : '') + '<div class="acts"><button class="btn" data-a="mclose">Fechar</button><button class="btn pri" data-a="mupg:' + id + ':' + (hid || 0) + '"' + (can ? '' : ' disabled') + '>' + ic('up') + 'Aprimorar</button></div>', { pause: false });
+      (it.plus < max ? UI.cost(c.gold, c.cost, '<span class="cost">chance ' + Math.round(c.chance * 100) + '%</span>') : '') + '<div class="acts"><button class="btn" data-a="mclose">Fechar</button><button class="btn pri" data-a="mupg:' + id + ':' + (hid || 0) + '"' + (can ? '' : ' disabled') + '>' + ic('up') + 'Aprimorar</button></div>' + rfBtn, { pause: false });
   };
+
+  /* ---------- Reforja ---------- */
+  /* duas vistas na mesma janela: a introdução (custo e inscrições atuais) e o antes/depois (manter ou aceitar) */
+  UI.reforgeModal = (id, hid, msg) => {
+    const it = findItem(id, hid); if (!it) return;
+    const S = G.S, tag = id + ':' + (hid || 0);
+    if (it.rfp) {
+      const perfect = G.insPerfect(it.rfp), d = G.reforgeDelta(it), dp = Math.round(Math.abs(d) * 100);
+      const col = (list, cls) => '<div class="rfcol' + (cls ? ' ' + cls : '') + '"><h4>' + (cls ? 'DEPOIS' : 'ANTES') + '</h4>' + (list && list.length ? '<div class="insl">' + list.map((e, i) => insRow(it, e).replace('<div class="ins ', '<div style="--i:' + i + '" class="ins ')).join('') + '</div>' : '<div class="ins none">Sem inscrições</div>') + '</div>';
+      UI.modal('<div class="eyebrow">Reforja · Ferraria</div><h2 class="rar' + it.rar + '">' + G.itemName(it) + '</h2><p class="lead" style="margin:6px 4px 0">As inscrições foram sorteadas de novo. <b>Manter</b> fica com as de agora; <b>Aceitar</b> troca pelas novas.</p><div class="rfgrid">' + col(it.ins, '') + col(it.rfp, 'new') + '</div>' +
+        (perfect ? '<div class="rfperf">★ INSCRIÇÃO PERFEITA! ★</div>' : '') +
+        '<div class="rfdelta">Poder da peça: <b class="' + (d > 0.005 ? 'good' : d < -0.005 ? 'bad' : '') + '">' + (d > 0.005 ? '+' + dp + '%' : d < -0.005 ? '-' + dp + '%' : 'igual') + '</b></div>' +
+        '<div class="acts"><button class="btn" data-a="mrfk:' + tag + '">Manter</button><button class="btn pri" data-a="mrfa:' + tag + '">' + ic('check') + 'Aceitar</button></div>', { pause: false, lock: true });
+      if (perfect) { G.sfx('perfect'); }
+      return;
+    }
+    const r = G.canReforge(it), c = r.c || G.reforgeCost(it), n = it.rf || 0;
+    UI.modal('<div class="eyebrow">Reforja · Ferraria</div><h2 class="rar' + it.rar + '">' + G.itemName(it) + '</h2><div style="display:flex;justify-content:center;margin:12px 0 4px">' + UI.gi(it).replace('class="gi', 'style="width:56px;height:56px;background-size:46px 46px" class="gi') + '</div>' +
+      (msg ? '<p class="lead ' + (msg.cls || '') + '" style="font-weight:800;margin:8px 4px 0">' + msg.t + '</p>' : '') +
+      '<p class="lead" style="margin:8px 4px 0">Sorteia de novo <b>todas</b> as inscrições da peça. Você vê o antes e o depois e escolhe manter ou aceitar. ' + (n ? 'Esta peça já foi reforjada ' + n + (n === 1 ? ' vez' : ' vezes') + ': o custo sobe a cada uma.' : 'O custo sobe a cada reforja da mesma peça.') + '</p>' + UI.insHtml(it, { modal: 1 }) +
+      UI.cost(c.gold, { po_reforja: c.po }) + '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:6px">Você tem ' + G.fmt(S.res.po_reforja || 0) + ' Pó de Reforja. Ele sai do desmonte de peças.</p>' +
+      (r.ok ? '' : '<p class="lead bad" style="font-weight:800;margin:8px 4px 0">' + r.why + '</p>') +
+      '<div class="acts"><button class="btn" data-a="mclose">Fechar</button><button class="btn vio" data-a="mrfgo:' + tag + '"' + (r.ok ? '' : ' disabled') + '>' + ic('spark') + 'Reforjar</button></div>', { pause: false });
+  };
+  Object.assign(UI.ACT, {
+    mrf: (a) => UI.reforgeModal(+a[0], +a[1]),
+    mrfgo: (a) => { const it = findItem(+a[0], +a[1]); if (!it) return; const r = G.reforgeRoll(it); if (!r.ok) return UI.toast(r.why, 'bad'); UI.reforgeModal(+a[0], +a[1]); UI.sheetDirty(); },
+    mrfk: (a) => { const it = findItem(+a[0], +a[1]); if (!it) return; G.reforgeKeep(it); UI.reforgeModal(+a[0], +a[1], { t: 'Inscrições mantidas.', cls: '' }); UI.sheetDirty(); },
+    mrfa: (a) => { const it = findItem(+a[0], +a[1]); if (!it) return; const r = G.reforgeAccept(it); UI.reforgeModal(+a[0], +a[1], { t: r && r.perfect ? 'Nova inscrição perfeita aceita!' : 'Novas inscrições aceitas.', cls: 'good' }); UI.sheetDirty(); },
+  });
 })();
 
 ;
@@ -7048,6 +7144,10 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     horn: (t) => { tone(196, t, 0.9, 'sawtooth', 0.14); tone(294, t + 0.05, 0.9, 'sawtooth', 0.1); tone(196, t + 1.0, 1.2, 'sawtooth', 0.14); },
     victory: (t) => { seq([523, 523, 523, 659, 784, 659, 784, 1047], 0.11, 'triangle', 0.16, 0.3); [262, 392].forEach((f) => tone(f, t + 0.8, 1, 'triangle', 0.1)); },
     boom: (t) => { noise(t, 0.35, 0.6, 180, 0.5, 'lowpass'); tone(110, t, 0.3, 'sine', 0.25, 40); },
+    /* v23: inscrição perfeita e revelação de peças raras */
+    perfect: (t) => { seq([1319, 1760, 2349, 3136], 0.06, 'sine', 0.13, 0.5); tone(4186, t + 0.22, 0.55, 'sine', 0.06); },
+    reveal: (t) => { tone(130, t, 0.5, 'sine', 0.25, 65); [392, 494, 587].forEach((f) => tone(f, t + 0.05, 0.9, 'triangle', 0.1)); seq([784, 988, 1175, 1568], 0.08, 'sine', 0.12, 0.5); },
+    reveal2: (t) => { tone(90, t, 0.9, 'sawtooth', 0.2, 40); noise(t, 0.5, 0.35, 300, 0.6, 'lowpass'); [262, 330, 392, 523].forEach((f) => tone(f, t + 0.1, 1.6, 'triangle', 0.1)); seq([523, 659, 784, 1047, 1319, 1568, 2093], 0.07, 'triangle', 0.15, 0.6); },
   };
   const GAP = { pick: 0.08, weak: 0.25, hit: 0.07, crit: 0.1, hurt: 0.12, die: 0.1, coin: 0.12, click: 0.03, boom: 0.15, heal: 0.2, potion: 0.2, deliver: 0.2, buy: 0.15 };
   G.on('sfx', (d) => {
