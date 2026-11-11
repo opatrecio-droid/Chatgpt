@@ -7788,7 +7788,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (w.id === 'none') { wk.style.display = 'none'; lastWk = ''; }
     else {
       const t = w.id + '|' + G.fmtLeft(w.left);
-      if (t !== lastWk) { lastWk = t; wk.style.display = ''; wk.style.setProperty('--wc', w.col); wk.style.setProperty('--wl', rgba(w.col, 0.5)); wk.innerHTML = ic(w.icon) + '<b>' + esc(w.name) + '</b><small>termina em ' + G.fmtLeft(w.left) + '</small>'; }
+      if (t !== lastWk) { lastWk = t; wk.style.display = ''; wk.style.setProperty('--wc', w.col); wk.style.setProperty('--wl', rgba(w.col, 0.5)); wk.innerHTML = ic(w.icon) + '<b>' + esc(w.name).replace(/^(Semana d[ao]s? )/, '<span class="tm">$1</span>') + '</b><small><span class="tm">termina em </span>' + G.fmtLeft(w.left) + '</small>'; }
     }
     const sl = G.sorteLeft(), st = sl > 0 ? mmss(sl) : '';
     if (st !== lastSo) { lastSo = st; so.classList.toggle('on', !!st); so.innerHTML = st ? ic('spark') + 'Sorte ' + st : ''; }
@@ -10659,6 +10659,62 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const f = p.first, go = f.k === 'bld' || f.k === 'repair' ? 'Ir para ' + G.BLD[f.id].short : f.k === 'hlvl' ? 'Abrir Heróis' : '';
     return '<div class="prebox"><b>Antes, falta isto' + (p.goal ? ' para ' + esc(p.goal) : '') + ':</b><ol>' + p.steps.map((s) => '<li>' + esc(G.preStepTxt(s).replace(/^./, (c) => c.toUpperCase())) + (s.k === 'realm' ? ' <small class="mut">(agora ' + G.S.realm.lvl + ')</small>' : s.k === 'hlvl' ? ' <small class="mut">(' + esc(s.name) + ' está no ' + s.have + ')</small>' : '') + '</li>').join('') + '</ol>' +
       (go ? '<button class="btn sm pri" data-a="gopre">' + go + '</button>' : '') + '</div>';
+  };
+
+  /* ================= 3D.2 HUD compacto (360×640) ================= */
+  /* Em telas baixas (altura ≤ 720 px) o HUD encolhe: barra do reino menor, fichas e cartões de herói mais baixos, navegação de 54 px, e a
+     Jornada e a próxima recompensa colam mais. A Jornada vira grade (ícone | título em até 2 linhas | barra + contagem), então o título
+     não é mais cortado. Um botão ▾ no fim da faixa da semana recolhe a fila de heróis (lembrado neste aparelho). Em 412×860 só mudam a
+     Jornada (título inteiro) e a faixa da semana. */
+  css.textContent += '\n' + [
+    '@media (max-width:859px){',
+    '#quest{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:0 8px;align-items:center;padding:6px 10px}',
+    '#quest .qi{grid-column:1;grid-row:1/span 2}',
+    '#quest .qt{display:contents}',
+    '#quest .qt b{grid-column:2/span 2;grid-row:1;white-space:normal;line-height:1.2;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}',
+    '#quest .bar{grid-column:2;grid-row:2;margin-top:4px}',
+    '#quest .qpre{grid-column:2/span 2;grid-row:2}',
+    '#quest .qn{grid-column:3;grid-row:2;margin-top:4px}',
+    '#nrw .nt{white-space:normal;line-height:1.15;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}',
+    '}',
+    '@media (max-width:380px){',
+    '#quest .qt b{font-size:11.5px}',
+    '#quest{grid-template-columns:minmax(0,1fr) auto}#quest .qi{display:none}',
+    '#quest .qt b,#quest .qpre{grid-column:1/span 2}#quest .bar{grid-column:1}#quest .qn{grid-column:2}',
+    '}',
+    '#hudtog{display:none;margin-left:auto;flex:none;width:28px;height:24px;border-radius:12px;place-items:center;color:var(--gold2);position:relative}',
+    '#hudtog svg{width:14px;height:14px;fill:currentColor;transition:transform .2s}',
+    '#hudtog::after{content:"";position:absolute;inset:-7px -6px}',
+    '#hud.min #hudtog svg{transform:rotate(180deg)}',
+    '@media (max-width:420px){#hudx:has(.sorte.on) .tm{display:none}}',
+    '@media (max-width:859px) and (max-height:720px){',
+    ':root{--navh:50px}#hud.min #roster{display:none}',
+    '#hudtog{display:grid}',
+    '#hud{gap:3px;padding-top:calc(var(--sat) + 5px)}',
+    '.realm{padding:2px 9px 2px 3px}.ring,.ring svg{width:32px;height:32px}.ring b{font-size:13px}',
+    '.ctl button{width:40px}.ctl button.dif{width:46px}',
+    '.chip,.chip.mini{height:26px;font-size:12px}.chip svg{font-size:14px}',
+    '#hudx{min-height:24px}#hudx .wk,#hudx .pwr,#hudx .sorte{height:24px}',
+    '#roster{padding:0}',
+    '.hc{width:40px;height:42px;border-radius:10px}',
+    '.hc .pt{width:34px;height:34px;background-size:34px 34px}',
+    '.hc .rk{min-width:12px;height:12px;font-size:8px;border-radius:4px}',
+    '.hc .hpb{left:3px;right:3px;bottom:3px;height:4px}.hc .lv{bottom:6px;font-size:8.5px}.hc .st{bottom:6px;font-size:9.5px}',
+    '#nav button{height:44px;gap:1px}#nav button svg{font-size:20px}',
+    '#quest,#inspect,#fabs,#fabs-l{bottom:calc(var(--navh) + var(--sab) + 6px)}',
+    '#nrw{bottom:calc(var(--navh) + var(--sab) + 6px + var(--qh,40px) + 4px);height:30px;min-height:0;padding:0 10px!important}#nrw .nv{padding:2px 6px}',
+    '#nrw::after{content:"";position:absolute;left:0;right:0;top:-3px;bottom:-3px}',
+    '}',
+  ].join('\n');
+  const HM_KEY = 'aurora.hudmin';
+  const hmGet = () => { try { return localStorage.getItem(HM_KEY) === '1'; } catch (e) { return false; } };
+  const hmSet = (v) => { try { localStorage.setItem(HM_KEY, v ? '1' : '0'); } catch (e) { /* ok */ } };
+  UI.ACT.hudtog = () => { const h = $('#hud'); if (!h) return; const v = !h.classList.contains('min'); h.classList.toggle('min', v); hmSet(v); const b = $('#hudtog'); if (b) b.title = v ? 'Mostrar os heróis' : 'Recolher os heróis'; };
+  const bdHx = UI.build;
+  UI.build = () => {
+    bdHx();
+    const row = $('#hudx'); if (row && !$('#hudtog')) row.insertAdjacentHTML('beforeend', '<button id="hudtog" class="glass" data-a="hudtog" title="Recolher os heróis">' + ic('up') + '</button>');
+    const h = $('#hud'); if (h && hmGet()) { h.classList.add('min'); const b = $('#hudtog'); if (b) b.title = 'Mostrar os heróis'; }
   };
 
   /* @@fim6B */
