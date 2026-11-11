@@ -12,7 +12,7 @@
   G.DROP_LIFE = 75;     // segundos de jogo até sumir
   G.DROP_BLINK = 10;    // pisca nos últimos segundos
   G.DROP_MAX = 250;     // teto: descarta os mais velhos
-  G.LOOT_F = 1.6;       // espólio por abate em relação à v21 (metade vai à bolsa, metade cai no chão)
+  G.LOOT_F = 1.9;       // espólio por abate em relação à v21 (metade vai à bolsa, metade cai no chão)
   let dropN = 0;
   /* itens-chave vão inteiros para o herói: emblemas, Tomos e Cristais de Alma */
   G.lootKey = (id) => id === 'tomo' || id === 'alma' || !!(G.RES[id] && G.RES[id].emb);
@@ -67,7 +67,8 @@
     fraqueza: { name: 'Fraqueza', icon: 'skull', short: 'enfraquece o alvo do dono' },
     vigor: { name: 'Vigor', icon: 'heart', short: 'mais vida e cura o dono' },
   };
-  G.PET_R = 5.5; G.PET_R_FARO = 8.5;      // raio de busca em volta do dono
+  G.PET_R = 4; G.PET_R_FARO = 6.5;        // raio de busca em volta do dono
+  G.PET_SCAN = 2; G.PET_SPD = 1.12;        // intervalo entre buscas (s) e velocidade em relação ao dono
   G.WEAK_CD = 9; G.WEAK_DUR = 5;           // Fraqueza: recarga e duração
   G.VIG_CD = 7;                            // Vigor: intervalo da cura
   G.weakF = (p) => Math.min(0.45, 0.14 * G.PET_POW[p.rar]);
@@ -196,18 +197,22 @@
     const S = G.S, hs = S.heroes;
     for (const p of S.pets) {
       if (!p.hero) continue;
-      let h = null; for (let i = 0; i < hs.length; i++) if (hs[i].id === p.hero) { h = hs[i]; break; }
+      let r = G.petRt.get(p.id), h = r && r.h;
+      if (!h || h.id !== p.hero) { h = null; for (let i = 0; i < hs.length; i++) if (hs[i].id === p.hero) { h = hs[i]; break; } }
       if (!h || h.pet !== p.id) { p.hero = 0; G.petRt.delete(p.id); continue; }
-      const r = G.petRtOf(p, h), d = G.PETS[p.k], role = d.role;
-      const spd = Math.max(3.1, G.heroStats(h).spd * 1.12) * (role === 'faro' ? 1.35 : 1);
+      if (!r) r = G.petRtOf(p, h); r.h = h;
       if (r.cast > 0) r.cast -= dt;
-      if (Math.hypot(h.x - r.x, h.y - r.y) > 14) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; rtDrop(r); r.st = 'follow'; }
       /* dentro de construções ou caído o dono: espera ao lado */
       if (h.inside || h.state === 'fallen' || h.state === 'recover') {
-        rtDrop(r); r.st = 'wait';
-        if (Math.hypot(h.x - 0.7 - r.x, h.y + 0.35 - r.y) > 0.5) G.chase(r, h.x - 0.7, h.y + 0.35, dt, spd, 0.3); else r.moving = false;
+        if (r.st !== 'wait') { rtDrop(r); r.st = 'wait'; }
+        const wx = h.x - 0.7, wy = h.y + 0.35, dw = Math.abs(wx - r.x) + Math.abs(wy - r.y);
+        if (dw > 14) { r.x = wx; r.y = wy; r.path = null; }
+        if (dw > 0.6) G.chase(r, wx, wy, dt, Math.max(3.1, G.heroStats(h).spd * G.PET_SPD), 0.3); else r.moving = false;
         continue;
       }
+      const d = G.PETS[p.k], role = d.role;
+      const spd = Math.max(3.1, G.heroStats(h).spd * G.PET_SPD) * (role === 'faro' ? 1.35 : 1);
+      if (Math.abs(h.x - r.x) + Math.abs(h.y - r.y) > 16) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; rtDrop(r); r.st = 'follow'; }
       /* papéis de combate */
       if (FIGHT[h.state]) {
         if (role === 'fraqueza') { r.tW -= dt; const m = h.tgt; if (r.tW <= 0 && m && !m.dead && !m.gone && m.hp > 0 && Math.hypot(m.x - r.x, m.y - r.y) < 8) { r.tW = G.WEAK_CD; G.petWeaken(p, h, m, r); } }
@@ -222,22 +227,24 @@
           p.bag[t.k] = (p.bag[t.k] || 0) + n; p.bagN += n; t.n -= n; t.pet = 0;
           G.addFx({ t: 'pick', x: t.x, y: t.y - 0.3, pet: 1 }); G.addFx({ t: 'text', x: r.x, y: r.y - 0.9, s: '+' + n, c: '#ffe9a0' });
           if (t.n <= 0) dropRemove(t);
-          r.d = null; r.st = 'follow';
+          r.d = null; r.st = 'back';
         }
         if (r.st === 'fetch') continue;
       }
+      /* depois de recolher, volta para perto do dono antes de buscar o próximo */
+      if (r.st === 'back') { if (Math.hypot(h.x - r.x, h.y - r.y) > 1.3 && field) { G.chase(r, h.x, h.y, dt, spd, 1); continue; } r.st = 'follow'; }
       r.st = 'follow';
       if (field && p.bagN < cap) {
         r.tS -= dt;
         if (r.tS <= 0) {
-          r.tS = 0.4;
+          r.tS = G.PET_SCAN;
           const rad = role === 'faro' ? G.PET_R_FARO : G.PET_R; let best = null, bd = 1e9;
           for (const o of G.drops) { if (!(o.n > 0) || (o.pet && o.pet !== p.id)) continue; if (Math.abs(o.x - h.x) > rad || Math.abs(o.y - h.y) > rad || Math.hypot(o.x - h.x, o.y - h.y) > rad) continue; const dp = Math.hypot(o.x - r.x, o.y - r.y); if (dp < bd) { bd = dp; best = o; } }
           if (best) { best.pet = p.id; r.d = best; r.st = 'fetch'; continue; }
         }
       }
       const gx = h.x - (h.dir || 1) * 0.9, gy = h.y + 0.15;
-      if (Math.hypot(gx - r.x, gy - r.y) > 0.55) G.chase(r, gx, gy, dt, spd, 0.25); else { r.moving = false; r.dir = h.dir || 1; }
+      if (Math.abs(gx - r.x) + Math.abs(gy - r.y) > 0.7) G.chase(r, gx, gy, dt, spd, 0.25); else { r.moving = false; r.path = null; r.dir = h.dir || 1; }
     }
   };
 
@@ -333,7 +340,7 @@
     const pet = G.petHatch(k, rar, 'Incursão vencida');
     const a = 4 + 2 * g, b = 4 + 2 * g, rr = 1 + Math.floor(g / 3), tomos = 1 + Math.floor(g / 3);
     G.addRes(zm.a, a); G.addRes(zm.b, b); G.addRes(zm.r, rr); G.addRes('tomo', tomos);
-    for (const h of S.heroes) if (h.state === 'inc') { G.giveXp(h, G.xpNeed(h.lvl) * (0.15 + 0.02 * g)); G.artGain(h, 1); }
+    for (const h of S.heroes) if (h.state === 'inc') { G.giveXp(h, G.xpNeed(h.lvl) * (0.08 + 0.012 * g)); G.artGain(h, 1); }
     G.gainRealm(60 + 25 * g + 2 * r.lvl, 'incursao');
     if (g > G.incBest(r.z)) S.inc.best[r.z] = g;
     S.inc.wins = (S.inc.wins || 0) + 1; S.stats.incWins = (S.stats.incWins || 0) + 1;
@@ -379,7 +386,7 @@
     }
     if (m) { if (G.chase(h, m.x, m.y, dt, st.spd, st.rng + (m.size || 1) * 0.35)) G.heroAct(h, m, mons, frac); return; }
     const c = G.ZONE[r.z].lair;
-    if (Math.hypot(h.x - c[0], h.y - c[1]) > 2.5) { if (!h.path || !h.path.length) G.go(h, c[0] + G.rnd(-2, 2), c[1] + G.rnd(-1.5, 1.5)); G.step(h, dt, st.spd); } else h.moving = false;
+    if (Math.hypot(h.x - c[0], h.y - c[1]) > 2.5) { if (!h.path || !h.path.length || Math.hypot((h._gx || 0) - c[0], (h._gy || 0) - c[1]) > 4) G.go(h, c[0] + G.rnd(-2, 2), c[1] + G.rnd(-1.5, 1.5)); G.step(h, dt, st.spd); } else h.moving = false;
   };
   const km0 = G.killMon;
   G.killMon = (m, h) => { const was = m.dead; km0(m, h); if (!was && m.inc && m.alfa && G.S.inc.run) G.incWin(); };
