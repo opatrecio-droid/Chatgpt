@@ -19,10 +19,11 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - `AVALIACAO.md` — rubrica de diversão/vício e notas de cada ciclo.
 
 ## Estado atual
-- Ciclo 1 — pesquisa em andamento (3 frentes: sistemas, por que vicia, progressão/endgame).
-- Próximo passo: consolidar a pesquisa, montar a rubrica e a análise de lacunas, definir o lote 1 para o Sonnet.
+- Ciclo 1 — pesquisa concluída (`pesquisa/`). Rubrica e notas da base em `AVALIACAO.md` (Diversão 7,2 · Viciante 5,8).
+- Próximo passo: lotes 1-A e 1-B (`PLANO-CICLO-1.md`) com o Sonnet; depois juntar, avaliar e planejar o ciclo 2 (Arena).
 
 ## Histórico
 | Data | Ciclo | Etapa | Resultado |
 |---|---|---|---|
 | 2026-11-11 | 1 | Base v22 copiada para o repositório; pesquisa disparada | — |
+| 2026-11-11 | 1 | Pesquisa (3 relatórios), simulador `ferramentas/sim.js`, rubrica e plano | Diversão 7,2 · Viciante 5,8 |
