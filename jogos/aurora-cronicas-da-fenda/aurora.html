@@ -4099,6 +4099,16 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.insHero = (h) => { const a = []; for (const k in h.gear) if (h.gear[k]) a.push(h.gear[k]); return G.insSum(a); };
   G.insAny = (T) => { for (const k in T) if (T[k]) return true; return false; };
 
+  /* cerimônia de raridade: Épico+ revela com clarão, feixe de luz sobre a Ferraria e uma carta (o resto é com a UI).
+     Em forja silenciosa (encomenda automática): só um aviso com o nome; a carta e o feixe ficam para Lendário+. */
+  G.revealForge = (it, silent) => {
+    if (it.rar < 3) return;
+    const big = it.rar >= 4, p = G.W.plots.ferraria;
+    if (silent) { G.toast(G.RAR[it.rar] + ': ' + G.itemName(it) + '!', 'epic', 'hammer'); if (!big) return; }
+    if (p) G.addFx({ t: 'rarbeam', x: p.cx, y: p.cy, c: G.RAR_COLOR[it.rar], big });
+    G.emit('reveal', { it, silent: !!silent, big });
+  };
+
   /* toda peça nova nasce com inscrições (forja manual, obra-prima e encomendas automáticas) */
   const craft0 = G.craft;
   G.craft = (type, tier, master, silent) => {
@@ -4107,6 +4117,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       if (!it.ins) it.ins = G.rollIns(it.rar, it.tier, master);
       if (G.insPerfect(it.ins)) G.S.stats.perfect = (G.S.stats.perfect || 0) + G.insPerfect(it.ins);
       G.emit('inv');
+      G.revealForge(it, !!silent);
     }
     return it;
   };
@@ -5127,6 +5138,11 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
         case 'build': for (let i = 0; i < 26; i++) part(f.x + G.rnd(-3, 3), f.y + G.rnd(-0.5, 1.2), G.rnd(-0.8, 0.8), -0.6 - Math.random() * 1.5, 0.9 + Math.random() * 0.5, G.pick(['#e8dcc0', '#cbb890', '#ffffff']), 3, -0.5, 'puff'); R.burst(f.x, f.y - 2, 18, ['#ffe07a', '#ffffff'], 4, 1, 1); break;
         case 'sparks': R.burst(f.x, f.y, 14, ['#ffb040', '#ffe07a', '#ffffff'], 3, 0.6, 6); break;
         case 'shake': R.shake = Math.max(R.shake, f.n); break;
+        case 'rarbeam': /* v23: feixe de luz sobre a Ferraria ao revelar uma peça rara */
+          R.fxs.push({ t: 'rarbeam', x: f.x, y: f.y + 1.2, c: f.c, big: f.big, age: 0, life: f.big ? 3.4 : 2.4 });
+          R.fxs.push({ t: 'ring', x: f.x, y: f.y + 1.2, c: f.c, r: f.big ? 6 : 3.5, age: 0, life: f.big ? 1 : 0.7, fill: 1 });
+          if (f.big) R.fxs.push({ t: 'ring', x: f.x, y: f.y + 1.2, c: '#ffffff', r: 3.2, age: -0.18, life: 0.8 });
+          R.burst(f.x, f.y + 0.8, f.big ? 64 : 30, [f.c, '#ffffff', '#ffe9a0'], f.big ? 5.5 : 4, 1.5, -2.4); break;
         default: if (R.fxMore) R.fxMore(f);
       }
     }
@@ -5211,6 +5227,18 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       else if (f.t === 'ring') { const r = f.r * TS * z * (0.3 + 0.7 * k); ctx.globalAlpha = (1 - k) * 0.9; if (f.fill) { ctx.fillStyle = f.c; ctx.globalAlpha = (1 - k) * 0.35; ctx.beginPath(); ctx.ellipse(px, py, r, r * 0.62, 0, 0, 6.283); ctx.fill(); ctx.globalAlpha = (1 - k) * 0.9; } ctx.strokeStyle = f.c; ctx.lineWidth = Math.max(1, 2 * z * (1 - k)); ctx.beginPath(); ctx.ellipse(px, py, r, r * 0.62, 0, 0, 6.283); ctx.stroke(); ctx.globalAlpha = 1; }
       else if (f.t === 'proj') { const x = X(f.x + (f.tx - f.x) * k), y = Y(f.y + (f.ty - f.y) * k) - Math.sin(k * Math.PI) * 4 * z; if (f.k === 'arrow') { const a = Math.atan2(f.ty - f.y, f.tx - f.x); ctx.strokeStyle = '#6a4a2c'; ctx.lineWidth = z; ctx.beginPath(); ctx.moveTo(x - Math.cos(a) * 5 * z, y - Math.sin(a) * 5 * z); ctx.lineTo(x, y); ctx.stroke(); ctx.fillStyle = f.c; ctx.fillRect(Math.round(x - z), Math.round(y - z), 2 * z, 2 * z); } else { ctx.fillStyle = f.c; ctx.globalAlpha = 0.35; ctx.fillRect(Math.round(x - 3 * z), Math.round(y - 3 * z), 6 * z, 6 * z); ctx.globalAlpha = 1; ctx.fillRect(Math.round(x - 2 * z), Math.round(y - 2 * z), 4 * z, 4 * z); ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(x - z), Math.round(y - z), 2 * z, 2 * z); if (Math.random() < 0.6) part(f.x + (f.tx - f.x) * k, f.y + (f.ty - f.y) * k, 0, 0, 0.25, f.c, 1, 0); } }
       else if (f.t === 'pillar') { const w = 14 * z * (1 - k * 0.5); const g = ctx.createLinearGradient(0, py - 60 * z, 0, py); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, f.c); ctx.globalAlpha = (1 - k) * 0.8; ctx.fillStyle = g; ctx.fillRect(px - w / 2, py - 60 * z, w, 60 * z); ctx.globalAlpha = 1; }
+      else if (f.t === 'rarbeam') {
+        const rise = Math.min(1, f.age / 0.3), fade = k > 0.55 ? (1 - k) / 0.45 : 1, bh = (f.big ? 260 : 170) * z * (1 - Math.pow(1 - rise, 3)), bw = (f.big ? 44 : 30) * z * (1 - 0.3 * k), pulse = 0.85 + 0.15 * Math.sin(R.t * 18);
+        ctx.save();
+        ctx.globalAlpha = 0.55 * fade; ctx.fillStyle = f.c; ctx.beginPath(); ctx.ellipse(px, py, bw * 1.4, bw * 0.46, 0, 0, 6.283); ctx.fill();
+        let g = ctx.createLinearGradient(0, py - bh, 0, py); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, f.c);
+        ctx.globalAlpha = 0.85 * fade * pulse; ctx.fillStyle = g; ctx.fillRect(px - bw / 2, py - bh, bw, bh);
+        g = ctx.createLinearGradient(0, py - bh, 0, py); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, '#ffffff');
+        ctx.globalAlpha = 0.95 * fade; ctx.fillStyle = g; ctx.fillRect(px - bw * 0.2, py - bh, bw * 0.4, bh);
+        if (f.big) { ctx.translate(px, py - 3 * z); ctx.scale(1, 0.5); ctx.rotate(R.t * 0.9); ctx.globalAlpha = 0.4 * fade; ctx.fillStyle = f.c; const rr = 52 * z * (0.7 + 0.3 * Math.sin(R.t * 5)); for (let i = 0; i < 8; i++) { ctx.rotate(Math.PI / 4); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(rr, -4 * z); ctx.lineTo(rr, 4 * z); ctx.fill(); } }
+        ctx.restore();
+        if (Math.random() < (f.big ? 0.9 : 0.5)) part(f.x + G.rnd(-0.6, 0.6), f.y - G.rnd(0, 6), G.rnd(-0.2, 0.2), -2 - Math.random() * 2, 1, G.pick([f.c, '#ffffff']), 1, 0, 'glow');
+      }
       else if (f.t === 'num') { ctx.font = f.small ? fontS : fontN; ctx.textAlign = 'center'; const sc = f.crit ? 1 + Math.max(0, 0.35 - f.age) * 2.2 : 1 + Math.max(0, 0.12 - f.age) * 2; const yy = py - (k * 14 + (f.crit ? 4 : 0)) * z; ctx.globalAlpha = k > 0.7 ? (1 - k) / 0.3 : 1; ctx.save(); ctx.translate(px, yy); ctx.scale(sc, sc); ctx.lineWidth = Math.max(2, dpr * 2.5); ctx.strokeStyle = 'rgba(20,14,30,.9)'; ctx.lineJoin = 'round'; ctx.strokeText(f.s, 0, 0); ctx.fillStyle = f.c; ctx.fillText(f.s, 0, 0); ctx.restore(); ctx.globalAlpha = 1; }
     }
     /* barras, nomes e balões */
@@ -6997,6 +7025,35 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     '.insb{display:flex;justify-content:flex-end;margin-top:6px}',
     '.hins{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}',
     '.hins .pill b{color:var(--gold2)}',
+    '#rflash{position:absolute;inset:0;z-index:70;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 44%,rgba(255,255,255,.95) 0%,var(--fc,#fff) 32%,transparent 80%)}',
+    '#rflash.on{animation:rfl .95s ease-out}#rflash.on.big{animation:rflb 1.5s ease-out}',
+    '@keyframes rfl{0%{opacity:0}10%{opacity:.8}100%{opacity:0}}@keyframes rflb{0%{opacity:0}8%{opacity:1}30%{opacity:.7}100%{opacity:0}}',
+    '.mbox.rcbox{background:none;border:0;box-shadow:none;padding:0;overflow:visible;width:min(100%,334px)}',
+    '.mbox.rcbox::before,.mbox.rcbox::after{display:none}',
+    '.rc{position:relative;perspective:1200px;width:100%}',
+    '.rc.big:not(.flipped){animation:rcwob .45s ease-in-out infinite}',
+    '@keyframes rcwob{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}',
+    '.rc-flip{position:relative;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transform:rotateY(180deg);transition:transform .95s cubic-bezier(.3,1.2,.4,1);cursor:pointer}',
+    '.rc.flipped .rc-flip{transform:rotateY(0)}',
+    '.rc-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;border:2px solid var(--rc);background:linear-gradient(180deg,#252f58,#10152a);box-shadow:0 0 30px var(--rcg),0 18px 50px rgba(0,0,0,.6)}',
+    '.rc-front{position:relative;padding:18px 14px 16px;text-align:center}',
+    '.rc-back{position:absolute;inset:0;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;background:radial-gradient(circle at 50% 46%,var(--rcg),transparent 62%),repeating-conic-gradient(from 0deg at 50% 46%,rgba(255,255,255,.07) 0 9deg,transparent 9deg 18deg),linear-gradient(180deg,#252f58,#10152a)}',
+    '.rc-back b{font-size:74px;line-height:1;color:var(--rc);text-shadow:0 0 22px var(--rc),0 0 50px var(--rc);animation:rcpulse 1.1s ease-in-out infinite alternate}',
+    '.rc-back span{font-family:"Aurora Cinzel",serif;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2);opacity:.9}',
+    '@keyframes rcpulse{from{transform:scale(.9);opacity:.75}to{transform:scale(1.08);opacity:1}}',
+    '.rc-rar{font-family:"Aurora Cinzel",serif;font-weight:700;letter-spacing:.3em;font-size:13px;color:var(--rc);text-shadow:0 0 12px var(--rc)}',
+    '.rc.big .rc-rar{font-size:27px;letter-spacing:.14em;text-shadow:0 0 14px var(--rc),0 0 34px var(--rc);animation:rcpop .7s cubic-bezier(.2,1.5,.4,1) both}',
+    '@keyframes rcpop{from{transform:scale(.4);opacity:0}}',
+    '.rc-ico{display:flex;justify-content:center;margin:12px 0 6px;filter:drop-shadow(0 0 14px var(--rc))}',
+    '.rc-name{font-family:"Aurora Cinzel",serif;font-size:19px;letter-spacing:.04em;margin-top:2px}',
+    '.rc-tag{font-size:11.5px;font-style:italic;color:var(--mut);margin:3px 6px 0}',
+    '.rc-line{font-size:12.5px;color:#cfd5e4;margin:8px 0 0}',
+    '.rc-front .insl{text-align:left;margin-top:12px}',
+    '.rc-acts{display:flex;gap:8px;margin-top:14px}.rc-acts .btn{flex:1}',
+    '.rc-q{text-align:center;color:var(--mut);font-size:11.5px;margin-top:8px}',
+    '.rp{position:absolute;left:50%;top:46%;width:var(--s);height:var(--s);margin:-2px;border-radius:50%;background:var(--rc);box-shadow:0 0 9px var(--rc);opacity:0;pointer-events:none}',
+    '.rc.go .rp{animation:rpb 1.6s ease-out var(--d) forwards}',
+    '@keyframes rpb{0%{opacity:1;transform:translate(0,0) scale(1.2)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}',
     '.rfgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}',
     '.rfcol{min-width:0;border-radius:12px;padding:8px 7px 7px;background:rgba(0,0,0,.22);border:1px solid var(--line2)}',
     '.rfcol h4{margin:0 0 6px;font-family:"Aurora Cinzel",serif;font-size:11px;letter-spacing:.2em;text-align:center;color:var(--mut)}',
@@ -7087,6 +7144,57 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     mrfk: (a) => { const it = findItem(+a[0], +a[1]); if (!it) return; G.reforgeKeep(it); UI.reforgeModal(+a[0], +a[1], { t: 'Inscrições mantidas.', cls: '' }); UI.sheetDirty(); },
     mrfa: (a) => { const it = findItem(+a[0], +a[1]); if (!it) return; const r = G.reforgeAccept(it); UI.reforgeModal(+a[0], +a[1], { t: r && r.perfect ? 'Nova inscrição perfeita aceita!' : 'Novas inscrições aceitas.', cls: 'good' }); UI.sheetDirty(); },
   });
+  /* ---------- cerimônia de raridade ---------- */
+  /* Épico+ vira uma carta que "vira" para revelar nome, raridade e inscrições. Cartas entram numa fila: nunca duas ao mesmo
+     tempo, e só abrem quando não há outra janela na tela (a apresentação, um evento, o Portal…). */
+  const TAGS = { 3: 'A Ferraria cantou.', 4: 'Os martelos silenciaram. Algo antigo despertou.', 5: 'As Duas Luas se alinharam sobre a bigorna.' };
+  const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
+  let Q = [], cur = null, cidN = 0;
+  const flash = (col, big) => {
+    let f = $('#rflash');
+    if (!f) { f = document.createElement('div'); f.id = 'rflash'; ($('#app') || document.body).appendChild(f); }
+    f.style.setProperty('--fc', col); f.className = ''; void f.offsetWidth; f.className = big ? 'on big' : 'on';
+  };
+  const cardHtml = (it, cid) => {
+    const big = it.rar >= 4, col = G.RAR_COLOR[it.rar], n = big ? 30 : 12, parts = [];
+    for (let i = 0; i < n; i++) { const a = Math.random() * 6.283, r = 80 + Math.random() * (big ? 190 : 110); parts.push('<i class="rp" style="--dx:' + Math.round(Math.cos(a) * r) + 'px;--dy:' + Math.round(Math.sin(a) * r * 0.9) + 'px;--s:' + (3 + Math.floor(Math.random() * 4)) + 'px;--d:' + (Math.random() * 0.3).toFixed(2) + 's"></i>'); }
+    const ico = UI.gi(it).replace('class="gi', 'style="width:78px;height:78px;background-size:62px 62px" class="gi');
+    const label = big ? G.RAR[it.rar].toUpperCase() + '!' : '✦ ' + G.RAR[it.rar].toUpperCase() + ' ✦';
+    return '<div class="rc' + (big ? ' big' : '') + '" data-cid="' + cid + '" style="--rc:' + col + ';--rcg:' + rgba(col, 0.5) + '">' + parts.join('') +
+      '<div class="rc-flip" data-a="rcflip"><div class="rc-face rc-back"><b>✦</b><span>Toque para revelar</span></div>' +
+      '<div class="rc-face rc-front"><div class="rc-rar">' + label + '</div><div class="rc-ico">' + ico + '</div><h3 class="rc-name rar' + it.rar + '">' + G.itemName(it) + '</h3><p class="rc-tag">' + TAGS[it.rar] + '</p>' +
+      '<p class="rc-line">' + G.SLOT[G.GEAR[it.type].kind] + ' · ' + UI.itemLine(it) + '</p>' + UI.insHtml(it, {}) + '</div></div></div>' +
+      '<div class="rc-acts"><button class="btn" data-a="rclock:' + it.id + '" id="rclock">' + ic(it.lock ? 'lock' : 'unlock') + (it.lock ? 'Reservada' : 'Reservar') + '</button><button class="btn pri" data-a="mclose">Continuar</button></div>' +
+      '<div class="rc-q">' + (Q.length ? '+' + Q.length + ' na fila' : '') + '</div>';
+  };
+  const showCard = (d) => {
+    const it = d.it, big = it.rar >= 4, cid = ++cidN;
+    cur = { cid, d };
+    flash(G.RAR_COLOR[it.rar], big);
+    UI.modal(cardHtml(it, cid), { pause: false, lock: true, onClose: () => { cur = null; setTimeout(pump, 350); } });
+    const box = $('#modal .mbox'); if (box) box.classList.add('rcbox');
+    if (big) R.shake = Math.max(R.shake || 0, 4);
+    setTimeout(() => flip(cid), big ? 1050 : 700);
+  };
+  const flip = (cid) => {
+    if (!cur || cur.cid !== cid) return;
+    const rc = $('#modal .rc[data-cid="' + cid + '"]'); if (!rc || rc.classList.contains('flipped')) return;
+    const it = cur.d.it;
+    rc.classList.add('flipped', 'go');
+    G.sfx(it.rar >= 4 ? 'reveal2' : 'reveal');
+    if (it.rar >= 4) R.shake = Math.max(R.shake || 0, 5);
+    if (G.insPerfect(it.ins)) setTimeout(() => G.sfx('perfect'), 500);
+  };
+  const pump = () => {
+    if (cur) { if ($('#modal .rc[data-cid="' + cur.cid + '"]')) return; Q.unshift(cur.d); cur = null; }   // outra janela tomou o lugar: a carta volta à fila
+    if (!Q.length || UI.modalOpen || !G.S || !G.S.tut.done || !G.M.running) return;
+    showCard(Q.shift());
+  };
+  UI.ACT.rcflip = () => { if (cur) flip(cur.cid); };
+  UI.ACT.rclock = (a) => { const it = G.S.inv.find((i) => i.id === +a[0]) || (cur && cur.d.it); if (!it) return; G.toggleLock(it); const b = $('#rclock'); if (b) b.innerHTML = ic(it.lock ? 'lock' : 'unlock') + (it.lock ? 'Reservada' : 'Reservar'); UI.sheetDirty(); };
+  G.on('reveal', (d) => { Q.push(d); setTimeout(pump, 450); });
+  const rf0 = UI.refresh; UI.refresh = () => { rf0(); pump(); };
+  UI.revealTest = (it) => { Q.push({ it, silent: false, big: it.rar >= 4 }); pump(); };   // para testes e capturas
 })();
 
 ;
