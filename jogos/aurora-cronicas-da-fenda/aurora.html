@@ -4215,6 +4215,27 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
   /* mudança de poder da reforja pendente, em fração (+0,12 = 12% melhor) */
   G.reforgeDelta = (it) => { if (!it || !it.rfp) return 0; const a = G.itemScore(it), b = G.itemScore(Object.assign({}, it, { ins: it.rfp })); return a > 0 ? b / a - 1 : 0; };
+  /* ================= Garantia do Portal ================= */
+  /* Cada sorteio de candidatos pago com moedas, sem nenhum Épico ou melhor, soma 1 ao contador. Com 10, o sorteio seguinte
+     garante pelo menos um candidato Épico. A invocação com Núcleos já garante Raro+ e não mexe no contador. */
+  G.PITY_MAX = 10;
+  const sorte = () => { const S = G.S; return S.sorte || (S.sorte = { pity: 0, last: 0 }); };
+  G.pity = () => sorte().pity;
+  const rc0 = G.rollCandidates;
+  G.rollCandidates = (kind) => {
+    const out = rc0(kind);
+    if (kind === 'nucleo') return out;
+    const sr = sorte();
+    sr.last = 0;
+    if (sr.pity >= G.PITY_MAX && !out.some((c) => c.rar >= 3)) {
+      const best = out.slice().sort((a, b) => b.rar - a.rar || Math.random() - 0.5)[0];
+      best.rar = 3; best.traits = G.rollTraits(3);
+      sr.last = 1; sr.guaranteed = (sr.guaranteed || 0) + 1;
+      G.log('A Garantia do Portal trouxe um herói Épico.', 'epic');
+    }
+    if (out.some((c) => c.rar >= 3)) sr.pity = 0; else sr.pity++;
+    return out;
+  };
 })();
 
 ;
@@ -7054,6 +7075,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     '.rp{position:absolute;left:50%;top:46%;width:var(--s);height:var(--s);margin:-2px;border-radius:50%;background:var(--rc);box-shadow:0 0 9px var(--rc);opacity:0;pointer-events:none}',
     '.rc.go .rp{animation:rpb 1.6s ease-out var(--d) forwards}',
     '@keyframes rpb{0%{opacity:1;transform:translate(0,0) scale(1.2)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}',
+    '.gar{margin:-2px 0 9px;padding:8px 11px 9px;border-radius:12px;background:rgba(0,0,0,.22);border:1px dashed var(--line)}',
+    '.gar .gh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.gar .gh b{font-family:"Aurora Cinzel",serif;color:var(--gold2);font-size:13px;letter-spacing:.04em}.gar .gh span{font-size:11.5px;color:var(--mut)}',
+    '.gar .gp{display:flex;gap:3px;margin-top:6px}.gar .gp i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}.gar .gp i.on{background:linear-gradient(90deg,#b98ff5,#e6d0ff)}',
+    '.gar.rdy{border:1px solid #b98ff5;box-shadow:0 0 16px rgba(185,143,245,.45);animation:garp 1.2s ease-in-out infinite alternate}.gar.rdy .gh span{color:#e6d0ff;font-weight:800}.gar.rdy .gp i{background:linear-gradient(90deg,#f7dc92,#fff3c4)}',
+    '@keyframes garp{from{box-shadow:0 0 8px rgba(185,143,245,.3)}to{box-shadow:0 0 20px rgba(185,143,245,.7)}}',
+    '.gnote{margin:8px 0 0;padding:7px 10px;border-radius:11px;text-align:center;font-size:12.5px;font-weight:800;color:#e6d0ff;background:rgba(185,143,245,.16);border:1px solid #b98ff5}',
     '.rfgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}',
     '.rfcol{min-width:0;border-radius:12px;padding:8px 7px 7px;background:rgba(0,0,0,.22);border:1px solid var(--line2)}',
     '.rfcol h4{margin:0 0 6px;font-family:"Aurora Cinzel",serif;font-size:11px;letter-spacing:.2em;text-align:center;color:var(--mut)}',
@@ -7195,6 +7222,19 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.on('reveal', (d) => { Q.push(d); setTimeout(pump, 450); });
   const rf0 = UI.refresh; UI.refresh = () => { rf0(); pump(); };
   UI.revealTest = (it) => { Q.push({ it, silent: false, big: it.rar >= 4 }); pump(); };   // para testes e capturas
+  /* ---------- Garantia do Portal ---------- */
+  const rm0 = UI.recruitModal;
+  UI.recruitModal = () => {
+    rm0();
+    const btn = $('#modal [data-a="summon:gold"]'); if (!btn) return;
+    const n = Math.min(G.PITY_MAX, G.pity()), rdy = n >= G.PITY_MAX;
+    btn.insertAdjacentHTML('afterend', '<div class="gar' + (rdy ? ' rdy' : '') + '"><div class="gh"><b>Garantia: ' + n + '/' + G.PITY_MAX + '</b><span>' + (rdy ? 'O próximo sorteio traz um Épico!' : 'A cada ' + G.PITY_MAX + ' sorteios sem Épico, o próximo garante um.') + '</span></div><div class="gp">' + Array.from({ length: G.PITY_MAX }, (_, i) => '<i' + (i < n ? ' class="on"' : '') + '></i>').join('') + '</div></div>');
+  };
+  const sm0 = UI.ACT.summon;
+  UI.ACT.summon = (a) => {
+    sm0(a);
+    if (a[0] !== 'nucleo' && G.S.sorte && G.S.sorte.last) { const h2 = $('#modal h2'); if (h2) h2.insertAdjacentHTML('afterend', '<p class="gnote">Garantia do Portal! Um herói Épico atravessou.</p>'); G.sfx('perfect'); }
+  };
 })();
 
 ;

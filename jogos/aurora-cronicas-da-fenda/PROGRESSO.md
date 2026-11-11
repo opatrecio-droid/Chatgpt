@@ -30,7 +30,7 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - [x] 1A.2 Inscrições aleatórias nos equipamentos (efeitos reais)
 - [x] 1A.3 Reforja "manter ou aceitar" + Pó de Reforja do desmonte
 - [x] 1A.4 Cerimônia de raridade (Épico+, maior para Lendário/Mítico)
-- [ ] 1A.5 Garantia do Portal (10 sorteios)
+- [x] 1A.5 Garantia do Portal (10 sorteios)
 - [ ] 1A.6 Versão 23.0
 
 ### Lote 1-B — voltar é um presente
