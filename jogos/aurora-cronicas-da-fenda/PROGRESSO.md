@@ -34,7 +34,7 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - [x] 1A.6 Versão 23.0
 
 ### Lote 1-B — voltar é um presente
-- [ ] 1B.1 Tela de retorno com cartas para virar
+- [x] 1B.1 Tela de retorno com cartas para virar
 - [ ] 1B.2 Calendário de 7 dias
 - [ ] 1B.3 Criatura da sorte tocável
 - [ ] 1B.4 Semana temática com prazo real
