@@ -7001,17 +7001,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 
   /* ---------- apresentação (Rosa, a escrivã) ---------- */
   const TUT = [
-    ['Bem-vindo a Aurora, majestade. Sou <b>Rosa</b>, escrivã da Cidadela. A cidade é pequena, mas tem um Portal — e gente disposta a lutar por ela.', null],
-    ['Os <b>heróis caçam sozinhos</b>. Cada monstro abatido deixa moedas na bolsa do herói e materiais que ele entrega na Guilda, para o seu armazém.', '#roster'],
-    ['O ouro deles vira <b>seu</b> quando gastam na cidade: comida, cama, cura, poções e, principalmente, o <b>equipamento que você forja</b> com o espólio.', '#nav-forja'],
-    ['Cuidado: aqui herói <b>cai de verdade</b>. Sem poções e sem armadura, ele perde o espólio, parte do ouro e fica dias se recuperando. Mantenha a Enfermaria e o Alquimista de pé.', '#nav-reino'],
-    ['A <b>Jornada</b>, aqui embaixo, mostra sempre o próximo passo. Comece pelo Portal: toque nele na praça e chame mais um caçador.', '#quest'],
+    ['Bem-vindo a Aurora, majestade. Sou <b>Rosa</b>, escrivã da Cidadela. Seus heróis <b>caçam sozinhos</b>; a você cabe erguer a cidade, forjar o equipamento deles e chamar mais gente pelo Portal.', null],
+    ['A <b>Jornada</b>, aqui embaixo, mostra sempre o próximo passo. Eu aponto onde tocar: é só seguir a mão dourada.', '#quest'],
   ];
   let tutI = 0, tutEl = null;
   UI.tutorial = (again) => { tutI = 0; if (again) G.S.tut.done = false; tutStep(); };
   const tutStep = () => {
     if (tutEl) { tutEl.classList.remove('tut-glow'); tutEl = null; }
-    if (tutI >= TUT.length) { G.S.tut.done = true; UI.closeModal(); R.focus(G.W.portal.x, G.W.portal.y - 0.5); return; }
+    if (tutI >= TUT.length) { G.S.tut.done = true; G.S.tut.guide = 1; UI.closeModal(); R.focus(G.W.portal.x, G.W.portal.y - 0.5); return; }
     const [t, sel] = TUT[tutI];
     const rosa = A.portrait(A.npcLook({ name: 'Rosa', job: 'Escrivã', look: 3 }));
     UI.modal('<div class="eyebrow">Rosa, escrivã da Cidadela · ' + (tutI + 1) + '/' + TUT.length + '</div><div class="rosa" style="margin-top:10px"><i class="pt px" style="background-image:url(' + rosa + ')"></i><div class="tx">' + t + '</div></div><div class="acts"><button class="btn" data-a="tskip">Pular</button><button class="btn pri" data-a="tnext">' + (tutI === TUT.length - 1 ? 'Começar' : 'Continuar') + '</button></div>', { lock: true });
@@ -9924,6 +9921,137 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     S.heroi = (t) => { seq([523, 659, 784, 1047], 0.1, 'triangle', 0.15, 0.45); tone(262, t, 0.9, 'sine', 0.12); };
     S.marco = (t) => { [262, 330, 392, 523].forEach((f) => tone(f, t, 1.3, 'triangle', 0.09)); seq([523, 659, 784, 1047, 1319, 1568], 0.09, 'triangle', 0.14, 0.55); };
   }
+})();
+
+;
+/* ===== 67-ui-clareza.js ===== */
+/* 67-ui-clareza: v24 — guia que aponta o próximo toque (2C.1), fila única de janelas (2C.2), códex de inscrições (2C.4),
+   próxima recompensa (2C.5) e ajustes de legibilidade do HUD (2C.6). Só interface. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, A = G.A, R = G.R, ic = UI.ic, esc = UI.esc, $ = UI.$;
+
+  /* ---------- estilo ---------- */
+  const css = document.createElement('style');
+  css.textContent = [
+    '#guide{position:absolute;inset:0;z-index:41;pointer-events:none;display:none}',
+    '#guide.on{display:block}',
+    '.gd-ring{position:absolute;border:2px solid #ffe08a;border-radius:14px;box-shadow:0 0 0 2px rgba(255,224,138,.22),0 0 18px rgba(255,214,110,.8),inset 0 0 12px rgba(255,214,110,.35)}',
+    '.gd-ring.p{animation:gdr 1.25s ease-out infinite;box-shadow:none}',
+    '@keyframes gdr{0%{opacity:.95;transform:scale(.97)}75%{opacity:.25;transform:scale(1.12)}100%{opacity:0;transform:scale(1.14)}}',
+    '.gd-ring.rd,.gd-ring.rd.p{border-radius:50%}',
+    '.gd-hand{position:absolute;width:40px;height:48px;animation:gdb .7s ease-in-out infinite alternate;filter:drop-shadow(0 3px 5px rgba(0,0,0,.65))}',
+    '.gd-hand svg{display:block;width:100%;height:100%}',
+    '.gd-hand.dn svg{transform:rotate(180deg)}',
+    '@keyframes gdb{from{transform:translateY(0)}to{transform:translateY(calc(var(--bd,-1) * 9px))}}',
+    '.gd-tip{position:absolute;display:flex;align-items:center;gap:2px;min-height:40px;padding:4px 2px 4px 12px;border-radius:14px;background:linear-gradient(180deg,#27315c,#171d3a);border:1.5px solid var(--gold2);box-shadow:0 8px 22px rgba(0,0,0,.55);font-size:12.5px;font-weight:700;line-height:1.3;color:#fff3d0;width:max-content;max-width:min(236px,calc(100vw - 16px))}',
+    '.gd-x{pointer-events:auto;flex:none;width:36px;height:36px;border:0;background:transparent;color:var(--mut);display:grid;place-items:center;border-radius:10px;cursor:pointer}',
+    '.gd-x svg{width:14px;height:14px;fill:currentColor}',
+    '@media (prefers-reduced-motion:reduce){.gd-hand,.gd-ring.p{animation:none}}',
+  ].join('\n');
+  document.head.appendChild(css);
+
+  /* ================= 2C.1 guia que aponta ================= */
+  /* Depois das duas falas da Rosa, uma mão pulsante mostra o próximo toque das primeiras missões da Jornada
+     (Portal, Reino › Prédios, Forja). Nunca bloqueia (só o ✕ recebe toque), some ao concluir e pode ser dispensada.
+     Só aparece em jogo novo: S.tut.guide = 1 é gravado quando a apresentação termina; saves antigos nunca o têm. */
+  const HAND = '<svg viewBox="0 0 28 34"><path d="M10.5 4.600a3.100 3.100 0 016.200 0V15l6.100 1.700c1.700.5 2.700 2 2.400 3.700l-.9 6.600a3.800 3.800 0 01-3.800 3.300h-6.500a4.300 4.300 0 01-3.500-1.800L3.400 21.200a2.200 2.200 0 013.500-2.600l3.600 3.300z" fill="#fff3c4" stroke="#1a1408" stroke-width="1.600" stroke-linejoin="round"/><path d="M14 17.500v5.500M18.300 18.600v4.800" stroke="#c9a24a" stroke-width="1.200" stroke-linecap="round"/></svg>';
+  let gd = null, gdOn = false, gdKey = '', gdScrolled = '', gdInsp = 0;
+  const vis = (el) => { if (!el) return null; const r = el.getBoundingClientRect(); return r.width < 4 || r.height < 4 ? null : r; };
+  const covered = (el) => { const r = el.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return !e || !(el === e || el.contains(e)); };
+  const sheetOn = (name) => UI.sheet && UI.sheet.name === name && $('#sheet.on');
+  const tabBtn = (id) => $('#sheet .tabs [data-a="tab:' + id + '"]');
+  /* alvo do momento: { el | r, text, key, round } ou null */
+  const guideTarget = () => {
+    const S = G.S; if (!S || !S.tut || !S.tut.guide || !S.tut.done || !G.M.running) return null;
+    const st = S.quest.step; if (st > 4) { S.tut.guide = 0; return null; }
+    const q = G.questCur(), modal = UI.modalOpen;
+    if (q.done) {                                                    // missão cumprida: falta resgatar
+      if (modal) return null;
+      if (R.sel) {                                                   // a ficha do herói esconde a barra da Jornada: fecha sozinha depois de um instante
+        if (!gdInsp) gdInsp = performance.now(); else if (performance.now() - gdInsp > 2200) { gdInsp = 0; UI.ACT.unsel(); }
+        return null;
+      }
+      gdInsp = 0;
+      const e = $('#quest'); if (!vis(e)) return null;
+      if (covered(e)) { const x = $('#sheet.on .x'); return vis(x) ? { el: x, text: 'Feche o painel e receba o prêmio da Jornada.', key: 'claimx' + st } : null; }
+      return { el: e, text: 'Missão cumprida! Toque na Jornada para receber o prêmio.', key: 'claim' + st };
+    }
+    if (st === 0) {
+      if (modal) {
+        const b = $('#modal [data-a="summon:gold"]:not([disabled])'); if (b) return { el: b, text: 'Toque para contratar.', key: 's0m', opp: 1 };
+        const c = $('#modal .cand'); if (c) return { el: c, text: 'Escolha quem fica em Aurora.', key: 's0c', opp: 1 };
+        return null;
+      }
+      if (!UI.sheet) {                                               // o Portal na praça, se estiver à vista
+        const p = G.W.portal, [x, y] = R.worldToScreen(p.x, p.y - 1.1), hb = vis($('#hud')), qt = vis($('#quest'));
+        if (hb && x > 30 && x < innerWidth - 30 && y > hb.bottom + 40 && y < (qt ? qt.top : innerHeight - 140) - 30) return { r: { left: x - 36, top: y - 36, width: 72, height: 72, bottom: y + 36 }, round: 1, text: 'Toque no Portal e chame um herói.', key: 's0p' };
+      }
+      const b = $('#roster .hc.add'); return vis(b) ? { el: b, text: 'Toque no + para chamar um herói.', key: 's0a' } : null;
+    }
+    if (modal) return null;
+    if (st === 2 || st === 3) {
+      const id = st === 2 ? 'enfermaria' : 'ferraria', nm = st === 2 ? 'a Enfermaria' : 'a Ferraria';
+      if (sheetOn('reino')) {
+        if (UI.sheet.tab !== 'obras') { const t = tabBtn('obras'); return vis(t) ? { el: t, text: 'Abra a aba Prédios.', key: 'r' + st + 't' } : null; }
+        const b = $('#sheet [data-a="upg:' + id + '"]') || $('#bc-' + id);
+        if (b) return { el: b, text: b.disabled ? 'Faltam moedas ou materiais: seus heróis vão juntar.' : 'Toque para construir ' + nm + '.', key: 'r' + st + 'b', scroll: 1 };
+      }
+      return { el: $('#nav-reino'), text: 'Abra o Reino e construa ' + nm + '.', key: 'r' + st + 'n' };
+    }
+    if (st === 4) {
+      if (sheetOn('forja')) {
+        if (UI.sheet.tab !== 'forjar') { const t = tabBtn('forjar'); return vis(t) ? { el: t, text: 'Abra a aba Forjar.', key: 'f4t' } : null; }
+        const b = $('#sheet [data-a^="craft:"][data-a$=":0"]:not([disabled])') || $('#sheet [data-a^="craft:"][data-a$=":0"]');
+        if (b) return { el: b, text: b.disabled ? 'Faltam materiais: seus heróis vão trazê-los.' : 'Toque em Forjar.', key: 'f4b', scroll: 1 };
+      }
+      return { el: $('#nav-forja'), text: 'Abra a Forja e crie equipamentos.', key: 'f4n' };
+    }
+    return null;
+  };
+  UI.guideTarget = guideTarget;
+  const guideHide = () => { if (gdOn) { gdOn = false; gd.classList.remove('on'); gdKey = ''; } };
+  const guideFrame = () => {
+    requestAnimationFrame(guideFrame);
+    if (!gd) return;
+    let t = null; try { t = guideTarget(); } catch (e) { t = null; }
+    if (!t) return guideHide();
+    let r = t.r || vis(t.el); if (!r) return guideHide();
+    const vw = innerWidth, vh = innerHeight;
+    /* dentro da lista rolável de um painel: rola uma vez até o alvo; fora da área visível, a mão se esconde */
+    const bd = t.el && t.el.closest && t.el.closest('.sh-body');
+    if (bd) {
+      const b = bd.getBoundingClientRect();
+      if (r.top < b.top + 4 || r.bottom > b.bottom - 4) { if (t.scroll && gdScrolled !== t.key) { gdScrolled = t.key; t.el.scrollIntoView({ block: 'center' }); r = t.el.getBoundingClientRect(); } if (r.top < b.top + 4 || r.bottom > b.bottom - 4) return guideHide(); }
+    }
+    if (r.bottom < 0 || r.top > vh || r.right < 0 || r.left > vw) return guideHide();
+    const x = (n) => Math.round(n) + 'px';
+    const ring = gd.children[0], ring2 = gd.children[1], hand = gd.children[2], tip = gd.children[3];
+    for (const e of [ring, ring2]) { e.style.left = x(r.left - 5); e.style.top = x(r.top - 5); e.style.width = x(r.width + 10); e.style.height = x(r.height + 10); e.classList.toggle('rd', !!t.round); }
+    const below = r.top + r.height / 2 < vh * 0.45, cx = r.left + r.width / 2;
+    hand.classList.toggle('dn', !below); hand.style.setProperty('--bd', below ? -1 : 1);
+    hand.style.left = x(Math.max(4, Math.min(vw - 44, cx - 20))); hand.style.top = x(below ? r.bottom + 4 : r.top - 52);
+    if (gdKey !== t.key) { gdKey = t.key; tip.firstChild.textContent = t.text; }
+    else if (tip.firstChild.textContent !== t.text) tip.firstChild.textContent = t.text;
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    tip.style.left = x(Math.max(8, Math.min(vw - 8 - tw, cx - tw / 2)));
+    const tipBelow = t.opp ? !below : below;
+    tip.style.top = x(tipBelow ? (t.opp ? r.bottom + 6 : r.bottom + 52) : (t.opp ? r.top - th - 6 : r.top - 52 - th - 2));
+    if (!gdOn) { gdOn = true; gd.classList.add('on'); }
+  };
+  UI.ACT.gdoff = () => { if (G.S) G.S.tut.guide = 0; guideHide(); UI.toast('Dicas dispensadas. A Jornada continua mostrando o próximo passo.', 'info', 'scroll'); };
+  const bdG = UI.build;
+  UI.build = () => {
+    bdG();
+    const app = $('#app');
+    if (app && !$('#guide')) {
+      app.insertAdjacentHTML('beforeend', '<div id="guide"><i class="gd-ring p"></i><i class="gd-ring"></i><div class="gd-hand">' + HAND + '</div><div class="gd-tip"><span></span><button class="gd-x" data-a="gdoff" title="Dispensar dicas">' + ic('close') + '</button></div></div>');
+      gd = $('#guide'); requestAnimationFrame(guideFrame);
+    }
+  };
+
+  /* @@fim67 */
 })();
 
 ;

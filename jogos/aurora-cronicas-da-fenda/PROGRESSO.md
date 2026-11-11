@@ -77,12 +77,13 @@ Notas técnicas do lote 2-B (para o lote 2-C):
 - Simulador: `--save=arquivo.json` grava o estado final; o relatório ganhou as linhas "Lendas", "Poder do Reino" (com o minuto de cada marco) e "Recordes" (`--titles` mostra os minutos de cada título).
 
 ### Lote 2-C — Clareza, coleção e próxima recompensa
-- [ ] 2C.1 Tutorial que aponta
+- [x] 2C.1 Tutorial que aponta
 - [ ] 2C.2 Fila única de janelas
 - [ ] 2C.3 Poder da peça correto
 - [ ] 2C.4 Códex de Inscrições
 - [ ] 2C.5 Próxima recompensa no HUD
 - [ ] 2C.6 HUD mais limpo
+- [ ] 2C.7 Versão 24.0
 
 ### Depois do ciclo 2
 - [ ] Avaliação do líder e notas novas em `AVALIACAO.md`
