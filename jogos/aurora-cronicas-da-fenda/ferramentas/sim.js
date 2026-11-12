@@ -75,6 +75,9 @@ const arena = { duels: 0, wins: 0, ch: 0, leagues: [], lastSea: -1 };
 /* v28 (lote 3-B): Nêmesis, revanche e laços — eventos 'nemesis' e 'laco' (só medem; o jogo decide) */
 const rivs = { nem: 0, vingados: 0, revs: 0, revWins: 0, lacos: [0, 0, 0, 0], first: [0, 0, 0, 0], titles: {} };
 if (G.nemesis) { const ad0 = G.arenaDuel; G.arenaDuel = (o) => { const r = ad0(o); if (r && r.rev && r.rev.on) { rivs.revs++; if (r.win) rivs.revWins++; } return r; }; }   // conta toda revanche, do robô de revanche ou do duelo do meio
+/* lote 4-B: sinergias — combinações de formação nos duelos (decisivas incluídas) e do grupo no Colosso, ressonância no fim */
+const syn = { duels: 0, mine: 0, rv: 0, dec: 0, decMe: 0, names: {}, col: 0, colN: 0, colNames: {} };
+if (G.synFind) { const ad1 = G.arenaDuel; G.arenaDuel = (o) => { const r = ad1(o); if (r && r.syn) { syn.duels++; if (r.syn.me.length) syn.mine++; if (r.syn.rv.length) syn.rv++; for (const a of r.syn.me) syn.names[G.SYN_BY[a.id].name] = (syn.names[G.SYN_BY[a.id].name] || 0) + 1; if (r.syn.dec) { syn.dec++; if (r.syn.dec.side === 0) syn.decMe++; } } return r; }; }
 G.on('nemesis', (d) => { if (d.t === 'novo') rivs.nem++; else if (d.t === 'vingado') rivs.vingados++; });
 G.on('laco', (d) => { rivs.lacos[d.lv]++; if (!rivs.first[d.lv]) rivs.first[d.lv] = T0(); });
 if (G.arenaNow) {
@@ -119,6 +122,7 @@ const pieceRar = {};
 const bot = () => {
   const st = S();
   try {
+    if (G.colSyn && G.colossoLive && G.colossoLive() && G.colSyn.n > 0) { syn.colN++; if (G.colSyn.act.length) { syn.col++; for (const a of G.colSyn.act) syn.colNames[G.SYN_BY[a.id].name] = (syn.colNames[G.SYN_BY[a.id].name] || 0) + 1; } }
     while (G.questClaim()) {}
     st.daily.list.forEach((c, i) => G.contractClaim(i)); G.dailyChest();
     for (const a of G.ACH) G.achClaim(a.id);
@@ -258,6 +262,15 @@ if (G.arena && S().arena && S().arena.open) {
   const cnt = {}; for (const h of a.hist) cnt[L[h.liga].name] = (cnt[L[h.liga].name] || 0) + 1;
   console.log('Arena: ' + arena.duels + ' duelos · ' + arena.wins + ' vitórias (' + (arena.duels ? (100 * arena.wins / arena.duels).toFixed(1) : '0') + '%, chance estimada média ' + (arena.duels ? (100 * arena.ch / arena.duels).toFixed(0) : '0') + '%)' +
     ' · liga final ' + (last ? L[last.liga].name + ' (' + last.pts + ' pts, ' + last.pos + 'º)' : '—') + ' · ' + a.hist.length + ' temporadas: ' + Object.keys(cnt).map((k) => k + ' ×' + cnt[k]).join(', ') + ' · Insígnias ' + a.ins + ' · títulos ' + a.titulos.reduce((n, t) => n + t.n, 0));
+}
+if (G.synFind) {
+  const top = (o) => Object.keys(o).sort((a, b) => o[b] - o[a]).slice(0, 4).map((k) => k + ' ×' + o[k]).join(', ') || '—';
+  console.log('Formação: ' + syn.duels + ' duelos · com combinação do nosso lado ' + syn.mine + ' · do rival ' + syn.rv + ' · decisiva ' + syn.dec + ' (nossa ' + syn.decMe + ') · mais vistas: ' + top(syn.names) + ' · Colosso: grupo com combinação em ' + syn.col + ' de ' + syn.colN + ' leituras' + (syn.colN ? ' (' + top(syn.colNames) + ')' : ''));
+}
+if (G.resList) {
+  const hs = S().heroes, fam = {}, tiers = [0, 0, 0, 0];
+  for (const h of hs) { const L = G.resList(G.resOf(h)); let mx = 0; for (const x of L) { if (x.t) { const k = x.f.name; fam[k] = fam[k] || [0, 0, 0]; fam[k][x.t - 1]++; } if (x.t > mx) mx = x.t; } tiers[mx]++; }
+  console.log('Ressonância: heróis por nível mais alto (0/1/2/3) ' + tiers.join('/') + ' · por família (níveis 1/2/3): ' + Object.keys(fam).map((k) => k + ' ' + fam[k].join('/')).join(', '));
 }
 if (G.colosso && S().colosso) {
   const c = S().colosso, ws = colo.weeks, pos = ws.filter((w) => w.pos).map((w) => w.pos), fm = (v) => v >= 1e6 ? (v / 1e6).toFixed(2).replace('.', ',') + 'M' : v >= 1e3 ? (v / 1e3).toFixed(1).replace('.', ',') + 'k' : String(Math.round(v));

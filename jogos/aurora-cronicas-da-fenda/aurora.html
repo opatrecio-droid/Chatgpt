@@ -1588,7 +1588,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       if (g.kind === 'armadura' && it.type !== c.a) continue;
       if (G.TIER_LVL(it.tier) > h.lvl + 6) continue;
       const price = G.itemPrice(it); if (price > h.gold) continue;
-      const cur = h.gear[g.kind]; const gain = G.itemScore(it) - (cur ? G.itemScore(cur) * 1.06 : 0);
+      const cur = h.gear[g.kind]; const gain = G.itemScore(it) - (cur ? G.itemScore(cur) * 1.06 : 0) + (G.resGain ? G.resGain(h, it, cur) : 0);   // v26 (3H): ressonância pesa pouco
       if (gain > bestGain) { bestGain = gain; best = it; }
     }
     return best;
@@ -1686,6 +1686,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (m.vuln > S.t) dmg *= 1 + (m.vulnF || 0);
     dmg = Math.max(1, Math.round(dmg));
     m.hp -= dmg; m.hitBy[h.id] = 1; m.flash = 0.12;
+    if (crit && st.bleed) G.bleedHit(h, m, dmg);     // v26 (3H): Sangria da ressonância da Fúria
     if (!m.tgt || m.tgt.state === 'fallen') { m.tgt = h; if (m.state === 'wander' || m.state === 'return') m.state = 'chase'; }
     G.addFx({ t: 'dmg', x: m.x, y: m.y - 0.7 * (m.size || 1), n: dmg, crit, c: crit ? '#ffd35a' : '#ffffff' });
     G.sfx(crit ? 'crit' : 'hit', m.x, m.y);
@@ -7096,7 +7097,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const insRow = (it, e) => {
     const d = G.INS[e[0]]; if (!d) return '';
     const q = e[1];
-    return '<div class="ins q' + q + '" style="--qc:' + G.INS_QCOL[q] + '" title="Qualidade ' + q + ' de 5 · ' + G.INS_Q[q] + '"><span class="pp">' + pips(q) + '</span><b>' + d.name + '</b><em>' + esc(G.insText(it, e[0], q)) + '</em></div>';
+    return '<div class="ins q' + q + '" style="--qc:' + G.INS_QCOL[q] + '" title="Qualidade ' + q + ' de 5 · ' + G.INS_Q[q] + '"><span class="pp">' + pips(q) + '</span><b>' + (UI.famTag ? UI.famTag(e[0]) : '') + d.name + '</b><em>' + esc(G.insText(it, e[0], q)) + '</em></div>';   // v26 (4B.1): ícone da família
   };
   /* lista de inscrições de uma peça. o.card: acrescenta o atalho de Reforja (Armazém) */
   UI.insList = (it, list) => (list || []).map((e) => insRow(it, e)).join('');
@@ -8990,7 +8991,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
   const tmList = () => {
     const S = G.S, riv = G.arenaRival(tm.offer.i), n = riv.size, mx = tmPower();
-    return S.heroes.slice().sort((a, b) => G.arenaHeroPow(b) - G.arenaHeroPow(a)).map((x) => {
+    return (UI.synTeam ? UI.synTeam(tm) : '') + S.heroes.slice().sort((a, b) => G.arenaHeroPow(b) - G.arenaHeroPow(a)).map((x) => {   // v26 (4B.2): combinações da formação no topo da lista
       const sel = tm.sel.find((y) => y.id === x.id), p = G.arenaHeroPow(x), cl = G.CLASSES[x.cls], full = !sel && tm.sel.length >= n;
       return '<div class="ar-hr' + (sel ? ' on' : '') + '" data-a="artog:' + x.id + '"' + (full ? ' style="opacity:.55"' : '') + '><i class="pt px" style="background-image:url(' + port(myLook(x)) + ');border-color:' + G.RANK_COLOR[x.rank] + '"></i><span class="gr"><span class="nm">' + esc(x.name) + '</span><span class="sb">' + esc(G.heroTitle(x)) + ' · Nv ' + x.lvl + '</span><span class="pw"><i style="width:' + Math.round(100 * p / mx) + '%"></i></span></span>' +
         (sel ? '<span class="fm"><span data-a="arrow:' + x.id + ':0" class="' + (sel.r ? '' : 'on') + '">Frente</span><span data-a="arrow:' + x.id + ':1" class="' + (sel.r ? 'on' : '') + '">Fundo</span></span>' : '<span class="ck"></span>') + '</div>';
@@ -9041,7 +9042,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       '<div class="ar-cols">' + col('0-1') + col('0-0') + '<div></div>' + col('1-0') + col('1-1') + '</div><div class="ar-fx" id="ar-fx"></div></div>' +
       '<div class="ar-prog"><i id="ar-pg"></i></div><div class="ar-log" id="ar-log">As luas se erguem sobre a Arena…</div><div id="ar-res"></div>' +
       '<div class="acts" id="ar-acts"><button class="btn" data-a="arskip">' + ic('speed') + 'Pular</button></div>', { lock: true, pause: true, onClose: () => { stopDuel(); dirty(); } });
-    G.sfx('horn');
+    G.sfx('horn'); if (UI.synDuel) UI.synDuel(res);   // v26 (4B.2)
     const ev = res.ev || [], dur = res.sim.t, rate = dur > 36 ? dur / 36 : dur < 20 ? Math.max(0.6, dur / 20) : 1;
     const mhp = {}; for (const f of F) mhp[f.id] = f.mhp;
     duel = { res, i: 0, t0: performance.now(), rate, raf: 0, to: 0, done: false, mhp, dur };
@@ -9100,7 +9101,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       '<div class="sub" style="margin-top:6px">' + lgBadge(lg) + ' ' + G.fmt(a.pts) + ' pts' + (nx ? ' · faltam ' + (nx.min - a.pts) + ' para ' + nx.name : '') + '</div>' +
       (res.mvp ? '<div class="mvp">Destaque: <b>' + esc(res.mvp.name) + '</b> · ' + G.fmt(res.mvp.dmg) + ' de dano · duração ' + Math.round(res.t) + ' s de luta</div>' : '') +
       '<div class="acts"><button class="btn" data-a="arback">Voltar à Arena</button>' + (tk.total > 0 ? '<button class="btn pri" data-a="aragain">Duelar de novo (' + tk.total + ')</button>' : '') + '</div></div>';
-    void L;
+    void L; if (UI.synResult) UI.synResult(res, box);   // v26 (4B.2): combinação decisiva
     S0().tut.seen.arena = 1;
     UI.arenaWarm(500);                                                  // os próximos adversários ficam prontos, em tarefas curtas, enquanto a cerimônia aparece
     setTimeout(() => { const r = $('.ar-res'); if (r) r.scrollIntoView({ block: 'end', behavior: 'smooth' }); }, 120);
@@ -9164,6 +9165,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* sons novos da Arena */
   const AU = G.AU;
   if (AU && AU.SFX) AU.SFX.arena = (t) => { AU.tone(147, t, 0.8, 'sawtooth', 0.12); AU.seq([392, 523, 659, 784], 0.1, 'triangle', 0.13, 0.4); };
+  UI.arenaTm = () => tm; UI.arenaTmRedraw = () => { if (tm) tmRedraw(); };   // v26 (4B.2): a tela de equipe aceita sugestões da formação
   UI.arenaCard = arenaCard;
   UI.arenaEmblem = emblem; UI.arenaAUR = AUR; UI.arenaDuelModal = duelModal;   // v25: brasões no ranking do Colosso (3-A); duelo reutilizado por 69-ui-rivais (3-B)
 })();
@@ -14337,6 +14339,737 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     if (sc.tav) hole(sc.tav.x, sc.tav.y - 0.8, 3.2, 0.8);
   };
   /* @@fim6C-cenas */
+})();
+;
+/* ===== 3H-sinergias.js ===== */
+/* 3H-sinergias: v26 — o que se combina rende mais.
+   4B.1 Ressonância de inscrições: as 16 inscrições se agrupam em 6 famílias; 2/3/4 inscrições da mesma família num herói
+        (somando todas as peças equipadas) ativam bônus de conjunto crescentes e próprios de cada família.
+   4B.2 Formação × classes: combinações nomeadas de classes e posições (Muralha Arcana, Luz Compartilhada…) dão bônus
+        pequenos na Arena (entram em G.arenaSim, os rivais também usam) e no grupo que luta contra o Colosso.
+   Só simulação, sem DOM (as telas ficam em 6D-ui-sinergias.js). Nenhum estado novo é salvo: tudo é derivado das peças
+   equipadas, das classes e das posições; os campos novos dos heróis começam com "_" (cache, não vão para o save). */
+'use strict';
+(function () {
+  const clamp = G.clamp;
+
+  /* ================= 4B.1 Ressonância de inscrições ================= */
+  /* fx: frações somadas (0,03 = +3%) aplicadas uma vez a cada recálculo dos atributos (cache _dirty de G.heroStats).
+     bleed/dbl/xp2/sw são efeitos de campo lidos de h._st: sangramento dos críticos, moeda dupla, experiência dupla, segundo fôlego. */
+  G.RES_TIERS = [2, 3, 4];                       // inscrições da família para cada nível de ressonância
+  G.RES_FAMS = [
+    { id: 'furia', name: 'Fúria', icon: 'sword', col: '#e4574a', ins: ['furia', 'ruina', 'algoz'], lore: 'O ímpeto de quem não recua.',
+      tiers: [
+        { n: 'Ímpeto', txt: '+3% de ataque', fx: { atk: 0.03 } },
+        { n: 'Golpe de Mestre', txt: '+10% de dano crítico', fx: { critDmg: 0.10 } },
+        { n: 'Sangria', txt: 'críticos abrem uma ferida que sangra por 3 s', fx: { bleed: 0.12 } },
+      ] },
+    { id: 'baluarte', name: 'Baluarte', icon: 'shield', col: '#6f95d8', ins: ['colosso', 'muralha', 'espinhos'], lore: 'Pedra sobre pedra, ninguém passa.',
+      tiers: [
+        { n: 'Fundação', txt: '+3% de vida', fx: { hp: 0.03 } },
+        { n: 'Parede Viva', txt: '+4% de defesa', fx: { def: 0.04 } },
+        { n: 'Pele de Pedra', txt: '+5% de espinhos e +2% de vida', fx: { thorns: 0.05, hp: 0.02 } },
+      ] },
+    { id: 'vento', name: 'Vento', icon: 'wing', col: '#4fcfa4', ins: ['vendaval', 'falcao', 'nevoa'], lore: 'Leve como o primeiro sopro da manhã.',
+      tiers: [
+        { n: 'Brisa', txt: '+2,5% de velocidade de ataque', fx: { aspd: 0.025 } },
+        { n: 'Passo Leve', txt: '+3% de esquiva', fx: { eva: 0.03 } },
+        { n: 'Olho da Tempestade', txt: '+4% de chance crítica e +3% de movimento', fx: { crit: 0.04, spd: 0.03 } },
+      ] },
+    { id: 'vida', name: 'Vida', icon: 'heart', col: '#ee7a96', ins: ['fonte', 'sanguessuga'], lore: 'O corpo lembra como se cura.',
+      tiers: [
+        { n: 'Fôlego', txt: 'regenera +0,15% da vida por segundo', fx: { regen: 0.0015 } },
+        { n: 'Sede Boa', txt: 'rouba +1% do dano como vida', fx: { ls: 0.01 } },
+        { n: 'Segundo Fôlego', txt: 'ao cair, volta com 15% da vida (1× por dia)', fx: { sw: 0.15 } },
+      ] },
+    { id: 'fortuna', name: 'Fortuna', icon: 'coin', col: '#e8bb4a', ins: ['mercador', 'garimpo'], lore: 'Onde há ouro, há quem o encontre.',
+      tiers: [
+        { n: 'Bolso Fundo', txt: '+4% de moedas dos abates', fx: { gold: 0.04 } },
+        { n: 'Faro de Garimpeiro', txt: '+4% de espólio', fx: { drop: 0.04 } },
+        { n: 'Mão Cheia', txt: '12% de chance de dobrar as moedas de um abate', fx: { dbl: 0.12 } },
+      ] },
+    { id: 'saber', name: 'Saber', icon: 'book', col: '#a984ec', ins: ['sabio', 'mestria', 'peregrino'], lore: 'Quem anota, aprende em dobro.',
+      tiers: [
+        { n: 'Caderno de Campo', txt: '+4% de experiência', fx: { xp: 0.04 } },
+        { n: 'Mão Treinada', txt: '-3% de recarga das habilidades', fx: { cdr: 0.03 } },
+        { n: 'Lição Aprendida', txt: '10% de chance de dobrar a experiência de um abate', fx: { xp2: 0.10 } },
+      ] },
+  ];
+  G.RES_FAM = {}; G.RES_OF = {};
+  for (const f of G.RES_FAMS) { G.RES_FAM[f.id] = f; for (const i of f.ins) G.RES_OF[i] = f.id; }
+  G.insFam = (id) => G.RES_FAM[G.RES_OF[id]] || null;
+  G.resTier = (n) => (n >= 4 ? 3 : n >= 3 ? 2 : n >= 2 ? 1 : 0);
+
+  /* inscrições por família (lista [[id, q], ...] ou várias listas) */
+  const addCounts = (c, list, sgn) => { if (list) for (const e of list) { const f = G.RES_OF[e[0]]; if (f) c[f] = (c[f] || 0) + (sgn || 1); } return c; };
+  const countsOf = (h) => { const c = {}; if (h.gear) for (const k in h.gear) { const it = h.gear[k]; if (it) addCounts(c, it.ins); } return c; };
+  /* o herói com a peça do espaço `kind` trocada por uma lista de inscrições (null = sem peça) */
+  G.resWith = (h, kind, ins) => { const c = countsOf(h), cur = h.gear && h.gear[kind]; if (cur) addCounts(c, cur.ins, -1); addCounts(c, ins); return c; };
+  /* estado das famílias de um herói: só as que têm ao menos 1 inscrição, da maior contagem para a menor */
+  G.resList = (c) => {
+    const out = [];
+    for (const f of G.RES_FAMS) {
+      const n = c[f.id] || 0; if (n < 1) continue;
+      const t = G.resTier(n);
+      out.push({ f, n, t, need: t < 3 ? G.RES_TIERS[t] : 0, next: t < 3 ? f.tiers[t] : null, cur: t ? f.tiers[t - 1] : null });
+    }
+    return out.sort((a, b) => b.t - a.t || b.n - a.n);
+  };
+  /* contagens do herói (cache h._rc, recalculado junto com os atributos: nada por quadro) */
+  G.resOf = (h) => { G.heroStats(h); return h._rc || (h._rc = countsOf(h)); };
+  G.resTotalTiers = (c) => { let s = 0; for (const id in c) s += G.resTier(c[id]); return s; };
+
+  const FXN = ['atk', 'def', 'hp', 'crit', 'eva', 'critDmg', 'aspd', 'spd', 'cdr', 'gold', 'drop', 'xp', 'thorns', 'ls', 'regen', 'heal'];
+  const hs0 = G.heroStats;
+  G.heroStats = (h) => {
+    const prev = h._st, st = hs0(h);
+    if (st === prev) return st;                       // veio do cache, já com ressonância e sinergia de grupo
+    const rc = (h._rc = countsOf(h));
+    /* despertou uma ressonância? (só heróis da cidade; a primeira leitura é silenciosa, por isso carregar um save não avisa nada) */
+    const rt = {}, pt = h._rt;
+    for (const f of G.RES_FAMS) rt[f.id] = G.resTier(rc[f.id] || 0);
+    h._rt = rt;
+    if (pt && h.id > 0) for (const f of G.RES_FAMS) if (rt[f.id] > pt[f.id]) {
+      G.log('Ressonância ' + f.name + ': ' + f.tiers[rt[f.id] - 1].n + ' despertou em ' + h.name + ' (' + f.tiers[rt[f.id] - 1].txt + ').', 'good');
+      G.emit('resonancia', { h, f, t: rt[f.id] });
+    }
+    let fx = null;
+    const add = (f) => { if (!fx) fx = {}; for (const k in f) fx[k] = (fx[k] || 0) + f[k]; };
+    for (const f of G.RES_FAMS) { const t = G.resTier(rc[f.id] || 0); for (let i = 0; i < t; i++) add(f.tiers[i].fx); }
+    if (h._cs && h.state === 'colosso') add(h._cs);   // sinergia do grupo que luta contra o Colosso (4B.2)
+    st.bleed = 0; st.dbl = 0; st.xp2 = 0; st.sw = 0;
+    if (!fx) return st;
+    let touch = false;
+    for (const k of FXN) if (fx[k]) { touch = true; break; }
+    if (fx.atk) st.atk *= 1 + fx.atk;
+    if (fx.def) st.def *= 1 + fx.def;
+    if (fx.hp) st.hp = Math.round(st.hp * (1 + fx.hp));
+    if (fx.crit) st.crit = Math.min(0.75, st.crit + fx.crit);
+    if (fx.eva) st.eva = Math.min(0.6, st.eva + fx.eva);
+    if (fx.critDmg) st.critDmg += fx.critDmg;
+    if (fx.aspd) st.int /= 1 + fx.aspd;
+    if (fx.spd) st.spd *= 1 + fx.spd;
+    if (fx.cdr) st.cdr = Math.min(0.5, st.cdr + fx.cdr);
+    if (fx.gold) st.goldF += fx.gold;
+    if (fx.drop) st.dropF += fx.drop;
+    if (fx.xp) st.xpF += fx.xp;
+    if (fx.thorns) st.thorns = Math.min(0.5, st.thorns + fx.thorns);
+    if (fx.ls) st.ls = Math.min(0.25, (st.ls || 0) + fx.ls);
+    if (fx.regen) st.regen = Math.min(0.02, (st.regen || 0) + fx.regen);
+    if (fx.heal) st.healF += fx.heal;
+    st.bleed = fx.bleed || 0; st.dbl = fx.dbl || 0; st.xp2 = fx.xp2 || 0; st.sw = fx.sw || 0;
+    if (touch) st.eff = G.effLevel(st);
+    return st;
+  };
+
+  /* Sangria (Fúria 4): um crítico deixa o alvo sangrando por 3 s, com 12% do golpe por segundo. Chamado de G.dmgToMon (gancho de 30-heroes). */
+  G.bleedHit = (h, m, dmg) => {
+    if (m.colosso || m.dead) return;
+    const dps = dmg * (h._st ? h._st.bleed : 0.12), S = G.S;
+    if (!m.dot || m.dot.until <= S.t || m.dot.dps < dps) m.dot = { dps, until: S.t + 3, c: '#e05a5a', by: h.id };
+  };
+  /* moeda dupla (Fortuna 4) e experiência dupla (Saber 4), só em abates */
+  const km0 = G.killMon, gx0 = G.giveXp;
+  let inKill = 0;
+  G.killMon = (m, h) => {
+    if (m.dead || !h || m.colosso) return km0(m, h);
+    const g0 = h.gold, dbl = h._st ? h._st.dbl : 0;
+    inKill++;
+    try { km0(m, h); } finally { inKill--; }
+    if (dbl > 0 && h.gold > g0 && Math.random() < dbl) {
+      h.gold += h.gold - g0;
+      G.addFx({ t: 'text', x: h.x, y: h.y - 1.2, s: 'moeda em dobro!', c: '#ffd35a' });
+    }
+  };
+  G.giveXp = (h, n) => {
+    const st = h._st;
+    if (inKill > 0 && st && st.xp2 > 0 && Math.random() < st.xp2) { n *= 2; G.addFx({ t: 'text', x: h.x, y: h.y - 1.3, s: 'lição aprendida!', c: '#c8a0ff' }); }
+    return gx0(h, n);
+  };
+  /* Segundo Fôlego (Vida 4): no golpe que seria fatal, o herói se agarra à vida (1× por dia) */
+  const hf0 = G.heroFall;
+  G.heroFall = (h, m) => {
+    const st = h._st, S = G.S;
+    if (st && st.sw > 0 && h._swD !== S.day) {
+      h._swD = S.day; h.hp = Math.max(1, st.hp * st.sw); h.dot = null;
+      if (h.state !== 'rift' && h.state !== 'defend' && h.state !== 'inc' && h.state !== 'colosso') { h.state = 'flee'; G.go(h, G.W.plaza.cx, G.W.plaza.cy); }
+      G.addFx({ t: 'healring', x: h.x, y: h.y - 0.3 });
+      G.log('O Segundo Fôlego de ' + h.name + ' (ressonância da Vida) o trouxe de volta da beira da queda.', 'good');
+      return false;
+    }
+    return hf0(h, m);
+  };
+
+  /* escolha de peças dos heróis: quanto a troca sobe os níveis de ressonância do herói (peso pequeno: 4% do valor da peça por nível).
+     Chamado de G.wantItem (gancho de 30-heroes). */
+  G.RES_AI = 0.04;
+  G.resGain = (h, it, cur) => {
+    if (!it.ins || !it.ins.length) { if (!cur || !cur.ins || !cur.ins.length) return 0; }
+    const base = G.resOf(h), kind = G.GEAR[it.type].kind, after = G.resWith(h, kind, it.ins);
+    const d = G.resTotalTiers(after) - G.resTotalTiers(base);
+    return d ? d * G.RES_AI * G.itemScore(it) : 0;
+  };
+  /* o que uma peça (do estoque ou equipada) faria pela ressonância dos heróis que a usam: [{ h, fam, from, to }] do melhor para o pior */
+  G.resHelp = (it, only) => {
+    const S = G.S, out = [];
+    if (!it || !it.ins || !it.ins.length || !S) return out;
+    const g = G.GEAR[it.type], kind = g.kind;
+    for (const h of S.heroes) {
+      if (only && h.id !== only) continue;
+      const c = G.CLASSES[h.cls];
+      if ((kind === 'arma' && it.type !== c.w) || (kind === 'armadura' && it.type !== c.a)) continue;
+      const base = G.resOf(h), cur = h.gear[kind];
+      if (cur === it) continue;
+      const after = G.resWith(h, kind, it.ins);
+      for (const f of G.RES_FAMS) {
+        const a = base[f.id] || 0, b = after[f.id] || 0;
+        if (b > a && G.resTier(b) > G.resTier(a)) out.push({ h, f, from: a, to: b, tier: G.resTier(b) });
+      }
+    }
+    return out.sort((x, y) => (y.tier - G.resTier(y.from)) - (x.tier - G.resTier(x.from)) || y.to - x.to);
+  };
+
+  /* ================= 4B.2 Formação × classes ================= */
+  /* Cada combinação diz quem entra (need: classe(s), posição 0 = frente / 1 = fundo, n = quantos) e o que cada papel ganha.
+     others: bônus dos demais; distinct: de quantas classes diferentes; colo: 0 = não vale no Colosso (lá a posição é o alcance da classe).
+     Efeitos (frações): atk def mhp crit cd(dano crítico) aspd eva ls regen heal cdr thorns. val = peso para sugerir e para a IA dos rivais. */
+  G.SYN = [
+    { id: 'muralha_arcana', name: 'Muralha Arcana', icon: 'shield', col: '#8f78e0', val: 0.06,
+      req: 'Cavaleiro na frente + Mago no fundo', txt: 'Mago +9% de ataque · Cavaleiro +8% de defesa',
+      need: [{ cls: 'cav', row: 0, fx: { def: 0.08 } }, { cls: 'mag', row: 1, fx: { atk: 0.09 } }] },
+    { id: 'luz_compartilhada', name: 'Luz Compartilhada', icon: 'sun', col: '#f0cf63', val: 0.05, min: 2,
+      req: 'Paladino + qualquer aliado', txt: 'Paladino cura +40% · todos regeneram +0,2% da vida por segundo',
+      need: [{ cls: 'pal', fx: { heal: 0.4, regen: 0.002 } }], others: { regen: 0.002 } },
+    { id: 'sombras_gemeas', name: 'Sombras Gêmeas', icon: 'eye', col: '#9a8fc2', val: 0.05,
+      req: '2 Ladinos', txt: 'Ladinos +6% de chance crítica e +10% de dano crítico',
+      need: [{ cls: 'lad', n: 2, fx: { crit: 0.06, cd: 0.10 } }] },
+    { id: 'chuva_cruzada', name: 'Chuva Cruzada', icon: 'wing', col: '#6fc385', val: 0.05,
+      req: '2 Arqueiros no fundo', txt: 'Arqueiros +10% de velocidade de ataque',
+      need: [{ cls: 'arq', row: 1, n: 2, fx: { aspd: 0.10 } }] },
+    { id: 'gume_duplo', name: 'Gume Duplo', icon: 'sword', col: '#e0705a', val: 0.05,
+      req: '2 Espadachins na frente', txt: 'Espadachins +5% de ataque e +6% de velocidade de ataque',
+      need: [{ cls: 'esp', row: 0, n: 2, fx: { atk: 0.05, aspd: 0.06 } }] },
+    { id: 'escudo_da_fe', name: 'Escudo da Fé', icon: 'shield', col: '#e6c25a', val: 0.05,
+      req: 'Cavaleiro + Paladino na frente', txt: 'Os dois +10% de defesa',
+      need: [{ cls: 'cav', row: 0, fx: { def: 0.10 } }, { cls: 'pal', row: 0, fx: { def: 0.10 } }] },
+    { id: 'fogo_cruzado', name: 'Fogo Cruzado', icon: 'bolt', col: '#f09a4a', val: 0.05,
+      req: 'Arqueiro + Mago no fundo', txt: 'Os dois +6% de ataque e -6% de recarga das habilidades',
+      need: [{ cls: 'arq', row: 1, fx: { atk: 0.06, cdr: 0.06 } }, { cls: 'mag', row: 1, fx: { atk: 0.06, cdr: 0.06 } }] },
+    { id: 'sombra_do_escudo', name: 'Sombra do Escudo', icon: 'moon', col: '#8aa0c8', val: 0.04, colo: 0,
+      req: 'Ladino no fundo + Cavaleiro, Espadachim ou Paladino na frente', txt: 'Ladino +15% de dano crítico e +5% de esquiva',
+      need: [{ cls: 'lad', row: 1, fx: { cd: 0.15, eva: 0.05 } }, { cls: ['cav', 'esp', 'pal'], row: 0, fx: {} }] },
+    { id: 'lamina_abencoada', name: 'Lâmina Abençoada', icon: 'spark', col: '#f2d98a', val: 0.04,
+      req: 'Espadachim na frente + Paladino', txt: 'Espadachim +6% de ataque e +1,5% de roubo de vida',
+      need: [{ cls: 'esp', row: 0, fx: { atk: 0.06, ls: 0.015 } }, { cls: 'pal', fx: {} }] },
+    { id: 'flecha_sob_escudo', name: 'Flecha sob o Escudo', icon: 'target', col: '#7fb4d6', val: 0.04,
+      req: 'Cavaleiro na frente + Arqueiro no fundo', txt: 'Arqueiro +5% de chance crítica e +4% de velocidade de ataque · Cavaleiro +4% de defesa',
+      need: [{ cls: 'cav', row: 0, fx: { def: 0.04 } }, { cls: 'arq', row: 1, fx: { crit: 0.05, aspd: 0.04 } }] },
+    { id: 'tempestade_dupla', name: 'Tempestade Dupla', icon: 'star', col: '#b390f0', val: 0.05,
+      req: '2 Magos no fundo', txt: 'Magos +7% de ataque e -8% de recarga das habilidades',
+      need: [{ cls: 'mag', row: 1, n: 2, fx: { atk: 0.07, cdr: 0.08 } }] },
+    { id: 'companhia_variada', name: 'Companhia Variada', icon: 'people', col: '#d0b88a', val: 0.04,
+      req: '3 ou 4 heróis, todos de classes diferentes', txt: 'Todos +2,5% de ataque e +2,5% de vida',
+      distinct: [3, 4], alldiff: 1, all: { atk: 0.025, mhp: 0.025 } },
+    { id: 'companhia_completa', name: 'Companhia Completa', icon: 'crown', col: '#ffd35a', val: 0.07,
+      req: '5 classes diferentes', txt: 'Todos +4% de ataque, de defesa e de vida',
+      distinct: [5, 9], all: { atk: 0.04, def: 0.04, mhp: 0.04 } },
+  ];
+  G.SYN_BY = {}; for (const c of G.SYN) G.SYN_BY[c.id] = c;
+
+  /* quais combinações estão ativas para uma lista de membros [{ cls, row }]; devolve { act: [{ id, who }], fx: [efeitos de cada membro] }.
+     o.off = ids desligados · o.col = regras do Colosso (a posição vem do alcance da classe) */
+  G.synFind = (mem, o) => {
+    o = o || {};
+    const n = mem.length, fx = mem.map(() => ({})), act = [];
+    const add = (i, f) => { const t = fx[i]; for (const k in f) t[k] = (t[k] || 0) + f[k]; };
+    for (const c of G.SYN) {
+      if ((c.min && n < c.min) || (o.off && o.off.indexOf(c.id) >= 0) || (o.col && c.colo === 0)) continue;
+      let who = null;
+      if (c.need) {
+        const used = {}, got = [];
+        let ok = true;
+        for (const r of c.need) {
+          const cs = Array.isArray(r.cls) ? r.cls : [r.cls], g = [];
+          for (let i = 0; i < n; i++) if (!used[i] && cs.indexOf(mem[i].cls) >= 0 && (r.row == null || mem[i].row === r.row)) g.push(i);
+          if (g.length < (r.n || 1)) { ok = false; break; }
+          for (const i of g) used[i] = 1;
+          got.push(g);
+        }
+        if (!ok) continue;
+        who = [];
+        c.need.forEach((r, k) => { for (const i of got[k]) { add(i, r.fx); who.push(i); } });
+        if (c.others) for (let i = 0; i < n; i++) if (!used[i]) add(i, c.others);
+      } else if (c.distinct) {
+        const d = Object.keys(mem.reduce((a, m) => { a[m.cls] = 1; return a; }, {})).length;
+        if (d < c.distinct[0] || d > c.distinct[1] || (c.alldiff && d !== n)) continue;
+        who = mem.map((_, i) => i);
+        for (const i of who) add(i, c.all);
+      }
+      if (who) act.push({ id: c.id, who });
+    }
+    return { act, fx };
+  };
+  /* valor de uma formação (para sugerir e para os rivais escolherem a posição): soma dos pesos, pelo alcance de cada combinação */
+  G.synValue = (mem, o) => {
+    const r = G.synFind(mem, o); let v = 0;
+    for (const a of r.act) v += G.SYN_BY[a.id].val * (0.6 + 0.4 * a.who.length / mem.length);
+    return v;
+  };
+  /* membros de uma equipe da Arena: [{ id, r }] → [{ cls, row }] */
+  const memOfTeam = (team) => team.map((x) => { const h = G.S.heroes.find((y) => y.id === x.id); return { cls: h ? h.cls : 'esp', row: x.r ? 1 : 0 }; });
+  G.synTeam = (team) => { const mem = memOfTeam(team), r = G.synFind(mem); return r.act.map((a) => ({ id: a.id, who: a.who.map((i) => team[i].id) })); };
+
+  /* aplica os efeitos de um membro à "planta" imutável de um combatente (cópia) */
+  const applyFx = (bp, f) => {
+    let any = false; for (const k in f) { any = true; break; }
+    if (!any) return bp;
+    const b = Object.assign({}, bp);
+    if (f.atk) b.atk *= 1 + f.atk;
+    if (f.def) b.def *= 1 + f.def;
+    if (f.mhp) b.mhp *= 1 + f.mhp;
+    if (f.crit) b.crit = Math.min(0.75, b.crit + f.crit);
+    if (f.cd) b.cd += f.cd;
+    if (f.aspd) b.int /= 1 + f.aspd;
+    if (f.eva) b.eva = Math.min(0.6, b.eva + f.eva);
+    if (f.ls) b.ls += f.ls;
+    if (f.regen) b.regen += f.regen;
+    if (f.heal) b.heal += f.heal;
+    if (f.thorns) b.thorns += f.thorns;
+    if (f.cdr) b.skills = b.skills.map((s) => Object.assign({}, s, { cd: Math.max(3, s.cd * (1 - f.cdr)) }));
+    return b;
+  };
+  const synCache = new WeakMap();
+  const synOf = (bps, off) => {
+    const key = off && off.length ? off.join('|') : '';
+    let m = synCache.get(bps); if (!m) synCache.set(bps, (m = {}));
+    if (m[key]) return m[key];
+    const r = G.synFind(bps.map((b) => ({ cls: b.cls, row: b.row })), { off });
+    return (m[key] = { bps: bps.map((b, i) => applyFx(b, r.fx[i])), act: r.act.map((a) => ({ id: a.id, who: a.who, names: a.who.map((i) => bps[i].name) })) });
+  };
+  /* o duelo da Arena: as combinações de cada lado entram nas plantas antes de simular (determinístico, rivais incluídos).
+     o.noSyn desliga tudo; o.synOff = { 0: [ids], 1: [ids] } desliga combinações de um lado (para achar a decisiva). O resultado traz sim.syn = [lado 0, lado 1]. */
+  const as0 = G.arenaSim;
+  G.arenaSim = (bpA, bpB, seed, o) => {
+    o = o || {};
+    const so = o.synOff || {};
+    const a = o.noSyn ? { bps: bpA, act: [] } : synOf(bpA, so[0]), b = o.noSyn ? { bps: bpB, act: [] } : synOf(bpB, so[1]);
+    const r = as0(a.bps, b.bps, seed, o);
+    r.syn = [a.act, b.act];
+    return r;
+  };
+  /* os rivais também escolhem a posição pela formação: entre as divisões com a mesma quantidade na frente, a de maior valor de
+     combinações vence; sem combinação possível, vale a de sempre (os mais parrudos na frente) */
+  /* divisão em frente/fundo (a mesma quantidade na frente de sempre: metade, arredondada para cima) que mais valoriza as combinações;
+     empata-se pelos mais parrudos na frente. Devolve uma máscara (bit i = frente) para os n membros [{ cls, tank }] */
+  const bestMask = (ms) => {
+    const n = ms.length, front = Math.ceil(n / 2), tot = ms.reduce((a, m) => a + m.tank, 0) || 1;
+    let best = null;
+    for (let mask = 0; mask < (1 << n); mask++) {
+      let pc = 0, tk = 0; for (let i = 0; i < n; i++) if (mask >> i & 1) { pc++; tk += ms[i].tank; }
+      if (pc !== front) continue;
+      const sc = G.synValue(ms.map((m, i) => ({ cls: m.cls, row: mask >> i & 1 ? 0 : 1 }))) + 0.03 * tk / tot;
+      if (!best || sc > best.sc + 1e-9) best = { sc, mask };
+    }
+    return best ? best.mask : 0;
+  };
+  const tankOf = (st) => st.hp * (1 + st.def / Math.max(1, st.atk));
+  const rbp0 = G.arenaRivalBps;
+  G.arenaRivalBps = (rz) => {
+    const hs = rz.heroes;
+    if (!hs._syn) {
+      hs._syn = 1;
+      const mask = bestMask(hs.map((x) => ({ cls: x.h.cls, tank: tankOf(x.st) })));
+      hs.forEach((x, i) => { x.row = mask >> i & 1 ? 0 : 1; });
+    }
+    return rbp0(rz);
+  };
+  /* a equipe automática do jogador (botão Sugerir, duelo sem posições escolhidas, robô do simulador) também escolhe pela formação */
+  const ar0 = G.arenaAutoRows;
+  G.arenaAutoRows = (ids) => {
+    const hs = ids.map((id) => G.S.heroes.find((h) => h.id === id)).filter(Boolean);
+    if (hs.length < 2 || hs.length !== ids.length) return ar0(ids);
+    const mask = bestMask(hs.map((h) => ({ cls: h.cls, tank: tankOf(G.heroStats(h)) }))), rows = {};
+    hs.forEach((h, i) => { rows[h.id] = mask >> i & 1 ? 0 : 1; });
+    return rows;
+  };
+  /* a combinação decisiva: tira, uma a uma, as combinações do lado vencedor e refaz o mesmo duelo (mesma semente); se o resultado vira,
+     confirma com 10 outras sementes que a chance do vencedor cai de verdade (pelo menos 12 pontos): luta equilibrada vira com qualquer
+     pitada de sorte, e isso não é mérito de combinação nenhuma. Se só a ausência de todas vira, vale a de maior peso. */
+  const ad0 = G.arenaDuel;
+  G.arenaDuel = (o) => {
+    const res = ad0(o);
+    if (!res || res.err || !res.sim || !res.sim.syn) return res;
+    const A = res.sim.syn[0], B = res.sim.syn[1];
+    res.syn = { me: A, rv: B, dec: null };
+    const ws = res.win ? 0 : 1, wl = res.sim.syn[ws];
+    if (!wl.length) return res;
+    const bpA = G.arenaMyBps(res.team), bpB = G.arenaRivalBps(res.rz), off = (ids) => ({ [ws]: ids });
+    const flip = (ids) => G.arenaSim(bpA, bpB, res.seed, { synOff: off(ids) }).win !== res.win;
+    const chance = (ids) => { let w = 0; for (let k = 0; k < 10; k++) if ((G.arenaSim(bpA, bpB, G.hash('dc|' + res.seed + '#' + k), { synOff: off(ids) }).win ? 0 : 1) === ws) w++; return w / 10; };
+    const ord = wl.slice().sort((x, y) => G.SYN_BY[y.id].val - G.SYN_BY[x.id].val).slice(0, 3);
+    let hit = ord.find((a) => flip([a.id])), ids = hit && [hit.id];
+    if (!hit && wl.length > 1 && flip(wl.map((a) => a.id))) { hit = ord[0]; ids = wl.map((a) => a.id); }
+    if (hit) {
+      const p0 = chance([]), p1 = chance(ids);
+      if (p0 - p1 >= 0.12) res.syn.dec = { side: ws, id: hit.id, names: hit.names, p0, p1 };
+    }
+    return res;
+  };
+
+  /* sugestão para a tela de equipe: a melhor troca simples (mudar um herói de posição ou trocá-lo por outro do banco) que ativa
+     uma combinação nova. Devolve { kind: 'row'|'swap', id, r, out, inn, combo, text } ou null. */
+  const POS = ['a frente', 'o fundo'];
+  G.synSuggest = (team) => {
+    const S = G.S, n = team.length;
+    const hs = team.map((x) => S.heroes.find((h) => h.id === x.id));
+    if (hs.some((h) => !h) || n < 2) return null;
+    const val = (t) => G.synValue(memOfTeam(t)), idsOf = (t) => G.synFind(memOfTeam(t)).act.map((a) => a.id);
+    const base = val(team), baseIds = idsOf(team);
+    const first = (t) => { const ids = idsOf(t).filter((i) => baseIds.indexOf(i) < 0); return ids.length ? G.SYN_BY[ids[0]] : null; };
+    let best = null;
+    const consider = (t, kind, o) => {
+      const v = val(t), combo = first(t); if (!combo || v <= base + 1e-6) return;
+      const sc = v - base - (o.loss || 0);
+      if (sc > 1e-6 && (!best || sc > best.sc)) best = Object.assign({ sc, kind, combo, team: t }, o);
+    };
+    team.forEach((x, i) => {                                            // 1) só mudar de posição
+      const t = team.map((y) => ({ id: y.id, r: y.r })); t[i].r = x.r ? 0 : 1;
+      consider(t, 'row', { id: x.id, r: t[i].r, text: 'Troque ' + hs[i].name + ' para ' + POS[t[i].r] + ' e ative ' });
+    });
+    const bench = S.heroes.filter((h) => !team.some((x) => x.id === h.id)).map((h) => ({ h, p: G.arenaHeroPow(h) })).sort((a, b) => b.p - a.p).slice(0, 6);
+    team.forEach((x, i) => {                                            // 2) chamar alguém do banco no lugar de um da equipe
+      const pOut = G.arenaHeroPow(hs[i]);
+      for (const b of bench) {
+        if (b.p < pOut * 0.72) continue;
+        for (const r of [0, 1]) {
+          const t = team.map((y) => ({ id: y.id, r: y.r })); t[i] = { id: b.h.id, r };
+          const loss = Math.max(0, pOut - b.p) / pOut / n * 0.9;
+          consider(t, 'swap', { out: x.id, inn: b.h.id, r, loss, text: 'Chame ' + b.h.name + ' (' + G.CLASSES[b.h.cls].name + ') para ' + POS[r] + ', no lugar de ' + hs[i].name + ', e ative ' });
+        }
+      }
+    });
+    return best;
+  };
+
+  /* ---------- sinergia do grupo no Colosso ---------- */
+  /* quem está em estado 'colosso' (a caminho ou lutando) forma um grupo; a posição de cada um é o alcance da classe
+     (alcance < 2,5: frente; senão fundo). A cada segundo vê se o grupo mudou; os efeitos entram nos atributos pelo fluxo normal (h._cs + _dirty). */
+  const rowOfCls = (cls) => (G.CLASSES[cls].rng >= 2.5 ? 1 : 0);
+  let cT = 0, cKey = '', cPrev = [], cIds = '', cLog = 0;
+  G.colSyn = { act: [], n: 0 };
+  const colUpdate = () => {
+    const S = G.S; if (!S || !S.heroes) return;
+    let key = ''; const g = [];
+    for (const h of S.heroes) if (h.state === 'colosso') { g.push(h); key += h.id + ','; }
+    if (key === cKey) return;
+    cKey = key;
+    for (const h of cPrev) if (h._cs) { h._cs = null; h._dirty = true; }
+    cPrev = g;
+    if (!g.length) { G.colSyn = { act: [], n: 0 }; cIds = ''; return; }
+    const r = G.synFind(g.map((h) => ({ cls: h.cls, row: rowOfCls(h.cls) })), { col: 1 });
+    r.fx.forEach((f, i) => { for (const k in f) { g[i]._cs = f; g[i]._dirty = true; break; } });
+    G.colSyn = { act: r.act.map((a) => ({ id: a.id, names: a.who.map((i) => g[i].name) })), n: g.length };
+    const ids = r.act.map((a) => a.id).join(',');
+    if (ids && ids !== cIds && S.t - cLog > 20) { cLog = S.t; G.log('Formação no Colosso: ' + r.act.map((a) => G.SYN_BY[a.id].name).join(', ') + '.', 'good'); }
+    cIds = ids;
+  };
+  /* o que aconteceria se todos os heróis fossem ao Colosso (para a aba do Colosso sugerir a convocação) */
+  G.colSynAll = () => {
+    const hs = G.S.heroes.slice().sort((a, b) => G.arenaHeroPow(b) - G.arenaHeroPow(a)), r = G.synFind(hs.map((h) => ({ cls: h.cls, row: rowOfCls(h.cls) })), { col: 1 });
+    return { n: hs.length, act: r.act.map((a) => ({ id: a.id, names: a.who.map((i) => hs[i].name) })) };
+  };
+  const tk0 = G.tick;
+  G.tick = (dt) => { tk0(dt); cT -= dt; if (cT <= 0) { cT = 1; colUpdate(); } };
+  const al0 = G.afterLoad; G.afterLoad = () => { al0(); cKey = ''; cPrev = []; cIds = ''; cT = 0; for (const h of G.S.heroes) h._cs = null; };
+  const ng0 = G.newGame; G.newGame = () => { const S = ng0(); cKey = ''; cPrev = []; cIds = ''; cT = 0; G.colSyn = { act: [], n: 0 }; return S; };
+})();
+;
+/* ===== 6D-ui-sinergias.js ===== */
+/* 6D-ui-sinergias: v26 (lote 4-B) — telas da ressonância de inscrições (ficha do herói, ficha da peça, reforja, Códex) e das
+   combinações de formação (equipe da Arena, resultado do duelo, aba do Colosso). A simulação mora em 3H-sinergias.js. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, ic = UI.ic, esc = UI.esc, $ = UI.$;
+  const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
+  const fcv = (col) => '--fc:' + col + ';--fg:' + rgba(col, 0.2);
+  const S0 = () => G.S;
+
+  /* ---------- estilo ---------- */
+  const css = document.createElement('style');
+  css.textContent = [
+    '.fam{display:inline-block;font-size:11px;vertical-align:-1.5px;margin-right:3px}',
+    '.fam svg.i{display:inline-block}',
+    '.rs-lead{font-size:11.5px;line-height:1.4;margin:0 0 4px}',
+    '.rs-row{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line2)}',
+    '.rs-row.first{border-top:0}',
+    '.rs-ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--fg);border:1px solid var(--fc);color:var(--fc);font-size:18px}',
+    '.rs-gr{flex:1;min-width:0}',
+    '.rs-top{display:flex;align-items:baseline;gap:8px}',
+    '.rs-top b{font-size:13.5px;color:var(--fc);letter-spacing:.02em}',
+    '.rs-top em{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);flex:1}',
+    '.rs-top .rs-n{font-size:12.5px;font-weight:900;color:#fff;flex:none}',
+    '.rs-top .rs-n small{font-size:10px;color:var(--mut);font-weight:800}',
+    '.rs-bar{display:flex;gap:3px;margin:5px 0 5px}',
+    '.rs-bar i{flex:1;height:15px;border-radius:5px;background:rgba(255,255,255,.07);font-style:normal;font-size:9px;font-weight:900;display:grid;place-items:center;color:rgba(255,255,255,.35)}',
+    '.rs-bar i.on{background:var(--fc);color:#10152a;box-shadow:0 0 8px var(--fg)}',
+    '.rs-bar i.gt{outline:1px solid rgba(255,255,255,.22);outline-offset:-1px}',
+    '.rs-bar i.on.gt{outline-color:#fff}',
+    '.rs-fx{font-size:11.5px;line-height:1.4;color:#d8dcea}',
+    '.rs-fx b{color:var(--fc);font-weight:800}',
+    '.rs-nx{font-size:11px;line-height:1.35;color:var(--mut);margin-top:2px}',
+    '.rs-nx b{color:#cfd5e4}',
+    '.rs-pc{margin-top:8px;padding:8px 10px;border-radius:12px;background:rgba(0,0,0,.24);border:1px solid var(--line2)}',
+    '.rs-pc .rs-h{font-family:"Aurora Cinzel",serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}',
+    '.rs-ch{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 9px 0 6px;border-radius:11px;font-size:11px;font-weight:800;background:var(--fg);border:1px solid var(--fc);color:var(--fc);margin:0 5px 4px 0}',
+    '.rs-ch svg.i{font-size:13px}',
+    '.rs-ch b{color:#fff}',
+    '.rs-ln{font-size:11.5px;line-height:1.4;color:#d8dcea;margin:3px 0 0}',
+    '.rs-ln b{color:var(--fc)}',
+    '.rs-ln.up{color:#b8f0c4}.rs-ln.dn{color:#ffb4a8}',
+    '.rs-ln .ar{color:var(--mut)}',
+    '.rs-cx .cxr{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line2)}',
+    '.rs-cx .cxr:first-child{border-top:0}',
+    '.sy-box{margin:2px 0 8px;padding:9px 10px;border-radius:13px;background:rgba(0,0,0,.26);border:1px solid var(--line2)}',
+    '.sy-h{display:flex;align-items:center;gap:8px;margin-bottom:6px}',
+    '.sy-h b{font-family:"Aurora Cinzel",serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);flex:1}',
+    '.sy-h span{font-size:10.5px;font-weight:800;color:var(--mut)}',
+    '.sy-chs{display:flex;flex-wrap:wrap;gap:5px}',
+    '.sy-ch{display:inline-flex;align-items:center;gap:4px;min-height:26px;padding:3px 10px 3px 7px;border-radius:13px;font-size:11.5px;font-weight:800;background:var(--fg);border:1px solid var(--fc);color:var(--fc);text-align:left;line-height:1.15}',
+    '.sy-ch svg.i{font-size:14px;flex:none}',
+    '.sy-ch.rv{opacity:.92;border-style:dashed}',
+    '.sy-eff{font-size:11.5px;line-height:1.4;color:#d8dcea;margin:5px 0 0}',
+    '.sy-eff b{color:var(--fc)}',
+    '.sy-eff small{color:var(--mut);font-size:10.5px}',
+    '.sy-tip{display:flex;gap:8px;align-items:center;margin-top:8px;padding:7px 9px;border-radius:11px;background:rgba(226,182,89,.12);border:1px dashed rgba(226,182,89,.5);font-size:11.5px;line-height:1.4;color:#f1e6c6}',
+    '.sy-tip>span{flex:1;min-width:0}',
+    '.sy-tip b{color:var(--gold2)}',
+    '.sy-tip .btn{flex:none;height:30px;padding:0 12px;font-size:11.5px}',
+    '.sy-none{font-size:11.5px;line-height:1.4;color:var(--mut);margin:0}',
+    '.sy-more{display:block;width:100%;margin-top:7px;padding:6px 0 0;font-size:11px;font-weight:800;color:var(--mut);text-align:center;letter-spacing:.04em}',
+    '.sy-bk{margin-top:6px}',
+    '.sy-bk .bk{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line2)}',
+    '.sy-bk .bk .ik{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;flex:none;background:var(--fg);border:1px solid var(--fc);color:var(--fc);font-size:15px}',
+    '.sy-bk .bk .gr{flex:1;min-width:0;font-size:11.5px;line-height:1.35;color:#d8dcea}',
+    '.sy-bk .bk .gr b{display:block;color:var(--fc);font-size:12.5px}',
+    '.sy-bk .bk .gr small{display:block;color:var(--mut);font-size:10.5px}',
+    '.sy-bk .bk.on{background:var(--fg);border-radius:10px;padding-left:6px;padding-right:6px}',
+    '.sy-bk .bk .ok{flex:none;font-size:9.5px;font-weight:900;letter-spacing:.08em;color:#9af0b0;text-transform:uppercase}',
+    '.sy-duel{display:flex;flex-wrap:wrap;gap:4px 5px;justify-content:center;margin:2px 0 6px}',
+    '.sy-duel .sy-ch{min-height:22px;padding:2px 8px 2px 6px;font-size:10.5px;animation:sypop .5s cubic-bezier(.2,1.5,.4,1) both}',
+    '.sy-duel .sy-ch:nth-child(2){animation-delay:.15s}.sy-duel .sy-ch:nth-child(3){animation-delay:.3s}.sy-duel .sy-ch:nth-child(4){animation-delay:.45s}',
+    '@keyframes sypop{from{transform:scale(.3);opacity:0}}',
+    '.sy-res{margin:8px 0 2px;padding:9px 11px;border-radius:13px;background:var(--fg);border:1px solid var(--fc);text-align:left}',
+    '.sy-res .t{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--fc)}',
+    '.sy-res .n{font-family:"Aurora Cinzel",serif;font-size:16px;color:#fff;margin:1px 0 2px}',
+    '.sy-res .d{font-size:11.5px;line-height:1.4;color:#d8dcea}',
+    '.sy-res.plain{background:rgba(255,255,255,.05);border-color:var(--line2)}',
+    '.sy-res.plain .t{color:var(--mut)}',
+    '.sy-col .sy-chs{margin-top:6px}',
+  ].join('\n');
+  document.head.appendChild(css);
+
+  const famChip = (f, txt) => '<span class="rs-ch" style="' + fcv(f.col) + '">' + ic(f.icon) + txt + '</span>';
+  const comboChip = (c, cls) => '<span class="sy-ch' + (cls ? ' ' + cls : '') + '" style="' + fcv(c.col) + '">' + ic(c.icon) + esc(c.name) + '</span>';
+  const joinNames = (a) => (a.length > 1 ? a.slice(0, -1).join(', ') + ' e ' + a[a.length - 1] : a[0] || '');
+  const hOf = (it) => { const S = S0(); for (const h of S.heroes) for (const k in h.gear) if (h.gear[k] === it) return h; return null; };
+
+  /* ================= 4B.1 inscrições: família em cada linha ================= */
+  UI.famTag = (id) => {
+    const f = G.insFam(id); if (!f) return '';
+    return '<span class="fam" style="color:' + f.col + '" title="Família ' + f.name + ' (ressonância)">' + ic(f.icon) + '</span>';
+  };
+
+  /* ficha do herói: as famílias com a barra de inscrições e o próximo bônus */
+  UI.resCard = (x) => {
+    const L = G.resList(G.resOf(x)); if (!L.length) return '';
+    const act = L.filter((r) => r.t).length;
+    let h = '<div class="sec">Ressonância<span class="mut" style="font-family:inherit;letter-spacing:0;text-transform:none;font-size:11px;font-weight:700;margin-left:auto">' + (act ? act + (act === 1 ? ' ativa' : ' ativas') : 'nenhuma ativa ainda') + '</span></div><div class="card rsc">' +
+      '<p class="rs-lead mut">Inscrições da mesma família, somando todas as peças, despertam bônus de conjunto aos 2, 3 e 4.</p>';
+    L.forEach((r, i) => {
+      const f = r.f, n = Math.min(4, r.n);
+      const fx = []; for (let k = 0; k < r.t; k++) fx.push('<b>' + f.tiers[k].n + '</b>: ' + f.tiers[k].txt);
+      h += '<div class="rs-row' + (i ? '' : ' first') + '" style="' + fcv(f.col) + '"><span class="rs-ic">' + ic(f.icon) + '</span><div class="rs-gr">' +
+        '<div class="rs-top"><b>' + f.name + '</b><em>' + (r.t === 3 ? 'máxima' : r.t ? 'nível ' + r.t : 'despertando') + '</em><span class="rs-n">' + r.n + '<small> / ' + (r.need || 4) + '</small></span></div>' +
+        '<div class="rs-bar">' + [1, 2, 3, 4].map((k) => '<i class="' + (n >= k ? 'on' : '') + (k >= 2 ? ' gt' : '') + '">' + k + '</i>').join('') + '</div>' +
+        (fx.length ? '<div class="rs-fx">' + fx.join('<br>') + '</div>' : '') +
+        (r.next ? '<div class="rs-nx">Com ' + r.need + ': <b>' + r.next.n + '</b> · ' + r.next.txt + '</div>' : '') + '</div></div>';
+    });
+    return h + '</div>';
+  };
+  const ih0 = UI.insHero;
+  UI.insHero = (x) => ih0(x) + UI.resCard(x);
+
+  /* ficha da peça: famílias presentes e o que ela faz pela ressonância (de quem a veste ou de quem a vestiria) */
+  const famsOf = (ins) => { const c = {}; for (const e of ins || []) { const f = G.RES_OF[e[0]]; if (f) c[f] = (c[f] || 0) + 1; } return c; };
+  const tierLine = (f, a, b) => {
+    const ta = G.resTier(a), tb = G.resTier(b), nb = tb ? f.tiers[tb - 1] : null;
+    const need = (t) => (t < 3 ? G.RES_TIERS[t] : 4);
+    if (tb > ta) return '<p class="rs-ln up" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + ' · desperta <b>' + nb.n + '</b> (' + nb.txt + ')</p>';
+    if (tb < ta) return '<p class="rs-ln dn" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + ' · perde <b>' + f.tiers[ta - 1].n + '</b></p>';
+    if (a !== b) return '<p class="rs-ln" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + (tb < 3 ? ' · faltam ' + (G.RES_TIERS[tb] - b) + ' para <b>' + f.tiers[tb].n + '</b>' : '') + '</p>';
+    return '';
+  };
+  UI.resPiece = (it, hid) => {
+    if (!it || !it.ins || !it.ins.length) return '';
+    const fm = famsOf(it.ins), ids = Object.keys(fm); if (!ids.length) return '';
+    const S = S0(), holder = (hid && S.heroes.find((x) => x.id === hid)) || hOf(it);
+    let h = '<div class="rs-pc"><div class="rs-h">Ressonância</div>' + ids.map((id) => famChip(G.RES_FAM[id], G.RES_FAM[id].name + ' <b>×' + fm[id] + '</b>')).join('');
+    if (holder) {
+      const rc = G.resOf(holder);
+      h += '<p class="rs-ln" style="margin-top:2px"><b style="color:#fff">' + esc(holder.name) + '</b> veste esta peça:</p>';
+      for (const id of ids) {
+        const f = G.RES_FAM[id], n = rc[id] || 0, t = G.resTier(n), nx = t < 3 ? f.tiers[t] : null;
+        h += '<p class="rs-ln" style="' + fcv(f.col) + '"><b>' + f.name + '</b> ' + n + '/' + (t < 3 ? G.RES_TIERS[t] : 4) + (nx ? ' · faltam ' + (G.RES_TIERS[t] - n) + ' para <b>' + nx.n + '</b>' : ' · ressonância máxima') + '</p>';
+      }
+    } else {
+      const help = G.resHelp(it).slice(0, 2);
+      if (help.length) for (const r of help) h += '<p class="rs-ln up" style="' + fcv(r.f.col) + '">Ajudaria <b style="color:#fff">' + esc(r.h.name) + '</b>: <b>' + r.f.name + '</b> ' + r.from + ' → ' + r.to + ' · desperta <b>' + r.f.tiers[r.tier - 1].n + '</b> (' + r.f.tiers[r.tier - 1].txt + ')</p>';
+      else h += '<p class="rs-ln mut">Nenhum herói sobe de nível de ressonância com esta peça agora.</p>';
+    }
+    return h + '</div>';
+  };
+  const im1 = UI.itemModal;
+  UI.itemModal = (id, hid, msg) => {
+    im1(id, hid, msg);
+    const it = UI.findItem && UI.findItem(id, hid), l = $('#modal .insl'); if (!it || !l || $('#modal .rs-pc')) return;
+    l.insertAdjacentHTML('afterend', UI.resPiece(it, hid));
+  };
+  /* reforja: antes e depois da ressonância de quem veste a peça */
+  UI.resReforge = (it, hid) => {
+    const holder = (hid && S0().heroes.find((x) => x.id === hid)) || hOf(it); if (!holder || !it.rfp) return '';
+    const kind = G.GEAR[it.type].kind, a = G.resWith(holder, kind, it.ins), b = G.resWith(holder, kind, it.rfp);
+    let h = '';
+    for (const f of G.RES_FAMS) h += tierLine(f, a[f.id] || 0, b[f.id] || 0);
+    return '<div class="rs-pc"><div class="rs-h">Ressonância de ' + esc(holder.name) + '</div>' + (h || '<p class="rs-ln mut">As famílias de ' + esc(holder.name) + ' não mudam com esta reforja.</p>') + '</div>';
+  };
+  const rm1 = UI.reforgeModal;
+  UI.reforgeModal = (id, hid, msg) => {
+    rm1(id, hid, msg);
+    const it = UI.findItem && UI.findItem(id, hid); if (!it) return;
+    if (it.rfp) {
+      const g = $('#modal .rfgrid'); if (g && !$('#modal .rs-pc')) g.insertAdjacentHTML('afterend', UI.resReforge(it, hid));
+    } else {
+      const l = $('#modal .insl'); if (l && !$('#modal .rs-pc')) l.insertAdjacentHTML('afterend', UI.resPiece(it, hid));
+    }
+  };
+
+  /* aviso quando um herói desperta uma ressonância */
+  let lastRes = 0;
+  G.on('resonancia', (d) => {
+    const now = performance.now(); if (now - lastRes < 4000) return; lastRes = now;
+    UI.toast('Ressonância ' + d.f.name + ': ' + d.f.tiers[d.t - 1].n + ' despertou em ' + d.h.name + '!', 'good', d.f.icon);
+    G.sfx('perfect');
+  });
+
+  /* ================= Códex: as famílias ================= */
+  const M1 = UI.SHEETS && UI.SHEETS.mais;
+  if (M1) {
+    const mr = M1.render;
+    M1.render = function (tab, sub) {
+      const html = mr.call(M1, tab, sub);
+      if (tab !== 'codex') return html;
+      const c = G.codex();
+      let h = '<div class="sec">Ressonância · 6 famílias</div><div class="card rs-cx"><p class="rs-lead mut">Quando um herói reúne 2, 3 ou 4 inscrições da mesma família, ganha bônus de conjunto.</p>';
+      for (const f of G.RES_FAMS) {
+        const mem = f.ins.map((id) => ((c.ins[id] || 0) ? G.INS[id].name.replace(/^(da|do|dos|das|de) /, '') : '? ? ?')).join(' · ');
+        h += '<div class="cxr" style="' + fcv(f.col) + '"><span class="rs-ic">' + ic(f.icon) + '</span><div class="rs-gr"><div class="rs-top"><b>' + f.name + '</b></div><div class="rs-nx" style="margin-top:0">' + mem + '</div>' +
+          f.tiers.map((t, i) => '<div class="rs-fx"><b>' + G.RES_TIERS[i] + '</b> · ' + t.n + ': ' + t.txt + '</div>').join('') + '</div></div>';
+      }
+      h += '</div>';
+      const k = html.indexOf('<div class="sec">Peças · tier');
+      return k < 0 ? html + h : html.slice(0, k) + h + html.slice(k);
+    };
+  }
+
+  /* ================= 4B.2 Formação × classes ================= */
+  const effLine = (c) => '<b>' + esc(c.name) + '</b> · ' + esc(c.req) + '<br><small>' + esc(c.txt) + '</small>';
+  UI.synBook = (activeIds, colo) => {
+    const on = {}; for (const a of activeIds || []) on[a] = 1;
+    return '<div class="sy-bk">' + G.SYN.filter((c) => !(colo && c.colo === 0)).map((c) => '<div class="bk' + (on[c.id] ? ' on' : '') + '" style="' + fcv(c.col) + '"><span class="ik">' + ic(c.icon) + '</span><div class="gr"><b>' + esc(c.name) + '</b>' + esc(c.req) + '<small>' + esc(c.txt) + '</small></div>' + (on[c.id] ? '<span class="ok">ativa</span>' : '') + '</div>').join('') + '</div>';
+  };
+  let showBook = false;
+  /* tela de equipe da Arena (gancho em 65: topo da lista de heróis): combinações ativas, as do rival, sugestão e o livro de combinações */
+  UI.synTeam = (tm) => {
+    if (!tm || !tm.sel || !tm.offer) return '';
+    const S = S0(), sel = tm.sel, n = G.arenaRival(tm.offer.i).size;
+    const act = sel.length >= 2 ? G.synTeam(sel) : [];
+    const byId = (id) => S.heroes.find((x) => x.id === id);
+    let h = '<div class="sy-box"><div class="sy-h"><b>Formação</b><span>' + (act.length ? act.length + (act.length === 1 ? ' combinação ativa' : ' combinações ativas') : sel.length < n ? 'escolha ' + n + ' heróis' : 'nenhuma combinação') + '</span></div>';
+    if (act.length) {
+      h += '<div class="sy-chs">' + act.map((a) => comboChip(G.SYN_BY[a.id])).join('') + '</div>';
+      h += act.map((a) => { const c = G.SYN_BY[a.id]; return '<p class="sy-eff" style="' + fcv(c.col) + '"><b>' + esc(c.name) + '</b> · ' + esc(joinNames(a.who.map((id) => (byId(id) || { name: '?' }).name))) + '<br><small>' + esc(c.txt) + '</small></p>'; }).join('');
+    } else if (sel.length >= n) h += '<p class="sy-none">Nenhuma combinação com estas classes e posições. Cavaleiro na frente com Mago no fundo, dois Arqueiros atrás, Paladino com qualquer aliado… toque em “Ver todas”.</p>';
+    if (sel.length === n) {
+      const sg = G.synSuggest(sel);
+      if (sg) h += '<div class="sy-tip"><span>' + esc(sg.text) + '<b>' + esc(sg.combo.name) + '</b> <small class="mut">(' + esc(sg.combo.txt) + ')</small>.</span><button class="btn sm pri" data-a="synapply">Aplicar</button></div>';
+    }
+    /* o rival também usa combinações */
+    try {
+      const rz = G.arenaRealize(tm.offer.i, tm.offer.ratio), bps = G.arenaRivalBps(rz), ra = G.synFind(bps.map((b) => ({ cls: b.cls, row: b.row }))).act;
+      if (ra.length) h += '<p class="sy-eff" style="margin-top:7px"><b style="color:#ffb0a8">Rival</b> · ' + ra.map((a) => esc(G.SYN_BY[a.id].name) + ' <small>(' + esc(joinNames(a.who.map((i) => bps[i].name))) + ')</small>').join(' · ') + '</p>';
+    } catch (e) { console.error(e); }
+    h += '<button class="sy-more" data-a="synbook">' + (showBook ? 'Esconder as combinações' : 'Ver todas as ' + G.SYN.length + ' combinações') + '</button>';
+    if (showBook) h += UI.synBook(act.map((a) => a.id));
+    return h + '</div>';
+  };
+  UI.ACT.synbook = () => { showBook = !showBook; if (UI.arenaTmRedraw) UI.arenaTmRedraw(); };
+  UI.ACT.synapply = () => {
+    const tm = UI.arenaTm && UI.arenaTm(); if (!tm) return;
+    const sg = G.synSuggest(tm.sel); if (!sg) return;
+    tm.sel.splice(0, tm.sel.length, ...sg.team.map((x) => ({ id: x.id, r: x.r })));
+    G.sfx('click'); UI.toast(sg.combo.name + ' ativada.', 'good', sg.combo.icon);
+    if (UI.arenaTmRedraw) UI.arenaTmRedraw();
+  };
+  /* duelo: as combinações de cada lado surgem acima do palco */
+  const synOf = (res) => (res.syn ? { me: res.syn.me, rv: res.syn.rv, dec: res.syn.dec } : res.sim && res.sim.syn ? { me: res.sim.syn[0], rv: res.sim.syn[1], dec: null } : null);
+  UI.synDuel = (res) => {
+    const sy = synOf(res); if (!sy || (!sy.me.length && !sy.rv.length)) return;
+    const st = $('#modal .ar-stage'); if (!st) return;
+    st.insertAdjacentHTML('beforebegin', '<div class="sy-duel">' + sy.me.map((a) => comboChip(G.SYN_BY[a.id])).join('') + sy.rv.map((a) => comboChip(G.SYN_BY[a.id], 'rv')).join('') + '</div>');
+    setTimeout(() => G.sfx('arena'), 250);
+  };
+  /* resultado: a combinação decisiva */
+  UI.synResult = (res, box) => {
+    const sy = synOf(res), el = box && box.querySelector('.ar-res'); if (!sy || !el) return;
+    let h = '';
+    if (sy.dec) {
+      const c = G.SYN_BY[sy.dec.id], mine = sy.dec.side === 0;
+      h = '<div class="sy-res" style="' + fcv(c.col) + '"><div class="t">' + (mine ? 'Combinação decisiva' : 'Foi a combinação do rival') + '</div><div class="n">' + ic(c.icon).replace('class="i"', 'class="i" style="display:inline;vertical-align:-2px;margin-right:5px"') + esc(c.name) + '</div><div class="d">' +
+        (mine ? esc(joinNames(sy.dec.names)) + ' fizeram a diferença: sem ' + esc(c.name) + ', esta luta teria sido perdida e a chance de vitória cairia de ' + Math.round(sy.dec.p0 * 100) + '% para ' + Math.round(sy.dec.p1 * 100) + '%. ' + esc(c.txt) + '.' : esc(joinNames(sy.dec.names)) + ' viraram a luta com ' + esc(c.name) + ' (' + esc(c.txt) + '). Sem ela, a sua chance subiria de ' + Math.round((1 - sy.dec.p0) * 100) + '% para ' + Math.round((1 - sy.dec.p1) * 100) + '%. Tente desfazê-la: ' + esc(c.req.toLowerCase()) + '.') + '</div></div>';
+    } else if (sy.me.length) {
+      h = '<div class="sy-res plain"><div class="t">Combinações em campo</div><div class="d">' + sy.me.map((a) => esc(G.SYN_BY[a.id].name)).join(' · ') + (sy.rv.length ? ' <span class="mut">· do rival: ' + sy.rv.map((a) => esc(G.SYN_BY[a.id].name)).join(' · ') + '</span>' : '') + '. Nenhuma decidiu sozinha o duelo.</div></div>';
+    } else if (sy.rv.length) {
+      h = '<div class="sy-res plain"><div class="t">Combinações do rival</div><div class="d">' + sy.rv.map((a) => esc(G.SYN_BY[a.id].name)).join(' · ') + '. Na tela de equipe, a dica sugere uma formação para o seu lado.</div></div>';
+    }
+    if (!h) return;
+    const m = el.querySelector('.mvp') || el.querySelector('.acts');
+    if (m) m.insertAdjacentHTML('beforebegin', h); else el.insertAdjacentHTML('beforeend', h);
+  };
+
+  /* ================= aba do Colosso: formação do grupo ================= */
+  const MM = UI.SHEETS && UI.SHEETS.missoes;
+  if (MM) {
+    const r0 = MM.render;
+    MM.render = function (tab, sub) {
+      const html = r0.call(MM, tab, sub);
+      if (tab !== 'colosso') return html;
+      let live = false; try { live = G.colossoInfo().live; } catch (e) { /* sem Colosso */ }
+      const cur = G.colSyn || { act: [], n: 0 }, all = G.colSynAll(), use = live && cur.n > 0 ? cur : all;
+      let h = '<div class="sec">Formação do grupo</div><div class="card sy-col"><p class="rs-lead mut">Quem marcha junto se fortalece: classes e posições (corpo a corpo à frente; arqueiros e magos atrás) formam as mesmas combinações da Arena.</p>';
+      h += '<div class="sy-h" style="margin-bottom:0"><b style="flex:none">' + (live && cur.n > 0 ? 'Lutando agora' : 'Se todos forem') + '</b><span style="flex:1;text-align:right">' + (use.act.length ? use.act.length + (use.act.length === 1 ? ' combinação' : ' combinações') : 'nenhuma combinação') + '</span></div>';
+      if (use.act.length) {
+        h += '<div class="sy-chs">' + use.act.map((a) => comboChip(G.SYN_BY[a.id])).join('') + '</div>' + use.act.map((a) => { const c = G.SYN_BY[a.id]; return '<p class="sy-eff" style="' + fcv(c.col) + '"><b>' + esc(c.name) + '</b> · ' + esc(joinNames(a.names)) + '<br><small>' + esc(c.txt) + '</small></p>'; }).join('');
+      } else h += '<p class="sy-none" style="margin-top:6px">' + (live && cur.n > 0 ? 'O grupo de agora não forma nenhuma combinação.' : 'Os heróis de hoje não formam combinações.') + ' Veja quais existem abaixo.</p>';
+      h += '<button class="sy-more" data-a="syncolbook">' + (showColBook ? 'Esconder as combinações' : 'Ver todas as combinações') + '</button>';
+      if (showColBook) h += UI.synBook(use.act.map((a) => a.id), true);
+      h += '</div>';
+      const k = html.indexOf('<div class="sec">Marcos de dano</div>');
+      return k < 0 ? html + h : html.slice(0, k) + h + html.slice(k);
+    };
+  }
+  let showColBook = false;
+  UI.ACT.syncolbook = () => { showColBook = !showColBook; UI.sheetDirty(); };
 })();
 ;
 /* ===== 90-main.js ===== */
