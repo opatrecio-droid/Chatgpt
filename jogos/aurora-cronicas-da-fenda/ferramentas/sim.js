@@ -68,6 +68,11 @@ if (G.colosso) {
 /* v25: a Arena usa um relógio próprio (G.arenaNow). Aqui cada dia de jogo vale um dia da Arena, começando numa segunda-feira, para o robô
    duelar até 5 vezes por dia de jogo e a temporada virar a cada 7 dias de jogo (testa o fim de temporada e o baú). */
 const arena = { duels: 0, wins: 0, ch: 0, leagues: [], lastSea: -1 };
+/* v28 (lote 3-B): Nêmesis, revanche e laços — eventos 'nemesis' e 'laco' (só medem; o jogo decide) */
+const rivs = { nem: 0, vingados: 0, revs: 0, revWins: 0, lacos: [0, 0, 0, 0], first: [0, 0, 0, 0], titles: {} };
+if (G.nemesis) { const ad0 = G.arenaDuel; G.arenaDuel = (o) => { const r = ad0(o); if (r && r.rev && r.rev.on) { rivs.revs++; if (r.win) rivs.revWins++; } return r; }; }   // conta toda revanche, do robô de revanche ou do duelo do meio
+G.on('nemesis', (d) => { if (d.t === 'novo') rivs.nem++; else if (d.t === 'vingado') rivs.vingados++; });
+G.on('laco', (d) => { rivs.lacos[d.lv]++; if (!rivs.first[d.lv]) rivs.first[d.lv] = T0(); });
 if (G.arenaNow) {
   const b0 = new Date(); b0.setHours(0, 0, 0, 0); b0.setDate(b0.getDate() - ((b0.getDay() + 6) % 7));
   let frozen = 0;
@@ -117,6 +122,7 @@ const bot = () => {
       }
     }
     if (REFORGE && G.reforgeRoll) reforgeBot(st);
+    if (G.arenaOpen && G.nemesis) revBot(st);
     if (G.arenaOpen) arenaBot(st);
     if (G.colossoInfo) colossoBot(st);
   } catch (e) { errors.push('bot: ' + e.stack); }
@@ -125,6 +131,18 @@ const bot = () => {
 const colossoBot = (st) => {
   const ci = G.colossoInfo();
   if (ci.live && st.colosso && st.colosso.mode !== CMODE && st.colosso.cw !== st.colosso.wk) { G.colossoCall(CMODE); st.colosso.cw = st.colosso.wk; colo.calls++; }
+};
+/* v28 (lote 3-B): quando o Nêmesis aparece entre os adversários, o robô aceita a revanche (com a melhor equipe automática) */
+const revBot = (st) => {
+  if (!G.arenaOpen() || st.heroes.length < 3) return;
+  G.arenaSync();
+  for (let guard = 0; guard < 4 && G.arenaTickets().free > 0; guard++) {
+    const of = G.arenaOffers(), k = of.findIndex((x) => x.rev); if (k < 0) break;
+    const rv = G.arenaRival(of[k].i), team = G.arenaAutoTeam(rv.size);
+    const r = G.arenaDuel({ ids: team.map((x) => x.id), rows: Object.fromEntries(team.map((x) => [x.id, x.r])), off: k });
+    if (r.err) { errors.push('revanche: ' + r.err); break; }
+    arena.duels++; if (r.win) arena.wins++; arena.ch += of[k].ch;
+  }
 };
 /* v25: duela na Arena enquanto houver tíquete grátis do dia, sempre contra o adversário do meio, com a melhor equipe automática */
 const arenaBot = (st) => {
@@ -203,6 +221,14 @@ if (G.colosso && S().colosso) {
   console.log('Colosso: ' + (ws.length + (c.hpMax ? 1 : 0)) + ' semanas (' + ws.length + ' fechadas' + (c.hpMax ? ' + a atual com ' + Math.round(100 * c.dmg / c.hpMax) + '%' + (c.win ? ', derrotado' : '') : '') + ') · avisos ' + colo.warn + ', despertares ' + colo.wake + ' · ' + Object.keys(byId).map((k) => k + ' ×' + byId[k]).join(', ') +
     ' · dano por semana: ' + (ws.length ? ws.map((w) => (w.pct >= 0.995 && w.pct < 1 ? '99,x' : Math.round(100 * w.pct)) + '%' + (w.win && w.bonus ? '+' + Math.round(100 * w.bonus / w.hpMax) : '')).join(' ') : '—') + ' (vida média ' + (ws.length ? fm(ws.reduce((a, w) => a + w.hpMax, 0) / ws.length) : '—') + ')' +
     ' · posição final: ' + (pos.length ? pos.join('º ') + 'º' : '—') + ' · derrotado ' + colo.wins + '/' + ws.length + ' · marcos ' + colo.marks + ' · baús ' + colo.chest.n + ' Núcleos, ' + colo.chest.s + ' Selos, ' + colo.chest.p + ' Pó · prêmios no total ' + c.pr.nuc + ' Núcleos, ' + c.pr.sel + ' Selos, ' + c.pr.po + ' Pó · modo ' + ['Livre', 'Convocar', 'Dispensar'][CMODE] + ' · lutadores em média ' + (colo.ss ? (colo.fs / colo.ss).toFixed(1) + ' de ' + (colo.hs / colo.ss).toFixed(1) + ' heróis' : '—') + ' · quedas honrosas ' + (ws.reduce((a, w) => a + (w.fl || 0), 0) + (c.fl || 0)) + ' (' + (colo.fs ? ((ws.reduce((a, w) => a + (w.fl || 0), 0) + (c.fl || 0)) / (colo.fs * 5 / 60)).toFixed(3) : '—') + ' por herói-minuto de luta)' + (CLAB && colo.labT ? ' · laboratório: ' + (colo.labDone ? 'derrubado após ' + ((colo.labDone - colo.labT) / 60).toFixed(1) + ' min de luta' : 'não derrubado em ' + ((t - colo.labT) / 60).toFixed(1) + ' min') : ''));
+}
+if (G.nemesis && S().rivais) {
+  const nm = G.nemesis(), ls = G.lacoStats(), fm = (x) => (x ? (x / 60).toFixed(0) + 'min' : '—');
+  console.log('Rivais: Nêmesis formados ' + rivs.nem + ' · revanches ' + rivs.revs + ' (vencidas ' + rivs.revWins + ', vinganças ' + rivs.vingados + ') · Nêmesis agora ' + (nm ? nm.riv.name + ' (rancor ' + nm.l + ')' : '—') + ' · visitas ' + (S().stats.visits || 0) + ' (só com tela)');
+}
+if (G.lacoStats) {
+  const ls = G.lacoStats(), fm = (x) => (x ? (x / 60).toFixed(0) + 'min' : '—'), n = S().heroes.length;
+  console.log('Laços: ' + ls.n + ' de ' + (n * (n - 1) / 2) + ' pares (Conhecidos ' + ls.c[1] + ' · Companheiros/Rivais ' + ls.c[2] + ' · Irmãos ' + ls.c[3] + ') · formados no total ' + rivs.lacos.slice(1).join('/') + ' · primeiro de cada nível em ' + fm(rivs.first[1]) + '/' + fm(rivs.first[2]) + '/' + fm(rivs.first[3]) + ' · títulos Vingador/Irmão ' + S().heroes.reduce((a, h) => a + (G.titleHas(h, 'vingador') ? 1 : 0), 0) + '/' + S().heroes.reduce((a, h) => a + (G.titleHas(h, 'irmao') ? 1 : 0), 0));
 }
 if (G.kingPower && S().lendas) {
   const L = S().lendas, P = G.kingPowerParts(true), fm = (v) => v >= 1e6 ? (v / 1e6).toString().replace('.', ',') + 'M' : v >= 1e3 ? (v / 1e3).toString().replace('.', ',') + 'k' : String(v);
