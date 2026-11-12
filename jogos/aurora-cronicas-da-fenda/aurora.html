@@ -13758,11 +13758,12 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const Wd = G.W;
   G.SCENE = {
     on: 1,
-    stay: [26, 46],             // quanto tempo (s do jogo) um herói fica numa cena
-    cd: 120,                    // depois de sair, nenhum herói entra em outra cena por tanto tempo
-    joinP: 0.6,                 // chance de um herói que acabou a rotina entrar na cena (se estiver cansado ou desanimado)
+    stay: [14, 26],             // quanto tempo (s do jogo) um herói fica numa cena
+    cd: 150,                    // depois de sair, nenhum herói entra em outra cena por tanto tempo
+    joinP: 0.25,                // chance (por visita à cidade, sorteada no máximo a cada `roll` s) de um herói que acabou a rotina entrar na cena
+    roll: 25, maxTotal: 3,      // no máximo 3 heróis em cenas ao mesmo tempo: a cidade ganha vida sem esvaziar a caçada
     fire: { x: 44, y: 57.55, rx: 2.5, ry: 1.4, seats: 6, maxH: 3, maxN: 3, dark: 0.3 },   // 6 lugares em volta (nunca um bem na frente: o fogo precisa aparecer)
-    tav: { dx: 3.3, dy: 1.85, seats: 4, maxH: 2, maxN: 2 },
+    tav: { dx: 0.3, dy: 2.3, seats: 4, maxH: 2, maxN: 2 },   // mesa no pátio, bem em frente à porta da Taverna
     train: { hr: [7, 18.4], slots: 2 },
     chat: { every: [5, 9], dist: 3.3 },    // conversa entre moradores
   };
@@ -13781,7 +13782,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     ['Irmão de armas! Um brinde, {b}!', '{b}, nunca largo a sua guarda.', 'Contigo, {b}, nem o Colosso me assusta.']];
   const BOND_OPP = ['{b}, você ainda deve uma revanche!', 'Amanhã eu abato mais que você, {b}.', 'Só vale se eu ganhar, {b}!', '{b}, vamos ver quem tem mais abates.'];
   const REPLY = ['Ha! Pode vir quando quiser, {a}.', 'Você fala muito, {a}.', 'Conte comigo, {a}.', 'Combinado!', 'Isso eu quero ver.', 'Brindo a isso!', '{a}, você é terrível. E meu amigo.', 'Só se você pagar a rodada, {a}.', 'Concordo, {a}.'];
-  const NEM_L = ['Aquele {r} vai ver na próxima temporada.', '{r} nos deve uma revanche. Eu cobro.', 'Um dia devolvo a derrota para {r}.', 'Cuidado com {r}: guardam rancor.'];
+  const NEM_L = ['Na próxima temporada, {ra} vai ver só!', '{RA} nos deve uma revanche. Eu cobro.', 'Um dia devolvo a derrota {rde}.', 'Cuidado: {ra} guarda rancor.'];
+  const fillNem = (t, riv) => { const ra = G.rivArt(riv.name), de = G.rivArtDe(riv.name); return t.replace('{ra}', ra).replace('{RA}', ra[0].toUpperCase() + ra.slice(1)).replace('{rde}', de); };
   const NPC_L = {
     Heitor: ['Cerveja de gengibre pra quem quiser!', 'A casa serve, a casa lembra.'], Iara: ['Eu cuido das canecas, vocês da conversa.', 'Quem pediu o bolo de mel?'],
     Alda: ['Trouxe pão quentinho pra roda!', 'Sobrou da fornada. Podem pegar.'], Breno: ['A farinha de hoje estava perfeita.', 'Moinho parado, moleiro sentado.'],
@@ -13828,7 +13830,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const S_ = () => G.S;
   const isHero = (e) => !!e && e.cls !== undefined && !e.vis;
   const heroOk = (h) => { const S = S_(), st = G.heroStats(h); return !h.inside && !h._sc && h.state !== 'fallen' && h.state !== 'recover' && h.hp >= st.hp * 0.7 && h.fome >= 40 && h.energia >= 35 && S.t >= (h._scCd || 0) && !S.mare.active && !(S.ev.curfew > S.t); };
-  const needs = (h) => h.energia < 85 || h.animo < 88;                       // só entra quem ganha algo (descanso, ânimo)
+  const needs = (h) => h.energia < 80 || h.animo < 85;                       // só entra quem ganha algo (descanso, ânimo)
   const say = (e, t, sec) => { if (!e || e.sayT > 0) return false; e.say = t; e.sayT = sec || 3.6; return true; };
   const npcByName = (n) => G.npcs.find((x) => x.name === n) || null;
   const hr = () => (S_().clock / 60) % 24;
@@ -13843,12 +13845,12 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   };
   const mkTav = () => {
     const d = Wd.door('taverna'), c = SC.tav, tx = d[0] + c.dx, ty = d[1] + c.dy;
-    const seats = [[tx - 1.25, ty + 0.1, 1], [tx + 1.25, ty + 0.1, -1], [tx - 0.45, ty - 0.8, 1], [tx + 0.45, ty + 1.0, -1]].map((p) => { const q = snap(p); return { x: q[0], y: q[1], dir: p[2], sit: 1, e: null }; });
+    const seats = [[tx - 1.75, ty + 0.1, 1], [tx + 1.75, ty + 0.1, -1], [tx - 0.55, ty - 1.0, 1], [tx + 0.55, ty + 1.1, -1]].map((p) => { const q = snap(p); return { x: q[0], y: q[1], dir: p[2], sit: 1, e: null }; });
     return { k: 'tav', x: tx, y: ty, seats, q: [], cdT: 3, t0: S_().t, maxH: c.maxH, maxN: c.maxN };
   };
   const mkTrain = () => {
-    const d = Wd.door('treino'), y = d[1] + 0.1;
-    return { k: 'train', x: d[0], y, seats: [{ x: d[0] - 1.05, y, dir: 1, sit: 0, e: null }, { x: d[0] + 1.05, y, dir: -1, sit: 0, e: null }], q: [], cdT: 3, t0: S_().t, maxH: 2, maxN: 1, hit: 1 };
+    const d = Wd.door('treino'), y = d[1] - 1.7;          // dentro do pátio cercado: entram pela porta e treinam entre os bonecos
+    return { k: 'train', x: d[0], y, seats: [{ x: d[0] - 0.95, y, dir: 1, sit: 0, e: null }, { x: d[0] + 0.95, y, dir: -1, sit: 0, e: null }], q: [], cdT: 3, t0: S_().t, maxH: 2, maxN: 1, hit: 1 };
   };
   const MK = { fire: mkFire, tav: mkTav, train: mkTrain };
   const wanted = (k) => {
@@ -13882,6 +13884,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       e.inside = false; e.state = 'walk'; e.moving = true; e._scEnd = S.t + G.rnd(SC.stay[0] + 20, SC.stay[1] + 40);
       G.go(e, s.x, s.y); if (!e.path) e.path = [];
     }
+    if (sc.k === 'train' && e.path) e.path.push([s.x, s.y]);       // o pátio não é "andável" no mapa: o último trecho entra pela porta
     return true;
   };
   const dissolve = (k) => { const sc = G.scenes[k]; if (!sc) return; for (const s of sc.seats) release(sc, s, 'fim'); delete G.scenes[k]; };
@@ -13974,7 +13977,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const ta = G.titleOf && G.titleOf(a);
     if (ta && r > 0.9) return 'Dizem que sou “' + ta.name + '”. Só queria a sopa.';
     const nem = G.nemesis && G.nemesis();
-    if (nem && r > 0.74) return pk(NEM_L).replace('{r}', nem.riv.name);
+    if (nem && r > 0.74) return fillNem(pk(NEM_L), nem.riv);
     return pk(sc.k === 'tav' ? TAV_AIR : sc.k === 'train' ? TRAIN_AIR : FIRE_AIR);
   };
   const npcLine = (n) => pk(NPC_L[n.name] || NPC_L._);
@@ -14042,7 +14045,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* herói que acabou a rotina na cidade decide: se há lugar numa cena e ele ganha algo, entra */
   const hd0 = G.heroDecide;
   G.heroDecide = (h) => {
-    if (SC.on && G.scenes && heroOk(h) && h.bagN === 0 && Math.random() < SC.joinP) {
+    const S = S_(), total = () => { let n = 0; for (const k in G.scenes) n += nHeroes(G.scenes[k]); return n; };
+    if (SC.on && G.scenes && heroOk(h) && h.bagN === 0 && S.t - (h._scT || -1e9) >= SC.roll && (h._scT = S.t) && Math.random() < SC.joinP && total() < SC.maxTotal) {
       const prefer = h.act === 'eat' ? ['tav', 'fire', 'train'] : h.act === 'train' ? ['train', 'fire', 'tav'] : ['fire', 'tav', 'train'];
       if (needs(h) || h.act === 'train') for (const k of prefer) {
         const sc = G.scenes[k]; if (!sc || nHeroes(sc) >= sc.maxH) continue;
@@ -14123,7 +14127,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const n = npcOf(r.who);
     if (n && !n.inside) return { x: n.x, y: n.y - 2.75, n, out: 1 };
     const c = G.CAST.find((x) => x.name === r.who), p = c && c.at ? Wd.plots[c.at] : null;
-    if (p) { const b = S0().b[c.at], sp = A.building(c.at, b ? b.lvl : 1, b && b.dmg); return { x: p.x + 3 + (i ? 1.3 : 0), y: p.y + 4 - (sp.h - 1) / 16 - 1.7, n, out: 0 }; }
+    if (p) { const b = S0().b[c.at], sp = A.building(c.at, b ? b.lvl : 1, b && b.dmg); return { x: p.x + 3 + (i ? 1.3 : 0), y: p.y + 4 - (sp.h - 1) / 16 - 1.1, n, out: 0 }; }
     return n ? { x: n.x, y: n.y - 2.75, n, out: 1 } : null;
   };
   const drawBalloon = (d, X, Y, z, over) => {
@@ -14263,7 +14267,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
 })();
 
 (function () {
-  /* ================= 4A.2 arte das cenas da cidade: fogueira, mesa da Taverna, tatame de treino ================= */
+  /* ================= 4A.2 arte das cenas da cidade: fogueira, mesa da Taverna, pátio de treino ================= */
   if (G.HEADLESS) return;
   const R = G.R;
   const rect = (ctx, x, y, w, h) => ctx.fillRect(Math.round(x), Math.round(y), Math.max(1, Math.round(w)), Math.max(1, Math.round(h)));
@@ -14300,8 +14304,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     ctx.fillStyle = '#3c2614'; rect(ctx, px - 6.2 * z, py + 2.2 * z, 1.4 * z, 1.2 * z); rect(ctx, px + 4.8 * z, py + 2.2 * z, 1.4 * z, 1.2 * z);
   };
   /* mesa redonda com canecas e uma lamparina */
-  const drawTable = (sc, X, Y, z) => {
-    const ctx = R.ctx, px = X(sc.x), py = Y(sc.y), dark = G.darkness(G.S.clock), t = R.t;
+  const drawTable = (sc, X, Y, z0) => {
+    const z = z0 * 1.3, ctx = R.ctx, px = X(sc.x), py = Y(sc.y), dark = G.darkness(G.S.clock), t = R.t;
     ctx.fillStyle = 'rgba(10,16,30,.28)'; ell(ctx, px, py + 3 * z, 11 * z, 3.4 * z);
     ctx.fillStyle = '#4a2f1a'; rect(ctx, px - 1.4 * z, py - 1 * z, 2.8 * z, 5 * z); rect(ctx, px - 4.4 * z, py + 3.2 * z, 8.8 * z, 1.2 * z);
     ctx.fillStyle = '#5e3a1e'; ell(ctx, px, py - 2.2 * z, 11.4 * z, 5 * z);
@@ -14311,21 +14315,16 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     ctx.fillStyle = '#3a2a1c'; rect(ctx, px - 0.9 * z, py - 8 * z, 1.8 * z, 4 * z); ctx.fillStyle = dark > 0.2 ? '#ffd070' : '#d8b860'; rect(ctx, px - 1.3 * z, py - 9.6 * z, 2.6 * z, 2.2 * z);
     if (dark > 0.2) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const r = 18 * z * (0.9 + 0.1 * Math.sin(t * 7)), g = ctx.createRadialGradient(px, py - 9 * z, 0, px, py - 9 * z, r); g.addColorStop(0, 'rgba(255,200,100,' + (0.35 * dark) + ')'); g.addColorStop(1, 'rgba(255,200,100,0)'); ctx.fillStyle = g; ctx.fillRect(px - r, py - 9 * z - r, r * 2, r * 2); ctx.restore(); }
   };
-  /* tatame: círculo de areia entre os dois lutadores */
-  const drawYard = (sc, X, Y, z) => {
-    const ctx = R.ctx, px = X(sc.x), py = Y(sc.y + 0.1);
-    ctx.fillStyle = 'rgba(196,164,108,.55)'; ell(ctx, px, py + 1 * z, 18 * z, 6.2 * z); ctx.fillStyle = 'rgba(150,118,72,.55)'; ctx.strokeStyle = 'rgba(120,86,48,.7)'; ctx.lineWidth = Math.max(1, z * 0.7); ctx.beginPath(); ctx.ellipse(Math.round(px), Math.round(py + z), 18 * z, 6.2 * z, 0, 0, 6.283); ctx.stroke();
-  };
   const dm2 = R.dynMore;
   R.dynMore = (dyn, vx0, vx1, vy0, vy1) => {
     if (dm2) dm2(dyn, vx0, vx1, vy0, vy1);
     const S = G.S, sc = G.scenes, fc = G.SCENE.fire;
+    if (sc.train) for (const d of dyn) if ((d.k === 'h' || d.k === 'n') && d.e && d.e._sc === 'train') d.y += 2.2;   // dentro do pátio: desenha à frente da cerca do prédio
     /* a cova da fogueira existe sempre (apagada de dia); a cena acende as chamas */
     if (fc.x > vx0 - 3 && fc.x < vx1 + 3 && fc.y > vy0 - 3 && fc.y < vy1 + 3) dyn.push({ y: fc.y, k: 'x', e: sc.fire || { x: fc.x, y: fc.y, seats: [] }, f: (e, X, Y, z, over) => drawFire(e, X, Y, z, over, !!sc.fire) });
     for (const k in sc) {
       const c = sc[k]; if (c.x < vx0 - 4 || c.x > vx1 + 4 || c.y < vy0 - 4 || c.y > vy1 + 4) continue;
       if (k === 'tav') dyn.push({ y: c.y, k: 'x', e: c, f: (e, X, Y, z) => drawTable(e, X, Y, z) });
-      else if (k === 'train') dyn.push({ y: c.y - 3.2, k: 'x', e: c, f: (e, X, Y, z) => drawYard(e, X, Y, z) });
       if (k === 'fire' || k === 'tav') for (const s of c.seats) dyn.push({ y: s.y + 0.18, k: 'x', e: { s, k }, f: (e, X, Y, z) => drawSeatLog(e, X, Y, z) });
     }
     void S;
