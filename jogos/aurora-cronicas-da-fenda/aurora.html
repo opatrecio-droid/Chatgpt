@@ -6251,9 +6251,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const q = G.promoReq(x);
     h += '<div class="sec">Carreira</div>';
     if (G.canRebirth(x) && UI.rebCard) h += UI.rebCard(x);
-    else if (G.canRebirth(x)) h += '<div class="card hl"><h3>Renascimento</h3><p>' + esc(x.name) + ' volta ao nível 1, Rank E, com +30% em todos os atributos para sempre. Mantém equipamento, vocação, Artes e Despertar, e ganha 15 pontos de Arte.</p><button class="btn vio wide" style="margin-top:8px" data-a="rebirth:' + x.id + '">' + ic('star') + 'Renascer sob as Duas Luas</button></div>';
+    if (G.canRebirth(x) && !UI.rebCard) h += '<div class="card hl"><h3>Renascimento</h3><p>' + esc(x.name) + ' volta ao nível 1, Rank E, com +30% em todos os atributos para sempre. Mantém equipamento, vocação, Artes e Despertar, e ganha 15 pontos de Arte.</p><button class="btn vio wide" style="margin-top:8px" data-a="rebirth:' + x.id + '">' + ic('star') + 'Renascer sob as Duas Luas</button></div>';
     else if (q) h += '<div class="card"><h3>Promoção a Rank ' + G.RANKS[x.rank + 1] + ' <small>atributos ×' + (G.RANK_MULT[x.rank + 1] / G.RANK_MULT[x.rank]).toFixed(2).replace('.', ',') + ' · nível máximo ' + G.RANK_CAP[x.rank + 1] + '</small></h3><div class="kv"><span>Nível ' + q.lvl + '</span><b ' + v.At('class', () => (x.lvl >= q.lvl ? 'good' : 'bad')) + '>' + v.T(() => x.lvl + ' / ' + q.lvl) + '</b></div><div class="kv"><span>Guilda nível ' + q.guilda + '</span><b class="' + (G.bLvl('guilda') >= q.guilda ? 'good' : 'bad') + '">' + G.bLvl('guilda') + ' / ' + q.guilda + '</b></div><div class="row" style="margin-top:4px"><div class="gr">' + cost(q.gold, q.cost) + '</div><button class="btn pri" data-a="promote:' + x.id + '" ' + v.Dis(() => !G.canPromote(x)) + '>' + ic('up') + 'Promover</button></div></div>';
-    else h += '<div class="card"><p>Rank máximo. Alcance o nível 80 para renascer.</p></div>';
+    else if (!(UI.rebCard && G.canRebirth(x))) h += '<div class="card"><p>Rank máximo. Alcance o nível ' + G.REB.lvl + ' para renascer.</p></div>';
     if (UI.rebPrev) h += UI.rebPrev(x);
     h += '<div class="sec">Traços</div>';
     if (UI.rebTraits) h += UI.rebTraits(x); else for (const t of x.traits) h += '<div class="trait"><b>' + G.TRAITS[t].name + '</b><span>' + G.TRAITS[t].desc + '</span></div>';
@@ -10520,7 +10520,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
 (function () {
   /* ajustes de equilíbrio num só lugar */
   G.REB = {
-    rank: 7, lvl: 80,          // requisito para renascer (Rank e nível)
+    rank: 6, lvl: 70,          // requisito para renascer (Rank SS, nível 70; antes era SSS nível 80, longe demais: ver lotes/3c.md)
     pts: 3,                    // Pontos de Renascimento ao renascer: pts + a estrela nova (★1 = 4, ★2 = 5, ★3 = 6 ...)
     slots: 4, slotStars: 2,    // limite de traços: slots + floor(estrelas / slotStars)
     cBuy: 2, cRare: 3,         // custo de aprender um traço comum / raro
@@ -10704,7 +10704,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const al0 = G.afterLoad;
   G.afterLoad = () => { al0(); for (const h of G.S.heroes) if (h.stars) G.rb(h); };
   /* a missão "Renasça um herói" diz o requisito certo */
-  for (const q of (G.CONTRACTS || [])) if (q && q.t === 'Renasça um herói') q.h = 'No nível ' + R.lvl + ' de Rank ' + G.RANKS[R.rank] + ', o herói pode renascer mais forte.';
+  for (const q of G.QUESTS) if (q.t === 'Renasça um herói') q.h = 'No nível ' + R.lvl + ' de Rank ' + G.RANKS[R.rank] + ' (ou mais), o herói pode renascer mais forte.';
 
   /* ================= próxima recompensa: renascer, pontos novos e herói perto ================= */
   const nr0 = G.nextReward;
@@ -10791,7 +10791,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
 .al-c summary::-webkit-details-marker{display:none}
 .al-c summary small{margin-left:auto;font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:700;color:var(--mut);letter-spacing:0}
 .al-c .nb{padding:2px 8px 4px}
-#al-ft{position:sticky;bottom:-16px;margin:10px -16px -16px;padding:22px 14px 14px;background:linear-gradient(180deg,rgba(16,21,42,0),#10152a 30%)}
+#al-ft{position:sticky;bottom:-16px;margin:10px -16px -16px;padding:22px 14px 14px;background:linear-gradient(180deg,rgba(16,21,42,0),#10152a 20px)}
 #al-ft .hint{font-size:12px;color:var(--mut);text-align:center;margin:4px 0 8px;line-height:1.35}
 #al-ft .fx{font-size:12.5px;line-height:1.4;color:#e8ecf8}
 #al-ft .fx b{display:block;font-family:"Aurora Cinzel",serif;font-size:14px;color:var(--gold2);margin-bottom:3px}

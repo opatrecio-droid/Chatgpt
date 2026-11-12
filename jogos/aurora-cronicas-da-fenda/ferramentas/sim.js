@@ -65,7 +65,8 @@ if (G.on) G.on('rift', (d) => { if (d && d.win) rift.wins++; });
 const riftBot = (st) => {
   if (!RIFT || !G.riftCanStart || st.rift.dayDone === st.day || !G.riftCanStart()) return;
   const team = st.heroes.filter((h) => h.state !== 'fallen' && h.state !== 'recover').sort((a, b) => G.arenaHeroPow(b) - G.arenaHeroPow(a)).slice(0, 5).map((h) => h.id);
-  if (team.length && G.riftStart(team)) rift.runs++;
+  if (team.length < 3 || team.reduce((n, id) => n + G.heroStats(st.heroes.find((h) => h.id === id)).eff, 0) / team.length < G.riftLvl(st.rift.floor) + 3) return;   // só entra quando a equipe aguenta o andar (um jogador atento não manda todo dia para perder)
+  if (G.riftStart(team)) rift.runs++;
 };
 let firstCan = null;
 /* lote 3-C: o robô renasce, esquece traços negativos, aprende traços raros (nesta ordem de preferência) e sobe o nível dos traços com os pontos */
