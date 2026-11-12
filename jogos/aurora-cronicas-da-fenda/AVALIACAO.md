@@ -134,3 +134,39 @@ não o que a Jornada pedia); corrigido em `ferramentas/sim.js` (`--questless` ma
 | V9 | 8 | 9 | Temporada e semana temática. Falta: evento-chefe com prazo |
 | V10 | 7 | 10 | Poder do Reino, recordes, marcos, relatório, Herói do Dia |
 | **Viciante** | **7,7** | **9,2** | |
+
+---
+
+## Ciclo 3 — avaliação da v25.0 "O Mundo Reage" (lotes 3-A a 3-D, juntados) · 2026-11-12
+
+Evidência: jogo novo no Chromium (412×860) por 100 s — 2 falas da Rosa e a mão no Portal, nenhuma outra janela;
+saves da v22 e da v24 abrem na v25 com zero `pageerror` e veem só as novidades que faltavam; teste de fumaça em
+412×860 e 360×640 (todas as abas, ~40 min de jogo) sem erros; simulador 3 h (sementes 1 e 2) sem erros: 321/284
+momentos, mediana 12/18 s, maior vazio 353/403 s; quedas 9/9 em 3 h (antes: média 29, 12–62), Colosso derrotado
+na maioria das semanas com o robô convocando; primeiro renascimento ~6,3–6,5 h (robô do lote 3-C); capturas de
+`capturas/ciclo3-a/` a `ciclo3-d/` (Colosso, cerimônia de renascimento, HUD 360×640 com 56% de mapa).
+
+| # | C2 | C3 | Evidência / o que falta para 10 |
+|---|---|---|---|
+| D1 | 9 | 10 | 2 falas, mão do guia até o Mercado, pré-requisitos na Jornada, primeira decisão ~13 s |
+| D2 | 8 | 9 | Visitantes rivais, falas de laço, Colosso. Falta: a cidade ter cenas próprias (heróis quase nunca ficam na praça; o visitante só cumprimenta quem passa) |
+| D3 | 9 | 10 | Tremor/vibração nos picos, cerimônia de renascimento, Colosso, cartas |
+| D4 | 9 | 9 | Altar, revanche, modo do Colosso. Falta: decisões pequenas nos trechos calmos (maior vazio ainda 5–7 min) |
+| D5 | 9 | 10 | Feitos, títulos, laços, Herói do Dia, renascimento pessoal |
+| D6 | 9 | 10 | Colosso semanal, revanche do Nêmesis, renascimento |
+| D7 | 9 | 10 | Próxima recompensa, marcos do Colosso, liga, Jornada com pré-requisitos |
+| D8 | 8 | 9 | HUD 360×640 resolvido. Falta: muitos sistemas visíveis de uma vez — abas e painéis deveriam aparecer só quando liberados, com uma dica de uma linha |
+| D9 | 9 | 9 | Traços raros e níveis no Altar somam profundidade. Falta: sinergias (conjuntos de inscrições, formação × classes) |
+| D10 | 8 | 9 | Quedas raras, sem erros, moedas paradas sugerem Obras. Falta: confirmação num celular real (desempenho e sons só medidos no Chromium) |
+| **Diversão** | **8,7** | **9,5** | |
+| V1 | 9 | 10 | Forja-loteria + garantia + peças inscritas caindo de elites/chefes |
+| V2 | 9 | 10 | Reforja Manter/Aceitar + chance clara no +N + Pergaminho de Proteção |
+| V3 | 9 | 9 | Barra da próxima recompensa sempre visível; mas há trechos de 5–7 min sem nenhum momento |
+| V4 | 9 | 10 | Cartas de retorno + notícias dos rivais |
+| V5 | 10 | 10 | — |
+| V6 | 10 | 10 | — |
+| V7 | 8 | 10 | Pontos de Renascimento, traços raros, prévia desde o Rank A, primeiro renascimento ~6,5 h |
+| V8 | 9 | 10 | Arena + Nêmesis + revanche + visitantes |
+| V9 | 9 | 10 | Colosso de sexta a domingo + temporada + semana temática |
+| V10 | 10 | 10 | — |
+| **Viciante** | **9,2** | **9,9** | |

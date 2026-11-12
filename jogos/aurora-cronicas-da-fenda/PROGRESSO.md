@@ -19,7 +19,7 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
 - `AVALIACAO.md` — rubrica de diversão/vício e notas de cada ciclo.
 
 ## Estado atual
-- Ciclo 1 (v23.0): Diversão 7,2 → 8,0 · Viciante 5,8 → 7,7. Ciclo 2 (v24.0): Diversão 8,7 · Viciante 9,2. Ciclo 3 em andamento (`PLANO-CICLO-3.md`).
+- Ciclo 1 (v23.0): Diversão 7,2 → 8,0 · Viciante 5,8 → 7,7. Ciclo 2 (v24.0): Diversão 8,7 · Viciante 9,2. Ciclo 3 (v25.0): Diversão 9,5 · Viciante 9,9. Ciclo 4 em andamento (`PLANO-CICLO-4.md`, um agente por vez).
 - Método (desde 16:30 UTC de 11/11): **um lote por vez, direto na branch `ccr-5878aa8d-eltmr3`**, com commit e
   push a cada item concluído e o item marcado abaixo. Assim nada se perde se o limite de uso pausar a sessão.
 - **Ciclo 3 em paralelo (autorizado pelo usuário em 11/11, 20:3x UTC)**: 3-A roda na branch principal; 3-B, 3-C e
@@ -138,6 +138,22 @@ Notas técnicas do lote 3-A:
 - [x] 3D.5 Vibração/tremor e sugestão de Obras; versão 25.0
 
 ### Depois do ciclo 3
+- [x] Avaliação do líder e notas novas em `AVALIACAO.md` → **Diversão 9,5 · Viciante 9,9**
+
+### Lote 4-A — Pedidos dos moradores e vida na cidade (`PLANO-CICLO-4.md`, um agente por vez)
+- [ ] 4A.1 Pedidos dos moradores (maior vazio ≤ 180 s)
+- [ ] 4A.2 Cenas da cidade
+
+### Lote 4-B — Sinergias
+- [ ] 4B.1 Ressonância de inscrições
+- [ ] 4B.2 Formação × classes
+
+### Lote 4-C — Clareza progressiva e polimento
+- [ ] 4C.1 Sistemas aparecem quando liberados
+- [ ] 4C.2 Livro do Reino
+- [ ] 4C.3 Desempenho para celular modesto; versão 26.0
+
+### Depois do ciclo 4
 - [ ] Avaliação do líder e notas novas em `AVALIACAO.md`
 
 ## Histórico
@@ -155,3 +171,4 @@ Notas técnicas do lote 3-A:
 | 2026-11-11 | 2 | Lote 2-C concluído (v24.0); avaliação do ciclo 2; robô do simulador segue a Jornada | Diversão 8,7 · Viciante 9,2 |
 | 2026-11-12 | 3 | Lote 3-A concluído: Colosso da Semana (módulos `3C-colosso` e `68-ui-colosso`) | Capturas em `capturas/ciclo3-a/`; simulador 360 min sem erros em 2 sementes; 60 fps com o Colosso em cena |
 | 2026-11-12 | 3 | Lotes 3-A a 3-D concluídos em paralelo e juntados na principal (`ferramentas/juntar-lotes.py`); versão 25.0 "O Mundo Reage" | Simulador e navegador sem erros; saves v22/v24 abrem |
+| 2026-11-12 | 3 | Avaliação do ciclo 3 | Diversão 9,5 · Viciante 9,9 |
