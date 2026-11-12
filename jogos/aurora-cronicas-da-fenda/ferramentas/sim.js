@@ -16,6 +16,7 @@ const WEEK = opt('week', '');                  // v24: força a semana temática
 const CMODE = +opt('cmode', 1);                // v28: Colosso — 0 Livre (fração dos heróis), 1 Convocar todos (jogador ativo), 2 Dispensar
 const CLAB = +opt('clab', 0);                  // v28: laboratório do Colosso — a partir deste minuto a semana fica congelada num sábado ao meio-dia (Colosso sempre desperto, orçamento padrão) para medir o tempo de abate
 const CBUDGET = +opt('cbudget', CLAB ? 0 : 8);            // v28: minutos de fogo da equipe para derrubar o Colosso. O jogo usa 48 (≈65 min de luta com todos convocados), mas o robô só tem os 15 min de um fim de semana (3 dias de jogo × 5 min), então o padrão aqui é proporcional (8); --cbudget=0 usa o do jogo
+const RIFT = args.includes('--rift');            // lote 3-C: o robô também faz a expedição grátis do dia na Fenda Infinita (é dela que vem a Essência para o Rank SSS)
 const REFORGE = !args.includes('--noreforge');   // v23: o robô também reforja inscrições (só se o jogo tiver a função)
 
 const html = fs.readFileSync(file, 'utf8');
@@ -82,6 +83,33 @@ if (G.arenaNow) {
   };
 }
 let t = 0;
+/* lote 3-C: Fenda Infinita (--rift): 1 expedição grátis por dia de jogo com os 5 heróis mais fortes */
+const rift = { runs: 0, wins: 0 };
+if (G.on) G.on('rift', (d) => { if (d && d.win) rift.wins++; });
+const riftBot = (st) => {
+  if (!RIFT || !G.riftCanStart || st.rift.dayDone === st.day || !G.riftCanStart()) return;
+  const team = st.heroes.filter((h) => h.state !== 'fallen' && h.state !== 'recover').sort((a, b) => G.arenaHeroPow(b) - G.arenaHeroPow(a)).slice(0, 5).map((h) => h.id);
+  if (team.length < 3 || team.reduce((n, id) => n + G.heroStats(st.heroes.find((h) => h.id === id)).eff, 0) / team.length < G.riftLvl(st.rift.floor) + 3) return;   // só entra quando a equipe aguenta o andar (um jogador atento não manda todo dia para perder)
+  if (G.riftStart(team)) rift.runs++;
+};
+let firstCan = null;
+/* lote 3-C: o robô renasce, esquece traços negativos, aprende traços raros (nesta ordem de preferência) e sobe o nível dos traços com os pontos */
+const reb = { n: 0, mins: [], names: [], spent: 0, rare: 0, ups: 0, forgets: 0, buys: 0 };
+if (G.on) G.on('rebirth', (d) => { reb.n++; reb.mins.push(+(T0() / 60).toFixed(1)); reb.names.push(d.h.name + ' ★' + d.h.stars); mark('renascer', d.h.name + ' renasceu (★' + d.h.stars + ', +' + d.pts + ' pontos)'); });
+if (G.on) G.on('altar', (d) => { reb.spent += d.cost; if (d.op === 'forget') reb.forgets++; else if (d.op === 'up') reb.ups++; else { reb.buys++; if (G.TRAITS[d.id].rare) reb.rare++; } });
+const REB_PREF = ['memoria', 'imortal', 'eclipse', 'mao', 'lince', 'lunar'];
+const rebBot = (h) => {
+  if (!(h.stars > 0) || G.rbPts(h) <= 0) return;
+  for (let guard = 0; guard < 14; guard++) {
+    const neg = h.traits.find((t) => G.traitKind(t) === 'neg');
+    if (neg && G.rbDo(h, 'forget', neg).ok) continue;
+    const rare = REB_PREF.find((t) => h.traits.indexOf(t) < 0);
+    if (rare && G.rbDo(h, 'buy', rare).ok) continue;
+    const up = h.traits.slice().sort((a, b) => (G.traitKind(b) === 'rare') - (G.traitKind(a) === 'rare')).find((t) => G.rbCheck(h, 'up', t).ok);
+    if (up && G.rbDo(h, 'up', up).ok) continue;
+    break;
+  }
+};
 /* ---------- jogador-robô ---------- */
 let thinkT = 0;
 const bot = () => {
@@ -95,7 +123,10 @@ const bot = () => {
       if (G.spend(G.recruitCost(), 'recrutar')) G.hire(c);
     }
     for (const h of st.heroes) if (G.canPromote(h)) G.promote(h);
+    if (firstCan == null && G.canRebirth && st.heroes.some((h) => G.canRebirth(h))) firstCan = +(T0() / 60).toFixed(1);
     for (const h of st.heroes) if (G.canRebirth && G.canRebirth(h)) G.rebirth(h);
+    if (G.rbDo) for (const h of st.heroes) rebBot(h);
+    riftBot(st);   // lote 3-C: gasta os Pontos de Renascimento no Altar
     // construir/melhorar: primeiro o que a Jornada pede (como um jogador seguindo a missão); senão, o mais barato
     const qt = (G.questCur && G.questCur().t) || '';
     const want = G.BLD_IDS.find((id) => qt.indexOf(G.BLD[id].name) >= 0 || (G.BLD[id].short && qt.indexOf(G.BLD[id].short) >= 0));
@@ -189,7 +220,7 @@ while (t < TOTAL) {
   if (t >= nextSample) {
     nextSample = t + 600;
     const st = S();
-    samples.push({ min: Math.round(t / 60), dia: st.day, reino: st.realm.lvl, ouro: Math.round(st.gold), herois: st.heroes.length, lvls: st.heroes.map((h) => h.lvl).join('/'), ranks: st.heroes.map((h) => G.RANKS[h.rank]).join(''), kills: st.stats.kills, missao: st.quest.step, quedas: st.stats.falls });
+    samples.push({ min: Math.round(t / 60), dia: st.day, reino: st.realm.lvl, ouro: Math.round(st.gold), herois: st.heroes.length, lvls: st.heroes.map((h) => h.lvl).join('/'), ranks: st.heroes.map((h) => G.RANKS[h.rank]).join(''), kills: st.stats.kills, missao: st.quest.step, quedas: st.stats.falls, ...(reb.n ? { estrelas: st.heroes.map((h) => h.stars || 0).join('/') } : {}) });
   }
 }
 const secs = (Date.now() - t0) / 1000;
@@ -240,6 +271,8 @@ if (G.kingPower && S().lendas) {
   const rc = L.rec; console.log('Recordes: ' + G.RECS_ORDER.map((k) => G.RECS[k].name + ' ' + (rc[k] ? G.recText(k, rc[k]) : '—')).join(' · '));
 }
 if (G.codexStats && S().codex) { const cs = G.codexStats(); console.log('Códex: ' + cs.slots + '/' + cs.slotsMax + ' registros de inscrição (' + cs.ids + '/' + cs.idsMax + ' tipos, ' + cs.perf + ' perfeitas) · peças ' + cs.cells + '/' + cs.cellsMax + ' · marcos ' + Object.keys(S().codex.ms).length + '/' + G.CODEX_MS.length + ': ' + (codexMs.length ? codexMs.map((x) => x.id + '@' + (x.t / 60).toFixed(0) + 'm').join(' ') : '—')); }
+if (RIFT || firstCan != null) console.log('Fenda Infinita: ' + rift.runs + ' expedições · ' + rift.wins + ' vitórias · andar ' + S().rift.floor + ' · Essência ' + Math.floor(S().res.essencia || 0) + ' · primeiro herói apto a renascer: ' + (firstCan == null ? '—' : firstCan + ' min'));
+if (G.rbDo) { const hs = S().heroes, sv = hs.reduce((a, h) => a + (h.rr ? h.rr.sv : 0), 0), pend = hs.reduce((a, h) => a + G.rbPts(h), 0); console.log('Renascimentos: ' + reb.n + (reb.n ? ' · primeiro aos ' + reb.mins[0] + ' min (' + reb.names[0] + ') · todos: ' + reb.names.map((n, i) => n + '@' + reb.mins[i] + 'm').slice(0, 12).join(' ') : ' · nenhum em ' + MIN + ' min') + ' · pontos gastos ' + reb.spent + ' (sobram ' + pend + ') · traços raros ' + reb.rare + ' · níveis de traço ' + reb.ups + ' · esquecidos ' + reb.forgets + (sv ? ' · Coração Imortal salvou ' + sv + ' vezes' : '')); }
 console.log('Primeira promoção: ' + first('promo') + ' · primeiro momento épico: ' + first('epic'));
 if (!QUIET) for (const x of moments.slice(0, 60)) console.log('  [' + (x.t / 60).toFixed(1) + 'm] ' + x.k + ': ' + String(x.txt).slice(0, 110));
 if (opt('save', '')) { fs.writeFileSync(opt('save', ''), G.serialize()); console.log('Save gravado em ' + opt('save', '')); }
