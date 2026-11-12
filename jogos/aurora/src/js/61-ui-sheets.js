@@ -204,6 +204,7 @@
     if (UI.rebPrev) h += UI.rebPrev(x);
     h += '<div class="sec">Traços</div>';
     if (UI.rebTraits) h += UI.rebTraits(x); else for (const t of x.traits) h += '<div class="trait"><b>' + G.TRAITS[t].name + '</b><span>' + G.TRAITS[t].desc + '</span></div>';
+    if (UI.charmCard) h += UI.charmCard(x, v);      // v27 (B2): o carisma que atrai os mascotes
     h += '<button class="btn wide" style="margin-top:10px;color:#ff9a9a" data-a="dismiss:' + x.id + '">' + ic('trash') + 'Dispensar ' + esc(x.name) + '</button>';
     return h;
   };
@@ -711,40 +712,51 @@
           : 'cura ' + pctTxt(G.vigHeal(p)) + ' da vida do dono a cada ' + G.VIG_CD + ' s em combate';
     return '<span class="prole">' + ic(ro.icon) + ro.name + '</span> ' + t + '.';
   };
-  /* espaço roxo "Mascote" na ficha */
+  /* espaço roxo "Mascote" na ficha: v27 (B2) mostra o principal e quantos o herói leva (até 3) */
   const petSlot = (x) => {
-    const p = G.petOf(x);
-    return '<button class="ds sp' + (p ? '' : ' vz') + '" data-a="petpick:' + x.id + '">' + (p ? '<i class="gi px" style="background-image:url(' + A.petURL(p.k) + ');background-size:34px 29px;border-color:' + G.RAR_COLOR[p.rar] + '!important"></i>' : '<i class="gi">' + ic('paw') + '</i>') + '<small>Mascote</small></button>';
+    const ps = G.petsOf(x), p = ps[0];
+    return '<button class="ds sp' + (p ? '' : ' vz') + '" data-a="petpick:' + x.id + '">' + (p ? '<i class="gi px" style="background-image:url(' + A.petURL(p.k) + ');background-size:34px 29px;border-color:' + G.RAR_COLOR[p.rar] + '!important"></i>' : '<i class="gi">' + ic('paw') + '</i>') + '<small>' + (ps.length > 1 ? 'Mascotes ' + ps.length + '/' + G.PET_MAX : 'Mascote') + '</small></button>';
   };
+  const DIMTXT = ['', ' · 2º mascote: 50% do efeito', ' · 3º mascote: 25% do efeito'];
+  const petState = (p) => { const o = p.hero ? hid(p.hero) : null; return o ? 'acompanha ' + esc(o.name) : p.out ? 'vaga pela praça procurando dono' : 'livre no Viveiro'; };
+  /* x = herói da janela (modal do herói); viv = Viveiro (sem herói) */
   const petCard = (p, x, viv) => {
-    const d = G.PETS[p.k], cap = G.petLoadCap(p), owner = p.hero ? hid(p.hero) : null, mine = !!x && p.hero === x.id;
+    const d = G.PETS[p.k], cap = G.petLoadCap(p), owner = p.hero ? hid(p.hero) : null, mine = !!x && p.hero === x.id, ix = G.petRank(p);
     let btn = '';
-    if (x) btn = mine ? '<button class="btn sm" data-a="petset:' + x.id + ':0">' + ic('close') + 'Dispensar</button>' : '<button class="btn sm pri" data-a="petset:' + x.id + ':' + p.id + '">' + ic('paw') + 'Acompanhar</button>';
-    else if (viv) btn = owner ? '<span class="pill">' + ic('people') + esc(owner.name) + '</span>' : '<button class="btn sm" data-a="petfree:' + p.id + '">Soltar</button>';
-    return '<div class="card pcard' + (mine ? ' hl' : '') + '"><div class="row" style="align-items:flex-start">' + petThumb(p) + '<div class="gr"><h3>' + d.name + ' ' + rarTxt(p.rar) + '</h3><p><b class="gold">' + bonusText(G.petBonus(p)) + '</b></p><p>' + roleLine(p) + '</p><p>Carga ' + p.bagN + ' / ' + cap + (viv ? (owner ? ' · acompanha ' + esc(owner.name) : ' · livre no Viveiro') : '') + '</p></div></div>' +
+    if (x) btn = mine ? '<button class="btn sm" data-a="petdis:' + x.id + ':' + p.id + '">' + ic('close') + 'Dispensar</button>' : G.petSlots(x) > 0 || mine ? '<button class="btn sm pri" data-a="petset:' + x.id + ':' + p.id + '">' + ic('paw') + (owner ? 'Trazer de ' + esc(owner.name) : 'Acompanhar') + '</button>' : '<span class="pill">' + ic('lock') + 'sem vaga</span>';
+    else if (viv) btn = p.out && !p.hero ? '<button class="btn sm" data-a="petrec:' + p.id + '">Recolher</button>' : owner ? '<span class="pill">' + ic('people') + esc(owner.name) + '</span>' : '<button class="btn sm" data-a="petsq:' + p.id + '">Soltar na praça</button><button class="btn sm" data-a="petfree:' + p.id + '">Soltar</button>';
+    const bon = owner ? bonusText(G.petBonusEff(p)) + (DIMTXT[ix] || '') : bonusText(G.petBonus(p));
+    return '<div class="card pcard' + (mine ? ' hl' : '') + '"><div class="row" style="align-items:flex-start">' + petThumb(p) + '<div class="gr"><h3>' + d.name + ' ' + rarTxt(p.rar) + '</h3><p><b class="gold">' + bon + '</b></p><p>' + roleLine(p) + '</p><p>Carga ' + p.bagN + ' / ' + cap + ' · ' + petState(p) + (p.out && !p.hero ? ' · ' + G.PET_TEMP[G.petTemp(p)].name : '') + '</p></div></div>' +
       (btn ? '<div class="row pact"><span class="gr mut pdesc">' + esc(d.desc) + '</span>' + btn + '</div>' : '') + '</div>';
   };
   const petModal = (x) => {
-    const S = G.S, cur = G.petOf(x), free = G.petFree().sort((a, b) => b.rar - a.rar || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k));
-    let h = '<div class="eyebrow">Viveiro de Aurora · ' + S.pets.length + ' / ' + G.petCap() + '</div><h2>Mascote de ' + esc(x.name) + '</h2><p class="lead" style="font-size:12.5px">O mascote segue o herói, recolhe o espólio que cai no chão e entrega tudo na Guilda junto com ele. Raridade maior carrega mais e fortalece o bônus e o papel.</p>';
-    if (cur) h += '<div class="sec">Acompanhando</div>' + petCard(cur, x);
-    h += '<div class="sec">Livres no Viveiro</div>' + (free.length ? free.map((p) => petCard(p, x)).join('') : '<div class="card"><p style="margin:0">' + (S.pets.length ? 'Todos os mascotes já acompanham alguém.' : 'Nenhum mascote ainda.') + ' Ovos vêm das Incursões (Missões › Incursões) e, às vezes, do Mascate; o primeiro chega por um Caminho.</p></div>');
+    const S = G.S, cur = G.petsOf(x), free = G.petFree().sort((a, b) => b.rar - a.rar || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k)), stray = G.petStrays().sort((a, b) => b.rar - a.rar);
+    const others = S.pets.filter((p) => p.hero && p.hero !== x.id).sort((a, b) => b.rar - a.rar);
+    let h = '<div class="eyebrow">Viveiro de Aurora · ' + S.pets.length + ' / ' + G.petCap() + '</div><h2>Mascotes de ' + esc(x.name) + ' · ' + cur.length + '/' + G.PET_MAX + '</h2><p class="lead" style="font-size:12.5px">Cada herói leva até três mascotes. Eles seguem o dono, recolhem o espólio do chão e entregam tudo na Guilda. O 1º vale 100% do bônus, o 2º 50% e o 3º 25%. Os mascotes novos vagam pela praça e escolhem o dono sozinhos — mas você pode escolher por eles.</p>';
+    if (cur.length) h += '<div class="sec">Acompanhando</div>' + cur.map((p) => petCard(p, x)).join('');
+    h += '<div class="sec">Livres no Viveiro</div>' + (free.length ? free.map((p) => petCard(p, x)).join('') : '<div class="card"><p style="margin:0">Nenhum mascote guardado.</p></div>');
+    if (stray.length) h += '<div class="sec">Vagando pela praça</div>' + stray.map((p) => petCard(p, x)).join('');
+    if (others.length) h += '<div class="sec">Com outros heróis</div>' + others.map((p) => petCard(p, x)).join('');
+    if (!S.pets.length) h += '<div class="card"><p style="margin:0">Nenhum mascote ainda. Ovos vêm das Incursões (Missões › Incursões) e, às vezes, do Mascate; o primeiro chega por um Caminho.</p></div>';
     UI.modal(h + '<div class="acts"><button class="btn" data-a="petviv">' + ic('chest') + 'Viveiro</button><button class="btn" data-a="mclose">Fechar</button></div>', { pause: false });
   };
-  /* aba Bolsa: a carga do mascote */
+  /* aba Bolsa: a carga dos mascotes (até 3) */
   const petBagSec = (x) => {
-    const p = G.petOf(x);
-    if (!p) return '<div class="sec">Mascote</div><div class="card"><div class="row"><span class="pthumb">' + ic('paw') + '</span><p class="gr" style="margin:0">Sem mascote. Toque no espaço roxo «Mascote» da ficha para escolher um. Ele recolhe o espólio que cai no chão.</p></div></div>';
-    const ks = Object.keys(p.bag).filter((k) => p.bag[k] > 0), cap = G.petLoadCap(p);
-    return '<div class="sec">Carga do mascote <span class="mut" style="letter-spacing:0;text-transform:none;font-family:inherit">' + v.T(() => p.bagN + ' / ' + cap) + '</span></div><div class="card"><div class="row">' + petThumb(p, 36) + '<div class="gr"><b style="font-size:13px">' + G.PETS[p.k].name + '</b> ' + rarTxt(p.rar) + '<div style="margin-top:6px">' + bar(() => Math.round(100 * p.bagN / cap), 'big o') + '</div></div></div>' +
-      (ks.length ? '<div class="bagg" style="margin-top:8px">' + ks.map((k) => '<span class="bi" title="' + G.RES[k].name + '"><i class="px ri-' + k + '"></i><b>' + p.bag[k] + '</b><small>' + G.RES[k].name.split(' ')[0] + '</small></span>').join('') + '</div>' : '<p style="margin-top:8px">Nada recolhido nesta saída.</p>') +
-      '<p style="margin-top:6px">A carga vai para o Armazém junto com a bolsa, na Guilda. Se o dono cair, o mascote não perde nada.</p></div>';
+    const ps = G.petsOf(x);
+    if (!ps.length) return '<div class="sec">Mascote</div><div class="card"><div class="row"><span class="pthumb">' + ic('paw') + '</span><p class="gr" style="margin:0">Sem mascote. Toque no espaço roxo «Mascote» da ficha para escolher até três — ou espere: os mascotes novos escolhem sozinhos o herói mais forte ou o mais cativante. Eles recolhem o espólio que cai no chão.</p></div></div>';
+    let h = '<div class="sec">Carga dos mascotes <span class="mut" style="letter-spacing:0;text-transform:none;font-family:inherit">' + v.T(() => G.petLoad(x) + ' / ' + ps.reduce((a, p) => a + G.petLoadCap(p), 0)) + '</span></div>';
+    ps.forEach((p, i) => {
+      const ks = Object.keys(p.bag).filter((k) => p.bag[k] > 0);
+      h += '<div class="card"><div class="row">' + petThumb(p, 36) + '<div class="gr"><b style="font-size:13px">' + G.PETS[p.k].name + '</b> ' + rarTxt(p.rar) + '<span class="mut" style="font-size:11px"> · ' + (i + 1) + 'º' + (i ? ', carga a ' + Math.round(G.PET_DIM[Math.min(i, 2)] * 100) + '%' : '') + '</span><div style="margin-top:6px">' + bar(() => Math.round(100 * p.bagN / Math.max(1, G.petLoadCap(p))), 'big o') + '</div></div></div>' +
+        (ks.length ? '<div class="bagg" style="margin-top:8px">' + ks.map((k) => '<span class="bi" title="' + G.RES[k].name + '"><i class="px ri-' + k + '"></i><b>' + p.bag[k] + '</b><small>' + G.RES[k].name.split(' ')[0] + '</small></span>').join('') + '</div>' : '<p style="margin-top:8px">Nada recolhido nesta saída.</p>') + '</div>';
+    });
+    return h + '<p class="mut" style="font-size:11.5px;margin:4px 2px 0">A carga vai para o Armazém junto com a bolsa, na Guilda. Se o dono cair, os mascotes não perdem nada.</p>';
   };
   /* Armazém › Ateliê › Viveiro */
   const viveiroSec = () => {
-    const S = G.S, L = S.pets.slice().sort((a, b) => b.rar - a.rar || (a.hero ? 0 : 1) - (b.hero ? 0 : 1) || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k));
+    const S = G.S, L = S.pets.slice().sort((a, b) => b.rar - a.rar || (a.hero ? 0 : 1) - (b.hero ? 0 : 1) || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k)), nStray = G.petStrays().length;
     let h = '<div class="sec" id="viveiro">Viveiro <span class="mut" style="letter-spacing:0;text-transform:none;font-family:inherit">' + S.pets.length + ' / ' + G.petCap() + '</span></div>';
-    h += '<div class="card hl"><p style="margin-top:0">Os mascotes acompanham os heróis e recolhem o espólio que cai no chão. Cabem ' + G.petCap() + ' (8 + 2 por nível do Estábulo). Três mascotes livres da mesma raridade se fundem em um da raridade seguinte.</p><div class="chips" style="margin-top:8px">' +
+    h += '<div class="card hl"><p style="margin-top:0">Todos os mascotes de Aurora contam aqui: os que acompanham heróis (até 3 por herói), os que vagam pela praça procurando dono' + (nStray ? ' (' + nStray + ' agora)' : '') + ' e os guardados. Cabem ' + G.petCap() + ' (8 + 2 por nível do Estábulo); com o Viveiro cheio, um ovo novo vira Pó Estelar. Mascote novo escolhe dono sozinho; para um guardado procurar dono, use «Soltar na praça». Três guardados da mesma raridade se fundem em um da raridade seguinte.</p><div class="chips" style="margin-top:8px">' +
       [0, 1, 2, 3, 4].map((r) => { const n = G.petFree().filter((p) => p.rar === r).length; return '<button data-a="petfuse:' + r + '"' + (n >= 3 ? '' : ' disabled') + '>Fundir <b class="rar' + r + '">' + G.RAR[r] + '</b> · ' + n + '</button>'; }).join('') + '</div></div>';
     return h + (L.length ? L.map((p) => petCard(p, null, true)).join('') : '<div class="card"><p style="margin:0">Nenhum mascote ainda. O primeiro vem pelo Caminho «Adote o primeiro mascote»; os raros, das Incursões.</p></div>');
   };
@@ -792,19 +804,26 @@
     if (!incParty) incParty = avail.slice().sort((a2, b2) => G.heroStats(b2).eff - G.heroStats(a2).eff).slice(0, 5).map((x) => x.id);
     incParty = incParty.filter((id) => avail.some((x) => x.id === id));
     h += '<div class="sec">Grupo (até 5)</div>';
-    for (const x of avail) { const on = incParty.indexOf(x.id) >= 0, e = G.heroStats(x).eff, pt = G.petOf(x); h += '<button class="slot" data-a="incp:' + x.id + '" style="' + (on ? 'box-shadow:inset 0 0 0 2px var(--gold)' : '') + '"><i class="px" style="width:36px;height:36px;background-image:url(' + UI.portrait(x) + ');background-size:36px 36px"></i><span class="gr"><b>' + rank(x.rank) + ' ' + esc(x.name) + '</b><br><span class="' + (e >= lvl + 2 ? 'good' : e >= lvl - 2 ? 'gold' : 'bad') + '" style="font-size:11.5px">aguenta até Nv ' + e + ' · ' + x.potions + ' poções</span></span>' + (pt ? petImg(pt.k, 24) : '') + '<i class="sw' + (on ? ' on' : '') + '"></i></button>'; }
+    for (const x of avail) { const on = incParty.indexOf(x.id) >= 0, e = G.heroStats(x).eff, pt = G.petsOf(x); h += '<button class="slot" data-a="incp:' + x.id + '" style="' + (on ? 'box-shadow:inset 0 0 0 2px var(--gold)' : '') + '"><i class="px" style="width:36px;height:36px;background-image:url(' + UI.portrait(x) + ');background-size:36px 36px"></i><span class="gr"><b>' + rank(x.rank) + ' ' + esc(x.name) + '</b><br><span class="' + (e >= lvl + 2 ? 'good' : e >= lvl - 2 ? 'gold' : 'bad') + '" style="font-size:11.5px">aguenta até Nv ' + e + ' · ' + x.potions + ' poções</span></span>' + pt.map((q) => petImg(q.k, 22)).join('') + '<i class="sw' + (on ? ' on' : '') + '"></i></button>'; }
     const c = G.incCanStart(incZ, g);
     h += '<button class="btn pri wide" style="margin-top:6px" data-a="incgo" ' + v.Dis(() => !G.incCanStart(incZ, g).ok || !incParty || !incParty.length) + '>' + ic('skull') + (G.incFree() ? 'Enviar Incursão' : 'Tentar de novo hoje · ' + G.incCost() + ' Núcleos') + '</button><p class="mut" style="text-align:center;font-size:11.5px;margin-top:6px">' + (c.ok ? 'Uma tentativa grátis por dia. Não sai junto com a Maré nem com a Fenda.' : c.why + '.') + '</p>';
     return h;
   };
+  UI.petUI = { petThumb, petImg, rarTxt, roleLine, bonusText, petState };      // v27 (B2): 6J-ui-adocao reaproveita as peças dos cartões de mascote
   UI.dropTap = (d) => { G.dropTake(d); };
   Object.assign(UI.ACT, {
     petpick: (a) => { const h = hid(a[0]); if (h) petModal(h); },
     petset: (a) => {
-      const h = hid(a[0]); if (!h) return; const p = +a[1] ? G.petById(+a[1]) : G.petOf(h); if (!p) return;
-      if (+a[1]) { G.petAssign(p, h); UI.toast(G.PETS[p.k].name + ' agora acompanha ' + h.name + '.', 'good', 'paw'); } else { G.petAssign(p, null); UI.toast(G.PETS[p.k].name + ' voltou ao Viveiro.', 'info', 'paw'); }
+      const h = hid(a[0]), p = G.petById(+a[1]); if (!h || !p) return;
+      if (!G.petAssign(p, h)) { UI.toast(h.name + ' já leva ' + G.PET_MAX + ' mascotes: dispense um antes.', 'bad', 'paw'); return; }
+      UI.toast(G.PETS[p.k].name + ' agora acompanha ' + h.name + '.', 'good', 'paw');
       petModal(h); draw(false);
     },
+    petdis: (a) => { const h = hid(a[0]), p = G.petById(+a[1]); if (!h || !p) return; G.petAssign(p, null); UI.toast(G.PETS[p.k].name + ' voltou ao Viveiro.', 'info', 'paw'); petModal(h); draw(false); },
+    petsq: (a) => { const p = G.petById(+a[0]); if (p && G.petToSquare(p)) { UI.toast(G.PETS[p.k].name + ' foi à praça procurar um dono.', 'info', 'paw'); draw(false); } },
+    petrec: (a) => { const p = G.petById(+a[0]); if (p && G.petToViveiro(p)) { UI.toast(G.PETS[p.k].name + ' voltou ao Viveiro.', 'info', 'paw'); if (UI.dock && UI.dock.kind === 'pet') UI.dock.close(); draw(false); } },
+    petown: (a) => { const p = G.petById(+a[0]); if (p) UI.petOwnerModal(p); },
+    petgive: (a) => { const p = G.petById(+a[0]), h = hid(a[1]); if (!p || !h) return; if (!G.petAssign(p, h)) { UI.toast(h.name + ' já leva ' + G.PET_MAX + ' mascotes.', 'bad', 'paw'); return; } UI.closeModal(); if (UI.dock && UI.dock.kind === 'pet') UI.dock.close(); UI.toast(G.PETS[p.k].name + ' agora acompanha ' + h.name + '.', 'good', 'paw'); draw(false); },
     petviv: () => { UI.closeModal(); UI.open('armazem', 'atelie'); setTimeout(() => { const el = document.getElementById('viveiro'); if (el) el.scrollIntoView({ block: 'start' }); }, 30); },
     petfree: (a) => { const p = G.petById(+a[0]); if (p) UI.confirm('Soltar ' + G.PETS[p.k].name + '?', 'O mascote volta para a natureza e deixa ' + 2 * (p.rar + 1) + ' Pó Estelar no Viveiro. Não há como desfazer.', 'Soltar', () => { G.petRelease(p); draw(false); }); },
     petfuse: (a) => { fuseSel = []; fuseModal(+a[0]); },

@@ -62,9 +62,9 @@
   };
 
   /* desenha um quadro de personagem num buffer 26×30. o = aparência */
-  const FRAMES = ['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'atk0', 'atk1', 'atk2'];
+  const FRAMES = ['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'atk0', 'atk1', 'atk2', 'bend0', 'bend1'];      // v27 (B1): bend0/1 = inclinado (colher, plantar, erguer uma tora)
   A.CHAR_W = 26; A.CHAR_H = 30;
-  const drawChar = (o, frame) => {
+  const drawCharRaw = (o, frame) => {
     const p = new Pix(26, 30);
     const skin = SKIN[o.skin % SKIN.length], skinS = sh(skin, 0.82);
     const hair = o.hairC || HAIR[o.hair % HAIR.length], hairS = sh(hair, 0.72), hairL = mix(hair, '#ffffff', 0.3);
@@ -152,16 +152,36 @@
     }
     /* braço da frente + arma */
     let ax = X + 7, ay = Y + 12, hxp, hyp;
-    if (atk === 0) { hxp = ax - 1; hyp = ay - 1; p.rect(ax - 1, ay - 1, 2, 3, body); p.rect(hxp, hyp - 1, 2, 2, skin); }
+    if (frame === 'noarm') { /* v27 (B1): sem braço da frente (a pose inclinada desenha o dela) */ }
+    else if (atk === 0) { hxp = ax - 1; hyp = ay - 1; p.rect(ax - 1, ay - 1, 2, 3, body); p.rect(hxp, hyp - 1, 2, 2, skin); }
     else if (atk === 1) { hxp = ax + 3; hyp = ay + 2; p.rect(ax, ay + 1, 4, 2, body); p.rect(hxp, hyp - 1, 2, 2, skin); }
     else if (atk === 2) { hxp = ax + 2; hyp = ay + 4; p.rect(ax, ay + 1, 2, 4, body); p.rect(hxp - 1, hyp, 2, 2, skin); }
     else { hxp = ax + 1; hyp = ay + 4; p.rect(ax, ay, 2, 5, body); p.col(ax + 1, ay, ay + 3, bodyS); p.rect(ax, ay + 4, 2, 2, skin); }
     if (o.shield) { const s = o.shield, ss = sh(s, 0.7); p.rect(X - 2, Y + 12, 5, 7, s); p.rect(X - 1, Y + 19, 3, 1, s); p.col(X - 2, Y + 12, Y + 18, ss); p.rect(X - 1, Y + 14, 3, 2, trim); p.set(X, Y + 13, trim); p.set(X, Y + 16, trim); }
-    if (o.weapon) drawWeapon(p, o.weapon, atk < 0 ? 0 : atk + 1, hxp, hyp, o.wcol);
-    if (o.weapon === 'adaga' && atk !== 0) drawWeapon(p, 'adaga', atk === 1 ? 2 : 3, X + 1, Y + 16, o.wcol);
-    if (o.carry) { const cc = o.carry; p.rect(X + 6, Y + 12, 6, 5, cc); p.row(X + 6, X + 11, Y + 12, mix(cc, '#ffffff', 0.3)); p.col(X + 11, Y + 12, Y + 16, sh(cc, 0.7)); p.row(X + 6, X + 11, Y + 14, sh(cc, 0.8)); }
-    return p.outline(INK);
+    if (o.weapon && frame !== 'noarm') drawWeapon(p, o.weapon, atk < 0 ? 0 : atk + 1, hxp, hyp, o.wcol);
+    if (o.weapon === 'adaga' && atk !== 0 && frame !== 'noarm') drawWeapon(p, 'adaga', atk === 1 ? 2 : 3, X + 1, Y + 16, o.wcol);
+    if (o.carry && frame !== 'noarm') { const cc = o.carry; p.rect(X + 6, Y + 12, 6, 5, cc); p.row(X + 6, X + 11, Y + 12, mix(cc, '#ffffff', 0.3)); p.col(X + 11, Y + 12, Y + 16, sh(cc, 0.7)); p.row(X + 6, X + 11, Y + 14, sh(cc, 0.8)); }
+    return p;
   };
+  /* v27 (B1): pose inclinada. Gira o tronco e a cabeça em torno do quadril (mapeamento inverso, sem buracos) e desenha um braço comprido até o chão.
+     k = 0: inclinação leve (colher de foice, erguer uma tora); k = 1: funda (plantar, juntar pedras). BEND dá a mão (para fixar ferramentas) */
+  const BEND = [{ th: 0.56, hx: 21.5, hy: 24.5 }, { th: 0.8, hx: 22.5, hy: 26.5 }];
+  const PIV = [12, 21.5];
+  A.BEND = BEND.map((b) => { const c = Math.cos(b.th), s = Math.sin(b.th), dx = 15.5 - PIV[0], dy = 16.5 - PIV[1]; return { sx: PIV[0] + dx * c - dy * s, sy: PIV[1] + dx * s + dy * c, hx: b.hx, hy: b.hy }; });
+  const bendPix = (o, k) => {
+    const src = drawCharRaw(o, 'noarm'), p = new Pix(26, 30), b = BEND[k], g = A.BEND[k], c = Math.cos(b.th), s = Math.sin(b.th);
+    for (let y = 0; y < 30; y++) for (let x = 0; x < 26; x++) {
+      if (y >= 22) { const v = src.d[y * 26 + x]; if (v >>> 24) p.d[y * 26 + x] = v; continue; }
+      const dx = x + 0.5 - PIV[0], dy = y + 0.5 - PIV[1], sx = PIV[0] + dx * c + dy * s, sy = PIV[1] - dx * s + dy * c;
+      if (sy >= 22) continue;
+      const v = src.get(Math.floor(sx), Math.floor(sy)); if (v >>> 24) p.d[y * 26 + x] = v;
+    }
+    const body = o.body, skin = SKIN[o.skin % SKIN.length];
+    p.line(g.sx, g.sy, g.hx, g.hy - 1, body); p.line(g.sx + 1, g.sy, g.hx + 1, g.hy - 1, body); p.line(g.sx, g.sy + 1, g.hx, g.hy, sh(body, 0.78));
+    p.rect(Math.round(g.hx) - 1, Math.round(g.hy) - 1, 2, 2, skin);
+    return p;
+  };
+  const drawChar = (o, frame) => (frame === 'bend0' || frame === 'bend1' ? bendPix(o, +frame[4]) : drawCharRaw(o, frame)).outline(INK);
 
   /* aparência a partir do herói / morador */
   A.heroLook = (h) => {
@@ -190,16 +210,19 @@
     'Curandeira': { body: '#f0f0f0', robe: 1, trim: '#3c8a78', head: 'cap', hat: '#f0f0f0' }, 'Alquimista': { body: '#684282', robe: 1, trim: '#9be08a', beard: '#c8c0b8' },
     'Fazendeiro': { head: 'straw', body: '#7d9c4d', legs: '#6a5a44' }, 'Lavradora': { head: 'straw', body: '#c8a04a', legs: '#6a5a44' }, 'Caçador de animais': { head: 'hood', hoodC: '#6a5a3a', body: '#8a6a4a' },
     'Lenhador': { body: '#b04832', beard: '#4a3226', legs: '#4a5a6a', tool: 1 }, 'Minerador': { head: 'cap', hat: '#c8a04a', body: '#6b6b7a', tool: 1 },
+    'Lenhadora': { body: '#4f7a54', head: 'cap', hat: '#8a4a2e', legs: '#4a5a6a', tool: 1 }, 'Mineradora': { head: 'cap', hat: '#9a6a3a', body: '#8a5a6a', legs: '#4a4a58', tool: 1 }, 'Colhedor': { head: 'straw', body: '#9a7a4a', legs: '#5a5a48' },
     'Escrivã': { body: '#3b5fa8', robe: 1, trim: '#e2b659' }, 'Cobradora': { body: '#5a4a8a', robe: 1, trim: '#e2b659' },
     'Mestre da Guilda': { body: '#7a4a2e', cape: '#8a2c2c', beard: '#8a7a6a' }, 'Instrutor': { body: '#6a6a72', armor: 1, beard: '#2a2630' },
     'Guarda': { body: '#7a88a0', armor: 1, head: 'helm', metal: '#8a96aa', plume: '#3b5fa8', weapon: 'lanca' }, 'Guarda do portão': { body: '#7a88a0', armor: 1, head: 'helm', metal: '#8a96aa', plume: '#c83c34', weapon: 'lanca', shield: '#3b5fa8' },
     'Mercadora': { body: '#c97b32', scarf: '#f0e0c0' }, 'Feirante': { body: '#6fa86b', apron: '#e8dcc8' }, 'Caixa': { body: '#8fb2c9' }, 'Atendente': { body: '#8a6ab0', apron: '#f4ece0' }, 'Aprendiz': { body: '#b9a06a' },
   };
+  const NAME_LOOK = { Tonho: { body: '#4f78a0', beard: null, hair: 1, head: 'cap', hat: '#5a4a3a' }, Beto: { body: '#7a7a4a', beard: '#6a5a4a' }, Tião: { body: '#6f8f58' } };
   A.npcLook = (n) => {
     const s = G.hash(n.name + n.look), j = JOB_LOOK[n.job] || {};
     const o = Object.assign({ skin: s % 5, hair: (s >>> 3) % 7, style: (s >>> 6) % 6, body: TUNICS[(s >>> 9) % TUNICS.length], legs: ['#4a4458', '#5a4a3a', '#3a4a5a', '#6a5a44'][(s >>> 12) % 4], blush: (s >>> 14) % 2 === 0 }, j);
-    if (j.tool) o.weapon = 'ferramenta';
-    o.key = 'n|' + n.name + '|' + n.job + '|' + (n.carry || '');
+    if (NAME_LOOK[n.name]) Object.assign(o, NAME_LOOK[n.name]);
+    if (j.tool && !n.wk) o.weapon = 'ferramenta';          // v27 (B1): a equipe de campo usa as ferramentas do trabalho (desenhadas por 54-vida-art), não uma arma na mão
+    o.key = 'n|' + n.name + '|' + n.job + '|' + (n.carry || '') + (n.wk ? '|w' : '');
     if (n.carry) { o.carry = n.carry === 'trigo' ? '#e2b84a' : n.carry === 'madeira' ? '#9a6a3c' : '#9aa0a8'; o.weapon = null; }
     return o;
   };

@@ -349,10 +349,14 @@ G.CAST = [
   { name: 'Dário', job: 'Feirante', at: 'mercado', look: 13 }, { name: 'Elga', job: 'Caixa', at: 'mercado', look: 14 },
   { name: 'Alda', job: 'Padeira', at: 'padaria', look: 15 }, { name: 'Breno', job: 'Moleiro', at: 'padaria', look: 16 },
   { name: 'Vasco', job: 'Instrutor', at: 'treino', look: 17 }, { name: 'Úrsula', job: 'Guarda', at: 'torre', look: 18 },
-  { name: 'Joca', job: 'Fazendeiro', at: 'fazenda', look: 19 }, { name: 'Lina', job: 'Lavradora', at: 'fazenda', look: 20 },
-  { name: 'Nuno', job: 'Lenhador', at: 'lenharia', look: 21 }, { name: 'Pedro', job: 'Minerador', at: 'pedreira', look: 22 },
+  { name: 'Joca', job: 'Fazendeiro', at: 'fazenda', look: 19, wk: 1 }, { name: 'Lina', job: 'Lavradora', at: 'fazenda', look: 20, wk: 2 },
+  { name: 'Nuno', job: 'Lenhador', at: 'lenharia', look: 21, wk: 1 }, { name: 'Pedro', job: 'Minerador', at: 'pedreira', look: 22, wk: 1 },
   { name: 'Yara', job: 'Aprendiz', at: 'mercado', look: 23 }, { name: 'Zeno', job: 'Caçador de animais', at: 'fazenda', look: 24 },
   { name: 'Tomé', job: 'Tratador', at: 'estabulo', look: 25 },
+  /* v27 (B1): equipe que cresce com o nível do prédio (1 no nível 1–2, 2 no 3–5, 3 a partir do 6): `wk` é a ordem de chegada */
+  { name: 'Tonho', job: 'Lenhador', at: 'lenharia', look: 26, wk: 2 }, { name: 'Cida', job: 'Lenhadora', at: 'lenharia', look: 27, wk: 3 },
+  { name: 'Beto', job: 'Minerador', at: 'pedreira', look: 28, wk: 2 }, { name: 'Mara', job: 'Mineradora', at: 'pedreira', look: 29, wk: 3 },
+  { name: 'Tião', job: 'Colhedor', at: 'fazenda', look: 21, wk: 3 },
 ];
 G.EXTRA_NAMES = ['Abel', 'Bia', 'Caio', 'Dora', 'Elói', 'Flora', 'Gil', 'Helga', 'Ian', 'Jana', 'Kito', 'Leda', 'Marco', 'Nádia', 'Oto', 'Pilar', 'Raul', 'Sara', 'Tito', 'Una', 'Vito', 'Zélia'];
 G.BARKS = {

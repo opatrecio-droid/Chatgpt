@@ -54,7 +54,7 @@
       hp: 1, fome: G.rnd(70, 100), energia: G.rnd(75, 100), animo: 70, gold: o.gold || 0, bag: {}, bagN: 0, potions: o.potions == null ? 2 : o.potions,
       gear: { arma: null, armadura: null, elmo: null, luvas: null, botas: null, cinto: null, acessorio: null, anel: null }, caution: 1, order: 'auto',
       j2: null, j3: null, sk: [1, 1, 1], arts: {}, ap: 0, apB: 0, wake: 0, mount: 0, tS2: 5, tS3: 8, bv: {}, shield: 0,
-      cos: { traje: null, asas: null, reliquia: null }, autoArt: 0, pet: 0,
+      cos: { traje: null, asas: null, reliquia: null }, autoArt: 0, pet: 0, pets: [],
       state: 'town', x: Wd.portal.mouth[0], y: Wd.portal.mouth[1], dir: 1, zone: null, kills: 0, falls: 0, born: S.day,
       tAtk: 0, tSkill: 3, tPot: 0, tThink: 0, lastHit: -99, wound: 0, buff: {}, grace: 0,
       look: { skin: G.ri(0, 4), hair: G.ri(0, 9), style: G.ri(0, 5), seed: G.ri(1, 99999) },

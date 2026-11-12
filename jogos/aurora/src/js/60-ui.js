@@ -248,12 +248,13 @@
     if (!G.S || !G.M.running) return;
     if (UI.placing && UI.placeTap) return UI.placeTap(x, y);
     const r = R.pick(x, y);
-    if (UI.dock && UI.dock.kind && !(r && (r.type === 'bld' || r.type === 'house'))) UI.dock.close();      // v27 (A4): toque fora do cartão fecha o cartão
+    if (UI.dock && UI.dock.kind && !(r && (r.type === 'bld' || r.type === 'house' || r.type === 'pet'))) UI.dock.close();      // v27 (A4): toque fora do cartão fecha o cartão
     if (!r) { if (UI.sheet && window.innerWidth < 860) UI.close(); else UI.ACT.unsel(); return; }
     if (r.type === 'lucky') return UI.luckyTap && UI.luckyTap();     // v24: criatura da sorte (64-ui-retorno)
     G.sfx('click');
     if (r.type === 'hero') { R.follow = r.ref.id; UI.inspect(r); }
     else if (r.type === 'drop') { if (UI.dropTap) UI.dropTap(r.ref); }
+    else if (r.type === 'pet') { if (UI.petTap) UI.petTap(r.ref); }      // v27 (B2): cartão do mascote vagante
     else if (r.type === 'mon' || r.type === 'npc') { R.follow = 0; UI.inspect(r); }
     else if (r.type === 'portal') UI.recruitModal();
     else if (r.type === 'house') { if (UI.dock && UI.dock.key === 'casa' + r.i) UI.dock.close(); else UI.houseCard(r.i); }      // v27 (A4): casas da vila também têm cartão

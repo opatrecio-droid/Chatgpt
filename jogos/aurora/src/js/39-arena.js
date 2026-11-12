@@ -169,7 +169,7 @@
       const Pk = pj(k), nid = S.nextId, mir = { jt: ref.jt[Math.min(k, ref.jt.length - 1)], sk: ref.sk[Math.min(k, ref.sk.length - 1)] };
       const h = withRng(G.hash('rv|' + riv.i + '|' + k), () => G.makeHero({ name: sp.name, cls: sp.cls, rar: sp.rar, lvl: 1, traits: sp.traits.slice(), potions: 0, weapon: false }));
       S.nextId = nid;
-      h.id = -(riv.i * 10 + k + 1); h.look = sp.look; h.cos = { traje: null, asas: null, reliquia: null }; h.pet = 0; h.mount = 0; h.arts = {}; h.wake = 0;
+      h.id = -(riv.i * 10 + k + 1); h.look = sp.look; h.cos = { traje: null, asas: null, reliquia: null }; h.pet = 0; h.pets = []; h.mount = 0; h.arts = {}; h.wake = 0;
       const ev = (L) => { setLevel(h, sp, L, mir); return heroPow(G.heroStats(h)); };
       let lo = 1, hi = 170;
       while (lo < hi) { const mid = (lo + hi) >> 1; if (ev(mid) < Pk) lo = mid + 1; else hi = mid; }
@@ -213,9 +213,9 @@
       skills.push({ n: s.name, cd: Math.max(3, s.cd * (h.rank >= 4 ? 0.8 : 1) * (1 - st.cdr)), ops, pow, sup: !!s.sup, heal: ops.every((o) => o.o === 'heal') });
     });
     return { hid: h.id, name: h.name, cls: h.cls, side, row, rank: h.rank, lvl: h.lvl, rar: h.rar, mhp: st.hp * G.ARENA.hpMul, atk: st.atk, def: st.def, crit: st.crit, cd: st.critDmg, eva: st.eva, int: st.int,
-      ls: st.ls || 0, regen: st.regen || 0, thorns: st.thorns || 0, heal: st.healF || 0, ranged: G.CLASSES[h.cls].rng >= 4, skills, pet: pet || null };
+      ls: st.ls || 0, regen: st.regen || 0, thorns: st.thorns || 0, heal: st.healF || 0, ranged: G.CLASSES[h.cls].rng >= 4, skills, pets: pet ? (Array.isArray(pet) ? pet : [pet]) : null };
   };
-  const petOfHero = (h) => { const p = G.petOf(h); return p ? { role: G.PETS[p.k].role, rar: p.rar } : null; };
+  const petOfHero = (h) => { const a = G.petsOf(h); return a.length ? a.map((p, i) => ({ role: G.PETS[p.k].role, rar: p.rar, f: G.PET_DIM[Math.min(i, G.PET_DIM.length - 1)] })) : null; };      // v27 (B2): até 3 mascotes, cada um com o retorno decrescente do seu lugar (1 / 0,5 / 0,25)
 
   /* linha de frente automática: os mais parrudos */
   const autoRows = (items) => {
@@ -254,7 +254,7 @@
       const fa = 1 + (rng() - 0.5) * G.ARENA.form[0], fh = 1 + (rng() - 0.5) * G.ARENA.form[1];
       F.push({
         id: F.length, bp, side: bp.side, row: bp.row, name: bp.name, cls: bp.cls, mhp: bp.mhp * fh, hp: bp.mhp * fh, atk: bp.atk * fa, def: bp.def, crit: bp.crit, cd: bp.cd, eva: bp.eva, int: bp.int, ls: bp.ls, regen: bp.regen, thorns: bp.thorns, heal: bp.heal, ranged: bp.ranged,
-        tA: 0.25 + rng() * 0.8, sk: bp.skills.map((s) => ({ s, left: s.cd * (0.3 + rng() * 0.35) })), pet: bp.pet ? { role: bp.pet.role, rar: bp.pet.rar, left: bp.pet.role === 'fraqueza' ? 4 + rng() * 3 : 5 + rng() * 2 } : null,
+        tA: 0.25 + rng() * 0.8, sk: bp.skills.map((s) => ({ s, left: s.cd * (0.3 + rng() * 0.35) })), pets: bp.pets ? bp.pets.map((q) => ({ role: q.role, rar: q.rar, f: q.f == null ? 1 : q.f, left: q.role === 'fraqueza' ? 4 + rng() * 3 : 5 + rng() * 2 })) : null,
         b: {}, stun: 0, taunt: 0, wall: 0, slow: null, vuln: null, weak: null, dots: [], sh: null, dmg: 0, heald: 0, kills: 0,
       });
     }
@@ -355,12 +355,12 @@
         for (let d = f.dots.length - 1; d >= 0 && f.hp > 0; d--) { const o2 = f.dots[d]; if (t >= o2.next) { o2.next += 1; hurt(F[o2.by], f, o2.dps * enr(), false, 'dot'); } if (t >= o2.u) f.dots.splice(d, 1); }
         if (f.hp <= 0) continue;
         const rg = f.regen + bf(f, 'regen'); if (rg > 0 && f.hp < f.mhp) f.hp = Math.min(f.mhp, f.hp + f.mhp * rg * DT);
-        if (f.pet) {
-          f.pet.left -= DT;
-          if (f.pet.left <= 0) {
-            if (f.pet.role === 'fraqueza') { const foes = liveOf(1 - f.side); if (foes.length) { const x = rpick(foes); x.weak = { f: G.weakF({ rar: f.pet.rar }), u: t + G.WEAK_DUR }; E('pet', f.id, x.id, 0, 0, 0, 'Fraqueza'); } f.pet.left = G.WEAK_CD; }
-            else if (f.pet.role === 'vigor') { healTo(f, f, f.mhp * G.vigHeal({ rar: f.pet.rar })); E('pet', f.id, f.id, 0, 0, 0, 'Vigor'); f.pet.left = G.VIG_CD; }
-            else f.pet.left = 99;
+        if (f.pets) for (const pt of f.pets) {
+          pt.left -= DT;
+          if (pt.left <= 0) {
+            if (pt.role === 'fraqueza') { const foes = liveOf(1 - f.side); if (foes.length) { const x = rpick(foes), wf = G.weakF({ rar: pt.rar }) * pt.f; if (!x.weak || x.weak.u <= t || x.weak.f <= wf) x.weak = { f: wf, u: t + G.WEAK_DUR }; E('pet', f.id, x.id, 0, 0, 0, 'Fraqueza'); } pt.left = G.WEAK_CD; }
+            else if (pt.role === 'vigor') { healTo(f, f, f.mhp * G.vigHeal({ rar: pt.rar }) * pt.f); E('pet', f.id, f.id, 0, 0, 0, 'Vigor'); pt.left = G.VIG_CD; }
+            else pt.left = 99;
           }
         }
         if (f.stun > t) continue;

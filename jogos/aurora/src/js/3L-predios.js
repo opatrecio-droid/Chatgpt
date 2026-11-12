@@ -110,10 +110,14 @@
   };
 
   /* quem está no prédio agora: moradores da equipe (com o que fazem) e heróis dentro ou a caminho */
+  /* v27 (B1): o que cada equipe faz de verdade quando está em serviço (os três prédios de campo trazem a atividade ao vivo de 3M-vida) */
+  const WORK_IN = { ferraria: 'forjando na bigorna', padaria: 'assando o pão', alquimista: 'misturando ervas', taverna: 'servindo as mesas', mercado: 'atendendo no balcão', enfermaria: 'cuidando dos feridos', cidadela: 'escrevendo os registros', guilda: 'conferindo os contratos', hospedaria: 'arrumando as camas', torre: 'vigiando as muralhas', treino: 'ensinando golpes', estabulo: 'tratando as montarias' };
+  const WORK_OUT = { fazenda: 'vigiando o trigal contra pragas', estabulo: 'cuidando das montarias', padaria: 'carregando sacos de farinha', ferraria: 'batendo o ferro', alquimista: 'colhendo ervas para a poção' };
   const npcState = (n) => {
     if (n._sc) return n._sc === 'fire' ? 'na fogueira' : n._sc === 'tav' ? 'à mesa da Taverna' : 'treinando';
+    if (n._wk && G.workLabel) { const t = G.workLabel(n); if (t) return t; }
     if (n.act === 'hide') return 'abrigado';
-    if (n.act === 'work') return n.inside ? 'no balcão' : n.state === 'walk' ? 'a caminho do posto' : 'trabalhando';
+    if (n.act === 'work') return n.state === 'walk' ? 'a caminho do posto' : n.inside ? (WORK_IN[n.at] || 'no balcão') : (WORK_OUT[n.at] || WORK_IN[n.at] || 'trabalhando');
     if (n.act === 'lunch') return 'almoçando';
     if (n.act === 'leisure') return 'de folga';
     return n.state === 'walk' ? 'a caminho de casa' : 'em casa';

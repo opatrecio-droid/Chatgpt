@@ -95,17 +95,35 @@
   G.PET_IDS = Object.keys(G.PETS);
   /* duas espécies nativas de cada zona: os ovos das Incursões puxam para elas */
   G.ZPETS = { bosque: ['jabuti', 'lobinho'], ruinas: ['golem', 'morcego'], ermos: ['olho', 'raposa'], pantano: ['sapo', 'medusa'], pico: ['ursinho', 'coruja'], cinzas: ['fenix', 'draquinho'] };
+  /* v27 (B2): o Viveiro guarda todos os mascotes do reino (com dono, vagando na praça ou guardados): a regra de capacidade é a mesma de sempre e os vagantes contam */
   G.petCap = () => 8 + 2 * G.bLvl('estabulo');           // Viveiro
   G.petById = (id) => { if (!id) return null; const l = G.S.pets; for (let i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; return null; };
-  G.petOf = (h) => (h && h.pet ? G.petById(h.pet) : null);
-  G.petLoadCap = (p) => Math.round(G.PET_CAP[p.rar] * (G.PETS[p.k].role === 'carga' ? 1.5 : 1));
-  G.petLoad = (h) => { const p = G.petOf(h); return p ? p.bagN : 0; };
+  /* v27 (B2): até 3 mascotes por herói (h.pets = ids, do mais forte ao mais fraco; h.pet espelha o primeiro, para o que ainda lê o campo antigo).
+     Retornos decrescentes: o 1º vale 100%, o 2º 50% e o 3º 25% dos bônus de atributo, da Fraqueza, da cura do Vigor e da capacidade de carga (mínimo 3 itens) */
+  G.PET_MAX = 3;
+  G.PET_DIM = [1, 0.5, 0.25];
+  G.petsOf = (h) => { const o = []; if (!h || !h.pets) return o; for (let i = 0; i < h.pets.length; i++) { const p = G.petById(h.pets[i]); if (p) o.push(p); } return o; };
+  G.petOf = (h) => { const a = G.petsOf(h); return a.length ? a[0] : null; };         // o principal (o mais forte)
+  G.petSlots = (h) => G.PET_MAX - (h && h.pets ? h.pets.length : 0);
+  G.petRank = (p) => { if (!p.hero) return -1; const hs = G.S.heroes; for (let i = 0; i < hs.length; i++) if (hs[i].id === p.hero) return hs[i].pets ? hs[i].pets.indexOf(p.id) : -1; return -1; };      // 0, 1 ou 2: o lugar na fila do dono (-1 sem dono)
+  G.petDim = (p) => { const i = G.petRank(p); return i < 0 ? 1 : G.PET_DIM[Math.min(i, G.PET_DIM.length - 1)]; };
+  /* ordem do mais forte ao mais fraco: raridade, depois a espécie mais rara, depois o mais antigo */
+  const petSort = (h) => { h.pets.sort((a, b) => { const x = G.petById(a), y = G.petById(b); if (!x || !y) return 0; return y.rar - x.rar || G.PETS[y.k].r0 - G.PETS[x.k].r0 || x.id - y.id; }); h.pet = h.pets[0] || 0; };
+  G.petSort = petSort;
+  G.petLoadCap = (p) => Math.max(3, Math.round(G.PET_CAP[p.rar] * (G.PETS[p.k].role === 'carga' ? 1.5 : 1) * G.petDim(p)));
+  G.petLoad = (h) => { let n = 0; for (const p of G.petsOf(h)) n += p.bagN; return n; };
   G.petBonus = (p) => { const d = G.PETS[p.k], f = G.PET_POW[p.rar], o = {}; for (const k in d.p) o[k] = d.p[k] * f; if (d.role === 'vigor') o.hp = (o.hp || 0) + G.vigHp(p); return o; };
-  G.petFree = () => G.S.pets.filter((p) => !p.hero);
+  /* os bônus que o herói realmente recebe de um mascote (já com o retorno decrescente do lugar dele na fila) */
+  G.petBonusEff = (p) => { const o = G.petBonus(p), f = G.petDim(p); for (const k in o) o[k] *= f; return o; };
+  G.petFree = () => G.S.pets.filter((p) => !p.hero && !p.out);          // guardados no Viveiro (os que vagam pela praça não entram em fusão)
+  G.petStrays = () => G.S.pets.filter((p) => !p.hero && p.out);
   G.petMaxRar = () => G.S.pets.reduce((a, p) => Math.max(a, p.rar), -1);
   /* espécie de um ovo: nativas da zona pesam 6×; espécies muito acima da raridade do ovo aparecem menos */
   G.petRoll = (zid, rar) => { const nat = (zid && G.ZPETS[zid]) || []; return G.wpick(G.PET_IDS.map((k) => [k, (nat.indexOf(k) >= 0 ? 6 : 1) * (G.PETS[k].r0 > rar + 1 ? 0.25 : 1)])); };
-  G.petNew = (k, rar) => { const S = G.S, p = { id: G.uid(), k, rar: G.clamp(rar | 0, 0, 5), hero: 0, bag: {}, bagN: 0 }; S.pets.push(p); S.stats.petsGot = (S.stats.petsGot || 0) + 1; return p; };
+  /* v27 (B2): temperamento = o critério com que o mascote escolhe dono: 'v' Valente (o herói mais forte) ou 'd' Dengoso (o mais cativante). Cada espécie tem o seu jeito, com 25% de exceções */
+  G.PET_TEMP = { v: { name: 'Valente', short: 'admira quem é forte', crit: 'o mais forte' }, d: { name: 'Dengoso', short: 'segue quem tem carisma', crit: 'o mais cativante' } };
+  G.petTempRoll = (k) => { const ro = G.PETS[k].role, base = ro === 'fraqueza' || ro === 'carga' ? 'v' : ro === 'vigor' ? 'd' : (G.hash(k) % 2 ? 'v' : 'd'); return Math.random() < 0.25 ? (base === 'v' ? 'd' : 'v') : base; };
+  G.petNew = (k, rar) => { const S = G.S, p = { id: G.uid(), k, rar: G.clamp(rar | 0, 0, 5), hero: 0, bag: {}, bagN: 0, out: 0, tp: G.petTempRoll(k) }; S.pets.push(p); S.stats.petsGot = (S.stats.petsGot || 0) + 1; return p; };
   /* choca um ovo; com o Viveiro cheio ele vira Pó Estelar e Cristal de Alma */
   G.petHatch = (k, rar, why) => {
     const S = G.S;
@@ -115,8 +133,8 @@
       G.emit('pets', null); return null;
     }
     const p = G.petNew(k, rar);
-    G.log((why ? why + ': ' : '') + 'um ovo chocou — ' + G.PETS[k].name + ' ' + G.RAR[p.rar] + ' chegou ao Viveiro.', p.rar >= 3 ? 'epic' : 'good');
-    G.toast('Novo mascote: ' + G.PETS[k].name + ' (' + G.RAR[p.rar] + ')', p.rar >= 3 ? 'epic' : 'good', 'paw');
+    G.log((why ? why + ': ' : '') + 'um ovo chocou — ' + G.PETS[k].name + ' ' + G.RAR[p.rar] + ' apareceu na praça à procura de um dono.', p.rar >= 3 ? 'epic' : 'good');
+    G.toast('Novo mascote na praça: ' + G.PETS[k].name + ' (' + G.RAR[p.rar] + ')', p.rar >= 3 ? 'epic' : 'good', 'paw');
     G.sfx('rare'); G.emit('pets', p);
     return p;
   };
@@ -126,37 +144,46 @@
     for (const k in p.bag) { const v = p.bag[k]; if (!(v > 0)) continue; G.addRes(k, v); n += v; S.rep.today.mats = (S.rep.today.mats || 0) + v; G.questEvent('mat', v, k); }
     p.bag = {}; p.bagN = 0; return n;
   };
-  G.petUnload = (h) => { const p = G.petOf(h); return p ? G.petStore(p) : 0; };
+  G.petUnload = (h) => { let n = 0; for (const p of G.petsOf(h)) n += G.petStore(p); return n; };
   G.petRt = new Map();      // posição e alvo de cada mascote: não é salvo
   const rtDrop = (r) => { if (r.d) { if (r.d.pet) r.d.pet = 0; r.d = null; } };
   G.petRtOf = (p, h) => {
     let r = G.petRt.get(p.id);
-    if (!r) { r = { x: h.x - 0.8, y: h.y + 0.2, dir: h.dir || 1, moving: false, path: null, st: 'follow', d: null, tW: 2, tV: 3, tS: 0, cast: 0, ck: '' }; G.petRt.set(p.id, r); }
+    if (!r) { const i = Math.max(0, G.petRank(p)); r = { x: h.x - 0.8 - 0.7 * i, y: h.y + 0.2, dir: h.dir || 1, moving: false, path: null, st: 'follow', d: null, tW: 2 + i * 1.3, tV: 3 + i * 1.7, tS: i * 0.6, cast: 0, ck: '' }; G.petRt.set(p.id, r); }
     return r;
   };
-  /* h = null: dispensa (o mascote volta ao Viveiro e a carga vai para o Armazém) */
-  G.petAssign = (p, h) => {
-    const S = G.S; if (!p || S.pets.indexOf(p) < 0) return false;
+  /* tira o mascote do dono atual (a carga vai para o Armazém); não mexe em p.out */
+  const petDetach = (p) => {
+    const S = G.S;
+    for (const x of S.heroes) if (x.pets && x.pets.indexOf(p.id) >= 0) { x.pets = x.pets.filter((id) => id !== p.id); petSort(x); x._dirty = true; }
     for (const x of S.heroes) if (x.pet === p.id) { x.pet = 0; x._dirty = true; }
     p.hero = 0;
     const r = G.petRt.get(p.id); if (r) rtDrop(r);
+  };
+  /* h = null: dispensa (o mascote volta ao Viveiro e a carga vai para o Armazém). v27 (B2): com herói, só se ele tiver vaga (devolve false se já leva 3) */
+  G.petAssign = (p, h) => {
+    const S = G.S; if (!p || S.pets.indexOf(p) < 0) return false;
+    if (h && h.pets && h.pets.indexOf(p.id) < 0 && h.pets.length >= G.PET_MAX) return false;
+    const was = p.hero;
+    if (h && was === h.id) return true;
+    petDetach(p); p.out = 0;
     if (h) {
-      const old = G.petOf(h); if (old && old !== p) { old.hero = 0; const ro = G.petRt.get(old.id); if (ro) rtDrop(ro); G.petRt.delete(old.id); G.petStore(old); }
-      h.pet = p.id; p.hero = h.id; h._dirty = true; h.animo = Math.min(100, h.animo + 6);
-      if (r) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; r.st = 'follow'; }
+      if (!h.pets) h.pets = [];
+      h.pets.push(p.id); p.hero = h.id; petSort(h); h._dirty = true; h.animo = Math.min(100, h.animo + 6);
+      const r = G.petRt.get(p.id); if (r) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; r.st = 'follow'; }
     } else { G.petRt.delete(p.id); G.petStore(p); }
     G.emit('pets', p); G.emit('heroes');
     return true;
   };
   G.petRelease = (p) => {
-    const S = G.S, i = S.pets.indexOf(p); if (i < 0 || p.hero) return false;
+    const S = G.S, i = S.pets.indexOf(p); if (i < 0 || p.hero) return false;      // v27 (B2): vale para guardados e para vagantes
     G.petStore(p); S.pets.splice(i, 1); G.petRt.delete(p.id);
     const po = 2 * (p.rar + 1); G.addRes('po_estelar', po);
     G.log(G.PETS[p.k].name + ' voltou para a natureza e deixou ' + po + ' Pó Estelar no Viveiro.', 'info'); G.emit('pets', null);
     return true;
   };
   /* fusão: três mascotes livres da mesma raridade viram um da raridade seguinte (espécie sorteada entre os três) */
-  G.petCanFuse = (ps) => !!ps && ps.length === 3 && new Set(ps).size === 3 && ps.every((p) => p && G.S.pets.indexOf(p) >= 0 && !p.hero && p.rar === ps[0].rar) && ps[0].rar < 5;
+  G.petCanFuse = (ps) => !!ps && ps.length === 3 && new Set(ps).size === 3 && ps.every((p) => p && G.S.pets.indexOf(p) >= 0 && !p.hero && !p.out && p.rar === ps[0].rar) && ps[0].rar < 5;
   G.petFuse = (ps) => {
     const S = G.S; if (!G.petCanFuse(ps)) return null;
     const rar = ps[0].rar + 1, k = G.pick(ps).k;
@@ -169,12 +196,12 @@
   /* os bônus do mascote entram na soma do herói (passivo × raridade; Vigor soma vida) */
   const hb0 = G.heroBonus;
   G.heroBonus = (h) => {
-    const b = hb0(h), p = G.petOf(h);
-    if (p) { const o = G.petBonus(p); for (const k in o) if (b[k] !== undefined) b[k] += o[k]; }
+    const b = hb0(h), ps = G.petsOf(h);
+    for (let i = 0; i < ps.length; i++) { const f = G.PET_DIM[Math.min(i, G.PET_DIM.length - 1)], o = G.petBonus(ps[i]); for (const k in o) if (b[k] !== undefined) b[k] += o[k] * f; }      // v27 (B2): retornos decrescentes (100% / 50% / 25%)
     return b;
   };
   G.petWeaken = (p, h, m, r) => {
-    const S = G.S, F = G.weakF(p) * (m.boss ? 0.5 : 1), dur = G.WEAK_DUR * (m.boss ? 0.6 : 1);
+    const S = G.S, F = G.weakF(p) * G.petDim(p) * (m.boss ? 0.5 : 1), dur = G.WEAK_DUR * (m.boss ? 0.6 : 1);
     if (!(m.weak > S.t) || (m.weakF || 0) <= F) m.weakF = F;
     m.weak = Math.max(m.weak || 0, S.t + dur);
     if (r) { r.cast = 0.6; r.ck = 'weak'; r.dir = m.x >= r.x ? 1 : -1; }
@@ -183,7 +210,7 @@
     S.stats.weak = (S.stats.weak || 0) + 1;
   };
   G.petHeal = (p, h, r) => {
-    const st = G.heroStats(h), v = st.hp * G.vigHeal(p);
+    const st = G.heroStats(h), v = st.hp * G.vigHeal(p) * G.petDim(p);
     h.hp = Math.min(st.hp, h.hp + v);
     if (r) { r.cast = 0.6; r.ck = 'heal'; }
     G.addFx({ t: 'dmg', x: h.x, y: h.y - 0.9, n: Math.round(v), c: '#7df09a', heal: 1 }); G.addFx({ t: 'healring', x: h.x, y: h.y - 0.3 }); G.sfx('heal', h.x, h.y);
@@ -192,26 +219,31 @@
   const FIELD = { hunt: 1, travel: 1, return: 1, flee: 1, defend: 1, rift: 1, inc: 1 };
   const FIGHT = { hunt: 1, defend: 1, rift: 1, inc: 1 };
   /* comportamento simulado: segue o dono, busca o espólio no raio, recolhe o que couber e volta */
+  /* v27 (B2): lugares na fila atrás do dono (atrás e para os lados, para ninguém ficar em cima de ninguém) */
+  const TRAIL = [[0.9, 0.15], [1.55, 0.6], [1.7, -0.3]], WAIT = [[0.7, 0.35], [1.25, 0.75], [1.3, -0.05]];
+  G.PET_TRAIL = TRAIL;
   const petTick = (dt) => {
     const S = G.S, hs = S.heroes;
     for (const p of S.pets) {
       if (!p.hero) continue;
       let r = G.petRt.get(p.id), h = r && r.h;
       if (!h || h.id !== p.hero) { h = null; for (let i = 0; i < hs.length; i++) if (hs[i].id === p.hero) { h = hs[i]; break; } }
-      if (!h || h.pet !== p.id) { p.hero = 0; G.petRt.delete(p.id); continue; }
+      const idx = h && h.pets ? h.pets.indexOf(p.id) : -1;
+      if (!h || idx < 0) { p.hero = 0; G.petRt.delete(p.id); continue; }
       if (!r) r = G.petRtOf(p, h); r.h = h;
+      const tr = TRAIL[Math.min(idx, 2)], wt = WAIT[Math.min(idx, 2)];
       if (r.cast > 0) r.cast -= dt;
       /* dentro de construções ou caído o dono: espera ao lado */
       if (h.inside || h.state === 'fallen' || h.state === 'recover') {
         if (r.st !== 'wait') { rtDrop(r); r.st = 'wait'; }
-        const wx = h.x - 0.7, wy = h.y + 0.35, dw = Math.abs(wx - r.x) + Math.abs(wy - r.y);
+        const wx = h.x - wt[0], wy = h.y + wt[1], dw = Math.abs(wx - r.x) + Math.abs(wy - r.y);
         if (dw > 14) { r.x = wx; r.y = wy; r.path = null; }
         if (dw > 0.6) G.chase(r, wx, wy, dt, Math.max(3.1, G.heroStats(h).spd * G.PET_SPD), 0.3); else r.moving = false;
         continue;
       }
       const d = G.PETS[p.k], role = d.role;
       const spd = Math.max(3.1, G.heroStats(h).spd * G.PET_SPD) * (role === 'faro' ? 1.35 : 1);
-      if (Math.abs(h.x - r.x) + Math.abs(h.y - r.y) > 16) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; rtDrop(r); r.st = 'follow'; }
+      if (Math.abs(h.x - r.x) + Math.abs(h.y - r.y) > 16) { r.x = h.x - tr[0]; r.y = h.y + tr[1]; r.path = null; rtDrop(r); r.st = 'follow'; }
       /* papéis de combate */
       if (FIGHT[h.state]) {
         if (role === 'fraqueza') { r.tW -= dt; const m = h.tgt; if (r.tW <= 0 && m && !m.dead && !m.gone && m.hp > 0 && Math.hypot(m.x - r.x, m.y - r.y) < 8) { r.tW = G.WEAK_CD; G.petWeaken(p, h, m, r); } }
@@ -242,9 +274,11 @@
           if (best) { best.pet = p.id; r.d = best; r.st = 'fetch'; continue; }
         }
       }
-      const gx = h.x - (h.dir || 1) * 0.9, gy = h.y + 0.15;
+      const gx = h.x - (h.dir || 1) * tr[0], gy = h.y + tr[1];
       if (Math.abs(gx - r.x) + Math.abs(gy - r.y) > 0.7) G.chase(r, gx, gy, dt, spd, 0.25); else { r.moving = false; r.path = null; r.dir = h.dir || 1; }
     }
+    /* ninguém na fila fica em cima de outro: afasta os que ficaram a menos de 0,45 passo */
+    for (const h of hs) { const ps = h.pets; if (!ps || ps.length < 2 || h.inside) continue; for (let i = 0; i < ps.length; i++) { const a = G.petRt.get(ps[i]); if (!a) continue; for (let j = i + 1; j < ps.length; j++) { const b = G.petRt.get(ps[j]); if (!b) continue; const dx = b.x - a.x, dy = b.y - a.y, dd = Math.hypot(dx, dy); if (dd < 0.45) { const k = (0.45 - dd) * 0.5 / (dd || 1), ux = dd ? dx : 1, uy = dd ? dy : 0; b.x += ux * k; b.y += uy * k; a.x -= ux * k; a.y -= uy * k; } } } }
   };
 
   /* ================= Incursões ================= */
@@ -405,7 +439,7 @@
     if (!r || !r.pet) return gr0(r, why);
     const o = Object.assign({}, r); delete o.pet;
     const txt = gr0(o, why), p = G.petHatch(r.pet, 0, 'Caminho');
-    if (p) { const h = G.S.heroes.find((x) => !x.pet); if (h) G.petAssign(p, h); }
+    /* v27 (B2): o filhote do Caminho também chega como vagante e escolhe sozinho um dono */
     return (p ? G.PETS[r.pet].name + ' (' + G.RAR[0] + ')' : 'Pó Estelar e Cristal de Alma') + (txt ? ', ' + txt : '');
   };
 
@@ -431,7 +465,7 @@
 
   /* ================= ganchos ================= */
   const ds0 = G.dismiss;
-  G.dismiss = (h) => { const p = G.petOf(h); if (p) G.petAssign(p, null); ds0(h); };
+  G.dismiss = (h) => { for (const p of G.petsOf(h).slice()) G.petAssign(p, null); ds0(h); };      // v27 (B2): todos voltam ao Viveiro
   const ue0 = G.updateEncounters;
   G.updateEncounters = (dt) => { ue0(dt); incTick(dt); petTick(dt); dropsTick(dt); };
   /* migração: cada cópia de mascote do guarda-roupa da v21 vira um indivíduo com a raridade-base da espécie */
@@ -448,15 +482,21 @@
     if (S.cos) for (const old in V21) {
       const n = S.cos[old] || 0; if (!n) { delete S.cos[old]; continue; }
       const k = V21[old], wear = S.heroes.filter((h) => h.cos && h.cos.pet === old);
-      for (let i = 0; i < n; i++) { const p = G.petNew(k, G.PETS[k].r0), h = wear[i]; if (h && !h.pet) { h.pet = p.id; p.hero = h.id; } }
+      for (let i = 0; i < n; i++) { const p = G.petNew(k, G.PETS[k].r0), h = wear[i]; p.out = 0; if (h && !h.pet && !(h.pets && h.pets.length)) { h.pet = p.id; p.hero = h.id; } }
       delete S.cos[old];
     }
     for (const h of S.heroes) { if (h.cos && 'pet' in h.cos) delete h.cos.pet; if (!(h.pet > 0)) h.pet = 0; h._dirty = true; }
     for (const p of S.pets) {
       if (!G.PETS[p.k]) p.k = 'gato'; p.rar = G.clamp(p.rar | 0, 0, 5); if (!p.bag || typeof p.bag !== 'object') p.bag = {};
-      let n = 0; for (const k in p.bag) { if (!G.RES[k] || !(p.bag[k] > 0)) delete p.bag[k]; else n += p.bag[k]; } p.bagN = n; p.hero = 0;
+      let n = 0; for (const k in p.bag) { if (!G.RES[k] || !(p.bag[k] > 0)) delete p.bag[k]; else n += p.bag[k]; } p.bagN = n; p.hero = 0; p.out = p.out ? 1 : 0;
     }
-    for (const h of S.heroes) if (h.pet) { const p = G.petById(h.pet); if (!p || p.hero) h.pet = 0; else p.hero = h.id; }
+    /* v27 (B2): um herói pode ter até 3 mascotes (h.pets). Saves da v26/v27-A só têm h.pet (um): vira uma lista de um; a lista nova é validada contra os mascotes que existem */
+    for (const h of S.heroes) {
+      const ids = Array.isArray(h.pets) ? h.pets.slice() : []; if (h.pet > 0 && ids.indexOf(h.pet) < 0) ids.unshift(h.pet);
+      h.pets = [];
+      for (const id of ids) { const p = G.petById(id); if (p && !p.hero && h.pets.length < G.PET_MAX) { p.hero = h.id; p.out = 0; h.pets.push(id); } }
+      G.petSort(h);
+    }
     G.drops.length = 0; G.petRt.clear();
     vm1();
   };

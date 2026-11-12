@@ -116,12 +116,7 @@
     { const [cx, cy] = G.CRATER.center; x.lineWidth = 2; for (const [rad, col] of [[58, 'rgba(208,112,255,.75)'], [44, 'rgba(160,90,240,.55)'], [20, 'rgba(230,190,255,.7)']]) { x.strokeStyle = col; x.beginPath(); x.ellipse(cx * TS, cy * TS, rad, rad * 0.62, 0, 0, 6.283); x.stroke(); }
       for (let a = 0; a < 8; a++) { const ax = cx * TS + Math.cos(a * 0.785) * 51, ay = cy * TS + Math.sin(a * 0.785) * 51 * 0.62; x.fillStyle = '#e6c0ff'; x.fillRect(ax - 2, ay - 2, 4, 4); x.fillStyle = '#7a34b8'; x.fillRect(ax - 1, ay - 1, 2, 2); } }
     for (const z of G.ZONES) { const [lx, ly] = z.lair; x.strokeStyle = 'rgba(20,14,30,.35)'; x.lineWidth = 2; x.setLineDash([5, 4]); x.beginPath(); x.ellipse(lx * TS, ly * TS, 46, 28, 0, 0, 6.283); x.stroke(); x.setLineDash([]); }
-    /* plantações: fileiras de trigo e de ervas */
-    for (const f of Wd.fields) for (let ty = f.y0; ty <= f.y1; ty++) for (let tx = f.x0; tx <= f.x1; tx++) for (let r = 0; r < 2; r++) for (let i = 0; i < 4; i++) {
-      const px = tx * TS + 2 + i * 4, py = ty * TS + 3 + r * 8;
-      if (f.crop === 0) { dot(px, py - 3, '#e8c450', 2, 4); dot(px, py - 4, '#f7de8a', 1, 1); dot(px, py + 1, '#a87f24', 1, 2); }
-      else { dot(px - 1, py - 1, '#4f9a48', 3, 2); dot(px, py - 2, '#7fd070', 1, 1); }
-    }
+    /* plantações: v27 (B1) as fileiras deixaram de ser pintadas aqui: cada canteiro é desenhado por quadro no estágio real (54-vida-art), para crescer, ser colhido e replantado */
     terrainCv = cv; return cv;
   };
 

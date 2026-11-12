@@ -975,10 +975,14 @@ G.CAST = [
   { name: 'Dário', job: 'Feirante', at: 'mercado', look: 13 }, { name: 'Elga', job: 'Caixa', at: 'mercado', look: 14 },
   { name: 'Alda', job: 'Padeira', at: 'padaria', look: 15 }, { name: 'Breno', job: 'Moleiro', at: 'padaria', look: 16 },
   { name: 'Vasco', job: 'Instrutor', at: 'treino', look: 17 }, { name: 'Úrsula', job: 'Guarda', at: 'torre', look: 18 },
-  { name: 'Joca', job: 'Fazendeiro', at: 'fazenda', look: 19 }, { name: 'Lina', job: 'Lavradora', at: 'fazenda', look: 20 },
-  { name: 'Nuno', job: 'Lenhador', at: 'lenharia', look: 21 }, { name: 'Pedro', job: 'Minerador', at: 'pedreira', look: 22 },
+  { name: 'Joca', job: 'Fazendeiro', at: 'fazenda', look: 19, wk: 1 }, { name: 'Lina', job: 'Lavradora', at: 'fazenda', look: 20, wk: 2 },
+  { name: 'Nuno', job: 'Lenhador', at: 'lenharia', look: 21, wk: 1 }, { name: 'Pedro', job: 'Minerador', at: 'pedreira', look: 22, wk: 1 },
   { name: 'Yara', job: 'Aprendiz', at: 'mercado', look: 23 }, { name: 'Zeno', job: 'Caçador de animais', at: 'fazenda', look: 24 },
   { name: 'Tomé', job: 'Tratador', at: 'estabulo', look: 25 },
+  /* v27 (B1): equipe que cresce com o nível do prédio (1 no nível 1–2, 2 no 3–5, 3 a partir do 6): `wk` é a ordem de chegada */
+  { name: 'Tonho', job: 'Lenhador', at: 'lenharia', look: 26, wk: 2 }, { name: 'Cida', job: 'Lenhadora', at: 'lenharia', look: 27, wk: 3 },
+  { name: 'Beto', job: 'Minerador', at: 'pedreira', look: 28, wk: 2 }, { name: 'Mara', job: 'Mineradora', at: 'pedreira', look: 29, wk: 3 },
+  { name: 'Tião', job: 'Colhedor', at: 'fazenda', look: 21, wk: 3 },
 ];
 G.EXTRA_NAMES = ['Abel', 'Bia', 'Caio', 'Dora', 'Elói', 'Flora', 'Gil', 'Helga', 'Ian', 'Jana', 'Kito', 'Leda', 'Marco', 'Nádia', 'Oto', 'Pilar', 'Raul', 'Sara', 'Tito', 'Una', 'Vito', 'Zélia'];
 G.BARKS = {
@@ -1257,7 +1261,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     }
     world.blocked = blockedProp;
     world.ready = true;
-    world._pcache = new Map();
+    world._pcache = new Map(); world._pcacheN = new Map(); world._npc = false;
   };
 
   /* ---------- consultas ---------- */
@@ -1301,8 +1305,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const si = Math.floor(s[1]) * W + Math.floor(s[0]), ti = Math.floor(t[1]) * W + Math.floor(t[0]);
     if (si === ti) return [[t[0], t[1]]];
     if (world.los(s[0], s[1], t[0], t[1])) return [[t[0], t[1]]];
+    const pcache = world._npc ? world._pcacheN : world._pcache;      // v27 (B1): moradores e vagantes têm cache próprio: o caminho guardado depende de quem pediu primeiro, e isso não pode vazar para heróis e monstros
     const key = si * N + ti;
-    const hit = world._pcache.get(key);
+    const hit = pcache.get(key);
     if (hit) return hit.map((p) => [p[0], p[1]]);
     gen++; heap.length = 0;
     const txi = ti % W, tyi = Math.floor(ti / W);
@@ -1341,8 +1346,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       out.push(raw[b]); px = raw[b][0]; py = raw[b][1]; a = b;
     }
     if (!out.length) out.push(raw[raw.length - 1]);
-    if (world._pcache.size > 1500) world._pcache.clear();
-    world._pcache.set(key, out);
+    if (pcache.size > 1500) pcache.clear();
+    pcache.set(key, out);
     return out.map((p) => [p[0], p[1]]);
   };
 
@@ -1408,7 +1413,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       hp: 1, fome: G.rnd(70, 100), energia: G.rnd(75, 100), animo: 70, gold: o.gold || 0, bag: {}, bagN: 0, potions: o.potions == null ? 2 : o.potions,
       gear: { arma: null, armadura: null, elmo: null, luvas: null, botas: null, cinto: null, acessorio: null, anel: null }, caution: 1, order: 'auto',
       j2: null, j3: null, sk: [1, 1, 1], arts: {}, ap: 0, apB: 0, wake: 0, mount: 0, tS2: 5, tS3: 8, bv: {}, shield: 0,
-      cos: { traje: null, asas: null, reliquia: null }, autoArt: 0, pet: 0,
+      cos: { traje: null, asas: null, reliquia: null }, autoArt: 0, pet: 0, pets: [],
       state: 'town', x: Wd.portal.mouth[0], y: Wd.portal.mouth[1], dir: 1, zone: null, kills: 0, falls: 0, born: S.day,
       tAtk: 0, tSkill: 3, tPot: 0, tThink: 0, lastHit: -99, wound: 0, buff: {}, grace: 0,
       look: { skin: G.ri(0, 4), hair: G.ri(0, 9), style: G.ri(0, 5), seed: G.ri(1, 99999) },
@@ -2406,7 +2411,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const add = (id, n) => {
       const cap = G.resCap(id), cur = S.res[id] || 0;
       if (cur + n > cap) { const over = cur + n - cap; n -= over; if (G.bOk('mercado') && S.opts.autoSell && G.BASE_RES.indexOf(id) >= 0 && id !== 'refeicao' && id !== 'pocao') G.earn(G.sellPrice(id) * over * 0.7, 'exportacao'); }
-      if (n > 0) { G.addRes(id, n); S.rep.today.prod = (S.rep.today.prod || 0) + n; }
+      if (n > 0) { G.addRes(id, n); S.rep.today.prod = (S.rep.today.prod || 0) + n; if (G.onProd) G.onProd(id, n); }      // v27 (B1): só avisa a vida da cidade (3M) o que foi mesmo produzido; ela nunca escreve em recursos
     };
     if (work) { add('trigo', r.trigo); add('ervas', r.ervas); add('madeira', r.madeira); add('pedra', r.pedra); add('minerio', r.minerio); }
     if (h >= G.PROD.serv[0] && h < G.PROD.serv[1]) {
@@ -2496,12 +2501,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.npcs = [];
   const mkNpc = (c, i) => {
     const home = Wd.houses[i % Wd.houses.length];
-    return { id: 'n' + i, name: c.name, job: c.job, at: c.at, look: c.look, x: home.door[0], y: home.door[1], dir: 1, home: i % Wd.houses.length, state: 'home', inside: true, off: (G.hash(c.name) % 50) - 25, tThink: Math.random() * 2, act: 'home', spd: 1.5 + (G.hash(c.name) % 5) * 0.08 };
+    return { id: 'n' + i, name: c.name, job: c.job, at: c.at, look: c.look, wk: c.wk || 0, x: home.door[0], y: home.door[1], dir: 1, home: i % Wd.houses.length, state: 'home', inside: true, off: (G.hash(c.name) % 50) - 25, tThink: Math.random() * 2, act: 'home', spd: 1.5 + (G.hash(c.name) % 5) * 0.08 };
   };
+  /* v27 (B1): moradores de campo (lenharia, pedreira, fazenda) por nível do prédio: 1 nos níveis 1–2, 2 nos 3–5, 3 do 6 em diante (teto 3) */
+  G.workerCount = (id) => { const l = G.bLvl(id); return l <= 0 ? 0 : l <= 2 ? 1 : l <= 5 ? 2 : 3; };
   G.syncNpcs = () => {
     const S = G.S; if (!S) return;
     const want = [];
-    G.CAST.forEach((c) => { if (G.bLvl(c.at) > 0) want.push(c); });
+    G.CAST.forEach((c) => { if (G.bLvl(c.at) > 0 && (!c.wk || c.wk <= G.workerCount(c.at))) want.push(c); });      // v27 (B1): a equipe de campo cresce com o nível do prédio
     const extra = Math.max(0, Math.min(G.EXTRA_NAMES.length, (S.pop || 12) - want.length));
     for (let i = 0; i < extra; i++) want.push({ name: G.EXTRA_NAMES[i], job: 'Morador', at: null, look: 30 + i });
     const by = {}; for (const n of G.npcs) by[n.name] = n;
@@ -2518,6 +2525,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const h = (hr + n.off / 60 + 24) % 24;
     if (G.S.mare.active) return 'hide';
     if (h >= 22 || h < 5.5) return 'home';
+    if (n.at && h < 18 && !G.bOk(n.at)) return h >= 12 && h < 13 ? 'lunch' : 'leisure';      // v27 (B1): prédio fechado ou danificado: ninguém trabalha nele
     if (h >= 12 && h < 13) return 'lunch';
     if (h >= 18) return 'leisure';
     return n.at ? 'work' : 'leisure';
@@ -2553,7 +2561,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       if (G.step(n, dt, n.spd * (n.act === 'hide' ? 1.6 : 1))) { n.state = n.goal === 'in' ? 'in' : n.goal; n.inside = n.goal === 'in'; n.moving = false; if (n.goal === 'toil') n.dir = Math.random() < 0.5 ? 1 : -1; }
     }
   };
-  G.updateNpcs = (dt) => { if (G.OFFLINE) return; for (const n of G.npcs) if (!n._sc) updateNpc(n, dt); };   // v27 (A1): moradores só enfeitam; no avanço do tempo ausente ficam parados (≈10% do custo do tick)   // v26: quem está numa cena da cidade (3G) é conduzido por ela
+  G.updateNpcs = (dt) => { if (G.OFFLINE) { if (G.lifeOffline) G.lifeOffline(); return; } for (const n of G.npcs) if (!n._sc && !(n.wk && G.lifeNpc && G.lifeNpc(n, dt))) updateNpc(n, dt); if (G.lifeTick) G.lifeTick(dt); };      // v27 (B1): a equipe de campo é conduzida por 3M-vida (lifeNpc devolve true quando assume o morador)   // v27 (A1): moradores só enfeitam; no avanço do tempo ausente ficam parados (≈10% do custo do tick)   // v26: quem está numa cena da cidade (3G) é conduzido por ela
 
   /* ---------- economia diária ---------- */
   G.bWage = (id, l) => { if (l == null) l = G.bLvl(id); return l > 0 ? 5 * Math.pow(1.33, l - 1) : 0; };      // salário diário da equipe de um prédio
@@ -3207,10 +3215,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
 
   /* quem está no prédio agora: moradores da equipe (com o que fazem) e heróis dentro ou a caminho */
+  /* v27 (B1): o que cada equipe faz de verdade quando está em serviço (os três prédios de campo trazem a atividade ao vivo de 3M-vida) */
+  const WORK_IN = { ferraria: 'forjando na bigorna', padaria: 'assando o pão', alquimista: 'misturando ervas', taverna: 'servindo as mesas', mercado: 'atendendo no balcão', enfermaria: 'cuidando dos feridos', cidadela: 'escrevendo os registros', guilda: 'conferindo os contratos', hospedaria: 'arrumando as camas', torre: 'vigiando as muralhas', treino: 'ensinando golpes', estabulo: 'tratando as montarias' };
+  const WORK_OUT = { fazenda: 'vigiando o trigal contra pragas', estabulo: 'cuidando das montarias', padaria: 'carregando sacos de farinha', ferraria: 'batendo o ferro', alquimista: 'colhendo ervas para a poção' };
   const npcState = (n) => {
     if (n._sc) return n._sc === 'fire' ? 'na fogueira' : n._sc === 'tav' ? 'à mesa da Taverna' : 'treinando';
+    if (n._wk && G.workLabel) { const t = G.workLabel(n); if (t) return t; }
     if (n.act === 'hide') return 'abrigado';
-    if (n.act === 'work') return n.inside ? 'no balcão' : n.state === 'walk' ? 'a caminho do posto' : 'trabalhando';
+    if (n.act === 'work') return n.state === 'walk' ? 'a caminho do posto' : n.inside ? (WORK_IN[n.at] || 'no balcão') : (WORK_OUT[n.at] || WORK_IN[n.at] || 'trabalhando');
     if (n.act === 'lunch') return 'almoçando';
     if (n.act === 'leisure') return 'de folga';
     return n.state === 'walk' ? 'a caminho de casa' : 'em casa';
@@ -3224,6 +3236,452 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     }
     return { npcs, heroes, training: id === 'treino' ? { n: S._training || 0, of: G.bLvl('treino') } : null };
   };
+})();
+
+;
+/* ===== 3M-vida.js ===== */
+/* 3M-vida: v27 (B1) — a cidade trabalha de verdade. Lenhadores, mineradores e lavradores deixam de ser enfeite: andam até uma árvore, rocha ou canteiro,
+   trabalham (machado, picareta, enxada, foice, regador), carregam o que tiraram e largam numa pilha ao lado do prédio, e repetem.
+   REGRA DE OURO: nada aqui escreve em recursos, ouro, ânimo ou relógio. A produção continua sendo a de 32-town (G.prodRates, uma vez por hora de jogo);
+   este módulo só LÊ o que foi produzido (G.onProd, avisado por hourTick) para dar números honestos às entregas: cada pilha mostra "+N madeira" com o
+   que foi mesmo produzido desde a entrega anterior (acumulador só de exibição, nunca soma mais do que produziu). Árvores, rochas e canteiros têm estado
+   próprio (cresce, cai, quebra, brota) que não influencia nada no jogo. O sorteio dos moradores usa um gerador próprio: ligar ou desligar a vida da
+   cidade nunca muda a sequência de Math.random do resto da simulação (testado em tools/test-vida.js).
+   Só simulação, sem DOM (a arte e o desenho moram em 54-vida-art.js). No avanço do tempo ausente (G.OFFLINE) nada anda: só o acumulador deixa de contar. */
+'use strict';
+(function () {
+  const Wd = G.W;
+  const HOUR = G.DAY_SEC / 24;                     // segundos de jogo por hora do dia (12,5)
+  const npcRng = G.seeded(0xA11CE5);
+  const SITES = { lenharia: 1, pedreira: 1, fazenda: 1 };
+  G.LIFE = {
+    treePool: 22,                                  // árvores marcadas para o corte em volta da Lenharia
+    treeHits: 4, sawHits: 3, logs: 3,              // golpes para derrubar, cortes do tronco, toras por árvore
+    stumpT: 8, sapT: 34, youngT: 42,               // toco -> muda -> árvore jovem -> árvore (s de jogo)
+    rockHits: 4, pieces: 3, bareT: 5, smallT: 15,  // golpes para quebrar, pedaços por rocha, rocha: restos -> nova
+    grow: [0, 7, 13, 15],                          // canteiro: semente (molhada) -> broto -> crescendo -> maduro (s de jogo)
+    wetT: 34,                                      // quanto tempo a terra fica molhada
+    pileLife: 48, pileMax: 8,                      // a pilha esvazia (carroça) depois disto; no máximo de peças visíveis
+    shiftIn: 5.55, shiftOut: 18.0, shiftHard: 18.8 // horas: chegam um pouco antes do expediente (6 h) e saem ao fim dele
+  };
+  const LF = G.LIFE;
+  const L = (G.life = { S: null, trees: [], rocks: [], tiles: [], pile: {}, piles: { lenharia: [], pedreira: [], fazenda: [] }, acc: {}, made: {}, shown: {}, pops: 0, lastPop: null, log: [], cyc: { lenharia: 14, pedreira: 14, fazenda: 20 }, off: 0, rate: null, rateT: -9 });
+  const TREE_TXT = { tree_oak: 'um carvalho', tree_pine: 'um pinheiro' };
+
+  /* ================= o mundo de trabalho (fixo, montado logo depois do mapa) ================= */
+  const reachFrom = (sx, sy) => {
+    const seen = new Uint8Array(Wd.w * Wd.h), q = [[Math.floor(sx), Math.floor(sy)]]; seen[q[0][1] * Wd.w + q[0][0]] = 1;
+    while (q.length) { const [x, y] = q.pop(); for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const nx = x + dx, ny = y + dy; if (nx < 0 || ny < 0 || nx >= Wd.w || ny >= Wd.h) continue; const i = ny * Wd.w + nx; if (seen[i] || !Wd.walk[i]) continue; seen[i] = 1; q.push([nx, ny]); } }
+    return seen;
+  };
+  /* onde o trabalhador fica para atingir (x, y): ao lado do tronco, virado para ele */
+  /* copa de outra árvore na frente do trabalhador (ela é desenhada depois dele e o esconderia): conta como "tampado" */
+  let canopies = null;
+  const covered = (sx, sy) => { if (!canopies) canopies = Wd.props.filter((q) => q.t.indexOf('tree_') === 0); for (const q of canopies) if (q.y > sy + 0.05 && q.y < sy + 2.8 && Math.abs(q.x - sx) < 1.35) return true; return false; };
+  const standFor = (x, y, seen) => {
+    let first = null;
+    for (const side of [-1, 1]) {
+      const sx = x + side * 0.95, sy = y + 0.25;
+      if (Wd.walkable(sx, sy) && seen[Math.floor(sy) * Wd.w + Math.floor(sx)]) { const o = { sx, sy, face: -side, cov: covered(sx, sy) ? 1 : 0 }; if (!o.cov) return o; first = first || o; }
+    }
+    if (first) return first;
+    const sx = x, sy = y + 0.95;
+    if (Wd.walkable(sx, sy) && seen[Math.floor(sy) * Wd.w + Math.floor(sx)]) return { sx, sy, face: 1, cov: covered(sx, sy) ? 1 : 0 };
+    return null;
+  };
+  const buildSites = () => {
+    const trees = [], rocks = [], tiles = [];
+    /* árvores do corte: as mais próximas da porta da Lenharia que têm onde pisar (alcançáveis a pé) */
+    { const d = Wd.plots.lenharia.door, seen = reachFrom(d[0], d[1]), c = [];
+      for (const p of Wd.props) {
+        if (p.t !== 'tree_oak' && p.t !== 'tree_pine') continue;
+        const dd = Math.hypot(p.x - d[0], p.y - d[1]); if (dd > 12 || dd < 2.6) continue;
+        const st = standFor(p.x, p.y, seen); if (!st) continue;
+        c.push({ p, dd, st });
+      }
+      c.sort((a, b) => a.st.cov - b.st.cov || a.dd - b.dd);      // primeiro as árvores em que o trabalhador aparece inteiro, depois as outras
+      /* espalha: nunca duas árvores coladas na lista (o corte não abre uma clareira só) */
+      for (const o of c) { if (trees.length >= LF.treePool) break; if (trees.some((t) => Math.hypot(t.x - o.p.x, t.y - o.p.y) < 1.7)) continue; trees.push({ i: trees.length, p: o.p, x: o.p.x, y: o.p.y, k: o.p.t, v: o.p.v | 0, sx: o.st.sx, sy: o.st.sy, face: o.st.face, st: 'tree', t: 0, need: LF.treeHits, hit: 0, logs: 0, pend: 0, owner: 0, sh: 0, fd: 1, crown: 0 }); }
+    }
+    /* rochas do filão: o paredão de ocre fica no pé da muralha, a leste da Pedreira */
+    { const d = Wd.plots.pedreira.door, seen = reachFrom(d[0], d[1]);
+      const spots = [[28, 68, 'pedra'], [30, 68, 'minerio'], [32, 68, 'pedra'], [34, 68, 'minerio'], [29, 70, 'pedra'], [28, 72, 'minerio'], [30, 72, 'pedra']];
+      for (const [tx, ty, kind] of spots) {
+        const x = tx + 0.5, y = ty + 0.9, st = standFor(x, y, seen); if (!st) continue;
+        Wd.walk[ty * Wd.w + tx] = 0;
+        rocks.push({ i: rocks.length, x, y, tx, ty, kind, sx: st.sx, sy: st.sy, face: st.face, st: 'rock', t: 0, hit: 0, stage: 0, pieces: 0, pend: 0, owner: 0, sh: 0, v: rocks.length });
+      }
+    }
+    /* canteiros: cada tile dos quatro campos */
+    Wd.fields.forEach((f, fi) => { for (let ty = f.y0; ty <= f.y1; ty++) for (let tx = f.x0; tx <= f.x1; tx++) tiles.push({ i: tiles.length, x: tx, y: ty, f: fi, crop: f.crop, st: 4, t: 0, wet: 0, owner: 0, sh: 0 }); });
+    Wd.life = { trees, rocks, tiles, pile: { lenharia: [74.7, 29.35], pedreira: [27.6, 75.5], fazenda: [68.9, 49.7] } };
+    if (Wd._pcache) { Wd._pcache.clear(); Wd._pcacheN.clear(); }
+  };
+  const wi0 = Wd.init;
+  Wd.init = () => { wi0(); buildSites(); };
+
+  /* ================= estado de execução (não é salvo: recomeça a cada jogo novo ou carregado) ================= */
+  const reset = () => {
+    const S = G.S, W = Wd.life; if (!W) return;
+    L.S = S; L.off = 0; L.lastT = S.t;
+    L.trees = W.trees; L.rocks = W.rocks; L.tiles = W.tiles; L.pile = W.pile;
+    for (const t of L.trees) Object.assign(t, { st: 'tree', t: 0, hit: 0, logs: 0, pend: 0, owner: 0, sh: 0, crown: 0 });
+    for (const r of L.rocks) Object.assign(r, { st: 'rock', t: 0, hit: 0, stage: 0, pieces: 0, pend: 0, owner: 0, sh: 0 });
+    /* os campos começam com um pouco de tudo, a maioria madura (como era a paisagem antes) */
+    const rr = G.seeded(S.created ? S.created % 99991 : 7);
+    for (const q of L.tiles) { const r = rr(); Object.assign(q, { st: r < 0.55 ? 4 : r < 0.7 ? 3 : r < 0.8 ? 2 : r < 0.9 ? 1 : 0, t: 0, wet: 0, owner: 0, sh: 0 }); if (q.st === 1) q.wet = rr() < 0.5 ? S.t + 20 : 0; }
+    L.piles = { lenharia: [], pedreira: [], fazenda: [] };
+    for (const k of ['madeira', 'pedra', 'minerio', 'trigo', 'ervas']) { L.acc[k] = 0; L.made[k] = 0; L.shown[k] = 0; }
+    L.pops = 0; L.lastPop = null; L.log.length = 0; L.rate = null; L.rateT = -9;
+    for (const n of G.npcs) if (n._wk) { n._wk = 0; n.w = null; }
+  };
+  const ensure = () => { if (L.S !== G.S || L.off) reset(); return !!L.S; };      // outro jogo ou volta de uma ausência: o mundo de trabalho recomeça (o que o acumulador guardava se perde: nada é mostrado do tempo ausente)
+  G.lifeReset = reset;
+
+  /* a produção real, avisada por hourTick: o acumulador de exibição (nunca vai além do que a simulação produziu) */
+  G.onProd = (id, n) => { if (G.OFFLINE || !G.S || !(n > 0) || !(id in L.acc)) return; L.acc[id] += n; L.made[id] += n; };
+  G.lifeOffline = () => { L.off = 1; };
+
+  /* ritmo: taxa real de produção por hora, e quantos viajam juntos (só para dar o compasso do vai-e-vem) */
+  const rates = () => { const S = G.S; if (!L.rate || S.t - L.rateT > 2) { L.rate = G.prodRates(); L.rateT = S.t; } return L.rate; };
+  const crew = (site) => { let n = 0; for (const m of G.npcs) if (m._wk && m.at === site) n++; return Math.max(1, n); };
+  /* >1 quando o prédio rende muito por trabalhador (balança mais rápido); <1 quando rende pouco (anda com calma). Só mexe na animação */
+  const pace = (site) => {
+    const r = rates(), per = (site === 'lenharia' ? r.madeira : site === 'pedreira' ? r.pedra + r.minerio : r.trigo + r.ervas) / crew(site);
+    return G.clamp(0.7 + per / 8, 0.8, 1.45);
+  };
+  const resName = (k) => G.RES[k].name.split(' ')[0].toLowerCase();
+  const POP_COLOR = { madeira: '#f0b878', pedra: '#dfe4ea', minerio: '#ffb866', trigo: '#ffe27a', ervas: '#9ee89a' };
+
+  /* uma entrega: pega do acumulador a fatia que cabe a esta viagem e mostra no pilha. Devolve o que foi mostrado */
+  const deliver = (n, site, res, x, y) => {
+    const S = G.S, w = n.w, r = rates(), perH = r[res] || 0;
+    const trips = Math.max(0.5, crew(site) * HOUR / Math.max(6, L.cyc[site]));      // viagens por hora de jogo, de toda a equipe
+    const est = Math.max(1, perH / trips);
+    let a = L.acc[res] || 0, take = 0;
+    if (a >= 1) take = Math.floor(a >= 2.5 * est ? a : Math.min(a, Math.max(1, Math.round(est))));
+    if (take > 0) { L.acc[res] = a - take; L.shown[res] += take; }
+    { /* cada entrega ocupa o primeiro lugar livre da pilha (lugar fixo: a pilha não se rearruma quando as peças mais velhas somem) */
+      const arr = L.piles[site], used = {}; for (const it of arr) used[it.slot] = 1;
+      let slot = 0; while (used[slot] && slot < LF.pileMax) slot++;
+      if (slot >= LF.pileMax) slot = arr.shift().slot;
+      arr.push({ t: S.t, res, n: take, slot }); }
+    if (take > 0) {
+      L.pops++; L.lastPop = { t: S.t, site, res, n: take };
+      if (L.log.length < 400) L.log.push({ t: S.t, site, res, n: take });
+      G.addFx({ t: 'text', x, y: y - 1.15, s: '+' + take + ' ' + resName(res), c: POP_COLOR[res] || '#ffe07a' });
+      G.sfx('deliver', x, y);
+    }
+    if (w) { const c = S.t - (w.cycT || S.t); if (c > 3 && c < 90) L.cyc[site] += (c - L.cyc[site]) * 0.2; w.cycT = S.t; }
+    return take;
+  };
+
+  /* ================= vida das árvores, rochas e canteiros (só o que se vê) ================= */
+  const growTrees = (dt) => {
+    for (const t of L.trees) {
+      if (t.sh > 0) t.sh -= dt;
+      switch (t.st) {
+        case 'fall': t.t += dt; if (t.t >= 0.95) { t.st = 'trunk'; t.t = 0; G.addFx({ t: 'timber', x: t.x + t.fd * 1.4, y: t.y, dir: t.fd }); G.sfx('thud', t.x, t.y); } break;
+        case 'stump': t.t += dt; if (t.crown > 0) t.crown -= dt; if (t.t >= LF.stumpT) { t.st = 'sap'; t.t = 0; } break;
+        case 'sap': t.t += dt; if (t.t >= LF.sapT) { t.st = 'young'; t.t = 0; } break;
+        case 'young': t.t += dt; if (t.t >= LF.youngT) { t.st = 'tree'; t.t = 0; t.hit = 0; t.owner = 0; } break;
+      }
+    }
+    for (const r of L.rocks) {
+      if (r.sh > 0) r.sh -= dt;
+      if (r.st === 'bare') { r.t += dt; if (r.t >= LF.bareT) { r.st = 'small'; r.t = 0; } }
+      else if (r.st === 'small') { r.t += dt; if (r.t >= LF.smallT) { r.st = 'rock'; r.t = 0; r.hit = 0; r.stage = 0; } }
+    }
+    const S = G.S;
+    for (const q of L.tiles) {
+      if (q.sh > 0) q.sh -= dt;
+      if (q.st >= 1 && q.st < 4) {
+        if (q.st === 1 && !(q.wet > S.t)) continue;       // a semente só brota com a terra molhada
+        q.t += dt; if (q.t >= LF.grow[q.st]) { q.st++; q.t = 0; }
+      }
+    }
+    const piles = L.piles;
+    for (const k in piles) { const a = piles[k]; while (a.length && S.t - a[0].t > LF.pileLife) a.shift(); }
+  };
+
+  /* ================= o expediente ================= */
+  const hourNow = () => G.S.clock / 60;
+  const shiftOn = (n) => {
+    const hr = hourNow(), s = LF.shiftIn + (n.wk - 1) * 0.07;
+    if (hr >= s && hr < LF.shiftOut) return true;
+    /* depois das 18 h termina a viagem em curso, sem começar outra */
+    if (hr >= LF.shiftOut && hr < LF.shiftHard && n.w && n.w.ph !== 'look' && n.w.ph !== 'rest' && n.w.ph !== 'wait' && n.w.ph !== 'toTree' && n.w.ph !== 'toRock' && n.w.ph !== 'toTile') return true;
+    return false;
+  };
+  const takeOver = (n) => {
+    n._wk = 1; n.inside = false; n.act = 'work'; n.state = 'work'; n.until = 0; n.carry = null; n.talk = 0; n.say = null; n.sayT = 0;
+    n.w = { site: n.at, ph: 'look', t: 0, tgt: null, carry: null, plan: '', sw: 0, hit: 0, cycT: G.S.t, wait: 0 };
+    n.path = null; n.moving = false;
+  };
+  const release = (n) => {
+    const w = n.w;
+    if (w && w.tgt) unclaim(w);
+    n._wk = 0; n.w = null; n.carry = null; n.state = 'stand'; n.act = ''; n.until = 0; n.tThink = 0; n.moving = false; n.path = null;
+  };
+  const unclaim = (w) => { const t = w.tgt; if (!t) return; if (t.owner === w.id) t.owner = 0; w.tgt = null; };
+  G.lifeNpc = (n, dt) => {
+    if (!SITES[n.at] || !n.wk || !ensure()) return false;
+    const S = G.S;
+    const on = G.bOk(n.at) && !S.mare.active && shiftOn(n);
+    if (on) { if (!n._wk) takeOver(n); work(n, dt); return true; }
+    if (n._wk) release(n);
+    return false;
+  };
+  /* roda uma vez por tick, depois dos moradores: crescimento do mundo de trabalho */
+  G.lifeTick = (dt) => { if (!ensure()) return; growTrees(dt); };
+
+  /* a vida da cidade tem o seu próprio sorteio: nada daqui muda a sequência de Math.random do resto do jogo */
+  const un0 = G.updateNpcs;
+  G.updateNpcs = (dt) => { const r = Math.random; Math.random = npcRng; Wd._npc = true; try { un0(dt); } finally { Math.random = r; Wd._npc = false; } };
+
+  /* ================= os três laços de trabalho ================= */
+  const walkTo = (n, x, y) => { G.go(n, x, y); n.moving = true; };
+  const WSPD = (n, w) => n.spd * (w.carry ? 0.9 : 1.08) * G.clamp(pace(w.site), 1, 1.18);
+  const go = (n, w, ph, x, y) => { w.ph = ph; w.t = 0; walkTo(n, x, y); };
+  const face = (n, d) => { if (d) n.dir = d > 0 ? 1 : -1; };
+  /* balanço do braço: sw vai de 0 a 1 a cada golpe; devolve true no instante do impacto (sw cruza 0,5) */
+  const swing = (w, dt, period, k) => { const was = w.sw; w.sw = (w.sw + dt / (period / (k || 1))) % 1; return was < 0.5 && w.sw >= 0.5; };
+
+  const work = (n, dt) => {
+    const w = n.w; w.t += dt; w.id = n.id;
+    if (w.site === 'lenharia') lumber(n, w, dt); else if (w.site === 'pedreira') quarry(n, w, dt); else farm(n, w, dt);
+  };
+
+  /* ---------- Lenharia ---------- */
+  const pileSpot = (site) => { const p = L.pile[site]; return [p[0] - 0.95, p[1] + 0.12]; };
+  const pickTree = (n) => {
+    const out = [];
+    for (const t of L.trees) { if ((t.st === 'cut' && t.logs - t.pend > 0) || (t.st === 'trunk' && !t.owner)) out.push([t, 0]); }
+    if (out.length) { out.sort((a, b) => Math.hypot(a[0].sx - n.x, a[0].sy - n.y) - Math.hypot(b[0].sx - n.x, b[0].sy - n.y)); return out[0][0]; }
+    const d = Wd.plots.lenharia.door, free = L.trees.filter((t) => t.st === 'tree' && !t.owner);
+    if (!free.length) return null;
+    free.sort((a, b) => Math.hypot(a.x - d[0], a.y - d[1]) - Math.hypot(b.x - d[0], b.y - d[1]));
+    return free[Math.min(free.length - 1, Math.floor(Math.random() * Math.min(5, free.length)))];
+  };
+  const lumber = (n, w, dt) => {
+    const t = w.tgt;
+    switch (w.ph) {
+      case 'look': {
+        if (G.S.clock / 60 >= LF.shiftOut) { w.ph = 'rest'; w.t = 0; w.wait = 1; break; }
+        const tr = pickTree(n);
+        if (!tr) { w.ph = 'wait'; w.t = 0; w.wait = 3 + Math.random() * 2; n.moving = false; break; }
+        w.tgt = tr; w.sw = 0;
+        if (tr.st === 'cut') { tr.pend++; go(n, w, 'toLog', tr.sx, tr.sy); } else { tr.owner = n.id; go(n, w, tr.st === 'trunk' ? 'toLog' : 'toTree', tr.sx, tr.sy); }
+        break;
+      }
+      case 'wait': n.moving = false; if (w.t >= w.wait) { w.ph = 'look'; w.t = 0; } break;
+      case 'toTree': case 'toLog':
+        if (!t || (w.ph === 'toTree' && t.st !== 'tree') || (w.ph === 'toLog' && t.st !== 'cut' && t.st !== 'trunk')) { unclaim(w); w.ph = 'look'; break; }
+        if (G.step(n, dt, WSPD(n, w))) { n.moving = false; face(n, t.face); if (w.ph === 'toTree') { w.ph = 'chop'; w.t = 0; w.sw = 0.1; } else if (t.st === 'trunk') { w.ph = 'saw'; w.t = 0; w.sw = 0.1; t.hit = 0; } else { w.ph = 'pick'; w.t = 0; } }
+        break;
+      case 'chop':
+        if (!t) { w.ph = 'look'; break; }
+        if (swing(w, dt, 0.72, pace('lenharia'))) {
+          t.hit++; t.sh = 0.32; G.addFx({ t: 'chip', x: t.x - t.face * 0.25, y: t.y - 0.6, dir: -t.face, k: 'wood' }); G.sfx('chop', t.x, t.y);
+          if (t.hit >= t.need) { t.st = 'fall'; t.t = 0; t.fd = t.face; w.ph = 'watch'; w.t = 0; w.sw = 0; }
+        }
+        break;
+      case 'watch': n.moving = false; if (t && t.st === 'trunk' && w.t > 0.4) { w.ph = 'saw'; w.t = 0; w.sw = 0.1; t.hit = 0; } else if (w.t > 3) { unclaim(w); w.ph = 'look'; } break;
+      case 'saw':
+        if (!t) { w.ph = 'look'; break; }
+        if (swing(w, dt, 0.62, pace('lenharia'))) {
+          t.hit++; t.sh = 0.2; G.addFx({ t: 'chip', x: t.x + t.fd * 0.9, y: t.y - 0.25, dir: t.fd, k: 'wood' }); G.sfx('chop', t.x, t.y);
+          if (t.hit >= LF.sawHits) { t.st = 'cut'; t.logs = LF.logs; t.pend = 1; t.hit = 0; w.ph = 'pick'; w.t = 0; w.sw = 0; }
+        }
+        break;
+      case 'pick':
+        n.moving = false; if (!t) { w.ph = 'look'; break; }
+        if (w.t >= 0.6) {
+          if (t.logs <= 0) { t.pend = Math.max(0, t.pend - 1); w.tgt = null; w.ph = 'look'; break; }
+          t.logs--; t.pend = Math.max(0, t.pend - 1); w.carry = 'log'; w.src = t;
+          if (t.logs <= 0) { t.st = 'stump'; t.t = 0; t.crown = 6; t.owner = 0; }
+          const p = pileSpot('lenharia'); go(n, w, 'carry', p[0], p[1]);
+        }
+        break;
+      case 'carry':
+        if (G.step(n, dt, WSPD(n, w))) { n.moving = false; face(n, 1); w.ph = 'drop'; w.t = 0; }
+        break;
+      case 'drop':
+        n.moving = false;
+        if (w.t >= 0.5 && w.carry) { const p = L.pile.lenharia; deliver(n, 'lenharia', 'madeira', p[0], p[1]); w.carry = null; }
+        if (w.t >= 0.85) {
+          const s = w.src; w.src = null;
+          if (s && s.st === 'cut' && s.logs - s.pend > 0) { s.pend++; w.tgt = s; go(n, w, 'toLog', s.sx, s.sy); }
+          else { w.tgt = null; w.ph = 'rest'; w.t = 0; w.wait = rest(w, 'lenharia'); }
+        }
+        break;
+      case 'rest': n.moving = false; if (w.t >= w.wait) { w.ph = 'look'; w.t = 0; } break;
+      default: w.ph = 'look';
+    }
+  };
+  /* respiro entre viagens: quanto menos o prédio rende por trabalhador, mais devagar o ritmo */
+  const rest = (w, site) => G.clamp((1.45 - pace(site)) * 5.5 + Math.random() * 1.5, 0.3, 6);
+
+  /* ---------- Pedreira ---------- */
+  const pickRock = (n) => {
+    const a = L.rocks.filter((r) => r.st === 'rubble' && r.pieces - r.pend > 0);
+    if (a.length) { a.sort((x, y) => Math.hypot(x.sx - n.x, x.sy - n.y) - Math.hypot(y.sx - n.x, y.sy - n.y)); return a[0]; }
+    const free = L.rocks.filter((r) => r.st === 'rock' && !r.owner);
+    if (!free.length) return null;
+    /* alterna pedra e minério pelo que mais falta mostrar */
+    const wantOre = (L.acc.minerio || 0) / Math.max(0.5, rates().minerio || 1) > (L.acc.pedra || 0) / Math.max(0.5, rates().pedra || 1);
+    const pref = free.filter((r) => (r.kind === 'minerio') === wantOre); const pool = pref.length ? pref : free;
+    return pool[Math.floor(Math.random() * pool.length)];
+  };
+  const quarry = (n, w, dt) => {
+    const r = w.tgt;
+    switch (w.ph) {
+      case 'look': {
+        if (G.S.clock / 60 >= LF.shiftOut) { w.ph = 'rest'; w.t = 0; w.wait = 1; break; }
+        const rk = pickRock(n);
+        if (!rk) { w.ph = 'wait'; w.t = 0; w.wait = 3 + Math.random() * 2; n.moving = false; break; }
+        w.tgt = rk; w.sw = 0;
+        if (rk.st === 'rubble') { rk.pend++; go(n, w, 'toRock', rk.sx, rk.sy); w.again = 1; } else { rk.owner = n.id; w.again = 0; go(n, w, 'toRock', rk.sx, rk.sy); }
+        break;
+      }
+      case 'wait': n.moving = false; if (w.t >= w.wait) { w.ph = 'look'; w.t = 0; } break;
+      case 'toRock':
+        if (!r || (!w.again && r.st !== 'rock')) { unclaim(w); w.ph = 'look'; break; }
+        if (G.step(n, dt, WSPD(n, w))) { n.moving = false; face(n, r.face); if (w.again) { w.ph = 'gather'; w.t = 0; } else { w.ph = 'mine'; w.t = 0; w.sw = 0.1; } }
+        break;
+      case 'mine':
+        if (!r) { w.ph = 'look'; break; }
+        if (swing(w, dt, 0.78, pace('pedreira'))) {
+          r.hit++; r.sh = 0.3; r.stage = r.hit >= LF.rockHits ? 3 : Math.min(2, Math.floor(r.hit * 0.6));
+          G.addFx({ t: 'spark', x: r.x - r.face * 0.5, y: r.y - 0.55, dir: -r.face, big: r.hit >= LF.rockHits ? 1 : 0, ore: r.kind === 'minerio' ? 1 : 0 }); G.sfx('mine', r.x, r.y);
+          if (r.hit >= LF.rockHits) { r.st = 'rubble'; r.pieces = LF.pieces; r.pend = 1; r.t = 0; r.owner = 0; w.ph = 'gather'; w.t = 0; w.sw = 0; G.addFx({ t: 'rockbreak', x: r.x, y: r.y - 0.3, ore: r.kind === 'minerio' ? 1 : 0 }); G.sfx('crumble', r.x, r.y); }
+        }
+        break;
+      case 'gather':
+        n.moving = false; if (!r) { w.ph = 'look'; break; }
+        if (w.t >= 0.6) {
+          if (r.pieces <= 0) { r.pend = Math.max(0, r.pend - 1); w.tgt = null; w.ph = 'look'; break; }
+          r.pieces--; r.pend = Math.max(0, r.pend - 1); w.carry = r.kind === 'minerio' ? 'ore' : 'stone'; w.src = r; w.kind = r.kind;
+          if (r.pieces <= 0) { r.st = 'bare'; r.t = 0; }
+          const p = pileSpot('pedreira'); go(n, w, 'carry', p[0], p[1]);
+        }
+        break;
+      case 'carry': if (G.step(n, dt, WSPD(n, w))) { n.moving = false; face(n, 1); w.ph = 'drop'; w.t = 0; } break;
+      case 'drop':
+        n.moving = false;
+        if (w.t >= 0.5 && w.carry) { const p = L.pile.pedreira; deliver(n, 'pedreira', w.kind === 'minerio' ? 'minerio' : 'pedra', p[0], p[1]); w.carry = null; }
+        if (w.t >= 0.85) {
+          const s = w.src; w.src = null;
+          if (s && s.st === 'rubble' && s.pieces - s.pend > 0) { s.pend++; w.tgt = s; w.again = 1; go(n, w, 'toRock', s.sx, s.sy); }
+          else { w.tgt = null; w.ph = 'rest'; w.t = 0; w.wait = rest(w, 'pedreira'); }
+        }
+        break;
+      case 'rest': n.moving = false; if (w.t >= w.wait) { w.ph = 'look'; w.t = 0; } break;
+      default: w.ph = 'look';
+    }
+  };
+
+  /* ---------- Fazenda ---------- */
+  const tilePos = (q) => [q.x + 0.5, q.y + 0.92];
+  const nearest = (n, a) => { let b = null, bd = 1e9; for (const q of a) { const d = Math.hypot(q.x + 0.5 - n.x, q.y + 0.5 - n.y) + Math.random() * 2.5; if (d < bd) { bd = d; b = q; } } return b; };
+  const farmPlan = (n) => {
+    const ripe = L.tiles.filter((q) => q.st === 4 && !q.owner), bare = L.tiles.filter((q) => q.st === 0 && !q.owner), dry = L.tiles.filter((q) => q.st === 1 && !(q.wet > G.S.t) && !q.owner);
+    if (dry.length && (Math.random() < 0.55 || (!ripe.length && !bare.length))) return ['water', nearest(n, dry)];
+    if (bare.length && (!ripe.length || Math.random() < 0.5)) return ['plant', nearest(n, bare)];
+    if (ripe.length) return ['harvest', nearest(n, ripe)];
+    return null;
+  };
+  const farm = (n, w, dt) => {
+    const q = w.tgt;
+    switch (w.ph) {
+      case 'look': {
+        if (G.S.clock / 60 >= LF.shiftOut) { w.ph = 'rest'; w.t = 0; w.wait = 1; break; }
+        const pl = farmPlan(n);
+        if (!pl) { w.ph = 'wait'; w.t = 0; w.wait = 3 + Math.random() * 2; n.moving = false; break; }
+        w.plan = pl[0]; w.tgt = pl[1]; pl[1].owner = n.id; w.sw = 0; const p = tilePos(pl[1]); go(n, w, 'toTile', p[0] - 0.55, p[1]);
+        break;
+      }
+      case 'wait': n.moving = false; if (w.t >= w.wait) { w.ph = 'look'; w.t = 0; } break;
+      case 'toTile':
+        if (!q) { w.ph = 'look'; break; }
+        if (G.step(n, dt, WSPD(n, w))) { n.moving = false; face(n, 1); w.t = 0; w.sw = 0.1; w.hit = 0; w.ph = w.plan === 'harvest' ? 'harvest' : w.plan === 'water' ? 'water' : 'till'; }
+        break;
+      case 'harvest':
+        if (!q) { w.ph = 'look'; break; }
+        if (swing(w, dt, q.crop === 0 ? 0.6 : 0.8, pace('fazenda'))) {
+          w.hit++; q.sh = 0.25; G.addFx({ t: 'chaff', x: q.x + 0.5, y: q.y + 0.55, k: q.crop }); G.sfx('swish', q.x, q.y);
+          if (w.hit >= (q.crop === 0 ? 3 : 2)) { q.st = 0; q.t = 0; q.wet = 0; q.owner = 0; w.carry = q.crop === 0 ? 'sack' : 'basket'; w.kind = q.crop === 0 ? 'trigo' : 'ervas'; w.tgt = null; w.ph = 'bundle'; w.t = 0; }
+        }
+        break;
+      case 'bundle': n.moving = false; if (w.t >= 0.55) { const p = pileSpot('fazenda'); go(n, w, 'carry', p[0], p[1]); } break;
+      case 'carry': if (G.step(n, dt, WSPD(n, w))) { n.moving = false; face(n, 1); w.ph = 'drop'; w.t = 0; } break;
+      case 'drop':
+        n.moving = false;
+        if (w.t >= 0.5 && w.carry) { const p = L.pile.fazenda; deliver(n, 'fazenda', w.kind, p[0], p[1]); w.carry = null; }
+        if (w.t >= 0.85) { w.ph = 'rest'; w.t = 0; w.wait = rest(w, 'fazenda'); }
+        break;
+      case 'till':
+        if (!q) { w.ph = 'look'; break; }
+        if (swing(w, dt, 0.7, pace('fazenda'))) { w.hit++; q.sh = 0.25; G.addFx({ t: 'chaff', x: q.x + 0.5, y: q.y + 0.7, k: 2 }); G.sfx('dig', q.x, q.y); if (w.hit >= 2) { w.ph = 'plant'; w.t = 0; w.sw = 0; } }
+        break;
+      case 'plant':
+        n.moving = false; if (!q) { w.ph = 'look'; break; }
+        if (w.t >= 0.9) { q.st = 1; q.t = 0; q.wet = 0; w.ph = 'water'; w.t = 0; w.sw = 0.1; w.hit = 0; }
+        break;
+      case 'water':
+        n.moving = false; if (!q) { w.ph = 'look'; break; }
+        if (w.t >= 1.7) { q.wet = G.S.t + LF.wetT; q.owner = 0; G.addFx({ t: 'splash', x: q.x + 0.5, y: q.y + 0.6 }); w.tgt = null; w.ph = 'rest'; w.t = 0; w.wait = rest(w, 'fazenda') * 0.5; }
+        break;
+      case 'rest': n.moving = false; if (w.t >= w.wait) { w.ph = 'look'; w.t = 0; } break;
+      default: w.ph = 'look';
+    }
+  };
+
+  /* ================= o que o cartão do prédio e o inspetor mostram ================= */
+  G.workLabel = (n) => {
+    if (!n || !n._wk || !n.w) return '';
+    const w = n.w, t = w.tgt;
+    switch (n.at) {
+      case 'lenharia':
+        switch (w.ph) {
+          case 'toTree': return 'indo até ' + (TREE_TXT[t && t.k] || 'uma árvore');
+          case 'toLog': return 'voltando ao tronco';
+          case 'chop': return 'cortando ' + (TREE_TXT[t && t.k] || 'uma árvore');
+          case 'watch': return 'vendo a árvore cair';
+          case 'saw': return 'cortando o tronco em toras';
+          case 'pick': return 'erguendo uma tora';
+          case 'carry': return 'levando toras';
+          case 'drop': return 'empilhando toras';
+          case 'wait': return 'esperando as mudas crescerem';
+          default: return 'afiando o machado';
+        }
+      case 'pedreira':
+        switch (w.ph) {
+          case 'toRock': return w.again ? 'voltando aos entulhos' : 'indo até a rocha';
+          case 'mine': return t && t.kind === 'minerio' ? 'picando o veio de minério' : 'picando a rocha';
+          case 'gather': return 'juntando os pedaços';
+          case 'carry': return w.kind === 'minerio' ? 'levando minério' : 'levando pedra';
+          case 'drop': return w.kind === 'minerio' ? 'empilhando minério' : 'empilhando pedra';
+          case 'wait': return 'esperando o filão crescer';
+          default: return 'secando o suor';
+        }
+      default:
+        switch (w.ph) {
+          case 'toTile': return w.plan === 'harvest' ? 'indo colher' : w.plan === 'water' ? 'indo regar' : 'indo plantar';
+          case 'harvest': return t && t.crop === 1 ? 'colhendo ervas' : 'ceifando o trigo';
+          case 'bundle': return 'amarrando a colheita';
+          case 'carry': return w.kind === 'ervas' ? 'levando o cesto de ervas ao celeiro' : 'levando o saco de trigo ao celeiro';
+          case 'drop': return 'guardando a colheita no celeiro';
+          case 'till': return 'capinando e arando';
+          case 'plant': return 'semeando';
+          case 'water': return 'regando';
+          case 'wait': return 'esperando o trigo crescer';
+          default: return 'tomando fôlego';
+        }
+    }
+  };
+  /* resumo para testes e para o cartão: o que a equipe de cada prédio está fazendo */
+  G.lifeStats = () => ({ pops: L.pops, shown: Object.assign({}, L.shown), made: Object.assign({}, L.made), acc: Object.assign({}, L.acc), workers: G.npcs.filter((n) => n._wk).length });
 })();
 
 ;
@@ -4036,17 +4494,35 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.PET_IDS = Object.keys(G.PETS);
   /* duas espécies nativas de cada zona: os ovos das Incursões puxam para elas */
   G.ZPETS = { bosque: ['jabuti', 'lobinho'], ruinas: ['golem', 'morcego'], ermos: ['olho', 'raposa'], pantano: ['sapo', 'medusa'], pico: ['ursinho', 'coruja'], cinzas: ['fenix', 'draquinho'] };
+  /* v27 (B2): o Viveiro guarda todos os mascotes do reino (com dono, vagando na praça ou guardados): a regra de capacidade é a mesma de sempre e os vagantes contam */
   G.petCap = () => 8 + 2 * G.bLvl('estabulo');           // Viveiro
   G.petById = (id) => { if (!id) return null; const l = G.S.pets; for (let i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; return null; };
-  G.petOf = (h) => (h && h.pet ? G.petById(h.pet) : null);
-  G.petLoadCap = (p) => Math.round(G.PET_CAP[p.rar] * (G.PETS[p.k].role === 'carga' ? 1.5 : 1));
-  G.petLoad = (h) => { const p = G.petOf(h); return p ? p.bagN : 0; };
+  /* v27 (B2): até 3 mascotes por herói (h.pets = ids, do mais forte ao mais fraco; h.pet espelha o primeiro, para o que ainda lê o campo antigo).
+     Retornos decrescentes: o 1º vale 100%, o 2º 50% e o 3º 25% dos bônus de atributo, da Fraqueza, da cura do Vigor e da capacidade de carga (mínimo 3 itens) */
+  G.PET_MAX = 3;
+  G.PET_DIM = [1, 0.5, 0.25];
+  G.petsOf = (h) => { const o = []; if (!h || !h.pets) return o; for (let i = 0; i < h.pets.length; i++) { const p = G.petById(h.pets[i]); if (p) o.push(p); } return o; };
+  G.petOf = (h) => { const a = G.petsOf(h); return a.length ? a[0] : null; };         // o principal (o mais forte)
+  G.petSlots = (h) => G.PET_MAX - (h && h.pets ? h.pets.length : 0);
+  G.petRank = (p) => { if (!p.hero) return -1; const hs = G.S.heroes; for (let i = 0; i < hs.length; i++) if (hs[i].id === p.hero) return hs[i].pets ? hs[i].pets.indexOf(p.id) : -1; return -1; };      // 0, 1 ou 2: o lugar na fila do dono (-1 sem dono)
+  G.petDim = (p) => { const i = G.petRank(p); return i < 0 ? 1 : G.PET_DIM[Math.min(i, G.PET_DIM.length - 1)]; };
+  /* ordem do mais forte ao mais fraco: raridade, depois a espécie mais rara, depois o mais antigo */
+  const petSort = (h) => { h.pets.sort((a, b) => { const x = G.petById(a), y = G.petById(b); if (!x || !y) return 0; return y.rar - x.rar || G.PETS[y.k].r0 - G.PETS[x.k].r0 || x.id - y.id; }); h.pet = h.pets[0] || 0; };
+  G.petSort = petSort;
+  G.petLoadCap = (p) => Math.max(3, Math.round(G.PET_CAP[p.rar] * (G.PETS[p.k].role === 'carga' ? 1.5 : 1) * G.petDim(p)));
+  G.petLoad = (h) => { let n = 0; for (const p of G.petsOf(h)) n += p.bagN; return n; };
   G.petBonus = (p) => { const d = G.PETS[p.k], f = G.PET_POW[p.rar], o = {}; for (const k in d.p) o[k] = d.p[k] * f; if (d.role === 'vigor') o.hp = (o.hp || 0) + G.vigHp(p); return o; };
-  G.petFree = () => G.S.pets.filter((p) => !p.hero);
+  /* os bônus que o herói realmente recebe de um mascote (já com o retorno decrescente do lugar dele na fila) */
+  G.petBonusEff = (p) => { const o = G.petBonus(p), f = G.petDim(p); for (const k in o) o[k] *= f; return o; };
+  G.petFree = () => G.S.pets.filter((p) => !p.hero && !p.out);          // guardados no Viveiro (os que vagam pela praça não entram em fusão)
+  G.petStrays = () => G.S.pets.filter((p) => !p.hero && p.out);
   G.petMaxRar = () => G.S.pets.reduce((a, p) => Math.max(a, p.rar), -1);
   /* espécie de um ovo: nativas da zona pesam 6×; espécies muito acima da raridade do ovo aparecem menos */
   G.petRoll = (zid, rar) => { const nat = (zid && G.ZPETS[zid]) || []; return G.wpick(G.PET_IDS.map((k) => [k, (nat.indexOf(k) >= 0 ? 6 : 1) * (G.PETS[k].r0 > rar + 1 ? 0.25 : 1)])); };
-  G.petNew = (k, rar) => { const S = G.S, p = { id: G.uid(), k, rar: G.clamp(rar | 0, 0, 5), hero: 0, bag: {}, bagN: 0 }; S.pets.push(p); S.stats.petsGot = (S.stats.petsGot || 0) + 1; return p; };
+  /* v27 (B2): temperamento = o critério com que o mascote escolhe dono: 'v' Valente (o herói mais forte) ou 'd' Dengoso (o mais cativante). Cada espécie tem o seu jeito, com 25% de exceções */
+  G.PET_TEMP = { v: { name: 'Valente', short: 'admira quem é forte', crit: 'o mais forte' }, d: { name: 'Dengoso', short: 'segue quem tem carisma', crit: 'o mais cativante' } };
+  G.petTempRoll = (k) => { const ro = G.PETS[k].role, base = ro === 'fraqueza' || ro === 'carga' ? 'v' : ro === 'vigor' ? 'd' : (G.hash(k) % 2 ? 'v' : 'd'); return Math.random() < 0.25 ? (base === 'v' ? 'd' : 'v') : base; };
+  G.petNew = (k, rar) => { const S = G.S, p = { id: G.uid(), k, rar: G.clamp(rar | 0, 0, 5), hero: 0, bag: {}, bagN: 0, out: 0, tp: G.petTempRoll(k) }; S.pets.push(p); S.stats.petsGot = (S.stats.petsGot || 0) + 1; return p; };
   /* choca um ovo; com o Viveiro cheio ele vira Pó Estelar e Cristal de Alma */
   G.petHatch = (k, rar, why) => {
     const S = G.S;
@@ -4056,8 +4532,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       G.emit('pets', null); return null;
     }
     const p = G.petNew(k, rar);
-    G.log((why ? why + ': ' : '') + 'um ovo chocou — ' + G.PETS[k].name + ' ' + G.RAR[p.rar] + ' chegou ao Viveiro.', p.rar >= 3 ? 'epic' : 'good');
-    G.toast('Novo mascote: ' + G.PETS[k].name + ' (' + G.RAR[p.rar] + ')', p.rar >= 3 ? 'epic' : 'good', 'paw');
+    G.log((why ? why + ': ' : '') + 'um ovo chocou — ' + G.PETS[k].name + ' ' + G.RAR[p.rar] + ' apareceu na praça à procura de um dono.', p.rar >= 3 ? 'epic' : 'good');
+    G.toast('Novo mascote na praça: ' + G.PETS[k].name + ' (' + G.RAR[p.rar] + ')', p.rar >= 3 ? 'epic' : 'good', 'paw');
     G.sfx('rare'); G.emit('pets', p);
     return p;
   };
@@ -4067,37 +4543,46 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     for (const k in p.bag) { const v = p.bag[k]; if (!(v > 0)) continue; G.addRes(k, v); n += v; S.rep.today.mats = (S.rep.today.mats || 0) + v; G.questEvent('mat', v, k); }
     p.bag = {}; p.bagN = 0; return n;
   };
-  G.petUnload = (h) => { const p = G.petOf(h); return p ? G.petStore(p) : 0; };
+  G.petUnload = (h) => { let n = 0; for (const p of G.petsOf(h)) n += G.petStore(p); return n; };
   G.petRt = new Map();      // posição e alvo de cada mascote: não é salvo
   const rtDrop = (r) => { if (r.d) { if (r.d.pet) r.d.pet = 0; r.d = null; } };
   G.petRtOf = (p, h) => {
     let r = G.petRt.get(p.id);
-    if (!r) { r = { x: h.x - 0.8, y: h.y + 0.2, dir: h.dir || 1, moving: false, path: null, st: 'follow', d: null, tW: 2, tV: 3, tS: 0, cast: 0, ck: '' }; G.petRt.set(p.id, r); }
+    if (!r) { const i = Math.max(0, G.petRank(p)); r = { x: h.x - 0.8 - 0.7 * i, y: h.y + 0.2, dir: h.dir || 1, moving: false, path: null, st: 'follow', d: null, tW: 2 + i * 1.3, tV: 3 + i * 1.7, tS: i * 0.6, cast: 0, ck: '' }; G.petRt.set(p.id, r); }
     return r;
   };
-  /* h = null: dispensa (o mascote volta ao Viveiro e a carga vai para o Armazém) */
-  G.petAssign = (p, h) => {
-    const S = G.S; if (!p || S.pets.indexOf(p) < 0) return false;
+  /* tira o mascote do dono atual (a carga vai para o Armazém); não mexe em p.out */
+  const petDetach = (p) => {
+    const S = G.S;
+    for (const x of S.heroes) if (x.pets && x.pets.indexOf(p.id) >= 0) { x.pets = x.pets.filter((id) => id !== p.id); petSort(x); x._dirty = true; }
     for (const x of S.heroes) if (x.pet === p.id) { x.pet = 0; x._dirty = true; }
     p.hero = 0;
     const r = G.petRt.get(p.id); if (r) rtDrop(r);
+  };
+  /* h = null: dispensa (o mascote volta ao Viveiro e a carga vai para o Armazém). v27 (B2): com herói, só se ele tiver vaga (devolve false se já leva 3) */
+  G.petAssign = (p, h) => {
+    const S = G.S; if (!p || S.pets.indexOf(p) < 0) return false;
+    if (h && h.pets && h.pets.indexOf(p.id) < 0 && h.pets.length >= G.PET_MAX) return false;
+    const was = p.hero;
+    if (h && was === h.id) return true;
+    petDetach(p); p.out = 0;
     if (h) {
-      const old = G.petOf(h); if (old && old !== p) { old.hero = 0; const ro = G.petRt.get(old.id); if (ro) rtDrop(ro); G.petRt.delete(old.id); G.petStore(old); }
-      h.pet = p.id; p.hero = h.id; h._dirty = true; h.animo = Math.min(100, h.animo + 6);
-      if (r) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; r.st = 'follow'; }
+      if (!h.pets) h.pets = [];
+      h.pets.push(p.id); p.hero = h.id; petSort(h); h._dirty = true; h.animo = Math.min(100, h.animo + 6);
+      const r = G.petRt.get(p.id); if (r) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; r.st = 'follow'; }
     } else { G.petRt.delete(p.id); G.petStore(p); }
     G.emit('pets', p); G.emit('heroes');
     return true;
   };
   G.petRelease = (p) => {
-    const S = G.S, i = S.pets.indexOf(p); if (i < 0 || p.hero) return false;
+    const S = G.S, i = S.pets.indexOf(p); if (i < 0 || p.hero) return false;      // v27 (B2): vale para guardados e para vagantes
     G.petStore(p); S.pets.splice(i, 1); G.petRt.delete(p.id);
     const po = 2 * (p.rar + 1); G.addRes('po_estelar', po);
     G.log(G.PETS[p.k].name + ' voltou para a natureza e deixou ' + po + ' Pó Estelar no Viveiro.', 'info'); G.emit('pets', null);
     return true;
   };
   /* fusão: três mascotes livres da mesma raridade viram um da raridade seguinte (espécie sorteada entre os três) */
-  G.petCanFuse = (ps) => !!ps && ps.length === 3 && new Set(ps).size === 3 && ps.every((p) => p && G.S.pets.indexOf(p) >= 0 && !p.hero && p.rar === ps[0].rar) && ps[0].rar < 5;
+  G.petCanFuse = (ps) => !!ps && ps.length === 3 && new Set(ps).size === 3 && ps.every((p) => p && G.S.pets.indexOf(p) >= 0 && !p.hero && !p.out && p.rar === ps[0].rar) && ps[0].rar < 5;
   G.petFuse = (ps) => {
     const S = G.S; if (!G.petCanFuse(ps)) return null;
     const rar = ps[0].rar + 1, k = G.pick(ps).k;
@@ -4110,12 +4595,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* os bônus do mascote entram na soma do herói (passivo × raridade; Vigor soma vida) */
   const hb0 = G.heroBonus;
   G.heroBonus = (h) => {
-    const b = hb0(h), p = G.petOf(h);
-    if (p) { const o = G.petBonus(p); for (const k in o) if (b[k] !== undefined) b[k] += o[k]; }
+    const b = hb0(h), ps = G.petsOf(h);
+    for (let i = 0; i < ps.length; i++) { const f = G.PET_DIM[Math.min(i, G.PET_DIM.length - 1)], o = G.petBonus(ps[i]); for (const k in o) if (b[k] !== undefined) b[k] += o[k] * f; }      // v27 (B2): retornos decrescentes (100% / 50% / 25%)
     return b;
   };
   G.petWeaken = (p, h, m, r) => {
-    const S = G.S, F = G.weakF(p) * (m.boss ? 0.5 : 1), dur = G.WEAK_DUR * (m.boss ? 0.6 : 1);
+    const S = G.S, F = G.weakF(p) * G.petDim(p) * (m.boss ? 0.5 : 1), dur = G.WEAK_DUR * (m.boss ? 0.6 : 1);
     if (!(m.weak > S.t) || (m.weakF || 0) <= F) m.weakF = F;
     m.weak = Math.max(m.weak || 0, S.t + dur);
     if (r) { r.cast = 0.6; r.ck = 'weak'; r.dir = m.x >= r.x ? 1 : -1; }
@@ -4124,7 +4609,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     S.stats.weak = (S.stats.weak || 0) + 1;
   };
   G.petHeal = (p, h, r) => {
-    const st = G.heroStats(h), v = st.hp * G.vigHeal(p);
+    const st = G.heroStats(h), v = st.hp * G.vigHeal(p) * G.petDim(p);
     h.hp = Math.min(st.hp, h.hp + v);
     if (r) { r.cast = 0.6; r.ck = 'heal'; }
     G.addFx({ t: 'dmg', x: h.x, y: h.y - 0.9, n: Math.round(v), c: '#7df09a', heal: 1 }); G.addFx({ t: 'healring', x: h.x, y: h.y - 0.3 }); G.sfx('heal', h.x, h.y);
@@ -4133,26 +4618,31 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const FIELD = { hunt: 1, travel: 1, return: 1, flee: 1, defend: 1, rift: 1, inc: 1 };
   const FIGHT = { hunt: 1, defend: 1, rift: 1, inc: 1 };
   /* comportamento simulado: segue o dono, busca o espólio no raio, recolhe o que couber e volta */
+  /* v27 (B2): lugares na fila atrás do dono (atrás e para os lados, para ninguém ficar em cima de ninguém) */
+  const TRAIL = [[0.9, 0.15], [1.55, 0.6], [1.7, -0.3]], WAIT = [[0.7, 0.35], [1.25, 0.75], [1.3, -0.05]];
+  G.PET_TRAIL = TRAIL;
   const petTick = (dt) => {
     const S = G.S, hs = S.heroes;
     for (const p of S.pets) {
       if (!p.hero) continue;
       let r = G.petRt.get(p.id), h = r && r.h;
       if (!h || h.id !== p.hero) { h = null; for (let i = 0; i < hs.length; i++) if (hs[i].id === p.hero) { h = hs[i]; break; } }
-      if (!h || h.pet !== p.id) { p.hero = 0; G.petRt.delete(p.id); continue; }
+      const idx = h && h.pets ? h.pets.indexOf(p.id) : -1;
+      if (!h || idx < 0) { p.hero = 0; G.petRt.delete(p.id); continue; }
       if (!r) r = G.petRtOf(p, h); r.h = h;
+      const tr = TRAIL[Math.min(idx, 2)], wt = WAIT[Math.min(idx, 2)];
       if (r.cast > 0) r.cast -= dt;
       /* dentro de construções ou caído o dono: espera ao lado */
       if (h.inside || h.state === 'fallen' || h.state === 'recover') {
         if (r.st !== 'wait') { rtDrop(r); r.st = 'wait'; }
-        const wx = h.x - 0.7, wy = h.y + 0.35, dw = Math.abs(wx - r.x) + Math.abs(wy - r.y);
+        const wx = h.x - wt[0], wy = h.y + wt[1], dw = Math.abs(wx - r.x) + Math.abs(wy - r.y);
         if (dw > 14) { r.x = wx; r.y = wy; r.path = null; }
         if (dw > 0.6) G.chase(r, wx, wy, dt, Math.max(3.1, G.heroStats(h).spd * G.PET_SPD), 0.3); else r.moving = false;
         continue;
       }
       const d = G.PETS[p.k], role = d.role;
       const spd = Math.max(3.1, G.heroStats(h).spd * G.PET_SPD) * (role === 'faro' ? 1.35 : 1);
-      if (Math.abs(h.x - r.x) + Math.abs(h.y - r.y) > 16) { r.x = h.x - 0.8; r.y = h.y + 0.2; r.path = null; rtDrop(r); r.st = 'follow'; }
+      if (Math.abs(h.x - r.x) + Math.abs(h.y - r.y) > 16) { r.x = h.x - tr[0]; r.y = h.y + tr[1]; r.path = null; rtDrop(r); r.st = 'follow'; }
       /* papéis de combate */
       if (FIGHT[h.state]) {
         if (role === 'fraqueza') { r.tW -= dt; const m = h.tgt; if (r.tW <= 0 && m && !m.dead && !m.gone && m.hp > 0 && Math.hypot(m.x - r.x, m.y - r.y) < 8) { r.tW = G.WEAK_CD; G.petWeaken(p, h, m, r); } }
@@ -4183,9 +4673,11 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
           if (best) { best.pet = p.id; r.d = best; r.st = 'fetch'; continue; }
         }
       }
-      const gx = h.x - (h.dir || 1) * 0.9, gy = h.y + 0.15;
+      const gx = h.x - (h.dir || 1) * tr[0], gy = h.y + tr[1];
       if (Math.abs(gx - r.x) + Math.abs(gy - r.y) > 0.7) G.chase(r, gx, gy, dt, spd, 0.25); else { r.moving = false; r.path = null; r.dir = h.dir || 1; }
     }
+    /* ninguém na fila fica em cima de outro: afasta os que ficaram a menos de 0,45 passo */
+    for (const h of hs) { const ps = h.pets; if (!ps || ps.length < 2 || h.inside) continue; for (let i = 0; i < ps.length; i++) { const a = G.petRt.get(ps[i]); if (!a) continue; for (let j = i + 1; j < ps.length; j++) { const b = G.petRt.get(ps[j]); if (!b) continue; const dx = b.x - a.x, dy = b.y - a.y, dd = Math.hypot(dx, dy); if (dd < 0.45) { const k = (0.45 - dd) * 0.5 / (dd || 1), ux = dd ? dx : 1, uy = dd ? dy : 0; b.x += ux * k; b.y += uy * k; a.x -= ux * k; a.y -= uy * k; } } } }
   };
 
   /* ================= Incursões ================= */
@@ -4346,7 +4838,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (!r || !r.pet) return gr0(r, why);
     const o = Object.assign({}, r); delete o.pet;
     const txt = gr0(o, why), p = G.petHatch(r.pet, 0, 'Caminho');
-    if (p) { const h = G.S.heroes.find((x) => !x.pet); if (h) G.petAssign(p, h); }
+    /* v27 (B2): o filhote do Caminho também chega como vagante e escolhe sozinho um dono */
     return (p ? G.PETS[r.pet].name + ' (' + G.RAR[0] + ')' : 'Pó Estelar e Cristal de Alma') + (txt ? ', ' + txt : '');
   };
 
@@ -4372,7 +4864,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 
   /* ================= ganchos ================= */
   const ds0 = G.dismiss;
-  G.dismiss = (h) => { const p = G.petOf(h); if (p) G.petAssign(p, null); ds0(h); };
+  G.dismiss = (h) => { for (const p of G.petsOf(h).slice()) G.petAssign(p, null); ds0(h); };      // v27 (B2): todos voltam ao Viveiro
   const ue0 = G.updateEncounters;
   G.updateEncounters = (dt) => { ue0(dt); incTick(dt); petTick(dt); dropsTick(dt); };
   /* migração: cada cópia de mascote do guarda-roupa da v21 vira um indivíduo com a raridade-base da espécie */
@@ -4389,15 +4881,21 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (S.cos) for (const old in V21) {
       const n = S.cos[old] || 0; if (!n) { delete S.cos[old]; continue; }
       const k = V21[old], wear = S.heroes.filter((h) => h.cos && h.cos.pet === old);
-      for (let i = 0; i < n; i++) { const p = G.petNew(k, G.PETS[k].r0), h = wear[i]; if (h && !h.pet) { h.pet = p.id; p.hero = h.id; } }
+      for (let i = 0; i < n; i++) { const p = G.petNew(k, G.PETS[k].r0), h = wear[i]; p.out = 0; if (h && !h.pet && !(h.pets && h.pets.length)) { h.pet = p.id; p.hero = h.id; } }
       delete S.cos[old];
     }
     for (const h of S.heroes) { if (h.cos && 'pet' in h.cos) delete h.cos.pet; if (!(h.pet > 0)) h.pet = 0; h._dirty = true; }
     for (const p of S.pets) {
       if (!G.PETS[p.k]) p.k = 'gato'; p.rar = G.clamp(p.rar | 0, 0, 5); if (!p.bag || typeof p.bag !== 'object') p.bag = {};
-      let n = 0; for (const k in p.bag) { if (!G.RES[k] || !(p.bag[k] > 0)) delete p.bag[k]; else n += p.bag[k]; } p.bagN = n; p.hero = 0;
+      let n = 0; for (const k in p.bag) { if (!G.RES[k] || !(p.bag[k] > 0)) delete p.bag[k]; else n += p.bag[k]; } p.bagN = n; p.hero = 0; p.out = p.out ? 1 : 0;
     }
-    for (const h of S.heroes) if (h.pet) { const p = G.petById(h.pet); if (!p || p.hero) h.pet = 0; else p.hero = h.id; }
+    /* v27 (B2): um herói pode ter até 3 mascotes (h.pets). Saves da v26/v27-A só têm h.pet (um): vira uma lista de um; a lista nova é validada contra os mascotes que existem */
+    for (const h of S.heroes) {
+      const ids = Array.isArray(h.pets) ? h.pets.slice() : []; if (h.pet > 0 && ids.indexOf(h.pet) < 0) ids.unshift(h.pet);
+      h.pets = [];
+      for (const id of ids) { const p = G.petById(id); if (p && !p.hero && h.pets.length < G.PET_MAX) { p.hero = h.id; p.out = 0; h.pets.push(id); } }
+      G.petSort(h);
+    }
     G.drops.length = 0; G.petRt.clear();
     vm1();
   };
@@ -4405,6 +4903,171 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   for (const id of Object.keys(G.COS)) if (G.COS[id].slot === 'pet') delete G.COS[id];
   G.COS_IDS = Object.keys(G.COS);
   G.COS_SLOTS = ['traje', 'asas', 'reliquia'];
+})();
+
+;
+/* ===== 3N-adocao.js ===== */
+/* 3N-adocao: v27 (B2) — mascotes procuram dono sozinhos. Todo mascote que o jogador ganha daqui em diante (ovo chocado de Incursão, Mascate, Arena, Caminho)
+   nasce como VAGANTE: anda pelas ruas e pela praça, fareja os heróis que estão na cidade e, depois de cerca de um dia do reino (um pouco mais para os mais
+   raros), escolhe um dono sozinho. O temperamento decide o critério: o Valente vai para o herói mais forte (a conta de poder da Arena, G.arenaHeroPow) e o
+   Dengoso para o mais cativante (G.heroCharm, definido aqui). Um sorteio fixo por par (mascote, herói) de ±10% evita que seja sempre o mesmo herói. Antes de
+   escolher o vagante já "segue" o favorito sempre que ele está na cidade. Só concorre quem tem vaga (cada herói leva até 3 mascotes; ver 36-companheiros).
+   O jogador manda em tudo: pode dar o vagante a um herói, recolhê-lo ao Viveiro ou soltar um mascote do Viveiro na praça. Só simulação, sem DOM. Durante
+   o avanço do tempo ausente (G.OFFLINE) o relógio do vagante corre e ele escolhe, mas ninguém anda. Nada aqui mexe em recursos ou combate. */
+'use strict';
+(function () {
+  const Wd = G.W;
+  const HOUR = G.DAY_SEC / 24;
+
+  /* ================= carisma do herói ================= */
+  /* O jogo não tinha "carisma": o que ele tem de mais próximo é a personalidade (traços), o ânimo, a fama (títulos do Livro de Feitos), os laços com outros heróis,
+     a aparência (trajes e asas) e o posto na Guilda. G.heroCharm soma tudo numa nota de 0 a ~100 e G.heroCharmParts mostra de onde vem cada ponto. */
+  G.CHARM = {
+    trait: { sociavel: 12, generoso: 8, corajoso: 5, sortudo: 4, invocado: 4, focado: 3, ambicioso: 3, robusto: 2, guloso: 2, cacador: 1, notivago: 1, impulsivo: 0, preguicoso: 0, medroso: -2, teimoso: -3 },
+    traitCap: [-5, 22], mood: 0.18, titles: 2.5, titlesCap: 20, bonds: 2.5, bondsCap: 15, hod: 2, hodCap: 6, look: { traje: 4, asas: 4, reliquia: 2 }, rank: 1.2, rankCap: 9,
+  };
+  G.heroCharmParts = (h) => {
+    const C = G.CHARM, out = [];
+    let t = 0; for (const k of h.traits || []) t += C.trait[k] || 0;
+    out.push({ id: 'traits', n: 'Personalidade', v: G.clamp(t, C.traitCap[0], C.traitCap[1]), d: 'os traços do herói (Sociável e Generoso atraem mais)' });
+    out.push({ id: 'mood', n: 'Ânimo', v: G.clamp(h.animo || 0, 0, 100) * C.mood, d: 'quem anda de bem com a vida atrai mais' });
+    let ti = 0, hd = 0; if (G.feitos) { const f = G.feitos(h); ti = Object.keys(f.ti || {}).length; hd = f.hd || 0; }
+    out.push({ id: 'fame', n: 'Fama', v: Math.min(C.titlesCap, ti * C.titles) + Math.min(C.hodCap, hd * C.hod), d: 'títulos e dias de Herói do Dia' });
+    let lc = 0; if (G.lacosOf) for (const l of G.lacosOf(h)) lc += l.lv || 0;
+    out.push({ id: 'bonds', n: 'Laços', v: Math.min(C.bondsCap, lc * C.bonds), d: 'laços de amizade com outros heróis' });
+    const cz = h.cos || {}; out.push({ id: 'look', n: 'Aparência', v: (cz.traje ? C.look.traje : 0) + (cz.asas ? C.look.asas : 0) + (cz.reliquia ? C.look.reliquia : 0), d: 'trajes, asas e relíquias' });
+    out.push({ id: 'rank', n: 'Posto', v: Math.min(C.rankCap, (h.rank || 0) * C.rank + (h.stars || 0) * 0.5), d: 'o rank na Guilda' });
+    return out;
+  };
+  G.heroCharm = (h) => { let s = 0; for (const p of G.heroCharmParts(h)) s += p.v; return Math.max(0, Math.round(s)); };
+
+  /* ================= vagantes ================= */
+  G.STRAY = { wait: 0.8, waitPerRar: 0.1, jitter: 0.3, noise: 0.2, scan: 1.5, spd: 2.1 };
+  const ST = G.STRAY;
+  G.petTemp = (p) => { if (!p.tp) p.tp = G.hash('tp' + p.id + p.k) % 2 ? 'v' : 'd'; return p.tp; };
+  const waitFor = (p) => G.DAY_SEC * (ST.wait + ST.waitPerRar * p.rar) * (1 - ST.jitter / 2 + Math.random() * ST.jitter);
+  const spot = () => { const r = Math.random(); if (r < 0.7) { const q = G.pick(Wd.idle); return Wd.nearestWalk(q[0] + G.rnd(-1.2, 1.2), q[1] + G.rnd(-0.8, 0.8)); } return Wd.nearestWalk(G.rnd(31, 56), G.pick([46.5, 53.6, 60.5])); };
+  G.strayRt = (p) => {
+    let r = G.petRt.get(p.id);
+    if (!r || r.st !== 'stray') { const q = spot(); r = { x: q[0], y: q[1], dir: Math.random() < 0.5 ? 1 : -1, moving: false, path: null, st: 'stray', mode: 'idle', t: G.rnd(0.5, 2.5), d: null, tW: 9, tV: 9, tS: 0, cast: 0, ck: '', fav: 0, sc: 0 }; G.petRt.set(p.id, r); }
+    return r;
+  };
+  /* vira vagante na praça */
+  G.petStrayOn = (p) => {
+    const S = G.S; p.hero = 0; p.out = 1; p.at = S.t + waitFor(p); p.noRoom = 0; G.petTemp(p);
+    G.petRt.delete(p.id); if (!G.OFFLINE) G.strayRt(p);
+    return p;
+  };
+  /* mascote do Viveiro solto na praça para procurar dono ("Soltar na praça") */
+  G.petToSquare = (p) => {
+    if (!p || G.S.pets.indexOf(p) < 0 || p.out) return false;
+    if (p.hero) G.petAssign(p, null);
+    G.petStrayOn(p); G.log(G.PETS[p.k].name + ' saiu do Viveiro e foi para a praça procurar um dono.', 'info'); G.emit('pets', p); return true;
+  };
+  /* recolhe um vagante ao Viveiro */
+  G.petToViveiro = (p) => {
+    if (!p || G.S.pets.indexOf(p) < 0 || p.hero) return false;
+    p.out = 0; G.petRt.delete(p.id); G.log(G.PETS[p.k].name + ' foi recolhido ao Viveiro.', 'info'); G.emit('pets', p); return true;
+  };
+
+  /* quem concorre e quanto cada um vale para este mascote */
+  const noise = (p, h) => 1 - ST.noise / 2 + ST.noise * ((G.hash(p.id + '|' + h.id) % 1000) / 1000);
+  const score = (p, h) => (G.petTemp(p) === 'v' ? G.arenaHeroPow(h) : G.heroCharm(h) + 5) * noise(p, h);
+  G.petCandidates = (p) => G.S.heroes.filter((h) => G.petSlots(h) > 0 && h.pets.indexOf(p.id) < 0);
+  /* o favorito de agora (null se ninguém tem vaga) e o "porquê" */
+  G.petFavorite = (p) => {
+    const c = G.petCandidates(p); if (!c.length) return null;
+    let best = null, bs = -1; for (const h of c) { const s = score(p, h); if (s > bs) { bs = s; best = h; } }
+    return best;
+  };
+  const isTopOverall = (p, h) => {
+    const v = G.petTemp(p) === 'v'; let top = null, bs = -1;
+    for (const x of G.S.heroes) { const s = v ? G.arenaHeroPow(x) : G.heroCharm(x); if (s > bs) { bs = s; top = x; } }
+    return top === h;
+  };
+  G.petChoose = (p) => {
+    const h = G.petFavorite(p); if (!h) return null;
+    const v = G.petTemp(p) === 'v', crit = isTopOverall(p, h) ? (v ? 'o mais forte de Aurora' : 'o mais cativante de Aurora') : (v ? 'o mais forte entre os que têm vaga' : 'o mais cativante entre os que têm vaga');
+    const nm = G.PETS[p.k].name;
+    G.petAssign(p, h);
+    const r = G.petRt.get(p.id); if (r) { r.st = 'follow'; r.path = null; r.mode = null; }
+    G.log(nm + ' escolheu ' + h.name + ' — ' + crit + '.', 'good');
+    G.toast(nm + ' escolheu ' + h.name + ' — ' + crit, 'good', 'paw'); G.sfx('rare');
+    G.S.stats.petsChose = (G.S.stats.petsChose || 0) + 1;
+    return h;
+  };
+  /* dados para o cartão do vagante */
+  G.petStrayInfo = (p) => {
+    const S = G.S, fav = G.petFavorite(p), left = Math.max(0, p.at - S.t), full = !S.heroes.some((h) => G.petSlots(h) > 0);
+    return { temp: G.petTemp(p), fav, leftSec: left, leftHours: left / HOUR, due: left <= 0, noRoom: full, noHeroes: !S.heroes.length, favInTown: !!(fav && Wd.inTown(fav.x, fav.y) && !fav.inside) };
+  };
+
+  /* ---------- o andar do vagante (só com tela; offline ele só conta o tempo) ---------- */
+  const inTown = (h) => !h.inside && Wd.inTown(h.x, h.y) && h.state !== 'fallen' && h.state !== 'recover';
+  const stray = (p, r, dt) => {
+    const S = G.S;
+    if (r.cast > 0) r.cast -= dt;
+    r.t -= dt;
+    const fav = r.fav ? S.heroes.find((x) => x.id === r.fav) : null;
+    /* sempre que o favorito está na cidade, o vagante vai atrás dele */
+    if (fav && inTown(fav) && r.mode !== 'sniff') {
+      r.mode = 'trail';
+      const tx = fav.x - (fav.dir || 1) * 1.7 + Math.sin(p.id) * 0.5, ty = fav.y + 0.55;
+      if (Math.hypot(tx - r.x, ty - r.y) > 0.6) G.chase(r, tx, ty, dt, ST.spd * 1.25, 0.35); else { r.moving = false; r.path = null; r.dir = fav.x >= r.x ? 1 : -1; }
+      return;
+    }
+    if (r.mode === 'trail') { r.mode = 'idle'; r.t = G.rnd(0.5, 1.5); r.moving = false; r.path = null; }
+    switch (r.mode) {
+      case 'walk': case 'sniff': {
+        if (r.mode === 'sniff' && r.sc > 0) { r.sc -= dt; r.moving = false; if (r.sc <= 0) { r.mode = 'idle'; r.t = G.rnd(1, 3); } break; }
+        const done = G.step(r, dt, ST.spd);
+        if (done) { r.moving = false; if (r.mode === 'sniff') { r.sc = G.rnd(1.2, 2.2); const h = S.heroes.find((x) => x.id === r.sn); if (h) r.dir = h.x >= r.x ? 1 : -1; } else { r.mode = 'idle'; r.t = G.rnd(1.5, 5); } }
+        break;
+      }
+      default:
+        r.moving = false;
+        if (r.t <= 0) {
+          const near = S.heroes.filter(inTown);
+          if (near.length && Math.random() < 0.4) { const h = G.pick(near); r.mode = 'sniff'; r.sn = h.id; const q = Wd.nearestWalk(h.x - 0.9 * (h.dir || 1), h.y + 0.3); G.go(r, q[0], q[1]); }
+          else { const q = spot(); r.mode = 'walk'; G.go(r, q[0], q[1]); }
+          r.t = 99;
+        }
+    }
+  };
+  let scanT = 0;
+  const strayRng = G.seeded(0x57A7);
+  /* o andar dos vagantes usa sorteio e cache de caminhos próprios (nada visual muda a sequência do combate) */
+  const strayTick = (dt) => {
+    const S = G.S; if (!S || !S.pets.length) return;
+    const r0 = Math.random; Math.random = strayRng; Wd._npc = true;
+    try { strayTick2(dt); } finally { Math.random = r0; Wd._npc = false; }
+  };
+  const strayTick2 = (dt) => {
+    const S = G.S;
+    let any = false; for (const p of S.pets) if (p.out && !p.hero) { any = true; break; }
+    if (!any) return;
+    scanT -= dt; const scan = scanT <= 0; if (scan) scanT = ST.scan;
+    for (const p of S.pets) {
+      if (!p.out || p.hero) continue;
+      let r = null;
+      if (!G.OFFLINE) { r = G.strayRt(p); stray(p, r, dt); }
+      if (scan) {
+        const fav = G.petFavorite(p);
+        if (r) r.fav = fav ? fav.id : 0;
+        p.noRoom = fav ? 0 : 1;
+        if (S.t >= p.at && fav) G.petChoose(p);
+      }
+    }
+  };
+  const ue0 = G.updateEncounters;
+  G.updateEncounters = (dt) => { ue0(dt); strayTick(dt); };
+  /* todo mascote novo (Incursão, Mascate, Arena, Caminho) chega como vagante; a fusão no Viveiro continua guardando o resultado lá */
+  const ph0 = G.petHatch;
+  G.petHatch = (k, rar, why) => { const p = ph0(k, rar, why); if (p) G.petStrayOn(p); return p; };
+
+  /* vagantes do save carregado: a posição não é salva; reaparecem na praça (o relógio de escolha continua de onde parou) */
+  const vm1 = G.vocMigrate;
+  G.vocMigrate = () => { vm1(); const S = G.S; for (const p of S.pets) { if (p.out && !(p.at >= 0)) p.at = S.t + waitFor(p); if (!p.tp) G.petTemp(p); } };
 })();
 
 ;
@@ -4690,9 +5353,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
 
   /* desenha um quadro de personagem num buffer 26×30. o = aparência */
-  const FRAMES = ['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'atk0', 'atk1', 'atk2'];
+  const FRAMES = ['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'atk0', 'atk1', 'atk2', 'bend0', 'bend1'];      // v27 (B1): bend0/1 = inclinado (colher, plantar, erguer uma tora)
   A.CHAR_W = 26; A.CHAR_H = 30;
-  const drawChar = (o, frame) => {
+  const drawCharRaw = (o, frame) => {
     const p = new Pix(26, 30);
     const skin = SKIN[o.skin % SKIN.length], skinS = sh(skin, 0.82);
     const hair = o.hairC || HAIR[o.hair % HAIR.length], hairS = sh(hair, 0.72), hairL = mix(hair, '#ffffff', 0.3);
@@ -4780,16 +5443,36 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     }
     /* braço da frente + arma */
     let ax = X + 7, ay = Y + 12, hxp, hyp;
-    if (atk === 0) { hxp = ax - 1; hyp = ay - 1; p.rect(ax - 1, ay - 1, 2, 3, body); p.rect(hxp, hyp - 1, 2, 2, skin); }
+    if (frame === 'noarm') { /* v27 (B1): sem braço da frente (a pose inclinada desenha o dela) */ }
+    else if (atk === 0) { hxp = ax - 1; hyp = ay - 1; p.rect(ax - 1, ay - 1, 2, 3, body); p.rect(hxp, hyp - 1, 2, 2, skin); }
     else if (atk === 1) { hxp = ax + 3; hyp = ay + 2; p.rect(ax, ay + 1, 4, 2, body); p.rect(hxp, hyp - 1, 2, 2, skin); }
     else if (atk === 2) { hxp = ax + 2; hyp = ay + 4; p.rect(ax, ay + 1, 2, 4, body); p.rect(hxp - 1, hyp, 2, 2, skin); }
     else { hxp = ax + 1; hyp = ay + 4; p.rect(ax, ay, 2, 5, body); p.col(ax + 1, ay, ay + 3, bodyS); p.rect(ax, ay + 4, 2, 2, skin); }
     if (o.shield) { const s = o.shield, ss = sh(s, 0.7); p.rect(X - 2, Y + 12, 5, 7, s); p.rect(X - 1, Y + 19, 3, 1, s); p.col(X - 2, Y + 12, Y + 18, ss); p.rect(X - 1, Y + 14, 3, 2, trim); p.set(X, Y + 13, trim); p.set(X, Y + 16, trim); }
-    if (o.weapon) drawWeapon(p, o.weapon, atk < 0 ? 0 : atk + 1, hxp, hyp, o.wcol);
-    if (o.weapon === 'adaga' && atk !== 0) drawWeapon(p, 'adaga', atk === 1 ? 2 : 3, X + 1, Y + 16, o.wcol);
-    if (o.carry) { const cc = o.carry; p.rect(X + 6, Y + 12, 6, 5, cc); p.row(X + 6, X + 11, Y + 12, mix(cc, '#ffffff', 0.3)); p.col(X + 11, Y + 12, Y + 16, sh(cc, 0.7)); p.row(X + 6, X + 11, Y + 14, sh(cc, 0.8)); }
-    return p.outline(INK);
+    if (o.weapon && frame !== 'noarm') drawWeapon(p, o.weapon, atk < 0 ? 0 : atk + 1, hxp, hyp, o.wcol);
+    if (o.weapon === 'adaga' && atk !== 0 && frame !== 'noarm') drawWeapon(p, 'adaga', atk === 1 ? 2 : 3, X + 1, Y + 16, o.wcol);
+    if (o.carry && frame !== 'noarm') { const cc = o.carry; p.rect(X + 6, Y + 12, 6, 5, cc); p.row(X + 6, X + 11, Y + 12, mix(cc, '#ffffff', 0.3)); p.col(X + 11, Y + 12, Y + 16, sh(cc, 0.7)); p.row(X + 6, X + 11, Y + 14, sh(cc, 0.8)); }
+    return p;
   };
+  /* v27 (B1): pose inclinada. Gira o tronco e a cabeça em torno do quadril (mapeamento inverso, sem buracos) e desenha um braço comprido até o chão.
+     k = 0: inclinação leve (colher de foice, erguer uma tora); k = 1: funda (plantar, juntar pedras). BEND dá a mão (para fixar ferramentas) */
+  const BEND = [{ th: 0.56, hx: 21.5, hy: 24.5 }, { th: 0.8, hx: 22.5, hy: 26.5 }];
+  const PIV = [12, 21.5];
+  A.BEND = BEND.map((b) => { const c = Math.cos(b.th), s = Math.sin(b.th), dx = 15.5 - PIV[0], dy = 16.5 - PIV[1]; return { sx: PIV[0] + dx * c - dy * s, sy: PIV[1] + dx * s + dy * c, hx: b.hx, hy: b.hy }; });
+  const bendPix = (o, k) => {
+    const src = drawCharRaw(o, 'noarm'), p = new Pix(26, 30), b = BEND[k], g = A.BEND[k], c = Math.cos(b.th), s = Math.sin(b.th);
+    for (let y = 0; y < 30; y++) for (let x = 0; x < 26; x++) {
+      if (y >= 22) { const v = src.d[y * 26 + x]; if (v >>> 24) p.d[y * 26 + x] = v; continue; }
+      const dx = x + 0.5 - PIV[0], dy = y + 0.5 - PIV[1], sx = PIV[0] + dx * c + dy * s, sy = PIV[1] - dx * s + dy * c;
+      if (sy >= 22) continue;
+      const v = src.get(Math.floor(sx), Math.floor(sy)); if (v >>> 24) p.d[y * 26 + x] = v;
+    }
+    const body = o.body, skin = SKIN[o.skin % SKIN.length];
+    p.line(g.sx, g.sy, g.hx, g.hy - 1, body); p.line(g.sx + 1, g.sy, g.hx + 1, g.hy - 1, body); p.line(g.sx, g.sy + 1, g.hx, g.hy, sh(body, 0.78));
+    p.rect(Math.round(g.hx) - 1, Math.round(g.hy) - 1, 2, 2, skin);
+    return p;
+  };
+  const drawChar = (o, frame) => (frame === 'bend0' || frame === 'bend1' ? bendPix(o, +frame[4]) : drawCharRaw(o, frame)).outline(INK);
 
   /* aparência a partir do herói / morador */
   A.heroLook = (h) => {
@@ -4818,16 +5501,19 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     'Curandeira': { body: '#f0f0f0', robe: 1, trim: '#3c8a78', head: 'cap', hat: '#f0f0f0' }, 'Alquimista': { body: '#684282', robe: 1, trim: '#9be08a', beard: '#c8c0b8' },
     'Fazendeiro': { head: 'straw', body: '#7d9c4d', legs: '#6a5a44' }, 'Lavradora': { head: 'straw', body: '#c8a04a', legs: '#6a5a44' }, 'Caçador de animais': { head: 'hood', hoodC: '#6a5a3a', body: '#8a6a4a' },
     'Lenhador': { body: '#b04832', beard: '#4a3226', legs: '#4a5a6a', tool: 1 }, 'Minerador': { head: 'cap', hat: '#c8a04a', body: '#6b6b7a', tool: 1 },
+    'Lenhadora': { body: '#4f7a54', head: 'cap', hat: '#8a4a2e', legs: '#4a5a6a', tool: 1 }, 'Mineradora': { head: 'cap', hat: '#9a6a3a', body: '#8a5a6a', legs: '#4a4a58', tool: 1 }, 'Colhedor': { head: 'straw', body: '#9a7a4a', legs: '#5a5a48' },
     'Escrivã': { body: '#3b5fa8', robe: 1, trim: '#e2b659' }, 'Cobradora': { body: '#5a4a8a', robe: 1, trim: '#e2b659' },
     'Mestre da Guilda': { body: '#7a4a2e', cape: '#8a2c2c', beard: '#8a7a6a' }, 'Instrutor': { body: '#6a6a72', armor: 1, beard: '#2a2630' },
     'Guarda': { body: '#7a88a0', armor: 1, head: 'helm', metal: '#8a96aa', plume: '#3b5fa8', weapon: 'lanca' }, 'Guarda do portão': { body: '#7a88a0', armor: 1, head: 'helm', metal: '#8a96aa', plume: '#c83c34', weapon: 'lanca', shield: '#3b5fa8' },
     'Mercadora': { body: '#c97b32', scarf: '#f0e0c0' }, 'Feirante': { body: '#6fa86b', apron: '#e8dcc8' }, 'Caixa': { body: '#8fb2c9' }, 'Atendente': { body: '#8a6ab0', apron: '#f4ece0' }, 'Aprendiz': { body: '#b9a06a' },
   };
+  const NAME_LOOK = { Tonho: { body: '#4f78a0', beard: null, hair: 1, head: 'cap', hat: '#5a4a3a' }, Beto: { body: '#7a7a4a', beard: '#6a5a4a' }, Tião: { body: '#6f8f58' } };
   A.npcLook = (n) => {
     const s = G.hash(n.name + n.look), j = JOB_LOOK[n.job] || {};
     const o = Object.assign({ skin: s % 5, hair: (s >>> 3) % 7, style: (s >>> 6) % 6, body: TUNICS[(s >>> 9) % TUNICS.length], legs: ['#4a4458', '#5a4a3a', '#3a4a5a', '#6a5a44'][(s >>> 12) % 4], blush: (s >>> 14) % 2 === 0 }, j);
-    if (j.tool) o.weapon = 'ferramenta';
-    o.key = 'n|' + n.name + '|' + n.job + '|' + (n.carry || '');
+    if (NAME_LOOK[n.name]) Object.assign(o, NAME_LOOK[n.name]);
+    if (j.tool && !n.wk) o.weapon = 'ferramenta';          // v27 (B1): a equipe de campo usa as ferramentas do trabalho (desenhadas por 54-vida-art), não uma arma na mão
+    o.key = 'n|' + n.name + '|' + n.job + '|' + (n.carry || '') + (n.wk ? '|w' : '');
     if (n.carry) { o.carry = n.carry === 'trigo' ? '#e2b84a' : n.carry === 'madeira' ? '#9a6a3c' : '#9aa0a8'; o.weapon = null; }
     return o;
   };
@@ -5203,12 +5889,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     { const [cx, cy] = G.CRATER.center; x.lineWidth = 2; for (const [rad, col] of [[58, 'rgba(208,112,255,.75)'], [44, 'rgba(160,90,240,.55)'], [20, 'rgba(230,190,255,.7)']]) { x.strokeStyle = col; x.beginPath(); x.ellipse(cx * TS, cy * TS, rad, rad * 0.62, 0, 0, 6.283); x.stroke(); }
       for (let a = 0; a < 8; a++) { const ax = cx * TS + Math.cos(a * 0.785) * 51, ay = cy * TS + Math.sin(a * 0.785) * 51 * 0.62; x.fillStyle = '#e6c0ff'; x.fillRect(ax - 2, ay - 2, 4, 4); x.fillStyle = '#7a34b8'; x.fillRect(ax - 1, ay - 1, 2, 2); } }
     for (const z of G.ZONES) { const [lx, ly] = z.lair; x.strokeStyle = 'rgba(20,14,30,.35)'; x.lineWidth = 2; x.setLineDash([5, 4]); x.beginPath(); x.ellipse(lx * TS, ly * TS, 46, 28, 0, 0, 6.283); x.stroke(); x.setLineDash([]); }
-    /* plantações: fileiras de trigo e de ervas */
-    for (const f of Wd.fields) for (let ty = f.y0; ty <= f.y1; ty++) for (let tx = f.x0; tx <= f.x1; tx++) for (let r = 0; r < 2; r++) for (let i = 0; i < 4; i++) {
-      const px = tx * TS + 2 + i * 4, py = ty * TS + 3 + r * 8;
-      if (f.crop === 0) { dot(px, py - 3, '#e8c450', 2, 4); dot(px, py - 4, '#f7de8a', 1, 1); dot(px, py + 1, '#a87f24', 1, 2); }
-      else { dot(px - 1, py - 1, '#4f9a48', 3, 2); dot(px, py - 2, '#7fd070', 1, 1); }
-    }
+    /* plantações: v27 (B1) as fileiras deixaram de ser pintadas aqui: cada canteiro é desenhado por quadro no estágio real (54-vida-art), para crescer, ser colhido e replantado */
     terrainCv = cv; return cv;
   };
 
@@ -5471,7 +6152,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     R.resize(); window.addEventListener('resize', R.resize);
     /* estáticos ordenados por y */
     const st = [];
-    for (const p of Wd.props) { if (p.flat) continue; const s = A.prop(p.t, p.v); if (s) st.push({ y: p.y, x: p.x, s, kind: p.t }); }
+    for (const p of Wd.props) { if (p.flat) continue; const s = A.prop(p.t, p.v); if (s) st.push({ y: p.y, x: p.x, s, kind: p.t, p }); }
     const tw = Wd.town;
     for (let x = tw.x0; x <= tw.x1; x++) for (const y of [tw.y0, tw.y1]) { if (Wd.tile[y * Wd.w + x] !== T.WALL) continue; const gate = Wd.tile[y * Wd.w + x - 1] !== T.WALL || Wd.tile[y * Wd.w + x + 1] !== T.WALL; const corner = x === tw.x0 || x === tw.x1; const s = A.wallPiece(gate || corner ? 't' : 'h'); st.push({ y: y + 1 + (gate || corner ? 0.02 : 0), x: x + 0.5, s, kind: 'wall' }); }
     for (let y = tw.y0 + 1; y < tw.y1; y++) for (const x of [tw.x0, tw.x1]) { if (Wd.tile[y * Wd.w + x] !== T.WALL) continue; const gate = Wd.tile[(y - 1) * Wd.w + x] !== T.WALL || Wd.tile[(y + 1) * Wd.w + x] !== T.WALL; const s = A.wallPiece(gate ? 't' : 'v'); st.push({ y: y + 1 + (gate ? 0.02 : 0), x: x + 0.5, s, kind: 'wall' }); }
@@ -5505,6 +6186,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* ---------- seleção por toque ---------- */
   R.pick = (px, py) => {
     const [wx, wy] = R.screenToWorld(px, py), S = G.S;
+    if (R.pickPet) { const o = R.pickPet(wx, wy, 0.7); if (o) return o; }
     let best = null, bd = 1.1;
     for (const h of S.heroes) { if (h.inside) continue; const d = Math.hypot(h.x - wx, h.y - 0.6 - wy); if (d < bd) { bd = d; best = { type: 'hero', ref: h }; } }
     if (best) return best;
@@ -5610,6 +6292,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       ctx.fillStyle = w.t === T.LAVA ? 'rgba(255,230,140,.75)' : w.t === T.POOL ? 'rgba(170,220,200,.35)' : 'rgba(220,245,255,.55)';
       ctx.fillRect(px, py, 4 * z, z); if (w.h % 3 === 0) ctx.fillRect(px - 5 * z, py + 5 * z, 2 * z, z);
     }
+    if (R.groundMore) R.groundMore(X, Y, z, vx0, vx1, vy0, vy1);      // v27 (B1): canteiros (estágio real de cada um)
     /* marcas no chão: alertas de chefe, seleção */
     for (const f of R.fxs) if (f.t === 'warn') { const k = f.age / f.life; ctx.fillStyle = 'rgba(255,60,60,' + (0.12 + 0.2 * k) + ')'; ctx.beginPath(); ctx.ellipse(X(f.x), Y(f.y), f.r * TS * z, f.r * TS * z * 0.6, 0, 0, 6.283); ctx.fill(); ctx.strokeStyle = 'rgba(255,90,90,.9)'; ctx.lineWidth = Math.max(1, z * 0.7); ctx.beginPath(); ctx.ellipse(X(f.x), Y(f.y), f.r * TS * z * k, f.r * TS * z * 0.6 * k, 0, 0, 6.283); ctx.stroke(); }
     if (R.sel && R.sel.ref && !R.sel.ref.dead) { const e = R.sel.ref; ctx.strokeStyle = 'rgba(255,224,122,.95)'; ctx.lineWidth = Math.max(1.5, z * 0.6); ctx.beginPath(); ctx.ellipse(X(e.x), Y(e.y), (e.size || 1) * 9 * z, (e.size || 1) * 4.5 * z, 0, 0, 6.283); ctx.stroke(); }
@@ -5689,6 +6372,8 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 
   /* ---------- desenhistas ---------- */
   const drawStatic = (s, X, Y, z, dark) => {
+    if (s.wt) return R.drawWorkTree(s, X, Y, z, dark);      // v27 (B1): árvores de corte e rochas do filão têm estado próprio (54-vida-art)
+    if (s.wr) return R.drawWorkRock(s, X, Y, z);
     const sp = s.s, dx = Math.round(X(s.x) - (sp.w / 2) * z), dy = Math.round(Y(s.y) - sp.h * z);
     if (s.kind === 'portal') {
       const cx = X(s.x), cy = Y(s.y) - 30 * z, t = R.t;
@@ -5709,6 +6394,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     ctx.drawImage(sp.cv, dx, dy, sp.w * z, sp.h * z);
     if (lvl > 0 && sp.smoke && !(b && b.dmg) && Math.random() < 0.08) part(p.x - 0.25 + sp.smoke.x / 16, p.y + 4 - (sp.h - 4 - sp.smoke.y) / 16, 0.2, -0.55, 2.4, '#ece8e0', 2, -0.05, 'puff');
     if (id === 'ferraria' && lvl > 0 && Math.random() < 0.03) part(p.x + 3 + G.rnd(-1, 1), p.y + 4.3, G.rnd(-1, 1), -2, 0.4, '#ffb040', 1, 6);
+    if (R.bldWork) R.bldWork(id, lvl, p, sp, X, Y, z);      // v27 (B1): o prédio mostra que está trabalhando (faíscas, fumaça, bolhas)
     const dark = G.darkness(S.clock);
     if (dark > 0.3 && lvl > 0 && !S.opts.lowFx) { for (const l of sp.lights) { ctx.fillStyle = l.lamp ? 'rgba(255,230,150,' + dark + ')' : 'rgba(255,208,110,' + Math.min(1, dark * 1.1) + ')'; ctx.fillRect(dx + l.x * z, dy + l.y * z, l.w * z, l.h * z); } }
     over.push(() => {
@@ -5733,6 +6419,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   const bubble = (px, py, text) => { ctx.font = fontS; ctx.textAlign = 'center'; const fs = parseInt(fontS.split(' ')[1]); const tw = ctx.measureText(text).width, w = tw + fs * 1.2, h = fs * 1.8; const x = Math.round(G.clamp(px - w / 2, 4, cw - w - 4)), y = Math.round(py - h); ctx.fillStyle = 'rgba(255,252,240,.96)'; rr(x, y, w, h, fs * 0.6); ctx.fill(); ctx.beginPath(); ctx.moveTo(px - fs * 0.4, y + h - 1); ctx.lineTo(px, y + h + fs * 0.45); ctx.lineTo(px + fs * 0.4, y + h - 1); ctx.fill(); ctx.fillStyle = '#2a2030'; ctx.textBaseline = 'middle'; ctx.fillText(text, x + w / 2, y + h / 2 + 1); ctx.textBaseline = 'alphabetic'; };
 
   const drawChar = (e, isHero, X, Y, z, over, dt) => {
+    if (!isHero && e._wk && R.npcDraw && R.npcDraw(e, X, Y, z, over)) return;      // v27 (B1): equipe de campo em serviço (ferramentas, cargas, poses de trabalho)
     const S = G.S, px = Math.round(X(e.x)), py = Math.round(Y(e.y) + (e._sit ? 2.4 * z : 0));   // v26: sentado numa cena da cidade (3G) desce um pouco
     if (e._ph == null) e._ph = (G.hash(e.name || e.id) % 100) / 25;
     const look = isHero ? (e._look && e._lk === e._dirtyKey ? e._look : (e._lk = e._dirtyKey = gearKey(e), e._look = A.heroLook(e))) : (e._look && e._lc === (e.carry || '') ? e._look : (e._lc = e.carry || '', e._look = A.npcLook(e)));
@@ -6110,6 +6797,16 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
 
   /* ---------- mascote no mapa ---------- */
+  /* v27 (B2): balãozinho de quem procura dono: "?" enquanto vaga, coração quando segue o favorito */
+  const marks = {};
+  const markCv = (heart) => {
+    const k = heart ? 'h' : 'q'; if (marks[k]) return marks[k];
+    const p = new Pix(11, 12);
+    p.rect(1, 1, 9, 7, WHITE); p.rect(2, 0, 7, 9, WHITE); p.set(4, 9, WHITE); p.set(5, 10, WHITE); p.set(4, 8, WHITE); p.set(5, 9, WHITE);
+    if (heart) { for (const [x, y] of [[3, 2], [4, 2], [6, 2], [7, 2], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [4, 4], [5, 4], [6, 4], [5, 5]]) p.set(x, y, '#e8506a'); p.set(3, 2, '#ff9aa8'); }
+    else { for (const [x, y] of [[4, 2], [5, 2], [6, 2], [3, 3], [7, 3], [7, 4], [6, 5], [5, 5], [5, 7]]) p.set(x, y, '#8a5ae8'); p.set(5, 6, '#8a5ae8'); }
+    return (marks[k] = p.outline(INK).canvas());
+  };
   const drawPet = (p, X, Y, z) => {
     const ctx = R.ctx, r = G.petRt.get(p.id); if (!r) return;
     const d = G.PETS[p.k], sheet = A.petSheet(p.k), col = G.RAR_COLOR[p.rar];
@@ -6122,19 +6819,25 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     ctx.drawImage(sheet, fr * 14, 0, 14, 12, -7 * z, -11 * z, 14 * z, 12 * z);
     if (p.bagN > 0) { if (!sacks) sacks = [sackPix(0), sackPix(1)]; const full = p.bagN >= G.petLoadCap(p); ctx.drawImage(sacks[full ? 1 : 0], -9 * z, (-9 - (full ? 1 : 0)) * z, 7 * z, 7 * z); }
     ctx.restore();
+    if (p.out && !p.hero) { const bob = Math.round(Math.sin(R.t * 3 + p.id) * z), mc = markCv(r.mode === 'trail'), w = 11 * z * 0.9; ctx.drawImage(mc, Math.round(px - w / 2), Math.round(py - hover - 14.5 * z - w * 12 / 11 + bob), w, w * 12 / 11); }
     if (r.cast > 0) { const k = 1 - r.cast / 0.6; ctx.globalAlpha = (1 - k) * 0.9; ctx.strokeStyle = r.ck === 'heal' ? '#7df09a' : '#b98ff5'; ctx.lineWidth = Math.max(1, z); ctx.beginPath(); ctx.ellipse(px, py - 5 * z - hover, (6 + 6 * k) * z, (5 + 5 * k) * z, 0, 0, 6.283); ctx.stroke(); ctx.globalAlpha = 1; }
   };
   R.dynMore = (dyn, vx0, vx1, vy0, vy1) => {
     const S = G.S;
     for (const d of G.drops) if (d.n > 0 && d.x > vx0 && d.x < vx1 && d.y > vy0 && d.y < vy1 + 1) dyn.push({ y: d.y - 0.05, k: 'x', e: d, f: drawDrop });
     for (const p of S.pets) {
-      if (!p.hero) continue; let r = G.petRt.get(p.id);
-      if (!r) { const h = S.heroes.find((x) => x.id === p.hero); if (!h) continue; r = G.petRtOf(p, h); }
+      if (!p.hero && !p.out) continue; let r = G.petRt.get(p.id);
+      if (!r) { if (p.out && !p.hero) r = G.strayRt(p); else { const h = S.heroes.find((x) => x.id === p.hero); if (!h) continue; r = G.petRtOf(p, h); } }
       if (r.x > vx0 && r.x < vx1 && r.y > vy0 && r.y < vy1 + 1) dyn.push({ y: r.y, k: 'x', e: p, f: drawPet });
     }
   };
   /* toque no espólio: prioridade abaixo do herói e acima de monstros e construções */
-  R.pickMore = (wx, wy) => { let best = null, bd = 0.8; for (const d of G.drops) { if (!(d.n > 0)) continue; const dd = Math.hypot(d.x - wx, d.y - 0.35 - wy); if (dd < bd) { bd = dd; best = d; } } return best ? { type: 'drop', ref: best } : null; };
+  /* v27 (B2): toque num mascote vagante abre o cartão dele. Com o raio curto ele vale antes dos heróis (o vagante vive grudado no favorito); com o raio longo, depois deles */
+  R.pickPet = (wx, wy, rad) => { let sp = null, sd = rad; for (const p of G.S.pets) { if (!p.out || p.hero) continue; const r = G.petRt.get(p.id); if (!r) continue; const dd = Math.hypot(r.x - wx, r.y - 0.4 - wy); if (dd < sd) { sd = dd; sp = p; } } return sp ? { type: 'pet', ref: sp } : null; };
+  R.pickMore = (wx, wy) => {
+    let best = null, bd = 0.8; for (const d of G.drops) { if (!(d.n > 0)) continue; const dd = Math.hypot(d.x - wx, d.y - 0.35 - wy); if (dd < bd) { bd = dd; best = d; } }
+    const pt = R.pickPet(wx, wy, 1.15); if (pt) return pt;
+    return best ? { type: 'drop', ref: best } : null; };
   /* efeitos novos */
   R.fxMore = (f) => {
     if (f.t === 'weak') {
@@ -6158,6 +6861,416 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
   /* à noite o espólio continua visível */
   R.nightMore = (hole) => { for (const d of G.drops) if (d.n > 0) hole(d.x, d.y - 0.3, 1.1, 0.55); };
+})();
+
+;
+/* ===== 54-vida-art.js ===== */
+/* 54-vida-art: v27 (B1) — a arte e o desenho da vida da cidade (a simulação mora em 3M-vida.js). Tudo é gerado por código, no mesmo estilo e na mesma escala
+   do resto (contorno de 1 px, 16 px por tile): ferramentas (machado, picareta, enxada, foice, regador), cargas (tora, pedra, minério, saco, cesto), árvores que
+   balançam, caem, viram toras e tocos e brotam de novo, rochas que racham e quebram, canteiros que crescem em quatro estágios, pilhas que enchem com as
+   entregas e os efeitos de cada golpe. No Modo leve o vai-e-vem continua, só as partículas somem. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const A = G.A, R = G.R, Pix = A.Pix, Wd = G.W, TS = 16, INK = '#1a1422';
+  const sh = A.shade, mix = A.mix, L = G.life, LF = G.LIFE;
+  const dpr = () => Math.min(3, window.devicePixelRatio || 1);
+  const low = () => !!(G.S && G.S.opts.lowFx);
+
+  /* ================= ferramentas e cargas ================= */
+  const WOOD = '#9a6a3c', WOODS = '#6a4426', WOODL = '#c08a58', STEEL = '#bcc6d4', STEELD = '#7e8898', EDGE = '#f4f8fc';
+  const toolCache = new Map();
+  /* 28×28, pegada no centro (14,14). ang em graus: 0 aponta para a frente, 90 para cima. d = ao longo do cabo, o = de lado */
+  const toolCv = (kind, ang) => {
+    const key = kind + '|' + ang; let c = toolCache.get(key); if (c) return c;
+    const p = new Pix(28, 28), a = ang * Math.PI / 180, dx = Math.cos(a), dy = -Math.sin(a), nx = -dy, ny = dx;
+    const at = (d, o) => [14 + dx * d + nx * o, 14 + dy * d + ny * o];
+    const ln = (d0, o0, d1, o1, col) => { const u = at(d0, o0), v = at(d1, o1); p.line(u[0], u[1], v[0], v[1], col); };
+    const th = (d0, o0, d1, o1, col, col2) => { ln(d0, o0, d1, o1, col); ln(d0, o0 + 1, d1, o1 + 1, col2 || col); };
+    const quad = (pts, col) => { const q = pts.map(([d, o]) => at(d, o)); p.tri(q[0][0], q[0][1], q[1][0], q[1][1], q[2][0], q[2][1], col); p.tri(q[0][0], q[0][1], q[2][0], q[2][1], q[3][0], q[3][1], col); };
+    switch (kind) {
+      case 'axe':
+        th(-2, 0, 12, 0, WOOD, WOODS); ln(-2, 0, 11, 0, WOODL);
+        quad([[9, -2], [12.5, -2], [12.5, 0.5], [9, 0.5]], STEELD);
+        quad([[9, 0.5], [12.5, 0.5], [13.5, 6], [8.2, 5]], STEEL); ln(8.2, 5, 13.5, 6, EDGE); ln(9.5, 1.2, 9.5, 4, EDGE); ln(11, 1, 11.4, 4, mix(STEEL, STEELD, 0.5));
+        break;
+      case 'pick':
+        th(-2, 0, 12, 0, WOOD, WOODS); ln(-2, 0, 11, 0, WOODL);
+        quad([[10.5, -1.5], [13, -1.5], [13, 1.9], [10.5, 1.9]], STEELD);
+        th(11, -8, 12, 0, STEEL, STEELD); th(12, 0, 11, 8, STEEL, STEELD); th(11, -8, 11.4, -4, STEEL, STEELD); ln(10.6, -8.8, 10.6, -7.6, EDGE); ln(10.6, 8.8, 10.6, 7.6, EDGE); ln(11.6, -6, 12.4, 0, EDGE);
+        break;
+      case 'hoe':
+        th(-2, 0, 12, 0, WOOD, WOODS); ln(-2, 0, 11, 0, WOODL);
+        quad([[11, 0], [12.5, 0], [14.5, 5], [11.5, 5]], STEEL); ln(11.5, 5, 14.5, 5, EDGE); ln(12, 1, 12, 4, STEELD);
+        break;
+      case 'scythe':
+        th(-4, 0, 14, 0, WOODL, WOOD); p.set(...at(7, -1.5), WOODS); p.set(...at(2, -1.5), WOODS);
+        for (let i = 0; i <= 12; i++) { const t = i / 12, d = -4 - 1.5 * Math.sin(t * 2.4), o = -0.5 - t * 11, u = at(d, o); p.set(u[0], u[1], t > 0.85 ? EDGE : STEEL); const v = at(d + 1, o); p.set(v[0], v[1], STEELD); if (i % 2 === 0) { const w = at(d - 1, o); p.set(w[0], w[1], EDGE); } }
+        break;
+      case 'can':
+        quad([[-2, -3.5], [4.5, -3.5], [4.5, 3], [-2, 3]], '#8d9bb0'); ln(-2, -3.5, 4.5, -3.5, '#c3cddb'); ln(4.5, -3.5, 4.5, 3, '#6a7690'); ln(-2, 3, 4.5, 3, '#6a7690');
+        th(4.5, 1.5, 9.5, 3.5, '#8d9bb0', '#6a7690'); ln(-2, -3.5, -5, -1, '#6a7690'); ln(-5, -1, -2, 2, '#6a7690');
+        break;
+    }
+    c = p.outline(INK).canvas(); toolCache.set(key, c); return c;
+  };
+  const itemCache = new Map();
+  /* cargas: cada uma é um Pix pequeno; w×h e a âncora são devolvidos para o desenho */
+  const itemCv = (kind, v) => {
+    const key = kind + '|' + (v | 0); let c = itemCache.get(key); if (c) return c;
+    let p;
+    switch (kind) {
+      case 'log': p = new Pix(18, 8); p.rect(2, 1, 14, 6, WOOD); p.row(2, 15, 1, WOODL); p.row(2, 15, 2, mix(WOOD, '#ffffff', 0.1)); p.row(2, 15, 6, WOODS); p.col(15, 2, 6, WOODS); p.set(6, 3, WOODS); p.set(9, 4, WOODS); p.set(12, 3, WOODS);
+        p.ell(3, 4, 2.4, 3, '#e4bc84'); p.ell(3, 4, 1.2, 1.6, '#b88a50'); p.set(3, 4, '#8a5e38'); p.col(16, 2, 5, '#6a4426'); break;
+      case 'stone': p = new Pix(11, 9); p.ell(5.5, 5, 4.8, 3.8, '#a5aab2'); p.ell(4.5, 3.6, 3, 2, '#d0d6dc'); p.row(2, 8, 7, '#6a707a'); p.col(9, 3, 6, '#7e848e'); p.set(6, 4, '#7e848e'); p.set(7, 5, '#7e848e'); p.set(3, 3, '#f0f4f8'); break;
+      case 'ore': p = new Pix(11, 9); p.ell(5.5, 5, 4.8, 3.8, '#8a8696'); p.ell(4.5, 3.6, 3, 2, '#aeaabc'); p.row(2, 8, 7, '#5a5666'); p.col(9, 3, 6, '#6a6676'); p.rect(3, 4, 2, 2, '#ff9a3c'); p.set(3, 4, '#ffe08a'); p.rect(7, 3, 2, 2, '#ff9a3c'); p.set(7, 3, '#ffe08a'); p.set(6, 6, '#ffb44a'); break;
+      case 'sack': p = new Pix(12, 13); p.ell(6, 8, 5.2, 4.8, '#c9a465'); p.ell(5, 7, 3.6, 3.2, '#ddbe80'); p.rect(3, 2, 6, 3, '#c9a465'); p.row(3, 8, 4, '#7a5a2a'); p.rect(4, 0, 4, 2, '#b08a4a'); p.row(5, 7, 4, '#c8473d'); p.col(10, 6, 11, '#a88848'); p.row(3, 9, 11, '#a88848'); p.set(4, 8, '#a88848'); p.set(7, 6, '#a88848'); p.set(8, 9, '#a88848');
+        p.set(4, 2, '#e8c450'); p.set(7, 1, '#e8c450'); break;
+      case 'basket': p = new Pix(13, 9); p.rect(1, 3, 11, 6, '#b8884c'); p.row(1, 11, 3, '#d8a868'); p.row(1, 11, 6, '#8a6030'); p.col(11, 4, 8, '#8a6030'); for (let i = 0; i < 5; i++) p.set(2 + i * 2, 5 + (i % 2) * 2, '#8a6030');
+        p.ell(6.5, 2.5, 5, 2.4, '#4f9a48'); p.ell(5, 1.6, 2.5, 1.5, '#7fd070'); p.set(8, 1, '#c070e0'); p.set(4, 2, '#c070e0'); p.set(9, 3, '#7fd070'); break;
+    }
+    c = { cv: p.outline(INK).canvas(), w: p.w, h: p.h }; itemCache.set(key, c); return c;
+  };
+
+  /* ================= árvores, rochas, canteiros ================= */
+  const halve = (src) => {
+    const w = src.w >> 1, h = src.h >> 1, p = new Pix(w, h), ink = A.C(INK);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      let best = 0, bs = -1;
+      for (const [ox, oy] of [[0, 0], [1, 0], [0, 1], [1, 1]]) { const v = src.get(x * 2 + ox, y * 2 + oy); if (!(v >>> 24) || v === ink) continue; const s = 1 + ((v & 255) + ((v >> 8) & 255) * 1.4); if (s > bs) { bs = s; best = v; } }
+      if (best) p.d[y * w + x] = best;
+    }
+    return p.outline(INK);
+  };
+  const young = {};
+  const youngTree = (k, v) => { const key = k + '|' + (v & 3); if (young[key]) return young[key]; const pix = halve(A.PROPS[k](v & 3)); return (young[key] = { cv: pix.canvas(), w: pix.w, h: pix.h }); };
+  let sapling = null;
+  const saplingSp = (v) => {
+    if (!sapling) sapling = [0, 1].map((i) => { const p = new Pix(12, 15); p.col(6, 7, 13, '#7a5232'); p.col(7, 8, 13, '#5a3a22'); p.rect(4, 13, 5, 1, '#6a4628');
+      const g = i ? ['#63a83e', '#4b8a32', '#9ad65a'] : ['#5aa544', '#43853a', '#7ac65a'];
+      p.ell(6, 5, 2.6, 3.2, g[0]); p.ell(3.5, 7.5, 2.4, 1.6, g[1]); p.ell(8.8, 7.2, 2.4, 1.6, g[0]); p.set(5, 3, g[2]); p.set(3, 7, g[2]); p.set(9, 6, g[2]); return { cv: p.outline(INK).canvas(), w: p.w, h: p.h }; });
+    return sapling[v & 1];
+  };
+  /* tronco caído (virado para a direita; o toco fica na ponta esquerda) e copa deitada */
+  const crownPix = (k) => {
+    const p = new Pix(20, 14), g = k === 'tree_pine' ? ['#3f8a4a', '#2c6a3a', '#5aa862'] : ['#4f9a3c', '#3c7c30', '#6fba50'];
+    p.ell(10, 8, 9, 5.5, g[1]); p.ell(9, 7, 7.5, 4.5, g[0]); p.ell(6.5, 5, 3.5, 2, g[2]); p.ell(13, 9, 3, 2, g[0]);
+    if (k === 'tree_pine') { for (let i = 0; i < 5; i++) p.col(3 + i * 3, 4 + (i % 2), 5 + (i % 2) + 4, g[2]); }
+    return p.outline(INK);
+  };
+  const trunkCache = {};
+  const trunkSp = (k) => {
+    if (trunkCache[k]) return trunkCache[k];
+    const p = new Pix(60, 14);
+    p.rect(1, 4, 32, 6, WOOD); p.row(1, 32, 4, WOODL); p.row(1, 32, 5, mix(WOOD, '#ffffff', 0.08)); p.row(1, 32, 9, WOODS); p.row(3, 30, 7, mix(WOOD, '#000000', 0.12));
+    for (const x of [8, 14, 21, 27]) p.set(x, 6, WOODS);
+    p.ell(2, 7, 1.8, 3.4, '#e4bc84'); p.ell(2, 7, 0.9, 1.8, '#b88a50');
+    p.blit(crownPix(k), 30, 0);
+    return (trunkCache[k] = { cv: p.outline(INK).canvas(), w: p.w, h: p.h });
+  };
+  let logPieceCv = null;
+  const logPiece = () => { if (!logPieceCv) { const p = new Pix(10, 7); p.rect(1, 1, 8, 5, WOOD); p.row(1, 8, 1, WOODL); p.row(1, 8, 5, WOODS); p.col(8, 2, 5, WOODS); p.ell(1.5, 3.5, 1.5, 2.6, '#e4bc84'); p.set(1, 3, '#b88a50'); p.set(5, 3, WOODS); logPieceCv = { cv: p.outline(INK).canvas(), w: p.w, h: p.h }; } return logPieceCv; };
+  const crownCv = {};
+  const crownSp = (k) => { if (!crownCv[k]) { const p = crownPix(k); crownCv[k] = { cv: p.canvas(), w: p.w, h: p.h }; } return crownCv[k]; };
+
+  const rockCache = {};
+  /* rocha do filão: grande, ocre; a de minério tem veios cor de brasa. stage 0–2 = rachaduras */
+  const rockSp = (kind, stage, v) => {
+    const key = kind + '|' + stage + '|' + (v % 3); if (rockCache[key]) return rockCache[key];
+    const ore = kind === 'minerio', c = ore ? '#8a8696' : '#b3a384', s = ore ? '#5a5666' : '#85775e', l = ore ? '#b6b2c4' : '#ddd0aa', p = new Pix(28, 22);
+    p.ell(14, 15, 12, 6.5, c); p.ell(11, 11, 8.5, 7.5, c); p.ell(18.5, 10.5, 6.5, 6, c); p.ell(9, 8.5, 4, 2.6, l); p.ell(17, 7, 3.2, 2, l);
+    p.row(4, 24, 19, s); p.row(5, 23, 20, s); p.col(23, 10, 18, s); p.col(22, 12, 18, s); p.row(6, 12, 17, mix(c, s, 0.4)); p.set(14, 12, s); p.set(15, 13, s); p.set(13, 14, s);
+    if (ore) { for (const [x, y] of [[8, 13], [16, 15], [19, 9], [11, 17], [22, 14]]) { p.rect(x, y, 2, 2, '#ff9a3c'); p.set(x, y, '#ffe08a'); p.set(x + 1, y + 1, '#d86a1c'); } }
+    else { for (const [x, y] of [[8, 14], [17, 13], [13, 18], [21, 15]]) { p.set(x, y, l); p.set(x + 1, y, s); } p.rect(19, 12, 2, 1, '#c9a24a'); }
+    if (stage >= 1) { p.line(13, 5, 14, 9, INK); p.line(14, 9, 12, 13, INK); p.set(15, 9, s); }
+    if (stage >= 2) { p.line(19, 7, 17, 11, INK); p.line(17, 11, 19, 15, INK); p.line(12, 13, 9, 15, INK); p.set(20, 8, s); p.set(10, 10, s); }
+    return (rockCache[key] = { cv: p.outline(INK).canvas(), w: p.w, h: p.h });
+  };
+  const rubbleSp = (kind, n) => {
+    const key = 'r|' + kind + '|' + n; if (rockCache[key]) return rockCache[key];
+    const ore = kind === 'minerio', p = new Pix(26, 11), c = ore ? '#8a8696' : '#b3a384', s = ore ? '#5a5666' : '#85775e', l = ore ? '#b6b2c4' : '#ddd0aa';
+    const chunk = (x, y, r) => { p.ell(x, y, r + 1.2, r, c); p.ell(x - 1, y - 1, r * 0.55, r * 0.4, l); p.row(Math.round(x - r), Math.round(x + r), Math.round(y + r) - 1, s); if (ore) { p.set(x + 1, y, '#ff9a3c'); p.set(x - 2, y + 1, '#ffd070'); } };
+    if (n >= 1) chunk(6, 6.5, 3.4); if (n >= 2) chunk(15, 7, 3.8); if (n >= 3) chunk(21, 6, 2.8); p.set(10, 8, s); p.set(3, 8, l); p.set(18, 4, l);
+    return (rockCache[key] = { cv: p.outline(INK).canvas(), w: p.w, h: p.h });
+  };
+  const smallRockSp = (kind) => {
+    const key = 's|' + kind; if (rockCache[key]) return rockCache[key];
+    const ore = kind === 'minerio', p = new Pix(14, 10), c = ore ? '#8a8696' : '#b3a384', s = ore ? '#5a5666' : '#85775e', l = ore ? '#b6b2c4' : '#ddd0aa';
+    p.ell(7, 6, 5.5, 3.6, c); p.ell(5, 4.5, 3, 1.8, l); p.row(3, 11, 8, s); if (ore) { p.set(8, 5, '#ff9a3c'); p.set(4, 6, '#ff9a3c'); }
+    return (rockCache[key] = { cv: p.outline(INK).canvas(), w: p.w, h: p.h });
+  };
+  const bareSp = () => { if (rockCache.bare) return rockCache.bare; const p = new Pix(18, 7); p.ell(9, 4, 7.5, 2, '#a89868'); p.ell(8, 3.5, 5, 1.2, '#c4b484'); p.set(4, 3, '#85775e'); p.set(12, 4, '#85775e'); p.set(14, 3, '#ddd0aa'); p.set(6, 5, '#ddd0aa'); return (rockCache.bare = { cv: p.canvas(), w: p.w, h: p.h }); };
+
+  /* canteiro 16×16: trigo (crop 0) ou ervas (crop 1) em quatro estágios; a terra molhada escurece; praga murcha */
+  const cropCache = [];
+  const cropSp = (crop, st, wet, blight) => {
+    const key = ((crop * 5 + st) * 2 + (wet ? 1 : 0)) * 2 + (blight ? 1 : 0); if (cropCache[key]) return cropCache[key];
+    const p = new Pix(16, 16);
+    if (wet) for (let r = 0; r < 4; r++) p.rect(0, 1 + r * 4, 16, 2, '#00000040');
+    for (let r = 0; r < 2; r++) for (let i = 0; i < 4; i++) {
+      const px = 2 + i * 4, py = 3 + r * 8, jit = (i + r) % 2;
+      if (crop === 0) {
+        const gold = blight ? '#9a8650' : '#e8c450', top = blight ? '#b8a468' : '#f7de8a', stem = blight ? '#6a5a34' : '#a87f24', gr = blight ? '#7a7040' : '#7fb040', gr2 = blight ? '#9a9058' : '#b8c850';
+        if (st === 4) { p.rect(px, py - 3, 2, 4, gold); p.set(px, py - 4, top); p.set(px + 1, py - 5 + jit, top); p.set(px, py + 1, stem); p.set(px + 1, py + 1, stem); }
+        else if (st === 3) { p.rect(px, py - 2, 2, 3, gr2); p.set(px, py - 3, top); p.set(px + 1, py + 1, stem); p.set(px, py + 1, gr); }
+        else if (st === 2) { p.rect(px, py - 1, 1, 2, gr); p.set(px + 1, py, gr); p.set(px - 1, py + 1, gr); }
+        else if (st === 1) { p.set(px, py, '#5a3a22'); p.set(px + 1, py + 1, '#c8a060'); }
+        else if (!(i + r * 3) % 3) { p.set(px, py, '#c8a860'); p.set(px + 1, py - 1, '#a88848'); }
+      } else {
+        const g1 = blight ? '#7a7a48' : '#4f9a48', g2 = blight ? '#9a9a60' : '#7fd070', fl = blight ? '#9a7a60' : '#c070e0';
+        if (st === 4) { p.rect(px - 1, py - 2, 4, 3, g1); p.set(px, py - 3, g2); p.set(px + 1, py - 2, g2); p.set(px + 2 - jit, py - 4, fl); p.set(px - 1, py + 1, g1); }
+        else if (st === 3) { p.rect(px - 1, py - 1, 3, 2, g1); p.set(px, py - 2, g2); p.set(px + 1, py - 2, g1); }
+        else if (st === 2) { p.set(px, py, g1); p.set(px + 1, py - 1, g2); p.set(px - 1, py, g1); }
+        else if (st === 1) { p.set(px, py, '#5a3a22'); p.set(px + 1, py, '#c8a060'); }
+        else if (!(i + r * 3) % 3) { p.set(px, py, '#8a6a4a'); }
+      }
+    }
+    return (cropCache[key] = p.canvas());
+  };
+  R.cropSp = cropSp;
+
+  let logEndSp = null;
+  const logEnd = () => { if (!logEndSp) { const p = new Pix(8, 8); p.ell(4, 4, 3.4, 3.4, '#e4bc84'); p.ell(4, 4, 1.8, 1.8, '#c89a60'); p.ell(4, 4, 0.8, 0.8, '#8a5e38'); logEndSp = { cv: p.outline(INK).canvas(), w: p.w, h: p.h }; } return logEndSp; };
+  /* pilhas ao lado dos prédios: cada entrega vira uma peça, num lugar fixo (slot) da pilha */
+  const SLOTS = {
+    lenharia: [[0, 0], [6, 0], [12, 0], [18, 0], [3, -4.5], [9, -4.5], [15, -4.5], [9, -9]],
+    pedreira: [[0, 0], [9, 0], [18, 0], [4.5, -5.5], [13.5, -5.5], [9, -11], [-4, 1], [22, 1]],
+    fazenda: [[0, 0], [10, 0], [20, 0], [5, -9], [15, -9], [10, -18], [-5, 1], [25, 1]],
+  };
+  const pileBase = { lenharia: [-9, 0, '#6a4426'], pedreira: [-8, 0, '#6a6458'], fazenda: [-8, 0, '#7a5a30'] };
+
+  /* ================= desenho ================= */
+  const shadow = (px, py, r, z) => { const ctx = R.ctx; ctx.fillStyle = 'rgba(10,16,30,.28)'; ctx.beginPath(); ctx.ellipse(px, py, r * z, r * 0.42 * z, 0, 0, 6.283); ctx.fill(); };
+  const blit = (sp, x, y, z, flip) => { const ctx = R.ctx; if (flip) { ctx.save(); ctx.translate(x, y); ctx.scale(-1, 1); ctx.drawImage(sp.cv, 0, 0, sp.w * z, sp.h * z); ctx.restore(); } else ctx.drawImage(sp.cv, x, y, sp.w * z, sp.h * z); };
+
+  const drawStump = (px, py, z, dy) => { const sp = A.prop('stump', 0); R.ctx.drawImage(sp.cv, Math.round(px - (sp.w / 2) * z), Math.round(py - sp.h * z + (dy == null ? 2 : dy) * z), sp.w * z, sp.h * z); };
+  /* árvore de corte: o desenho depende do estado */
+  R.drawWorkTree = (s, X, Y, z, dark) => {
+    const ctx = R.ctx, t = s.wt, px = X(t.x), py = Y(t.y);
+    const base = (sp, sx, sy) => ctx.drawImage(sp.cv, Math.round(sx), Math.round(sy), sp.w * z, sp.h * z);
+    switch (t.st) {
+      case 'tree': case 'chop': {
+        const sp = s.s, k = t.sh > 0 ? t.sh / 0.32 : 0, jx = k > 0 ? Math.round(Math.sin(R.t * 70) * 1.3 * k) * z : 0;
+        ctx.drawImage(sp.cv, Math.round(px - (sp.w / 2) * z + jx), Math.round(py - sp.h * z), sp.w * z, sp.h * z);
+        if (dark > 0.3 && s.lights) { /* nada */ }
+        break;
+      }
+      case 'fall': {
+        drawStump(px, py, z);
+        const sp = s.s, k = Math.min(1, t.t / 0.95), ease = k * k * k * 0.85 + k * 0.15 * k, ang = t.fd * (Math.PI / 2 - 0.05) * ease, bounce = k > 0.94 ? Math.sin((k - 0.94) / 0.06 * Math.PI) * 0.05 * t.fd : 0;
+        ctx.save(); ctx.translate(px, py); ctx.rotate(ang - bounce); ctx.drawImage(sp.cv, Math.round(-(sp.w / 2) * z), Math.round(-sp.h * z), sp.w * z, sp.h * z); ctx.restore();
+        shadow(px, py, 5, z);
+        break;
+      }
+      case 'trunk': {
+        drawStump(px, py, z);
+        const sp = trunkSp(t.k); ctx.save(); ctx.translate(px, py); if (t.fd < 0) ctx.scale(-1, 1);
+        ctx.drawImage(sp.cv, Math.round(-2 * z), Math.round(-12 * z), sp.w * z, sp.h * z); ctx.restore();
+        break;
+      }
+      case 'cut': {
+        drawStump(px, py, z);
+        const cs = crownSp(t.k), lp = logPiece(); ctx.save(); ctx.translate(px, py); if (t.fd < 0) ctx.scale(-1, 1);
+        ctx.drawImage(cs.cv, Math.round(30 * z), Math.round(-12 * z), cs.w * z, cs.h * z);
+        for (let i = 0; i < t.logs; i++) { const j = LF.logs - t.logs + i; ctx.drawImage(lp.cv, Math.round((1 + j * 10.5) * z), Math.round(-8.5 * z), lp.w * z, lp.h * z); }
+        ctx.restore();
+        break;
+      }
+      case 'stump': {
+        if (t.crown > 0) { const cs = crownSp(t.k); ctx.save(); ctx.globalAlpha = Math.min(1, t.crown / 3); ctx.translate(px, py); if (t.fd < 0) ctx.scale(-1, 1); ctx.drawImage(cs.cv, Math.round(30 * z), Math.round(-12 * z), cs.w * z, cs.h * z); ctx.restore(); }
+        drawStump(px, py, z);
+        break;
+      }
+      case 'sap': { const sp = saplingSp(t.v); base(sp, px - (sp.w / 2) * z, py - sp.h * z + z); break; }
+      case 'young': { const sp = youngTree(t.k, t.v); const k = Math.min(1, t.t / LF.youngT); base(sp, px - (sp.w / 2) * z, py - sp.h * z + z); void k; break; }
+    }
+  };
+  /* rocha do filão */
+  R.drawWorkRock = (s, X, Y, z) => {
+    const ctx = R.ctx, r = s.wr, px = X(r.x), py = Y(r.y);
+    let sp;
+    switch (r.st) {
+      case 'rock': sp = rockSp(r.kind, r.stage, r.v); break;
+      case 'rubble': sp = rubbleSp(r.kind, r.pieces); break;
+      case 'bare': sp = bareSp(); break;
+      default: sp = smallRockSp(r.kind);
+    }
+    const jx = r.sh > 0 ? Math.round(Math.sin(R.t * 80) * 1.2 * (r.sh / 0.3)) * z : 0;
+    if (r.st === 'rock') shadow(px, py, 11, z);
+    ctx.drawImage(sp.cv, Math.round(px - (sp.w / 2) * z + jx), Math.round(py - sp.h * z + (r.st === 'bare' ? 1 : 0) * z), sp.w * z, sp.h * z);
+  };
+  /* canteiros: no chão, antes dos personagens. Os 48 tiles ficam numa camada só (16 px por tile): só os que mudaram de estágio, de umidade ou de praga
+     são repintados nela, e o quadro faz um único drawImage */
+  let fieldCv = null, fieldCtx = null, fieldSig = null, fx0 = 0, fy0 = 0, fieldN = 0;
+  R.groundMore = (X, Y, z, vx0, vx1, vy0, vy1) => {
+    const ctx = R.ctx, S = G.S, bl = S.ev.blight > S.day, T = L.tiles;
+    if (!T.length) return;
+    if (!fieldCv || fieldN !== T.length) {
+      let x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1; for (const q of T) { x0 = Math.min(x0, q.x); y0 = Math.min(y0, q.y); x1 = Math.max(x1, q.x); y1 = Math.max(y1, q.y); }
+      fx0 = x0; fy0 = y0; fieldCv = A.mk((x1 - x0 + 1) * TS, (y1 - y0 + 1) * TS); fieldCtx = fieldCv.getContext('2d'); fieldSig = new Int16Array(T.length).fill(-1); fieldN = T.length;
+    }
+    if (fx0 + fieldCv.width / TS < vx0 || fx0 > vx1 || fy0 + fieldCv.height / TS < vy0 - 1 || fy0 > vy1) return;
+    for (let i = 0; i < T.length; i++) {
+      const q = T[i], wet = q.wet > S.t ? 1 : 0, b = bl && q.st >= 2 ? 1 : 0, sig = ((q.crop * 5 + q.st) * 2 + wet) * 2 + b;
+      if (fieldSig[i] === sig) continue;
+      fieldSig[i] = sig; fieldCtx.clearRect((q.x - fx0) * TS, (q.y - fy0) * TS, TS, TS); fieldCtx.drawImage(cropSp(q.crop, q.st, wet, b), (q.x - fx0) * TS, (q.y - fy0) * TS);
+    }
+    ctx.drawImage(fieldCv, Math.round(X(fx0)), Math.round(Y(fy0)), fieldCv.width * z, fieldCv.height * z);
+  };
+
+  /* pilhas */
+  const drawPile = (e, X, Y, z) => {
+    const ctx = R.ctx, site = e.site, arr = L.piles[site], p = L.pile[site]; if (!p) return;
+    const px = Math.round(X(p[0])), py = Math.round(Y(p[1])), sl = SLOTS[site], b = pileBase[site];
+    ctx.fillStyle = 'rgba(10,16,30,.22)'; ctx.beginPath(); ctx.ellipse(px + 7 * z, py, 17 * z, 4.6 * z, 0, 0, 6.283); ctx.fill();
+    const order = arr.length > 1 ? arr.slice().sort((a, c) => sl[c.slot][1] - sl[a.slot][1]) : arr;        // as peças de baixo primeiro
+    for (const it of order) {
+      const s = sl[it.slot]; if (!s) continue;
+      const age = G.S.t - it.t, fade = age > LF.pileLife - 5 ? Math.max(0, (LF.pileLife - age) / 5) : 1;
+      let img = it.res === 'madeira' ? 'log' : it.res === 'pedra' ? 'stone' : it.res === 'minerio' ? 'ore' : it.res === 'trigo' ? 'sack' : 'basket';
+      const sp = itemCv(img);
+      if (img === 'log') { /* tora de frente: a ponta redonda com anéis (figurinha pronta) */ const e = logEnd(); ctx.globalAlpha = fade; ctx.drawImage(e.cv, Math.round(px + (s[0] + 3) * z - (e.w / 2) * z), Math.round(py + (s[1] - 3) * z - (e.h / 2) * z), e.w * z, e.h * z); ctx.globalAlpha = 1; }
+      else { ctx.globalAlpha = fade; ctx.drawImage(sp.cv, Math.round(px + s[0] * z - (sp.w / 2) * z + 4 * z), Math.round(py + s[1] * z - sp.h * z + 1 * z), sp.w * z, sp.h * z); ctx.globalAlpha = 1; }
+    }
+    void b;
+  };
+
+  /* ================= o trabalhador ================= */
+  /* mão (pegada) de cada quadro, em px do quadro 26×30 */
+  const HAND = { idle0: [16.5, 20.5], idle1: [16.5, 21.5], walk0: [16.5, 20.5], walk1: [16.5, 21.5], walk2: [16.5, 20.5], walk3: [16.5, 21.5], atk0: [13.7, 15], atk1: [19.5, 17.8], atk2: [17, 20.5], bend0: [A.BEND[0].hx, A.BEND[0].hy], bend1: [A.BEND[1].hx, A.BEND[1].hy] };
+  const swingFrame = (f) => (f < 0.4 ? 'atk0' : f < 0.62 ? 'atk1' : 'atk2');
+  const lerp = (a, b, t) => a + (b - a) * t;
+  /* decide a pose: quadro do corpo, ferramenta e ângulo, carga */
+  const pose = (n, w, t) => {
+    const P = { fr: '', tool: null, ang: 0, item: null, dy: 0 };
+    const walking = n.moving, wf = 'walk' + (Math.floor(R.t * 8 + n._ph) % 4), idf = 'idle' + (Math.floor(R.t * 2 + n._ph) % 2), base = walking ? wf : idf;
+    const site = w.site, ph = w.ph, f = w.sw;
+    const toolFor = site === 'lenharia' ? 'axe' : site === 'pedreira' ? 'pick' : w.plan === 'harvest' ? 'scythe' : w.plan === 'water' ? 'can' : 'hoe';
+    const rest = () => { P.fr = base; P.tool = toolFor; P.ang = toolFor === 'scythe' ? 118 : toolFor === 'can' ? -25 : toolFor === 'hoe' ? 112 : 128; };
+    switch (ph) {
+      case 'chop': case 'mine': case 'saw': case 'till': {
+        P.fr = swingFrame(f); P.tool = toolFor;
+        const down = ph === 'saw' ? -42 : -8;
+        P.ang = f < 0.4 ? lerp(98, 122, f / 0.4) : f < 0.62 ? lerp(60, down, (f - 0.4) / 0.22) : lerp(down, down - 18, (f - 0.62) / 0.38);
+        if (toolFor === 'hoe') P.ang = f < 0.4 ? lerp(100, 125, f / 0.4) : f < 0.62 ? lerp(60, -52, (f - 0.4) / 0.22) : -42;
+        break;
+      }
+      case 'harvest':
+        if (w.tgt && w.tgt.crop === 1) { P.fr = 'bend1'; P.tool = null; P.pull = f; }
+        else { P.fr = 'bend0'; P.tool = 'scythe'; P.ang = lerp(150, 98, Math.min(1, f * 1.15)) - (f > 0.55 ? (f - 0.55) * 100 : 0); }
+        break;
+      case 'plant': P.fr = 'bend1'; P.tool = null; P.seeds = true; break;
+      case 'water': P.fr = 'idle0'; P.tool = 'can'; P.ang = -10 - Math.min(1, w.t / 0.6) * 38; P.dy = 0; break;
+      case 'pick': case 'gather': case 'bundle': P.fr = w.ph === 'bundle' ? 'bend0' : 'bend1'; P.tool = null; P.lift = true; break;
+      case 'watch': P.fr = idf; P.tool = toolFor; P.ang = -32; break;
+      case 'drop': P.fr = w.t < 0.5 ? 'bend0' : idf; P.tool = null; break;          // a carga que sai voando para a pilha é desenhada à parte (não duas vezes)
+      case 'carry': P.fr = wf; P.item = w.carry; break;
+      default: rest();
+    }
+    if ((ph === 'toTree' || ph === 'toLog' || ph === 'toRock' || ph === 'toTile' || ph === 'look' || ph === 'wait' || ph === 'rest') && w.carry) { P.fr = base; P.tool = null; P.item = w.carry; }
+    if ((ph === 'toTree' || ph === 'toLog' || ph === 'toRock' || ph === 'toTile') && !w.carry) { P.fr = base; P.tool = toolFor; P.ang = toolFor === 'can' ? -35 : toolFor === 'scythe' ? 118 : 128; if (toolFor === 'hoe') P.ang = 112; }
+    if (ph === 'wait') { P.fr = idf; P.tool = toolFor; P.ang = toolFor === 'can' ? -60 : -32; }
+    return P;
+  };
+  const drawItem = (ctx, kind, bob, z, fr) => {
+    const k = kind === 'log' ? 'log' : kind, sp = itemCv(k);
+    let ax, ay;
+    if (k === 'log') { ax = 8.5; ay = 11.4 + bob; }                    // sobre o ombro, de ponta a ponta
+    else if (k === 'sack') { ax = 3.5; ay = 8 + bob; }                  // nas costas
+    else if (k === 'basket') { ax = 11; ay = 15.5 + bob; }              // à frente, nas duas mãos
+    else { ax = 12.5; ay = 15 + bob; }                                  // pedra/minério ao peito
+    ctx.drawImage(sp.cv, Math.round((ax - 13) * z), Math.round((ay - 27) * z), sp.w * z, sp.h * z);
+    if (k === 'log') { ctx.fillStyle = INK; ctx.fillRect(Math.round((17 - 13) * z), Math.round((16.4 + bob - 27) * z), 3 * z, 3 * z); ctx.fillStyle = '#f8d6b4'; ctx.fillRect(Math.round((17.4 - 13) * z), Math.round((16.8 + bob - 27) * z), 2 * z, 2 * z); }
+    else if (k === 'sack') { ctx.fillStyle = INK; ctx.fillRect(Math.round((13.5 - 13) * z), Math.round((14 + bob - 27) * z), 3 * z, 3 * z); ctx.fillStyle = '#f8d6b4'; ctx.fillRect(Math.round((14 - 13) * z), Math.round((14.4 + bob - 27) * z), 2 * z, 2 * z); }
+    else { for (const hx of [k === 'basket' ? 14.5 : 15.5, k === 'basket' ? 20.5 : 21.5]) { ctx.fillStyle = INK; ctx.fillRect(Math.round((hx - 13) * z), Math.round((21 + bob - 27) * z), 3 * z, 3 * z); ctx.fillStyle = '#f8d6b4'; ctx.fillRect(Math.round((hx + 0.4 - 13) * z), Math.round((21.4 + bob - 27) * z), 2 * z, 2 * z); } }
+    void fr;
+  };
+  const walkBob = (fr) => (fr === 'walk1' || fr === 'walk3' || fr === 'idle1' ? 1 : 0);
+  R.npcDraw = (e, X, Y, z, over) => {
+    const w = e.w; if (!e._wk || !w) return false;
+    const ctx = R.ctx, S = G.S, px = Math.round(X(e.x)), py = Math.round(Y(e.y));
+    if (e._ph == null) e._ph = (G.hash(e.name || e.id) % 100) / 25;
+    if (!e._wlook) e._wlook = A.npcLook(e);
+    const sheet = A.charSheet(e._wlook), P = pose(e, w, R.t), bob = walkBob(P.fr);
+    shadow(px, py, 6.5, z);
+    ctx.save(); ctx.translate(px, py); if (e.dir < 0) ctx.scale(-1, 1);
+    const dy = P.dy || 0;
+    ctx.drawImage(sheet.cv, sheet.idx[P.fr] * 26, 0, 26, 30, -13 * z, (-27 + dy) * z, 26 * z, 30 * z);
+    if (P.item) { drawItem(ctx, P.item, bob, z, P.fr); if (P.item === 'log' || P.item === 'sack') ctx.drawImage(sheet.cv, sheet.idx[P.fr] * 26, 0, 26, 14, -13 * z, (-27 + dy) * z, 26 * z, 14 * z); }      // a cabeça volta por cima: a carga fica no ombro, não na cara
+    if (P.tool) { const h = HAND[P.fr] || HAND.idle0, c = toolCv(P.tool, Math.round(P.ang / 6) * 6); ctx.drawImage(c, Math.round((h[0] - 14 - 13) * z), Math.round((h[1] - 14 - 27 + dy) * z), 28 * z, 28 * z); }
+    if (P.seeds && !low()) { for (let i = 0; i < 3; i++) { const k = (w.t * 2.2 + i * 0.33) % 1; ctx.fillStyle = i % 2 ? '#c8a060' : '#5a3a22'; ctx.fillRect(Math.round((20 + k * 5 - 13) * z), Math.round((24 + k * 4 - 27) * z), z, z); } }
+    if (P.lift && w.t > 0.15 && w.t < 0.5 && w.src) { /* a carga sobe do chão */ }
+    ctx.restore();
+    if (R.sel && R.sel.ref === e) over.push(() => { const c = R.ctx; c.font = '700 ' + Math.round(G.clamp(z * 2.6, 10.5 * dpr(), 13 * dpr())) + 'px "Aurora Manrope",system-ui,sans-serif'; c.textAlign = 'center'; c.lineWidth = Math.max(2, dpr() * 2.2); c.strokeStyle = 'rgba(16,12,24,.9)'; const tx = e.name + ' · ' + G.workLabel(e); c.strokeText(tx, px, py - 31 * z); c.fillStyle = '#fff7e0'; c.fillText(tx, px, py - 31 * z); });
+    /* tora/pedra voando para a pilha, ou nascendo do chão ao erguer */
+    if (w.ph === 'drop' && w.carry && w.t < 0.5) {
+      const p = L.pile[w.site], k = w.t / 0.5, sp = itemCv(w.carry), ix = X(lerp(e.x + 0.2, p[0] + 0.4, k)), iy = Y(lerp(e.y - 1.0, p[1] - 0.5, k)) - Math.sin(k * Math.PI) * 5 * z;
+      ctx.drawImage(sp.cv, Math.round(ix - (sp.w / 2) * z), Math.round(iy - (sp.h / 2) * z), sp.w * z, sp.h * z);
+    }
+    return true;
+  };
+
+  /* ================= partículas de cada golpe ================= */
+  R.spray = (x, y, n, cols, dir, spread, life, g, sp) => {
+    if (low() || R.parts.length > 600) return;
+    for (let i = 0; i < n; i++) {
+      const a = (dir > 0 ? -0.5 : Math.PI + 0.5) + (Math.random() - 0.5) * spread, v = (0.5 + Math.random()) * (sp || 2);
+      R.parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.6, life: life * (0.6 + Math.random() * 0.6), max: life, c: Array.isArray(cols) ? G.pick(cols) : cols, size: Math.random() < 0.4 ? 2 : 1, g: g == null ? 7 : g, kind: undefined });
+    }
+  };
+  const fm0 = R.fxMore;
+  R.fxMore = (f) => {
+    switch (f.t) {
+      case 'chip': R.spray(f.x, f.y, 6, ['#e8c890', '#c89a60', '#8a5e38', '#f4e0b0'], f.dir, 2.6, 0.55, 9, 2.6); if (!low() && Math.random() < 0.5) R.spray(f.x, f.y - 0.7, 2, ['#4f9a3c', '#6fba50'], -f.dir, 3.5, 0.9, 2.5, 1); break;
+      case 'spark': R.spray(f.x, f.y, f.big ? 12 : 7, f.ore ? ['#ffe08a', '#ff9a3c', '#ffffff'] : ['#fff4c0', '#ffe08a', '#ffffff', '#c8c8d0'], f.dir, 3.2, 0.4, 8, 3.4); R.fxs.push({ t: 'ring', x: f.x, y: f.y + 0.1, c: '#ffe9a0', r: 0.3, age: 0, life: 0.14 }); break;
+      case 'rockbreak': R.burst(f.x, f.y, 14, f.ore ? ['#8a8696', '#b6b2c4', '#ff9a3c'] : ['#b3a384', '#ddd0aa', '#85775e'], 3, 0.6, 9); for (let i = 0; i < 4; i++) if (!low()) R.parts.push({ x: f.x + G.rnd(-0.5, 0.5), y: f.y + G.rnd(-0.3, 0.3), vx: G.rnd(-0.2, 0.2), vy: -0.5, life: 1.2, max: 1.2, c: '#d8d0bc', size: 3, g: -0.05, kind: 'puff' }); break;
+      case 'timber': R.burst(f.x, f.y, 10, ['#6fba50', '#4f9a3c', '#8ad060'], 2.2, 0.7, 4); if (!low()) { for (let i = 0; i < 5; i++) R.parts.push({ x: f.x + G.rnd(-1, 1), y: f.y + G.rnd(-0.1, 0.2), vx: G.rnd(-0.3, 0.3), vy: -0.3, life: 1.1, max: 1.1, c: '#e8e0c8', size: 3, g: -0.05, kind: 'puff' }); } break;
+      case 'chaff': R.spray(f.x, f.y, f.k === 2 ? 5 : 7, f.k === 0 ? ['#e8c450', '#f7de8a', '#a87f24'] : f.k === 1 ? ['#4f9a48', '#7fd070', '#c070e0'] : ['#8c643a', '#6f4c2a', '#a87f4a'], 1, 5, 0.5, 6, 1.6); break;
+      case 'splash': if (!low()) for (let i = 0; i < 10; i++) R.parts.push({ x: f.x + G.rnd(-0.35, 0.45), y: f.y + G.rnd(-0.1, 0.1), vx: G.rnd(-0.4, 0.4), vy: G.rnd(-1.4, -0.4), life: 0.5, max: 0.5, c: i % 3 ? '#8fd0f0' : '#ffffff', size: 1, g: 6, kind: undefined }); break;
+      default: if (fm0) fm0(f);
+    }
+  };
+
+  /* ================= ganchos no mapa ================= */
+  const ri0 = R.init;
+  R.init = (cv) => {
+    ri0(cv);
+    const W = Wd.life; if (!W) return;
+    const byProp = new Map(W.trees.map((t) => [t.p, t]));
+    for (const s of R.statics) { const t = s.p && byProp.get(s.p); if (t) s.wt = t; }
+    const dummy = { cv: A.mk(1, 1), w: 1, h: 1 };
+    for (const r of W.rocks) R.statics.push({ y: r.y, x: r.x, s: dummy, kind: 'wrock', wr: r });
+    R.statics.sort((a, b) => a.y - b.y);
+  };
+  const dm0 = R.dynMore;
+  R.dynMore = (dyn, vx0, vx1, vy0, vy1) => {
+    if (dm0) dm0(dyn, vx0, vx1, vy0, vy1);
+    for (const site in L.pile) { const p = L.pile[site]; if (p[0] > vx0 - 2 && p[0] < vx1 + 2 && p[1] > vy0 && p[1] < vy1 + 1) dyn.push({ y: p[1] + 0.1, k: 'x', e: { site }, f: drawPile }); }
+  };
+
+  /* sons curtos e discretos */
+  const AU = G.AU;
+  if (AU && AU.SFX) {
+    const S = AU.SFX, tone = AU.tone, noise = AU.noise;
+    S.chop = (t) => { noise(t, 0.06, 0.28, 700 + Math.random() * 200, 1.2); tone(150, t, 0.07, 'square', 0.07, 85); };
+    S.thud = (t) => { tone(90, t, 0.32, 'sine', 0.3, 45); noise(t, 0.28, 0.22, 260, 0.6, 'lowpass'); };
+    S.mine = (t) => { tone(1750 + Math.random() * 300, t, 0.05, 'triangle', 0.1, 900); noise(t, 0.05, 0.3, 2600, 1.4); };
+    S.crumble = (t) => { noise(t, 0.4, 0.3, 500, 0.7, 'lowpass'); tone(110, t, 0.3, 'sawtooth', 0.1, 50); };
+    S.swish = (t) => noise(t, 0.12, 0.12, 3200, 0.6, 'highpass');
+    S.dig = (t) => noise(t, 0.09, 0.18, 420, 0.9, 'lowpass');
+  }
+
+  /* ================= o que os prédios mostram enquanto trabalham ================= */
+  let forgeSeen = -1, forgeUntil = -1;
+  R.bldWork = (id, lvl, p, sp, X, Y, z) => {
+    if (low() || lvl <= 0) return;
+    const S = G.S, hr = S.clock / 60;
+    /* a Ferraria só solta faíscas fortes enquanto forja de verdade (uma peça acabou de sair) ou no expediente com encomendas automáticas ligadas */
+    if (id === 'ferraria') { if (S.stats.crafted !== forgeSeen) { if (forgeSeen >= 0) forgeUntil = S.t + 7; forgeSeen = S.stats.crafted; } }
+    if (id === 'ferraria' && hr >= 6 && hr < 18 && G.bOk('ferraria') && (S.t < forgeUntil || (S.opts.autoForge && G.autoForgeN() > 0)) && Math.random() < (S.t < forgeUntil ? 0.22 : 0.08)) R.burst(p.x + 3.1 + G.rnd(-0.9, 0.9), p.y + 4.25, 2, ['#ffb040', '#ffe07a', '#ffffff'], 2, 0.4, 7);
+    else if ((id === 'padaria' || id === 'taverna') && hr >= 5 && hr < 21 && G.bOk(id) && sp.smoke && S.res.trigo > 1 && Math.random() < 0.07) R.parts.push({ x: p.x - 0.25 + sp.smoke.x / 16, y: p.y + 4 - (sp.h - 4 - sp.smoke.y) / 16, vx: 0.25, vy: -0.7, life: 2.8, max: 2.8, c: '#f4f0e8', size: 3, g: -0.05, kind: 'puff' });
+    else if (id === 'alquimista' && hr >= 5 && hr < 21 && G.bOk(id) && S.res.ervas > 1 && Math.random() < 0.05) R.parts.push({ x: p.x + 4.4 + G.rnd(-0.3, 0.3), y: p.y + 2.2, vx: G.rnd(-0.1, 0.1), vy: -0.6, life: 1.6, max: 1.6, c: G.pick(['#9be08a', '#d070ff', '#ffffff']), size: 2, g: -0.1, kind: 'glow' });
+  };
 })();
 
 ;
@@ -6412,12 +7525,13 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (!G.S || !G.M.running) return;
     if (UI.placing && UI.placeTap) return UI.placeTap(x, y);
     const r = R.pick(x, y);
-    if (UI.dock && UI.dock.kind && !(r && (r.type === 'bld' || r.type === 'house'))) UI.dock.close();      // v27 (A4): toque fora do cartão fecha o cartão
+    if (UI.dock && UI.dock.kind && !(r && (r.type === 'bld' || r.type === 'house' || r.type === 'pet'))) UI.dock.close();      // v27 (A4): toque fora do cartão fecha o cartão
     if (!r) { if (UI.sheet && window.innerWidth < 860) UI.close(); else UI.ACT.unsel(); return; }
     if (r.type === 'lucky') return UI.luckyTap && UI.luckyTap();     // v24: criatura da sorte (64-ui-retorno)
     G.sfx('click');
     if (r.type === 'hero') { R.follow = r.ref.id; UI.inspect(r); }
     else if (r.type === 'drop') { if (UI.dropTap) UI.dropTap(r.ref); }
+    else if (r.type === 'pet') { if (UI.petTap) UI.petTap(r.ref); }      // v27 (B2): cartão do mascote vagante
     else if (r.type === 'mon' || r.type === 'npc') { R.follow = 0; UI.inspect(r); }
     else if (r.type === 'portal') UI.recruitModal();
     else if (r.type === 'house') { if (UI.dock && UI.dock.key === 'casa' + r.i) UI.dock.close(); else UI.houseCard(r.i); }      // v27 (A4): casas da vila também têm cartão
@@ -6680,6 +7794,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (UI.rebPrev) h += UI.rebPrev(x);
     h += '<div class="sec">Traços</div>';
     if (UI.rebTraits) h += UI.rebTraits(x); else for (const t of x.traits) h += '<div class="trait"><b>' + G.TRAITS[t].name + '</b><span>' + G.TRAITS[t].desc + '</span></div>';
+    if (UI.charmCard) h += UI.charmCard(x, v);      // v27 (B2): o carisma que atrai os mascotes
     h += '<button class="btn wide" style="margin-top:10px;color:#ff9a9a" data-a="dismiss:' + x.id + '">' + ic('trash') + 'Dispensar ' + esc(x.name) + '</button>';
     return h;
   };
@@ -7187,40 +8302,51 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
           : 'cura ' + pctTxt(G.vigHeal(p)) + ' da vida do dono a cada ' + G.VIG_CD + ' s em combate';
     return '<span class="prole">' + ic(ro.icon) + ro.name + '</span> ' + t + '.';
   };
-  /* espaço roxo "Mascote" na ficha */
+  /* espaço roxo "Mascote" na ficha: v27 (B2) mostra o principal e quantos o herói leva (até 3) */
   const petSlot = (x) => {
-    const p = G.petOf(x);
-    return '<button class="ds sp' + (p ? '' : ' vz') + '" data-a="petpick:' + x.id + '">' + (p ? '<i class="gi px" style="background-image:url(' + A.petURL(p.k) + ');background-size:34px 29px;border-color:' + G.RAR_COLOR[p.rar] + '!important"></i>' : '<i class="gi">' + ic('paw') + '</i>') + '<small>Mascote</small></button>';
+    const ps = G.petsOf(x), p = ps[0];
+    return '<button class="ds sp' + (p ? '' : ' vz') + '" data-a="petpick:' + x.id + '">' + (p ? '<i class="gi px" style="background-image:url(' + A.petURL(p.k) + ');background-size:34px 29px;border-color:' + G.RAR_COLOR[p.rar] + '!important"></i>' : '<i class="gi">' + ic('paw') + '</i>') + '<small>' + (ps.length > 1 ? 'Mascotes ' + ps.length + '/' + G.PET_MAX : 'Mascote') + '</small></button>';
   };
+  const DIMTXT = ['', ' · 2º mascote: 50% do efeito', ' · 3º mascote: 25% do efeito'];
+  const petState = (p) => { const o = p.hero ? hid(p.hero) : null; return o ? 'acompanha ' + esc(o.name) : p.out ? 'vaga pela praça procurando dono' : 'livre no Viveiro'; };
+  /* x = herói da janela (modal do herói); viv = Viveiro (sem herói) */
   const petCard = (p, x, viv) => {
-    const d = G.PETS[p.k], cap = G.petLoadCap(p), owner = p.hero ? hid(p.hero) : null, mine = !!x && p.hero === x.id;
+    const d = G.PETS[p.k], cap = G.petLoadCap(p), owner = p.hero ? hid(p.hero) : null, mine = !!x && p.hero === x.id, ix = G.petRank(p);
     let btn = '';
-    if (x) btn = mine ? '<button class="btn sm" data-a="petset:' + x.id + ':0">' + ic('close') + 'Dispensar</button>' : '<button class="btn sm pri" data-a="petset:' + x.id + ':' + p.id + '">' + ic('paw') + 'Acompanhar</button>';
-    else if (viv) btn = owner ? '<span class="pill">' + ic('people') + esc(owner.name) + '</span>' : '<button class="btn sm" data-a="petfree:' + p.id + '">Soltar</button>';
-    return '<div class="card pcard' + (mine ? ' hl' : '') + '"><div class="row" style="align-items:flex-start">' + petThumb(p) + '<div class="gr"><h3>' + d.name + ' ' + rarTxt(p.rar) + '</h3><p><b class="gold">' + bonusText(G.petBonus(p)) + '</b></p><p>' + roleLine(p) + '</p><p>Carga ' + p.bagN + ' / ' + cap + (viv ? (owner ? ' · acompanha ' + esc(owner.name) : ' · livre no Viveiro') : '') + '</p></div></div>' +
+    if (x) btn = mine ? '<button class="btn sm" data-a="petdis:' + x.id + ':' + p.id + '">' + ic('close') + 'Dispensar</button>' : G.petSlots(x) > 0 || mine ? '<button class="btn sm pri" data-a="petset:' + x.id + ':' + p.id + '">' + ic('paw') + (owner ? 'Trazer de ' + esc(owner.name) : 'Acompanhar') + '</button>' : '<span class="pill">' + ic('lock') + 'sem vaga</span>';
+    else if (viv) btn = p.out && !p.hero ? '<button class="btn sm" data-a="petrec:' + p.id + '">Recolher</button>' : owner ? '<span class="pill">' + ic('people') + esc(owner.name) + '</span>' : '<button class="btn sm" data-a="petsq:' + p.id + '">Soltar na praça</button><button class="btn sm" data-a="petfree:' + p.id + '">Soltar</button>';
+    const bon = owner ? bonusText(G.petBonusEff(p)) + (DIMTXT[ix] || '') : bonusText(G.petBonus(p));
+    return '<div class="card pcard' + (mine ? ' hl' : '') + '"><div class="row" style="align-items:flex-start">' + petThumb(p) + '<div class="gr"><h3>' + d.name + ' ' + rarTxt(p.rar) + '</h3><p><b class="gold">' + bon + '</b></p><p>' + roleLine(p) + '</p><p>Carga ' + p.bagN + ' / ' + cap + ' · ' + petState(p) + (p.out && !p.hero ? ' · ' + G.PET_TEMP[G.petTemp(p)].name : '') + '</p></div></div>' +
       (btn ? '<div class="row pact"><span class="gr mut pdesc">' + esc(d.desc) + '</span>' + btn + '</div>' : '') + '</div>';
   };
   const petModal = (x) => {
-    const S = G.S, cur = G.petOf(x), free = G.petFree().sort((a, b) => b.rar - a.rar || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k));
-    let h = '<div class="eyebrow">Viveiro de Aurora · ' + S.pets.length + ' / ' + G.petCap() + '</div><h2>Mascote de ' + esc(x.name) + '</h2><p class="lead" style="font-size:12.5px">O mascote segue o herói, recolhe o espólio que cai no chão e entrega tudo na Guilda junto com ele. Raridade maior carrega mais e fortalece o bônus e o papel.</p>';
-    if (cur) h += '<div class="sec">Acompanhando</div>' + petCard(cur, x);
-    h += '<div class="sec">Livres no Viveiro</div>' + (free.length ? free.map((p) => petCard(p, x)).join('') : '<div class="card"><p style="margin:0">' + (S.pets.length ? 'Todos os mascotes já acompanham alguém.' : 'Nenhum mascote ainda.') + ' Ovos vêm das Incursões (Missões › Incursões) e, às vezes, do Mascate; o primeiro chega por um Caminho.</p></div>');
+    const S = G.S, cur = G.petsOf(x), free = G.petFree().sort((a, b) => b.rar - a.rar || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k)), stray = G.petStrays().sort((a, b) => b.rar - a.rar);
+    const others = S.pets.filter((p) => p.hero && p.hero !== x.id).sort((a, b) => b.rar - a.rar);
+    let h = '<div class="eyebrow">Viveiro de Aurora · ' + S.pets.length + ' / ' + G.petCap() + '</div><h2>Mascotes de ' + esc(x.name) + ' · ' + cur.length + '/' + G.PET_MAX + '</h2><p class="lead" style="font-size:12.5px">Cada herói leva até três mascotes. Eles seguem o dono, recolhem o espólio do chão e entregam tudo na Guilda. O 1º vale 100% do bônus, o 2º 50% e o 3º 25%. Os mascotes novos vagam pela praça e escolhem o dono sozinhos — mas você pode escolher por eles.</p>';
+    if (cur.length) h += '<div class="sec">Acompanhando</div>' + cur.map((p) => petCard(p, x)).join('');
+    h += '<div class="sec">Livres no Viveiro</div>' + (free.length ? free.map((p) => petCard(p, x)).join('') : '<div class="card"><p style="margin:0">Nenhum mascote guardado.</p></div>');
+    if (stray.length) h += '<div class="sec">Vagando pela praça</div>' + stray.map((p) => petCard(p, x)).join('');
+    if (others.length) h += '<div class="sec">Com outros heróis</div>' + others.map((p) => petCard(p, x)).join('');
+    if (!S.pets.length) h += '<div class="card"><p style="margin:0">Nenhum mascote ainda. Ovos vêm das Incursões (Missões › Incursões) e, às vezes, do Mascate; o primeiro chega por um Caminho.</p></div>';
     UI.modal(h + '<div class="acts"><button class="btn" data-a="petviv">' + ic('chest') + 'Viveiro</button><button class="btn" data-a="mclose">Fechar</button></div>', { pause: false });
   };
-  /* aba Bolsa: a carga do mascote */
+  /* aba Bolsa: a carga dos mascotes (até 3) */
   const petBagSec = (x) => {
-    const p = G.petOf(x);
-    if (!p) return '<div class="sec">Mascote</div><div class="card"><div class="row"><span class="pthumb">' + ic('paw') + '</span><p class="gr" style="margin:0">Sem mascote. Toque no espaço roxo «Mascote» da ficha para escolher um. Ele recolhe o espólio que cai no chão.</p></div></div>';
-    const ks = Object.keys(p.bag).filter((k) => p.bag[k] > 0), cap = G.petLoadCap(p);
-    return '<div class="sec">Carga do mascote <span class="mut" style="letter-spacing:0;text-transform:none;font-family:inherit">' + v.T(() => p.bagN + ' / ' + cap) + '</span></div><div class="card"><div class="row">' + petThumb(p, 36) + '<div class="gr"><b style="font-size:13px">' + G.PETS[p.k].name + '</b> ' + rarTxt(p.rar) + '<div style="margin-top:6px">' + bar(() => Math.round(100 * p.bagN / cap), 'big o') + '</div></div></div>' +
-      (ks.length ? '<div class="bagg" style="margin-top:8px">' + ks.map((k) => '<span class="bi" title="' + G.RES[k].name + '"><i class="px ri-' + k + '"></i><b>' + p.bag[k] + '</b><small>' + G.RES[k].name.split(' ')[0] + '</small></span>').join('') + '</div>' : '<p style="margin-top:8px">Nada recolhido nesta saída.</p>') +
-      '<p style="margin-top:6px">A carga vai para o Armazém junto com a bolsa, na Guilda. Se o dono cair, o mascote não perde nada.</p></div>';
+    const ps = G.petsOf(x);
+    if (!ps.length) return '<div class="sec">Mascote</div><div class="card"><div class="row"><span class="pthumb">' + ic('paw') + '</span><p class="gr" style="margin:0">Sem mascote. Toque no espaço roxo «Mascote» da ficha para escolher até três — ou espere: os mascotes novos escolhem sozinhos o herói mais forte ou o mais cativante. Eles recolhem o espólio que cai no chão.</p></div></div>';
+    let h = '<div class="sec">Carga dos mascotes <span class="mut" style="letter-spacing:0;text-transform:none;font-family:inherit">' + v.T(() => G.petLoad(x) + ' / ' + ps.reduce((a, p) => a + G.petLoadCap(p), 0)) + '</span></div>';
+    ps.forEach((p, i) => {
+      const ks = Object.keys(p.bag).filter((k) => p.bag[k] > 0);
+      h += '<div class="card"><div class="row">' + petThumb(p, 36) + '<div class="gr"><b style="font-size:13px">' + G.PETS[p.k].name + '</b> ' + rarTxt(p.rar) + '<span class="mut" style="font-size:11px"> · ' + (i + 1) + 'º' + (i ? ', carga a ' + Math.round(G.PET_DIM[Math.min(i, 2)] * 100) + '%' : '') + '</span><div style="margin-top:6px">' + bar(() => Math.round(100 * p.bagN / Math.max(1, G.petLoadCap(p))), 'big o') + '</div></div></div>' +
+        (ks.length ? '<div class="bagg" style="margin-top:8px">' + ks.map((k) => '<span class="bi" title="' + G.RES[k].name + '"><i class="px ri-' + k + '"></i><b>' + p.bag[k] + '</b><small>' + G.RES[k].name.split(' ')[0] + '</small></span>').join('') + '</div>' : '<p style="margin-top:8px">Nada recolhido nesta saída.</p>') + '</div>';
+    });
+    return h + '<p class="mut" style="font-size:11.5px;margin:4px 2px 0">A carga vai para o Armazém junto com a bolsa, na Guilda. Se o dono cair, os mascotes não perdem nada.</p>';
   };
   /* Armazém › Ateliê › Viveiro */
   const viveiroSec = () => {
-    const S = G.S, L = S.pets.slice().sort((a, b) => b.rar - a.rar || (a.hero ? 0 : 1) - (b.hero ? 0 : 1) || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k));
+    const S = G.S, L = S.pets.slice().sort((a, b) => b.rar - a.rar || (a.hero ? 0 : 1) - (b.hero ? 0 : 1) || G.PET_IDS.indexOf(a.k) - G.PET_IDS.indexOf(b.k)), nStray = G.petStrays().length;
     let h = '<div class="sec" id="viveiro">Viveiro <span class="mut" style="letter-spacing:0;text-transform:none;font-family:inherit">' + S.pets.length + ' / ' + G.petCap() + '</span></div>';
-    h += '<div class="card hl"><p style="margin-top:0">Os mascotes acompanham os heróis e recolhem o espólio que cai no chão. Cabem ' + G.petCap() + ' (8 + 2 por nível do Estábulo). Três mascotes livres da mesma raridade se fundem em um da raridade seguinte.</p><div class="chips" style="margin-top:8px">' +
+    h += '<div class="card hl"><p style="margin-top:0">Todos os mascotes de Aurora contam aqui: os que acompanham heróis (até 3 por herói), os que vagam pela praça procurando dono' + (nStray ? ' (' + nStray + ' agora)' : '') + ' e os guardados. Cabem ' + G.petCap() + ' (8 + 2 por nível do Estábulo); com o Viveiro cheio, um ovo novo vira Pó Estelar. Mascote novo escolhe dono sozinho; para um guardado procurar dono, use «Soltar na praça». Três guardados da mesma raridade se fundem em um da raridade seguinte.</p><div class="chips" style="margin-top:8px">' +
       [0, 1, 2, 3, 4].map((r) => { const n = G.petFree().filter((p) => p.rar === r).length; return '<button data-a="petfuse:' + r + '"' + (n >= 3 ? '' : ' disabled') + '>Fundir <b class="rar' + r + '">' + G.RAR[r] + '</b> · ' + n + '</button>'; }).join('') + '</div></div>';
     return h + (L.length ? L.map((p) => petCard(p, null, true)).join('') : '<div class="card"><p style="margin:0">Nenhum mascote ainda. O primeiro vem pelo Caminho «Adote o primeiro mascote»; os raros, das Incursões.</p></div>');
   };
@@ -7268,19 +8394,26 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (!incParty) incParty = avail.slice().sort((a2, b2) => G.heroStats(b2).eff - G.heroStats(a2).eff).slice(0, 5).map((x) => x.id);
     incParty = incParty.filter((id) => avail.some((x) => x.id === id));
     h += '<div class="sec">Grupo (até 5)</div>';
-    for (const x of avail) { const on = incParty.indexOf(x.id) >= 0, e = G.heroStats(x).eff, pt = G.petOf(x); h += '<button class="slot" data-a="incp:' + x.id + '" style="' + (on ? 'box-shadow:inset 0 0 0 2px var(--gold)' : '') + '"><i class="px" style="width:36px;height:36px;background-image:url(' + UI.portrait(x) + ');background-size:36px 36px"></i><span class="gr"><b>' + rank(x.rank) + ' ' + esc(x.name) + '</b><br><span class="' + (e >= lvl + 2 ? 'good' : e >= lvl - 2 ? 'gold' : 'bad') + '" style="font-size:11.5px">aguenta até Nv ' + e + ' · ' + x.potions + ' poções</span></span>' + (pt ? petImg(pt.k, 24) : '') + '<i class="sw' + (on ? ' on' : '') + '"></i></button>'; }
+    for (const x of avail) { const on = incParty.indexOf(x.id) >= 0, e = G.heroStats(x).eff, pt = G.petsOf(x); h += '<button class="slot" data-a="incp:' + x.id + '" style="' + (on ? 'box-shadow:inset 0 0 0 2px var(--gold)' : '') + '"><i class="px" style="width:36px;height:36px;background-image:url(' + UI.portrait(x) + ');background-size:36px 36px"></i><span class="gr"><b>' + rank(x.rank) + ' ' + esc(x.name) + '</b><br><span class="' + (e >= lvl + 2 ? 'good' : e >= lvl - 2 ? 'gold' : 'bad') + '" style="font-size:11.5px">aguenta até Nv ' + e + ' · ' + x.potions + ' poções</span></span>' + pt.map((q) => petImg(q.k, 22)).join('') + '<i class="sw' + (on ? ' on' : '') + '"></i></button>'; }
     const c = G.incCanStart(incZ, g);
     h += '<button class="btn pri wide" style="margin-top:6px" data-a="incgo" ' + v.Dis(() => !G.incCanStart(incZ, g).ok || !incParty || !incParty.length) + '>' + ic('skull') + (G.incFree() ? 'Enviar Incursão' : 'Tentar de novo hoje · ' + G.incCost() + ' Núcleos') + '</button><p class="mut" style="text-align:center;font-size:11.5px;margin-top:6px">' + (c.ok ? 'Uma tentativa grátis por dia. Não sai junto com a Maré nem com a Fenda.' : c.why + '.') + '</p>';
     return h;
   };
+  UI.petUI = { petThumb, petImg, rarTxt, roleLine, bonusText, petState };      // v27 (B2): 6J-ui-adocao reaproveita as peças dos cartões de mascote
   UI.dropTap = (d) => { G.dropTake(d); };
   Object.assign(UI.ACT, {
     petpick: (a) => { const h = hid(a[0]); if (h) petModal(h); },
     petset: (a) => {
-      const h = hid(a[0]); if (!h) return; const p = +a[1] ? G.petById(+a[1]) : G.petOf(h); if (!p) return;
-      if (+a[1]) { G.petAssign(p, h); UI.toast(G.PETS[p.k].name + ' agora acompanha ' + h.name + '.', 'good', 'paw'); } else { G.petAssign(p, null); UI.toast(G.PETS[p.k].name + ' voltou ao Viveiro.', 'info', 'paw'); }
+      const h = hid(a[0]), p = G.petById(+a[1]); if (!h || !p) return;
+      if (!G.petAssign(p, h)) { UI.toast(h.name + ' já leva ' + G.PET_MAX + ' mascotes: dispense um antes.', 'bad', 'paw'); return; }
+      UI.toast(G.PETS[p.k].name + ' agora acompanha ' + h.name + '.', 'good', 'paw');
       petModal(h); draw(false);
     },
+    petdis: (a) => { const h = hid(a[0]), p = G.petById(+a[1]); if (!h || !p) return; G.petAssign(p, null); UI.toast(G.PETS[p.k].name + ' voltou ao Viveiro.', 'info', 'paw'); petModal(h); draw(false); },
+    petsq: (a) => { const p = G.petById(+a[0]); if (p && G.petToSquare(p)) { UI.toast(G.PETS[p.k].name + ' foi à praça procurar um dono.', 'info', 'paw'); draw(false); } },
+    petrec: (a) => { const p = G.petById(+a[0]); if (p && G.petToViveiro(p)) { UI.toast(G.PETS[p.k].name + ' voltou ao Viveiro.', 'info', 'paw'); if (UI.dock && UI.dock.kind === 'pet') UI.dock.close(); draw(false); } },
+    petown: (a) => { const p = G.petById(+a[0]); if (p) UI.petOwnerModal(p); },
+    petgive: (a) => { const p = G.petById(+a[0]), h = hid(a[1]); if (!p || !h) return; if (!G.petAssign(p, h)) { UI.toast(h.name + ' já leva ' + G.PET_MAX + ' mascotes.', 'bad', 'paw'); return; } UI.closeModal(); if (UI.dock && UI.dock.kind === 'pet') UI.dock.close(); UI.toast(G.PETS[p.k].name + ' agora acompanha ' + h.name + '.', 'good', 'paw'); draw(false); },
     petviv: () => { UI.closeModal(); UI.open('armazem', 'atelie'); setTimeout(() => { const el = document.getElementById('viveiro'); if (el) el.scrollIntoView({ block: 'start' }); }, 30); },
     petfree: (a) => { const p = G.petById(+a[0]); if (p) UI.confirm('Soltar ' + G.PETS[p.k].name + '?', 'O mascote volta para a natureza e deixa ' + 2 * (p.rar + 1) + ' Pó Estelar no Viveiro. Não há como desfazer.', 'Soltar', () => { G.petRelease(p); draw(false); }); },
     petfuse: (a) => { fuseSel = []; fuseModal(+a[0]); },
@@ -8567,7 +9700,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       const Pk = pj(k), nid = S.nextId, mir = { jt: ref.jt[Math.min(k, ref.jt.length - 1)], sk: ref.sk[Math.min(k, ref.sk.length - 1)] };
       const h = withRng(G.hash('rv|' + riv.i + '|' + k), () => G.makeHero({ name: sp.name, cls: sp.cls, rar: sp.rar, lvl: 1, traits: sp.traits.slice(), potions: 0, weapon: false }));
       S.nextId = nid;
-      h.id = -(riv.i * 10 + k + 1); h.look = sp.look; h.cos = { traje: null, asas: null, reliquia: null }; h.pet = 0; h.mount = 0; h.arts = {}; h.wake = 0;
+      h.id = -(riv.i * 10 + k + 1); h.look = sp.look; h.cos = { traje: null, asas: null, reliquia: null }; h.pet = 0; h.pets = []; h.mount = 0; h.arts = {}; h.wake = 0;
       const ev = (L) => { setLevel(h, sp, L, mir); return heroPow(G.heroStats(h)); };
       let lo = 1, hi = 170;
       while (lo < hi) { const mid = (lo + hi) >> 1; if (ev(mid) < Pk) lo = mid + 1; else hi = mid; }
@@ -8611,9 +9744,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       skills.push({ n: s.name, cd: Math.max(3, s.cd * (h.rank >= 4 ? 0.8 : 1) * (1 - st.cdr)), ops, pow, sup: !!s.sup, heal: ops.every((o) => o.o === 'heal') });
     });
     return { hid: h.id, name: h.name, cls: h.cls, side, row, rank: h.rank, lvl: h.lvl, rar: h.rar, mhp: st.hp * G.ARENA.hpMul, atk: st.atk, def: st.def, crit: st.crit, cd: st.critDmg, eva: st.eva, int: st.int,
-      ls: st.ls || 0, regen: st.regen || 0, thorns: st.thorns || 0, heal: st.healF || 0, ranged: G.CLASSES[h.cls].rng >= 4, skills, pet: pet || null };
+      ls: st.ls || 0, regen: st.regen || 0, thorns: st.thorns || 0, heal: st.healF || 0, ranged: G.CLASSES[h.cls].rng >= 4, skills, pets: pet ? (Array.isArray(pet) ? pet : [pet]) : null };
   };
-  const petOfHero = (h) => { const p = G.petOf(h); return p ? { role: G.PETS[p.k].role, rar: p.rar } : null; };
+  const petOfHero = (h) => { const a = G.petsOf(h); return a.length ? a.map((p, i) => ({ role: G.PETS[p.k].role, rar: p.rar, f: G.PET_DIM[Math.min(i, G.PET_DIM.length - 1)] })) : null; };      // v27 (B2): até 3 mascotes, cada um com o retorno decrescente do seu lugar (1 / 0,5 / 0,25)
 
   /* linha de frente automática: os mais parrudos */
   const autoRows = (items) => {
@@ -8652,7 +9785,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       const fa = 1 + (rng() - 0.5) * G.ARENA.form[0], fh = 1 + (rng() - 0.5) * G.ARENA.form[1];
       F.push({
         id: F.length, bp, side: bp.side, row: bp.row, name: bp.name, cls: bp.cls, mhp: bp.mhp * fh, hp: bp.mhp * fh, atk: bp.atk * fa, def: bp.def, crit: bp.crit, cd: bp.cd, eva: bp.eva, int: bp.int, ls: bp.ls, regen: bp.regen, thorns: bp.thorns, heal: bp.heal, ranged: bp.ranged,
-        tA: 0.25 + rng() * 0.8, sk: bp.skills.map((s) => ({ s, left: s.cd * (0.3 + rng() * 0.35) })), pet: bp.pet ? { role: bp.pet.role, rar: bp.pet.rar, left: bp.pet.role === 'fraqueza' ? 4 + rng() * 3 : 5 + rng() * 2 } : null,
+        tA: 0.25 + rng() * 0.8, sk: bp.skills.map((s) => ({ s, left: s.cd * (0.3 + rng() * 0.35) })), pets: bp.pets ? bp.pets.map((q) => ({ role: q.role, rar: q.rar, f: q.f == null ? 1 : q.f, left: q.role === 'fraqueza' ? 4 + rng() * 3 : 5 + rng() * 2 })) : null,
         b: {}, stun: 0, taunt: 0, wall: 0, slow: null, vuln: null, weak: null, dots: [], sh: null, dmg: 0, heald: 0, kills: 0,
       });
     }
@@ -8753,12 +9886,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
         for (let d = f.dots.length - 1; d >= 0 && f.hp > 0; d--) { const o2 = f.dots[d]; if (t >= o2.next) { o2.next += 1; hurt(F[o2.by], f, o2.dps * enr(), false, 'dot'); } if (t >= o2.u) f.dots.splice(d, 1); }
         if (f.hp <= 0) continue;
         const rg = f.regen + bf(f, 'regen'); if (rg > 0 && f.hp < f.mhp) f.hp = Math.min(f.mhp, f.hp + f.mhp * rg * DT);
-        if (f.pet) {
-          f.pet.left -= DT;
-          if (f.pet.left <= 0) {
-            if (f.pet.role === 'fraqueza') { const foes = liveOf(1 - f.side); if (foes.length) { const x = rpick(foes); x.weak = { f: G.weakF({ rar: f.pet.rar }), u: t + G.WEAK_DUR }; E('pet', f.id, x.id, 0, 0, 0, 'Fraqueza'); } f.pet.left = G.WEAK_CD; }
-            else if (f.pet.role === 'vigor') { healTo(f, f, f.mhp * G.vigHeal({ rar: f.pet.rar })); E('pet', f.id, f.id, 0, 0, 0, 'Vigor'); f.pet.left = G.VIG_CD; }
-            else f.pet.left = 99;
+        if (f.pets) for (const pt of f.pets) {
+          pt.left -= DT;
+          if (pt.left <= 0) {
+            if (pt.role === 'fraqueza') { const foes = liveOf(1 - f.side); if (foes.length) { const x = rpick(foes), wf = G.weakF({ rar: pt.rar }) * pt.f; if (!x.weak || x.weak.u <= t || x.weak.f <= wf) x.weak = { f: wf, u: t + G.WEAK_DUR }; E('pet', f.id, x.id, 0, 0, 0, 'Fraqueza'); } pt.left = G.WEAK_CD; }
+            else if (pt.role === 'vigor') { healTo(f, f, f.mhp * G.vigHeal({ rar: pt.rar }) * pt.f); E('pet', f.id, f.id, 0, 0, 0, 'Vigor'); pt.left = G.VIG_CD; }
+            else pt.left = 99;
           }
         }
         if (f.stun > t) continue;
@@ -16493,6 +17626,75 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   UI.closeAll = () => {
     try { if (UI.modalOpen) UI.closeModal(); } catch (e) { console.error(e); }
     try { UI.close(); if (UI.dock) UI.dock.close(); UI.inspect(null); } catch (e) { console.error(e); }
+  };
+})();
+
+;
+/* ===== 6J-ui-adocao.js ===== */
+/* 6J-ui-adocao: v27 (B2) — as telas dos mascotes que procuram dono: o cartão do vagante (toque no bichinho na praça: espécie, raridade, o que dá, temperamento,
+   quanto falta para escolher e quem é o favorito), a escolha manual do dono e o cartão "Carisma" da ficha do herói (de onde vem a nota que atrai os Dengosos).
+   Reaproveita as classes do cartão de prédio (6H) e as peças dos cartões de mascote (61, via UI.petUI). */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, A = G.A, R = G.R, W = G.W, ic = UI.ic, esc = UI.esc, $ = UI.$, D = UI.dock, HOUR = G.DAY_SEC / 24;
+  const P = () => UI.petUI;
+  const num = (x) => String(Math.round(x * 10) / 10).replace('.', ',');
+
+  /* ---------- ficha do herói: Carisma ---------- */
+  UI.charmCard = (x, v) => {
+    const parts = G.heroCharmParts(x), total = G.heroCharm(x), hs = G.S.heroes.slice().sort((a, b) => G.heroCharm(b) - G.heroCharm(a)), pos = hs.indexOf(x) + 1;
+    let h = '<div class="sec">Carisma</div><div class="card"><div class="row"><div class="gr"><h3>Carisma <span class="lvl">' + (v ? v.T(() => G.heroCharm(x)) : total) + '</span></h3><p>É o que atrai os mascotes Dengosos: eles escolhem o herói mais cativante com vaga (os Valentes escolhem o mais forte). ' + esc(x.name) + ' é o ' + pos + 'º de ' + hs.length + '.</p></div></div>';
+    for (const p of parts) h += '<div class="kv"><span>' + p.n + ' <small class="mut" style="font-weight:600">· ' + p.d + '</small></span><b>+' + num(p.v) + '</b></div>';
+    return h + '</div>';
+  };
+
+  /* ---------- cartão do vagante ---------- */
+  const facts = (p) => {
+    const I = G.petStrayInfo(p), T = G.PET_TEMP[I.temp], U = P();
+    let left;
+    if (I.noHeroes) left = 'sem heróis na cidade';
+    else if (I.due && I.noRoom) left = 'esperando uma vaga';
+    else if (I.due) left = 'escolhendo agora';
+    else left = 'cerca de ' + Math.max(1, Math.round(I.leftHours)) + ' h do reino (' + num(I.leftSec / G.DAY_SEC) + ' dia)';
+    let fav;
+    if (I.fav) fav = esc(I.fav.name) + ' <small>· ' + (I.temp === 'v' ? 'poder ' + G.fmt(G.arenaHeroPow(I.fav)) : 'carisma ' + G.heroCharm(I.fav)) + (I.favInTown ? ' · segue o favorito na cidade' : '') + '</small>';
+    else fav = '<span class="mut">ninguém: ' + (I.noHeroes ? 'não há heróis' : 'todos já levam ' + G.PET_MAX + ' mascotes') + '</span>';
+    return '<span class="lb">Dá</span><span class="nw" style="grid-column:2/4">' + U.bonusText(G.petBonus(p)) + '</span>' +
+      '<span class="lb">Papel</span><span class="nw" style="grid-column:2/4;font-weight:700">' + U.roleLine(p) + '</span>' +
+      '<span class="lb">Temperamento</span><span class="nw" style="grid-column:2/4">' + T.name + ' <small class="mut">· ' + T.short + '</small></span>' +
+      '<span class="lb">Escolhe em</span><span class="nw" style="grid-column:2/4">' + left + '</span>' +
+      '<span class="lb">Prefere agora</span><span class="nw" style="grid-column:2/4">' + fav + '</span>';
+  };
+  UI.petTap = (p) => {
+    if (!p) return;
+    if (D.kind === 'pet' && D.key === 'pet' + p.id) { D.close(); return; }
+    const d = G.PETS[p.k], U = P(), I = G.petStrayInfo(p);
+    G.sfx('click');
+    const t = '<div class="bk"><div class="bk-h"><i class="th px" style="background-image:url(' + A.petURL(p.k) + ');background-size:contain;background-repeat:no-repeat;background-position:center;border-color:' + G.RAR_COLOR[p.rar] + '"></i><div class="gr"><h3>' + esc(d.name) + '</h3><div class="lv">' + U.rarTxt(p.rar) + '<span class="pill gold">procurando dono</span></div></div></div>' +
+      '<p class="bk-d">' + esc(d.desc) + '</p><div class="bk-t" id="pt-facts" style="grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1fr)">' + facts(p) + '</div>' +
+      '<div class="bk-d" id="pt-why" style="margin:0 0 6px"></div></div>';
+    const foot = '<div class="bk-up"><div class="row" style="gap:8px"><button class="btn pri sm" data-a="petown:' + p.id + '">' + ic('paw') + 'Escolher o dono</button><button class="btn sm" data-a="petrec:' + p.id + '">Recolher ao Viveiro</button></div></div>';
+    D.open('pet', t, { key: 'pet' + p.id, foot });
+    const why = () => { const el = $('#pt-why'); if (!el) return; const i = G.petStrayInfo(p); el.innerHTML = i.noRoom && !i.noHeroes ? '<span class="bad" style="font-weight:800">Sem vaga: todos os heróis já levam ' + G.PET_MAX + ' mascotes. O bichinho fica vagando até abrir uma vaga — ou escolha o dono e troque um mascote por ele.</span>' : '<span class="mut">Ele anda pela praça, fareja os heróis que estão na cidade e segue o favorito. Quando o tempo acaba, escolhe sozinho — sempre dá para escolher por ele.</span>'; };
+    why();
+    let last = facts(p);
+    D.tick = () => { if (G.S.pets.indexOf(p) < 0 || p.hero || !p.out) { D.close(); return; } const f = facts(p); if (f !== last) { last = f; const el = $('#pt-facts'); if (el) el.innerHTML = f; why(); } };
+    void I;
+    /* mostra o bichinho na faixa livre acima do cartão */
+    const r = G.petRt.get(p.id), card = D.el(), hud = $('#hud');
+    if (r && card && hud) { const top = hud.getBoundingClientRect().bottom, bot = card.getBoundingClientRect().top, shift = innerHeight / 2 - (top + bot) / 2; const a = R.screenToWorld(0, 0), b = R.screenToWorld(0, 100); R.follow = 0; R.focus(r.x, r.y - 0.5 + shift * ((b[1] - a[1]) / 100)); }
+  };
+
+  /* ---------- escolher o dono à mão ---------- */
+  UI.petOwnerModal = (p) => {
+    const d = G.PETS[p.k], U = P();
+    let h = '<div class="eyebrow">' + esc(d.name) + ' · ' + G.RAR[p.rar] + '</div><h2>Quem fica com ele?</h2><p class="lead" style="font-size:12.5px">Cada herói leva até ' + G.PET_MAX + ' mascotes. ' + U.roleLine(p) + '</p>';
+    for (const x of G.S.heroes.slice().sort((a, b) => G.arenaHeroPow(b) - G.arenaHeroPow(a))) {
+      const free = G.petSlots(x), cur = G.petsOf(x);
+      h += '<button class="opt" data-a="petgive:' + p.id + ':' + x.id + '"' + (free > 0 ? '' : ' disabled') + '><b>' + esc(x.name) + ' <span class="mut" style="font-weight:700">Nv ' + x.lvl + ' · poder ' + G.fmt(G.arenaHeroPow(x)) + ' · carisma ' + G.heroCharm(x) + '</span></b><span>' + (free > 0 ? 'Leva ' + cur.length + ' de ' + G.PET_MAX + ' mascotes' + (cur.length ? ' (' + cur.map((q) => G.PETS[q.k].name).join(', ') + ')' : '') + ' — este seria o ' + (cur.length + 1) + 'º' : 'Já leva ' + G.PET_MAX + ' mascotes') + '</span></button>';
+    }
+    UI.modal(h + '<div class="acts"><button class="btn" data-a="mclose">Cancelar</button></div>', { pause: false });
   };
 })();
 

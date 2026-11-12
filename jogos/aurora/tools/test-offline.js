@@ -174,6 +174,8 @@ console.log('A4 · cartão de prédio: números vindos das funções da simulaç
   ok(Math.abs(f[0].v - r.trigo * h) < 1e-9 && Math.abs(f[1].v - r.ervas * h) < 1e-9, 'fazenda: trigo e ervas por dia = G.prodRates() × horas de expediente');
   ok(G.bldInfo('hospedaria').now[0].v === G.heroCap() && G.bldInfo('cidadela').now[2].v === G.popCap(), 'hospedaria: camas = G.heroCap(); cidadela: moradores = G.popCap()');
   ok(G.bldInfo('ferraria').now[0].v === G.forgeMaxTier(), 'ferraria: forja até = G.forgeMaxTier()');
+  /* estado fixo: o limite é Cidadela+2 e passos anteriores sorteiam obras, então sem isto a lenharia às vezes já estava no teto */
+  G.S.b.lenharia.lvl = 1; G.S.b.lenharia.dmg = 0; G.S.b.cidadela.lvl = Math.max(G.S.b.cidadela.lvl, 3);
   const nx = G.bldInfo('lenharia'); G.S.gold = 1e9; for (const k in G.S.res) G.S.res[k] = 1e6; const l0 = G.bLvl('lenharia'); G.upgrade('lenharia');
   ok(Math.abs(G.bldInfo('lenharia').now[0].v - nx.next[0].v) < 1e-9 && G.bLvl('lenharia') === l0 + 1, 'o que o cartão promete para o próximo nível é o que o prédio passa a dar (lenharia)');
   const dmgId = 'taverna'; G.S.b[dmgId].dmg = 1; const di = G.bldInfo(dmgId);

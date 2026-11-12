@@ -116,6 +116,16 @@
   };
 
   /* ---------- mascote no mapa ---------- */
+  /* v27 (B2): balãozinho de quem procura dono: "?" enquanto vaga, coração quando segue o favorito */
+  const marks = {};
+  const markCv = (heart) => {
+    const k = heart ? 'h' : 'q'; if (marks[k]) return marks[k];
+    const p = new Pix(11, 12);
+    p.rect(1, 1, 9, 7, WHITE); p.rect(2, 0, 7, 9, WHITE); p.set(4, 9, WHITE); p.set(5, 10, WHITE); p.set(4, 8, WHITE); p.set(5, 9, WHITE);
+    if (heart) { for (const [x, y] of [[3, 2], [4, 2], [6, 2], [7, 2], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [4, 4], [5, 4], [6, 4], [5, 5]]) p.set(x, y, '#e8506a'); p.set(3, 2, '#ff9aa8'); }
+    else { for (const [x, y] of [[4, 2], [5, 2], [6, 2], [3, 3], [7, 3], [7, 4], [6, 5], [5, 5], [5, 7]]) p.set(x, y, '#8a5ae8'); p.set(5, 6, '#8a5ae8'); }
+    return (marks[k] = p.outline(INK).canvas());
+  };
   const drawPet = (p, X, Y, z) => {
     const ctx = R.ctx, r = G.petRt.get(p.id); if (!r) return;
     const d = G.PETS[p.k], sheet = A.petSheet(p.k), col = G.RAR_COLOR[p.rar];
@@ -128,19 +138,25 @@
     ctx.drawImage(sheet, fr * 14, 0, 14, 12, -7 * z, -11 * z, 14 * z, 12 * z);
     if (p.bagN > 0) { if (!sacks) sacks = [sackPix(0), sackPix(1)]; const full = p.bagN >= G.petLoadCap(p); ctx.drawImage(sacks[full ? 1 : 0], -9 * z, (-9 - (full ? 1 : 0)) * z, 7 * z, 7 * z); }
     ctx.restore();
+    if (p.out && !p.hero) { const bob = Math.round(Math.sin(R.t * 3 + p.id) * z), mc = markCv(r.mode === 'trail'), w = 11 * z * 0.9; ctx.drawImage(mc, Math.round(px - w / 2), Math.round(py - hover - 14.5 * z - w * 12 / 11 + bob), w, w * 12 / 11); }
     if (r.cast > 0) { const k = 1 - r.cast / 0.6; ctx.globalAlpha = (1 - k) * 0.9; ctx.strokeStyle = r.ck === 'heal' ? '#7df09a' : '#b98ff5'; ctx.lineWidth = Math.max(1, z); ctx.beginPath(); ctx.ellipse(px, py - 5 * z - hover, (6 + 6 * k) * z, (5 + 5 * k) * z, 0, 0, 6.283); ctx.stroke(); ctx.globalAlpha = 1; }
   };
   R.dynMore = (dyn, vx0, vx1, vy0, vy1) => {
     const S = G.S;
     for (const d of G.drops) if (d.n > 0 && d.x > vx0 && d.x < vx1 && d.y > vy0 && d.y < vy1 + 1) dyn.push({ y: d.y - 0.05, k: 'x', e: d, f: drawDrop });
     for (const p of S.pets) {
-      if (!p.hero) continue; let r = G.petRt.get(p.id);
-      if (!r) { const h = S.heroes.find((x) => x.id === p.hero); if (!h) continue; r = G.petRtOf(p, h); }
+      if (!p.hero && !p.out) continue; let r = G.petRt.get(p.id);
+      if (!r) { if (p.out && !p.hero) r = G.strayRt(p); else { const h = S.heroes.find((x) => x.id === p.hero); if (!h) continue; r = G.petRtOf(p, h); } }
       if (r.x > vx0 && r.x < vx1 && r.y > vy0 && r.y < vy1 + 1) dyn.push({ y: r.y, k: 'x', e: p, f: drawPet });
     }
   };
   /* toque no espólio: prioridade abaixo do herói e acima de monstros e construções */
-  R.pickMore = (wx, wy) => { let best = null, bd = 0.8; for (const d of G.drops) { if (!(d.n > 0)) continue; const dd = Math.hypot(d.x - wx, d.y - 0.35 - wy); if (dd < bd) { bd = dd; best = d; } } return best ? { type: 'drop', ref: best } : null; };
+  /* v27 (B2): toque num mascote vagante abre o cartão dele. Com o raio curto ele vale antes dos heróis (o vagante vive grudado no favorito); com o raio longo, depois deles */
+  R.pickPet = (wx, wy, rad) => { let sp = null, sd = rad; for (const p of G.S.pets) { if (!p.out || p.hero) continue; const r = G.petRt.get(p.id); if (!r) continue; const dd = Math.hypot(r.x - wx, r.y - 0.4 - wy); if (dd < sd) { sd = dd; sp = p; } } return sp ? { type: 'pet', ref: sp } : null; };
+  R.pickMore = (wx, wy) => {
+    let best = null, bd = 0.8; for (const d of G.drops) { if (!(d.n > 0)) continue; const dd = Math.hypot(d.x - wx, d.y - 0.35 - wy); if (dd < bd) { bd = dd; best = d; } }
+    const pt = R.pickPet(wx, wy, 1.15); if (pt) return pt;
+    return best ? { type: 'drop', ref: best } : null; };
   /* efeitos novos */
   R.fxMore = (f) => {
     if (f.t === 'weak') {

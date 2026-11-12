@@ -8,9 +8,11 @@
 3J-ausencia.js
 3K-decisoes.js
 3L-predios.js
+3M-vida.js
 34-vocacoes.js
 35-legado.js
 36-companheiros.js
+3N-adocao.js
 37-forja-sorte.js
 40-art.js
 41-art-mon.js
@@ -19,6 +21,7 @@
 51-voc-art.js
 52-legado-art.js
 53-companheiros-art.js
+54-vida-art.js
 60-ui.js
 61-ui-sheets.js
 62-ui-modals.js
@@ -50,4 +53,5 @@
 6G-ui-decisoes.js
 6H-ui-predio.js
 6I-ui-ausencia.js
+6J-ui-adocao.js
 90-main.js

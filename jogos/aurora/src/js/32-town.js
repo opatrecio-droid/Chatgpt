@@ -72,7 +72,7 @@
     const add = (id, n) => {
       const cap = G.resCap(id), cur = S.res[id] || 0;
       if (cur + n > cap) { const over = cur + n - cap; n -= over; if (G.bOk('mercado') && S.opts.autoSell && G.BASE_RES.indexOf(id) >= 0 && id !== 'refeicao' && id !== 'pocao') G.earn(G.sellPrice(id) * over * 0.7, 'exportacao'); }
-      if (n > 0) { G.addRes(id, n); S.rep.today.prod = (S.rep.today.prod || 0) + n; }
+      if (n > 0) { G.addRes(id, n); S.rep.today.prod = (S.rep.today.prod || 0) + n; if (G.onProd) G.onProd(id, n); }      // v27 (B1): só avisa a vida da cidade (3M) o que foi mesmo produzido; ela nunca escreve em recursos
     };
     if (work) { add('trigo', r.trigo); add('ervas', r.ervas); add('madeira', r.madeira); add('pedra', r.pedra); add('minerio', r.minerio); }
     if (h >= G.PROD.serv[0] && h < G.PROD.serv[1]) {
@@ -162,12 +162,14 @@
   G.npcs = [];
   const mkNpc = (c, i) => {
     const home = Wd.houses[i % Wd.houses.length];
-    return { id: 'n' + i, name: c.name, job: c.job, at: c.at, look: c.look, x: home.door[0], y: home.door[1], dir: 1, home: i % Wd.houses.length, state: 'home', inside: true, off: (G.hash(c.name) % 50) - 25, tThink: Math.random() * 2, act: 'home', spd: 1.5 + (G.hash(c.name) % 5) * 0.08 };
+    return { id: 'n' + i, name: c.name, job: c.job, at: c.at, look: c.look, wk: c.wk || 0, x: home.door[0], y: home.door[1], dir: 1, home: i % Wd.houses.length, state: 'home', inside: true, off: (G.hash(c.name) % 50) - 25, tThink: Math.random() * 2, act: 'home', spd: 1.5 + (G.hash(c.name) % 5) * 0.08 };
   };
+  /* v27 (B1): moradores de campo (lenharia, pedreira, fazenda) por nível do prédio: 1 nos níveis 1–2, 2 nos 3–5, 3 do 6 em diante (teto 3) */
+  G.workerCount = (id) => { const l = G.bLvl(id); return l <= 0 ? 0 : l <= 2 ? 1 : l <= 5 ? 2 : 3; };
   G.syncNpcs = () => {
     const S = G.S; if (!S) return;
     const want = [];
-    G.CAST.forEach((c) => { if (G.bLvl(c.at) > 0) want.push(c); });
+    G.CAST.forEach((c) => { if (G.bLvl(c.at) > 0 && (!c.wk || c.wk <= G.workerCount(c.at))) want.push(c); });      // v27 (B1): a equipe de campo cresce com o nível do prédio
     const extra = Math.max(0, Math.min(G.EXTRA_NAMES.length, (S.pop || 12) - want.length));
     for (let i = 0; i < extra; i++) want.push({ name: G.EXTRA_NAMES[i], job: 'Morador', at: null, look: 30 + i });
     const by = {}; for (const n of G.npcs) by[n.name] = n;
@@ -184,6 +186,7 @@
     const h = (hr + n.off / 60 + 24) % 24;
     if (G.S.mare.active) return 'hide';
     if (h >= 22 || h < 5.5) return 'home';
+    if (n.at && h < 18 && !G.bOk(n.at)) return h >= 12 && h < 13 ? 'lunch' : 'leisure';      // v27 (B1): prédio fechado ou danificado: ninguém trabalha nele
     if (h >= 12 && h < 13) return 'lunch';
     if (h >= 18) return 'leisure';
     return n.at ? 'work' : 'leisure';
@@ -219,7 +222,7 @@
       if (G.step(n, dt, n.spd * (n.act === 'hide' ? 1.6 : 1))) { n.state = n.goal === 'in' ? 'in' : n.goal; n.inside = n.goal === 'in'; n.moving = false; if (n.goal === 'toil') n.dir = Math.random() < 0.5 ? 1 : -1; }
     }
   };
-  G.updateNpcs = (dt) => { if (G.OFFLINE) return; for (const n of G.npcs) if (!n._sc) updateNpc(n, dt); };   // v27 (A1): moradores só enfeitam; no avanço do tempo ausente ficam parados (≈10% do custo do tick)   // v26: quem está numa cena da cidade (3G) é conduzido por ela
+  G.updateNpcs = (dt) => { if (G.OFFLINE) { if (G.lifeOffline) G.lifeOffline(); return; } for (const n of G.npcs) if (!n._sc && !(n.wk && G.lifeNpc && G.lifeNpc(n, dt))) updateNpc(n, dt); if (G.lifeTick) G.lifeTick(dt); };      // v27 (B1): a equipe de campo é conduzida por 3M-vida (lifeNpc devolve true quando assume o morador)   // v27 (A1): moradores só enfeitam; no avanço do tempo ausente ficam parados (≈10% do custo do tick)   // v26: quem está numa cena da cidade (3G) é conduzido por ela
 
   /* ---------- economia diária ---------- */
   G.bWage = (id, l) => { if (l == null) l = G.bLvl(id); return l > 0 ? 5 * Math.pow(1.33, l - 1) : 0; };      // salário diário da equipe de um prédio

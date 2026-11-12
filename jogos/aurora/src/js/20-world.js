@@ -201,7 +201,7 @@
     }
     world.blocked = blockedProp;
     world.ready = true;
-    world._pcache = new Map();
+    world._pcache = new Map(); world._pcacheN = new Map(); world._npc = false;
   };
 
   /* ---------- consultas ---------- */
@@ -245,8 +245,9 @@
     const si = Math.floor(s[1]) * W + Math.floor(s[0]), ti = Math.floor(t[1]) * W + Math.floor(t[0]);
     if (si === ti) return [[t[0], t[1]]];
     if (world.los(s[0], s[1], t[0], t[1])) return [[t[0], t[1]]];
+    const pcache = world._npc ? world._pcacheN : world._pcache;      // v27 (B1): moradores e vagantes têm cache próprio: o caminho guardado depende de quem pediu primeiro, e isso não pode vazar para heróis e monstros
     const key = si * N + ti;
-    const hit = world._pcache.get(key);
+    const hit = pcache.get(key);
     if (hit) return hit.map((p) => [p[0], p[1]]);
     gen++; heap.length = 0;
     const txi = ti % W, tyi = Math.floor(ti / W);
@@ -285,8 +286,8 @@
       out.push(raw[b]); px = raw[b][0]; py = raw[b][1]; a = b;
     }
     if (!out.length) out.push(raw[raw.length - 1]);
-    if (world._pcache.size > 1500) world._pcache.clear();
-    world._pcache.set(key, out);
+    if (pcache.size > 1500) pcache.clear();
+    pcache.set(key, out);
     return out.map((p) => [p[0], p[1]]);
   };
 

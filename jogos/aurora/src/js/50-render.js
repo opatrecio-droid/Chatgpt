@@ -13,7 +13,7 @@
     R.resize(); window.addEventListener('resize', R.resize);
     /* estáticos ordenados por y */
     const st = [];
-    for (const p of Wd.props) { if (p.flat) continue; const s = A.prop(p.t, p.v); if (s) st.push({ y: p.y, x: p.x, s, kind: p.t }); }
+    for (const p of Wd.props) { if (p.flat) continue; const s = A.prop(p.t, p.v); if (s) st.push({ y: p.y, x: p.x, s, kind: p.t, p }); }
     const tw = Wd.town;
     for (let x = tw.x0; x <= tw.x1; x++) for (const y of [tw.y0, tw.y1]) { if (Wd.tile[y * Wd.w + x] !== T.WALL) continue; const gate = Wd.tile[y * Wd.w + x - 1] !== T.WALL || Wd.tile[y * Wd.w + x + 1] !== T.WALL; const corner = x === tw.x0 || x === tw.x1; const s = A.wallPiece(gate || corner ? 't' : 'h'); st.push({ y: y + 1 + (gate || corner ? 0.02 : 0), x: x + 0.5, s, kind: 'wall' }); }
     for (let y = tw.y0 + 1; y < tw.y1; y++) for (const x of [tw.x0, tw.x1]) { if (Wd.tile[y * Wd.w + x] !== T.WALL) continue; const gate = Wd.tile[(y - 1) * Wd.w + x] !== T.WALL || Wd.tile[(y + 1) * Wd.w + x] !== T.WALL; const s = A.wallPiece(gate ? 't' : 'v'); st.push({ y: y + 1 + (gate ? 0.02 : 0), x: x + 0.5, s, kind: 'wall' }); }
@@ -47,6 +47,7 @@
   /* ---------- seleção por toque ---------- */
   R.pick = (px, py) => {
     const [wx, wy] = R.screenToWorld(px, py), S = G.S;
+    if (R.pickPet) { const o = R.pickPet(wx, wy, 0.7); if (o) return o; }
     let best = null, bd = 1.1;
     for (const h of S.heroes) { if (h.inside) continue; const d = Math.hypot(h.x - wx, h.y - 0.6 - wy); if (d < bd) { bd = d; best = { type: 'hero', ref: h }; } }
     if (best) return best;
@@ -152,6 +153,7 @@
       ctx.fillStyle = w.t === T.LAVA ? 'rgba(255,230,140,.75)' : w.t === T.POOL ? 'rgba(170,220,200,.35)' : 'rgba(220,245,255,.55)';
       ctx.fillRect(px, py, 4 * z, z); if (w.h % 3 === 0) ctx.fillRect(px - 5 * z, py + 5 * z, 2 * z, z);
     }
+    if (R.groundMore) R.groundMore(X, Y, z, vx0, vx1, vy0, vy1);      // v27 (B1): canteiros (estágio real de cada um)
     /* marcas no chão: alertas de chefe, seleção */
     for (const f of R.fxs) if (f.t === 'warn') { const k = f.age / f.life; ctx.fillStyle = 'rgba(255,60,60,' + (0.12 + 0.2 * k) + ')'; ctx.beginPath(); ctx.ellipse(X(f.x), Y(f.y), f.r * TS * z, f.r * TS * z * 0.6, 0, 0, 6.283); ctx.fill(); ctx.strokeStyle = 'rgba(255,90,90,.9)'; ctx.lineWidth = Math.max(1, z * 0.7); ctx.beginPath(); ctx.ellipse(X(f.x), Y(f.y), f.r * TS * z * k, f.r * TS * z * 0.6 * k, 0, 0, 6.283); ctx.stroke(); }
     if (R.sel && R.sel.ref && !R.sel.ref.dead) { const e = R.sel.ref; ctx.strokeStyle = 'rgba(255,224,122,.95)'; ctx.lineWidth = Math.max(1.5, z * 0.6); ctx.beginPath(); ctx.ellipse(X(e.x), Y(e.y), (e.size || 1) * 9 * z, (e.size || 1) * 4.5 * z, 0, 0, 6.283); ctx.stroke(); }
@@ -231,6 +233,8 @@
 
   /* ---------- desenhistas ---------- */
   const drawStatic = (s, X, Y, z, dark) => {
+    if (s.wt) return R.drawWorkTree(s, X, Y, z, dark);      // v27 (B1): árvores de corte e rochas do filão têm estado próprio (54-vida-art)
+    if (s.wr) return R.drawWorkRock(s, X, Y, z);
     const sp = s.s, dx = Math.round(X(s.x) - (sp.w / 2) * z), dy = Math.round(Y(s.y) - sp.h * z);
     if (s.kind === 'portal') {
       const cx = X(s.x), cy = Y(s.y) - 30 * z, t = R.t;
@@ -251,6 +255,7 @@
     ctx.drawImage(sp.cv, dx, dy, sp.w * z, sp.h * z);
     if (lvl > 0 && sp.smoke && !(b && b.dmg) && Math.random() < 0.08) part(p.x - 0.25 + sp.smoke.x / 16, p.y + 4 - (sp.h - 4 - sp.smoke.y) / 16, 0.2, -0.55, 2.4, '#ece8e0', 2, -0.05, 'puff');
     if (id === 'ferraria' && lvl > 0 && Math.random() < 0.03) part(p.x + 3 + G.rnd(-1, 1), p.y + 4.3, G.rnd(-1, 1), -2, 0.4, '#ffb040', 1, 6);
+    if (R.bldWork) R.bldWork(id, lvl, p, sp, X, Y, z);      // v27 (B1): o prédio mostra que está trabalhando (faíscas, fumaça, bolhas)
     const dark = G.darkness(S.clock);
     if (dark > 0.3 && lvl > 0 && !S.opts.lowFx) { for (const l of sp.lights) { ctx.fillStyle = l.lamp ? 'rgba(255,230,150,' + dark + ')' : 'rgba(255,208,110,' + Math.min(1, dark * 1.1) + ')'; ctx.fillRect(dx + l.x * z, dy + l.y * z, l.w * z, l.h * z); } }
     over.push(() => {
@@ -275,6 +280,7 @@
   const bubble = (px, py, text) => { ctx.font = fontS; ctx.textAlign = 'center'; const fs = parseInt(fontS.split(' ')[1]); const tw = ctx.measureText(text).width, w = tw + fs * 1.2, h = fs * 1.8; const x = Math.round(G.clamp(px - w / 2, 4, cw - w - 4)), y = Math.round(py - h); ctx.fillStyle = 'rgba(255,252,240,.96)'; rr(x, y, w, h, fs * 0.6); ctx.fill(); ctx.beginPath(); ctx.moveTo(px - fs * 0.4, y + h - 1); ctx.lineTo(px, y + h + fs * 0.45); ctx.lineTo(px + fs * 0.4, y + h - 1); ctx.fill(); ctx.fillStyle = '#2a2030'; ctx.textBaseline = 'middle'; ctx.fillText(text, x + w / 2, y + h / 2 + 1); ctx.textBaseline = 'alphabetic'; };
 
   const drawChar = (e, isHero, X, Y, z, over, dt) => {
+    if (!isHero && e._wk && R.npcDraw && R.npcDraw(e, X, Y, z, over)) return;      // v27 (B1): equipe de campo em serviço (ferramentas, cargas, poses de trabalho)
     const S = G.S, px = Math.round(X(e.x)), py = Math.round(Y(e.y) + (e._sit ? 2.4 * z : 0));   // v26: sentado numa cena da cidade (3G) desce um pouco
     if (e._ph == null) e._ph = (G.hash(e.name || e.id) % 100) / 25;
     const look = isHero ? (e._look && e._lk === e._dirtyKey ? e._look : (e._lk = e._dirtyKey = gearKey(e), e._look = A.heroLook(e))) : (e._look && e._lc === (e.carry || '') ? e._look : (e._lc = e.carry || '', e._look = A.npcLook(e)));
