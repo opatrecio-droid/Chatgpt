@@ -223,10 +223,12 @@ const reforgeBot = (st) => {
 /* ---------- laço ---------- */
 const DT = 0.034, TOTAL = MIN * 60;
 let nextBot = 0, nextSample = 0; const samples = [];
+let nextSys = 0; const sysT = {};
 const t0 = Date.now();
 while (t < TOTAL) {
   try { G.tick(DT); } catch (e) { errors.push('tick: ' + e.stack); if (errors.length > 20) break; }
   t += DT;
+  if (G.S.sys && t >= nextSys) { nextSys = t + 5; for (const id in G.S.sys.open) if (!(id in sysT)) sysT[id] = t; }   // 4C.1: quando cada sistema abriu
   if (t >= nextBot) { nextBot = t + 5; bot(); if (G.colossoLive && G.colossoLive()) { colo.ss++; colo.fs += S().heroes.filter((h) => h.state === 'colosso').length; colo.hs += S().heroes.length; if (CLAB && t >= CLAB * 60) colo.labT = colo.labT || t; } if (G.colosso && S().colosso && S().colosso.win && colo.labT && !colo.labDone) colo.labDone = t; }
   if (t >= nextSample) {
     nextSample = t + 600;
@@ -299,6 +301,7 @@ if (G.kingPower && S().lendas) {
 if (G.codexStats && S().codex) { const cs = G.codexStats(); console.log('Códex: ' + cs.slots + '/' + cs.slotsMax + ' registros de inscrição (' + cs.ids + '/' + cs.idsMax + ' tipos, ' + cs.perf + ' perfeitas) · peças ' + cs.cells + '/' + cs.cellsMax + ' · marcos ' + Object.keys(S().codex.ms).length + '/' + G.CODEX_MS.length + ': ' + (codexMs.length ? codexMs.map((x) => x.id + '@' + (x.t / 60).toFixed(0) + 'm').join(' ') : '—')); }
 if (RIFT || firstCan != null) console.log('Fenda Infinita: ' + rift.runs + ' expedições · ' + rift.wins + ' vitórias · andar ' + S().rift.floor + ' · Essência ' + Math.floor(S().res.essencia || 0) + ' · primeiro herói apto a renascer: ' + (firstCan == null ? '—' : firstCan + ' min'));
 if (G.rbDo) { const hs = S().heroes, sv = hs.reduce((a, h) => a + (h.rr ? h.rr.sv : 0), 0), pend = hs.reduce((a, h) => a + G.rbPts(h), 0); console.log('Renascimentos: ' + reb.n + (reb.n ? ' · primeiro aos ' + reb.mins[0] + ' min (' + reb.names[0] + ') · todos: ' + reb.names.map((n, i) => n + '@' + reb.mins[i] + 'm').slice(0, 12).join(' ') : ' · nenhum em ' + MIN + ' min') + ' · pontos gastos ' + reb.spent + ' (sobram ' + pend + ') · traços raros ' + reb.rare + ' · níveis de traço ' + reb.ups + ' · esquecidos ' + reb.forgets + (sv ? ' · Coração Imortal salvou ' + sv + ' vezes' : '')); }
+if (G.SYSTEMS) console.log('Sistemas (minuto em que abriram): ' + G.SYSTEMS.filter((d) => d.id in sysT && sysT[d.id] > 0).map((d) => d.id + '@' + (sysT[d.id] / 60).toFixed(1)).join(' · ') + ' · seguem trancados: ' + (G.SYSTEMS.filter((d) => !(d.id in sysT)).map((d) => d.id).join(', ') || 'nenhum'));
 /* 3-D: quedas (heróis derrubados) — linha estável para a tabela por semente */
 console.log('Quedas: ' + S().stats.falls + ' · abates ' + S().stats.kills + ' · Nível de Reino ' + S().realm.lvl + ' · heróis ' + S().heroes.length);
 if (G.pieceTake) console.log('Peças caídas (pegas pelo robô ou levadas pelo herói): ' + (S().stats.pieces || 0) + ' ' + JSON.stringify(pieceRar) + ' · Pergaminhos: ' + (S().stats.scrollsGot || 0) + ' obtidos, ' + (S().res.pergaminho || 0) + ' guardados · alertas de perigo: ' + (S().stats.dangers || 0));

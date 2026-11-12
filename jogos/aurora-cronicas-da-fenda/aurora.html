@@ -5880,7 +5880,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       '<span class="rt"><i>' + hud.T(() => (G.S ? G.threatName(G.S.realm.lvl) : '')) + '</i><em><span ' + hud.At('data-n', () => (G.S && G.isNight(G.S.clock) ? 1 : 0)) + ' class="dn">' + ic('sun') + ic('moon') + '</span>' + hud.T(() => (G.S ? 'Dia ' + G.S.day + ' · ' + G.clockStr(Math.floor(G.S.clock / 10) * 10) : '')) + '</em></span></button>' +
       '<div class="ctl"><button class="glass dif" data-a="diff" ' + hud.St('color', () => (G.S ? G.diffCur().c : '#e2b659')) + '>' + ic('skull') + '<small>' + hud.T(() => (G.S ? G.diffCur().name : '')) + '</small></button><button class="glass" data-a="speed" id="b-speed">' + hud.T(() => (G.S ? G.S.speed + '×' : '1×')) + '</button><button class="glass" data-a="pause" ' + hud.At('class', () => 'glass' + (G.S && G.S.paused ? ' on' : '')) + '>' + ic('pause') + '</button></div></div>' +
       '<div class="cur"><span class="chip glass gold">' + ic('coin') + hud.T(() => (G.S ? G.fmt(G.S.gold) : 0), 'bumpable') + '</span><span class="chip glass selo" data-a="open:mais:bencaos">' + ic('seal') + hud.T(() => (G.S ? G.S.selos : 0), 'bumpable') + '</span><span class="chip glass nuc" data-a="portal">' + ic('core') + hud.T(() => (G.S ? G.S.nucleos : 0), 'bumpable') + '</span><span class="sp"></span>' +
-      '<span ' + hud.At('class', () => 'chip glass mini' + (G.S && G.bOk('taverna') && G.S.res.refeicao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-refeicao" style="width:16px;height:16px"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.refeicao || 0) : 0)) + '</span><span ' + hud.At('class', () => 'chip glass mini' + (G.S && G.bOk('alquimista') && G.S.res.pocao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-pocao" style="width:16px;height:16px"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.pocao || 0) : 0)) + '</span></div>' +
+      '<span ' + hud.At('class', () => 'chip glass mini' + (G.S && G.bOk('taverna') && G.S.res.refeicao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-refeicao" style="width:16px;height:16px"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.refeicao || 0) : 0)) + '</span><span ' + hud.At('class', () => 'chip glass mini pot' + (G.S && G.bOk('alquimista') && G.S.res.pocao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-pocao" style="width:16px;height:16px"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.pocao || 0) : 0)) + '</span></div>' +
       '<div id="roster"></div><div id="zonechip" class="glass"></div><div id="bossbar" class="glass"><b><span id="bb-n"></span><span id="bb-p"></span></b><div class="bar big p"><i id="bb-f"></i></div></div>';
     void S;
   };
@@ -6599,12 +6599,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   UI.vw = () => v;                   // v26: as abas de 66-ui-lendas usam os vínculos ao vivo do painel aberto
 
   /* ---------- abrir / fechar / redesenhar ---------- */
+  UI.tabsFor = (name, tabs) => tabs; UI.tabAttr = () => '';       // v26: 6E filtra as abas e põe o selo "Novo!"
   UI.open = (name, tab, sub) => {
     const sh = SHEETS[name]; if (!sh) return;
     if (UI.sheet && UI.sheet.name === name && !tab && !sub && !UI.sheet.sub) return UI.close();
     const prev = UI.sheet && UI.sheet.name === name ? UI.sheet : null;
-    UI.sheet = { name, tab: tab || (prev && prev.tab) || (sh.tabs[0] ? sh.tabs[0][0] : ''), sub: sub || null };
-    if (sh.tabs.length && !sh.tabs.some((t) => t[0] === UI.sheet.tab)) UI.sheet.tab = sh.tabs[0][0];
+    const tl = UI.tabsFor(name, sh.tabs);               // v26: só as abas dos sistemas já liberados (6E)
+    UI.sheet = { name, tab: tab || (prev && prev.tab) || (tl[0] ? tl[0][0] : ''), sub: sub || null };
+    if (tl.length && !tl.some((t) => t[0] === UI.sheet.tab)) UI.sheet.tab = tl[0][0];
     $('#sheet').classList.add('on'); $('#shade').classList.add('on');
     document.querySelectorAll('#nav button').forEach((b) => b.classList.toggle('on', b.id === 'nav-' + name));
     lastKey = ''; draw(true);
@@ -6621,8 +6623,9 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const st = sh.subTitle ? sh.subTitle(s.sub) : null;
     $('#sheet h2').textContent = st || sh.title; $('#sheet .sh-head').classList.toggle('sub', !!st);
     const tb = $('#sheet .tabs'); tabsV = new UI.View(tb);
-    tb.style.display = sh.tabs.length && !st ? '' : 'none';
-    tb.innerHTML = sh.tabs.map(([id, l]) => '<button data-a="tab:' + id + '" class="' + (id === s.tab ? 'on' : '') + '">' + l + (sh.badge && sh.badge[id] ? tabsV.Badge(sh.badge[id]) : '') + '</button>').join('');
+    const tl = UI.tabsFor(s.name, sh.tabs);
+    tb.style.display = tl.length > 1 && !st ? '' : 'none';
+    tb.innerHTML = tl.map(([id, l, x]) => (x && x.lock ? '<button class="lk" data-a="syslock:' + x.lock + '">' + ic('lock') + l + '</button>' : '<button data-a="tab:' + id + '" class="' + (id === s.tab ? 'on' : '') + '"' + UI.tabAttr(s.name, id, id === s.tab) + '>' + l + (sh.badge && sh.badge[id] ? tabsV.Badge(sh.badge[id]) : '') + '</button>')).join('');
     { const on = tb.querySelector('button.on'); if (on && on.offsetLeft + on.offsetWidth > tb.clientWidth + tb.scrollLeft) tb.scrollLeft = on.offsetLeft + on.offsetWidth - tb.clientWidth + 12; }
     v = new UI.View(b);
     b.innerHTML = sh.render(s.tab, s.sub);
@@ -10323,7 +10326,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   ].join('\n');
 
   /* ---------- avisos (toasts): no máximo 3, repetidos agrupam com ×N, e sempre abaixo do HUD (nunca sobre o chip de Poder) ---------- */
-  UI.toast = (m, k, icon) => {
+  UI.toast = (m, k, icon, ms) => {
     const box = $('#toasts'); if (!box) return;
     k = k || '';
     for (const t of box.children) {
@@ -10332,14 +10335,14 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
         let b = t.querySelector('.tx'); if (!b) { b = document.createElement('b'); b.className = 'tx'; t.appendChild(b); }
         b.textContent = '×' + n;
         t.style.animation = 'none'; void t.offsetWidth; t.style.animation = '';
-        clearTimeout(t._to); t._to = setTimeout(() => t.remove(), 3500);
+        clearTimeout(t._to); t._to = setTimeout(() => t.remove(), ms || 3500);
         return;
       }
     }
     while (box.children.length >= 3) box.firstChild.remove();
     const t = document.createElement('div'); t.className = 'toast ' + k; t.dataset.m = m; t.dataset.k = k;
     t.innerHTML = ic(icon || (k === 'bad' ? 'skull' : k === 'good' ? 'check' : 'info')) + '<span>' + esc(m) + '</span>';
-    box.appendChild(t); t._to = setTimeout(() => t.remove(), 3500);
+    box.appendChild(t); t._to = setTimeout(() => t.remove(), ms || 3500);
   };
 
   css.textContent += '\n' + [
@@ -15076,6 +15079,481 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   }
   let showColBook = false;
   UI.ACT.syncolbook = () => { showColBook = !showColBook; UI.sheetDirty(); };
+})();
+;
+/* ===== 3I-progressivo.js ===== */
+/* 3I-progressivo: v26 (lote 4-C.1) — clareza progressiva. Catálogo dos sistemas do reino, quando cada um abre,
+   o selo "Novo!" (até o primeiro toque) e a dica de uma linha (uma vez por sistema). Simulação, sem DOM: a interface mora em 6E.
+   Estado novo: S.sys = { v, open: { id: dia }, hint: { id: 1 }, nw: { id: 1 } } (inicialização preguiçosa; saves antigos abrem sem migração
+   visível: o que já estava liberado entra em silêncio e só ganha o selo o que o jogador nunca usou, no máximo 3). Nada aqui muda a jogabilidade. */
+'use strict';
+(function () {
+  const rl = () => G.S.realm.lvl, cid = () => G.bLvl('cidadela'), step = () => G.S.quest.step;
+  const has = (o) => !!o && Object.keys(o).length > 0;
+  /* Cada sistema: id, n (nome), ic (ícone), open(S) (condição; depois de aberto fica aberto), req (o que falta, para cadeados e Livro),
+     hint (dica de uma linha, continua depois do nome), near(S) (perto de abrir: vale um cadeado discreto), used(S) (o jogador já usou: saves antigos não ganham selo),
+     onde ele mora: nav (botão da barra) | tab [painel, aba] | chip (seletor) | htab (aba da ficha do herói); new:false = sem selo; silent = sem dica.
+     ord = ordem das dicas em saves migrados (menor primeiro). */
+  G.SYSTEMS = [
+    { id: 'forja', n: 'Forja', ic: 'anvil', nav: 'forja', open: () => G.bLvl('ferraria') > 0, req: 'Construa a Ferraria', hint: 'o espólio vira equipamento para os heróis.', used: (S) => S.stats.crafted > 0 },
+    { id: 'armazem', n: 'Armazém', ic: 'chest', nav: 'armazem', open: () => G.bLvl('ferraria') > 0 || rl() >= 2, req: 'Construa a Ferraria', hint: 'peças, poções e materiais ficam guardados aqui.', new: false },
+    { id: 'contratos', n: 'Contratos', ic: 'scroll', tab: ['missoes', 'contratos'], open: () => step() >= 3, req: 'Conclua 3 missões da Jornada', hint: 'três pedidos novos a cada amanhecer.', used: (S) => S.stats.contracts > 0 },
+    { id: 'bestiario', n: 'Bestiário', ic: 'book', tab: ['mais', 'bestiario'], open: (S) => S.stats.kills >= 50, req: 'Abata 50 monstros', hint: 'estudar uma família de monstros dá bônus contra ela.' },
+    { id: 'pedidos', n: 'Pedidos da cidade', ic: 'scroll', open: () => !!(G.pedidoOpen && G.pedidoOpen()), req: 'Conclua 2 missões da Jornada', hint: 'moradores pedem coisas; toque no balão dourado.', used: (S) => (S.stats.pedidos || 0) > 0 },
+    { id: 'forjanuc', n: 'Núcleos', ic: 'core', chip: '.chip.nuc', open: (S) => G.bLvl('ferraria') > 0 || S.nucleos > 2 || S.stats.crafted > 0, req: 'Construa a Ferraria', silent: 1, new: false },
+    { id: 'pocao', n: 'Poções', ic: 'potion', chip: '.chip.pot', open: (S) => G.bLvl('alquimista') > 0 || (S.res.pocao || 0) > 5, req: 'Construa a Casa do Alquimista', silent: 1, new: false },
+    { id: 'caminhos', n: 'Caminhos', ic: 'map', tab: ['missoes', 'caminhos'], open: () => step() >= 5, req: 'Conclua 5 missões da Jornada', hint: 'objetivos livres que apresentam o reino.', used: (S) => has(S.paths) },
+    { id: 'decretos', n: 'Decretos', ic: 'bolt', chip: '#fabs', open: () => step() >= 6, req: 'Conclua 6 missões da Jornada', hint: 'poderes do trono, no raio à direita.' },
+    { id: 'bencaos', n: 'Bênçãos', ic: 'seal', tab: ['mais', 'bencaos'], chip: '.chip.selo', open: (S) => S.selos > 0 || rl() >= 2 || has(S.bless), req: 'Nível de Reino 2', hint: 'Selos de Renome compram bônus permanentes.', used: (S) => has(S.bless) },
+    { id: 'recordes', n: 'Poder do Reino', ic: 'crown', tab: ['mais', 'recordes'], chip: '#pwr', open: () => rl() >= 2, req: 'Nível de Reino 2', hint: 'a coroa no alto da tela; toque para ver marcos.', used: (S) => !!(S.lendas && S.lendas.seen) },
+    { id: 'semana', n: 'Semana temática', ic: 'spark', chip: '#hudx', open: () => rl() >= 2, req: 'Nível de Reino 2', hint: 'toda semana tem um tema com bônus e prazo.', silent: 1, new: false },
+    { id: 'cal', n: 'Calendário', ic: 'gift', chip: '#fab-cal', open: (S) => S.stats.played >= 150, req: 'Alguns minutos de jogo', silent: 1, new: false },
+    { id: 'feitos', n: 'Feitos', ic: 'trophy', htab: 'feitos', open: () => rl() >= 2, req: 'Nível de Reino 2', silent: 1, new: false },
+    { id: 'artes', n: 'Artes Secretas', ic: 'book', htab: 'artes', open: (S) => S.heroes.some((h) => (h.ap || 0) > 0), req: 'Um herói no nível 2', silent: 1, new: false },
+    { id: 'zonas', n: 'Zonas', s: 'Zonas', rq: 'Reino 3', ic: 'skull', tab: ['missoes', 'zonas'], open: () => rl() >= 3, req: 'Nível de Reino 3', near: () => rl() >= 2, hint: 'o chefe de cada região e a corrupção.' },
+    { id: 'cronicas', n: 'Conquistas', ic: 'trophy', tab: ['mais', 'cronicas'], open: () => rl() >= 3, req: 'Nível de Reino 3', hint: 'metas longas que pagam Selos.' },
+    { id: 'atelie', n: 'Ateliê', ic: 'shirt', tab: ['armazem', 'atelie'], open: () => rl() >= 3, req: 'Nível de Reino 3', hint: 'trajes, asas e mascotes dão visual e bônus.', used: (S) => has(S.cos) || (S.pets && S.pets.length > 0) },
+    { id: 'publicas', n: 'Obras públicas', ic: 'hammer', tab: ['reino', 'publicas'], open: () => rl() >= 3, req: 'Nível de Reino 3', hint: 'o ouro que sobra rende mais aqui.', used: (S) => has(S.works) },
+    { id: 'especiais', n: 'Especiais', ic: 'gift', tab: ['armazem', 'especiais'], open: () => rl() >= 2, req: 'Nível de Reino 2', silent: 1, new: false },
+    { id: 'mare', n: 'Maré da Fenda', ic: 'wave', open: () => rl() >= 3, req: 'Nível de Reino 3', silent: 1 },
+    { id: 'decor', n: 'Decoração', s: 'Decoração', rq: 'Cidadela 2', ic: 'flower', tab: ['reino', 'decor'], open: () => cid() >= 2, req: 'Cidadela nível 2', near: () => cid() >= 1 && rl() >= 2, hint: 'enfeites dão Encanto e pequenos bônus.', used: (S) => (S.stats.decor || 0) > 0 },
+    { id: 'mercado', n: 'Mercado', ic: 'coin', tab: ['reino', 'mercado'], open: () => G.bAvailable('mercado'), req: 'Cidadela nível 2', hint: 'venda o excedente e receba caravanas.', used: () => G.bLvl('mercado') > 0 },
+    { id: 'dif', n: 'Dificuldade', ic: 'skull', chip: '#hud .dif', open: () => rl() >= 4, req: 'Nível de Reino 4', hint: 'monstros mais duros rendem mais. Toque na caveira.', silent: 0 },
+    { id: 'estabulo', n: 'Estábulo', s: 'Estábulo', rq: 'Cidadela 3', ic: 'shoe', tab: ['reino', 'estabulo'], htab: 'mont', open: () => G.bAvailable('estabulo'), req: 'Cidadela nível 3', near: () => cid() >= 2, hint: 'montarias deixam os heróis mais rápidos.', used: (S) => S.stable.list.length > 0 || G.bLvl('estabulo') > 0 },
+    { id: 'arena', n: 'Arena das Duas Luas', s: 'Arena', rq: 'Cidadela 3', ic: 'trophy', tab: ['missoes', 'arena'], open: () => !!(G.arenaOpen && G.arenaOpen()), req: 'Cidadela nível 3 ou Reino 6', near: () => cid() >= 2 || rl() >= 4, hint: 'duele contra reinos rivais e suba de liga.', used: (S) => !!(S.arena && S.arena.duels > 0) },
+    { id: 'fenda', n: 'Fenda Infinita', s: 'Fenda', rq: 'Reino 5', ic: 'portal', tab: ['missoes', 'fenda'], open: () => rl() >= 5, req: 'Nível de Reino 5', near: () => rl() >= 3, hint: 'uma escada de guardiões na Cratera.', used: (S) => S.rift.best > 0 || S.rift.floor > 1 },
+    { id: 'incursoes', n: 'Incursões', s: 'Incursões', rq: 'Reino 6', ic: 'paw', tab: ['missoes', 'incursoes'], open: () => rl() >= 6, req: 'Nível de Reino 6', near: () => rl() >= 4, hint: 'elites, um Alfa e um ovo de mascote.', used: (S) => !!(S.inc && (S.inc.wins > 0 || has(S.inc.best))) },
+    { id: 'colosso', n: 'Colosso da Semana', s: 'Colosso', rq: 'Reino 6', ic: 'skull', tab: ['missoes', 'colosso'], open: () => !!(G.colossoOpen && G.colossoOpen()), req: 'Nível de Reino 6 e 3 heróis', near: () => rl() >= 4, hint: 'desperta de sexta a domingo, na Cratera.', used: (S) => !!(S.colosso && S.colosso.tot && S.colosso.tot.w > 0) },
+    { id: 'codex', n: 'Códex', ic: 'book', tab: ['mais', 'codex'], open: () => G.codexStats().cells > 0, req: 'Forje a primeira peça', hint: 'cada peça e inscrição vista fica registrada.' },
+    { id: 'inscricoes', n: 'Inscrições e Reforja', ic: 'spark', open: () => G.codexStats().slots > 0, req: 'Uma peça com inscrição', silent: 1 },
+    { id: 'promocao', n: 'Promoção e Rank', ic: 'up', open: (S) => S.stats.maxLvl >= 5, req: 'Um herói no nível 5', silent: 1 },
+    { id: 'renascer', n: 'Renascimento', ic: 'star', open: (S) => S.heroes.some((h) => h.rank >= 4 || (h.stars || 0) > 0), req: 'Um herói no Rank A', silent: 1 },
+    { id: 'livro', n: 'Livro do Reino', ic: 'book', tab: ['mais', 'livro'], open: () => true, req: '', new: false, silent: 1 },
+  ];
+  G.SYS = {}; for (const d of G.SYSTEMS) G.SYS[d.id] = d;
+  /* "painel:aba" -> sistema (para filtrar abas, a próxima recompensa e os atalhos) */
+  G.SYS_TAB = {}; for (const d of G.SYSTEMS) if (d.tab) G.SYS_TAB[d.tab[0] + ':' + d.tab[1]] = d.id;
+  G.SYS_CAP = 3;                         // saves migrados: no máximo tantos selos "Novo!"
+
+  const sy = (G.sysState = () => { const S = G.S; return S.sys || (S.sys = { v: 1, open: {}, hint: {}, nw: {} }); });
+  /* aberto? Vale o registro (sticky); a condição crua cobre o instante antes do próximo compasso */
+  G.sysOpen = (id) => {
+    const S = G.S; if (!S) return true;
+    const d = G.SYS[id]; if (!d) return true;
+    const s = S.sys; if (s && s.open[id]) return true;
+    try { return !!d.open(S); } catch (e) { return true; }
+  };
+  G.sysNew = (id) => !!(G.S && G.S.sys && G.S.sys.nw[id]);
+  G.sysReq = (id) => (G.SYS[id] ? G.SYS[id].req : '');
+  G.sysNear = (id) => { const d = G.SYS[id]; if (!d || !d.near || G.sysOpen(id)) return false; try { return !!d.near(G.S); } catch (e) { return false; } };
+  G.sysTabOpen = (sheet, tab) => { const id = G.SYS_TAB[sheet + ':' + tab]; return !id || G.sysOpen(id); };
+  /* mode: undefined = normal (avisa), 'quiet' = só registra (carregar save), 'migrate' = save sem S.sys (selo só no que nunca foi usado) */
+  G.sysCheck = (mode) => {
+    const S = G.S; if (!S) return 0;
+    const s = sy(); let n = 0, seals = 0; const born = [];
+    for (const d of G.SYSTEMS) {
+      if (s.open[d.id]) continue;
+      let ok = false; try { ok = !!d.open(S); } catch (e) { ok = false; }
+      if (!ok) continue;
+      s.open[d.id] = S.day || 1; n++;
+      const placed = d.nav || d.tab || d.chip || d.htab;
+      if (mode === 'migrate') {
+        s.hint[d.id] = 1;
+        let used = true; if (d.used) { try { used = !!d.used(S); } catch (e) { used = true; } }
+        if (placed && d.new !== false && d.used && !used) born.push(d);
+      } else if (mode === 'quiet') {
+        s.hint[d.id] = 1; if (placed && d.new !== false && !d.silentSeal) s.nw[d.id] = 1;
+      } else {
+        if (placed && d.new !== false) s.nw[d.id] = 1;
+        if (!s.hint[d.id]) { s.hint[d.id] = 1; if (!d.silent) G.emit('sysopen', { id: d.id }); }
+      }
+    }
+    if (born.length) { for (const d of born.slice(0, G.SYS_CAP)) { s.nw[d.id] = 1; seals++; } }
+    if (n) G.emit('syschg', { n, seals });
+    return n;
+  };
+  /* o jogador tocou no sistema: some o selo */
+  G.sysTouch = (id) => {
+    const S = G.S, s = S && S.sys; if (!s || !s.nw[id]) return false;
+    delete s.nw[id]; G.emit('sysseen', { id }); return true;
+  };
+  G.sysNewList = () => { const s = G.S && G.S.sys; return s ? Object.keys(s.nw) : []; };
+
+  /* ---- jogo novo, carregar e compasso ---- */
+  const ng0 = G.newGame;
+  G.newGame = () => { const S = ng0(); S.sys = null; sy(); G.sysCheck('quiet'); const s = S.sys; for (const k in s.nw) delete s.nw[k]; return S; };
+  const al0 = G.afterLoad;
+  G.afterLoad = () => { const first = !G.S.sys; al0(); G.sysCheck(first ? 'migrate' : 'quiet'); };
+  let acc = 0, dirty = true;
+  for (const ev of ['bld', 'realm', 'quest', 'inv', 'heroes', 'arena', 'colosso', 'cos', 'pets', 'codex', 'stable', 'decor', 'works', 'bless']) G.on(ev, () => { dirty = true; });
+  const tk0 = G.tick;
+  G.tick = (dt) => { tk0(dt); if (!G.S) return; acc += dt; if (acc >= 1 || (dirty && acc >= 0.25)) { acc = 0; dirty = false; G.sysCheck(); } };
+
+  /* ---- a próxima recompensa só aponta para o que já abriu ---- */
+  const nr0 = G.nextReward;
+  G.nextReward = () => {
+    const r = nr0();
+    const go = (o) => { const m = /^open:([a-z]+):([a-z]+)/.exec(o.go || ''); if (m) return G.sysTabOpen(m[1], m[2]); if (o.go === 'cal') return G.sysOpen('cal'); return true; };
+    if (r.all.every(go)) return r;
+    r.all = r.all.filter(go);
+    const ready = r.all.filter((o) => o.ready).sort((a, b) => a.pr - b.pr);
+    r.best = ready.length ? ready[0] : r.all.slice().sort((a, b) => b.rk - a.rk || a.pr - b.pr)[0] || null;
+    return r;
+  };
+})();
+;
+/* ===== 6E-ui-progressivo.js ===== */
+/* 6E-ui-progressivo: v26 (lote 4-C.1) — a interface só mostra o que já foi liberado. Abas, botões da barra, chips do HUD e abas da ficha
+   dos sistemas trancados ficam ocultos (um cadeado discreto com o requisito aparece só quando o sistema está perto de abrir); o que acabou
+   de abrir ganha o selo "Novo!" até o primeiro toque e uma dica de uma linha, uma vez. Só interface: o catálogo e o estado vivem em 3I. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, ic = UI.ic, $ = UI.$;
+
+  /* ---------- estilo: gerado do catálogo (ocultar trancados, selo "Novo!") ---------- */
+  const hide = [], seal = { nav: [], tab: [], chip: [], fab: [], htab: [] }, rules = [];
+  for (const d of G.SYSTEMS) {
+    const sels = [];                                              // onde o sistema mora
+    if (d.nav) sels.push(['nav', '#nav-' + d.nav]);
+    if (d.chip) sels.push([d.chip === '#fabs' ? 'fab' : 'chip', d.chip === '#fabs' ? '#fab-dec' : d.chip]);
+    if (d.htab) sels.push(['htab', '.htabs [data-a="htab:' + d.htab + '"]']);
+    if (d.tab) sels.push(['tab', '#sheet .tabs [data-a="tab:' + d.tab[1] + '"]']);
+    const gate = d.nav ? ['#nav-' + d.nav] : d.chip ? (d.chip === '#hudx' ? ['#hudx .wk', '#hudx .sorte'] : [d.chip]) : d.htab ? ['.htabs [data-a="htab:' + d.htab + '"]'] : [];
+    if (gate.length && d.id !== 'livro') hide.push(gate.map((g) => '#app:not(.so-' + d.id + ') ' + g).join(','));
+    for (const [k, sel] of sels) {
+      const s2 = k === 'chip' && d.chip === '#hudx' ? '#hudx .wk' : sel;
+      seal[k].push('#app.nw-' + d.id + ' ' + s2 + (k === 'chip' ? '::before' : '::after'));
+    }
+    const nv = d.nav || (d.tab && d.tab[0]) || (d.htab ? 'herois' : null);                // a barra de baixo também avisa que há novidade dentro do painel
+    if (nv && !d.nav) seal.nav.push('#app.nw-' + d.id + ' #nav-' + nv + '::after');
+  }
+  const css = document.createElement('style');
+  css.textContent = [
+    hide.map((s) => s + '{display:none!important}').join('\n'),
+    '#app:not(.so-decretos) #fabs{display:none!important}',
+    '@keyframes nvp{from{transform:scale(1)}to{transform:scale(1.1)}}',
+    seal.nav.join(',') + '{content:"Novo!";position:absolute;top:-4px;left:calc(50% - 17px);padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;letter-spacing:.02em;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate;z-index:2}',
+    seal.tab.join(',') + ',' + seal.htab.join(',') + '{content:"Novo!";position:absolute;top:-4px;right:-3px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate;z-index:2}',
+    seal.chip.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-4px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate;z-index:2}',
+    seal.fab.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-6px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate}',
+    '#fab-dec,#hud .dif,#pwr,#hudx .wk{position:relative}',
+    '#sheet .tabs{padding-top:6px}',
+    '.tabs button.lk{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px dashed rgba(152,162,186,.4);color:var(--mut);font-weight:700;font-size:11.5px}',
+    '.tabs button.lk svg{font-size:12px;opacity:.85}',
+    '@media (prefers-reduced-motion:reduce){[class*="nw-"] *::after{animation:none!important}}',
+  ].join('\n');
+  document.head.appendChild(css);
+
+  /* ---------- quais sistemas estão abertos / com selo: classes no #app ---------- */
+  let sigO = '', sigN = '';
+  const apply = (UI.sysApply = () => {
+    const app = $('#app'); if (!app || !G.S) return;
+    let o = '', n = '';
+    for (const d of G.SYSTEMS) { o += G.sysOpen(d.id) ? '1' : '0'; n += G.sysNew(d.id) ? '1' : '0'; }
+    if (o !== sigO) { sigO = o; G.SYSTEMS.forEach((d, i) => app.classList.toggle('so-' + d.id, o[i] === '1')); }
+    if (n !== sigN) { sigN = n; G.SYSTEMS.forEach((d, i) => app.classList.toggle('nw-' + d.id, n[i] === '1')); }
+  });
+
+  /* ---------- abas: só as liberadas; um cadeado com o requisito para a mais próxima ---------- */
+  UI.tabsFor = (name, tabs) => {
+    const out = [];
+    for (const t of tabs) { const id = G.SYS_TAB[name + ':' + t[0]]; if (!id || G.sysOpen(id)) out.push(t); }
+    for (const d of G.SYSTEMS) if (d.tab && d.tab[0] === name && !G.sysOpen(d.id) && G.sysNear(d.id)) { out.push(['lock:' + d.id, (d.s || d.n) + ' · ' + (d.rq || ''), { lock: d.id }]); break; }
+    return out;
+  };
+  /* ao abrir a aba o selo some: chamado pelo desenho do painel para cada aba */
+  UI.tabAttr = (name, id, active) => { const sid = G.SYS_TAB[name + ':' + id]; if (sid && active && G.sysNew(sid)) G.sysTouch(sid); return ''; };
+  UI.ACT.syslock = (a) => { const d = G.SYS[a[0]]; if (!d) return; UI.toast(d.n + ' abre com: ' + d.req + '.', 'info', 'lock'); };
+
+  /* ---------- toques que apagam o selo (barra, chips, abas da ficha) ---------- */
+  const touchSel = [];
+  for (const d of G.SYSTEMS) {
+    if (d.nav) touchSel.push([d.id, '#nav-' + d.nav]);
+    if (d.chip) touchSel.push([d.id, d.chip === '#fabs' ? '#fab-dec' : d.chip === '#hudx' ? '#hudx .wk' : d.chip]);
+    if (d.htab) touchSel.push([d.id, '.htabs [data-a="htab:' + d.htab + '"]']);
+  }
+  document.addEventListener('click', (e) => {
+    if (!G.S || !e.target.closest) return;
+    for (const [id, sel] of touchSel) if (G.sysNew(id) && e.target.closest(sel)) G.sysTouch(id);
+  }, true);
+  /* o selo de um sistema que mora numa aba também some quando se toca na própria aba (cobre mudar de aba sem redesenhar) */
+  const tab0 = UI.ACT.tab;
+  UI.ACT.tab = (a) => { tab0(a); if (UI.sheet) { const sid = G.SYS_TAB[UI.sheet.name + ':' + a[0]]; if (sid) G.sysTouch(sid); } };
+
+  /* ---------- dicas de uma linha: fila curta, nunca em cima de janela, e agrupadas se vierem várias de uma vez ---------- */
+  const q = []; let qAt = 0;
+  G.on('sysopen', (d) => { if (G.SYS[d.id]) q.push(d.id); });
+  const pump = () => {
+    const S = G.S; if (!S || !q.length || !S.tut.done || UI.modalOpen || performance.now() < qAt) return;
+    const ids = q.splice(0, q.length), ds = ids.map((id) => G.SYS[id]);
+    if (ds.length >= 3) { const nm = ds.slice(0, 3).map((d) => d.n), more = ds.length - 3; UI.toast('Novos: ' + (more > 0 ? nm.join(', ') + ' e mais ' + more : nm.join(', ').replace(/, ([^,]*)$/, ' e $1')) + '. Procure o selo Novo!', 'epic', ds[0].ic, 7000); }
+    else for (const d of ds) UI.toast('Novo: ' + d.n + ' — ' + d.hint, 'epic', d.ic, 7000);
+    if (G.sfx) G.sfx('quest');
+    qAt = performance.now() + 2500;
+  };
+  const rf0 = UI.refresh;
+  UI.refresh = () => { rf0(); if (!G.S || !G.M.running) return; apply(); pump(); };
+  G.on('start', () => { q.length = 0; sigO = sigN = ''; apply(); });
+  G.on('sysseen', apply); G.on('syschg', apply);
+
+  /* abrir um painel pela barra apaga o selo dos sistemas que são o próprio botão (Forja, Armazém) */
+  const open0 = UI.open;
+  UI.open = (n, t, s) => { const r = open0(n, t, s); for (const d of G.SYSTEMS) if (d.nav === n) G.sysTouch(d.id); return r; };
+})();
+;
+/* ===== 6F-ui-livro.js ===== */
+/* 6F-ui-livro: v26 (lote 4-C.2) — Livro do Reino. Ajuda curta da Rosa, uma página por sistema (o que é, como avançar, uma dica de
+   especialista). Abre pelo "?" no cabeçalho de cada painel (a página da aba aberta) e pelo índice em Mais › Livro. Só as páginas dos
+   sistemas já liberados aparecem; as outras viram "???" com o requisito. Só interface; o catálogo dos sistemas vive em 3I. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, A = G.A, ic = UI.ic, esc = UI.esc, $ = UI.$;
+
+  /* ---------- páginas: id (o do sistema, quando existe) · n título · ic · a "o que é" · b "como avançar" · c dica · go [painel, aba] ---------- */
+  const P = {};
+  const pg = (id, n, i, go, a, b, c) => { P[id] = { id, n, ic: i, go, a, b, c }; };
+  pg('herois', 'Heróis e Portal', 'people', ['herois'],
+    'Seus heróis caçam sozinhos: andam pelo mapa, lutam, comem, descansam e compram equipamento com o ouro que ganham.',
+    'Chame novos heróis pelo Portal (o + no alto da tela). Eles sobem de nível caçando, e a Hospedaria define quantos cabem. Toque num herói para ver a ficha.',
+    'Cada herói tem uma Cautela: Ousado rende mais, Cauteloso recua cedo. Antes de uma zona difícil, escolha Cauteloso.');
+  pg('predios', 'Prédios e obras', 'castle', ['reino', 'obras'],
+    'Cada prédio faz um trabalho: a Ferraria forja, a Enfermaria cura, a Taverna alimenta. A Cidadela limita o nível de todos os outros.',
+    'Em Reino › Prédios, construa o que estiver livre e melhore o que já existe. Faltou material? Os heróis trazem das caçadas, e o Mercado vende o resto.',
+    'Melhore a Cidadela cedo: ela abre terrenos, Decoração, Estábulo e Arena. E conserte o que a Maré quebrar, senão o prédio para.');
+  pg('jornada', 'Jornada', 'scroll', ['missoes', 'jornada'],
+    'A Jornada é a lista de missões que guia o reino, uma de cada vez. A barra no pé da tela mostra a atual.',
+    'Cumpra o objetivo e toque na barra para receber o prêmio. Cada passo apresenta um prédio ou sistema novo; o que faltar aparece sob o título.',
+    'Os prêmios da Jornada (moedas, Selos, Núcleos) aceleram tudo. Faça-a em dia, porque ela também prepara o que vem depois.');
+  pg('reino', 'O Reino', 'crown', ['reino', 'geral'],
+    'A visão geral reúne o Nível de Reino, os moradores, a felicidade, os recursos e o livro-caixa de ontem.',
+    'O Nível de Reino sobe com abates, obras e feitos. Cada nível abre regiões e sistemas e paga moedas e Selos de Renome.',
+    'O livro-caixa mostra para onde o ouro foi. Saldo baixo? Veja salários, obras e compras no Mercado.');
+  pg('vida', 'Vida na cidade', 'smile', null,
+    'Aurora tem vida própria: à noite os heróis se reúnem na fogueira da praça e na mesa da taverna, de dia treinam no campo, e os moradores conversam entre si.',
+    'Não há nada a fazer, só olhar. Heróis cansados ou desanimados sentam à fogueira e se recuperam mais depressa. Os moradores também fazem Pedidos.',
+    'Leia os balões de fala: eles citam laços, títulos e feitos reais dos seus heróis. Campeões rivais também passam por lá.');
+  pg('forja', 'Forja e Ferraria', 'anvil', ['forja', 'forjar'],
+    'Na Ferraria, o espólio vira armas e armaduras. Os heróis compram o que você forja, e o ouro volta ao cofre.',
+    'Abra a Forja, escolha o tipo e o tier e toque em Forjar. Ferraria mais alta libera tiers novos; a Obra-prima gasta um Núcleo para chegar a uma raridade maior.',
+    'Veja o que os heróis querem e ainda não existe: forjar a peça que alguém precisa vende rápido e acelera a caçada.');
+  pg('inscricoes', 'Inscrições e Reforja', 'spark', ['armazem', 'equip'],
+    'Peças Incomuns ou melhores nascem com inscrições sorteadas, de qualidade 1 a 5. Cada uma dá um efeito de verdade: ataque, vida, crítico, espólio…',
+    'Reforje a peça para sortear inscrições novas e escolha entre manter as antigas ou aceitar as novas. O Pó de Reforja vem do desmonte de peças.',
+    'Inscrições da mesma família somam ressonância (Fúria, Baluarte, Vento, Vida, Fortuna, Saber): com 2, 3 e 4 ativam bônus. A ficha mostra o próximo.');
+  pg('armazem', 'Armazém', 'chest', ['armazem', 'equip'],
+    'O Armazém guarda o equipamento, as poções, os materiais e os itens especiais do reino.',
+    'Toque numa peça para ver o poder dela, vesti-la num herói, trancá-la ou desmontá-la. Os recursos também aparecem na visão geral do Reino.',
+    'Tranque com o cadeado a peça que quer guardar: peça trancada não é vendida aos heróis nem desmontada sem querer.');
+  pg('atelie', 'Ateliê e mascotes', 'shirt', ['armazem', 'atelie'],
+    'No Ateliê ficam os trajes e as asas, que mudam o visual do herói e dão bônus, e o Viveiro, onde moram os mascotes.',
+    'Compre a peça (ou ganhe de chefes e do Colosso) e vista pelos espaços roxos da ficha. Cada cópia veste um herói por vez.',
+    'No Viveiro, três mascotes da mesma raridade viram um da raridade seguinte. Fundir as sobras é o caminho para os raros.');
+  pg('contratos', 'Contratos', 'scroll', ['missoes', 'contratos'],
+    'Três contratos novos a cada amanhecer: metas simples, como abater monstros ou forjar peças, que pagam moedas.',
+    'Cumpra e toque em Receber. Fechando os três, o baú do dia rende Selos e Núcleos, e a sequência de dias aumenta o prêmio.',
+    'Os contratos se cumprem sozinhos enquanto os heróis caçam. Abra todo dia, nem que seja só para pegar o baú.');
+  pg('pedidos', 'Pedidos da cidade', 'scroll', ['missoes', 'contratos'],
+    'Os moradores fazem pedidos curtos, com prazo: trigo para Alda, uma peça Rara para Fábio, ervas raras para Quim.',
+    'Um balão dourado surge sobre o morador. Toque nele para ver o pedido e entregue com um toque quando estiver pronto. No máximo 2 por vez.',
+    'O prêmio varia: moedas, Pó de Reforja, Núcleo, ânimo, desconto de obras. Os de entrega saem do Armazém na hora; os demorados pedem paciência.');
+  pg('caminhos', 'Caminhos', 'map', ['missoes', 'caminhos'],
+    'Caminhos são objetivos livres, em qualquer ordem, que apresentam os sistemas do reino e pagam em Selos, Núcleos e materiais.',
+    'Abra Missões › Caminhos e escolha o que fazer. Quando o objetivo é cumprido, o prêmio fica pronto: toque para receber.',
+    'Sem rumo? Escolha um Caminho. É um bom jeito de descobrir o que você ainda não experimentou.');
+  pg('zonas', 'Zonas e corrupção', 'skull', ['missoes', 'zonas'],
+    'O mundo tem regiões de caça. A barra de cada zona enche com os abates e, quando completa, o chefe desperta.',
+    'Vencer o chefe sobe a corrupção da zona: monstros mais fortes e espólio melhor. Você baixa o nível quando quiser; zonas novas abrem com o Nível de Reino.',
+    'Baixe a corrupção para treinar novatos e suba para forjar peças melhores. Desligue "subir sozinha" se não quiser surpresas.');
+  pg('mare', 'Maré da Fenda', 'wave', ['reino', 'geral'],
+    'De tempos em tempos a Fenda despeja invasores sobre Aurora. É a Maré: uma noite de defesa.',
+    'Mantenha os heróis curados e com poções, e construa a Torre de Vigia, que flecha os invasores e avisa com dois dias de antecedência.',
+    'Se os invasores chegarem ao coração da cidade, saqueiam o cofre. O Santuário pode salvar um herói do golpe fatal, uma vez por dia.');
+  pg('incursoes', 'Incursões', 'paw', ['missoes', 'incursoes'],
+    'Até cinco heróis invadem o covil de uma zona: duas ondas de elites e, no fim, o Alfa, um chefe reforçado. Lá dentro ninguém recua.',
+    'Escolha o covil e o Grau, monte o grupo e envie. A primeira do dia é grátis; depois custa Núcleos. A vitória choca um ovo de mascote, mais raro nos Graus altos.',
+    'Viveiro cheio? O ovo vira Pó Estelar. Funda mascotes no Ateliê antes de ir e leve os heróis mais fortes e bem curados.');
+  pg('fenda', 'Fenda Infinita', 'portal', ['missoes', 'fenda'],
+    'Uma escada de guardiões sem fim na Cratera. Cada andar vencido rende Essência da Fenda, Selos e Núcleos. Lá dentro ninguém recua.',
+    'Monte uma expedição de até 5 heróis e envie; a do dia é grátis. A Essência paga os equipamentos Ascendentes e o caminho até o Rank SSS.',
+    'Leve o grupo mais forte e curado. Se cair, tente de novo amanhã: o maior andar fica guardado nos Recordes.');
+  pg('arena', 'Arena das Duas Luas', 'trophy', ['missoes', 'arena'],
+    'Duelos contra reinos rivais: seus heróis enfrentam campeões deles em "ecos de luz", sem risco de ferimento.',
+    'Cada dia traz 5 tíquetes. Escolha um dos três campeões, monte a equipe do tamanho que ele enviou (Sugerir ajuda) e duele. Os pontos sobem a liga da semana; Insígnias compram prêmios.',
+    'Olhe a chance estimada e as Formações: classes na posição certa ativam combinações com nome, como a Muralha Arcana (Cavaleiro na frente, Mago atrás).');
+  pg('colosso', 'Colosso da Semana', 'skull', ['missoes', 'colosso'],
+    'De sexta a domingo, um Colosso desperta na Cratera. A vida dele não volta entre as sessões: o dano de todos soma ao longo do fim de semana.',
+    'Em Missões › Colosso, convoque os heróis (ou deixe os aptos decidirem) e suba no ranking de dano contra os reinos rivais. Derrubá-lo rende a relíquia da semana.',
+    'O cartão Formação do grupo mostra combinações de classe: corpo a corpo na frente, arqueiros e magos atrás. Convocar todos acelera, mas pausa a caçada.');
+  pg('decor', 'Decoração', 'flower', ['reino', 'decor'],
+    'Enfeites dão Encanto à cidade: cada ponto rende +1% de dízimo, e cada enfeite ainda tem um bônus próprio.',
+    'Compre e melhore enfeites em Reino › Decoração, até o nível 3 cada. Os maiores pedem Cidadela mais alta e materiais raros.',
+    'Comece pelos Estandartes (experiência) e pelo Poço dos Desejos (moedas dos monstros): rendem para sempre.');
+  pg('mercado', 'Mercado', 'coin', ['reino', 'mercado'],
+    'O Mercado vende o excedente do armazém, compra matéria-prima e recebe o comerciante errante e as caravanas.',
+    'Em Reino › Mercado, venda o que sobra e compre o que falta. Cada nível do prédio paga melhor e aumenta o armazém.',
+    'Com a Caravana do Leste na cidade, tudo o que você vender rende o dobro. Guarde o excedente para esse dia.');
+  pg('publicas', 'Obras públicas', 'hammer', ['reino', 'publicas'],
+    'Melhorias da cidade sem limite de nível: o destino certo para o ouro que sobra no cofre.',
+    'Cada obra tem um efeito pequeno que cresce a cada nível; o preço sobe junto. Compre quando o ouro passar de uma reserva segura.',
+    'Antes de gastar, deixe ouro para os salários, a forja e o conserto de prédios depois de uma Maré.');
+  pg('estabulo', 'Estábulo e montarias', 'shoe', ['reino', 'estabulo'],
+    'O Estábulo do Vale doma e abriga montarias que deixam os heróis mais rápidos e carregam mais espólio.',
+    'Construa o Estábulo (Cidadela 3), dome uma montaria e monte-a num herói pela aba Montaria da ficha. Elas comem ração, que o Estábulo faz de trigo.',
+    'As baias são limitadas: cada nível do prédio abre uma e doma montarias melhores. Sem ração, as montarias passam fome.');
+  pg('decretos', 'Decretos', 'bolt', null,
+    'Quatro poderes do trono, no raio à direita do mapa: Toque de Reunir, Luz da Aurora, Chamado às Armas e Banquete Real.',
+    'Toque no raio e escolha. Cada decreto tem tempo de recarga, e os mais fortes custam moedas.',
+    'Guarde a Luz da Aurora para a Maré e o Chamado às Armas para os chefes. O Toque de Reunir traz todo mundo para a cidade quando o perigo aperta.');
+  pg('bencaos', 'Bênçãos e Selos', 'seal', ['mais', 'bencaos'],
+    'Selos de Renome são a moeda do prestígio: vêm dos níveis do reino, da Jornada e das conquistas, e compram bênçãos permanentes.',
+    'Em Mais › Bênçãos, escolha uma bênção e melhore-a. O Santuário das Duas Luas a deixa mais forte.',
+    'Bênçãos são do reino, não dos heróis: ficam com você quando alguém renasce. Invista cedo.');
+  pg('promocao', 'Rank e vocações', 'up', ['herois'],
+    'O Rank é a patente do herói, de E a SSS. Subir exige nível, um Emblema do chefe da zona e moedas, e abre atributos maiores.',
+    'Na ficha, toque em Promover quando o aviso aparecer. No Rank C e no Rank A o herói muda de classe: dois ramos para escolher.',
+    'A Guilda autoriza o rank até o nível dela: melhore-a junto. Escolha a vocação pelo papel que o herói cumpre no grupo.');
+  pg('artes', 'Artes Secretas', 'book', ['herois'],
+    'Cada herói ganha pontos de Arte ao subir de nível e de rank. Cada ponto reforça um aspecto dele para sempre.',
+    'Abra a aba Artes na ficha e gaste os pontos; o selo roxo avisa que sobrou algum. Dá para zerar tudo por um preço em Selos e refazer.',
+    'Decida pelo papel do herói no grupo e refaça por Selos se mudar de ideia.');
+  pg('renascer', 'Renascimento', 'star', ['herois'],
+    'No Rank SS, nível 70, o herói pode renascer: volta ao nível 1 e ao Rank E, mas fica mais forte para sempre. Equipamento, vocação e Artes ficam.',
+    'Quando a ficha avisar, toque em Renascer. Cada renascimento dá Pontos de Renascimento para o Altar: compre traços raros ou suba os que já tem.',
+    'Renasça quem já não evolui no Rank, e nunca todo mundo de uma vez: mantenha um grupo forte para a Arena e o Colosso.');
+  pg('feitos', 'Feitos, títulos e laços', 'trophy', ['herois'],
+    'Cada herói tem um Livro de Feitos: marcos pessoais viram títulos, e o título exibido dá um bônus pequeno.',
+    'Na ficha, abra a aba Feitos para ver a linha do tempo e escolher o título. Heróis que lutam juntos viram Companheiros e Irmãos de Armas.',
+    'Irmãos de Armas rendem mais lado a lado: monte os grupos da Arena e do Colosso com eles.');
+  pg('recordes', 'Poder do Reino e recordes', 'crown', ['mais', 'recordes'],
+    'O Poder do Reino é a coroa no alto da tela: soma a força dos heróis, dos prédios, das bênçãos e das obras.',
+    'Cada marco de poder (1 mil, 2,5 mil, 5 mil…) paga um prêmio na hora: Pó de Reforja, Núcleos e Selos. Em Mais › Recordes ficam o maior golpe, o dia mais rico e outras marcas.',
+    'O Herói do Dia, escolhido toda manhã, ganha experiência extra. Olhe o próximo marco e invista no que mais sobe o poder.');
+  pg('codex', 'Códex', 'book', ['mais', 'codex'],
+    'O Códex guarda tudo o que você já viu: as 16 inscrições em 5 qualidades e as peças de cada tier e raridade.',
+    'Cada registro novo conta para os marcos do Códex, que pagam Núcleos, Selos e Pó de Reforja. Toque num marco para ver o que falta.',
+    'Procure as inscrições que ainda não viu: reforjar peças baratas completa o Códex mais depressa que esperar sorte.');
+  pg('cronicas', 'Conquistas', 'trophy', ['mais', 'cronicas'],
+    'Metas de longo prazo, em vários degraus: abates, chefes, peças forjadas, vendas e muito mais.',
+    'Cada degrau cumprido paga Selos de Renome. Toque em Receber; a próxima meta aparece com a barra de progresso.',
+    'A conquista mais perto de completar aparece na linha de próxima recompensa do HUD. Deixe a caçada rodando: a maioria se cumpre sozinha.');
+  pg('bestiario', 'Bestiário', 'book', ['mais', 'bestiario'],
+    'Cada família de monstros estudada dá +3% de dano e de espólio contra ela, por marco de abates.',
+    'Basta caçar: os abates contam sozinhos. Em Mais › Bestiário você vê o marco de cada família.',
+    'Mande os heróis à zona da família que quer reforçar antes de enfrentar o chefe dela.');
+  pg('dif', 'Dificuldade', 'skull', null,
+    'Quatro níveis para o reino todo: Fácil, Normal, Difícil e Pesadelo. Valem para as zonas e para a Maré.',
+    'Toque na caveira no alto da tela. Os níveis mais duros rendem mais experiência, moedas e espólio, e abrem com o Nível de Reino.',
+    'Trocar não custa nada: suba quando os heróis vencerem fácil demais e volte um degrau se as quedas aumentarem.');
+  pg('cal', 'Calendário e semana', 'gift', null,
+    'O Calendário de 7 dias dá um presente por dia de visita. A Semana temática traz um bônus por tema, com prazo no alto da tela.',
+    'Toque no presente, à esquerda, uma vez por dia. O tema da semana fica no alto da tela e mostra quanto tempo falta.',
+    'Ficou um tempo fora? Ao voltar, o reino entrega cartas de retorno, uma por hora de ausência. Fique de olho nas criaturas da sorte no mapa: um toque rende bônus.');
+  pg('livro', 'Livro do Reino', 'book', ['mais', 'livro'],
+    'O Livro do Reino é o guia da Rosa: uma página para cada sistema do reino.',
+    'Toque no ? de qualquer painel para ler a página daquela aba, ou escolha uma aqui no índice. Os sistemas ainda trancados aparecem como ???, com o que falta para abrir.',
+    'Releia a página de um sistema quando ele abrir: a dica de especialista costuma poupar tempo.');
+  pg('opcoes', 'Opções e desempenho', 'gear', ['mais', 'opcoes'],
+    'Volume, vibração, Modo leve, exportar e importar o save e rever o tutorial.',
+    'Em Mais › Opções. O jogo salva sozinho neste aparelho a cada 20 segundos; exporte o código para guardar ou mudar de aparelho.',
+    'Aparelho antigo? O Modo leve corta partículas e sombras. Se o jogo ficar pesado, ele liga sozinho e você pode desligar aqui.');
+  UI.BOOK = P;
+
+  /* índice: grupos (ordem de leitura) */
+  const GROUPS = [
+    ['Para começar', ['herois', 'predios', 'jornada', 'reino', 'vida', 'livro']],
+    ['Forja e Armazém', ['forja', 'inscricoes', 'armazem', 'atelie']],
+    ['Missões', ['contratos', 'pedidos', 'caminhos', 'zonas', 'mare', 'incursoes', 'fenda', 'arena', 'colosso']],
+    ['Reino e prestígio', ['decor', 'mercado', 'publicas', 'estabulo', 'decretos', 'bencaos']],
+    ['Heróis', ['promocao', 'artes', 'renascer', 'feitos']],
+    ['Memória do reino', ['recordes', 'codex', 'cronicas', 'bestiario']],
+    ['Ajustes', ['dif', 'cal', 'opcoes']],
+  ];
+  const isOpen = (id) => !G.SYS[id] || G.sysOpen(id);
+  const reqOf = (id) => (G.SYS[id] && G.SYS[id].req) || '';
+
+  /* ---------- página da aba aberta ---------- */
+  const TAB_PAGE = {
+    'reino:geral': 'reino', 'reino:obras': 'predios', 'reino:decor': 'decor', 'reino:estabulo': 'estabulo', 'reino:publicas': 'publicas', 'reino:mercado': 'mercado',
+    'forja:forjar': 'forja', 'forja:arsenal': 'armazem',
+    'armazem:equip': 'armazem', 'armazem:atelie': 'atelie', 'armazem:consumo': 'armazem', 'armazem:materiais': 'armazem', 'armazem:especiais': 'armazem',
+    'missoes:jornada': 'jornada', 'missoes:caminhos': 'caminhos', 'missoes:contratos': 'contratos', 'missoes:zonas': 'zonas', 'missoes:fenda': 'fenda', 'missoes:incursoes': 'incursoes', 'missoes:arena': 'arena', 'missoes:colosso': 'colosso',
+    'mais:bencaos': 'bencaos', 'mais:bestiario': 'bestiario', 'mais:cronicas': 'cronicas', 'mais:recordes': 'recordes', 'mais:codex': 'codex', 'mais:livro': 'livro', 'mais:opcoes': 'opcoes',
+  };
+  const HT_PAGE = { ficha: 'herois', habil: 'promocao', artes: 'artes', mont: 'estabulo', bolsa: 'herois', feitos: 'feitos' };
+  const pageNow = () => {
+    const s = UI.sheet; if (!s) return 'livro';
+    if (s.name === 'herois') { const sub = s.sub; return sub && sub.hero ? HT_PAGE[sub.ht || 'ficha'] || 'herois' : 'herois'; }
+    return TAB_PAGE[s.name + ':' + s.tab] || 'livro';
+  };
+
+  /* ---------- estilo ---------- */
+  const css = document.createElement('style');
+  css.textContent = [
+    '.sh-head .hq{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;border:1.5px solid rgba(226,182,89,.5);color:var(--gold2);font-family:"Aurora Cinzel",serif;font-weight:700;font-size:15px;line-height:1;background:rgba(226,182,89,.08)}',
+    '.sh-head .hq::after{content:"";position:absolute;inset:-4px}.sh-head .hq{position:relative}',
+    '.bkh{display:flex;align-items:center;gap:10px;margin:8px 0 10px}',
+    '.bkh .pt{width:44px;height:44px;border-radius:12px;background-color:rgba(255,255,255,.06);background-size:44px 44px;border:1px solid var(--line);flex:none}',
+    '.bkh h2{margin:0;font-size:20px;line-height:1.15}',
+    '.bks{margin:0 0 9px}.bks b{display:block;font-family:"Aurora Cinzel",serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}',
+    '.bks p{font-size:13.5px;line-height:1.45;color:var(--text)}',
+    '.bkt{margin:10px 0 2px;padding:10px 12px;border-radius:12px;border:1px solid rgba(226,182,89,.4);background:rgba(226,182,89,.1)}',
+    '.bkt b{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);margin-bottom:3px}.bkt p{font-size:13px;line-height:1.45;color:var(--gold2)}',
+    '.bkr{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;margin:0 0 6px;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--line2);text-align:left}',
+    '.bkr svg.i{font-size:20px;color:var(--gold2)}.bkr .gr{flex:1;min-width:0}.bkr b{display:block;font-size:13.5px}.bkr small{display:block;font-size:11px;color:var(--mut)}',
+    '.bkr.lk{opacity:.6;border-style:dashed}.bkr.lk svg.i{color:var(--mut)}.bkr.lk b{letter-spacing:.25em;color:var(--mut)}',
+    '.bkr::after{content:"";flex:none;width:7px;height:7px;border-right:2px solid var(--mut);border-top:2px solid var(--mut);transform:rotate(45deg)}.bkr.lk::after{display:none}',
+  ].join('\n');
+  document.head.appendChild(css);
+
+  /* ---------- telas ---------- */
+  let rosa = '';
+  const rosaImg = () => rosa || (rosa = A.portrait(A.npcLook({ name: 'Rosa', job: 'Escrivã', look: 3 })));
+  const groupOf = (id) => { for (const [g, ids] of GROUPS) if (ids.indexOf(id) >= 0) return g; return 'Livro do Reino'; };
+  UI.bookPage = (id) => {
+    const p = P[id];
+    if (!p || !isOpen(id)) return UI.bookIndex();
+    UI.modal('<div class="eyebrow">Livro do Reino · ' + groupOf(id) + '</div>' +
+      '<div class="bkh"><i class="pt px" style="background-image:url(' + rosaImg() + ')"></i><h2>' + esc(p.n) + '</h2></div>' +
+      '<div class="bks"><b>O que é</b><p>' + esc(p.a) + '</p></div>' +
+      '<div class="bks"><b>Como avançar</b><p>' + esc(p.b) + '</p></div>' +
+      '<div class="bkt"><b>Dica de especialista</b><p>' + esc(p.c) + '</p></div>' +
+      '<div class="acts">' + (p.go ? '<button class="btn" data-a="bookgo:' + id + '">Ir até lá</button>' : '') + '<button class="btn" data-a="bookidx">Índice</button><button class="btn pri" data-a="mclose">Fechar</button></div>');
+  };
+  const indexHtml = (bare) => {
+    let n = 0, tot = 0, h = '';
+    for (const [g, ids] of GROUPS) {
+      h += '<div class="sec">' + g + '</div>';
+      for (const id of ids) {
+        const p = P[id]; tot++;
+        if (isOpen(id)) { n++; h += '<button class="bkr" data-a="bookp:' + id + '">' + ic(p.ic) + '<span class="gr"><b>' + esc(p.n) + '</b></span></button>'; }
+        else h += '<div class="bkr lk">' + ic('lock') + '<span class="gr"><b>???</b><small>Abre: ' + esc(reqOf(id)) + '</small></span></div>';
+      }
+    }
+    if (bare) return '<p class="mut" style="font-size:12px;margin:2px 0 0">' + n + ' de ' + tot + ' páginas abertas. As ??? abrem conforme o reino cresce.</p>' + h;
+    return '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:22px;color:var(--gold2)">' + ic('book') + '</span><div class="gr"><h3>Livro do Reino <small>' + n + ' de ' + tot + ' páginas</small></h3><p>A ajuda da Rosa, uma página por sistema. Toque numa página para ler; as ??? abrem conforme o reino cresce.</p></div></div></div>' + h;
+  };
+  UI.bookIndex = () => UI.modal('<div class="eyebrow">Rosa, escrivã da Cidadela</div><h2>Livro do Reino</h2><div style="margin-top:8px">' + indexHtml(true) + '</div><div class="acts"><button class="btn pri" data-a="mclose">Fechar</button></div>');
+
+  /* Mais › Livro (índice dentro do painel) */
+  const M = UI.SHEETS && UI.SHEETS.mais;
+  if (M) {
+    const k = M.tabs.findIndex((t) => t[0] === 'opcoes');
+    if (!M.tabs.some((t) => t[0] === 'livro')) M.tabs.splice(k < 0 ? M.tabs.length : k, 0, ['livro', 'Livro']);
+    const r0 = M.render;
+    M.render = function (tab) { return tab === 'livro' ? indexHtml() : r0.apply(M, arguments); };
+  }
+
+  /* ---------- ações e o "?" do cabeçalho ---------- */
+  Object.assign(UI.ACT, {
+    book: () => UI.bookPage(pageNow()),
+    bookp: (a) => UI.bookPage(a[0]),
+    bookidx: () => UI.bookIndex(),
+    bookgo: (a) => { const p = P[a[0]]; UI.closeModal(); if (p && p.go) UI.open(p.go[0], p.go[1] || undefined); },
+  });
+  const bd = UI.build;
+  UI.build = () => { bd(); const x = $('#sheet .sh-head .x'); if (x && !$('#sheet .hq')) x.insertAdjacentHTML('beforebegin', '<button class="hq" data-a="book" title="Livro do Reino" aria-label="Livro do Reino">?</button>'); };
 })();
 ;
 /* ===== 90-main.js ===== */
