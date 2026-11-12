@@ -1,0 +1,85 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="fonts-v27.css">
+<style>
+:root{
+  --ol:#140c0a; --wd0:#2b1a12; --wd1:#3d2618; --wd2:#5a3a22; --wd3:#7d5430; --wd4:#a3743f;
+  --fill:#24160f; --fill2:#2e1d14; --parch:#ead9ae; --parch2:#cdb682; --ink:#2a1a10;
+  --brass:#d9a441; --brass2:#f6d57a; --brass0:#8a5f1c; --text:#f1e4c2; --mut:#b39b78;
+  --red:#c2452f; --green:#6aa544; --blue:#5b93c7; --epic:#a877e0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;font-family:"Aurora Pixel",monospace;font-size:15px;line-height:1.2;color:var(--text);font-synthesis:none;-webkit-font-smoothing:none}
+#app{position:relative;width:412px;height:915px;background:#2d4a2a;image-rendering:pixelated;overflow:hidden}
+.h{font-family:"Aurora Pixel Head";font-weight:700;letter-spacing:.02em}
+.caps{font-family:"Aurora Pixel Caps";font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--brass)}
+/* molduras: border-image gerado em canvas (ver script) */
+.fr{border:12px solid transparent;border-image:var(--f-panel) 6 fill/12px/0 stretch;image-rendering:pixelated}
+.pq{border:6px solid transparent;border-image:var(--f-plaque) 3 fill/6px/0 stretch;image-rendering:pixelated}
+.bt{border:6px solid transparent;border-image:var(--f-btn) 3 fill/6px/0 stretch;image-rendering:pixelated;color:var(--ink);font-family:"Aurora Pixel Head";font-weight:700;font-size:14px;padding:3px 10px 5px;text-align:center}
+.bt.wood{border-image-source:var(--f-btnw);color:var(--text)}
+.sl{border:4px solid transparent;border-image:var(--f-slot) 2 fill/4px/0 stretch;image-rendering:pixelated}
+.pa{border:8px solid transparent;border-image:var(--f-parch) 4 fill/8px/0 stretch;image-rendering:pixelated;color:var(--ink)}
+/* HUD */
+.top{position:absolute;left:8px;right:8px;top:8px;display:flex;gap:6px;align-items:stretch}
+.top .pq{display:flex;align-items:center;gap:8px;padding:0 6px;height:44px}
+.rank{width:30px;height:30px;display:grid;place-items:center;font:700 16px "Aurora Pixel Head";color:var(--brass2)}
+.res{position:absolute;left:8px;right:8px;top:58px;display:flex;gap:6px}
+.res .pq{display:flex;align-items:center;gap:5px;padding:0 5px;height:26px;font-size:15px}
+.dot{width:10px;height:10px;background:var(--brass);box-shadow:0 0 0 2px var(--ol)}
+.party{position:absolute;left:8px;top:92px;display:flex;gap:6px}
+.pt{width:44px;height:52px;position:relative}
+.pt i{position:absolute;left:2px;right:2px;bottom:2px;height:4px;background:var(--ol)}.pt i:after{content:"";position:absolute;inset:1px 30% 1px 1px;background:var(--green)}
+.ticker{position:absolute;left:8px;right:8px;top:154px;height:24px;display:flex;align-items:center;gap:6px;padding:0 4px;font-size:15px}
+.rail{position:absolute;right:6px;top:194px;display:flex;flex-direction:column;gap:14px}
+.rail .sc{width:52px;height:52px;position:relative;display:grid;place-items:center}
+.rail .sc b{position:absolute;right:-4px;top:-4px;min-width:16px;height:16px;background:var(--red);box-shadow:0 0 0 2px var(--ol);font:700 11px "Aurora Pixel Head";display:grid;place-items:center;color:#fff}
+.rail .sc span{position:absolute;bottom:-9px;left:-4px;right:-4px;text-align:center;font:8px "Aurora Pixel Caps";color:var(--parch);text-shadow:1px 1px 0 var(--ol),-1px 1px 0 var(--ol),1px -1px 0 var(--ol),-1px -1px 0 var(--ol)}
+canvas.ic{width:48px;height:48px;image-rendering:pixelated;filter:drop-shadow(0 2px 0 rgba(20,12,10,.85)) drop-shadow(0 0 3px rgba(20,12,10,.6))}
+.dlg{position:absolute;left:10px;right:10px;bottom:74px;padding:4px 6px 6px}
+.dlg h2{margin:0;font-size:20px;color:var(--brass2);text-shadow:2px 2px 0 var(--ol)}
+.ribbon{margin:-22px auto 6px;width:max-content;padding:1px 14px 3px}
+.row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:2px dotted var(--wd2)}
+.row b{color:var(--brass2);font-weight:400}.up{color:var(--green)}
+.bar{height:10px;background:var(--ol);padding:2px;margin:6px 0}.bar i{display:block;height:100%;width:62%;background:linear-gradient(var(--brass2) 0 2px,var(--brass) 2px 4px,var(--brass0) 4px)}
+.acts{display:flex;gap:8px;margin-top:8px}.acts>*{flex:1}
+.nav{position:absolute;left:0;right:0;bottom:0;height:62px;display:flex;border-width:6px 0 0;padding:0 4px}
+.nav div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:14px;color:var(--mut)}
+.nav div.on{color:var(--brass2)}
+</style>
+<div id="app">
+  <div class="top"><div class="pq" style="flex:1"><div class="sl rank">9</div><div><div class="h" style="font-size:15px;color:var(--brass2)">VIGÍLIA II</div><div style="color:var(--mut)">Dia 22 · 06:10</div></div></div><div class="pq h" style="width:44px;justify-content:center">3×</div><div class="pq h" style="width:44px;justify-content:center">II</div></div>
+  <div class="res"><div class="pq"><i class="dot"></i>220k</div><div class="pq"><i class="dot" style="background:#e06a8c"></i>15</div><div class="pq"><i class="dot" style="background:var(--epic)"></i>43</div><span style="flex:1"></span><div class="pq"><i class="dot" style="background:#d98a4a"></i>45</div><div class="pq"><i class="dot" style="background:var(--red)"></i>21</div></div>
+  <div class="party"><div class="sl pt"><i></i></div><div class="sl pt"><i></i></div><div class="sl pt"><i></i></div><div class="sl pt"><i></i></div></div>
+  <div class="pq ticker"><i class="dot" style="background:var(--epic)"></i>A Maré chega esta noite!<span style="flex:1"></span><span class="caps">+2</span></div>
+  <div class="rail"><div class="sc"><canvas class="ic" data-i="0"></canvas><b>2</b><span>Incursão</span></div><div class="sc"><canvas class="ic" data-i="1"></canvas><span>Colosso</span></div><div class="sc"><canvas class="ic" data-i="2"></canvas><b>1</b><span>Arena</span></div><div class="sc"><canvas class="ic" data-i="3"></canvas><span>Fenda</span></div></div>
+  <div class="fr dlg"><div class="bt ribbon caps" style="color:var(--ink);font-size:8px">Lenharia · nível 1</div>
+    <h2 class="h">Lenharia</h2><p style="margin:4px 0 6px;color:var(--mut)">Madeira para construir e para arcos, cajados e couraças.</p>
+    <div class="row"><span>Madeira por dia</span><span><b>20,4</b> <span class="up">▸ 46,9</span></span></div>
+    <div class="row"><span>Salário da equipe</span><span><b>5</b> <span class="up">▸ 6,7</span></span></div>
+    <div class="pa" style="margin-top:8px;padding:0 2px"><span class="caps" style="color:var(--wd2)">Lá dentro agora</span><br>Nuno — levando toras para a pilha</div>
+    <div class="bar"><i></i></div>
+    <div class="acts"><div class="bt wood">Abrir</div><div class="bt">▲ Evoluir · 211</div></div></div>
+  <div class="pq nav"><div class="on">Reino</div><div>Heróis</div><div>Forja</div><div>Armazém</div><div>Missões</div><div>Mais</div></div>
+</div>
+<script>
+const P={o:'#140c0a',a:'#2b1a12',b:'#3d2618',c:'#5a3a22',d:'#7d5430',e:'#a3743f',f:'#24160f',g:'#2e1d14',p:'#ead9ae',q:'#cdb682',r:'#fff6d8',B:'#d9a441',L:'#f6d57a',D:'#8a5f1c',k:'#0d0806',' ':null};
+/* cada moldura é um mapa de pixels; o centro (1 px) estica */
+const F={
+ panel:['ooooooooooooo','oLBDeeeeeDBLo','oBLBddddDBLBo','oDBocccccoBDo','oedcobbbocdeo','oedcbokobcdeo','oedcbkfkbcdeo','oedcbokobcdeo','oedcobbbocdeo','oDBocccccoBDo','oBLBddddDBLBo','oLBDaaaaaDBLo','ooooooooooooo'],
+ plaque:['ooooooo','oeddddo','odbbbao','odbbbao','odbbbao','odaaaao','ooooooo'],
+ btn:['ooooooo','orLLLLo','oLBBBDo','oLBBBDo','oLBBBDo','oDDDDDo','ooooooo'],
+ btnw:['ooooooo','oeeeedo','oecccbo','oecccbo','oecccbo','odbbbbo','ooooooo'],
+ slot:['kkkkk','kaaac','kafgd','kagfd','kcddd'].map(s=>s),
+ parch:['oooo oooo',' orrrrro ','orppppqo ','orpppppqo','orpppppqo','orpppppqo',' orppppqo','oqqqqqqo ','oooo oooo'].map(s=>s.padEnd(9,' ')),
+};
+const mk=(rows,sc)=>{const h=rows.length,w=rows[0].length,c=document.createElement('canvas');c.width=w*sc;c.height=h*sc;const x=c.getContext('2d');rows.forEach((r,j)=>[...r].forEach((ch,i)=>{if(P[ch]){x.fillStyle=P[ch];x.fillRect(i*sc,j*sc,sc,sc)}}));return c.toDataURL()};
+for(const k in F)document.documentElement.style.setProperty('--f-'+k,'url('+mk(F[k],1)+')');
+/* ícones 16×16 de exemplo */
+const IC=[
+ ['................','......pppp......','....ppEEEEpp....','...pEEeeeeEEp...','..pEEe....eEEp..','..pEe..ee..eEp..','.pEEe.eLLe.eEEp.','.pEe..eLLe..eEp.','.pEe..eLLe..eEp.','.pEEe.eLLe.eEEp.','..pEe..ee..eEp..','..pEEe....eEEp..','.kkpEEeeeeEEpkk.','.kcckkEEEEkkcck.','.kccccckkccccck.','.kkkkkkkkkkkkkk.'],
+ ['....kkkkkkkk....','...kqqqqqqqqk...','..kqppppppppqk..','.kqppppppppppqk.','.kqpkkkppkkkpqk.','.kqpkRkppkRkpqk.','.kqpkkkppkkkpqk.','.kqppppkkppppqk.','.kqqpppkkpppqqk.','..kqqppppppqqk..','...kqpkpkpkqk...','...kqpkpkpkqk...','....kqqqqqqk....','.....kkkkkk.....','................','................'],
+ ['.k............k.','kpk..........kpk','kppk........kppk','.kppk......kppk.','..kppk....kppk..','...kppk..kppk...','....kppkkppk....','.....kppppk.....','.....kppppk.....','....kppkkppk....','..kkkpk..kpkkk..','.kBBkk....kkBBk.','kBLk........kLBk','kBk..........kBk','.k............k.','................'],
+ ['......kkkk......','.....kEEEEk.....','....kEeeeeEk....','...kEe.LL.eEk...','...kEe.LL.eEk...','..kEe.LrrL.eEk..','..kEe.LrrL.eEk..','..kEe.LrrL.eEk..','..kEe.LrrL.eEk..','...kEe.LL.eEk...','...kEe.LL.eEk...','....kEeeeeEk....','.....kEEEEk.....','......kkkk......','................','................']];
+const IP={k:'#140c0a',p:'#ead9ae',q:'#cdb682',E:'#a877e0',e:'#5a2f8c',L:'#f6d57a',r:'#fff6d8',R:'#c2452f',B:'#d9a441',c:'#7d5430'};
+document.querySelectorAll('canvas.ic').forEach(c=>{c.width=c.height=16;const x=c.getContext('2d');IC[c.dataset.i].forEach((r,j)=>[...r].forEach((ch,i)=>{if(IP[ch]){x.fillStyle=IP[ch];x.fillRect(i,j,1,1)}}))});
+</script>
