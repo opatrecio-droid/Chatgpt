@@ -135,7 +135,7 @@
 
   /* ---------- Nevoeirão: serpente de névoa (112×104), com o capelo aberto, olhando para a direita ---------- */
   const drawNevoa = () => {
-    const p = new Pix(112, 104), S = ['#e8f8ff', '#bcd8e8', '#7c9ab4', '#4a6a80', '#26384a'], TONES = [S[1], S[2], S[3], S[4]];
+    const p = new Pix(112, 104), S = ['#e8f8ff', '#bcd8e8', '#7c9ab4', '#4a6a80', '#3d2618'], TONES = [S[1], S[2], S[3], S[4]];
     /* névoa e espirais no chão */
     vol(p, 56, 96, 50, 8, [S[2], S[3], S[4], S[4]]);
     vol(p, 56, 90, 44, 9, TONES); vol(p, 54, 81, 37, 9, TONES); vol(p, 58, 72, 29, 8, [S[0], S[1], S[2], S[3]]);
@@ -256,7 +256,7 @@
     /* nome e vida sobre o Colosso */
     if (m && !dead) over.push(() => {
       const top = y0 - 2 * zz, w = Math.max(70, 62 * zz), dpr = dprOf();
-      ctx.font = '800 ' + Math.round(G.clamp(zz * 3.1, 11 * dpr, 15 * dpr)) + 'px "Aurora Manrope",system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = Math.max(2, dpr * 2.4); ctx.lineJoin = 'round';
+      ctx.font = Math.round(15 * dpr) + 'px "Aurora Pixel",monospace'; ctx.textAlign = 'center'; ctx.lineWidth = Math.max(2, dpr * 2.4); ctx.lineJoin = 'round';
       const txt = dd.name + ' · Nv ' + c.lvl; ctx.strokeStyle = 'rgba(16,12,24,.92)'; ctx.strokeText(txt, px, top - 7 * zz); ctx.fillStyle = '#fff0c8'; ctx.fillText(txt, px, top - 7 * zz);
       const h = Math.max(4, Math.round(zz * 2.2)), bx = Math.round(px - w / 2), by = Math.round(top - 5.2 * zz);
       ctx.fillStyle = 'rgba(16,12,24,.9)'; ctx.fillRect(bx - 2, by - 2, w + 4, h + 4);
@@ -349,13 +349,13 @@
       h += '<div class="sec">Ranking da semana</div><div class="card hl"><div class="row"><div class="gr"><h3>Você está em ' + ordinal(st.me) + ' de ' + st.n + '</h3><p>Dano total da semana contra os 40 reinos rivais da Arena. Eles também enfrentam o Colosso e mudam de posição mesmo quando você não joga.</p></div></div></div>' + '<div class="co-rks">' + standingRows(st) + '</div>' +
         '<button class="btn wide" style="margin-top:6px" data-a="colrk">' + (rkAll ? 'Mostrar só o resumo' : 'Ver a tabela completa') + '</button>';
       const rp = G.colossoRankPrize(st.me);
-      h += '<p class="mut" style="text-align:center;font-size:11.5px;margin:8px 0 2px">Prêmio da posição de hoje (entregue na virada da semana):</p><div style="text-align:center">' + chips(rp) + '</div>';
+      h += '<p class="mut" style="text-align:center;font-size:15px;margin:8px 0 2px">Prêmio da posição de hoje (entregue na virada da semana):</p><div style="text-align:center">' + chips(rp) + '</div>';
       /* destaques */
       const top = Object.keys(c.hero).map((id) => ({ n: c.hn[id], d: c.hero[id] })).sort((a, b) => b.d - a.d).slice(0, 3);
       if (top.length) { h += '<div class="sec">Destaques da semana</div>'; top.forEach((x, i) => { h += '<div class="kv"><span>' + (i + 1) + 'º · ' + esc(x.n) + '</span><b>' + G.fmt(x.d) + '</b></div>'; }); }
     }
     if (c.hist.length) { h += '<div class="sec">Semanas anteriores</div>'; for (const r of c.hist.slice().reverse()) h += '<div class="kv"><span>' + esc(G.COLOSSI[r.id].name) + (r.win ? ' · derrubado' : ' · ' + Math.round(100 * r.pct) + '%') + '</span><b>' + (r.pos ? ordinal(r.pos) + ' de ' + r.n : 'não enfrentou') + '</b></div>'; }
-    h += '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:10px">Um Colosso por semana, em rodízio: Grão-Casco, Cristalão e Nevoeirão. A terra treme na quinta; ele desperta na sexta, 00:00, e a vida dele fica guardada entre as sessões. A semana vira na segunda-feira, à meia-noite, pelo relógio do aparelho.</p>';
+    h += '<p class="mut" style="text-align:center;font-size:15px;margin-top:10px">Um Colosso por semana, em rodízio: Grão-Casco, Cristalão e Nevoeirão. A terra treme na quinta; ele desperta na sexta, 00:00, e a vida dele fica guardada entre as sessões. A semana vira na segunda-feira, à meia-noite, pelo relógio do aparelho.</p>';
     return h;
   };
   const M = UI.SHEETS && UI.SHEETS.missoes;
@@ -380,33 +380,28 @@
 
   /* ================= faixa no HUD e barra grande de vida ================= */
   css.textContent += '\n' + [
-    '.co-hero{position:relative;display:flex;align-items:flex-end;gap:12px;padding:12px;margin-bottom:8px;border-radius:16px;border:1px solid var(--line);overflow:hidden;background:radial-gradient(120% 140% at 85% 0,color-mix(in srgb,var(--cg) 34%,transparent),transparent 60%),linear-gradient(180deg,#1a1630,#0f1224)}',
-    '.co-hero .co-pt{flex:none;width:112px;height:92px;background-size:contain;background-repeat:no-repeat;background-position:50% 100%;image-rendering:pixelated;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}',
-    '.co-hero .gr{min-width:0}.co-hero h3{font-family:"Aurora Cinzel",serif;font-size:21px;letter-spacing:.05em;color:var(--gold2);line-height:1.1}',
-    '.co-hero small{display:block;margin-top:3px;font-size:12px;font-weight:700;color:#cfd5e4}',
-    '.co-ey{font-family:"Aurora Cinzel",serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cg);margin-bottom:3px}',
-    '.co-warn h3{display:flex;align-items:center;gap:8px;color:#ffb0a0}.co-warn h3 svg{font-size:20px}',
-    '.co-bar{position:relative;margin-top:10px}.co-bar .bar{height:16px}.co-bar .bar i{background:linear-gradient(90deg,#ff7a3a,#ffd070)}',
-    '.co-pcr{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;font-weight:900;color:#fff;text-shadow:0 1px 2px #000,0 0 4px #000}',
-    '.co-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.co-nums>div{padding:7px 8px;border-radius:10px;background:rgba(0,0,0,.28);text-align:center}',
-    '.co-nums small{display:block;font-size:10px;font-weight:700;color:var(--mut)}.co-nums b{font-size:13.5px;color:var(--gold2)}',
-    '.co-md{font-size:11.5px;margin:6px 2px 8px}',
-    '.co-mk .row{align-items:center}.co-mi{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:13px;color:var(--gold2);background:rgba(0,0,0,.3);border:2px solid rgba(226,182,89,.5)}.co-mk.done{opacity:.72}.co-mk.done .co-mi{background:var(--gold);color:#1a1408}',
-    '.co-ch{display:inline-flex;align-items:center;gap:4px;margin:4px 5px 0 0;padding:2px 8px;height:22px;border-radius:11px;font-size:11.5px;font-weight:800;background:rgba(255,255,255,.07);border:1px solid var(--line2);color:#eef0f6}.co-ch svg{font-size:13px;color:var(--gold2)}',
-    '.co-gap{text-align:center;color:var(--mut);font-size:12px;line-height:10px;margin:1px 0 3px}',
+    '.co-hero{background:#2a1814;position:relative;display:flex;align-items:flex-end;gap:12px;padding:12px;margin-bottom:8px;border:var(--u) solid var(--line);overflow:hidden;,linear-gradient(#1a1630 0 28%,#1b110c 28% 100%)}',
+    '.co-hero .co-pt{flex:none;width:112px;height:92px;background-size:contain;background-repeat:no-repeat;background-position:50% 100%;image-rendering:pixelated;}',
+    '.co-hero .gr{min-width:0}.co-hero h3{font-family:var(--fh);font-size:20px;letter-spacing:.05em;color:var(--gold2);line-height:1.1}',
+    '.co-hero small{display:block;margin-top:3px;font-size:15px;font-weight:700;color:#cfd5e4}',
+    '.co-ey{font-family:var(--fh);font-size:8px;font-family:var(--fc);letter-spacing:.22em;text-transform:uppercase;color:var(--cg);margin-bottom:3px}',
+    '.co-warn h3{display:flex;align-items:center;gap:8px;color:#ffb0a0}.co-warn h3 ',
+    '.co-bar{position:relative;margin-top:10px}.co-bar .bar{height:16px}.co-bar .bar i{background:linear-gradient(#ffd070 0 28%,#ff7a3a 28% 100%)}',
+    '.co-pcr{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;font-weight:900;color:#fff;text-shadow:var(--u) var(--u) 0 var(--ol);}',
+    '.co-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.co-nums>div{padding:7px 8px;background:var(--inset);text-align:center}',
+    '.co-nums small{display:block;font-size:8px;font-family:var(--fc);font-weight:700;color:var(--mut)}.co-nums b{font-size:15px;color:var(--gold2)}',
+    '.co-md{font-size:15px;margin:6px 2px 8px}',
+    '.co-mk .row{align-items:center}.co-mi{flex:none;width:30px;height:30px;display:grid;place-items:center;font-weight:900;font-size:15px;color:var(--gold2);background:var(--inset);border:var(--u) solid rgba(226,182,89,.5)}.co-mk.done{opacity:.72}.co-mk.done .co-mi{background:var(--gold);color:#1a1408}',
+    '.co-ch{display:inline-flex;align-items:center;gap:4px;margin:4px 5px 0 0;padding:2px 8px;height:22px;font-size:15px;font-weight:800;background:var(--fill2);border:var(--u) solid var(--line2);color:#eef0f6}.co-ch .i{color:var(--gold2)}',
+    '.co-gap{text-align:center;color:var(--mut);font-size:15px;line-height:10px;margin:1px 0 3px}',
     '.ar-rk .pt2{font-variant-numeric:tabular-nums}.co-rks .ar-rk.me{position:static}',
-    '#hudx .col{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px 0 7px;border-radius:13px;font-size:11px;font-weight:800;white-space:nowrap;min-width:0;overflow:hidden;color:#ffd9c8;border:1px solid rgba(255,138,58,.7);background:linear-gradient(180deg,rgba(110,40,20,.94),rgba(60,20,16,.94));box-shadow:0 0 12px rgba(255,120,60,.25)}',
-    '#hudx .col svg{font-size:14px;flex:none;color:#ffb070}#hudx .col b{color:#fff;font-weight:800}#hudx .col small{color:#ffcfb8;font-weight:700;font-size:10.5px}#hudx .col.win{color:#ffe9a0;border-color:rgba(255,211,90,.7);background:linear-gradient(180deg,rgba(110,84,18,.94),rgba(60,46,10,.94))}',
-    '#hudx .col.warn{animation:colw 1.1s ease-in-out infinite alternate}@keyframes colw{from{box-shadow:0 0 6px rgba(255,120,60,.3)}to{box-shadow:0 0 18px rgba(255,120,60,.85)}}',
-    '@media (max-width:420px){#hudx .col small{display:none}}',
-    '#colbar{align-self:center;width:min(94%,440px);padding:6px 12px 8px;display:none;border:1px solid rgba(255,138,58,.55);cursor:pointer;text-align:left;color:inherit;font:inherit}#colbar.on{display:block}',
-    '#colbar .cb-t{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:"Aurora Cinzel",serif;font-size:12.5px;color:#ffd9b0;margin-bottom:4px;letter-spacing:.03em}',
-    '#colbar .cb-t svg{font-size:14px;color:#ffb070;flex:none}#colbar .cb-t span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}#colbar .cb-t em{font-style:normal;font-family:Manrope,system-ui,sans-serif;font-weight:900;font-size:11.5px;color:#fff;flex:none}',
-    '#colbar .cb-b{position:relative;height:14px;border-radius:7px;background:rgba(0,0,0,.5);overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}',
-    '#colbar .cb-b i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:linear-gradient(90deg,var(--c2),var(--c1));transition:width .4s}',
-    '#colbar .cb-b i::after{content:"";position:absolute;left:0;right:0;top:0;height:40%;background:rgba(255,255,255,.3)}',
-    '#colbar .cb-b u{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:rgba(255,255,255,.55)}',
-    '#colbar .cb-n{margin-top:3px;display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--mut)}',
+    '#colbar .cb-t{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--fh);font-size:15px;color:#ffd9b0;margin-bottom:4px;letter-spacing:.03em}',
+    '#colbar .cb-t .i{color:#ffb070;flex:none}#colbar .cb-t span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}#colbar .cb-t em{font-style:normal;font-family:var(--fb);font-weight:900;font-size:15px;color:#fff;flex:none}',
+    '#colbar .cb-b{position:relative;height:14px;background:var(--inset);overflow:hidden;box-shadow:inset 0 0 0 var(--u) rgba(255,255,255,.12)}',
+    '#colbar .cb-b i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(var(--c2) 0 28%,var(--c1) 28% 100%);transition:width .4s}',
+    '#colbar .cb-b i::after{content:"";position:absolute;left:0;right:0;top:0;height:40%;background:var(--fill2)}',
+    '#colbar .cb-b u{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--fill2)}',
+    '#colbar .cb-n{margin-top:3px;display:flex;justify-content:space-between;font-size:8px;font-family:var(--fc);font-weight:700;color:var(--mut)}',
     '@media (max-height:700px){#colbar{padding:4px 10px 5px}#colbar .cb-n{display:none}#colbar .cb-t{margin-bottom:3px}}',
   ].join('\n');
   let lastChip = '', lastBar = '';
@@ -451,18 +446,18 @@
       '<div class="card hl" style="margin-top:10px"><div class="row"><i class="thumb px" style="background-image:url(' + A.cosURL(r.relic) + ');background-size:contain"></i><div class="gr"><h3 class="rar' + rel.rar + '">' + esc(rel.name) + '</h3><p><b class="gold">Relíquia exclusiva</b> · ' + G.COS_SLOT_NAME.reliquia + '</p><p>' + esc(rel.desc) + ' Vista-a na ficha de um herói (espaço da relíquia).</p></div></div></div>' +
       (r.mvp ? '<div class="kv"><span>Destaque da luta</span><b>' + esc(r.mvp.name) + ' · ' + G.fmt(r.mvp.dmg) + '</b></div>' : '') +
       (G.S.colosso.bonus ? '<div class="kv"><span>Bônus de abate rápido (no ranking)</span><b>+' + G.fmt(G.S.colosso.bonus) + '</b></div>' : '') +
-      '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:8px">O prêmio da posição no ranking chega na virada da semana, na segunda-feira.</p>' +
+      '<p class="mut" style="text-align:center;font-size:15px;margin-top:8px">O prêmio da posição no ranking chega na virada da semana, na segunda-feira.</p>' +
       '<div class="acts"><button class="btn pri" data-a="mclose">Glória a Aurora!</button></div>', { lock: true, onClose: () => { popPend('win'); } });
     G.sfx('victory');
   };
   const rankModal = (r) => {
     const d = G.COLOSSI[r.id];
     UI.modal('<div class="eyebrow">Semana do ' + esc(d.name) + '</div><h2>O Colosso partiu</h2>' +
-      '<div class="ar-bx" style="--lc:' + d.glow + ';--lg:' + rgba(d.glow, 0.5) + '"><div class="ps">' + r.pos + 'º<small> de ' + r.n + '</small></div><div style="font-size:12px;color:#cfd5e4;margin-top:4px">' + G.fmt(r.dmg + (r.bonus || 0)) + ' de dano · ' + Math.round(100 * r.dmg / r.hpMax) + '% da vida' + (r.win ? ' · derrubado' : '') + '</div></div>' +
+      '<div class="ar-bx" style="--lc:' + d.glow + ';--lg:' + rgba(d.glow, 0.5) + '"><div class="ps">' + r.pos + 'º<small> de ' + r.n + '</small></div><div style="font-size:15px;color:#cfd5e4;margin-top:4px">' + G.fmt(r.dmg + (r.bonus || 0)) + ' de dano · ' + Math.round(100 * r.dmg / r.hpMax) + '% da vida' + (r.win ? ' · derrubado' : '') + '</div></div>' +
       '<p class="lead" style="margin:6px 4px 4px">O prêmio da sua posição já está no cofre:</p><div style="text-align:center">' + chips(r.prize, 1) + '</div>' +
       (r.top && r.top.length ? '<div class="sec">No topo</div>' + r.top.map((x, i) => x.i < 0 ? '<div class="kv"><span>' + (i + 1) + 'º · Aurora</span><b>' + G.fmt(x.dmg) + '</b></div>' : '<div class="kv"><span>' + (i + 1) + 'º · ' + esc(G.arenaRival(x.i).name) + '</span><b>' + G.fmt(x.dmg) + '</b></div>').join('') : '') +
       (r.mvp ? '<div class="kv"><span>Destaque de Aurora</span><b>' + esc(r.mvp.name) + '</b></div>' : '') +
-      '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:8px">Um novo Colosso desperta na próxima sexta-feira.</p>' +
+      '<p class="mut" style="text-align:center;font-size:15px;margin-top:8px">Um novo Colosso desperta na próxima sexta-feira.</p>' +
       '<div class="acts"><button class="btn pri" data-a="mclose">Até a próxima!</button></div>', { lock: true, onClose: () => { popPend('rank'); } });
   };
   const popPend = (k) => { const c = G.S.colosso; if (!c) return; const i = c.pend.findIndex((x) => x.k === k); if (i >= 0) c.pend.splice(i, 1); if (G.M && G.M.save) G.M.save(); };

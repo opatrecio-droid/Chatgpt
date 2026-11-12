@@ -27,19 +27,19 @@
   css.textContent = [
     hide.map((s) => s + '{display:none!important}').join('\n'),
     '#app:not(.so-decretos) #fabs{display:none!important}',
-    '@keyframes nvp{from{transform:scale(1)}to{transform:scale(1.1)}}',
-    seal.nav.join(',') + '{content:"Novo!";position:absolute;top:-4px;left:calc(50% - 17px);padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;letter-spacing:.02em;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate;z-index:2}',
-    seal.tab.join(',') + ',' + seal.htab.join(',') + '{content:"Novo!";position:absolute;top:-4px;right:-3px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate;z-index:2}',
-    seal.chip.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-4px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate;z-index:2}',
-    seal.fab.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-6px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate}',
+    '@keyframes nvp{from{transform:translateY(0)}to{transform:translateY(calc(var(--u)*-1))}}',
+    seal.nav.join(',') + '{content:"";position:absolute;top:calc(var(--u)*1);right:calc(var(--u)*3);width:calc(var(--u)*4);height:calc(var(--u)*4);padding:0;background:var(--brass2);box-shadow:0 0 0 var(--u) var(--ol);pointer-events:none;animation:nvp .8s steps(2) infinite alternate;z-index:2}',
+    seal.tab.join(',') + ',' + seal.htab.join(',') + '{content:"";position:absolute;top:calc(var(--u)*1);right:calc(var(--u)*3);width:calc(var(--u)*4);height:calc(var(--u)*4);padding:0;background:var(--brass2);box-shadow:0 0 0 var(--u) var(--ol);pointer-events:none;animation:nvp .8s steps(2) infinite alternate;z-index:2}',
+    /* C3: os chips do alto (Poder, Dificuldade, Semana...) não ganham selo: o aviso de uma linha já os apresenta e o HUD fica limpo */
+    '#app .rs-none::after{content:none}',
     '#fab-dec,#hud .dif,#pwr,#hudx .wk{position:relative}',
     '#sheet .tabs{padding-top:6px}',
-    '.tabs button.lk{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px dashed rgba(152,162,186,.4);color:var(--mut);font-weight:700;font-size:11.5px}',
-    '.tabs button.lk svg{font-size:12px;opacity:.85}',
+    '.tabs button.lk{display:inline-flex;align-items:center;gap:5px;border-image-source:var(--f-btnd);color:var(--mut)}',
+    '.tabs button.lk .i{opacity:.85}',
     '@media (prefers-reduced-motion:reduce){[class*="nw-"] *::after,[class*="nw-"] *::before{animation:none!important}}',
     /* v26 (4C.3): brilho pulsante só com opacidade (animar box-shadow repinta a camada a cada quadro; opacidade vai para a placa de vídeo) */
     '#quest.done,#nrw.rdy,#fab-cal.has{animation:none!important}#fab-cal.has{position:relative}',
-    '#quest.done::before,#nrw.rdy::before,#fab-cal.has::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 2px rgba(247,220,146,.7),inset 0 0 14px rgba(247,220,146,.45);opacity:.25;animation:glowo 1.4s ease-in-out infinite alternate}',
+    '#quest.done::before,#nrw.rdy::before,#fab-cal.has::before{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 2px rgba(247,220,146,.7);opacity:.25;animation:glowo 1.4s ease-in-out infinite alternate}',
     '@keyframes glowo{to{opacity:1}}',
   ].join('\n');
   document.head.appendChild(css);

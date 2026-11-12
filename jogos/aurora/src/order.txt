@@ -22,6 +22,9 @@
 52-legado-art.js
 53-companheiros-art.js
 54-vida-art.js
+56-ui-pixel.js
+57-ui-icons.js
+58-ui-sprites.js
 60-ui.js
 61-ui-sheets.js
 62-ui-modals.js
@@ -54,4 +57,6 @@
 6H-ui-predio.js
 6I-ui-ausencia.js
 6J-ui-adocao.js
+6K-ui-atalhos.js
+6L-ui-limpeza.js
 90-main.js

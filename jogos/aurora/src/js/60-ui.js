@@ -8,69 +8,8 @@
   const A = G.A, R = G.R;
   const $ = (UI.$ = (s, el) => (el || document).querySelector(s));
 
-  /* ---------- ícones (SVG) ---------- */
-  const IC = {
-    shirt: '<path d="M8 2.500l4 2.200 4-2.200 5.500 3.500-2.500 4.700-2.500-1.300V21.500h-9V9.400L5 10.700 2.500 6z"/>',
-    wing: '<path d="M21.500 3C14 3 6.500 6.500 2.500 13.500l4.700-.600-2.700 4.100 5.200-1.100L8.200 20.500C15.200 18.500 20.500 11.500 21.500 3z"/>',
-    paw: '<circle cx="5.800" cy="10.200" r="2.400"/><circle cx="9.800" cy="5.800" r="2.400"/><circle cx="14.600" cy="5.800" r="2.400"/><circle cx="18.600" cy="10.200" r="2.400"/><path d="M12.200 10.800c3 0 6 3.600 6 6.600 0 2-1.500 3.100-3.200 3.100-1.200 0-1.800-.700-2.800-.700s-1.600.700-2.800.700c-1.700 0-3.200-1.100-3.200-3.100 0-3 3-6.600 6-6.600z"/>',
-    shoe: '<path d="M4.5 2.5h5v9.300a2.500 2.500 0 005 0V2.500h5v9.300a7.500 7.500 0 01-15 0zM4.500 18.500h5V22h-5zM14.500 18.500h5V22h-5z"/>',
-    sort: '<path d="M3 5h18v2.800H3zM3 10.600h12.500v2.800H3zM3 16.200h7v2.800H3z"/>',
-    spark: '<path d="M12 1.500l2.700 7.800 7.800 2.700-7.800 2.700L12 22.500l-2.700-7.800L1.500 12l7.800-2.700z"/>',
-    flower: '<circle cx="12" cy="6.500" r="3.400"/><circle cx="6.700" cy="10.400" r="3.400"/><circle cx="17.300" cy="10.400" r="3.400"/><circle cx="8.700" cy="16.600" r="3.400"/><circle cx="15.300" cy="16.600" r="3.400"/><circle cx="12" cy="12" r="2.600" fill="#0005"/>',
-    unlock: '<path fill-rule="evenodd" d="M7 10V7a5 5 0 019.600-2l-2 .900A2.800 2.800 0 009.200 7v3h9.300c.800 0 1.500.700 1.500 1.500v9c0 .800-.700 1.500-1.500 1.500h-13c-.800 0-1.500-.700-1.500-1.500v-9c0-.800.700-1.500 1.500-1.500z"/>',
-    coin: '<circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="6" fill="#0003"/><path d="M11 8h2v8h-2z" fill="#fff8"/>',
-    seal: '<path d="M12 1.8l2.5 2.3 3.3-.6.9 3.3 3 1.5-1.2 3.2 1.2 3.2-3 1.5-.9 3.3-3.3-.6L12 22.2l-2.5-2.3-3.3.6-.9-3.3-3-1.5 1.2-3.2-1.2-3.2 3-1.5.9-3.3 3.3.6z"/><circle cx="12" cy="12" r="4.2" fill="#0003"/>',
-    core: '<path d="M12 2l8.6 5v10L12 22l-8.6-5V7z"/><path d="M12 2v20M3.4 7l8.6 5 8.6-5" stroke="#fff6" stroke-width="1.2" fill="none"/>',
-    heart: '<path d="M12 21s-7.6-4.7-9.7-9.4C.8 8.1 2.9 4.4 6.6 4.4c2.1 0 3.8 1.1 5.4 3 1.6-1.9 3.3-3 5.4-3 3.7 0 5.8 3.7 4.3 7.2C19.6 16.3 12 21 12 21z"/>',
-    sword: '<path d="M20.5 2l1.5 1.5-.6 4.3-8.6 8.6 1.6 1.6-1.6 1.6-2.2-2.2-3.4 3.4-1.9-1.9 3.4-3.4-2.2-2.2 1.6-1.6 1.6 1.6 8.6-8.6z"/>',
-    shield: '<path d="M12 2l8 3v6c0 5-3.4 9.2-8 11-4.6-1.800-8-6-8-11V5z"/>',
-    star: '<path d="M12 2.300l3 6.200 6.700.9-4.900 4.700 1.200 6.700L12 17.500l-6 3.300 1.200-6.700L2.300 9.400l6.700-.9z"/>',
-    bag: '<path d="M8 7V6a4 4 0 018 0v1h2.600L20 21H4L5.400 7zm2 0h4V6a2 2 0 00-4 0z"/>',
-    hammer: '<path d="M13.500 2.500l7 4-2.200 3.800-2.500-1.400-6.300 11-3.300-1.900 6.300-11-2.500-1.400z"/>',
-    crown: '<path d="M2.500 8l5 4L12 5l4.500 7 5-4L20 18H4zM4 19.500h16V21.500H4z"/>',
-    skull: '<path fill-rule="evenodd" d="M12 2.500c-4.700 0-8 3.300-8 7.600 0 2.600 1.200 4.700 3 6V19c0 .8.700 1.500 1.500 1.500h7c.8 0 1.500-.7 1.500-1.500v-2.900c1.800-1.300 3-3.400 3-6 0-4.300-3.300-7.600-8-7.600zM8.500 9a2.200 2.200 0 110 4.400 2.200 2.200 0 010-4.400zm7 0a2.200 2.200 0 110 4.400 2.200 2.200 0 010-4.400zM12 14l1.300 2.400h-2.600z"/>',
-    scroll: '<path d="M7 3h11a3 3 0 013 3v2h-4v10a3 3 0 01-3 3H5a3 3 0 01-3-3v-2h10v2a1 1 0 002 0V6a1 1 0 00-1-1H9v9H5V5a2 2 0 012-2z"/>',
-    eye: '<path fill-rule="evenodd" d="M12 5c5 0 8.500 4 10 7-1.500 3-5 7-10 7S3.500 15 2 12c1.500-3 5-7 10-7zm0 3a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"/>',
-    horn: '<path d="M3 9l12-5v16L3 15zM16.500 8.500a4 4 0 010 7zM5 16h4l1 5H7z"/>',
-    sun: '<circle cx="12" cy="12" r="5"/><path d="M11 1h2v4h-2zM11 19h2v4h-2zM1 11h4v2H1zM19 11h4v2h-4zM4.200 5.600l1.400-1.400 2.800 2.800L7 8.400zM15.600 17l1.400-1.400 2.800 2.800-1.400 1.400zM4.200 18.400L7 15.600 8.400 17l-2.800 2.800zM15.600 7l2.800-2.800 1.400 1.400L17 8.400z"/>',
-    moon: '<path d="M20.500 14.500A9 9 0 019.500 3.500a9 9 0 1011 11z"/>',
-    flag: '<path d="M5 2h2v20H5zM8 3h11l-3 4.500 3 4.500H8z"/>',
-    meal: '<path d="M2.500 11h19a9.500 9.500 0 01-6.500 9v1.500H9V20a9.500 9.500 0 01-6.500-9zM8 2.500c1.200 1.800 1.200 3.200 0 5H6.500c1.200-1.800 1.200-3.200 0-5zm4.800 0c1.200 1.800 1.200 3.200 0 5h-1.600c1.200-1.800 1.200-3.200 0-5zm4.700 0c1.200 1.800 1.200 3.200 0 5H16c1.200-1.800 1.200-3.200 0-5z"/>',
-    bed: '<path d="M2 5h2.200v7.500H11V9h7a4 4 0 014 4v6.500h-2.200V17H4.200v2.500H2zM7.300 7.500a2.200 2.200 0 110 4.400 2.200 2.200 0 010-4.400z"/>',
-    bolt: '<path d="M13.500 1.500L4 14h6l-1.500 8.500L19 9.500h-6.500z"/>',
-    smile: '<path fill-rule="evenodd" d="M12 2a10 10 0 110 20 10 10 0 010-20zM8.500 8.500a1.500 1.500 0 100 3 1.500 1.500 0 000-3zm7 0a1.500 1.500 0 100 3 1.500 1.500 0 000-3zM7.300 14c.9 2.100 2.600 3.300 4.700 3.300s3.800-1.200 4.700-3.300z"/>',
-    map: '<path fill-rule="evenodd" d="M9 3l6 2.500L21 3v15.500L15 21l-6-2.500L3 21V5.500zm0 2.200v11.100l6 2.500V7.700z"/>',
-    pause: '<path d="M6 4h4.200v16H6zM13.800 4H18v16h-4.200z"/>', play: '<path d="M6 3l15 9-15 9z"/>',
-    close: '<path d="M5.300 3.900L12 10.600l6.700-6.700 1.400 1.400L13.400 12l6.700 6.700-1.400 1.400L12 13.400l-6.700 6.700-1.400-1.400L10.600 12 3.900 5.300z"/>',
-    back: '<path d="M14.500 3.500l2 2L10 12l6.500 6.500-2 2L6 12z"/>', next: '<path d="M9.500 3.500l-2 2L14 12l-6.500 6.500 2 2L18 12z"/>',
-    plus: '<path d="M10.500 3h3v7.500H21v3h-7.500V21h-3v-7.500H3v-3h7.500z"/>', minus: '<path d="M3 10.500h18v3H3z"/>',
-    check: '<path d="M9.500 17.800L3.700 12l2-2 3.800 3.800 8.800-8.800 2 2z"/>',
-    up: '<path d="M12 3l8.500 9.500h-5.200V21H8.700v-8.500H3.500z"/>',
-    people: '<path d="M8 3.500a3.700 3.700 0 110 7.400 3.700 3.700 0 010-7.400zm8.500 1.500a3.100 3.100 0 110 6.200 3.100 3.100 0 010-6.200zM1.200 20.500c0-4.200 3-6.800 6.800-6.800s6.800 2.600 6.800 6.800zm15-6.500c3.400 0 6.600 2.200 6.600 6.500h-6.200c0-2.300-.8-4.300-2.200-5.800.500-.4 1.100-.7 1.800-.7z"/>',
-    castle: '<path d="M2.500 21V8.500h2.800V11h2.200V8.500h2.800V11h3.400V8.500h2.800V11h2.200V8.500h2.800V21h-6.200v-4.800a3.300 3.300 0 00-6.600 0V21zM11 2h2l.4 5.500h-2.800z"/>',
-    anvil: '<path d="M2 5.500h13.500V8c2.300 0 4.200-.9 6.500-2.300 0 4-2.800 6.500-6.500 6.500v1.600l2.500 3V19.500H5v-2.700l2.500-3v-2.900C4.300 10.400 2 8.700 2 5.500z"/>',
-    grid: '<path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>',
-    book: '<path fill-rule="evenodd" d="M4 4.500A2.500 2.500 0 016.500 2H20v16.500H6.800a1.200 1.200 0 000 2.400H20V22H6.500A2.500 2.500 0 014 19.500zM8 6v2.200h8V6z"/>',
-    trophy: '<path fill-rule="evenodd" d="M7 2.500h10v2h4.200V8a4.300 4.300 0 01-4.500 4.200A5.500 5.500 0 0113.300 15v2.800H16V21H8v-3.200h2.700V15a5.500 5.500 0 01-3.400-2.800A4.300 4.300 0 012.800 8V4.500H7zM5 6.500V8c0 1.100.8 2 1.900 2.200V6.500zm12.100 0v3.700A2.200 2.200 0 0019 8V6.500z"/>',
-    lock: '<path fill-rule="evenodd" d="M7 10V7a5 5 0 0110 0v3h1.500c.8 0 1.500.7 1.500 1.500v9c0 .8-.7 1.500-1.500 1.500h-13c-.8 0-1.500-.7-1.500-1.500v-9c0-.8.7-1.500 1.500-1.500zm2.200 0h5.600V7a2.800 2.800 0 00-5.600 0z"/>',
-    portal: '<path d="M4.500 22V11a7.500 7.500 0 0115 0v11h-3.200V11a4.300 4.300 0 00-8.600 0v11z"/><circle cx="12" cy="13.500" r="2.200"/>',
-    chest: '<path d="M3 10a5.500 5.500 0 015.500-5.500h7A5.500 5.500 0 0121 10v1.800H3zM3 13.300h7.300v1.400a1.700 1.700 0 003.400 0v-1.400H21V20H3z"/>',
-    road: '<path fill-rule="evenodd" d="M8.500 2h7l4 20h-6.300l-.3-4h-1.800l-.3 4H4.500zm2.700 4l-.2 3h2l-.2-3zm-.5 6l-.3 3.500h3.200L13.300 12z"/>',
-    speed: '<path d="M3 5l8.500 7L3 19zM12.500 5L21 12l-8.500 7z"/>',
-    target: '<path fill-rule="evenodd" d="M11 1.500h2v3.100a7.500 7.500 0 016.400 6.400h3.100v2h-3.100a7.500 7.500 0 01-6.400 6.400v3.100h-2v-3.100A7.500 7.500 0 014.600 13H1.500v-2h3.100A7.500 7.500 0 0111 4.600zm1 5.200a5.300 5.300 0 100 10.600 5.300 5.300 0 000-10.600zm0 3a2.300 2.300 0 110 4.600 2.300 2.300 0 010-4.600z"/>',
-    gear: '<path d="M3 6h10.200a3 3 0 015.600 0H21v2.400h-2.200a3 3 0 01-5.600 0H3zm0 9.600h2.200a3 3 0 015.600 0H21V18H10.800a3 3 0 01-5.600 0H3z"/>',
-    gift: '<path d="M3 8h4.300A3 3 0 0112 4.600 3 3 0 0116.700 8H21v4H3zm1.200 5.200h6.600V21H4.200zm9 0h6.600V21h-6.600z"/>',
-    info: '<path fill-rule="evenodd" d="M12 2a10 10 0 110 20 10 10 0 010-20zm-1.300 8.500V17h2.600v-6.500zm0-3.800v2.400h2.600V6.700z"/>',
-    potion: '<path d="M9 2h6v2.200h-1v3.500l4.600 7.800A4.300 4.300 0 0114.900 22H9.100a4.300 4.300 0 01-3.700-6.500L10 7.700V4.200H9z"/>',
-    zzz: '<path d="M4 5h8v2l-5 5.500h5V15H3.500v-2l5-5.500H4zM14 12h6.500v1.700l-3.700 4h3.700V20H13.500v-1.700l3.700-4H14z"/>',
-    run: '<path d="M14 2.500a2.300 2.300 0 110 4.600 2.300 2.300 0 010-4.600zM9.500 8l4.500-.5 2.500 3.500 3.500 1-.6 2.300-4.400-1.300-1-1.400-1 3.900 3 3.200V22h-2.500v-2.500l-3.300-3.400L9 19.500 3.500 18l.6-2.300 3.500 1 1.500-6-2.600.9V15H4.200v-5z"/>',
-    wheat: '<path d="M11 22V11.500C8 11.500 6 9.500 6 6.500c2 0 3.700.8 5 2.200V2h2v6.700c1.300-1.400 3-2.200 5-2.200 0 3-2 5-5 5V22z"/>',
-    wave: '<path d="M2 15c2-3.500 4.500-3.500 6.500 0s4.500 3.500 6.500 0 4.500-3.500 7 0v4H2zM7 4l5 5 5-5v3.500l-5 5-5-5z"/>',
-    vol: '<path d="M3 9h4l5-4.500v15L7 15H3zm11.500-1a5 5 0 010 8z"/>',
-    save: '<path fill-rule="evenodd" d="M4 3h13l4 4v14H4zm3 2v5h9V5zm5 8a3 3 0 100 6 3 3 0 000-6z"/>',
-    trash: '<path d="M8.500 2.500h7l.8 2H21v2.300H3V4.500h4.700zM5 8.300h14L17.800 21.500H6.200z"/>',
-  };
-  const ic = (UI.ic = (n) => '<svg class="i" viewBox="0 0 24 24">' + (IC[n] || IC.info) + '</svg>');
+  /* ---------- ícones: pixel art gerada em 56/57 (UI.ic devolve <i class="i" data-i="nome">) ---------- */
+  const ic = (UI.ic = (n) => G.PX.ic(n));
   UI.cost = (gold, cost, extra) => {
     const S = G.S; let h = '';
     if (gold) h += '<span class="cost' + (S.gold < gold ? ' lack' : '') + '">' + ic('coin') + G.fmt(gold) + '</span>';
@@ -107,7 +46,7 @@
   UI.build = () => {
     const app = document.getElementById('app');
     app.innerHTML = '<canvas id="view"></canvas>' +
-      '<div id="hud"></div><div id="toasts"></div><div id="banner"></div>' +
+      '<div id="hud"></div><div id="banner"></div>' +
       '<div id="fabs-l"></div><div id="fabs"></div><div id="inspect" class="glass"></div><button id="quest" class="glass" data-a="open:missoes:jornada"></button>' +
       '<div id="shade" data-a="close"></div><div id="sheet"><div class="sh-head"><button class="bk" data-a="back">' + ic('back') + '</button><h2></h2><button class="x" data-a="close">' + ic('close') + '</button></div><div class="tabs"></div><div class="sh-body"></div></div>' +
       '<nav id="nav"></nav><div id="modal"></div><div id="title"></div>';
@@ -121,18 +60,18 @@
     });
     wireEvents();
   };
-  const C = 2 * Math.PI * 16;
   const buildHud = () => {
-    const S = () => G.S;
     hud.reset();
+    const R_ = (id) => '<span class="chip mini" data-a="open:reino:geral" title="' + G.RES[id].name + '"><i class="px ri-' + id + '"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res[id] || 0) : 0)) + '</span>';
     $('#hud').innerHTML =
-      '<div class="hud-row"><button class="realm glass" data-a="open:reino:geral"><span class="ring"><svg viewBox="0 0 40 40"><circle class="bg" cx="20" cy="20" r="16"/><circle class="fg" cx="20" cy="20" r="16" stroke-dasharray="' + C.toFixed(1) + '" ' + hud.St('stroke-dashoffset', () => (G.S ? (C * (1 - G.S.realm.xp / G.realmNeed(G.S.realm.lvl))).toFixed(1) : C)) + '/></svg><b>' + hud.T(() => (G.S ? G.S.realm.lvl : 1)) + '</b></span>' +
-      '<span class="rt"><i>' + hud.T(() => (G.S ? G.threatName(G.S.realm.lvl) : '')) + '</i><em><span ' + hud.At('data-n', () => (G.S && G.isNight(G.S.clock) ? 1 : 0)) + ' class="dn">' + ic('sun') + ic('moon') + '</span>' + hud.T(() => (G.S ? 'Dia ' + G.S.day + ' · ' + G.clockStr(Math.floor(G.S.clock / 10) * 10) : '')) + '</em></span></button>' +
-      '<div class="ctl"><button class="glass dif" data-a="diff" ' + hud.St('color', () => (G.S ? G.diffCur().c : '#e2b659')) + '>' + ic('skull') + '<small>' + hud.T(() => (G.S ? G.diffCur().name : '')) + '</small></button><button class="glass" data-a="speed" id="b-speed">' + hud.T(() => (G.S ? G.S.speed + '×' : '1×')) + '</button><button class="glass" data-a="pause" ' + hud.At('class', () => 'glass' + (G.S && G.S.paused ? ' on' : '')) + '>' + ic('pause') + '</button></div></div>' +
-      '<div class="cur"><span class="chip glass gold">' + ic('coin') + hud.T(() => (G.S ? G.fmt(G.S.gold) : 0), 'bumpable') + '</span><span class="chip glass selo" data-a="open:mais:bencaos">' + ic('seal') + hud.T(() => (G.S ? G.S.selos : 0), 'bumpable') + '</span><span class="chip glass nuc" data-a="portal">' + ic('core') + hud.T(() => (G.S ? G.S.nucleos : 0), 'bumpable') + '</span><span class="sp"></span>' +
-      '<span ' + hud.At('class', () => 'chip glass mini' + (G.S && G.bOk('taverna') && G.S.res.refeicao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-refeicao" style="width:16px;height:16px"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.refeicao || 0) : 0)) + '</span><span ' + hud.At('class', () => 'chip glass mini pot' + (G.S && G.bOk('alquimista') && G.S.res.pocao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-pocao" style="width:16px;height:16px"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.pocao || 0) : 0)) + '</span></div>' +
-      '<div id="roster"></div><div id="zonechip" class="glass"></div><div id="bossbar" class="glass"><b><span id="bb-n"></span><span id="bb-p"></span></b><div class="bar big p"><i id="bb-f"></i></div></div>';
-    void S;
+      '<div class="hud-row glass"><button class="realm" data-a="open:reino:geral"><span class="ring sl">' + hud.T(() => (G.S ? G.S.realm.lvl : 1)) + '</span>' +
+      '<span class="rt"><i>' + hud.T(() => (G.S ? G.threatName(G.S.realm.lvl) : '')) + '</i><em><span ' + hud.At('data-n', () => (G.S && G.isNight(G.S.clock) ? 1 : 0)) + ' class="dn">' + ic('sun') + ic('moon') + '</span>' + hud.T(() => (G.S ? 'Dia ' + G.S.day + ' · ' + G.clockStr(Math.floor(G.S.clock / 10) * 10) : '')) + '</em><span class="xpb"><i ' + hud.W(() => (G.S ? Math.round(100 * G.S.realm.xp / G.realmNeed(G.S.realm.lvl)) : 0)) + '></i></span></span></button>' +
+      '<div class="ctl"><button class="dif" data-a="diff" title="Dificuldade" ' + hud.St('color', () => (G.S ? G.diffCur().c : '#d9a441')) + '>' + ic('skull') + '<small>' + hud.T(() => (G.S ? G.diffCur().name : '')) + '</small></button><button data-a="speed" id="b-speed">' + hud.T(() => (G.S ? G.S.speed + '×' : '1×')) + '</button><button data-a="pause" ' + hud.At('class', () => (G.S && G.S.paused ? 'on' : '')) + '>' + ic('pause') + '</button></div></div>' +
+      '<div class="cur" data-a="curtog"><span class="chip glass gold">' + ic('coin') + hud.T(() => (G.S ? G.fmt(G.S.gold) : 0), 'bumpable') + '</span><span class="chip glass selo" data-a="open:mais:bencaos">' + ic('seal') + hud.T(() => (G.S ? G.S.selos : 0), 'bumpable') + '</span><span class="chip glass nuc" data-a="portal">' + ic('core') + hud.T(() => (G.S ? G.S.nucleos : 0), 'bumpable') + '</span><span class="sp"></span>' +
+      '<span ' + hud.At('class', () => 'chip glass more' + (G.S && ((G.bOk('taverna') && G.S.res.refeicao < 1) || (G.bOk('alquimista') && G.S.res.pocao < 1)) ? ' warn' : '')) + '>' + ic('chevd') + '</span>' +
+      '<div class="tray glass" id="tray"><span ' + hud.At('class', () => 'chip mini' + (G.S && G.bOk('taverna') && G.S.res.refeicao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-refeicao"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.refeicao || 0) : 0)) + '</span><span ' + hud.At('class', () => 'chip mini pot' + (G.S && G.bOk('alquimista') && G.S.res.pocao < 1 ? ' warn' : '')) + ' data-a="open:reino:geral"><i class="px ri-pocao"></i>' + hud.T(() => (G.S ? Math.floor(G.S.res.pocao || 0) : 0)) + '</span>' + R_('madeira') + R_('pedra') + R_('minerio') + '</div></div>' +
+      '<div id="roster"></div><div id="zonechip" class="glass"></div><div id="bossbar" class="glass"><b><span id="bb-n"></span><span id="bb-p"></span></b><div class="bar big p"><i id="bb-f"></i></div></div>' +
+      '<div id="tslot"><div id="toasts"></div><button id="logchip" data-a="logtray">' + ic('scroll') + '<span class="tc"></span></button><div id="logtray" class="glass"></div></div>';
   };
   const stateIcon = (h) => ({ hunt: 'sword', travel: 'run', return: 'bag', flee: 'run', fallen: 'skull', recover: 'heart', defend: 'shield', rift: 'portal', inc: 'paw', inside: h.act === 'rest' ? 'zzz' : h.act === 'eat' ? 'meal' : h.act === 'heal' ? 'heart' : h.act === 'train' ? 'target' : 'coin', goto: 'castle', idle: 'smile', town: 'castle' })[h.state] || 'castle';
   UI.portrait = (h) => A.portrait(A.heroLook(h));
@@ -141,14 +80,27 @@
     rosterV.reset(); rosterV.root = el;
     let h = '';
     for (const x of S.heroes) {
-      h += '<button class="hc" data-a="hero:' + x.id + '" ' + rosterV.At('data-s', () => x.state) + ' id="hc' + x.id + '" style="border-color:' + G.RANK_COLOR[x.rank] + '"><i class="pt px" style="background-image:url(' + UI.portrait(x) + ')"></i><i class="rk" style="background:' + G.RANK_COLOR[x.rank] + '">' + G.RANKS[x.rank] + '</i><span class="lv">' + rosterV.T(() => x.lvl) + '</span><span class="st" ' + rosterV.At('data-i', () => stateIcon(x)) + '></span><span class="hpb"><i ' + rosterV.W(() => Math.round(100 * Math.max(0, x.hp) / G.heroStats(x).hp)) + '></i></span>' + '<i ' + rosterV.At('class', () => (G.canPromote(x) || G.canRebirth(x) || G.canJob(x) || G.canWake(x) ? 'upm on' : 'upm')) + '></i></button>';
+      h += '<button class="hc" data-a="hero:' + x.id + '" ' + rosterV.At('data-s', () => x.state) + ' id="hc' + x.id + '" style="--rc:' + G.RANK_COLOR[x.rank] + '"><i class="pt px" style="background-image:url(' + UI.portrait(x) + ')"></i><span class="st" ' + rosterV.At('data-i', () => stateIcon(x)) + '></span><span class="hpb"><i ' + rosterV.W(() => Math.round(100 * Math.max(0, x.hp) / G.heroStats(x).hp)) + '></i></span>' + '<i ' + rosterV.At('class', () => (G.canPromote(x) || G.canRebirth(x) || G.canJob(x) || G.canWake(x) ? 'upm on' : 'upm')) + '></i></button>';
     }
     if (S.heroes.length < G.heroCap()) h += '<button class="hc add" data-a="portal">' + ic('plus') + '</button>';
     el.innerHTML = h;
-    lastIcons = {};
+    lastIcons = {}; lastOrder = {};
   };
   let lastIcons = {};
-  const refreshRosterIcons = () => { for (const x of G.S.heroes) { const i = stateIcon(x); if (lastIcons[x.id] === i) continue; const n = document.querySelector('#hc' + x.id + ' .st'); if (n) { n.innerHTML = ic(i); lastIcons[x.id] = i; } const c = document.getElementById('hc' + x.id); if (c) c.classList.toggle('sel', R.follow === x.id); } };
+  /* C3: só um glifo de estado, e só quando há algo a dizer (caçar e andar são o normal e não ganham ícone) */
+  const QUIET = { hunt: 1, travel: 1, return: 1, goto: 1, town: 1 };
+  let lastOrder = {};
+  const heroScore = (x) => { const alert = x.state === 'fallen' || x.state === 'recover' ? 3 : x.state === 'flee' || x.hp < G.heroStats(x).hp * 0.35 ? 2 : (G.canPromote(x) || G.canRebirth(x) || G.canJob(x) || G.canWake(x)) ? 1 : 0; return alert * 1000 - x.lvl - x.rank * 100; };
+  const refreshRosterIcons = () => {
+    const hs = G.S.heroes, big = hs.length > 5;
+    for (const x of hs) {
+      const i = QUIET[x.state] ? '' : stateIcon(x); const n = document.querySelector('#hc' + x.id + ' .st');
+      if (lastIcons[x.id] !== i) { if (n) { n.innerHTML = i ? ic(i) : ''; lastIcons[x.id] = i; } }
+      const c = document.getElementById('hc' + x.id); if (!c) continue;
+      c.classList.toggle('sel', R.follow === x.id);
+      const o = big ? Math.round(heroScore(x)) : 0; if (lastOrder[x.id] !== o) { lastOrder[x.id] = o; c.style.order = o; }
+    }
+  };
   const NAV = [['reino', 'castle', 'Reino'], ['herois', 'people', 'Heróis'], ['forja', 'anvil', 'Forja'], ['armazem', 'chest', 'Armazém'], ['missoes', 'scroll', 'Missões'], ['mais', 'grid', 'Mais']];
   UI.badges = {
     reino: () => { let n = 0; for (const id of G.BLD_IDS) if ((G.bLvl(id) === 0 && G.bAvailable(id) && G.canUpgrade(id).ok) || (G.S.b[id] && G.S.b[id].dmg)) n++; return n; },
@@ -170,9 +122,9 @@
   const buildNav = () => { const el = $('#nav'); navV = new View(el); el.innerHTML = NAV.map(([id, i, l]) => '<button data-a="open:' + id + '" id="nav-' + id + '">' + ic(i) + '<span>' + l + '</span>' + navV.Badge(() => (G.S ? UI.badges[id]() : 0), id === 'forja' || id === 'reino' ? 'gold' : '') + '</button>').join(''); };
   let decV;
   const buildFabs = () => {
-    $('#fabs-l').innerHTML = '<button class="fab glass" data-a="map">' + ic('map') + '</button><button class="fab glass" data-a="home">' + ic('castle') + '</button>';
+    $('#fabs-l').innerHTML = '<button class="fab" data-a="map" title="Mapa">' + ic('map') + '</button><button class="fab" data-a="home" title="Cidade">' + ic('castle') + '</button>';
     const el = $('#fabs'); decV = new View(el);
-    el.innerHTML = '<div id="decrees">' + G.DECREES.map((d) => '<button class="dec glass" data-a="decree:' + d.id + '" ' + decV.Dis(() => !G.S || !G.decreeReady(d) || G.S.gold < G.decreeCost(d)) + '><span class="di">' + ic(d.icon) + '</span><span>' + d.name + '<small>' + decV.T(() => { if (!G.S) return ''; const left = (G.S.decrees[d.id] || 0) - G.S.t; return left > 0 ? 'pronto em ' + Math.ceil(left) + 's' : G.decreeCost(d) ? G.fmt(G.decreeCost(d)) + ' moedas' : 'pronto'; }) + '</small></span></button>').join('') + '</div><button class="fab glass" data-a="decrees" id="fab-dec">' + ic('bolt') + '</button>';
+    el.innerHTML = '<div id="decrees" class="glass">' + G.DECREES.map((d) => '<button class="dec" data-a="decree:' + d.id + '" ' + decV.Dis(() => !G.S || !G.decreeReady(d) || G.S.gold < G.decreeCost(d)) + '><span class="di">' + ic(d.icon) + '</span><span>' + d.name + '<small>' + decV.T(() => { if (!G.S) return ''; const left = (G.S.decrees[d.id] || 0) - G.S.t; return left > 0 ? 'pronto em ' + Math.ceil(left) + 's' : G.decreeCost(d) ? G.fmt(G.decreeCost(d)) + ' moedas' : 'pronto'; }) + '</small></span></button>').join('') + '</div>';
   };
 
   /* ---------- jornada (rodapé) ---------- */
@@ -199,13 +151,49 @@
     el.classList.add('on'); $('#quest').style.display = 'none';
   };
 
-  /* ---------- avisos ---------- */
-  UI.toast = (m, k, icon) => {
-    const box = $('#toasts'); while (box.children.length >= 3) box.firstChild.remove();
-    const t = document.createElement('div'); t.className = 'toast ' + (k || ''); t.innerHTML = ic(icon || (k === 'bad' ? 'skull' : k === 'good' ? 'check' : 'info')) + '<span>' + esc(m) + '</span>';
-    box.appendChild(t); setTimeout(() => t.remove(), 3500);
+  /* ---------- avisos: um de cada vez, em fila curta; o que não coube vira o contador "+N" e entra no registro ---------- */
+  const TQ = [], LOG = []; let tCur = null, tTimer = 0, dropped = 0, logT = 0;
+  UI.logRec = LOG;
+  const kindOf = (k) => k || '';
+  const paintLog = () => {
+    const n = TQ.length + dropped;
+    if (tCur) { const ct = tCur.querySelector('.tc'); if (ct) ct.textContent = n > 0 ? '+' + n : ''; if (!tCur.hasAttribute('data-a') && n > 0) tCur.setAttribute('data-a', 'logtray'); }
+    const chip = $('#logchip'); if (!chip) return;
+    chip.classList.toggle('on', !tCur && dropped > 0); const c = chip.querySelector('.tc'); if (c) c.textContent = dropped > 0 ? '+' + dropped : '';
   };
-  let banT = 0;
+  const pump = () => {
+    const box = $('#toasts'); if (tCur || !TQ.length || !box) return;
+    const q = TQ.shift(), t = document.createElement('div');
+    const dur = TQ.length ? Math.min(q.dur, 2200) : Math.min(q.dur, q.act ? 6500 : 4200);
+    t.className = 'toast glass ' + kindOf(q.k); t.dataset.m = q.m || ''; t.dataset.k = kindOf(q.k); if (q.act) t.setAttribute('data-a', q.act); t.style.setProperty('--td', Math.max(0.6, dur / 1000 - 0.3) + 's');
+    t.innerHTML = q.html || (ic(q.icon || (q.k === 'bad' ? 'skull' : q.k === 'good' ? 'check' : 'info')) + '<span>' + esc(q.m2 || q.m) + '</span>');
+    t.insertAdjacentHTML('beforeend', '<span class="tc"></span>');
+    box.appendChild(t); tCur = t; paintLog();
+    clearTimeout(tTimer); tTimer = setTimeout(() => { t.remove(); tCur = null; pump(); paintLog(); }, dur);
+  };
+  const enq = (q) => {
+    TQ.push(q);
+    while (TQ.length > 3) { let i = TQ.findIndex((x) => !x.act && (!x.k || x.k === 'info' || x.k === 'good')); if (i < 0) i = 0; TQ.splice(i, 1); dropped++; }
+    pump(); paintLog();
+  };
+  UI.toast = (m, k, icon, dur, act) => {
+    /* o mesmo aviso de novo: soma ×N em vez de enfileirar outro */
+    const same = TQ.find((x) => x.m === m && x.k === k); if (same) { same.n = (same.n || 1) + 1; same.m2 = m + ' ×' + same.n; return; }
+    if (tCur && tCur.dataset.m === m && tCur.dataset.k === kindOf(k)) { const n = (+tCur.dataset.n || 1) + 1; tCur.dataset.n = n; const sp = tCur.querySelector('span'); if (sp) sp.textContent = m + ' ×' + n; return; }
+    LOG.push({ m, k, icon, t: G.S ? G.S.t : 0, d: G.S ? G.S.day : 0 }); while (LOG.length > 30) LOG.shift();
+    enq({ m, k, icon, dur: dur || 3000, act });
+  };
+  /* aviso com HTML próprio (Herói do Dia): entra na mesma fila */
+  UI.toastHtml = (html, k, dur, m) => { if (m) { LOG.push({ m, k, icon: 'star', t: G.S ? G.S.t : 0, d: G.S ? G.S.day : 0 }); while (LOG.length > 30) LOG.shift(); } enq({ html, k, dur: dur || 5000 }); };
+  G.on('start', () => { TQ.length = 0; dropped = 0; LOG.length = 0; clearTimeout(tTimer); tCur = null; const b = $('#toasts'); if (b) b.innerHTML = ''; paintLog(); });
+  const logTray = () => {
+    const t = $('#logtray'); if (!t) return;
+    if (t.classList.contains('on')) { t.classList.remove('on'); return; }
+    dropped = 0; paintLog();
+    t.innerHTML = LOG.length ? LOG.slice(-10).reverse().map((l) => '<div class="logl ' + kindOf(l.k) + '"><small>D' + l.d + '</small>' + esc(l.m) + '</div>').join('') : '<div class="empty">Nada por aqui ainda.</div>';
+    t.classList.add('on'); clearTimeout(logT); logT = setTimeout(() => t.classList.remove('on'), 7000);
+  };
+  let banT = 0, trayT = 0;
   UI.banner = (small, big, sub) => { const b = $('#banner'); b.innerHTML = '<small>' + small + '</small><h2>' + big + '</h2>' + (sub ? '<p>' + sub + '</p>' : ''); b.classList.remove('on'); void b.offsetWidth; b.classList.add('on'); clearTimeout(banT); banT = setTimeout(() => b.classList.remove('on'), 3300); };
 
   /* ---------- ações ---------- */
@@ -224,7 +212,9 @@
     mark: () => { if (R.sel && R.sel.type === 'mon') { R.sel.ref.mark = !R.sel.ref.mark; UI.toast(R.sel.ref.mark ? 'Alvo marcado: os heróis dão prioridade.' : 'Alvo desmarcado.', 'info', 'target'); } },
     home: () => { R.follow = 0; R.focus(44, 53); },
     map: () => UI.mapModal(),
-    decrees: () => { const d = $('#decrees'); d.classList.toggle('on'); $('#fab-dec').classList.toggle('on', d.classList.contains('on')); },
+    decrees: () => { const d = $('#decrees'); d.classList.toggle('on'); const f = $('#fab-dec'); if (f) f.classList.toggle('open', d.classList.contains('on')); },
+    curtog: () => { const t = $('#tray'); if (!t) return; t.classList.toggle('on'); clearTimeout(trayT); if (t.classList.contains('on')) trayT = setTimeout(() => t.classList.remove('on'), 5000); },
+    logtray: () => logTray(),
     decree: (a) => { if (!G.useDecree(a[0])) UI.toast('Ainda não está pronto.', 'bad'); },
     portal: () => UI.recruitModal(),
     questclaim: () => { if (G.questClaim()) { UI.toast('Recompensa da jornada recebida!', 'good', 'chest'); questSig = ''; } },

@@ -35,7 +35,7 @@
     if (a[0] === 'gold') { const c = G.recruitCost(); if (!G.spend(c, 'recrutas')) return; paid = { k: 'gold', n: c }; } else { const n = G.nucleoCost(); if (S.nucleos < n) return; S.nucleos -= n; paid = { k: 'nucleos', n }; }
     cands = G.rollCandidates(a[0]); G.sfx('summon');
     let h = '<div class="eyebrow">O Portal se abre</div><h2>Quem fica em Aurora?</h2><div style="margin-top:12px">';
-    cands.forEach((c, i) => { const fake = { cls: c.cls, look: c.look, rank: G.rankForLevel(c.lvl), gear: { arma: { tier: 1 }, armadura: null } }; const cl = G.CLASSES[c.cls]; h += '<button class="cand rar' + c.rar + '" data-a="hire:' + i + '"><i class="pt px" style="background-image:url(' + A.fullBody(A.heroLook(fake)) + ')"></i><span class="gr"><b style="font-size:14.5px;color:#fff">' + esc(c.name) + '</b> <span class="rar' + c.rar + '" style="font-weight:800;font-size:12px">' + G.RAR[c.rar] + '</span><br><span style="font-size:12.5px;color:var(--gold2);font-weight:800">' + cl.name + ' · Nv ' + c.lvl + '</span><br><span class="mut" style="font-size:11.5px">' + cl.desc + '</span><br><span style="font-size:11.5px">' + c.traits.map((t) => '<span class="pill">' + G.TRAITS[t].name + '</span>').join(' ') + '</span></span></button>'; });
+    cands.forEach((c, i) => { const fake = { cls: c.cls, look: c.look, rank: G.rankForLevel(c.lvl), gear: { arma: { tier: 1 }, armadura: null } }; const cl = G.CLASSES[c.cls]; h += '<button class="cand rar' + c.rar + '" data-a="hire:' + i + '"><i class="pt px" style="background-image:url(' + A.fullBody(A.heroLook(fake)) + ')"></i><span class="gr"><b style="font-size:15px;color:#fff">' + esc(c.name) + '</b> <span class="rar' + c.rar + '" style="font-weight:800;font-size:15px">' + G.RAR[c.rar] + '</span><br><span style="font-size:15px;color:var(--gold2);font-weight:800">' + cl.name + ' · Nv ' + c.lvl + '</span><br><span class="mut" style="font-size:15px">' + cl.desc + '</span><br><span style="font-size:15px">' + c.traits.map((t) => '<span class="pill">' + G.TRAITS[t].name + '</span>').join(' ') + '</span></span></button>'; });
     UI.modal(h + '</div>', { lock: true });
   };
   UI.ACT.hire = (a) => { const c = cands && cands[+a[0]]; if (!c) return; cands = null; const h = G.hire(c); UI.closeModal();
@@ -45,8 +45,37 @@
   UI.ACT.mgo = (a) => { UI.closeModal(); UI.open(a[0], a[1], a[2] ? { bld: a[2] } : null); };
 
   /* ---------- eventos ---------- */
-  const ART = { portal: ['linear-gradient(180deg,#2a1450,#120a28)', [[50, 55, 70, '#7a34c8'], [50, 55, 44, '#b06af0'], [50, 55, 20, '#ffffff']]], caravan: ['linear-gradient(180deg,#f0b860,#c8843a)', [[80, 30, 34, '#fff3c0'], [20, 110, 120, '#a86a2a'], [70, 105, 90, '#8a5220']]], festival: ['linear-gradient(180deg,#3a2a6a,#1a1438)', [[20, 40, 12, '#ffd070'], [40, 28, 12, '#ff9a70'], [60, 42, 12, '#ffd070'], [80, 30, 12, '#ff70a0']]], redmoon: ['linear-gradient(180deg,#3a0a14,#14060c)', [[62, 46, 50, '#e83a4a'], [30, 30, 16, '#f0e0c0']]], blight: ['linear-gradient(180deg,#6a7a3a,#3a4420)', [[30, 70, 30, '#3a3020'], [60, 80, 40, '#2a2418'], [80, 60, 22, '#4a3a28']]], forge: ['linear-gradient(180deg,#3a2018,#1a0e0a)', [[50, 80, 60, '#ff8a2a'], [50, 80, 34, '#ffd070'], [50, 80, 14, '#ffffff']]], stars: ['linear-gradient(180deg,#141c48,#080c20)', [[20, 20, 4, '#fff'], [44, 44, 3, '#fff'], [70, 24, 5, '#cfe'], [86, 60, 3, '#fff'], [60, 70, 26, '#b0c8ff']]], tourney: ['linear-gradient(180deg,#2a4a8a,#14244a)', [[30, 50, 30, '#e2b659'], [70, 50, 30, '#c8473d'], [50, 50, 10, '#ffffff']]] };
-  const artBox = (k) => { const a = ART[k] || ART.stars; return '<div class="art" style="background:' + a[0] + '">' + a[1].map(([x, y, r, c]) => '<i style="left:calc(' + x + '% - ' + r / 2 + 'px);top:calc(' + y + '% - ' + r / 2 + 'px);width:' + r + 'px;height:' + r + 'px;background:' + c + ';box-shadow:0 0 ' + r / 2 + 'px ' + c + '"></i>').join('') + '</div>'; };
+  const ART = { portal: ['linear-gradient(#2a1450 0 28%,#120a28 28% 100%)', [[50, 55, 70, '#7a34c8'], [50, 55, 44, '#b06af0'], [50, 55, 20, '#ffffff']]], caravan: ['linear-gradient(#f0b860 0 28%,#c8843a 28% 100%)', [[80, 30, 34, '#fff3c0'], [20, 110, 120, '#a86a2a'], [70, 105, 90, '#8a5220']]], festival: ['linear-gradient(#3a2a6a 0 28%,#1a1438 28% 100%)', [[20, 40, 12, '#ffd070'], [40, 28, 12, '#ff9a70'], [60, 42, 12, '#ffd070'], [80, 30, 12, '#ff70a0']]], redmoon: ['linear-gradient(#3a0a14 0 28%,#14060c 28% 100%)', [[62, 46, 50, '#e83a4a'], [30, 30, 16, '#f0e0c0']]], blight: ['linear-gradient(#6a7a3a 0 28%,#3a4420 28% 100%)', [[30, 70, 30, '#3a3020'], [60, 80, 40, '#2a2418'], [80, 60, 22, '#4a3a28']]], forge: ['linear-gradient(#3a2018 0 28%,#1a0e0a 28% 100%)', [[50, 80, 60, '#ff8a2a'], [50, 80, 34, '#ffd070'], [50, 80, 14, '#ffffff']]], stars: ['linear-gradient(#3d2618 0 28%,#1b110c 28% 100%)', [[20, 20, 4, '#fff'], [44, 44, 3, '#fff'], [70, 24, 5, '#cfe'], [86, 60, 3, '#fff'], [60, 70, 26, '#b0c8ff']]], tourney: ['linear-gradient(#2a4a8a 0 28%,#3d2618 28% 100%)', [[30, 50, 30, '#e2b659'], [70, 50, 30, '#c8473d'], [50, 50, 10, '#ffffff']]] };
+  /* v27 (C): cena em pixel art gerada em canvas (uma vez por tipo): céu em faixas com trama, astros em discos de 3 tons com contorno,
+     colinas e casinhas em silhueta. Desenhada em 220×36 pixels e mostrada a 2× (nítida em qualquer largura: o que sobra dos lados é cortado). */
+  const artCache = {};
+  const artURL = (k) => {
+    if (artCache[k]) return artCache[k];
+    const a = ART[k] || ART.stars, W = 220, H = 36, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+    const hexes = a[0].match(/#[0-9a-fA-F]{3,6}/g) || ['#2a1450', '#120a28'];
+    const rgb = (h) => { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map((q) => q + q).join(''); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; };
+    const c0 = rgb(hexes[0]), c1 = rgb(hexes[1] || hexes[0]), mixc = (t) => 'rgb(' + c0.map((v, i) => Math.round(v + (c1[i] - v) * t)).join(',') + ')';
+    const BAYER = [[0, 2], [3, 1]];
+    for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { const t = j / (H - 1) * 5, band = Math.floor(t), f = t - band; const up = f * 4 > BAYER[j & 1][i & 1]; x.fillStyle = mixc(Math.min(1, (band + (up ? 1 : 0)) / 5)); x.fillRect(i, j, 1, 1); }
+    const dark = c1[0] + c1[1] + c1[2] < 300;
+    if (dark) { let r = 7 + k.length; for (let n = 0; n < 26; n++) { r = (r * 9301 + 49297) % 233280; const sx = r % W; r = (r * 9301 + 49297) % 233280; const sy = r % Math.floor(H * 0.6); x.fillStyle = n % 5 ? '#c8c0e0' : '#fff6d8'; x.fillRect(sx, sy, 1, 1); } }
+    const shade = (col, d) => { const m = rgb(col.length === 4 || col.length === 7 ? col : '#888888'); return 'rgb(' + m.map((v) => Math.max(0, Math.min(255, v + d))).join(',') + ')'; };
+    const disc = (cx, cy, rad, col) => {
+      for (let j = -rad - 1; j <= rad + 1; j++) for (let i = -rad - 1; i <= rad + 1; i++) {
+        const d = Math.hypot(i, j); if (d > rad + 1) continue;
+        const px = Math.round(cx + i), py = Math.round(cy + j); if (px < 0 || py < 0 || px >= W || py >= H) continue;
+        if (d > rad) { x.fillStyle = '#140c0a'; } else { const lit = (i + j) / (rad * 1.4); x.fillStyle = lit < -0.45 ? shade(col, 60) : lit > 0.35 ? shade(col, -50) : col; }
+        x.fillRect(px, py, 1, 1);
+      }
+    };
+    for (const [px, py, r, col] of a[1]) { const rad = Math.max(2, Math.round(r / 4)); if (r >= 90) { /* colina grande: só o topo aparece */ disc(W * px / 100, H + rad * 0.2 + 2, rad, col); } else disc(W * px / 100, H * py / 100, rad, col); }
+    /* horizonte: colinas e casinhas em silhueta */
+    const hz = shade('#' + ((c1[0] << 16 | c1[1] << 8 | c1[2]) >>> 0).toString(16).padStart(6, '0'), -45);
+    x.fillStyle = hz; for (let i = 0; i < W; i++) { const h2 = 3 + Math.round(1.6 * Math.sin(i / 11) + 1.2 * Math.sin(i / 5.3)); x.fillRect(i, H - h2, 1, h2); }
+    let r2 = 11 + k.charCodeAt(0); for (let n = 0; n < 6; n++) { r2 = (r2 * 9301 + 49297) % 233280; const hx = 8 + (r2 % (W - 24)), hw = 5 + (r2 % 4); x.fillStyle = hz; x.fillRect(hx, H - 9, hw, 7); for (let q = 0; q < hw / 2 + 1; q++) x.fillRect(hx + q, H - 10 - q, hw - 2 * q, 1); x.fillStyle = '#ffd070'; x.fillRect(hx + 2, H - 7, 1, 1); }
+    return (artCache[k] = c.toDataURL());
+  };
+  const artBox = (k) => '<div class="art" style="background-image:url(' + artURL(k) + ')"></div>';
   UI.artBox = artBox; UI.ART = ART;
   /* v27 (A2): o evento de cidade não abre mais janela sozinho nem pausa o jogo; vira uma decisão pendente no atalho do HUD (6G-ui-decisoes: UI.eventModal, UI.ACT.evopt) */
   UI.mareModal = (d) => {
@@ -115,16 +144,16 @@
   /* ---------- mapa do mundo ---------- */
   UI.mapModal = () => {
     const W = G.W, mc = R.mapCanvas();
-    UI.modal('<div class="eyebrow">Reino de Aurora</div><h2>Mapa</h2><canvas id="mapc" style="width:100%;border-radius:12px;margin-top:10px;display:block;image-rendering:auto;touch-action:none"></canvas><p class="lead" style="margin-bottom:0">Toque em um ponto para levar a câmera até lá.</p><div class="acts"><button class="btn" data-a="mclose">Fechar</button></div>', { pause: false });
+    UI.modal('<div class="eyebrow">Reino de Aurora</div><h2>Mapa</h2><canvas id="mapc" style="width:100%;margin-top:10px;display:block;image-rendering:auto;touch-action:none"></canvas><p class="lead" style="margin-bottom:0">Toque em um ponto para levar a câmera até lá.</p><div class="acts"><button class="btn" data-a="mclose">Fechar</button></div>', { pause: false });
     const cv = $('#mapc'), sc = 4; cv.width = W.w * sc; cv.height = W.h * sc; const x = cv.getContext('2d');
     const paint = () => {
       const S = G.S; x.drawImage(mc, 0, 0);
-      x.font = '700 13px "Aurora Cinzel",serif'; x.textAlign = 'center'; x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)';
+      x.font = '700 16px "Aurora Pixel Head",monospace'; x.textAlign = 'center'; x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)';
       const label = (t, wx, wy, c) => { x.strokeText(t, wx * sc, wy * sc); x.fillStyle = c; x.fillText(t, wx * sc, wy * sc); };
       for (const z of G.ZONES) { const r = z.rect, open = G.zoneUnlocked(z); if (!open) { x.fillStyle = 'rgba(8,10,20,.6)'; x.fillRect(r[0] * sc, r[1] * sc, (r[2] - r[0] + 1) * sc, (r[3] - r[1] + 1) * sc); } label(open ? z.name.split(' ')[0] + ' ' + G.zoneLvl(z, S.zones[z.id].tier) : 'Reino nv ' + z.unlock, (r[0] + r[2]) / 2 + 0.5, (r[1] + r[3]) / 2, open ? '#fff3c4' : '#9aa3b8'); }
       label('Aurora', 44, 54.5, '#fff3c4'); label(G.riftOpen() ? 'Fenda ' + S.rift.floor : 'Cratera', 12.5, 90, '#e6b0ff');
       for (const m of G.mons) if (m.boss && !m.dead) { x.fillStyle = '#d070ff'; x.beginPath(); x.arc(m.x * sc, m.y * sc, 7, 0, 6.283); x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 2; x.stroke(); x.strokeStyle = 'rgba(10,12,24,.85)'; x.lineWidth = 3; }
-      for (const h of S.heroes) { if (h.state === 'recover') continue; x.fillStyle = h.state === 'fallen' ? '#ff5050' : '#ffffff'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 6, 0, 6.283); x.fill(); x.lineWidth = 3; x.strokeStyle = G.RANK_COLOR[h.rank]; x.stroke(); x.lineWidth = 1; x.strokeStyle = '#10141f'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 8, 0, 6.283); x.stroke(); x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)'; }
+      for (const h of S.heroes) { if (h.state === 'recover') continue; x.fillStyle = h.state === 'fallen' ? '#ff5050' : '#ffffff'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 6, 0, 6.283); x.fill(); x.lineWidth = 3; x.strokeStyle = G.RANK_COLOR[h.rank]; x.stroke(); x.lineWidth = 1; x.strokeStyle = '#1b110c'; x.beginPath(); x.arc(h.x * sc, h.y * sc, 8, 0, 6.283); x.stroke(); x.lineWidth = 3; x.strokeStyle = 'rgba(10,12,24,.85)'; }
       const [a, b] = R.screenToWorld(0, 0), [c, d] = R.screenToWorld(window.innerWidth, window.innerHeight); x.strokeStyle = '#ffffff'; x.lineWidth = 2; x.strokeRect(a * sc, b * sc, (c - a) * sc, (d - b) * sc);
     };
     paint(); clearInterval(mapTimer); mapTimer = setInterval(() => { if ($('#mapc')) paint(); else clearInterval(mapTimer); }, 600);

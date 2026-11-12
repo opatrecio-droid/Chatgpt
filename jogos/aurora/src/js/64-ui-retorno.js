@@ -10,61 +10,48 @@
   const css = document.createElement('style');
   css.textContent = [
     /* faixa da semana e Sorte, logo abaixo dos heróis */
-    '#hudx{display:flex;gap:6px;align-items:center;pointer-events:none;min-height:26px}',
-    '#hudx>*{pointer-events:auto}',
-    '.wk{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px 0 8px;border-radius:13px;font-size:11px;font-weight:800;white-space:nowrap;min-width:0;overflow:hidden;color:var(--wc);border:1px solid var(--wl);background:linear-gradient(180deg,rgba(28,36,66,.9),rgba(16,21,38,.9));box-shadow:0 3px 10px rgba(0,0,0,.3)}',
-    '.wk svg{font-size:14px;flex:none}.wk b{color:#fff;font-weight:800;overflow:hidden;text-overflow:ellipsis}.wk small{color:var(--mut);font-weight:700;font-size:10.5px}',
-    '.sorte{display:none;align-items:center;gap:5px;height:26px;padding:0 10px 0 8px;border-radius:13px;font-size:11.5px;font-weight:900;color:#ffe9a0;border:1px solid rgba(255,211,90,.7);background:linear-gradient(180deg,rgba(120,84,18,.92),rgba(70,46,10,.92));box-shadow:0 0 14px rgba(255,211,90,.45);animation:sorp 1.4s ease-in-out infinite alternate}',
-    '.sorte.on{display:inline-flex}.sorte svg{font-size:13px;color:#ffd35a}',
-    '@keyframes sorp{from{box-shadow:0 0 6px rgba(255,211,90,.3)}to{box-shadow:0 0 16px rgba(255,211,90,.7)}}',
-    '#fab-cal{position:relative}#fab-cal .fdot{position:absolute;top:1px;right:1px;width:13px;height:13px;border-radius:50%;background:var(--bad);box-shadow:0 0 0 2px #10141f;display:none}',
-    '#fab-cal.has{color:#1a1408;background:linear-gradient(180deg,#f7dc92,#d8a544);animation:fabp 1.3s ease-in-out infinite alternate}#fab-cal.has .fdot{display:block}',
-    '@keyframes fabp{from{box-shadow:0 0 4px rgba(247,220,146,.3)}to{box-shadow:0 0 16px rgba(247,220,146,.8)}}',
-    '#toasts{top:calc(var(--sat) + 238px)}',
-    '@media (min-width:860px){#toasts{top:calc(var(--sat) + 16px)}}',
-    '@media (max-height:640px){#toasts{top:calc(var(--sat) + 180px)}}',
     /* cartas de retorno */
-    '.rcd-h{font-family:"Aurora Cinzel",serif;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-align:center;margin:14px 0 2px}',
-    '.rcd-s{text-align:center;color:var(--mut);font-size:11.5px;margin:0 0 8px}',
+    '.rcd-h{font-family:var(--fh);font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-align:center;margin:14px 0 2px}',
+    '.rcd-s{text-align:center;color:var(--mut);font-size:15px;margin:0 0 8px}',
     '.rcdg{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:6px auto 2px}',
     '.rcd{position:relative;width:80px;flex:none;aspect-ratio:3/4;perspective:700px;cursor:pointer;touch-action:manipulation}',
     '.rcd-in{position:absolute;inset:0;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transition:transform .6s cubic-bezier(.3,1.25,.4,1)}',
     '.rcd.on .rcd-in{transform:rotateY(180deg)}.rcd.nf .rcd-in{transition:none}',
-    '.rcd-f{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px}',
-    '.rcd-back{display:grid;place-items:center;border:2px solid rgba(226,182,89,.55);background:radial-gradient(circle at 50% 46%,rgba(185,143,245,.5),transparent 64%),repeating-conic-gradient(from 0deg at 50% 46%,rgba(255,255,255,.07) 0 10deg,transparent 10deg 20deg),linear-gradient(180deg,#2a2f62,#141a36);box-shadow:0 4px 12px rgba(0,0,0,.45)}',
-    '.rcd-back b{font-size:30px;line-height:1;color:var(--gold2);text-shadow:0 0 14px rgba(247,220,146,.85);animation:rtp 1.3s ease-in-out infinite alternate}',
+    '.rcd-f{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;}',
+    '.rcd-back{background:#2c2040;display:grid;place-items:center;border:var(--u) solid rgba(226,182,89,.55);,repeating-conic-gradient(from 0deg at 50% 46%,rgba(255,255,255,.07) 0 10deg,transparent 10deg 20deg),linear-gradient(#3d2618 0 28%,#1b110c 28% 100%);box-shadow:none}',
+    '.rcd-back b{font-size:32px;line-height:1;color:var(--gold2);text-shadow:var(--u) var(--u) 0 var(--ol);animation:rtp 1.3s ease-in-out infinite alternate}',
     '.rcd:nth-child(2n) .rcd-back b{animation-delay:.35s}.rcd:nth-child(3n) .rcd-back b{animation-delay:.7s}',
     '@keyframes rtp{from{transform:scale(.88);opacity:.7}to{transform:scale(1.08);opacity:1}}',
     '.rcd:active .rcd-in{transform:scale(.96)}.rcd.on:active .rcd-in{transform:rotateY(180deg) scale(.96)}',
-    '.rcd-front{transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:6px 4px 6px;text-align:center;overflow:hidden;border:2px solid var(--rc);background:linear-gradient(180deg,#252f58,#10152a);box-shadow:0 0 12px var(--rcg),inset 0 0 14px rgba(0,0,0,.35)}',
-    '.rcd.hi .rcd-front{box-shadow:0 0 18px var(--rcg),0 0 34px var(--rcg),inset 0 0 14px rgba(0,0,0,.35)}',
+    '.rcd-front{transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:6px 4px 6px;text-align:center;overflow:hidden;border:var(--u) solid var(--rc);background:linear-gradient(#3d2618 0 28%,#1b110c 28% 100%);box-shadow:none}',
+    '.rcd.hi .rcd-front{box-shadow:none}',
     '.rcd.hi.on:not(.nf) .rcd-front::after{content:"";position:absolute;top:0;bottom:0;width:42%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);animation:rtsh 1.6s ease-out .5s 2}',
     '@keyframes rtsh{to{left:130%}}',
-    '.rcd-front em{font-style:normal;font-family:"Aurora Cinzel",serif;font-weight:700;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rc);text-shadow:0 0 8px var(--rc)}',
-    '.rcd-ic{display:flex;align-items:center;justify-content:center;gap:2px;flex:1;min-height:0;filter:drop-shadow(0 0 8px var(--rcg))}',
-    '.rcd-ic svg{font-size:30px}.rcd-ic .px{width:26px;height:26px}.rcd-ic .gi{width:38px;height:38px;background-size:30px 30px}',
-    '.c-coin svg{color:#f5c84a}.c-core svg{color:#b98ff5}.c-seal svg{color:#ff9ac8}',
-    '.rcd-front strong{font-size:9.5px;line-height:1.15;font-weight:800;color:#eef0f6;max-width:100%}',
-    '.rcd-v{font-size:10.5px;font-weight:900;color:var(--gold2);line-height:1.2;max-width:100%}',
-    '.rcd-c{text-align:center;color:var(--mut);font-size:11.5px;margin-top:8px}',
+    '.rcd-front em{font-style:normal;font-family:var(--fh);font-weight:700;font-size:8px;font-family:var(--fc);letter-spacing:.16em;text-transform:uppercase;color:var(--rc);text-shadow:var(--u) var(--u) 0 var(--ol);}',
+    '.rcd-ic{display:flex;align-items:center;justify-content:center;gap:2px;flex:1;min-height:0;}',
+    '.rcd-ic .i{--is:2;}.rcd-ic .px{width:26px;height:26px}.rcd-ic .gi{width:38px;height:38px;background-size:30px 30px}',
+    '.c-coin .i{color:#f5c84a}.c-core .i{color:#b98ff5}.c-seal .i{color:#ff9ac8}',
+    '.rcd-front strong{font-size:8px;font-family:var(--fc);line-height:1.15;font-weight:800;color:#eef0f6;max-width:100%}',
+    '.rcd-v{font-size:8px;font-family:var(--fc);font-weight:900;color:var(--gold2);line-height:1.2;max-width:100%}',
+    '.rcd-c{text-align:center;color:var(--mut);font-size:15px;margin-top:8px}',
     /* calendário */
     '.calg{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0 4px}',
-    '.ct{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:92px;padding:8px 4px 7px;text-align:center;border-radius:13px;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}',
-    '.ct small{font-family:"Aurora Cinzel",serif;font-size:9.5px;letter-spacing:.18em;color:var(--mut)}',
-    '.ct svg{font-size:26px;color:var(--gold2)}.ct b{font-size:11px;line-height:1.15;font-weight:800;color:#dfe4f1}',
-    '.ct.d7{grid-column:span 2;border-color:rgba(245,176,65,.6);background:linear-gradient(180deg,rgba(245,176,65,.2),rgba(245,176,65,.05))}.ct.d7 svg{font-size:34px;color:#f5b041}.ct.d7 b{font-size:12.5px;color:#ffd98a}',
+    '.ct{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:92px;padding:8px 4px 7px;text-align:center;border:var(--u) solid var(--line2);background:var(--fill2)}',
+    '.ct small{font-family:var(--fh);font-size:8px;font-family:var(--fc);letter-spacing:.18em;color:var(--mut)}',
+    '.ct .i{color:var(--gold2)}.ct b{font-size:15px;line-height:1.15;font-weight:800;color:#dfe4f1}',
+    '.ct.d7{grid-column:span 2;border-color:rgba(245,176,65,.6);background:rgba(245,176,65,.2)}.ct.d7 .i{--is:2;color:#f5b041}.ct.d7 b{font-size:15px;color:#ffd98a}',
     '.ct.lat{opacity:.62}',
-    '.ct.done{opacity:.55;border-color:rgba(95,207,124,.45)}.ct.done svg,.ct.done b{filter:saturate(.5)}',
-    '.ct.done::after{content:"✓";position:absolute;top:5px;right:7px;font-size:13px;font-weight:900;color:var(--good)}',
-    '.ct.now{border:2px solid var(--gold);background:linear-gradient(180deg,rgba(226,182,89,.26),rgba(226,182,89,.06));box-shadow:0 0 16px rgba(226,182,89,.5);animation:ctn 1.3s ease-in-out infinite alternate}',
-    '.ct.now small{color:var(--gold2)}.ct.now i{font-style:normal;font-size:10px;color:var(--mut);line-height:1.2}',
-    '@keyframes ctn{from{box-shadow:0 0 8px rgba(226,182,89,.3)}to{box-shadow:0 0 20px rgba(226,182,89,.75)}}',
-    '.calres{margin:10px 0 0;padding:9px 10px;border-radius:12px;text-align:center;background:rgba(95,207,124,.12);border:1px solid rgba(95,207,124,.5)}',
-    '.calres b{display:block;font-size:13px;color:#b0f0c0;margin-bottom:4px}.calres .costs{justify-content:center}',
-    '.calnote{text-align:center;color:var(--mut);font-size:11.5px;margin:9px 4px 0;line-height:1.4}',
+    '.ct.done{opacity:.55;border-color:rgba(95,207,124,.45)}.ct.done .i,.ct.done b{filter:saturate(.5)}',
+    '.ct.done::after{content:"✓";position:absolute;top:5px;right:7px;font-size:15px;font-weight:900;color:var(--good)}',
+    '.ct.now{border:var(--u) solid var(--gold);background:rgba(226,182,89,.26);box-shadow:none;animation:ctn 1.3s ease-in-out infinite alternate}',
+    '.ct.now small{color:var(--gold2)}.ct.now i{font-style:normal;font-size:8px;font-family:var(--fc);color:var(--mut);line-height:1.2}',
+    '@keyframes ctn{from{box-shadow:none}to{box-shadow:none}}',
+    '.calres{margin:10px 0 0;padding:9px 10px;text-align:center;background:rgba(95,207,124,.12);border:var(--u) solid rgba(95,207,124,.5)}',
+    '.calres b{display:block;font-size:15px;color:#b0f0c0;margin-bottom:4px}.calres .costs{justify-content:center}',
+    '.calnote{text-align:center;font-size:15px;margin:9px 4px 0;line-height:1.2;padding:2px 6px}',
     /* semana */
-    '.wkico{width:56px;height:56px;margin:10px auto 0;border-radius:50%;display:grid;place-items:center;font-size:28px;color:var(--wc);border:2px solid var(--wc);background:radial-gradient(circle,rgba(255,255,255,.1),rgba(0,0,0,.25));box-shadow:0 0 22px var(--wg)}',
-    '.wkn{display:flex;gap:6px;margin-top:6px}.wkn span{flex:1;display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,.05);font-size:11.5px;font-weight:800;color:#cfd5e4;min-width:0}.wkn svg{font-size:14px;flex:none}',
+    '.wkico{background:var(--inset);width:56px;height:56px;margin:10px auto 0;display:grid;place-items:center;font-size:24px;color:var(--wc);border:var(--u) solid var(--wc);box-shadow:none}',
+    '.wkn{display:flex;gap:6px;margin-top:6px}.wkn span{flex:1;display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--fill2);font-size:15px;font-weight:800;color:#cfd5e4;min-width:0}.wkn .i{flex:none}',
   ].join('\n');
   document.head.appendChild(css);
 
@@ -155,8 +142,8 @@
   /* cartão no topo da aba Missões › Contratos */
   UI.calCard = () => {
     const st = G.calState(), c = G.ret().cal, done = st.got ? c.ld : c.n, pips = [];
-    for (let i = 1; i <= 7; i++) pips.push('<i style="flex:1;height:6px;border-radius:3px;background:' + (i <= done ? 'var(--gold)' : 'rgba(255,255,255,.12)') + '"></i>');
-    return '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:22px;color:var(--gold2)">' + ic('gift') + '</span><div class="gr"><h3>Calendário de Aurora <small>' + (st.ok ? 'dia ' + st.next + ' de 7' : 'hoje recebido') + '</small></h3><p>Um presente por dia real. O 7º é um Baú Lendário. Faltar não pune.</p></div><button class="btn ' + (st.ok ? 'pri' : '') + '" data-a="cal">' + (st.ok ? 'Receber' : 'Ver') + '</button></div><div style="display:flex;gap:3px;margin-top:8px">' + pips.join('') + '</div></div>';
+    for (let i = 1; i <= 7; i++) pips.push('<i style="flex:1;height:6px;background:' + (i <= done ? 'var(--gold)' : 'rgba(255,255,255,.12)') + '"></i>');
+    return '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px;color:var(--gold2)">' + ic('gift') + '</span><div class="gr"><h3>Calendário de Aurora <small>' + (st.ok ? 'dia ' + st.next + ' de 7' : 'hoje recebido') + '</small></h3><p>Um presente por dia real. O 7º é um Baú Lendário. Faltar não pune.</p></div><button class="btn ' + (st.ok ? 'pri' : '') + '" data-a="cal">' + (st.ok ? 'Receber' : 'Ver') + '</button></div><div style="display:flex;gap:3px;margin-top:8px">' + pips.join('') + '</div></div>';
   };
 
   /* ================= 1B.4 faixa da semana temática ================= */
@@ -164,7 +151,7 @@
     const w = G.week(); if (w.id === 'none') return;
     const nx = [1, 2, 3].map((n) => G.weekNext(n));
     UI.modal('<div class="eyebrow">Semana temática</div><h2>' + esc(w.name) + '</h2><div class="wkico" style="--wc:' + w.col + ';--wg:' + rgba(w.col, 0.4) + '">' + ic(w.icon) + '</div>' +
-      '<p class="lead">' + esc(w.desc) + '</p><div class="grid3" style="grid-template-columns:1fr 1fr"><div class="stat"><small>Bônus</small><b class="gold" style="font-size:12.5px">' + esc(w.eff) + '</b></div><div class="stat"><small>Termina em</small><b>' + G.fmtLeft(w.left) + '</b></div></div>' +
+      '<p class="lead">' + esc(w.desc) + '</p><div class="grid3" style="grid-template-columns:1fr 1fr"><div class="stat"><small>Bônus</small><b class="gold" style="font-size:15px">' + esc(w.eff) + '</b></div><div class="stat"><small>Termina em</small><b>' + G.fmtLeft(w.left) + '</b></div></div>' +
       '<p class="calnote" style="margin-bottom:0">A semana vira na segunda-feira, à meia-noite, pelo relógio do seu aparelho. Depois dela:</p><div class="wkn">' + nx.map((x) => '<span style="color:' + x.col + '">' + ic(x.icon) + '<em style="font-style:normal;overflow:hidden;text-overflow:ellipsis">' + esc(x.short) + '</em></span>').join('') + '</div>' +
       '<div class="acts"><button class="btn pri" data-a="mclose">Entendi</button></div>', { pause: false });
   };

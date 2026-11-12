@@ -193,8 +193,8 @@
     ambient(dt, vx0, vx1, vy0, vy1, dark);
 
     /* efeitos por cima */
-    fontN = '800 ' + Math.round(G.clamp(z * 3.3, 12 * dpr, 16 * dpr)) + 'px "Aurora Manrope",system-ui,sans-serif';
-    fontS = '700 ' + Math.round(G.clamp(z * 2.6, 10.5 * dpr, 13 * dpr)) + 'px "Aurora Manrope",system-ui,sans-serif';
+    fontN = '400 ' + Math.round(15 * dpr) + 'px "Aurora Pixel",monospace';
+    fontS = '400 ' + Math.round(15 * dpr) + 'px "Aurora Pixel",monospace';
     for (let i = R.fxs.length - 1; i >= 0; i--) {
       const f = R.fxs[i]; f.age += dt; if (f.age >= f.life) { R.fxs.splice(i, 1); continue; } if (f.age < 0) continue;
       const k = f.age / f.life, px = X(f.x), py = Y(f.y);
@@ -269,15 +269,17 @@
       if (id === 'alquimista' && lvl > 0 && S.res.pocao < 1) { mark = '!'; col = '#ff9a9a'; label = 'Sem poções'; }
       ctx.font = fontS; ctx.textAlign = 'center'; const lw = tw(label), ph = Math.round(parseInt(fontS.split(' ')[1]) * 1.55), pw = lw + ph * 0.9;
       const lx = Math.round(cx - pw / 2), ly = Math.round(ty - ph);
-      ctx.fillStyle = bg; rr(lx, ly, pw, ph, ph / 2); ctx.fill();
+      plaque(lx, ly, pw, ph);
       ctx.fillStyle = col; ctx.textBaseline = 'middle'; ctx.fillText(label, cx, ly + ph / 2 + 1); ctx.textBaseline = 'alphabetic';
-      if (mark) { const bob = Math.sin(R.t * 4) * 2 * dpr; const r = ph * 0.52; ctx.fillStyle = mark === '!' ? '#e85a5a' : '#58c070'; ctx.beginPath(); ctx.arc(lx + pw + r * 0.6, ly + ph / 2 + bob, r, 0, 6.283); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle'; ctx.fillText(mark, lx + pw + r * 0.6, ly + ph / 2 + bob + 1); ctx.textBaseline = 'alphabetic'; }
+      if (mark) { const bob = Math.round(Math.sin(R.t * 4) * 2 * dpr), r = Math.round(ph * 0.5), d = Math.max(1, Math.round(dpr)); ctx.fillStyle = '#140c0a'; ctx.fillRect(lx + pw + r * 0.6 - r - d, ly + ph / 2 + bob - r - d, r * 2 + d * 2, r * 2 + d * 2); ctx.fillStyle = mark === '!' ? '#c2452f' : '#6aa544'; ctx.fillRect(lx + pw + r * 0.6 - r, ly + ph / 2 + bob - r, r * 2, r * 2); ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle'; ctx.fillText(mark, lx + pw + r * 0.6, ly + ph / 2 + bob + 1); ctx.textBaseline = 'alphabetic'; }
     });
   };
+  /* placa de madeira do mapa: contorno duro de 1 texel, realce em cima, sombra embaixo (nada de pílula) */
+  const plaque = (x, y, w, h) => { const d = Math.max(1, Math.round(dpr)); ctx.fillStyle = '#140c0a'; ctx.fillRect(x - d, y - d, w + 2 * d, h + 2 * d); ctx.fillStyle = '#3d2618'; ctx.fillRect(x, y, w, h); ctx.fillStyle = '#7d5430'; ctx.fillRect(x, y, w, d); ctx.fillStyle = '#2b1a12'; ctx.fillRect(x, y + h - d, w, d); };
   const rr = (x, y, w, h, r) => { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r); ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r); ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r); ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r); ctx.closePath(); };
   const shadow = (px, py, r, z) => { ctx.fillStyle = 'rgba(10,16,30,.28)'; ctx.beginPath(); ctx.ellipse(px, py, r * z, r * 0.42 * z, 0, 0, 6.283); ctx.fill(); };
   const bar = (px, py, w, frac, col, z) => { const h = Math.max(2, Math.round(z * 1.2)), x = Math.round(px - w / 2); ctx.fillStyle = 'rgba(16,12,24,.85)'; ctx.fillRect(x - 1, py - 1, w + 2, h + 2); ctx.fillStyle = col; ctx.fillRect(x, py, Math.round(w * G.clamp(frac, 0, 1)), h); };
-  const bubble = (px, py, text) => { ctx.font = fontS; ctx.textAlign = 'center'; const fs = parseInt(fontS.split(' ')[1]); const tw = ctx.measureText(text).width, w = tw + fs * 1.2, h = fs * 1.8; const x = Math.round(G.clamp(px - w / 2, 4, cw - w - 4)), y = Math.round(py - h); ctx.fillStyle = 'rgba(255,252,240,.96)'; rr(x, y, w, h, fs * 0.6); ctx.fill(); ctx.beginPath(); ctx.moveTo(px - fs * 0.4, y + h - 1); ctx.lineTo(px, y + h + fs * 0.45); ctx.lineTo(px + fs * 0.4, y + h - 1); ctx.fill(); ctx.fillStyle = '#2a2030'; ctx.textBaseline = 'middle'; ctx.fillText(text, x + w / 2, y + h / 2 + 1); ctx.textBaseline = 'alphabetic'; };
+  const bubble = (px, py, text) => { ctx.font = fontS; ctx.textAlign = 'center'; const fs = parseInt(fontS.split(' ')[1]); const tw = ctx.measureText(text).width, w = tw + fs * 1.2, h = fs * 1.8; const x = Math.round(G.clamp(px - w / 2, 4, cw - w - 4)), y = Math.round(py - h); { const d = Math.max(1, Math.round(dpr)); ctx.fillStyle = '#140c0a'; ctx.fillRect(x - d, y - d, w + 2 * d, h + 2 * d); ctx.fillStyle = '#ead9ae'; ctx.fillRect(x, y, w, h); ctx.fillStyle = '#cdb682'; ctx.fillRect(x, y + h - d, w, d); } ctx.beginPath(); ctx.moveTo(px - fs * 0.4, y + h - 1); ctx.lineTo(px, y + h + fs * 0.45); ctx.lineTo(px + fs * 0.4, y + h - 1); ctx.fill(); ctx.fillStyle = '#2a1a10'; ctx.textBaseline = 'middle'; ctx.fillText(text, x + w / 2, y + h / 2 + 1); ctx.textBaseline = 'alphabetic'; };
 
   const drawChar = (e, isHero, X, Y, z, over, dt) => {
     if (!isHero && e._wk && R.npcDraw && R.npcDraw(e, X, Y, z, over)) return;      // v27 (B1): equipe de campo em serviço (ferramentas, cargas, poses de trabalho)

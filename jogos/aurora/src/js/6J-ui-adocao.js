@@ -56,7 +56,7 @@
   /* ---------- escolher o dono à mão ---------- */
   UI.petOwnerModal = (p) => {
     const d = G.PETS[p.k], U = P();
-    let h = '<div class="eyebrow">' + esc(d.name) + ' · ' + G.RAR[p.rar] + '</div><h2>Quem fica com ele?</h2><p class="lead" style="font-size:12.5px">Cada herói leva até ' + G.PET_MAX + ' mascotes. ' + U.roleLine(p) + '</p>';
+    let h = '<div class="eyebrow">' + esc(d.name) + ' · ' + G.RAR[p.rar] + '</div><h2>Quem fica com ele?</h2><p class="lead" style="font-size:15px">Cada herói leva até ' + G.PET_MAX + ' mascotes. ' + U.roleLine(p) + '</p>';
     for (const x of G.S.heroes.slice().sort((a, b) => G.arenaHeroPow(b) - G.arenaHeroPow(a))) {
       const free = G.petSlots(x), cur = G.petsOf(x);
       h += '<button class="opt" data-a="petgive:' + p.id + ':' + x.id + '"' + (free > 0 ? '' : ' disabled') + '><b>' + esc(x.name) + ' <span class="mut" style="font-weight:700">Nv ' + x.lvl + ' · poder ' + G.fmt(G.arenaHeroPow(x)) + ' · carisma ' + G.heroCharm(x) + '</span></b><span>' + (free > 0 ? 'Leva ' + cur.length + ' de ' + G.PET_MAX + ' mascotes' + (cur.length ? ' (' + cur.map((q) => G.PETS[q.k].name).join(', ') + ')' : '') + ' — este seria o ' + (cur.length + 1) + 'º' : 'Já leva ' + G.PET_MAX + ' mascotes') + '</span></button>';

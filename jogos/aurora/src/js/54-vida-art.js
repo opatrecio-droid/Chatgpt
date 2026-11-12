@@ -334,7 +334,7 @@
     if (P.seeds && !low()) { for (let i = 0; i < 3; i++) { const k = (w.t * 2.2 + i * 0.33) % 1; ctx.fillStyle = i % 2 ? '#c8a060' : '#5a3a22'; ctx.fillRect(Math.round((20 + k * 5 - 13) * z), Math.round((24 + k * 4 - 27) * z), z, z); } }
     if (P.lift && w.t > 0.15 && w.t < 0.5 && w.src) { /* a carga sobe do chão */ }
     ctx.restore();
-    if (R.sel && R.sel.ref === e) over.push(() => { const c = R.ctx; c.font = '700 ' + Math.round(G.clamp(z * 2.6, 10.5 * dpr(), 13 * dpr())) + 'px "Aurora Manrope",system-ui,sans-serif'; c.textAlign = 'center'; c.lineWidth = Math.max(2, dpr() * 2.2); c.strokeStyle = 'rgba(16,12,24,.9)'; const tx = e.name + ' · ' + G.workLabel(e); c.strokeText(tx, px, py - 31 * z); c.fillStyle = '#fff7e0'; c.fillText(tx, px, py - 31 * z); });
+    if (R.sel && R.sel.ref === e) over.push(() => { const c = R.ctx; c.font = Math.round(15 * dpr()) + 'px "Aurora Pixel",monospace'; c.textAlign = 'center'; c.lineWidth = Math.max(2, dpr() * 2.2); c.strokeStyle = 'rgba(16,12,24,.9)'; const tx = e.name + ' · ' + G.workLabel(e); c.strokeText(tx, px, py - 31 * z); c.fillStyle = '#fff7e0'; c.fillText(tx, px, py - 31 * z); });
     /* tora/pedra voando para a pilha, ou nascendo do chão ao erguer */
     if (w.ph === 'drop' && w.carry && w.t < 0.5) {
       const p = L.pile[w.site], k = w.t / 0.5, sp = itemCv(w.carry), ix = X(lerp(e.x + 0.2, p[0] + 0.4, k)), iy = Y(lerp(e.y - 1.0, p[1] - 0.5, k)) - Math.sin(k * Math.PI) * 5 * z;

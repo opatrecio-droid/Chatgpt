@@ -7,10 +7,10 @@
   const css = document.createElement('style');
   css.textContent = [
     /* 3D.1: pré-requisito na barra da Jornada (no lugar da barrinha de progresso) */
-    '#quest .qpre{display:block;margin-top:3px;font-size:10.5px;font-weight:800;color:var(--gold2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '#quest .qpre{display:block;margin-top:3px;font-size:8px;font-family:var(--fc);font-weight:800;color:var(--gold2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
     '#quest.pre .qn{display:none}',
-    '.prebox{margin:8px 0 2px;padding:8px 10px;border-radius:10px;border:1px solid rgba(226,182,89,.5);background:rgba(226,182,89,.09)}',
-    '.prebox b{color:var(--gold2)}.prebox ol{margin:5px 0 0;padding-left:18px;font-size:12.5px;line-height:1.45}',
+    '.prebox{margin:8px 0 2px;padding:8px 10px;border:var(--u) solid rgba(226,182,89,.5);background:rgba(226,182,89,.09)}',
+    '.prebox b{color:var(--gold2)}.prebox ol{margin:5px 0 0;padding-left:18px;font-size:15px;line-height:1.45}',
     '.prebox .btn{margin-top:8px}',
   ].join('\n');
   document.head.appendChild(css);
@@ -94,44 +94,7 @@
      não é mais cortado. Um botão ▾ no fim da faixa da semana recolhe a fila de heróis (lembrado neste aparelho). Em 412×860 só mudam a
      Jornada (título inteiro) e a faixa da semana. */
   css.textContent += '\n' + [
-    '@media (max-width:859px){',
-    '#quest{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:0 8px;align-items:center;padding:6px 10px}',
-    '#quest .qi{grid-column:1;grid-row:1/span 2}',
-    '#quest .qt{display:contents}',
-    '#quest .qt b{grid-column:2/span 2;grid-row:1;white-space:normal;line-height:1.2;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}',
-    '#quest .bar{grid-column:2;grid-row:2;margin-top:4px}',
-    '#quest .qpre{grid-column:2/span 2;grid-row:2}',
-    '#quest .qn{grid-column:3;grid-row:2;margin-top:4px}',
-    '#nrw .nt{white-space:normal;line-height:1.15;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}',
-    '}',
-    '@media (max-width:380px){',
-    '#quest .qt b{font-size:11.5px}',
-    '#quest{grid-template-columns:minmax(0,1fr) auto}#quest .qi{display:none}',
-    '#quest .qt b,#quest .qpre{grid-column:1/span 2}#quest .bar{grid-column:1}#quest .qn{grid-column:2}',
-    '}',
-    '#hudtog{display:none;margin-left:auto;flex:none;width:28px;height:24px;border-radius:12px;place-items:center;color:var(--gold2);position:relative}',
-    '#hudtog svg{width:14px;height:14px;fill:currentColor;transition:transform .2s}',
-    '#hudtog::after{content:"";position:absolute;inset:-7px -6px}',
-    '#hud.min #hudtog svg{transform:rotate(180deg)}',
-    '@media (max-width:420px){#hudx:has(.sorte.on) .tm{display:none}}',
-    '@media (max-width:859px) and (max-height:720px){',
-    ':root{--navh:50px}#hud.min #roster{display:none}',
-    '#hudtog{display:grid}',
-    '#hud{gap:3px;padding-top:calc(var(--sat) + 5px)}',
-    '.realm{padding:2px 9px 2px 3px}.ring,.ring svg{width:32px;height:32px}.ring b{font-size:13px}',
-    '.ctl button{width:40px}.ctl button.dif{width:46px}',
-    '.chip,.chip.mini{height:26px;font-size:12px}.chip svg{font-size:14px}',
-    '#hudx{min-height:24px}#hudx .wk,#hudx .pwr,#hudx .sorte{height:24px}',
-    '#roster{padding:0}',
-    '.hc{width:40px;height:42px;border-radius:10px}',
-    '.hc .pt{width:34px;height:34px;background-size:34px 34px}',
-    '.hc .rk{min-width:12px;height:12px;font-size:8px;border-radius:4px}',
-    '.hc .hpb{left:3px;right:3px;bottom:3px;height:4px}.hc .lv{bottom:6px;font-size:8.5px}.hc .st{bottom:6px;font-size:9.5px}',
-    '#nav button{height:44px;gap:1px}#nav button svg{font-size:20px}',
-    '#quest,#inspect,#fabs,#fabs-l{bottom:calc(var(--navh) + var(--sab) + 6px)}',
-    '#nrw{bottom:calc(var(--navh) + var(--sab) + 6px + var(--qh,40px) + 4px);height:30px;min-height:0;padding:0 10px!important}#nrw .nv{padding:2px 6px}',
-    '#nrw::after{content:"";position:absolute;left:0;right:0;top:-3px;bottom:-3px}',
-    '}',
+    '#hud.min #roster{display:none}',
   ].join('\n');
   const HM_KEY = 'aurora.hudmin';
   const hmGet = () => { try { return localStorage.getItem(HM_KEY) === '1'; } catch (e) { return false; } };
@@ -140,7 +103,7 @@
   const bdHx = UI.build;
   UI.build = () => {
     bdHx();
-    const row = $('#hudx'); if (row && !$('#hudtog')) row.insertAdjacentHTML('beforeend', '<button id="hudtog" class="glass" data-a="hudtog" title="Recolher os heróis">' + ic('up') + '</button>');
+    const row = $('#hudx'); if (row && !$('#hudtog')) row.insertAdjacentHTML('beforeend', '<button id="hudtog" data-a="hudtog" title="Recolher os heróis">' + ic('up') + '</button>');
     const h = $('#hud'); if (h && hmGet()) { h.classList.add('min'); const b = $('#hudtog'); if (b) b.title = 'Mostrar os heróis'; }
   };
 
@@ -150,22 +113,21 @@
      sozinho quando a vida se recupera, o herói sai da luta ou depois de 12 s. */
   css.textContent += '\n' + [
     '#dng{position:absolute;left:50%;transform:translateX(-50%);top:calc(var(--hudb,200px) + 8px);width:min(92vw,400px);z-index:9;display:flex;flex-direction:column;gap:6px;pointer-events:none}',
-    '.dg{pointer-events:auto;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 6px;border-radius:14px;background:linear-gradient(180deg,#4d1d26,#2b1119);border:1.5px solid #ee6464;box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 14px rgba(238,100,100,.4);animation:dgin .25s ease-out,dgp 1.1s ease-in-out infinite alternate}',
-    '@keyframes dgin{from{opacity:0;transform:translateY(-8px)}}@keyframes dgp{to{box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 22px rgba(238,100,100,.75)}}',
-    '.dg .dgp{flex:none;width:44px;height:44px;border-radius:10px;border:2px solid #ee6464;background:#141a30;display:grid;place-items:center;overflow:hidden}',
+    '.dg{pointer-events:auto;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 6px;background:linear-gradient(#4d1d26 0 28%,#2b1119 28% 100%);border:var(--u) solid #ee6464;box-shadow:none;animation:dgin .25s ease-out,dgp 1.1s ease-in-out infinite alternate}',
+    '@keyframes dgin{from{opacity:0;transform:translateY(-8px)}}@keyframes dgp{to{box-shadow:none}}',
+    '.dg .dgp{flex:none;width:44px;height:44px;border:var(--u) solid #ee6464;background:#1b110c;display:grid;place-items:center;overflow:hidden}',
     '.dg .dgp i{width:40px;height:40px;background-size:40px 40px}',
     '.dg .dgt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}',
-    '.dg .dgt b{font-size:12.5px;color:#ffd0d0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
-    '.dg .dgt small{font-size:11px;color:#ffb3b3;font-weight:700}',
-    '.dg .btn{flex:none;min-height:36px;padding:0 9px;font-size:11.5px}',
+    '.dg .dgt b{font-size:15px;color:#ffd0d0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '.dg .dgt small{font-size:15px;color:#ffb3b3;font-weight:700}',
+    '.dg .btn{flex:none;min-height:36px;padding:0 9px;font-size:15px}',
     '@media (prefers-reduced-motion:reduce){.dg{animation:none}}',
-    '@media (max-width:859px){#app #toasts{top:calc(var(--hudb,200px) + 8px + var(--dgh,0px))}}',
   ].join('\n');
   const dgSet = () => { const b = $('#dng'); document.documentElement.style.setProperty('--dgh', b && b.children.length ? Math.ceil(b.getBoundingClientRect().height + 6) + 'px' : '0px'); };
   const dgAdd = (d) => {
     const box = $('#dng'); if (!box || !G.S) return;
     const h = d.h; if (box.querySelector('[data-id="' + h.id + '"]')) return;
-    while (box.children.length >= 2) box.firstChild.remove();
+    while (box.children.length >= 1) box.firstChild.remove();
     const el = document.createElement('div'); el.className = 'dg'; el.dataset.id = h.id; el._t0 = performance.now();
     el.innerHTML = '<button class="dgp" data-a="hero:' + h.id + '" title="Acompanhar ' + esc(h.name) + '"><i class="px" style="background-image:url(' + UI.portrait(h) + ')"></i></button>' +
       '<span class="dgt"><b>' + esc(h.name) + ' em perigo!</b><small></small></span>' +
@@ -251,10 +213,10 @@
 
   /* Aprimorar +N: chance em destaque, o que acontece numa falha e o Pergaminho de Proteção */
   css.textContent += '\n' + [
-    '.upc{margin:10px 0 2px;padding:9px 11px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.04);text-align:left}',
-    '.upc .upr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;font-size:12.5px}',
-    '.upc .upp{font-family:"Aurora Cinzel",serif;font-size:20px}.upp.good{color:var(--good)}.upp.mid{color:var(--gold2)}.upp.bad{color:var(--bad)}',
-    '.upc .upn{margin:7px 0 0;font-size:11.5px;color:var(--mut);line-height:1.35}',
+    '.upc{margin:10px 0 2px;padding:9px 11px;border:var(--u) solid var(--line2);background:var(--fill2);text-align:left}',
+    '.upc .upr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;font-size:15px}',
+    '.upc .upp{font-family:var(--fh);font-size:20px}.upp.good{color:var(--good)}.upp.mid{color:var(--gold2)}.upp.bad{color:var(--bad)}',
+    '.upc .upn{margin:7px 0 0;font-size:15px;color:var(--mut);line-height:1.35}',
     '.upc .tog{border-bottom:0;padding:8px 0 0}',
   ].join('\n');
   let protOn = true;

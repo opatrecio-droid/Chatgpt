@@ -9,102 +9,91 @@
   /* ---------- estilo ---------- */
   const css = document.createElement('style');
   css.textContent = `
-.ttl{display:inline-flex;align-items:center;gap:4px;max-width:100%;font-family:"Aurora Cinzel",serif;font-size:11.5px;font-weight:700;letter-spacing:.05em;color:var(--gold2);line-height:1.2;vertical-align:middle}
-.ttl svg{font-size:12px;color:var(--gold);flex:none}
+.ttl{display:inline-flex;align-items:center;gap:4px;max-width:100%;font-family:var(--fh);font-size:15px;font-weight:700;letter-spacing:.05em;color:var(--gold2);line-height:1.2;vertical-align:middle}
+.ttl .i{color:var(--gold);flex:none}
 .ttl em{font-style:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.ttl.sm{display:flex;justify-content:center;font-size:10px;letter-spacing:.03em;margin-top:1px}
-.ttl.none{font-family:inherit;font-style:italic;font-weight:700;letter-spacing:0;color:var(--mut);font-size:11px}
-.ttl.none svg{color:var(--mut)}
-button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
+.ttl.sm{display:flex;justify-content:center;font-size:8px;font-family:var(--fc);letter-spacing:.03em;margin-top:1px}
+.ttl.none{font-family:inherit;font-style:italic;font-weight:700;letter-spacing:0;color:var(--mut);font-size:15px}
+.ttl.none .i{color:var(--mut)}
+button.ttl{padding:4px 0 0;text-align:left;font-size:15px}
 .ttl-bn{display:block;margin-top:4px}
 .fe-cur{display:flex;align-items:center;gap:10px}.fe-cur .btn{flex:none}
-.fe-cur .ti{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:21px;color:#1a1408;background:linear-gradient(180deg,#f7dc92,#d8a544);box-shadow:0 0 14px rgba(247,220,146,.35)}
-.fe-cur.none .ti{color:var(--mut);background:rgba(255,255,255,.07);box-shadow:none}
-.fe-cur h3{font-family:"Aurora Cinzel",serif;letter-spacing:.04em;font-size:15px}
-.fe-cur .bn{color:var(--good);font-weight:800;font-size:11.5px;margin-top:2px}
+.fe-cur .ti{flex:none;width:40px;height:40px;display:grid;place-items:center;font-size:20px;color:#1a1408;background:linear-gradient(#f7dc92 0 28%,#d8a544 28% 100%);box-shadow:none}
+.fe-cur.none .ti{color:var(--mut);background:var(--fill2);box-shadow:none}
+.fe-cur h3{font-family:var(--fh);letter-spacing:.04em;font-size:15px}
+.fe-cur .bn{color:var(--good);font-weight:800;font-size:15px;margin-top:2px}
 .fe-g .stat{padding:6px 9px}.fe-g .stat b{font-size:15px;display:block;margin-top:1px}
-.fe-g .stat.hi{box-shadow:inset 0 0 0 1px rgba(226,182,89,.4);background:rgba(226,182,89,.09)}
-.tll{position:relative;margin:4px 0 0 7px;padding-left:15px;border-left:2px solid var(--line)}
-.tll .e{position:relative;padding:4px 0 6px;font-size:12.5px;line-height:1.35;color:#dfe4f2}
-.tll .e::before{content:"";position:absolute;left:-21px;top:9px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(226,182,89,.18)}
-.tll .e:first-child::before{background:#fff3c4;box-shadow:0 0 0 3px rgba(247,220,146,.35),0 0 10px rgba(247,220,146,.7)}
+.fe-g .stat.hi{box-shadow:inset 0 0 0 var(--u) rgba(226,182,89,.4);background:rgba(226,182,89,.09)}
+.tll{position:relative;margin:4px 0 0 7px;padding-left:15px;border-left:var(--u) solid var(--line)}
+.tll .e{position:relative;padding:4px 0 6px;font-size:15px;line-height:1.35;color:#dfe4f2}
+.tll .e::before{content:"";position:absolute;left:-21px;top:9px;width:9px;height:9px;background:var(--gold);box-shadow:0 0 0 3px rgba(226,182,89,.18)}
+.tll .e:first-child::before{background:#fff3c4;box-shadow:0 0 0 3px rgba(247,220,146,.35)}
 .tll .e b{color:var(--gold);font-weight:800;margin-right:3px;white-space:nowrap}
 .tll .e.t b{color:#fff3c4}
-.tt{display:flex;align-items:center;gap:10px;padding:9px 10px;margin-bottom:6px;border-radius:13px;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02))}
-.tt .ti{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;background:rgba(255,255,255,.07);color:var(--mut)}
-.tt.has .ti{background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408}
-.tt.on{border-color:var(--gold);background:linear-gradient(180deg,rgba(226,182,89,.16),rgba(226,182,89,.04));box-shadow:0 0 14px rgba(226,182,89,.18)}
+.tt{display:flex;align-items:center;gap:10px;padding:9px 10px;margin-bottom:6px;border:var(--u) solid var(--line2);background:var(--fill2)}
+.tt .ti{flex:none;width:34px;height:34px;display:grid;place-items:center;font-size:16px;background:var(--fill2);color:var(--mut)}
+.tt.has .ti{background:linear-gradient(#f7dc92 0 28%,#d8a544 28% 100%);color:#1a1408}
+.tt.on{border-color:var(--gold);background:rgba(226,182,89,.16);box-shadow:none}
 .tt .gr{flex:1;min-width:0}
-.tt b{display:block;font-family:"Aurora Cinzel",serif;font-size:13px;letter-spacing:.03em;line-height:1.2}
-.tt .bn{display:block;color:var(--good);font-weight:800;font-size:11px;margin-top:1px}
+.tt b{display:block;font-family:var(--fh);font-size:15px;letter-spacing:.03em;line-height:1.2}
+.tt .bn{display:block;color:var(--good);font-weight:800;font-size:15px;margin-top:1px}
 .tt:not(.has) .bn{color:#7e8aa6}
-.tt p{margin:2px 0 0;font-size:11.5px;color:var(--mut);line-height:1.3}
+.tt p{margin:2px 0 0;font-size:15px;color:var(--mut);line-height:1.3}
 .tt .bar{height:4px;margin-top:5px}
-.tt .pr{display:flex;justify-content:space-between;gap:6px;font-size:10.5px;font-weight:800;color:var(--mut);margin-top:3px}
+.tt .pr{display:flex;justify-content:space-between;gap:6px;font-size:8px;font-family:var(--fc);font-weight:800;color:var(--mut);margin-top:3px}
 .tt .btn{flex:none;min-width:68px;min-height:36px}
 .fe-more{width:100%;margin-top:2px}
-.hod{position:relative;overflow:hidden;border-color:var(--gold);background:linear-gradient(180deg,rgba(226,182,89,.2),rgba(226,182,89,.04) 70%)}
+.hod{position:relative;overflow:hidden;border-color:var(--gold);background:rgba(226,182,89,.2)}
 .hod::after{content:"";position:absolute;top:0;bottom:0;width:36%;left:-50%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);animation:hodsh 4.5s ease-in-out infinite;pointer-events:none}
 @keyframes hodsh{0%,60%{left:-50%}100%{left:130%}}
 .hod .row{align-items:center;gap:10px}
-.hod .hp{flex:none;width:58px;height:58px;border-radius:14px;border:2px solid var(--gold);background-color:rgba(0,0,0,.3);background-size:50px 50px;box-shadow:0 0 14px rgba(226,182,89,.4)}
-.hod .k{font-family:"Aurora Cinzel",serif;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.hod .hp{flex:none;width:58px;height:58px;border:var(--u) solid var(--gold);background-color:var(--inset);background-size:50px 50px;box-shadow:none}
+.hod .k{font-family:var(--fh);font-size:8px;font-family:var(--fc);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
 .hod h3{font-size:16px;margin-top:1px}
-.hod .why{color:#e8ecf8;font-size:12.5px;margin-top:8px}
-.hod .q{margin-top:6px;padding:6px 10px;border-left:3px solid var(--gold);background:rgba(0,0,0,.2);border-radius:0 10px 10px 0;color:#f3e6bd;font-style:italic;font-size:12.5px;line-height:1.4}
-.hod .st{font-size:11px;color:var(--mut);margin-top:6px}
-.toast.hodt{align-items:flex-start;animation:tin .25s ease-out,tout .4s ease-in 5.2s forwards}
-.toast.hodt .hodp{width:38px;height:38px;border-radius:10px;border:2px solid var(--gold);background-color:rgba(0,0,0,.3);background-size:32px 32px;flex:none}
-.toast.hodt span{display:block;line-height:1.3}.toast.hodt small{color:#cfd5e4;font-weight:700;font-size:11.5px}
-.toast.hodt b{color:var(--gold2)}
+.hod .why{color:#e8ecf8;font-size:15px;margin-top:8px}
+.hod .q{margin-top:6px;padding:6px 10px;border-left:calc(var(--u)*2) solid var(--gold);background:var(--inset);color:#f3e6bd;font-style:italic;font-size:15px;line-height:1.4}
+.hod .st{font-size:15px;color:var(--mut);margin-top:6px}
 /* Poder do Reino no HUD */
-@media (max-height:640px) and (max-width:859px){#toasts{top:calc(var(--sat) + 206px)}}
-.pwr{position:relative;display:inline-flex;align-items:center;gap:5px;flex:none;height:26px;padding:0 9px 0 7px;border-radius:13px;font-size:12px;font-weight:900;color:#ffe9a0;border-color:rgba(226,182,89,.5);overflow:visible}
-.pwr svg{font-size:13px;color:var(--gold)}
-.pwr b{font-variant-numeric:tabular-nums;letter-spacing:.01em;min-width:2ch}
-.pwr .pb{position:absolute;left:9px;right:9px;bottom:2px;height:2px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
-.pwr .pb i{display:block;height:100%;width:0;background:linear-gradient(90deg,#d8a544,#fff3c4);transition:width .4s}
-.pwr::after{content:"";position:absolute;inset:-7px -3px}
 .pwr.up{animation:pwup .9s ease-out}
 .pwr.big{animation:pwbig 1.8s ease-out}
-@keyframes pwup{0%{box-shadow:0 0 0 rgba(255,233,160,0);color:#fff}25%{box-shadow:0 0 16px rgba(255,233,160,.85);color:#fff;transform:scale(1.07)}100%{box-shadow:0 6px 18px rgba(0,0,0,.35)}}
-@keyframes pwbig{0%{transform:scale(1)}12%{transform:scale(1.28);box-shadow:0 0 26px rgba(255,233,160,1)}30%{transform:scale(1.1);box-shadow:0 0 22px rgba(255,233,160,.8)}100%{transform:scale(1);box-shadow:0 6px 18px rgba(0,0,0,.35)}}
-.pwd{position:absolute;left:50%;top:100%;transform:translateX(-50%);font-size:11px;font-weight:900;color:#fff3c4;text-shadow:0 0 8px rgba(255,211,90,.9),0 1px 2px #000;pointer-events:none;opacity:0;white-space:nowrap}
+@keyframes pwup{0%{box-shadow:0 0 0 rgba(255,233,160,0);color:#fff}25%{box-shadow:none;color:#fff;transform:scale(1.07)}100%{box-shadow:none}}
+@keyframes pwbig{0%{transform:scale(1)}12%{transform:scale(1.28);box-shadow:none}30%{transform:scale(1.1);box-shadow:none}100%{transform:scale(1);box-shadow:none}}
+.pwd{position:absolute;left:50%;top:100%;transform:translateX(-50%);font-size:15px;font-weight:900;color:#fff3c4;text-shadow:var(--u) var(--u) 0 var(--ol);pointer-events:none;opacity:0;white-space:nowrap}
 .pwd.go{animation:pwd 1.3s ease-out}
 @keyframes pwd{0%{opacity:0;transform:translate(-50%,-4px)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,14px)}}
 /* tela de recordes */
 .pw-card{text-align:center;padding-bottom:12px}
-.pw-card .k{font-family:"Aurora Cinzel",serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
-.pw-card .v{font-family:"Aurora Cinzel",serif;font-size:36px;font-weight:700;line-height:1.1;margin:2px 0 6px;background:linear-gradient(180deg,#fff7d0,#e2b659 70%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 12px rgba(226,182,89,.4))}
+.pw-card .k{font-family:var(--fh);font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.pw-card .v{font-family:var(--fh);font-size:36px;font-weight:700;line-height:1.1;margin:2px 0 6px;color:var(--brass2);}
 .pw-card .pp{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
 .pw-card .nx{margin-top:10px;text-align:left}
-.pw-card .nx .r{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;margin-bottom:4px}
+.pw-card .nx .r{display:flex;justify-content:space-between;gap:8px;font-size:15px;font-weight:800;margin-bottom:4px}
 .pw-card .nx .r span{color:var(--mut)}
-.rc-row{display:flex;align-items:center;gap:10px;padding:9px 10px;margin-bottom:6px;border-radius:13px;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02))}
-.rc-row .ti{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408}
-.rc-row.none .ti{background:rgba(255,255,255,.07);color:var(--mut)}
+.rc-row{display:flex;align-items:center;gap:10px;padding:9px 10px;margin-bottom:6px;border:var(--u) solid var(--line2);background:var(--fill2)}
+.rc-row .ti{flex:none;width:34px;height:34px;display:grid;place-items:center;font-size:16px;background:linear-gradient(#f7dc92 0 28%,#d8a544 28% 100%);color:#1a1408}
+.rc-row.none .ti{background:var(--fill2);color:var(--mut)}
 .rc-row .gr{flex:1;min-width:0}
-.rc-row small{display:block;color:var(--mut);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.rc-row b{display:block;font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
-.rc-row .wh{flex:none;text-align:right;font-size:11px;color:var(--mut);font-weight:700;max-width:38%;line-height:1.3}
+.rc-row small{display:block;color:var(--mut);font-size:8px;font-family:var(--fc);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.rc-row b{display:block;font-size:15px;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
+.rc-row .wh{flex:none;text-align:right;font-size:15px;color:var(--mut);font-weight:700;max-width:38%;line-height:1.3}
 .rc-row .wh em{display:block;font-style:normal;color:#cfd5e4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mk{display:flex;align-items:center;gap:9px;padding:7px 10px;margin-bottom:5px;border-radius:11px;background:rgba(255,255,255,.04);font-size:12.5px}
-.mk .ck{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408}
-.mk.nx .ck{background:rgba(255,255,255,.08);color:var(--mut)}
+.mk{display:flex;align-items:center;gap:9px;padding:7px 10px;margin-bottom:5px;background:var(--fill2);font-size:15px}
+.mk .ck{flex:none;width:22px;height:22px;display:grid;place-items:center;font-size:15px;background:linear-gradient(#f7dc92 0 28%,#d8a544 28% 100%);color:#1a1408}
+.mk.nx .ck{background:var(--fill2);color:var(--mut)}
 .mk b{flex:1;font-variant-numeric:tabular-nums}
-.mk small{color:var(--mut);font-weight:700;font-size:11px}
+.mk small{color:var(--mut);font-weight:700;font-size:15px}
 .mk .costs{margin:0}
 /* cerimônia do marco */
-#pflash{position:absolute;inset:0;z-index:70;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 40%,rgba(255,247,208,.95) 0%,rgba(226,182,89,.55) 34%,transparent 78%)}
+#pflash{background:rgba(226,182,89,.55);position:absolute;inset:0;z-index:70;pointer-events:none;opacity:0;}
 #pflash.on{animation:pfl 1.2s ease-out}
 @keyframes pfl{0%{opacity:0}12%{opacity:.85}100%{opacity:0}}
 .pm{text-align:center;position:relative}
-.pm .crown{display:grid;place-items:center;margin:6px auto 0;width:84px;height:84px;font-size:54px;color:#fff3c4;filter:drop-shadow(0 0 16px rgba(255,211,90,.9));animation:pmc 1.4s ease-in-out infinite alternate}
+.pm .crown{display:grid;place-items:center;margin:6px auto 0;width:84px;height:84px;font-size:56px;color:#fff3c4;animation:pmc 1.4s ease-in-out infinite alternate}
 @keyframes pmc{from{transform:scale(.94) rotate(-2deg)}to{transform:scale(1.08) rotate(2deg)}}
-.pm .num{font-family:"Aurora Cinzel",serif;font-size:42px;font-weight:700;line-height:1.1;background:linear-gradient(180deg,#fff7d0,#e2b659 70%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(226,182,89,.55));font-variant-numeric:tabular-nums}
+.pm .num{font-family:var(--fh);font-size:40px;font-weight:700;line-height:1.1;color:var(--brass2);font-variant-numeric:tabular-nums}
 .pm .costs{justify-content:center;margin:10px 0 4px}
-.pm .nx{color:var(--mut);font-size:11.5px;margin-top:8px}
-.pm .sp{position:absolute;left:50%;top:92px;width:var(--s);height:var(--s);margin:-2px;border-radius:50%;background:#ffe9a0;box-shadow:0 0 9px #ffd35a;opacity:0;pointer-events:none;animation:pms 1.7s ease-out var(--d) forwards}
+.pm .nx{color:var(--mut);font-size:15px;margin-top:8px}
+.pm .sp{position:absolute;left:50%;top:92px;width:var(--s);height:var(--s);margin:-2px;background:#ffe9a0;box-shadow:none;opacity:0;pointer-events:none;animation:pms 1.7s ease-out var(--d) forwards}
 @keyframes pms{0%{opacity:1;transform:translate(0,0) scale(1.2)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
 `;
   document.head.appendChild(css);
@@ -131,8 +120,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const V = UI.vw(), f = G.feitos(x), cur = G.titleOf(x), n = G.TITLES.length, have = G.titleCount(x);
     let h = '';
     /* título exibido */
-    h += '<div class="card hl"><div class="fe-cur' + (cur ? '' : ' none') + '"><span class="ti">' + ic('trophy') + '</span><div class="gr"><small class="mut" style="font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">Título exibido</small>' +
-      (cur ? '<h3>' + esc(cur.name) + '</h3><div class="bn">' + bonusTxt(cur.p) + '</div>' : '<h3 style="color:var(--mut)">Sem título</h3><div class="mut" style="font-size:11.5px">' + (have ? 'Escolha um dos ' + have + ' títulos abaixo.' : 'Os feitos de ' + esc(x.name) + ' viram títulos.') + '</div>') +
+    h += '<div class="card hl"><div class="fe-cur' + (cur ? '' : ' none') + '"><span class="ti">' + ic('trophy') + '</span><div class="gr"><small class="mut" style="font-size:8px;font-family:var(--fc);font-weight:800;letter-spacing:.14em;text-transform:uppercase">Título exibido</small>' +
+      (cur ? '<h3>' + esc(cur.name) + '</h3><div class="bn">' + bonusTxt(cur.p) + '</div>' : '<h3 style="color:var(--mut)">Sem título</h3><div class="mut" style="font-size:15px">' + (have ? 'Escolha um dos ' + have + ' títulos abaixo.' : 'Os feitos de ' + esc(x.name) + ' viram títulos.') + '</div>') +
       '</div>' + (cur ? '<button class="btn sm" data-a="ttl:' + x.id + ':">Tirar</button>' : '') + '</div></div>';
     /* números */
     h += '<div class="sec">Livro de Feitos</div><div class="grid2 fe-g">' +
@@ -162,7 +151,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
         (t.manual ? '' : '<div class="bar"><i ' + V.W(() => G.titleProgress(x, t).pct) + '></i></div><div class="pr"><span>' + V.T(() => G.fmt(G.titleProgress(x, t).cur) + ' / ' + G.fmt(t.need)) + '</span></div>') + '</div></div>';
     }
     if (locked.length > 4) h += '<button class="btn sm fe-more" data-a="ttlall">' + (showAll ? 'Mostrar só os mais próximos' : 'Ver todos os títulos (' + (locked.length - 4) + ' a mais)') + '</button>';
-    h += '<p class="mut" style="font-size:11.5px;text-align:center;margin-top:8px">Só o título exibido dá bônus. Toque em Exibir para trocar quando quiser.</p>';
+    h += '<p class="mut" style="font-size:15px;text-align:center;margin-top:8px">Só o título exibido dá bônus. Toque em Exibir para trocar quando quiser.</p>';
     return h;
   };
   Object.assign(UI.ACT, {
@@ -198,11 +187,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   }
   /* aviso com retrato: entra na mesma pilha dos outros avisos, nunca como janela */
   G.on('hod', (d) => {
-    const box = $('#toasts'); if (!box) return;
-    while (box.children.length >= 3) box.firstChild.remove();
-    const t = document.createElement('div'); t.className = 'toast epic hodt';
-    t.innerHTML = '<i class="hodp px" style="background-image:url(' + A.portrait(A.heroLook(d.lk)) + ')"></i><span><b>Herói do Dia: ' + esc(d.name) + '</b><br><small>' + esc(d.name) + ' ' + esc(d.txt) + '. Ânimo cheio e experiência de prêmio.</small></span>';
-    box.appendChild(t); setTimeout(() => t.remove(), 5700); G.sfx('heroi');
+    UI.toastHtml('<i class="hodp px" style="background-image:url(' + A.portrait(A.heroLook(d.lk)) + ')"></i><span><b>Herói do Dia: ' + esc(d.name) + '</b><br><small>' + esc(d.name) + ' ' + esc(d.txt) + '. Ânimo cheio e experiência de prêmio.</small></span>', 'epic hodt', 5700, 'Herói do Dia: ' + d.name);
+    G.sfx('heroi');
   });
 
   /* ---------- Poder do Reino no HUD ---------- */
@@ -259,7 +245,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const done = pw.at.slice(-5).reverse();
     for (let i = nx.i; i < nx.i + 3; i++) h += '<div class="mk nx"><span class="ck">' + ic('lock') + '</span><b>' + G.fmtFull(G.powerMark(i)) + '</b>' + rw(G.powerPrize(i)).replace('margin-top:4px', 'margin-top:0') + '</div>';
     for (const [i, d] of done) h += '<div class="mk"><span class="ck">' + ic('check') + '</span><b>' + G.fmtFull(G.powerMark(i)) + '</b><small>Dia ' + d + '</small></div>';
-    if (pw.back) h += '<p class="mut" style="font-size:11.5px;text-align:center;margin-top:6px">' + pw.back + (pw.back === 1 ? ' marco já estava alcançado' : ' marcos já estavam alcançados') + ' quando o Poder do Reino foi criado.</p>';
+    if (pw.back) h += '<p class="mut" style="font-size:15px;text-align:center;margin-top:6px">' + pw.back + (pw.back === 1 ? ' marco já estava alcançado' : ' marcos já estavam alcançados') + ' quando o Poder do Reino foi criado.</p>';
     return h;
   };
   const M0 = UI.SHEETS && UI.SHEETS.mais;

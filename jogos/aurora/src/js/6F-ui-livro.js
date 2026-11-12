@@ -186,19 +186,19 @@
   /* ---------- estilo ---------- */
   const css = document.createElement('style');
   css.textContent = [
-    '.sh-head .hq{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;border:1.5px solid rgba(226,182,89,.5);color:var(--gold2);font-family:"Aurora Cinzel",serif;font-weight:700;font-size:15px;line-height:1;background:rgba(226,182,89,.08)}',
+    '.sh-head .hq{width:32px;height:32px;flex:none;display:grid;place-items:center;border:var(--u) solid rgba(226,182,89,.5);color:var(--gold2);font-family:var(--fh);font-weight:700;font-size:15px;line-height:1;background:rgba(226,182,89,.08)}',
     '.sh-head .hq::after{content:"";position:absolute;inset:-4px}.sh-head .hq{position:relative}',
     '.bkh{display:flex;align-items:center;gap:10px;margin:8px 0 10px}',
-    '.bkh .pt{width:44px;height:44px;border-radius:12px;background-color:rgba(255,255,255,.06);background-size:44px 44px;border:1px solid var(--line);flex:none}',
+    '.bkh .pt{width:44px;height:44px;background-color:var(--fill2);background-size:44px 44px;border:var(--u) solid var(--line);flex:none}',
     '.bkh h2{margin:0;font-size:20px;line-height:1.15}',
-    '.bks{margin:0 0 9px}.bks b{display:block;font-family:"Aurora Cinzel",serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}',
-    '.bks p{font-size:13.5px;line-height:1.45;color:var(--text)}',
-    '.bkt{margin:10px 0 2px;padding:10px 12px;border-radius:12px;border:1px solid rgba(226,182,89,.4);background:rgba(226,182,89,.1)}',
-    '.bkt b{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);margin-bottom:3px}.bkt p{font-size:13px;line-height:1.45;color:var(--gold2)}',
-    '.bkr{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;margin:0 0 6px;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--line2);text-align:left}',
-    '.bkr svg.i{font-size:20px;color:var(--gold2)}.bkr .gr{flex:1;min-width:0}.bkr b{display:block;font-size:13.5px}.bkr small{display:block;font-size:11px;color:var(--mut)}',
-    '.bkr.lk{opacity:.6;border-style:dashed}.bkr.lk svg.i{color:var(--mut)}.bkr.lk b{letter-spacing:.25em;color:var(--mut)}',
-    '.bkr::after{content:"";flex:none;width:7px;height:7px;border-right:2px solid var(--mut);border-top:2px solid var(--mut);transform:rotate(45deg)}.bkr.lk::after{display:none}',
+    '.bks{margin:0 0 9px}.bks b{display:block;font-family:var(--fh);font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}',
+    '.bks p{font-size:15px;line-height:1.45;color:var(--text)}',
+    '.bkt{margin:10px 0 2px;padding:10px 12px;border:var(--u) solid rgba(226,182,89,.4);background:rgba(226,182,89,.1)}',
+    '.bkt b{display:block;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);margin-bottom:3px}.bkt p{font-size:15px;line-height:1.45;color:var(--gold2)}',
+    '.bkr{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;margin:0 0 6px;padding:6px 12px;background:var(--fill2);border:var(--u) solid var(--line2);text-align:left}',
+    '.bkr .i{color:var(--gold2)}.bkr .gr{flex:1;min-width:0}.bkr b{display:block;font-size:15px}.bkr small{display:block;font-size:15px;color:var(--mut)}',
+    '.bkr.lk{opacity:.6;border-style:dashed}.bkr.lk .i{color:var(--mut)}.bkr.lk b{letter-spacing:.25em;color:var(--mut)}',
+    '.bkr::after{content:"";flex:none;width:7px;height:7px;border-right:var(--u) solid var(--mut);border-top:var(--u) solid var(--mut);transform:rotate(45deg)}.bkr.lk::after{display:none}',
   ].join('\n');
   document.head.appendChild(css);
 
@@ -226,8 +226,8 @@
         else h += '<div class="bkr lk">' + ic('lock') + '<span class="gr"><b>???</b><small>Abre: ' + esc(reqOf(id)) + '</small></span></div>';
       }
     }
-    if (bare) return '<p class="mut" style="font-size:12px;margin:2px 0 0">' + n + ' de ' + tot + ' páginas abertas. As ??? abrem conforme o reino cresce.</p>' + h;
-    return '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:22px;color:var(--gold2)">' + ic('book') + '</span><div class="gr"><h3>Livro do Reino <small>' + n + ' de ' + tot + ' páginas</small></h3><p>A ajuda da Rosa, uma página por sistema. Toque numa página para ler; as ??? abrem conforme o reino cresce.</p></div></div></div>' + h;
+    if (bare) return '<p class="mut" style="font-size:15px;margin:2px 0 0">' + n + ' de ' + tot + ' páginas abertas. As ??? abrem conforme o reino cresce.</p>' + h;
+    return '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px;color:var(--gold2)">' + ic('book') + '</span><div class="gr"><h3>Livro do Reino <small>' + n + ' de ' + tot + ' páginas</small></h3><p>A ajuda da Rosa, uma página por sistema. Toque numa página para ler; as ??? abrem conforme o reino cresce.</p></div></div></div>' + h;
   };
   UI.bookIndex = () => UI.modal('<div class="eyebrow">Rosa, escrivã da Cidadela</div><h2>Livro do Reino</h2><div style="margin-top:8px">' + indexHtml(true) + '</div><div class="acts"><button class="btn pri" data-a="mclose">Fechar</button></div>');
 

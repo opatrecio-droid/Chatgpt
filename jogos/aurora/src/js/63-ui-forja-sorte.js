@@ -8,19 +8,19 @@
   const css = document.createElement('style');
   css.textContent = [
     '.insl{display:flex;flex-direction:column;gap:4px;margin-top:8px}',
-    '.ins{position:relative;display:flex;align-items:center;gap:7px;min-height:26px;padding:3px 8px;border-radius:9px;background:rgba(255,255,255,.05);border-left:3px solid var(--qc);font-size:11.5px;line-height:1.25;overflow:hidden}',
-    '.ins .pp{flex:none;font-size:7.5px;letter-spacing:1px;color:var(--qc);white-space:nowrap}',
+    '.ins{position:relative;display:flex;align-items:center;gap:7px;min-height:26px;padding:3px 8px;background:var(--fill2);border-left:calc(var(--u)*2) solid var(--qc);font-size:15px;line-height:1.25;overflow:hidden}',
+    '.ins .pp{flex:none;font-size:8px;font-family:var(--fc);letter-spacing:1px;color:var(--qc);white-space:nowrap}',
     '.ins b{flex:none;color:var(--qc);font-weight:800;white-space:nowrap}',
     '.ins em{font-style:normal;color:#cfd5e4;min-width:0}',
-    '.ins.q5{background:linear-gradient(90deg,rgba(255,211,90,.22),rgba(255,211,90,.06));box-shadow:0 0 12px rgba(255,211,90,.22),inset 0 0 0 1px rgba(255,211,90,.42)}',
-    '.ins.q5 b{text-shadow:0 0 8px rgba(255,211,90,.75)}',
+    '.ins.q5{background:rgba(255,211,90,.22);box-shadow:inset 0 0 0 var(--u) rgba(255,211,90,.42)}',
+    '.ins.q5 b{text-shadow:var(--u) var(--u) 0 var(--ol);}',
     '.ins.q5::after{content:"";position:absolute;top:0;bottom:0;width:38%;left:-45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.34),transparent);animation:insh 2.8s ease-in-out infinite}',
     '@keyframes insh{0%,55%{left:-45%}100%{left:120%}}',
-    '.ins.none{border-left-color:#556;color:var(--mut);font-style:italic;background:rgba(255,255,255,.03)}',
+    '.ins.none{border-left-color:#556;color:var(--mut);font-style:italic;background:var(--fill2)}',
     '.insb{display:flex;justify-content:flex-end;margin-top:6px}',
     '.hins{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}',
     '.hins .pill b{color:var(--gold2)}',
-    '#rflash{position:absolute;inset:0;z-index:70;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 44%,rgba(255,255,255,.95) 0%,var(--fc,#fff) 32%,transparent 80%)}',
+    '#rflash{background:var(--fc,#fff);position:absolute;inset:0;z-index:70;pointer-events:none;opacity:0;}',
     '#rflash.on{animation:rfl .95s ease-out}#rflash.on.big{animation:rflb 1.5s ease-out}',
     '@keyframes rfl{0%{opacity:0}10%{opacity:.8}100%{opacity:0}}@keyframes rflb{0%{opacity:0}8%{opacity:1}30%{opacity:.7}100%{opacity:0}}',
     '.mbox.rcbox{background:none;border:0;box-shadow:none;padding:0;overflow:visible;width:min(100%,334px)}',
@@ -30,45 +30,45 @@
     '@keyframes rcwob{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}',
     '.rc-flip{position:relative;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transform:rotateY(180deg);transition:transform .95s cubic-bezier(.3,1.2,.4,1);cursor:pointer}',
     '.rc.flipped .rc-flip{transform:rotateY(0)}',
-    '.rc-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;border:2px solid var(--rc);background:linear-gradient(180deg,#252f58,#10152a);box-shadow:0 0 30px var(--rcg),0 18px 50px rgba(0,0,0,.6)}',
+    '.rc-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--u) solid var(--rc);background:linear-gradient(#3d2618 0 28%,#1b110c 28% 100%);box-shadow:none}',
     '.rc-front{position:relative;padding:18px 14px 16px;text-align:center}',
-    '.rc-back{position:absolute;inset:0;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;background:radial-gradient(circle at 50% 46%,var(--rcg),transparent 62%),repeating-conic-gradient(from 0deg at 50% 46%,rgba(255,255,255,.07) 0 9deg,transparent 9deg 18deg),linear-gradient(180deg,#252f58,#10152a)}',
-    '.rc-back b{font-size:74px;line-height:1;color:var(--rc);text-shadow:0 0 22px var(--rc),0 0 50px var(--rc);animation:rcpulse 1.1s ease-in-out infinite alternate}',
-    '.rc-back span{font-family:"Aurora Cinzel",serif;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2);opacity:.9}',
+    '.rc-back{background:#2c2040;position:absolute;inset:0;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;,repeating-conic-gradient(from 0deg at 50% 46%,rgba(255,255,255,.07) 0 9deg,transparent 9deg 18deg),linear-gradient(#3d2618 0 28%,#1b110c 28% 100%)}',
+    '.rc-back b{font-size:72px;line-height:1;color:var(--rc);text-shadow:var(--u) var(--u) 0 var(--ol);animation:rcpulse 1.1s ease-in-out infinite alternate}',
+    '.rc-back span{font-family:var(--fh);font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2);opacity:.9}',
     '@keyframes rcpulse{from{transform:scale(.9);opacity:.75}to{transform:scale(1.08);opacity:1}}',
-    '.rc-rar{font-family:"Aurora Cinzel",serif;font-weight:700;letter-spacing:.3em;font-size:13px;color:var(--rc);text-shadow:0 0 12px var(--rc)}',
-    '.rc.big .rc-rar{font-size:27px;letter-spacing:.14em;text-shadow:0 0 14px var(--rc),0 0 34px var(--rc);animation:rcpop .7s cubic-bezier(.2,1.5,.4,1) both}',
+    '.rc-rar{font-family:var(--fh);font-weight:700;letter-spacing:.3em;font-size:15px;color:var(--rc);text-shadow:var(--u) var(--u) 0 var(--ol);}',
+    '.rc.big .rc-rar{font-size:24px;letter-spacing:.14em;text-shadow:var(--u) var(--u) 0 var(--ol);animation:rcpop .7s cubic-bezier(.2,1.5,.4,1) both}',
     '@keyframes rcpop{from{transform:scale(.4);opacity:0}}',
-    '.rc-ico{display:flex;justify-content:center;margin:12px 0 6px;filter:drop-shadow(0 0 14px var(--rc))}',
-    '.rc-name{font-family:"Aurora Cinzel",serif;font-size:19px;letter-spacing:.04em;margin-top:2px}',
-    '.rc-tag{font-size:11.5px;font-style:italic;color:var(--mut);margin:3px 6px 0}',
-    '.rc-line{font-size:12.5px;color:#cfd5e4;margin:8px 0 0}',
+    '.rc-ico{display:flex;justify-content:center;margin:12px 0 6px;}',
+    '.rc-name{font-family:var(--fh);font-size:16px;letter-spacing:.04em;margin-top:2px}',
+    '.rc-tag{font-size:15px;font-style:italic;color:var(--mut);margin:3px 6px 0}',
+    '.rc-line{font-size:15px;color:#cfd5e4;margin:8px 0 0}',
     '.rc-front .insl{text-align:left;margin-top:12px}',
     '.rc-acts{display:flex;gap:8px;margin-top:14px}.rc-acts .btn{flex:1}',
-    '.rc-q{text-align:center;color:var(--mut);font-size:11.5px;margin-top:8px}',
-    '.rp{position:absolute;left:50%;top:46%;width:var(--s);height:var(--s);margin:-2px;border-radius:50%;background:var(--rc);box-shadow:0 0 9px var(--rc);opacity:0;pointer-events:none}',
+    '.rc-q{text-align:center;color:var(--mut);font-size:15px;margin-top:8px}',
+    '.rp{position:absolute;left:50%;top:46%;width:var(--s);height:var(--s);margin:-2px;background:var(--rc);box-shadow:none;opacity:0;pointer-events:none}',
     '.rc.go .rp{animation:rpb 1.6s ease-out var(--d) forwards}',
     '@keyframes rpb{0%{opacity:1;transform:translate(0,0) scale(1.2)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}',
-    '.gar{margin:-2px 0 9px;padding:8px 11px 9px;border-radius:12px;background:rgba(0,0,0,.22);border:1px dashed var(--line)}',
-    '.gar .gh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.gar .gh b{font-family:"Aurora Cinzel",serif;color:var(--gold2);font-size:13px;letter-spacing:.04em}.gar .gh span{font-size:11.5px;color:var(--mut)}',
-    '.gar .gp{display:flex;gap:3px;margin-top:6px}.gar .gp i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}.gar .gp i.on{background:linear-gradient(90deg,#b98ff5,#e6d0ff)}',
-    '.gar.rdy{border:1px solid #b98ff5;box-shadow:0 0 16px rgba(185,143,245,.45);animation:garp 1.2s ease-in-out infinite alternate}.gar.rdy .gh span{color:#e6d0ff;font-weight:800}.gar.rdy .gp i{background:linear-gradient(90deg,#f7dc92,#fff3c4)}',
-    '@keyframes garp{from{box-shadow:0 0 8px rgba(185,143,245,.3)}to{box-shadow:0 0 20px rgba(185,143,245,.7)}}',
-    '.gnote{margin:8px 0 0;padding:7px 10px;border-radius:11px;text-align:center;font-size:12.5px;font-weight:800;color:#e6d0ff;background:rgba(185,143,245,.16);border:1px solid #b98ff5}',
+    '.gar{margin:-2px 0 9px;padding:8px 11px 9px;background:var(--inset);border:var(--u) dotted var(--line)}',
+    '.gar .gh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.gar .gh b{font-family:var(--fh);color:var(--gold2);font-size:15px;letter-spacing:.04em}.gar .gh span{font-size:15px;color:var(--mut)}',
+    '.gar .gp{display:flex;gap:3px;margin-top:6px}.gar .gp i{flex:1;height:6px;background:var(--fill2)}.gar .gp i.on{background:linear-gradient(#e6d0ff 0 28%,#b98ff5 28% 100%)}',
+    '.gar.rdy{border:var(--u) solid #b98ff5;box-shadow:none;animation:garp 1.2s ease-in-out infinite alternate}.gar.rdy .gh span{color:#e6d0ff;font-weight:800}.gar.rdy .gp i{background:linear-gradient(#fff3c4 0 28%,#f7dc92 28% 100%)}',
+    '@keyframes garp{from{box-shadow:none}to{box-shadow:none}}',
+    '.gnote{margin:8px 0 0;padding:7px 10px;text-align:center;font-size:15px;font-weight:800;color:#e6d0ff;background:rgba(185,143,245,.16);border:var(--u) solid #b98ff5}',
     '.rfgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}',
-    '.rfcol{min-width:0;border-radius:12px;padding:8px 7px 7px;background:rgba(0,0,0,.22);border:1px solid var(--line2)}',
-    '.rfcol h4{margin:0 0 6px;font-family:"Aurora Cinzel",serif;font-size:11px;letter-spacing:.2em;text-align:center;color:var(--mut)}',
-    '.rfcol.new{border-color:var(--line);background:linear-gradient(180deg,rgba(226,182,89,.12),rgba(0,0,0,.2))}',
+    '.rfcol{min-width:0;padding:8px 7px 7px;background:var(--inset);border:var(--u) solid var(--line2)}',
+    '.rfcol h4{margin:0 0 6px;font-family:var(--fh);font-size:15px;letter-spacing:.2em;text-align:center;color:var(--mut)}',
+    '.rfcol.new{border-color:var(--line);background:rgba(226,182,89,.12)}',
     '.rfcol.new h4{color:var(--gold2)}',
     '.rfcol .insl{margin-top:0;gap:5px}',
     '.rfcol .ins{flex-wrap:wrap;gap:1px 6px;padding:4px 6px}',
-    '.rfcol .ins em{flex-basis:100%;font-size:11px}',
+    '.rfcol .ins em{flex-basis:100%;font-size:15px}',
     '.rfcol.new .ins{animation:rfin .5s cubic-bezier(.2,1.3,.4,1) backwards;animation-delay:calc(var(--i,0) * .28s + .1s)}',
     '@keyframes rfin{from{opacity:0;transform:translateX(14px) scale(.96)}}',
-    '.rfcol .none{font-size:11.5px;text-align:center;border-left:0}',
-    '.rfperf{margin-top:8px;text-align:center;font-family:"Aurora Cinzel",serif;font-weight:700;letter-spacing:.14em;font-size:12px;color:#ffd35a;text-shadow:0 0 12px rgba(255,211,90,.85);animation:rfp 1.1s ease-in-out infinite alternate}',
+    '.rfcol .none{font-size:15px;text-align:center;border-left:0}',
+    '.rfperf{margin-top:8px;text-align:center;font-family:var(--fh);font-weight:700;letter-spacing:.14em;font-size:15px;color:#ffd35a;text-shadow:var(--u) var(--u) 0 var(--ol);animation:rfp 1.1s ease-in-out infinite alternate}',
     '@keyframes rfp{from{opacity:.65;transform:scale(.98)}to{opacity:1;transform:scale(1.04)}}',
-    '.rfdelta{margin-top:10px;text-align:center;font-size:12.5px;color:#cfd5e4}',
+    '.rfdelta{margin-top:10px;text-align:center;font-size:15px;color:#cfd5e4}',
     '.rfdelta b{font-weight:900}',
   ].join('\n');
   document.head.appendChild(css);
@@ -99,7 +99,7 @@
     for (const k in G.INS_TOT) if (T[k]) { const v = T[k] * 100; pills.push('<span class="pill">' + G.INS_TOT[k][0] + ' <b>' + (k === 'cdr' ? '-' : '+') + (v < 10 ? v.toFixed(1) : Math.round(v)).toString().replace('.', ',') + '%</b></span>'); }
     return '<div class="sec">Inscrições das peças</div><div class="card" style="padding-top:4px"><div class="hins">' + pills.join('') + '</div></div>';
   };
-  UI.forjaNote = () => '<p class="mut" style="font-size:11.5px;margin:0 2px 8px">Peças <span class="rar1">Incomuns</span> ou melhores nascem com <b class="gold">inscrições</b> sorteadas: 1 (Incomum), 1–2 (Raro), 2 (Épico), 3 (Lendário), 4 (Mítico). Cada uma tem qualidade de 1 a 5; a <b class="gold">perfeita</b> brilha. Obra-prima sorteia a qualidade duas vezes e fica com a melhor.</p>';
+  UI.forjaNote = () => '<p class="mut" style="font-size:15px;margin:0 2px 8px">Peças <span class="rar1">Incomuns</span> ou melhores nascem com <b class="gold">inscrições</b> sorteadas: 1 (Incomum), 1–2 (Raro), 2 (Épico), 3 (Lendário), 4 (Mítico). Cada uma tem qualidade de 1 a 5; a <b class="gold">perfeita</b> brilha. Obra-prima sorteia a qualidade duas vezes e fica com a melhor.</p>';
 
   /* ---------- ficha da peça (Aprimorar) ---------- */
   const findItem = (id, hid) => { const S = G.S; if (hid) { const h = S.heroes.find((x) => x.id === hid); if (h) for (const k in h.gear) if (h.gear[k] && h.gear[k].id === id) return h.gear[k]; } return S.inv.find((i) => i.id === id); };
@@ -111,7 +111,7 @@
     const can = G.bOk('ferraria') && it.plus < max && S.gold >= c.gold && G.hasRes(c.cost);
     const rf = G.canReforge(it);
     const rfOff = !rf.ok && !rf.pending && !rf.c;
-    const rfBtn = it.rar < 1 ? '' : '<button class="btn vio wide" style="margin-top:10px" data-a="mrf:' + id + ':' + (hid || 0) + '"' + (rfOff ? ' disabled' : '') + '>' + ic('spark') + (it.rfp ? 'Ver reforja pendente' : 'Reforjar inscrições') + '</button>' + (rfOff ? '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:5px">' + rf.why + '.</p>' : '');
+    const rfBtn = it.rar < 1 ? '' : '<button class="btn vio wide" style="margin-top:10px" data-a="mrf:' + id + ':' + (hid || 0) + '"' + (rfOff ? ' disabled' : '') + '>' + ic('spark') + (it.rfp ? 'Ver reforja pendente' : 'Reforjar inscrições') + '</button>' + (rfOff ? '<p class="mut" style="text-align:center;font-size:15px;margin-top:5px">' + rf.why + '.</p>' : '');
     UI.modal('<div class="eyebrow">' + G.RAR[it.rar] + '</div><h2 class="rar' + it.rar + '">' + G.itemName(it) + '</h2><div style="display:flex;justify-content:center;margin:12px 0">' + UI.gi(it).replace('class="gi', 'style="width:64px;height:64px;background-size:52px 52px" class="gi') + '</div><p class="lead" style="margin-bottom:4px">' + UI.itemLine(it) + (it.plus < max ? '<br><span class="good">+' + (it.plus + 1) + ': ' + UI.itemLine(nxt) + '</span>' : '<br>No limite da Ferraria (+' + max + ').') + '</p>' + UI.insHtml(it, { modal: 1 }) + (msg ? '<p class="lead ' + (msg.win ? 'good' : 'bad') + '" style="font-weight:800;margin-bottom:0">' + (msg.win ? 'Aprimorado!' : 'A têmpera falhou. Os materiais se perderam.') + '</p>' : '') +
       (it.plus < max ? UI.cost(c.gold, c.cost, '<span class="cost">chance ' + Math.round(c.chance * 100) + '%</span>') : '') + '<div class="acts"><button class="btn" data-a="mclose">Fechar</button><button class="btn pri" data-a="mupg:' + id + ':' + (hid || 0) + '"' + (can ? '' : ' disabled') + '>' + ic('up') + 'Aprimorar</button></div>' + rfBtn, { pause: false });
   };
@@ -135,7 +135,7 @@
     UI.modal('<div class="eyebrow">Reforja · Ferraria</div><h2 class="rar' + it.rar + '">' + G.itemName(it) + '</h2><div style="display:flex;justify-content:center;margin:12px 0 4px">' + UI.gi(it).replace('class="gi', 'style="width:56px;height:56px;background-size:46px 46px" class="gi') + '</div>' +
       (msg ? '<p class="lead ' + (msg.cls || '') + '" style="font-weight:800;margin:8px 4px 0">' + msg.t + '</p>' : '') +
       '<p class="lead" style="margin:8px 4px 0">Sorteia de novo <b>todas</b> as inscrições da peça. Você vê o antes e o depois e escolhe manter ou aceitar. ' + (n ? 'Esta peça já foi reforjada ' + n + (n === 1 ? ' vez' : ' vezes') + ': o custo sobe a cada uma.' : 'O custo sobe a cada reforja da mesma peça.') + '</p>' + UI.insHtml(it, { modal: 1 }) +
-      UI.cost(c.gold, { po_reforja: c.po }) + '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:6px">Você tem ' + G.fmt(S.res.po_reforja || 0) + ' Pó de Reforja. Ele sai do desmonte de peças.</p>' +
+      UI.cost(c.gold, { po_reforja: c.po }) + '<p class="mut" style="text-align:center;font-size:15px;margin-top:6px">Você tem ' + G.fmt(S.res.po_reforja || 0) + ' Pó de Reforja. Ele sai do desmonte de peças.</p>' +
       (r.ok ? '' : '<p class="lead bad" style="font-weight:800;margin:8px 4px 0">' + r.why + '</p>') +
       '<div class="acts"><button class="btn" data-a="mclose">Fechar</button><button class="btn vio" data-a="mrfgo:' + tag + '"' + (r.ok ? '' : ' disabled') + '>' + ic('spark') + 'Reforjar</button></div>', { pause: false });
   };

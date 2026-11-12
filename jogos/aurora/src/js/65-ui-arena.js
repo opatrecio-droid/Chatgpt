@@ -9,137 +9,137 @@
   /* ---------- estilo ---------- */
   const css = document.createElement('style');
   css.textContent = `
-.arh{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);margin-bottom:8px;background:#141a36}
+.arh{position:relative;overflow:hidden;border:var(--u) solid var(--line);margin-bottom:8px;background:#1b110c}
 .arh svg.art{display:block;width:100%;height:128px}
-.arh .ov{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(0deg,rgba(10,13,28,.94) 30%,transparent);display:flex;align-items:flex-end;gap:10px}
-.arh .ov .emb{flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
-.arh h3{font-family:"Aurora Cinzel",serif;font-size:17px;letter-spacing:.06em;color:var(--gold2);line-height:1.1}
-.arh small{display:block;color:#c8d0e4;font-size:11px;font-weight:700;margin-top:2px}
+.arh .ov{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:rgba(10,13,28,.94);display:flex;align-items:flex-end;gap:10px}
+.arh .ov .emb{flex:none;}
+.arh h3{font-family:var(--fh);font-size:16px;letter-spacing:.06em;color:var(--gold2);line-height:1.1}
+.arh small{display:block;color:#c8d0e4;font-size:15px;font-weight:700;margin-top:2px}
 .arlg{display:flex;align-items:center;gap:10px}
-.lgb{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 10px 0 7px;border-radius:12px;font-weight:900;font-size:11.5px;color:#10131f;background:var(--lc);box-shadow:0 0 12px var(--lg);white-space:nowrap}
-.lgb svg{font-size:13px}
+.lgb{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 10px 0 7px;font-weight:900;font-size:15px;color:#1b110c;background:var(--lc);box-shadow:none;white-space:nowrap}
+.lgb 
 .arpips{display:flex;gap:5px;align-items:center}
-.arpips i{width:18px;height:18px;border-radius:50%;border:2px solid rgba(226,182,89,.55);background:radial-gradient(circle at 35% 30%,#fff6c8,#e2b659 60%,#a87a2a)}
-.arpips i.off{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
-.arpips i.xt{border-color:rgba(185,143,245,.8);background:radial-gradient(circle at 35% 30%,#efe0ff,#b98ff5 60%,#6a48b0)}
+.arpips i{background:#e2b659;width:18px;height:18px;border:var(--u) solid rgba(226,182,89,.55);}
+.arpips i.off{background:var(--fill2);border-color:rgba(255,255,255,.15)}
+.arpips i.xt{background:#b98ff5;border-color:rgba(185,143,245,.8);}
 .arseg{margin:8px 0}
-.arof{position:relative;display:flex;gap:10px;align-items:center;padding:10px;border-radius:14px;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));margin-bottom:8px;width:100%;text-align:left}
+.arof{position:relative;display:flex;gap:10px;align-items:center;padding:10px;border:var(--u) solid var(--line2);background:var(--fill2);margin-bottom:8px;width:100%;text-align:left}
 .arof .emb{flex:none}
 .arof .gr{flex:1;min-width:0}
-.arof h4{font-size:13.5px;font-weight:800;line-height:1.2;margin:0}
-.arof .sb{font-size:11.5px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.arof .dif{display:inline-block;height:20px;line-height:20px;padding:0 8px;border-radius:10px;font-size:11px;font-weight:900;color:#10131f;background:var(--dc)}
+.arof h4{font-size:15px;font-weight:800;line-height:1.2;margin:0}
+.arof .sb{font-size:15px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arof .dif{display:inline-block;height:20px;line-height:20px;padding:0 8px;font-size:15px;font-weight:900;color:#1b110c;background:var(--dc)}
 .arof .mini,.ar-tm .mini{display:flex;gap:3px;margin-top:6px}
-.arof .mini i,.ar-tm .mini i{width:26px;height:26px;border-radius:7px;background-color:rgba(0,0,0,.32);background-size:26px 26px;border:1px solid var(--line2)}
+.arof .mini i,.ar-tm .mini i{width:26px;height:26px;background-color:var(--inset);background-size:26px 26px;border:var(--u) solid var(--line2)}
 .arof .rt{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:none}
 .arof .rt .btn{min-height:34px}
-.arof .rw{font-size:11px;color:var(--mut);font-weight:700;display:flex;gap:6px;align-items:center}
-.arof .rw svg{font-size:12px}
+.arof .rw{font-size:15px;color:var(--mut);font-weight:700;display:flex;gap:6px;align-items:center}
+.arof .rw 
 .ins-ic{display:inline-block;vertical-align:-2px;font-size:1em}
-.ar-intro{font-size:12px;color:#cfd5e4;line-height:1.5}
+.ar-intro{font-size:15px;color:#cfd5e4;line-height:1.5}
 .ar-intro b{color:var(--gold2)}
-.ar-rk{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;margin-bottom:3px;background:rgba(255,255,255,.035);border-left:4px solid var(--lc);width:100%;text-align:left}
-.ar-rk .ps{width:26px;text-align:center;font-family:"Aurora Cinzel",serif;font-weight:700;font-size:13px;color:var(--mut)}
-.ar-rk .nm{flex:1;min-width:0;font-weight:800;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ar-rk .nm small{display:block;font-weight:600;color:var(--mut);font-size:10.5px}
-.ar-rk .pt2{font-weight:900;font-size:13px;color:var(--gold2)}
-.ar-rk.me{background:linear-gradient(90deg,#4e4020,#2c2b42);box-shadow:0 0 0 1px var(--gold),0 0 14px rgba(226,182,89,.35);position:sticky;top:0;bottom:0;z-index:2}
+.ar-rk{display:flex;align-items:center;gap:8px;padding:6px 8px;margin-bottom:3px;background:var(--fill2);border-left:calc(var(--u)*2) solid var(--lc);width:100%;text-align:left}
+.ar-rk .ps{width:26px;text-align:center;font-family:var(--fh);font-weight:700;font-size:15px;color:var(--mut)}
+.ar-rk .nm{flex:1;min-width:0;font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ar-rk .nm small{display:block;font-weight:600;color:var(--mut);font-size:8px;font-family:var(--fc)}
+.ar-rk .pt2{font-weight:900;font-size:15px;color:var(--gold2)}
+.ar-rk.me{background:linear-gradient(#4e4020 0 28%,#3d2618 28% 100%);box-shadow:0 0 0 var(--u) var(--gold);position:sticky;top:0;bottom:0;z-index:2}
 .ar-rk.me .ps{color:var(--gold2)}
 .ar-rk .emb{flex:none}
-.ar-sep{font-family:"Aurora Cinzel",serif;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--lc);margin:10px 4px 4px;display:flex;align-items:center;gap:8px}
-.ar-sep::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--lc),transparent);opacity:.5}
+.ar-sep{font-family:var(--fh);font-size:8px;font-family:var(--fc);letter-spacing:.18em;text-transform:uppercase;color:var(--lc);margin:10px 4px 4px;display:flex;align-items:center;gap:8px}
+.ar-sep::after{content:"";flex:1;height:1px;background:var(--lc);opacity:.5}
 .ar-shop{display:flex;gap:10px;align-items:center}
-.ar-shop .ico{width:50px;height:50px;border-radius:12px;display:grid;place-items:center;font-size:24px;color:var(--gold2);background:rgba(0,0,0,.28);border:1px solid var(--line2);flex:none}
+.ar-shop .ico{width:50px;height:50px;display:grid;place-items:center;font-size:24px;color:var(--gold2);background:var(--inset);border:var(--u) solid var(--line2);flex:none}
 .ar-shop .ico i.px{width:44px;height:44px}
-.ar-shop .gr h3{font-size:13.5px}
-.ar-shop .gr p{font-size:11.5px}
+.ar-shop .gr h3{font-size:15px}
+.ar-shop .gr p{font-size:15px}
 .ar-shop .buy{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-.ar-st{font-size:10.5px;color:var(--mut);font-weight:700}
+.ar-st{font-size:8px;font-family:var(--fc);color:var(--mut);font-weight:700}
 /* equipe */
 .ar-tm .rv{display:flex;gap:10px;align-items:center;margin:8px 0 4px}
-.ar-tm .rv .gr{flex:1;min-width:0;font-size:12px;color:#cfd5e4}
-.ar-tm .rv .gr b{display:block;font-size:14px;color:var(--gold2)}
-.ar-hr{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:11px;border:2px solid transparent;background:rgba(255,255,255,.05);margin-bottom:5px;width:100%;text-align:left}
+.ar-tm .rv .gr{flex:1;min-width:0;font-size:15px;color:#cfd5e4}
+.ar-tm .rv .gr b{display:block;font-size:15px;color:var(--gold2)}
+.ar-hr{display:flex;align-items:center;gap:8px;padding:6px 8px;border:var(--u) solid transparent;background:var(--fill2);margin-bottom:5px;width:100%;text-align:left}
 .ar-hr.on{border-color:var(--gold);background:rgba(226,182,89,.13)}
-.ar-hr .pt{width:38px;height:38px;border-radius:9px;background-color:rgba(0,0,0,.3);background-size:38px 38px;flex:none;border:2px solid #4a557a}
+.ar-hr .pt{width:38px;height:38px;background-color:var(--inset);background-size:38px 38px;flex:none;border:var(--u) solid #4a557a}
 .ar-hr .gr{flex:1;min-width:0}
 .ar-hr .nm,.ar-hr .sb{display:block}
-.ar-hr .nm{font-weight:800;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ar-hr .sb{font-size:10.5px;color:var(--mut);font-weight:700}
-.ar-hr .pw{height:4px;border-radius:2px;background:rgba(255,255,255,.1);margin-top:3px;overflow:hidden}
-.ar-hr .pw i{display:block;height:100%;background:linear-gradient(90deg,#d8a544,#f7dc92)}
+.ar-hr .nm{font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ar-hr .sb{font-size:8px;font-family:var(--fc);color:var(--mut);font-weight:700}
+.ar-hr .pw{height:4px;background:var(--fill2);margin-top:3px;overflow:hidden}
+.ar-hr .pw i{display:block;height:100%;background:linear-gradient(#f7dc92 0 28%,#d8a544 28% 100%)}
 .ar-hr .fm{display:flex;gap:3px;flex:none}
-.ar-hr .fm span{height:28px;min-width:44px;padding:0 6px;border-radius:8px;font-size:10.5px;font-weight:900;display:grid;place-items:center;background:rgba(255,255,255,.08);color:var(--mut)}
-.ar-hr .fm span.on{background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408}
-.ar-hr .ck{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.25);flex:none;display:grid;place-items:center;color:#1a1408;font-size:13px}
+.ar-hr .fm span{height:28px;min-width:44px;padding:0 6px;font-size:8px;font-family:var(--fc);font-weight:900;display:grid;place-items:center;background:var(--fill2);color:var(--mut)}
+.ar-hr .fm span.on{background:linear-gradient(#f7dc92 0 28%,#d8a544 28% 100%);color:#1a1408}
+.ar-hr .ck{width:22px;height:22px;border:var(--u) solid rgba(255,255,255,.25);flex:none;display:grid;place-items:center;color:#1a1408;font-size:15px}
 .ar-hr.on .ck{background:var(--gold);border-color:var(--gold2)}
-.ar-tm .tmf{position:sticky;bottom:-16px;margin:6px -16px -16px;padding:8px 16px 14px;background:linear-gradient(180deg,rgba(16,21,42,0),#10152a 18%);z-index:3}
-.ar-res .acts{position:sticky;bottom:-16px;margin:10px -16px -16px;padding:10px 16px 14px;background:linear-gradient(180deg,rgba(16,21,42,0),#10152a 22%);z-index:3}
+.ar-tm .tmf{position:sticky;bottom:-2px;margin:6px -4px -2px;padding:8px 6px 14px;background:var(--fill);z-index:3}
+.ar-res .acts{position:sticky;bottom:-2px;margin:10px -4px -2px;padding:10px 6px 14px;background:var(--fill);z-index:3}
 .ar-ch2{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.ar-ch2 b{font-family:"Aurora Cinzel",serif;font-size:19px}
-.ar-ch2 .lb{font-size:12px;font-weight:900}
-.ar-ch{margin:8px 0 2px;padding:9px 10px;border-radius:12px;background:rgba(0,0,0,.25);text-align:center}
-.ar-ch b{font-size:20px;font-family:"Aurora Cinzel",serif}
+.ar-ch2 b{font-family:var(--fh);font-size:16px}
+.ar-ch2 .lb{font-size:15px;font-weight:900}
+.ar-ch{margin:8px 0 2px;padding:9px 10px;background:var(--inset);text-align:center}
+.ar-ch b{font-size:20px;font-family:var(--fh)}
 .ar-ch .bar{margin-top:6px}
 /* duelo */
 .ar-vs{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px}
-.ar-vs b{font-family:"Aurora Cinzel",serif;font-size:12.5px;color:var(--gold2);max-width:112px;text-align:center;line-height:1.15}
-.ar-vs i{font-style:normal;font-family:"Aurora Cinzel",serif;color:#ff9a9a;font-size:18px}
-.ar-stage{position:relative;height:262px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,#1b2552 0%,#2f2a62 52%,#54366a 100%)}
-.ar-stage .sk2{position:absolute;inset:0;background-image:radial-gradient(1.3px 1.3px at 10% 14%,#fff 50%,transparent),radial-gradient(1px 1px at 26% 30%,#fff 50%,transparent),radial-gradient(1.2px 1.2px at 58% 12%,#cfe 50%,transparent),radial-gradient(1px 1px at 78% 38%,#fff 50%,transparent),radial-gradient(1.2px 1.2px at 92% 18%,#fff 50%,transparent),radial-gradient(1px 1px at 40% 8%,#fff 50%,transparent)}
-.ar-stage .m1{position:absolute;right:8%;top:8px;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#e8dcb8 60%,#b8a880);box-shadow:0 0 34px rgba(255,240,190,.4)}
-.ar-stage .m2{position:absolute;left:12%;top:20px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e8d0ff,#a880e8 60%,#6a48b0);box-shadow:0 0 26px rgba(180,130,255,.5)}
-.ar-stage .arfl{position:absolute;left:0;right:0;bottom:0;height:58%;background:radial-gradient(120% 90% at 50% 100%,#e2c58a 0%,#b48f56 55%,#6f5738 100%);border-radius:50% 50% 0 0/22% 22% 0 0}
-.ar-stage .arfl::after{content:"";position:absolute;left:8%;right:8%;top:20%;height:2px;border-radius:50%;background:rgba(255,255,255,.18)}
+.ar-vs b{font-family:var(--fh);font-size:15px;color:var(--gold2);max-width:112px;text-align:center;line-height:1.15}
+.ar-vs i{font-style:normal;font-family:var(--fh);color:#ff9a9a;font-size:16px}
+.ar-stage{position:relative;height:262px;overflow:hidden;border:var(--u) solid var(--line);background:linear-gradient(180deg,#3d2618 0%,#3d2618 52%,#54366a 100%)}
+.ar-stage .sk2{background:#14102a;position:absolute;inset:0;background-image:radial-gradient(1.3px 1.3px at 10% 14%,#fff 50%,transparent),radial-gradient(1px 1px at 26% 30%,#fff 50%,transparent),radial-gradient(1.2px 1.2px at 58% 12%,#cfe 50%,transparent),radial-gradient(1px 1px at 78% 38%,#fff 50%,transparent),radial-gradient(1.2px 1.2px at 92% 18%,#fff 50%,transparent),radial-gradient(1px 1px at 40% 8%,#fff 50%,transparent)}
+.ar-stage .m1{background:#e8dcb8;position:absolute;right:8%;top:8px;width:48px;height:48px;box-shadow:none}
+.ar-stage .m2{background:#a880e8;position:absolute;left:12%;top:20px;width:24px;height:24px;box-shadow:none}
+.ar-stage .arfl{background:#b48f56;position:absolute;left:0;right:0;bottom:0;height:58%;}
+.ar-stage .arfl::after{content:"";position:absolute;left:8%;right:8%;top:20%;height:2px;background:var(--fill2)}
 .ar-stage .arc{position:absolute;left:0;right:0;bottom:48%;height:34px;display:flex;justify-content:space-around;opacity:.5}
-.ar-stage .arc i{width:34px;height:34px;border-radius:17px 17px 0 0;background:#0e1230}
+.ar-stage .arc i{width:34px;height:34px;background:#0e1230}
 .ar-cols{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 24px 1fr 1fr;align-items:center;padding:10px 4px 6px;z-index:2}
 .ar-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
 .arft{position:relative;width:60px;display:flex;flex-direction:column;align-items:center;transition:opacity .4s}
-.arft .nm{font-size:9px;font-weight:800;color:#fff;text-shadow:0 1px 2px #000,0 0 3px #000;max-width:60px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1}
+.arft .nm{font-size:8px;font-family:var(--fc);font-weight:800;color:#fff;text-shadow:var(--u) var(--u) 0 var(--ol);max-width:60px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1}
 .arft .arsp{width:52px;height:60px;background-size:52px 60px;transition:transform .16s ease-out,filter .2s}
 .arft.r .arsp{transform:scaleX(-1)}
-.arft .arhb{width:46px;height:5px;border-radius:3px;background:rgba(0,0,0,.6);overflow:hidden;margin-top:1px;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
-.arft .arhb i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#3fae5f,#7fe89a);transition:width .25s}
-.arft.r .arhb i{background:linear-gradient(90deg,#c84444,#ff8a8a)}
-.ar-stage.bg .arft{width:74px}.ar-stage.bg .arft .arsp{width:64px;height:74px;background-size:64px 74px}.ar-stage.bg .arft .arhb{width:56px}.ar-stage.bg .arft .nm{max-width:72px;font-size:9.5px}
+.arft .arhb{width:46px;height:5px;background:var(--inset);overflow:hidden;margin-top:1px;box-shadow:0 0 0 var(--u) rgba(0,0,0,.5)}
+.arft .arhb i{display:block;height:100%;width:100%;background:linear-gradient(#7fe89a 0 28%,#3fae5f 28% 100%);transition:width .25s}
+.arft.r .arhb i{background:linear-gradient(#ff8a8a 0 28%,#c84444 28% 100%)}
+.ar-stage.bg .arft{width:74px}.ar-stage.bg .arft .arsp{width:64px;height:74px;background-size:64px 74px}.ar-stage.bg .arft .arhb{width:56px}.ar-stage.bg .arft .nm{max-width:72px;font-size:8px;font-family:var(--fc)}
 .arft.atk .arsp{transform:translateX(14px)}
 .arft.r.atk .arsp{transform:scaleX(-1) translateX(14px)}
 .arft.hit .arsp{filter:brightness(2.2) saturate(.4)}
 .arft.ko{opacity:.28}
 .arft.ko .arsp{filter:grayscale(1) brightness(.6);transform:rotate(86deg) translate(0,12px)}
 .arft.r.ko .arsp{transform:scaleX(-1) rotate(86deg) translate(0,12px)}
-.arft.stn::after{content:"";position:absolute;top:-4px;left:50%;width:30px;height:10px;margin-left:-15px;border-radius:50%;border:2px dotted #ffe07a;animation:arspin .6s linear infinite}
+.arft.stn::after{content:"";position:absolute;top:-4px;left:50%;width:30px;height:10px;margin-left:-15px;border:2px dotted #ffe07a;animation:arspin .6s linear infinite}
 @keyframes arspin{to{transform:rotate(360deg)}}
 .ar-fx{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
-.ar-fx b{position:absolute;font-weight:900;font-size:14px;color:#ffd0d0;text-shadow:0 1px 3px #000,0 0 6px #000;white-space:nowrap;animation:ardn .95s ease-out forwards;transform:translate(-50%,0)}
-.ar-fx b.arcr{font-size:19px;color:#ffd35a}
+.ar-fx b{position:absolute;font-weight:900;font-size:15px;color:#ffd0d0;text-shadow:var(--u) var(--u) 0 var(--ol);white-space:nowrap;animation:ardn .95s ease-out forwards;transform:translate(-50%,0)}
+.ar-fx b.arcr{font-size:16px;color:#ffd35a}
 .ar-fx b.arhl{color:#9af0b0}
-.ar-fx b.arms{font-size:10px;color:#cfd5e4;font-weight:800}
-.ar-fx b.arsg{font-size:11px;color:#bfe9ff;font-weight:800}
-.ar-fx b.arsk{font-family:"Aurora Cinzel",serif;font-size:11px;letter-spacing:.04em;padding:2px 8px;border-radius:9px;color:#10131f;background:var(--kc);box-shadow:0 0 10px var(--kc);animation:arsk 1.15s ease-out forwards}
+.ar-fx b.arms{font-size:8px;font-family:var(--fc);color:#cfd5e4;font-weight:800}
+.ar-fx b.arsg{font-size:15px;color:#bfe9ff;font-weight:800}
+.ar-fx b.arsk{font-family:var(--fh);font-size:15px;letter-spacing:.04em;padding:2px 8px;color:#1b110c;background:var(--kc);box-shadow:none;animation:arsk 1.15s ease-out forwards}
 @keyframes ardn{0%{opacity:0;margin-top:10px;scale:.6}12%{opacity:1;margin-top:0;scale:1.15}100%{opacity:0;margin-top:-38px;scale:1}}
 @keyframes arsk{0%{opacity:0;margin-top:6px}10%{opacity:1;margin-top:0}80%{opacity:1}100%{opacity:0;margin-top:-16px}}
-.ar-log{min-height:34px;margin-top:8px;text-align:center;font-size:12px;color:#cfd5e4;line-height:1.35}
+.ar-log{min-height:34px;margin-top:8px;text-align:center;font-size:15px;color:#cfd5e4;line-height:1.35}
 .ar-log b{color:var(--gold2)}
-.ar-prog{height:4px;border-radius:2px;background:rgba(255,255,255,.1);margin-top:6px;overflow:hidden}
-.ar-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8a5ae8,#f7dc92)}
+.ar-prog{height:4px;background:var(--fill2);margin-top:6px;overflow:hidden}
+.ar-prog i{display:block;height:100%;width:0;background:linear-gradient(#f7dc92 0 28%,#8a5ae8 28% 100%)}
 .ar-res{margin-top:10px;text-align:center;animation:arpop .5s cubic-bezier(.3,1.4,.4,1)}
 @keyframes arpop{from{opacity:0;transform:scale(.8)}}
-.ar-res .big{font-family:"Aurora Cinzel",serif;font-size:34px;letter-spacing:.12em;font-weight:700;line-height:1;margin:2px 0 4px}
-.ar-res.w .big{background:linear-gradient(180deg,#fffbe0,#e2b659 60%,#a87a2a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(255,224,122,.55))}
-.ar-res.l .big{color:#c9d2ea;filter:drop-shadow(0 0 10px rgba(140,160,220,.4))}
-.ar-res .sub{color:#cfd5e4;font-size:12.5px;margin-bottom:4px}
-.ar-res .up{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:12px;font-weight:900;font-size:12.5px;margin:4px 0;background:rgba(95,207,124,.18);color:#b0f0c0;border:1px solid rgba(95,207,124,.5)}
+.ar-res .big{font-family:var(--fh);font-size:32px;letter-spacing:.12em;font-weight:700;line-height:1;margin:2px 0 4px}
+.ar-res.w .big{color:var(--brass2);}
+.ar-res.l .big{color:#c9d2ea;}
+.ar-res .sub{color:#cfd5e4;font-size:15px;margin-bottom:4px}
+.ar-res .up{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;font-weight:900;font-size:15px;margin:4px 0;background:rgba(95,207,124,.18);color:#b0f0c0;border:var(--u) solid rgba(95,207,124,.5)}
 .ar-res .up.dn{background:rgba(238,100,100,.14);color:#ffb0b0;border-color:rgba(238,100,100,.45)}
 .ar-res .costs{justify-content:center}
-.ar-res .mvp{font-size:11.5px;color:var(--mut);margin-top:6px}
+.ar-res .mvp{font-size:15px;color:var(--mut);margin-top:6px}
 .ar-res .mvp b{color:var(--gold2)}
 .ar-st2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}
-.ar-bx{position:relative;margin:10px auto;width:min(100%,260px);padding:12px;border-radius:16px;text-align:center;border:2px solid var(--lc);background:radial-gradient(circle at 50% 0,rgba(255,255,255,.12),rgba(0,0,0,.25));box-shadow:0 0 26px var(--lg)}
-.ar-bx .lgb{font-size:13px;height:28px}
-.ar-bx .ps{font-family:"Aurora Cinzel",serif;font-size:30px;font-weight:700;color:var(--gold2);line-height:1.1;margin:6px 0 0}
-.ar-bx .ps small{font-size:12px;color:var(--mut);font-family:"Aurora Manrope",sans-serif;font-weight:700}
+.ar-bx{background:var(--fill2);position:relative;margin:10px auto;width:min(100%,260px);padding:12px;text-align:center;border:var(--u) solid var(--lc);box-shadow:none}
+.ar-bx .lgb{font-size:15px;height:28px}
+.ar-bx .ps{font-family:var(--fh);font-size:32px;font-weight:700;color:var(--gold2);line-height:1.1;margin:6px 0 0}
+.ar-bx .ps small{font-size:15px;color:var(--mut);font-family:var(--fb)}
 .ar-lk{text-align:center;padding:6px 4px}
 .ar-lk .emb{margin:0 auto 6px;display:block;opacity:.8}
 `;
@@ -147,7 +147,7 @@
 
   /* ---------- peças de arte ---------- */
   let eid = 0;
-  const symInner = (name) => ic(name).replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
+  const symInner = (name) => G.PX.svgInner(name);
   const SHIELD = 'M16 1.5L29.5 5.5V18C29.5 27 23.5 33.5 16 36.5C8.5 33.5 2.5 27 2.5 18V5.5Z';
   /* brasão: escudo com a cor do reino, um padrão, um símbolo e uma borda dourada */
   const emblem = (e, px) => {
@@ -162,22 +162,22 @@
     }
     return '<svg class="emb" viewBox="0 0 32 38" width="' + px + '" height="' + h + '"><defs><clipPath id="' + id + '"><path d="' + SHIELD + '"/></clipPath></defs>' +
       '<path d="' + SHIELD + '" fill="' + e.c1 + '"/><g clip-path="url(#' + id + ')">' + pat + '</g>' +
-      '<g fill="' + e.c2 + '" transform="translate(8.2 8.4) scale(.66)">' + symInner(e.sym) + '</g>' +
+      '<g transform="translate(8.2 8.4) scale(.66)">' + symInner(e.sym) + '</g>' +
       '<path d="' + SHIELD + '" fill="none" stroke="#f0d27a" stroke-width="1.7"/></svg>';
   };
   const AUR = { c1: '#1f2c66', c2: '#f7dc92', pat: 'chief', sym: 'moon' };
   const rivEmb = (i, px) => emblem(G.arenaRival(i), px);
   const insIc = (px) => '<svg class="i ins-ic" viewBox="0 0 24 24" style="color:#9ad0ff;width:' + (px || 14) + 'px;height:' + (px || 14) + 'px"><circle cx="12" cy="12" r="10"/><path d="M14.6 6.4a6.2 6.2 0 100 11.2 5 5 0 010-11.2z" fill="#0a1230" opacity=".7"/><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1"/></svg>';
   /* a cena da Arena: duas luas sobre um anfiteatro, com duas espadas cruzadas */
-  const arenaArt = () => '<svg class="art" viewBox="0 0 360 128" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="ars1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#18204a"/><stop offset=".65" stop-color="#3a2f6c"/><stop offset="1" stop-color="#6a4070"/></linearGradient>' +
+  const arenaArt = () => '<svg class="art" viewBox="0 0 360 128" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="ars1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3d2618"/><stop offset=".65" stop-color="#3a2f6c"/><stop offset="1" stop-color="#6a4070"/></linearGradient>' +
     '<radialGradient id="ars2" cx=".35" cy=".35"><stop offset="0" stop-color="#fffbe8"/><stop offset=".6" stop-color="#e8dcb8"/><stop offset="1" stop-color="#b8a880"/></radialGradient><radialGradient id="ars3" cx=".35" cy=".35"><stop offset="0" stop-color="#f0dcff"/><stop offset=".6" stop-color="#a880e8"/><stop offset="1" stop-color="#6a48b0"/></radialGradient>' +
     '<radialGradient id="ars4" cx=".5" cy="1"><stop offset="0" stop-color="#e8cf94"/><stop offset="1" stop-color="#7a6040"/></radialGradient></defs>' +
     '<rect width="360" height="128" fill="url(#ars1)"/>' +
     [[20, 18], [54, 40], [96, 14], [150, 30], [188, 12], [232, 44], [292, 16], [330, 34], [12, 62], [120, 52], [312, 60]].map((p, i) => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (i % 3 ? 0.9 : 1.4) + '" fill="#fff" opacity=".8"/>').join('') +
     '<circle cx="272" cy="40" r="46" fill="#fff0c0" opacity=".1"/><circle cx="272" cy="40" r="27" fill="url(#ars2)"/><circle cx="262" cy="34" r="4" fill="#b8a880" opacity=".5"/><circle cx="281" cy="48" r="5.5" fill="#b8a880" opacity=".4"/>' +
     '<circle cx="204" cy="30" r="22" fill="#c8a0ff" opacity=".12"/><circle cx="204" cy="30" r="11" fill="url(#ars3)"/>' +
-    '<path d="M0 128V82h360v46z" fill="#0c1030"/><g fill="#161c46">' + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((k) => '<path d="M' + (k * 36 + 4) + ' 82v-26a14 14 0 0128 0v26z"/>').join('') + '</g>' +
-    '<g fill="#0c1030">' + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((k) => '<path d="M' + (k * 36 + 11) + ' 82v-18a7 7 0 0114 0v18z"/>').join('') + '</g>' +
+    '<path d="M0 128V82h360v46z" fill="#1b110c"/><g fill="#3d2618">' + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((k) => '<path d="M' + (k * 36 + 4) + ' 82v-26a14 14 0 0128 0v26z"/>').join('') + '</g>' +
+    '<g fill="#1b110c">' + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((k) => '<path d="M' + (k * 36 + 11) + ' 82v-18a7 7 0 0114 0v18z"/>').join('') + '</g>' +
     '<ellipse cx="180" cy="112" rx="190" ry="30" fill="url(#ars4)"/><ellipse cx="180" cy="104" rx="120" ry="14" fill="none" stroke="#fff" stroke-opacity=".2"/>' +
     '<g transform="translate(180 82)"><path d="M-30 -34L26 22" stroke="#e6eaf4" stroke-width="5" stroke-linecap="round"/><path d="M30 -34L-26 22" stroke="#e6eaf4" stroke-width="5" stroke-linecap="round"/><path d="M-30 -34L26 22" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".8"/><path d="M30 -34L-26 22" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".8"/><path d="M20 12l12 8M-20 12l-12 8" stroke="#e2b659" stroke-width="5" stroke-linecap="round"/><circle cx="-30" cy="-34" r="2.4" fill="#fff3b0"/><circle cx="30" cy="-34" r="2.4" fill="#fff3b0"/></g></svg>';
 
@@ -206,13 +206,13 @@
   UI.closeModal = () => { cm0(); if (late) { late = false; if (UI.sheet) UI.sheetDirty(); } };
 
   /* ================= a aba "Arena" ================= */
-  const lockedHtml = () => '<div class="card hl ar-lk"><div style="opacity:.8">' + emblem({ c1: '#3a4256', c2: '#98a2ba', pat: 'plain', sym: 'moon' }, 54) + '</div><h3 class="cz" style="justify-content:center">Arena das Duas Luas</h3><p>Reinos rivais mandam seus campeões medir forças com os seus. Abre com <b class="gold">Cidadela nível 3</b> ou <b class="gold">Nível de Reino 6</b>, o que vier primeiro.</p></div>';
+  const lockedHtml = () => '<div class="card hl ar-lk"><div style="opacity:.8">' + emblem({ c1: '#3d2618', c2: '#98a2ba', pat: 'plain', sym: 'moon' }, 54) + '</div><h3 class="cz" style="justify-content:center">Arena das Duas Luas</h3><p>Reinos rivais mandam seus campeões medir forças com os seus. Abre com <b class="gold">Cidadela nível 3</b> ou <b class="gold">Nível de Reino 6</b>, o que vier primeiro.</p></div>';
   const header = (a) => {
     const sea = G.arenaSeason(), lg = G.arenaLeague(a.pts), L = G.ARENA_LEAGUES[lg], nx = G.ARENA_LEAGUES[lg + 1], tk = G.arenaTickets();
     const pct = nx ? Math.round(100 * (a.pts - L.min) / (nx.min - L.min)) : 100;
     let pips = ''; for (let i = 0; i < tk.max; i++) pips += '<i class="' + (i < tk.free ? '' : 'off') + '"></i>'; for (let i = 0; i < Math.min(5, tk.xt); i++) pips += '<i class="xt"></i>';
     return '<div class="arh">' + arenaArt() + '<div class="ov">' + emblem(AUR, 40) + '<div class="gr" style="flex:1;min-width:0"><h3>Arena das Duas Luas</h3><small>Temporada ' + (a.sn + 1) + ' · ' + esc(sea.name) + ' · termina em ' + G.fmtLeft(sea.left) + '</small></div></div></div>' +
-      '<div class="card"><div class="arlg">' + lgBadge(lg) + '<div class="gr" style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:800"><span>' + G.fmt(a.pts) + ' pontos</span><span class="mut">' + (nx ? 'faltam ' + (nx.min - a.pts) + ' para ' + nx.name : 'liga máxima') + '</span></div><div class="bar big" style="margin-top:5px"><i style="width:' + pct + '%"></i></div></div></div>' +
+      '<div class="card"><div class="arlg">' + lgBadge(lg) + '<div class="gr" style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;font-size:15px;font-weight:800"><span>' + G.fmt(a.pts) + ' pontos</span><span class="mut">' + (nx ? 'faltam ' + (nx.min - a.pts) + ' para ' + nx.name : 'liga máxima') + '</span></div><div class="bar big" style="margin-top:5px"><i style="width:' + pct + '%"></i></div></div></div>' +
       '<div class="row" style="margin-top:10px"><div class="gr"><div class="arpips">' + pips + '</div><p style="margin-top:5px">' + (tk.total > 0 ? '<b class="gold">' + tk.total + '</b> tíquete' + (tk.total > 1 ? 's' : '') + ' para duelar hoje' : 'Sem tíquetes hoje: voltam amanhã') + '</p></div>' +
       (tk.canBuy ? '<button class="btn sm' + (G.S.nucleos >= tk.buyCost ? ' vio' : '') + '" data-a="arbuytk"' + (G.S.nucleos >= tk.buyCost ? '' : ' disabled') + '>' + ic('core') + '+1 · ' + tk.buyCost + '</button>' : '') + '</div></div>' +
       '<div class="seg arseg">' + [['duelo', 'Duelar'], ['ranking', 'Ranking'], ['loja', 'Loja']].map(([k, l]) => '<button data-a="arview:' + k + '" class="' + (view === k ? 'on' : '') + '">' + l + (k === 'loja' && a.ctr > 0 ? ' •' : '') + '</button>').join('') + '</div>';
@@ -230,11 +230,11 @@
     offers.forEach((o, k) => {
       const riv = G.arenaRival(o.i), rz = G.arenaRealize(o.i, o.ratio), dc = o.label.c;
       h += '<div class="arof">' + emblem(riv, 40) + '<div class="gr"><h4>' + esc(riv.name) + '</h4><div class="sb">' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + ' · ' + riv.size + ' heróis · ' + riv.style + '</div>' +
-        '<div style="margin-top:5px;display:flex;gap:6px;align-items:center"><span class="dif" style="--dc:' + dc + '">' + o.label.t + ' · ' + Math.round(o.ch * 100) + '%</span><span class="mut" style="font-size:11px;font-weight:700">Nv médio ' + avgLv(rz) + '</span></div>' + miniTeam(rz, riv) + '</div>' +
+        '<div style="margin-top:5px;display:flex;gap:6px;align-items:center"><span class="dif" style="--dc:' + dc + '">' + o.label.t + ' · ' + Math.round(o.ch * 100) + '%</span><span class="mut" style="font-size:15px;font-weight:700">Nv médio ' + avgLv(rz) + '</span></div>' + miniTeam(rz, riv) + '</div>' +
         '<div class="rt"><div class="rw">' + ic('star') + '+' + o.pts + ' ' + insIc(12) + '+' + o.ins + '</div><button class="btn sm pri" data-a="arfight:' + k + '"' + (tk.total < 1 ? ' disabled' : '') + '>' + ic('sword') + 'Desafiar</button><button class="btn sm" data-a="arriv:' + o.i + '">Ver reino</button></div></div>';
     });
-    if (tk.total < 1) h += '<p class="mut" style="text-align:center;font-size:11.5px">Os tíquetes voltam à meia-noite. Dá para comprar mais com Núcleos (botão acima) ou com moedas, na Loja.</p>';
-    if (a.last) h += '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:8px">Último duelo: ' + (a.last.win ? 'vitória' : 'derrota') + ' diante de ' + esc(a.last.rival) + ' · sequência atual: ' + a.streak + (a.best > 0 ? ' · recorde ' + a.best : '') + '</p>';
+    if (tk.total < 1) h += '<p class="mut" style="text-align:center;font-size:15px">Os tíquetes voltam à meia-noite. Dá para comprar mais com Núcleos (botão acima) ou com moedas, na Loja.</p>';
+    if (a.last) h += '<p class="mut" style="text-align:center;font-size:15px;margin-top:8px">Último duelo: ' + (a.last.win ? 'vitória' : 'derrota') + ' diante de ' + esc(a.last.rival) + ' · sequência atual: ' + a.streak + (a.best > 0 ? ' · recorde ' + a.best : '') + '</p>';
     return h;
   };
   const tabRanking = (a) => {
@@ -247,7 +247,7 @@
       if (x.i < 0) h += '<div class="ar-rk me" style="--lc:' + L.col + '"><span class="ps">' + x.pos + '</span>' + emblem(AUR, 26) + '<span class="nm">Aurora (você)<small>' + a.wins + ' vitórias no total</small></span><span class="pt2">' + G.fmt(x.pts) + '</span></div>';
       else { const r = G.arenaRival(x.i); h += '<button class="ar-rk" data-a="arriv:' + x.i + '" style="--lc:' + L.col + '"><span class="ps">' + x.pos + '</span>' + emblem(r, 26) + '<span class="nm">' + esc(r.name) + '<small>' + esc(r.lead.title) + ' ' + esc(r.lead.name) + '</small></span><span class="pt2">' + G.fmt(x.pts) + '</span></button>'; }
     }
-    h += '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:8px">A temporada vira na segunda-feira, à meia-noite, pelo relógio do aparelho. Os rivais também lutam todos os dias, então a tabela muda mesmo quando você não joga.</p>';
+    h += '<p class="mut" style="text-align:center;font-size:15px;margin-top:8px">A temporada vira na segunda-feira, à meia-noite, pelo relógio do aparelho. Os rivais também lutam todos os dias, então a tabela muda mesmo quando você não joga.</p>';
     if (a.hist.length) { h += '<div class="sec">Temporadas anteriores</div>'; for (const r of a.hist.slice().reverse()) h += '<div class="kv"><span>Temporada ' + r.n + ' · ' + esc(r.name) + '</span><b>' + G.ARENA_LEAGUES[r.liga].name + ' · ' + r.pos + 'º</b></div>'; }
     if (a.titulos.length) { h += '<div class="sec">Títulos</div>'; for (const t of a.titulos) h += '<div class="kv"><span>' + esc(t.name) + '</span><b>' + (t.n > 1 ? '×' + t.n : '1×') + '</b></div>'; }
     return h;
@@ -259,12 +259,12 @@
   };
   const tabLoja = (a) => {
     const S = G.S, unit = G.arenaCoinUnit(), tk = G.arenaTickets();
-    let h = '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:22px">' + insIc(26) + '</span><div class="gr"><h3>' + G.fmt(a.ins) + ' Insígnias</h3><p>Ganhas em duelos (vitórias valem mais) e no baú da temporada. O estoque renova toda segunda-feira.</p></div></div></div>';
-    if (a.ctr > 0) h += '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:22px;color:var(--gold2)">' + ic('scroll') + '</span><div class="gr"><h3>Contrato Épico guardado: ' + a.ctr + '</h3><p>Três candidatos Épicos esperam a sua escolha.</p></div><button class="btn sm pri" data-a="arctr">Usar</button></div></div>';
+    let h = '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px">' + insIc(26) + '</span><div class="gr"><h3>' + G.fmt(a.ins) + ' Insígnias</h3><p>Ganhas em duelos (vitórias valem mais) e no baú da temporada. O estoque renova toda segunda-feira.</p></div></div></div>';
+    if (a.ctr > 0) h += '<div class="card hl"><div class="row"><span class="thumb sm" style="display:grid;place-items:center;font-size:20px;color:var(--gold2)">' + ic('scroll') + '</span><div class="gr"><h3>Contrato Épico guardado: ' + a.ctr + '</h3><p>Três candidatos Épicos esperam a sua escolha.</p></div><button class="btn sm pri" data-a="arctr">Usar</button></div></div>';
     h += '<div class="sec">Troca por Insígnias</div>';
     for (const it of G.ARENA_SHOP) h += shopItem(it);
     h += '<div class="sec">Mais um duelo, por moedas ou Núcleos</div>';
-    h += '<p class="mut" style="font-size:11.5px;margin:-2px 2px 8px">Os preços acompanham o seu progresso (nível dos heróis e do reino) e cada compra do dia encarece a seguinte.</p>';
+    h += '<p class="mut" style="font-size:15px;margin:-2px 2px 8px">Os preços acompanham o seu progresso (nível dos heróis e do reino) e cada compra do dia encarece a seguinte.</p>';
     for (const it of G.ARENA_COIN) {
       const n = G.arenaCoinState().b[it.id] || 0, price = G.arenaCoinPrice(it), off = (it.max && n >= it.max) || (it.id === 'bandeira' && G.arenaFlagLeft() > 0), can = !off && S.gold >= price;
       h += '<div class="card"><div class="ar-shop"><span class="ico">' + ic(it.icon) + '</span><div class="gr"><h3>' + esc(it.name) + '</h3><p>' + esc(it.desc) + (it.id === 'bandeira' && G.arenaFlagLeft() > 0 ? ' <b class="good">Hasteada: ' + Math.ceil(G.arenaFlagLeft() / G.DAY_SEC * 5) + ' min de jogo restantes.</b>' : '') + '</p><div class="ar-st">Hoje: ' + n + (it.max ? ' de ' + it.max : '') + ' comprado' + (n === 1 ? '' : 's') + '</div></div>' +
@@ -281,7 +281,7 @@
   /* cartão no topo da aba Jornada */
   const arenaCard = () => {
     if (!G.S) return '';
-    if (!G.arenaOpen()) return '<div class="card lock"><div class="row">' + emblem({ c1: '#3a4256', c2: '#98a2ba', pat: 'plain', sym: 'moon' }, 34) + '<div class="gr"><h3>Arena das Duas Luas</h3><p>Abre com Cidadela nível 3 ou Nível de Reino 6.</p></div></div></div>';
+    if (!G.arenaOpen()) return '<div class="card lock"><div class="row">' + emblem({ c1: '#3d2618', c2: '#98a2ba', pat: 'plain', sym: 'moon' }, 34) + '<div class="gr"><h3>Arena das Duas Luas</h3><p>Abre com Cidadela nível 3 ou Nível de Reino 6.</p></div></div></div>';
     const a = G.arena(), tk = G.arenaTickets(), lg = G.arenaLeague(a.pts);
     return '<div class="card hl" data-a="open:missoes:arena" style="cursor:pointer"><div class="row">' + emblem(AUR, 36) + '<div class="gr"><h3>Arena das Duas Luas <small>' + lgBadge(lg) + '</small></h3><p>' + (tk.total > 0 ? '<b class="gold">' + tk.total + ' tíquete' + (tk.total > 1 ? 's' : '') + '</b> para duelar hoje · ' + G.fmt(a.pts) + ' pontos na temporada' : 'Sem tíquetes hoje · ' + G.fmt(a.pts) + ' pontos na temporada') + '</p></div><button class="btn sm pri" data-a="open:missoes:arena">Entrar</button></div></div>';
   };
@@ -333,11 +333,11 @@
     const pts = G.arenaRivalPts(i, sea.idx, sea.dis);
     let h = '<div class="eyebrow">' + esc(riv.type === 'cla' ? 'Clã' : riv.name.split(' ')[0]) + '</div><h2>' + esc(riv.name) + '</h2><div style="display:flex;justify-content:center;margin:8px 0">' + emblem(riv, 64) + '</div>' +
       '<p class="lead" style="margin:4px 0 8px"><b class="gold">' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + '</b><br>“' + esc(riv.motto) + '”</p>' +
-      '<div class="ar-st2"><div class="stat"><small>Estilo</small><b style="font-size:12.5px">' + riv.style + '</b></div><div class="stat"><small>Pontos</small><b>' + G.fmt(pts) + '</b></div><div class="stat"><small>Heróis</small><b>' + riv.size + '</b></div></div>';
+      '<div class="ar-st2"><div class="stat"><small>Estilo</small><b style="font-size:15px">' + riv.style + '</b></div><div class="stat"><small>Pontos</small><b>' + G.fmt(pts) + '</b></div><div class="stat"><small>Heróis</small><b>' + riv.size + '</b></div></div>';
     h += '<div class="sec">Campeões (nível para o seu poder de hoje)</div>';
     for (const x of rz.heroes) {
       const look = rLook(x.h, riv), cl = G.CLASSES[x.h.cls];
-      h += '<div class="ar-hr" style="cursor:default"><i class="pt px" style="background-image:url(' + sprite(look) + ');border-color:' + rarCol(x.h.rar) + '"></i><span class="gr"><span class="nm">' + esc(x.h.name) + ' <span style="color:' + rarCol(x.h.rar) + ';font-size:10.5px">' + G.RAR[x.h.rar] + '</span></span><span class="sb">' + esc(G.heroTitle(x.h)) + ' · Nv ' + x.L + ' · ' + x.h.traits.map((t) => G.TRAITS[t].name).join(', ') + '</span></span></div>';
+      h += '<div class="ar-hr" style="cursor:default"><i class="pt px" style="background-image:url(' + sprite(look) + ');border-color:' + rarCol(x.h.rar) + '"></i><span class="gr"><span class="nm">' + esc(x.h.name) + ' <span style="color:' + rarCol(x.h.rar) + ';font-size:8px;font-family:var(--fc)">' + G.RAR[x.h.rar] + '</span></span><span class="sb">' + esc(G.heroTitle(x.h)) + ' · Nv ' + x.L + ' · ' + x.h.traits.map((t) => G.TRAITS[t].name).join(', ') + '</span></span></div>';
       void cl;
     }
     UI.modal(h + '<div class="acts"><button class="btn pri" data-a="mclose">Fechar</button></div>', { pause: false });
@@ -347,7 +347,7 @@
     const cands = G.arenaContractRoll();
     if (G.S.heroes.length >= G.heroCap()) return UI.modal('<div class="eyebrow">Contrato Épico</div><h2>Sem camas livres</h2><p class="lead">A Hospedaria abriga ' + G.heroCap() + ' heróis. Melhore-a ou libere uma cama: o contrato espera por você.</p><div class="acts"><button class="btn" data-a="mclose">Fechar</button><button class="btn pri" data-a="mgo:reino:obras:hospedaria">Ver Hospedaria</button></div>');
     let h = '<div class="eyebrow">Contrato Épico</div><h2>Quem veste a farda de Aurora?</h2><div style="margin-top:12px">';
-    cands.forEach((c, i) => { const fake = { cls: c.cls, look: c.look, rank: G.rankForLevel(c.lvl), gear: { arma: { tier: 1 }, armadura: null } }, cl = G.CLASSES[c.cls]; h += '<button class="cand rar' + c.rar + '" data-a="arhire:' + i + '"><i class="pt px" style="background-image:url(' + A.fullBody(A.heroLook(fake)) + ')"></i><span class="gr"><b style="font-size:14.5px;color:#fff">' + esc(c.name) + '</b> <span class="rar' + c.rar + '" style="font-weight:800;font-size:12px">' + G.RAR[c.rar] + '</span><br><span style="font-size:12.5px;color:var(--gold2);font-weight:800">' + cl.name + ' · Nv ' + c.lvl + '</span><br><span class="mut" style="font-size:11.5px">' + cl.desc + '</span><br><span style="font-size:11.5px">' + c.traits.map((t) => '<span class="pill">' + G.TRAITS[t].name + '</span>').join(' ') + '</span></span></button>'; });
+    cands.forEach((c, i) => { const fake = { cls: c.cls, look: c.look, rank: G.rankForLevel(c.lvl), gear: { arma: { tier: 1 }, armadura: null } }, cl = G.CLASSES[c.cls]; h += '<button class="cand rar' + c.rar + '" data-a="arhire:' + i + '"><i class="pt px" style="background-image:url(' + A.fullBody(A.heroLook(fake)) + ')"></i><span class="gr"><b style="font-size:15px;color:#fff">' + esc(c.name) + '</b> <span class="rar' + c.rar + '" style="font-weight:800;font-size:15px">' + G.RAR[c.rar] + '</span><br><span style="font-size:15px;color:var(--gold2);font-weight:800">' + cl.name + ' · Nv ' + c.lvl + '</span><br><span class="mut" style="font-size:15px">' + cl.desc + '</span><br><span style="font-size:15px">' + c.traits.map((t) => '<span class="pill">' + G.TRAITS[t].name + '</span>').join(' ') + '</span></span></button>'; });
     UI.modal(h + '</div><div class="acts"><button class="btn" data-a="mclose">Escolher depois</button></div>');
   };
   UI.ACT.arhire = (a) => { const h = G.arenaContractHire(+a[0]); UI.closeModal(); if (h) { UI.banner('Um novo juramento', h.name, G.CLASSES[h.cls].name + ' ' + G.RAR[h.rar]); dirty(); } else UI.toast('Não foi possível contratar agora.', 'bad'); };
@@ -359,7 +359,7 @@
     let ch = null, lb = null;
     if (ok) { const pv = G.arenaPreview(o.i, tm.sel, o.ratio); ch = pv.chance; lb = pv.label; }
     const pts = ok ? G.arenaWinPts(ch, o.rev) : o.pts, ins = ok ? G.arenaWinIns(ch) : o.ins;
-    return '<div class="ar-ch2">' + (ok ? '<b style="color:' + lb.c + '">' + Math.round(ch * 100) + '%</b><span class="lb" style="color:' + lb.c + '">' + lb.t + '</span><div class="bar big" style="flex:1"><i style="width:' + Math.round(ch * 100) + '%;background:' + lb.c + '"></i></div>' : '<span class="mut" style="font-size:12.5px;flex:1">Escolha ' + n + ' heróis (' + tm.sel.length + ' de ' + n + ')</span>') +
+    return '<div class="ar-ch2">' + (ok ? '<b style="color:' + lb.c + '">' + Math.round(ch * 100) + '%</b><span class="lb" style="color:' + lb.c + '">' + lb.t + '</span><div class="bar big" style="flex:1"><i style="width:' + Math.round(ch * 100) + '%;background:' + lb.c + '"></i></div>' : '<span class="mut" style="font-size:15px;flex:1">Escolha ' + n + ' heróis (' + tm.sel.length + ' de ' + n + ')</span>') +
       '<span class="cost">' + ic('star') + '+' + pts + '</span><span class="cost">' + insIc(14) + '+' + ins + '</span></div>' +
       '<div class="acts" style="margin-top:0"><button class="btn" data-a="mclose">Voltar</button><button class="btn" data-a="arauto">Sugerir</button><button class="btn pri" data-a="argo"' + (ok && tk.total > 0 ? '' : ' disabled') + '>' + ic('sword') + 'Lutar!</button></div>';
   };
@@ -378,8 +378,8 @@
     const riv = G.arenaRival(o.i), rz = G.arenaRealize(o.i, o.ratio), n = riv.size;
     tm = { k, offer: o, sel: G.arenaTeam(n) };
     UI.modal('<div class="ar-tm"><div class="eyebrow">Desafio na Arena</div><h2>' + esc(riv.name) + '</h2>' +
-      '<div class="rv">' + emblem(riv, 44) + '<div class="gr"><b>' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + '</b>Envia <b style="display:inline;font-size:12.5px">' + n + ' heróis</b> · ' + riv.style + ' · Nv médio ' + avgLv(rz) + miniTeam(rz, riv) + '</div></div>' +
-      '<p class="mut" style="font-size:11.5px;margin:4px 2px 8px;line-height:1.4">Escolha ' + n + ' heróis. <b>Frente</b> toma os golpes corpo a corpo; <b>Fundo</b> fica protegido, mas arqueiros e magos alcançam todos.</p>' +
+      '<div class="rv">' + emblem(riv, 44) + '<div class="gr"><b>' + esc(riv.lead.title) + ' ' + esc(riv.lead.name) + '</b>Envia <b style="display:inline;font-size:15px">' + n + ' heróis</b> · ' + riv.style + ' · Nv médio ' + avgLv(rz) + miniTeam(rz, riv) + '</div></div>' +
+      '<p class="mut" style="font-size:15px;margin:4px 2px 8px;line-height:1.4">Escolha ' + n + ' heróis. <b>Frente</b> toma os golpes corpo a corpo; <b>Fundo</b> fica protegido, mas arqueiros e magos alcançam todos.</p>' +
       '<div id="tm-list">' + tmList() + '</div><div id="tm-foot" class="tmf">' + tmFoot() + '</div></div>', { pause: true, onClose: () => { tm = null; } });
   };
   Object.assign(UI.ACT, {
@@ -500,10 +500,10 @@
     if (c.gold) parts.unshift({ i: ic('coin'), t: G.fmt(c.gold) + ' moedas' });
     G.sfx(rec.liga >= 4 ? 'reveal2' : 'reveal');
     UI.modal('<div class="eyebrow">Temporada ' + rec.n + ' · ' + esc(rec.name) + '</div><h2>A temporada terminou</h2>' +
-      '<div class="ar-bx" style="--lc:' + L.col + ';--lg:' + rgba(L.col, 0.5) + '">' + lgBadge(rec.liga) + '<div class="ps">' + rec.pos + 'º<small> de 41</small></div><div style="font-size:12px;color:#cfd5e4;margin-top:4px">' + G.fmt(rec.pts) + ' pontos · ' + rec.w + ' vitória' + (rec.w === 1 ? '' : 's') + ' e ' + rec.l + ' derrota' + (rec.l === 1 ? '' : 's') + '</div></div>' +
+      '<div class="ar-bx" style="--lc:' + L.col + ';--lg:' + rgba(L.col, 0.5) + '">' + lgBadge(rec.liga) + '<div class="ps">' + rec.pos + 'º<small> de 41</small></div><div style="font-size:15px;color:#cfd5e4;margin-top:4px">' + G.fmt(rec.pts) + ' pontos · ' + rec.w + ' vitória' + (rec.w === 1 ? '' : 's') + ' e ' + rec.l + ' derrota' + (rec.l === 1 ? '' : 's') + '</div></div>' +
       '<p class="lead" style="margin:6px 4px 4px">O baú da Liga ' + L.name + ' foi aberto e já está no seu cofre:</p>' + chips(parts) +
-      (rec.titulo ? '<div class="ar-res w" style="margin-top:10px"><div class="sub">Título conquistado</div><div class="big" style="font-size:19px;letter-spacing:.06em">' + esc(rec.titulo) + '</div></div>' : '') +
-      '<p class="mut" style="text-align:center;font-size:11.5px;margin-top:8px">Uma nova temporada começou. Os pontos voltaram a zero e a Loja de Insígnias renovou o estoque.</p>' +
+      (rec.titulo ? '<div class="ar-res w" style="margin-top:10px"><div class="sub">Título conquistado</div><div class="big" style="font-size:16px;letter-spacing:.06em">' + esc(rec.titulo) + '</div></div>' : '') +
+      '<p class="mut" style="text-align:center;font-size:15px;margin-top:8px">Uma nova temporada começou. Os pontos voltaram a zero e a Loja de Insígnias renovou o estoque.</p>' +
       '<div class="acts"><button class="btn pri" data-a="mclose">Para a próxima!</button></div>', { lock: true, onClose: () => { const a = G.arena(); a.pend = null; if (G.M && G.M.save) G.M.save(); } });
   };
 

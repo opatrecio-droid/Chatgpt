@@ -110,7 +110,7 @@
     const tw = (R.t * 1.3 + d.id * 0.37) % 2.2; // cintilar de vez em quando
     if (tw < 0.35) { const a = Math.sin(tw / 0.35 * Math.PI), sx = Math.round(px + ((d.id * 7) % 9 - 4) * sc), sy = Math.round(py - sz * 0.75 - bob); ctx.globalAlpha = a; ctx.fillStyle = '#ffffff'; ctx.fillRect(sx - sc, sy, 3 * sc, sc); ctx.fillRect(sx, sy - sc, sc, 3 * sc); ctx.globalAlpha = 1; }
     if (d.n > 1) over.push(() => {
-      const fs = Math.round(G.clamp(z * 2.3, 9.5 * dpr(), 12 * dpr())); ctx.font = '800 ' + fs + 'px "Aurora Manrope",system-ui,sans-serif'; ctx.textAlign = 'center';
+      const fs = Math.round(15 * dpr()); ctx.font = fs + 'px "Aurora Pixel",monospace'; ctx.textAlign = 'center';
       const tx = px + sz / 2, ty = py - sz * 0.25 - bob; ctx.lineWidth = Math.max(2, dpr() * 2.2); ctx.strokeStyle = 'rgba(16,12,24,.9)'; ctx.lineJoin = 'round'; ctx.strokeText('×' + d.n, tx, ty); ctx.fillStyle = '#fff3c0'; ctx.fillText('×' + d.n, tx, ty);
     });
   };
