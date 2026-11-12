@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="cidade-viva-build" content="Aurora_ciclo_036_o_mundo_reage">
+<meta name="cidade-viva-build" content="Aurora_ciclo_037_nenhum_minuto_vazio">
 <title>Aurora — Crônicas da Fenda</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230d1220'/><circle cx='26' cy='30' r='15' fill='%23e2b659'/><circle cx='33' cy='25' r='13' fill='%230d1220'/><circle cx='45' cy='42' r='6' fill='%23b58cf2'/></svg>">
 <style>
@@ -455,12 +455,12 @@ textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--li
 <div id="app"></div>
 <script>
 /* ===== 00-core.js ===== */
-/* Aurora — Crônicas da Fenda · v25 "O Mundo Reage"
+/* Aurora — Crônicas da Fenda · v26 "Nenhum Minuto Vazio"
    00-core: utilitários, barramento de eventos, relógio e estado. Sem DOM. */
 'use strict';
 var G = (typeof globalThis !== 'undefined' ? globalThis : window).G = {};
-G.VERSION = '25.0';
-G.BUILD = 'Aurora_ciclo_036_o_mundo_reage';
+G.VERSION = '26.0';
+G.BUILD = 'Aurora_ciclo_037_nenhum_minuto_vazio';
 G.SAVE_KEY = 'aurora.v19.save';
 G.HEADLESS = typeof document === 'undefined';
 
@@ -4037,7 +4037,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.newGame = () => {
     const S = ng0();
     S.tut.seen = S.tut.seen || {};
-    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = S.tut.seen.v24 = S.tut.seen.v25 = 1;
+    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = S.tut.seen.v24 = S.tut.seen.v25 = S.tut.seen.v26 = 1;
     return S;
   };
 
@@ -5137,7 +5137,28 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
 
   /* ---------- partículas ---------- */
-  const part = (x, y, vx, vy, life, c, size, g, kind) => { if (R.parts.length < 700) R.parts.push({ x, y, vx, vy, life, max: life, c, size: size || 1, g: g || 0, kind }); };
+  /* v26 (4C.3): no Modo leve entram só ~40% das partículas (nunca as moedas) e no máximo 220 de uma vez */
+  const part = (x, y, vx, vy, life, c, size, g, kind) => { if (R.parts.length >= (G.S.opts.lowFx ? 220 : 700) || (G.S.opts.lowFx && kind !== 'coin' && Math.random() < 0.6)) return; R.parts.push({ x, y, vx, vy, life, max: life, c, size: size || 1, g: g || 0, kind }); };
+  /* v26 (4C.3): texto medido uma vez por (fonte, texto): measureText por quadro pesava nos rótulos dos prédios e nos balões */
+  const twC = new Map(); let twF = '';
+  const tw = (t) => { if (twF !== ctx.font) { twF = ctx.font; twC.clear(); } let w = twC.get(t); if (w === undefined) { if (twC.size > 400) twC.clear(); w = ctx.measureText(t).width; twC.set(t, w); } return w; };
+  /* v26 (4C.3): "pode melhorar?" dos rótulos dos prédios (G.canUpgrade monta objetos e confere custos): no máximo 2x por segundo por prédio */
+  const upMemo = {};
+  const upOk = (id) => { let c = upMemo[id]; if (!c || R.t - c.t > 0.5 || R.t < c.t) c = upMemo[id] = { t: R.t, ok: G.canUpgrade(id).ok }; return c.ok; };
+  /* v26 (4C.3): luzes da noite: o gradiente radial de cada círculo vira uma figurinha guardada (criar gradientes por quadro era o maior custo da noite) */
+  const lightC = new Map();
+  const lightSprite = (rad, a, rgb) => {
+    rad = Math.max(2, Math.round(rad)); a = Math.round(a * 50) / 50;
+    const key = rad + '|' + a + '|' + (rgb || ''); let s = lightC.get(key);
+    if (!s) {
+      if (lightC.size > 160) lightC.clear();
+      s = document.createElement('canvas'); s.width = s.height = rad * 2; const c = s.getContext('2d');
+      const g = rgb ? c.createRadialGradient(rad, rad, 0, rad, rad, rad) : c.createRadialGradient(rad, rad, rad * 0.1, rad, rad, rad);
+      g.addColorStop(0, rgb ? 'rgba(' + rgb + ',' + a + ')' : 'rgba(0,0,0,' + a + ')'); g.addColorStop(1, rgb ? 'rgba(' + rgb + ',0)' : 'rgba(0,0,0,0)');
+      c.fillStyle = g; c.fillRect(0, 0, rad * 2, rad * 2); lightC.set(key, s);
+    }
+    return s;
+  };
   R.burst = (x, y, n, c, sp, life, g) => { for (let i = 0; i < n; i++) { const a = Math.random() * 6.283, v = (0.3 + Math.random()) * (sp || 2); part(x, y, Math.cos(a) * v, Math.sin(a) * v - 0.5, (life || 0.5) * (0.6 + Math.random() * 0.6), Array.isArray(c) ? G.pick(c) : c, Math.random() < 0.4 ? 2 : 1, g == null ? 4 : g); } };
 
   const takeFx = () => {
@@ -5194,11 +5215,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const dark = G.darkness(S.clock);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = false;
-    ctx.fillStyle = '#1c3a1c'; ctx.fillRect(0, 0, cw, ch);
-    ctx.drawImage(terrain, 0, 0, terrain.width, terrain.height, ox, oy, terrain.width * z, terrain.height * z);
+    if (ox > 0 || oy > 0 || ox + terrain.width * z < cw || oy + terrain.height * z < ch) { ctx.fillStyle = '#1c3a1c'; ctx.fillRect(0, 0, cw, ch); }   // v26 (4C.3): o terreno quase sempre cobre a tela
+    { /* v26 (4C.3): só o pedaço do terreno que aparece (mesmos pixels; antes o mapa inteiro era esticado a cada quadro) */
+      const sx0 = Math.max(0, Math.floor(-ox / z)), sy0 = Math.max(0, Math.floor(-oy / z)), sx1 = Math.min(terrain.width, Math.ceil((cw - ox) / z)), sy1 = Math.min(terrain.height, Math.ceil((ch - oy) / z));
+      if (sx1 > sx0 && sy1 > sy0) ctx.drawImage(terrain, sx0, sy0, sx1 - sx0, sy1 - sy0, ox + sx0 * z, oy + sy0 * z, (sx1 - sx0) * z, (sy1 - sy0) * z);
+    }
 
     /* água, lava: brilho animado */
-    for (const w of water) {
+    if (!S.opts.lowFx) for (const w of water) {
       if (w.x < vx0 || w.x > vx1 || w.y < vy0 || w.y > vy1) continue;
       const ph = R.t * (w.t === T.LAVA ? 0.8 : 1.4) + w.h * 0.01;
       const px = X(w.x) + ((Math.sin(ph) * 5 + 8) | 0) * z, py = Y(w.y) + ((w.h % 12) + 2) * z;
@@ -5295,7 +5319,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (s.kind === 'fountain') { for (let i = 0; i < 2; i++) if (Math.random() < 0.5) part(s.x + G.rnd(-0.15, 0.15), s.y - 2.2, G.rnd(-0.9, 0.9), -1.8, 0.7, G.pick(['#bfe6ff', '#ffffff', '#7ac4f4']), 1, 7); }
     if (s.kind === 'house' && s.smoke && Math.random() < 0.04) part(s.x - 2.6 + (s.smoke.x + 3) / 16, s.y - s.s.h / 16 + s.smoke.y / 16, 0.15, -0.5, 2.2, '#e8e4dc', 2, -0.05, 'puff');
     if (s.kind === 'crystal' || s.kind === 'riftshard') { if (Math.random() < 0.02) part(s.x + G.rnd(-0.3, 0.3), s.y - G.rnd(0.4, 1.4), 0, -0.4, 1, '#e6c0ff', 1, 0, 'glow'); }
-    if (dark > 0.3 && s.lights) { ctx.fillStyle = 'rgba(255,214,120,' + Math.min(1, dark * 1.2) + ')'; for (const l of s.lights) ctx.fillRect(dx + l.x * z, dy + l.y * z, l.w * z, l.h * z); }
+    if (dark > 0.3 && s.lights && !G.S.opts.lowFx) { ctx.fillStyle = 'rgba(255,214,120,' + Math.min(1, dark * 1.2) + ')'; for (const l of s.lights) ctx.fillRect(dx + l.x * z, dy + l.y * z, l.w * z, l.h * z); }
   };
   const drawBuilding = (id, X, Y, z, over) => {
     const S = G.S, p = Wd.plots[id], b = S.b[id], lvl = b ? b.lvl : 0;
@@ -5305,17 +5329,17 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (lvl > 0 && sp.smoke && !(b && b.dmg) && Math.random() < 0.08) part(p.x - 0.25 + sp.smoke.x / 16, p.y + 4 - (sp.h - 4 - sp.smoke.y) / 16, 0.2, -0.55, 2.4, '#ece8e0', 2, -0.05, 'puff');
     if (id === 'ferraria' && lvl > 0 && Math.random() < 0.03) part(p.x + 3 + G.rnd(-1, 1), p.y + 4.3, G.rnd(-1, 1), -2, 0.4, '#ffb040', 1, 6);
     const dark = G.darkness(S.clock);
-    if (dark > 0.3 && lvl > 0) { for (const l of sp.lights) { ctx.fillStyle = l.lamp ? 'rgba(255,230,150,' + dark + ')' : 'rgba(255,208,110,' + Math.min(1, dark * 1.1) + ')'; ctx.fillRect(dx + l.x * z, dy + l.y * z, l.w * z, l.h * z); } }
+    if (dark > 0.3 && lvl > 0 && !S.opts.lowFx) { for (const l of sp.lights) { ctx.fillStyle = l.lamp ? 'rgba(255,230,150,' + dark + ')' : 'rgba(255,208,110,' + Math.min(1, dark * 1.1) + ')'; ctx.fillRect(dx + l.x * z, dy + l.y * z, l.w * z, l.h * z); } }
     over.push(() => {
       const d = G.BLD[id], cx = X(p.x + 3), ty = dy - 3 * z;
       let label = lvl > 0 ? d.short + ' ' + lvl : d.short, col = '#fff7e0', bg = 'rgba(16,20,34,.78)';
       let mark = null;
-      if (lvl === 0) { label = 'Construir ' + d.short; col = '#ffe07a'; mark = G.canUpgrade(id).ok ? '+' : null; }
+      if (lvl === 0) { label = 'Construir ' + d.short; col = '#ffe07a'; mark = upOk(id) ? '+' : null; }
       else if (b.dmg) { label = d.short + ' danificada'; col = '#ff9a9a'; mark = '!'; }
-      else if (R.t % 1 < 2 && G.canUpgrade(id).ok) mark = '▲';
+      else if (upOk(id)) mark = '▲';
       if (id === 'taverna' && lvl > 0 && S.res.refeicao < 1) { mark = '!'; col = '#ff9a9a'; label = 'Taverna sem comida'; }
       if (id === 'alquimista' && lvl > 0 && S.res.pocao < 1) { mark = '!'; col = '#ff9a9a'; label = 'Sem poções'; }
-      ctx.font = fontS; ctx.textAlign = 'center'; const tw = ctx.measureText(label).width, ph = Math.round(parseInt(fontS.split(' ')[1]) * 1.55), pw = tw + ph * 0.9;
+      ctx.font = fontS; ctx.textAlign = 'center'; const lw = tw(label), ph = Math.round(parseInt(fontS.split(' ')[1]) * 1.55), pw = lw + ph * 0.9;
       const lx = Math.round(cx - pw / 2), ly = Math.round(ty - ph);
       ctx.fillStyle = bg; rr(lx, ly, pw, ph, ph / 2); ctx.fill();
       ctx.fillStyle = col; ctx.textBaseline = 'middle'; ctx.fillText(label, cx, ly + ph / 2 + 1); ctx.textBaseline = 'alphabetic';
@@ -5344,7 +5368,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     ctx.save(); ctx.translate(px, py);
     if (fallen) { ctx.rotate(-1.5708 * (e.dir || 1)); ctx.translate(0, -3 * z); ctx.globalAlpha = 0.85; }
     if (e.dir < 0) ctx.scale(-1, 1);
-    if (isHero && e.rank >= 4 && !fallen) { ctx.globalAlpha = 0.25 + 0.1 * Math.sin(R.t * 3 + e._ph); ctx.fillStyle = G.RANK_COLOR[e.rank]; ctx.beginPath(); ctx.ellipse(0, -12 * z, 11 * z, 14 * z, 0, 0, 6.283); ctx.fill(); ctx.globalAlpha = 1; }
+    if (isHero && e.rank >= 4 && !fallen && !S.opts.lowFx) { ctx.globalAlpha = 0.25 + 0.1 * Math.sin(R.t * 3 + e._ph); ctx.fillStyle = G.RANK_COLOR[e.rank]; ctx.beginPath(); ctx.ellipse(0, -12 * z, 11 * z, 14 * z, 0, 0, 6.283); ctx.fill(); ctx.globalAlpha = 1; }
     if (mSheet) ctx.drawImage(mSheet, (e.moving ? Math.floor(R.t * 8 + e._ph) % 2 : 0) * 30, 0, 30, 22, -15 * z, -20 * z, 30 * z, 22 * z);
     if (isHero && e.cos && e.cos.asas && !fallen && A.wingSheet) { const ws = A.wingSheet(e.cos.asas); if (ws) ctx.drawImage(ws, (Math.floor(R.t * (e.moving ? 7 : 2.5) + e._ph) % 2) * 30, 0, 30, 22, -19 * z, -24 * z - lift, 30 * z, 22 * z); }
     ctx.drawImage(sheet.cv, sxp, 0, 26, 30, -13 * z, -27 * z - lift, 26 * z, 30 * z);
@@ -5408,12 +5432,20 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   };
 
   /* ---------- noite ---------- */
+  const nightBlit = () => { ctx.imageSmoothingEnabled = true; ctx.drawImage(lcv, 0, 0, lcv.width, lcv.height, 0, 0, cw, ch); ctx.imageSmoothingEnabled = false; };
+  let nightN = 0, nightKey = '';
   const night = (dark, X, Y, z, vx0, vx1, vy0, vy1) => {
     const S = G.S, lw = lcv.width, lh = lcv.height, k = 0.25;
+    if (S.opts.lowFx) { ctx.fillStyle = 'rgba(' + NIGHT[0] + ',' + NIGHT[1] + ',' + NIGHT[2] + ',' + 0.5 * dark + ')'; ctx.fillRect(0, 0, cw, ch); return; }   // v26 (4C.3): Modo leve = noite lisa, sem mapa de luz
+    /* v26 (4C.3): com a câmera parada o mapa de luz (dezenas de figurinhas) só é refeito a cada 2 quadros (4 no Modo leve); lcv guarda o último */
+    const key = X(0) + '|' + Y(0) + '|' + z + '|' + Math.round(dark * 40) + '|' + lw + '|' + R.fxs.length;
+    const redo = !(key === nightKey && (nightN++ % (S.opts.lowFx ? 4 : 2)) !== 0);
+    if (redo) {
+    nightKey = key; nightN = 1;
     lctx.globalCompositeOperation = 'source-over'; lctx.clearRect(0, 0, lw, lh);
     lctx.fillStyle = 'rgba(' + NIGHT[0] + ',' + NIGHT[1] + ',' + NIGHT[2] + ',' + 0.66 * dark + ')'; lctx.fillRect(0, 0, lw, lh);
     lctx.globalCompositeOperation = 'destination-out';
-    const hole = (wx, wy, r, a) => { if (wx < vx0 - r || wx > vx1 + r || wy < vy0 - r || wy > vy1 + r) return; const x = X(wx) * k, y = Y(wy) * k, rad = r * TS * z * k; const g = lctx.createRadialGradient(x, y, rad * 0.1, x, y, rad); g.addColorStop(0, 'rgba(0,0,0,' + (a || 0.9) + ')'); g.addColorStop(1, 'rgba(0,0,0,0)'); lctx.fillStyle = g; lctx.fillRect(x - rad, y - rad, rad * 2, rad * 2); };
+    const hole = (wx, wy, r, a) => { if (wx < vx0 - r || wx > vx1 + r || wy < vy0 - r || wy > vy1 + r) return; const x = X(wx) * k, y = Y(wy) * k, rad = Math.max(2, Math.round(r * TS * z * k)); lctx.drawImage(lightSprite(rad, a || 0.9), x - rad, y - rad); };
     for (const l of Wd.lamps) hole(l.x, l.y - 1.4, 3.6, 0.95);
     for (const id of G.BLD_IDS) if (G.bLvl(id) > 0) { const p = Wd.plots[id]; hole(p.x + 3, p.y + 3.6, 3.4, 0.7); }
     for (const h of Wd.houses) hole(h.x + 2, h.y + 2.6, 2.6, 0.6);
@@ -5422,11 +5454,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     for (const m of G.mons) if (m.boss || m.elite) hole(m.x, m.y - 0.6, m.boss ? 4 : 2, 0.6);
     for (const f of R.fxs) if (f.t === 'ring' || f.t === 'pillar') hole(f.x, f.y, 3, 0.7);
     if (R.nightMore) R.nightMore(hole);
-    ctx.imageSmoothingEnabled = true; ctx.drawImage(lcv, 0, 0, lw, lh, 0, 0, cw, ch); ctx.imageSmoothingEnabled = false;
+    }
+    nightBlit();
     /* halo quente dos postes */
     ctx.globalCompositeOperation = 'lighter';
-    for (const l of Wd.lamps) { if (l.x < vx0 || l.x > vx1 || l.y < vy0 || l.y > vy1 + 2) continue; const x = X(l.x), y = Y(l.y - 1.75), r = 20 * z; const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, 'rgba(255,200,110,' + 0.4 * dark + ')'); g.addColorStop(1, 'rgba(255,200,110,0)'); ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2); }
-    { const x = X(Wd.portal.x), y = Y(Wd.portal.y - 1.8), r = 34 * z; if (x > -r && x < cw + r) { const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, 'rgba(170,90,255,' + 0.3 * dark + ')'); g.addColorStop(1, 'rgba(170,90,255,0)'); ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2); } }
+    if (!S.opts.lowFx) for (const l of Wd.lamps) { if (l.x < vx0 || l.x > vx1 || l.y < vy0 || l.y > vy1 + 2) continue; const x = X(l.x), y = Y(l.y - 1.75), r = Math.round(20 * z); ctx.drawImage(lightSprite(r, 0.4 * dark, '255,200,110'), x - r, y - r); }
+    { const x = X(Wd.portal.x), y = Y(Wd.portal.y - 1.8), r = Math.round(34 * z); if (x > -r && x < cw + r) ctx.drawImage(lightSprite(r, 0.3 * dark, '170,90,255'), x - r, y - r); }
     ctx.globalCompositeOperation = 'source-over';
   };
 
@@ -6046,7 +6079,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     t.innerHTML = '<div class="stars"></div><div class="moon m1"></div><div class="moon m2"></div><div class="sky">' + sky + '</div><div class="hill"></div>' +
       '<div class="inner"><div class="eyebrow">Cidade Viva</div><h1>Aurora</h1><div class="sub">Crônicas da Fenda</div><p class="tag">Sob duas luas, um reino de caçadores espera por você.<br>Erga a cidade, forje lendas, enfrente a Fenda.</p>' +
       (has ? '<button class="btn pri" data-a="t-continue">Continuar jornada</button><button class="btn" data-a="t-new">Nova jornada</button>' : '<button class="btn pri" data-a="t-new">Iniciar jornada</button>') +
-      '<button class="btn" data-a="t-import">Importar save</button><div class="ver">v' + G.VERSION + ' · O Mundo Reage · salva sozinho neste aparelho</div></div>';
+      '<button class="btn" data-a="t-import">Importar save</button><div class="ver">v' + G.VERSION + ' · Nenhum Minuto Vazio · salva sozinho neste aparelho</div></div>';
     t.classList.add('on');
   };
   UI.ACT['t-continue'] = () => { G.emit('audio-unlock'); G.M.start(false); };
@@ -6589,7 +6622,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
           '<button class="tog" data-a="opt:lowFx"><span>Modo leve<small>Menos partículas e sem sombras de nuvens. Ajuda em aparelhos antigos.</small></span><i class="sw' + (o.lowFx ? ' on' : '') + '"></i></button>' +
           '<button class="tog" data-a="opt:noVibe"><span>Vibração e tremor de tela<small>Vibra o aparelho (quando ele pode) e sacode a tela nos grandes momentos: peça Lendária, chefe derrotado, vitória na Arena, marco de poder.</small></span><i class="sw' + (o.noVibe ? '' : ' on') + '"></i></button>' +
           '<div class="sec">Jornada salva</div><p class="mut" style="font-size:12px;margin-bottom:8px">O jogo salva sozinho neste aparelho a cada 20 segundos. Exporte o código para guardar ou levar para outro aparelho.</p><div class="grid2"><button class="btn" data-a="export">' + ic('save') + 'Exportar</button><button class="btn" data-a="import">' + ic('save') + 'Importar</button></div><button class="btn wide" style="margin-top:8px" data-a="tutorial">' + ic('info') + 'Rever a apresentação</button><button class="btn wide" style="margin-top:8px;color:#ff9a9a" data-a="reset">' + ic('trash') + 'Apagar e recomeçar</button>' +
-          '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "O Mundo Reage"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
+          '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "Nenhum Minuto Vazio"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
       }
       return '';
     },
@@ -10300,7 +10333,14 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     ['star', 'Renascimento', 'Agora no Rank SS nível 70. Quem renasce ganha Pontos de Renascimento para comprar traços raros e subir traços no Altar. A ficha mostra a prévia desde o Rank A.'],
     ['shield', 'Menos tropeços', 'A mão do guia vai até o Mercado e a Jornada avisa os pré-requisitos. Heróis caem bem menos e você é avisado do perigo. Elites e chefes deixam peças inscritas no chão; o Pergaminho de Proteção devolve o custo de um +N que falhar.'],
   ] };
-  const NEWS_ORDER = ['v25', 'v24', 'v22', 'v21', 'v20'];
+  UI.NEWS.v26 = { t: 'Nenhum minuto vazio', n: 'Aurora v26', rows: [
+    ['scroll', 'Pedidos dos moradores', 'Alda, Fábio, Quim e os outros pedem coisas curtas, com prazo: um balão dourado aparece sobre eles. Toque para ver e para entregar. O prêmio varia a cada pedido.'],
+    ['flag', 'A cidade tem cenas', 'À noite os heróis se reúnem na fogueira da praça, almoçam e jantam na mesa da Taverna e treinam de brincadeira no Campo de Treino, com falas que citam laços, títulos e feitos.'],
+    ['spark', 'Ressonância de inscrições', 'Inscrições da mesma família (Fúria, Baluarte, Vento, Vida, Fortuna, Saber) em várias peças do mesmo herói ativam bônus de conjunto. A ficha mostra a barra e o próximo.'],
+    ['people', 'Combinações de formação', 'Na Arena e no Colosso, classes na posição certa formam combinações com nome, como a Muralha Arcana. A tela de equipe mostra as ativas e sugere uma troca.'],
+    ['book', 'Livro do Reino e menos barulho', 'O ? no alto de cada painel abre a página da Rosa sobre aquela aba; o índice fica em Mais › Livro. Abas e botões só aparecem quando o sistema abre, com um selo Novo! até o primeiro toque. O jogo também liga sozinho o Modo leve se o aparelho estiver pesado.'],
+  ] };
+  const NEWS_ORDER = ['v26', 'v25', 'v24', 'v22', 'v21', 'v20'];
   const newsPending = () => { const s = (G.S && G.S.tut && G.S.tut.seen) || {}; return NEWS_ORDER.filter((k) => !s[k] && UI.NEWS[k]); };
   UI.whatsNew = (keys) => {
     keys = (keys && keys.length ? keys : newsPending()).filter((k) => UI.NEWS[k]);
@@ -13360,7 +13400,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const PAT = { epic: [30], legend: [45, 40, 70], myth: [60, 50, 60, 50, 160], boss: [90, 40, 110], arena: [50, 40, 130], mark: [40, 40, 40, 40, 90], fall: [140], danger: [30, 40, 30] };
   const SHK = { epic: 3, legend: 5, myth: 7, boss: 6, arena: 5, mark: 4 };
   const calm = () => { const S = G.S; return !S || (S.opts && S.opts.noVibe); };
-  const reduce = () => { try { return !!(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches); } catch (e) { return false; } };
+  let redV = false, redT = -1e9;   // v26 (4C.3): o setter de R.shake roda a cada quadro; matchMedia só a cada 3 s
+  const reduce = () => { const n = performance.now(); if (n - redT > 3000) { redT = n; try { redV = !!(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches); } catch (e) { redV = false; } } return redV; };
   UI.feel = (kind) => {
     if (calm()) return;
     const sh = SHK[kind];
@@ -15097,12 +15138,12 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   G.SYSTEMS = [
     { id: 'forja', n: 'Forja', ic: 'anvil', nav: 'forja', open: () => G.bLvl('ferraria') > 0, req: 'Construa a Ferraria', hint: 'o espólio vira equipamento para os heróis.', used: (S) => S.stats.crafted > 0 },
     { id: 'armazem', n: 'Armazém', ic: 'chest', nav: 'armazem', open: () => G.bLvl('ferraria') > 0 || rl() >= 2, req: 'Construa a Ferraria', hint: 'peças, poções e materiais ficam guardados aqui.', new: false },
-    { id: 'contratos', n: 'Contratos', ic: 'scroll', tab: ['missoes', 'contratos'], open: () => step() >= 3, req: 'Conclua 3 missões da Jornada', hint: 'três pedidos novos a cada amanhecer.', used: (S) => S.stats.contracts > 0 },
+    { id: 'contratos', n: 'Contratos', ic: 'scroll', tab: ['missoes', 'contratos'], open: (S) => step() >= 3 || !!(G.pedidoOpen && G.pedidoOpen()) || S.daily.list.some((c) => !c.claimed && c.p >= c.n), req: 'Conclua 3 missões da Jornada', hint: 'três pedidos novos a cada amanhecer.', used: (S) => S.stats.contracts > 0 },
     { id: 'bestiario', n: 'Bestiário', ic: 'book', tab: ['mais', 'bestiario'], open: (S) => S.stats.kills >= 50, req: 'Abata 50 monstros', hint: 'estudar uma família de monstros dá bônus contra ela.' },
     { id: 'pedidos', n: 'Pedidos da cidade', ic: 'scroll', open: () => !!(G.pedidoOpen && G.pedidoOpen()), req: 'Conclua 2 missões da Jornada', hint: 'moradores pedem coisas; toque no balão dourado.', used: (S) => (S.stats.pedidos || 0) > 0 },
     { id: 'forjanuc', n: 'Núcleos', ic: 'core', chip: '.chip.nuc', open: (S) => G.bLvl('ferraria') > 0 || S.nucleos > 2 || S.stats.crafted > 0, req: 'Construa a Ferraria', silent: 1, new: false },
     { id: 'pocao', n: 'Poções', ic: 'potion', chip: '.chip.pot', open: (S) => G.bLvl('alquimista') > 0 || (S.res.pocao || 0) > 5, req: 'Construa a Casa do Alquimista', silent: 1, new: false },
-    { id: 'caminhos', n: 'Caminhos', ic: 'map', tab: ['missoes', 'caminhos'], open: () => step() >= 5, req: 'Conclua 5 missões da Jornada', hint: 'objetivos livres que apresentam o reino.', used: (S) => has(S.paths) },
+    { id: 'caminhos', n: 'Caminhos', ic: 'map', tab: ['missoes', 'caminhos'], open: () => step() >= 5 || G.pathsPending() > 0, req: 'Conclua 5 missões da Jornada', hint: 'objetivos livres que apresentam o reino.', used: (S) => has(S.paths) },
     { id: 'decretos', n: 'Decretos', ic: 'bolt', chip: '#fabs', open: () => step() >= 6, req: 'Conclua 6 missões da Jornada', hint: 'poderes do trono, no raio à direita.' },
     { id: 'bencaos', n: 'Bênçãos', ic: 'seal', tab: ['mais', 'bencaos'], chip: '.chip.selo', open: (S) => S.selos > 0 || rl() >= 2 || has(S.bless), req: 'Nível de Reino 2', hint: 'Selos de Renome compram bônus permanentes.', used: (S) => has(S.bless) },
     { id: 'recordes', n: 'Poder do Reino', ic: 'crown', tab: ['mais', 'recordes'], chip: '#pwr', open: () => rl() >= 2, req: 'Nível de Reino 2', hint: 'a coroa no alto da tela; toque para ver marcos.', used: (S) => !!(S.lendas && S.lendas.seen) },
@@ -15111,7 +15152,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     { id: 'feitos', n: 'Feitos', ic: 'trophy', htab: 'feitos', open: () => rl() >= 2, req: 'Nível de Reino 2', silent: 1, new: false },
     { id: 'artes', n: 'Artes Secretas', ic: 'book', htab: 'artes', open: (S) => S.heroes.some((h) => (h.ap || 0) > 0), req: 'Um herói no nível 2', silent: 1, new: false },
     { id: 'zonas', n: 'Zonas', s: 'Zonas', rq: 'Reino 3', ic: 'skull', tab: ['missoes', 'zonas'], open: () => rl() >= 3, req: 'Nível de Reino 3', near: () => rl() >= 2, hint: 'o chefe de cada região e a corrupção.' },
-    { id: 'cronicas', n: 'Conquistas', ic: 'trophy', tab: ['mais', 'cronicas'], open: () => rl() >= 3, req: 'Nível de Reino 3', hint: 'metas longas que pagam Selos.' },
+    { id: 'cronicas', n: 'Conquistas', ic: 'trophy', tab: ['mais', 'cronicas'], open: () => rl() >= 3 || G.achPending() > 0, req: 'Nível de Reino 3', hint: 'metas longas que pagam Selos.' },
     { id: 'atelie', n: 'Ateliê', ic: 'shirt', tab: ['armazem', 'atelie'], open: () => rl() >= 3, req: 'Nível de Reino 3', hint: 'trajes, asas e mascotes dão visual e bônus.', used: (S) => has(S.cos) || (S.pets && S.pets.length > 0) },
     { id: 'publicas', n: 'Obras públicas', ic: 'hammer', tab: ['reino', 'publicas'], open: () => rl() >= 3, req: 'Nível de Reino 3', hint: 'o ouro que sobra rende mais aqui.', used: (S) => has(S.works) },
     { id: 'especiais', n: 'Especiais', ic: 'gift', tab: ['armazem', 'especiais'], open: () => rl() >= 2, req: 'Nível de Reino 2', silent: 1, new: false },
@@ -15233,15 +15274,19 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     hide.map((s) => s + '{display:none!important}').join('\n'),
     '#app:not(.so-decretos) #fabs{display:none!important}',
     '@keyframes nvp{from{transform:scale(1)}to{transform:scale(1.1)}}',
-    seal.nav.join(',') + '{content:"Novo!";position:absolute;top:-4px;left:calc(50% - 17px);padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;letter-spacing:.02em;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate;z-index:2}',
-    seal.tab.join(',') + ',' + seal.htab.join(',') + '{content:"Novo!";position:absolute;top:-4px;right:-3px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate;z-index:2}',
-    seal.chip.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-4px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate;z-index:2}',
-    seal.fab.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-6px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out infinite alternate}',
+    seal.nav.join(',') + '{content:"Novo!";position:absolute;top:-4px;left:calc(50% - 17px);padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;letter-spacing:.02em;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate;z-index:2}',
+    seal.tab.join(',') + ',' + seal.htab.join(',') + '{content:"Novo!";position:absolute;top:-4px;right:-3px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate;z-index:2}',
+    seal.chip.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-4px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate;z-index:2}',
+    seal.fab.join(',') + '{content:"Novo!";position:absolute;top:-7px;right:-6px;padding:1px 5px;border-radius:8px;background:linear-gradient(180deg,#f7dc92,#d8a544);color:#1a1408;font-size:8.5px;font-weight:900;line-height:1.3;pointer-events:none;animation:nvp .9s ease-in-out 6 alternate}',
     '#fab-dec,#hud .dif,#pwr,#hudx .wk{position:relative}',
     '#sheet .tabs{padding-top:6px}',
     '.tabs button.lk{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px dashed rgba(152,162,186,.4);color:var(--mut);font-weight:700;font-size:11.5px}',
     '.tabs button.lk svg{font-size:12px;opacity:.85}',
-    '@media (prefers-reduced-motion:reduce){[class*="nw-"] *::after{animation:none!important}}',
+    '@media (prefers-reduced-motion:reduce){[class*="nw-"] *::after,[class*="nw-"] *::before{animation:none!important}}',
+    /* v26 (4C.3): brilho pulsante só com opacidade (animar box-shadow repinta a camada a cada quadro; opacidade vai para a placa de vídeo) */
+    '#quest.done,#nrw.rdy,#fab-cal.has{animation:none!important}#fab-cal.has{position:relative}',
+    '#quest.done::before,#nrw.rdy::before,#fab-cal.has::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 2px rgba(247,220,146,.7),inset 0 0 14px rgba(247,220,146,.45);opacity:.25;animation:glowo 1.4s ease-in-out infinite alternate}',
+    '@keyframes glowo{to{opacity:1}}',
   ].join('\n');
   document.head.appendChild(css);
 
@@ -15265,6 +15310,12 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* ao abrir a aba o selo some: chamado pelo desenho do painel para cada aba */
   UI.tabAttr = (name, id, active) => { const sid = G.SYS_TAB[name + ':' + id]; if (sid && active && G.sysNew(sid)) G.sysTouch(sid); return ''; };
   UI.ACT.syslock = (a) => { const d = G.SYS[a[0]]; if (!d) return; UI.toast(d.n + ' abre com: ' + d.req + '.', 'info', 'lock'); };
+
+  /* o número da Jornada não conta o presente do Calendário enquanto o botão dele ainda não apareceu */
+  { const mb = UI.badges && UI.badges.missoes; if (mb) UI.badges.missoes = () => mb() - (!G.sysOpen('cal') && G.calState && G.calState().ok ? 1 : 0); }
+
+  /* a ficha só aponta para o Livro de Feitos depois que a aba existe (ou se o herói já tem título) */
+  { const ht = UI.hTitle; if (ht) UI.hTitle = (x, mini) => (!mini && !G.sysOpen('feitos') && !(G.titleOf && G.titleOf(x)) ? '' : ht(x, mini)); }
 
   /* ---------- toques que apagam o selo (barra, chips, abas da ficha) ---------- */
   const touchSel = [];
@@ -15296,6 +15347,16 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   UI.refresh = () => { rf0(); if (!G.S || !G.M.running) return; apply(); pump(); };
   G.on('start', () => { q.length = 0; sigO = sigN = ''; apply(); });
   G.on('sysseen', apply); G.on('syschg', apply);
+
+  /* ---------- efeitos leves automáticos (4C.3): o laço em 90-main chama G.fxAuto quando o quadro médio passa de 20 ms ---------- */
+  G.fxAuto = () => {
+    const o = G.S.opts; o.lowFx = 1; o.lowAuto = 1;
+    UI.toast('Efeitos leves ligados: o aparelho está pesado. Para voltar, Mais › Opções › Modo leve.', 'info', 'bolt', 9000);
+  };
+  const opt0 = UI.ACT.opt;
+  UI.ACT.opt = (a) => { opt0(a); if (a[0] === 'lowFx' && G.S) { const o = G.S.opts; o.lowAuto = 0; o.lowNo = o.lowFx ? 0 : 1; } };   // quem desliga à mão não é ligado de novo sozinho
+  { const M2 = UI.SHEETS && UI.SHEETS.mais;
+    if (M2) { const r1 = M2.render; M2.render = function (tab) { const h = r1.apply(M2, arguments); return tab === 'opcoes' && G.S.opts.lowAuto ? h.replace('Ajuda em aparelhos antigos.', 'Ajuda em aparelhos antigos. <b class="gold">Ligado sozinho: o jogo estava pesado neste aparelho.</b>') : h; }; } }
 
   /* abrir um painel pela barra apaga o selo dos sistemas que são o próprio botão (Forja, Armazém) */
   const open0 = UI.open;
@@ -15561,7 +15622,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
 'use strict';
 (function () {
   if (G.HEADLESS) return;
-  const M = (G.M = { running: false, last: 0, saveT: 0, uiT: 0, acc: 0 });
+  const M = (G.M = { running: false, last: 0, saveT: 0, uiT: 0, acc: 0, startAt: 0 });
 
   M.hasSave = () => { try { return !!localStorage.getItem(G.SAVE_KEY); } catch (e) { return false; } };
   M.save = () => { try { if (G.S) { localStorage.setItem(G.SAVE_KEY, G.serialize()); return true; } } catch (e) { /* armazenamento cheio ou bloqueado */ } return false; };
@@ -15576,14 +15637,29 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     else { const secs = (Date.now() - (G.S.saved || Date.now())) / 1000; off = G.offline(secs); }
     G.S.paused = false;
     if (G.R.cam && G.S.cam) { G.R.cam.x = G.S.cam.x; G.R.cam.y = G.S.cam.y; } else G.R.focus(44, 53, true);
-    M.running = true; M.last = performance.now();
+    M.running = true; M.last = performance.now(); M.startAt = M.last;
     G.emit('start', { fresh: !!fresh || !off, off });
     M.save();
   };
 
+  /* v26 (4C.3): efeitos leves automáticos. A cada 2 s olha o tempo médio entre quadros; se passar de 20 ms por 3 janelas seguidas (6 s) e o
+     desenho for uma fatia real disso (≥ 22% e ≥ 5 ms: um aparelho travado em 30 fps mas folgado não conta), liga o Modo leve (G.fxAuto, em 6E). */
+  const FX = { n: 0, dt: 0, draw: 0, bad: 0 };
+  M.fxAvg = 0; M.fxDraw = 0;
+  let fgAcc = 0, fgN = 0;
+  const fxWatch = (raw, drawMs) => {
+    if (raw > 0.2 || performance.now() - M.startAt < 8000) return;
+    FX.n++; FX.dt += raw; FX.draw += drawMs;
+    if (FX.dt < 2) return;
+    const avg = (FX.dt / FX.n) * 1000, dw = FX.draw / FX.n; M.fxAvg = avg; M.fxDraw = dw;
+    FX.bad = avg > 20 && dw > 5 && dw > 0.22 * avg ? FX.bad + 1 : 0;
+    FX.n = 0; FX.dt = 0; FX.draw = 0;
+    const o = G.S.opts;
+    if (FX.bad >= 3 && !o.lowFx && !o.lowNo && G.fxAuto) { FX.bad = 0; G.fxAuto(); }
+  };
   const loop = (now) => {
     requestAnimationFrame(loop);
-    let dt = (now - M.last) / 1000; M.last = now;
+    const raw = (now - M.last) / 1000; let dt = raw; M.last = now;
     if (!(dt > 0)) return; if (dt > 0.25) dt = 0.25;
     if (M.running && G.S) {
       const S = G.S;
@@ -15591,7 +15667,14 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
         const total = dt * S.speed, n = Math.max(1, Math.ceil(total / 0.034));
         for (let i = 0; i < n; i++) G.tick(total / n);
       }
-      G.R.frame(dt);
+      /* v26 (4C.3): o mapa só é redesenhado a cada N quadros quando quase ninguém olha para ele: janela aberta 15/s, painel aberto ou jogo pausado 30/s */
+      fgAcc += dt; fgN++;
+      const every = M.modalPause || (G.UI && G.UI.modalOpen) ? 4 : S.paused || (G.UI && G.UI.sheet) ? 2 : 1;
+      if (fgN >= every) {
+        const w0 = performance.now();
+        G.R.frame(fgAcc); fgAcc = 0; fgN = 0;
+        if (every === 1) fxWatch(raw, performance.now() - w0);
+      }
       M.uiT -= dt; if (M.uiT <= 0) { M.uiT = 0.25; if (G.UI) G.UI.refresh(); }
       M.saveT -= dt; if (M.saveT <= 0) { M.saveT = 20; M.save(); }
     } else if (G.UI && G.UI.titleFrame) G.UI.titleFrame(dt);
