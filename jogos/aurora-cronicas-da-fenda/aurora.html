@@ -10532,7 +10532,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     hitK: 0.042,           // um golpe comum (×1) tira esta fração da vida média dos 5 melhores heróis
     share: 0.5,            // fração dos heróis aptos que vai por conta própria (modo Livre)
     at: [11.5, 95.5],      // onde ele dorme na Cratera
-    pay: 1.25,              // soldo: quem luta recebe XP, moedas, materiais e renome na mesma taxa do que caçaria (o tempo no Colosso não pode ser tempo perdido)
+    pay: 1.0,              // soldo: quem luta recebe XP, moedas, materiais e renome na mesma taxa do que caçaria (o tempo no Colosso não pode ser tempo perdido)
     marks: [0.08, 0.2, 0.4, 0.65, 0.85],   // marcos pessoais de dano (fração da vida)
     bonus: 0.25,           // bônus de abate rápido (fração da vida, no máximo) contado no ranking
   };
@@ -10675,12 +10675,12 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     retune();
   };
   const despawn = () => { if (run.m) { run.m.gone = true; run.m = null; } run.tele.length = 0; };
-  /* ataque e defesa acompanham os 5 melhores heróis (reavaliado a cada poucos segundos) */
+  /* a defesa acompanha o ataque dos 5 melhores heróis e o golpe a vida média da equipe (reavaliado a cada poucos segundos) */
   const retune = () => {
     const m = run.m; if (!m) return;
     const tp = topHeroes(); if (!tp.length) return;
     m.def = G.COLOSSO.defK * avgOf(tp, (x) => x.st.atk);
-    const D = G.COLOSSO.hitK * avgOf(tp, (x) => x.st.hp), df = avgOf(tp, (x) => x.st.def);
+    const all = G.S.heroes.map((h) => G.heroStats(h)), D = G.COLOSSO.hitK * avgOf(all, (st) => st.hp), df = avgOf(all, (st) => st.def);   // o golpe é medido pela vida média de todos (os mais fracos não caem em dois golpes)
     m.atk = (D + Math.sqrt(D * D + 4 * D * df)) / 2;
   };
   const fighters = () => { const out = [], m = run.m; if (!m) return out; for (const h of G.S.heroes) if (h.state === 'colosso' && !h.inside && Math.hypot(h.x - m.x, h.y - m.y) < 16) out.push(h); return out; };
@@ -10799,17 +10799,17 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     if (m.dead || !h || m.colosso) return km1(m, h);
     const c = G.colosso(), y = c.y, g0 = h.gold, b0 = Object.assign({}, h.bag);
     run.inKill = true; km1(m, h); run.inKill = false;
-    y.g += Math.max(0, h.gold - g0);
+    y.g += Math.max(0, h.gold - g0) / G.PM(h.lvl);   // moedas e XP medidos em "frações" do nível de quem abateu: quem é mais fraco recebe proporcionalmente menos
     for (const id in h.bag) { const d = h.bag[id] - (b0[id] || 0); if (d > 0) y.mats[id] = (y.mats[id] || 0) + d; }   // o que veio na bolsa, por tipo (o que cai no chão depende de toque e não conta)
   };
-  const gx0 = G.giveXp; G.giveXp = (h, n) => { if (run.inKill) G.colosso().y.x += n; return gx0(h, n); };
+  const gx0 = G.giveXp; G.giveXp = (h, n) => { if (run.inKill) G.colosso().y.x += n / G.xpNeed(h.lvl); return gx0(h, n); };
   const gr0 = G.gainRealm; G.gainRealm = (n, why) => { if (run.inKill && why === 'kill') G.colosso().y.r += n; return gr0(n, why); };
   const payHero = (h, dt) => {
     const c = G.S.colosso, y = c.y; if (y.t < 300) return;
     h._pT = (h._pT || 0) - dt; if (h._pT > 0) return;
     const d = 2 - h._pT; h._pT = 2;
     const k = G.COLOSSO.pay * d / y.t;
-    G.giveXp(h, y.x * k); h.gold += y.g * k; G.gainRealm(y.r * k, 'colosso');
+    G.giveXp(h, y.x * k * G.xpNeed(h.lvl)); h.gold += y.g * k * G.PM(h.lvl); G.gainRealm(y.r * k, 'colosso');
     let tot = 0; for (const id in y.mats) tot += y.mats[id];
     h._pm = (h._pm || 0) + tot * k;
     while (h._pm >= 1 && tot > 0) {   // os materiais saem na mesma proporção em que a caçada traz
@@ -11193,12 +11193,12 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       for (let r = 0; r < a.h; r++) {
         const k = 1 - r / a.h, off = Math.sin(t * 1.25 + r * 0.075) * 4.2 * Math.pow(k, 1.4) * zz + Math.sin(t * 0.7 + r * 0.03) * 1.5 * k * zz;
         ctx.drawImage(a.cv, 0, r, a.w, 1, Math.round(x0 + off), Math.round(y0 + r * zz * sy), W, Math.ceil(zz * sy) + 1);
-        if (m && m.flash > 0) { ctx.globalAlpha = 0.6 * alpha; ctx.drawImage(a.flash, 0, r, a.w, 1, Math.round(x0 + off), Math.round(y0 + r * zz * sy), W, Math.ceil(zz * sy) + 1); ctx.globalAlpha = alpha; }
+        if (m && m.flash > 0) { ctx.globalAlpha = 0.3 * Math.min(1, m.flash / 0.12) * alpha; ctx.drawImage(a.flash, 0, r, a.w, 1, Math.round(x0 + off), Math.round(y0 + r * zz * sy), W, Math.ceil(zz * sy) + 1); ctx.globalAlpha = alpha; }
       }
     } else {
       if (flip < 0) { ctx.translate(px, 0); ctx.scale(-1, 1); ctx.translate(-px, 0); }
       ctx.drawImage(a.cv, Math.round(x0), Math.round(y0), W, H);
-      if (m && m.flash > 0) { ctx.globalAlpha = 0.6 * alpha; ctx.drawImage(a.flash, Math.round(x0), Math.round(y0), W, H); ctx.globalAlpha = alpha; }
+      if (m && m.flash > 0) { ctx.globalAlpha = 0.3 * Math.min(1, m.flash / 0.12) * alpha; ctx.drawImage(a.flash, Math.round(x0), Math.round(y0), W, H); ctx.globalAlpha = alpha; }
       /* brilho das frestas, do olho e do coração */
       ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = (0.22 + 0.22 * Math.sin(t * 2.2) + (angry ? 0.25 : 0) + (dead ? 0.4 : 0)) * alpha;
       ctx.drawImage(a.gl, Math.round(x0), Math.round(y0), W, H);
@@ -11208,7 +11208,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     ctx.globalCompositeOperation = 'lighter';
     const ex = x0 + (flip < 0 ? W - a.eye[0] * zz * sx : a.eye[0] * zz * sx), ey = y0 + a.eye[1] * zz * sy;
     glowDot(ctx, ex, ey, (awake ? 9 : 5) * zz, dd.glow, (awake ? 0.7 : 0.35) * alpha);
-    if (a.heart) glowDot(ctx, x0 + a.heart[0] * zz * sx, y0 + a.heart[1] * zz * sy, (10 + 3 * Math.sin(t * 2.6)) * zz, '#ffe6ff', (0.45 + 0.25 * Math.sin(t * 2.6)) * alpha);
+    if (a.heart) glowDot(ctx, x0 + a.heart[0] * zz * sx, y0 + a.heart[1] * zz * sy, (8 + 2 * Math.sin(t * 2.6)) * zz, '#ffe6ff', (0.3 + 0.18 * Math.sin(t * 2.6)) * alpha);
     ctx.globalCompositeOperation = 'source-over';
     drawShards(true);
     ctx.restore();
