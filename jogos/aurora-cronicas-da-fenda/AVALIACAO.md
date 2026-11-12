@@ -170,3 +170,45 @@ na maioria das semanas com o robô convocando; primeiro renascimento ~6,3–6,5 
 | V9 | 9 | 10 | Colosso de sexta a domingo + temporada + semana temática |
 | V10 | 10 | 10 | — |
 | **Viciante** | **9,2** | **9,9** | |
+
+---
+
+## Ciclo 4 — avaliação da v26.0 "Nenhum Minuto Vazio" (lotes 4-A, 4-B, 4-C) · 2026-11-12
+
+Evidência (conferida pelo líder, independente dos relatórios dos agentes):
+- Simulador 3 h em sementes novas (3 e 4) **sem erros**: 375/360 momentos, mediana 15/18 s, **maior vazio 156/151 s**
+  (era 353–551 s no fim do ciclo 3); 120 pedidos de moradores por 3 h (≈90% entregues); quedas 3/2; Arena 52–63%.
+  Os lotes registraram o mesmo em 8+ sementes (maior vazio ≤ 156 s em todas).
+- Jogo novo no Chromium (412×860) por 100 s: só 2 falas da Rosa, mão no Portal, barra com Reino/Heróis/Missões/Mais e
+  HUD enxuto (selos, núcleos, poder, semana e decretos ocultos até liberar); zero `pageerror`.
+- Saves gerados nas versões v22, v24 e v25 abrem na v26 com zero `pageerror` e veem só as novidades que faltavam.
+- Desempenho (lote 4-C, CPU 4× mais lenta, 360×640): painel aberto 33,8 → 19,5 ms por quadro; praça à noite
+  28,9 → 25,1 ms (20,6 no modo leve, que liga sozinho se o aparelho sofrer).
+- Capturas: `capturas/ciclo4-a/` (pedidos, fogueira, taverna, treino, visitante na roda), `ciclo4-b/` (ressonância,
+  combinações com sugestão "Aplicar", combinação decisiva), `ciclo4-c/` (primeiro minuto, selo Novo!, Livro do Reino).
+
+| # | C3 | C4 | Evidência |
+|---|---|---|---|
+| D1 | 10 | 10 | Primeiro minuto ainda mais limpo (sistemas aparecem quando liberam) |
+| D2 | 9 | 10 | Fogueira com heróis, moradores e vigia; mesa da taverna; treino; visitante entra na roda; moradores conversam |
+| D3 | 10 | 10 | — |
+| D4 | 9 | 10 | Pedidos dos moradores a cada ~1,5–3 min, entrega em 1 toque; Altar, revanche, formação, Colosso |
+| D5 | 10 | 10 | — |
+| D6 | 10 | 10 | — |
+| D7 | 10 | 10 | — |
+| D8 | 9 | 10 | Abas/chips só quando liberados, selo Novo! com dica única, cadeado só para o próximo, Livro do Reino com 36 páginas |
+| D9 | 9 | 10 | 6 famílias de ressonância, 13 combinações de formação, traços raros com níveis, laços |
+| D10 | 9 | 10 | Sem erros em simulador e navegador, saves migram, passada de desempenho com modo leve automático |
+| **Diversão** | **9,5** | **10** | |
+| V1 | 10 | 10 | — |
+| V2 | 10 | 10 | — |
+| V3 | 9 | 10 | Maior vazio ≤ 156 s em todas as sementes medidas; próxima recompensa sempre visível |
+| V4–V10 | 10 | 10 | — |
+| **Viciante** | **9,9** | **10** | |
+
+### Limites desta avaliação (honestidade)
+- A nota é da rubrica do líder, com evidência de simulador, navegador headless e capturas. **Não houve teste com
+  jogadores reais nem num celular físico**; desempenho e sons foram medidos só no Chromium.
+- Pontos a observar no teste humano: frequência dos pedidos (≈1 a cada 1,5 min pode cansar — é um número em
+  `3G-cidade.js`), quantidade de sistemas no meio do jogo, e a tensão das quedas (hoje raras: 2–12 em 3 h).
+- Recomendação: jogar a v26 por alguns dias e trazer o que incomodou; isso vale mais que um ciclo 5 às cegas.

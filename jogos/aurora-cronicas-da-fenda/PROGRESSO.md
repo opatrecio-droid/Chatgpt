@@ -202,7 +202,7 @@ Desempenho antes/depois (Chromium, CPU 4×, 360×640, escala 1, média de 3 exec
 - 4C.2: `UI.BOOK` (36 páginas: o que é · como avançar · dica de especialista, voz da Rosa), índice em Mais › Livro e "?" no cabeçalho de todo painel (a página da aba aberta; na ficha do herói, a da aba da ficha). Páginas de sistemas trancados viram "???" com o requisito (`G.sysReq`).
 
 ### Depois do ciclo 4
-- [ ] Avaliação do líder e notas novas em `AVALIACAO.md`
+- [x] Avaliação do líder e notas novas em `AVALIACAO.md` → **Diversão 10 · Viciante 10** (rubrica do líder; ver limites em `AVALIACAO.md`)
 
 ## Histórico
 | Data | Ciclo | Etapa | Resultado |
@@ -221,3 +221,4 @@ Desempenho antes/depois (Chromium, CPU 4×, 360×640, escala 1, média de 3 exec
 | 2026-11-12 | 3 | Lotes 3-A a 3-D concluídos em paralelo e juntados na principal (`ferramentas/juntar-lotes.py`); versão 25.0 "O Mundo Reage" | Simulador e navegador sem erros; saves v22/v24 abrem |
 | 2026-11-12 | 3 | Avaliação do ciclo 3 | Diversão 9,5 · Viciante 9,9 |
 | 2026-11-12 | 4 | Lote 4-C concluído (v26.0 "Nenhum Minuto Vazio"): sistemas só aparecem quando liberados (selo Novo! e dica), Livro do Reino (36 páginas), desempenho (painel −42% no tempo de quadro, praça noturna −13%, efeitos leves automáticos) | Capturas em `capturas/ciclo4-c/`; simulador 180 min idêntico à base 4-B nas sementes 1 e 2; saves v22/v24/v25 abrem sem `pageerror` |
+| 2026-11-12 | 4 | Lotes 4-A, 4-B, 4-C concluídos (v26.0); avaliação final | **Diversão 10 · Viciante 10** (rubrica) |
