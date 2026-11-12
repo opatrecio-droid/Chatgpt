@@ -6581,6 +6581,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
         const o = S.opts;
         return '<div class="tog"><span>' + ic('vol').replace('class="i"', 'class="i" style="display:inline;vertical-align:-2px"') + ' Efeitos sonoros</span><input type="range" min="0" max="100" value="' + Math.round(o.sfx * 100) + '" data-opt="sfx"></div><div class="tog"><span>Música ambiente</span><input type="range" min="0" max="100" value="' + Math.round(o.music * 100) + '" data-opt="music"></div>' +
           '<button class="tog" data-a="opt:lowFx"><span>Modo leve<small>Menos partículas e sem sombras de nuvens. Ajuda em aparelhos antigos.</small></span><i class="sw' + (o.lowFx ? ' on' : '') + '"></i></button>' +
+          '<button class="tog" data-a="opt:noVibe"><span>Vibração e tremor de tela<small>Vibra o aparelho (quando ele pode) e sacode a tela nos grandes momentos: peça Lendária, chefe derrotado, vitória na Arena, marco de poder.</small></span><i class="sw' + (o.noVibe ? '' : ' on') + '"></i></button>' +
           '<div class="sec">Jornada salva</div><p class="mut" style="font-size:12px;margin-bottom:8px">O jogo salva sozinho neste aparelho a cada 20 segundos. Exporte o código para guardar ou levar para outro aparelho.</p><div class="grid2"><button class="btn" data-a="export">' + ic('save') + 'Exportar</button><button class="btn" data-a="import">' + ic('save') + 'Importar</button></div><button class="btn wide" style="margin-top:8px" data-a="tutorial">' + ic('info') + 'Rever a apresentação</button><button class="btn wide" style="margin-top:8px;color:#ff9a9a" data-a="reset">' + ic('trash') + 'Apagar e recomeçar</button>' +
           '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "Rivais e Lendas"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
       }
@@ -10606,7 +10607,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* aviso de "herói em perigo": a vida cai abaixo de G.DANGER.alert, sem poção para beber e com golpes recentes. Um aviso por perigo: só
      rearma quando a vida passa de 60% ou o herói sai da luta. Evento 'danger' → { h, frac, boss }; conta em S.stats.dangers. */
   G.DANGER.alert = 0.3;
-  const dangerFlag = new WeakMap();
+  const dangerFlag = new WeakMap(), dangerAt = new WeakMap();
+  let dangerAny = -999;
   const FIGHT = { hunt: 1, flee: 1, travel: 1, defend: 1, rift: 1, inc: 1, return: 1 };
   const uh0 = G.updateHero;
   G.updateHero = (h, dt, mons) => {
@@ -10616,8 +10618,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const on = dangerFlag.get(h);
     if (!on && S.t - h.lastHit < 3 && h.potions <= 0 && h.hp > 0) {
       const st = G.heroStats(h), frac = h.hp / st.hp;
-      if (frac < G.DANGER.alert) {
-        dangerFlag.set(h, 1); S.stats.dangers = (S.stats.dangers || 0) + 1;
+      if (frac < G.DANGER.alert && S.t - dangerAny > 20 && S.t - (dangerAt.get(h) || -999) > 60) {   // no máximo um aviso a cada 20 s no reino e um por herói a cada 60 s
+        dangerFlag.set(h, 1); dangerAt.set(h, S.t); dangerAny = S.t; S.stats.dangers = (S.stats.dangers || 0) + 1;
         let boss = false; for (const o of mons) if (!o.dead && o.tgt === h && o.boss) { boss = true; break; }
         G.emit('danger', { h, frac, boss });
       }
@@ -10628,7 +10630,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* Elites (chance baixa) e chefes (chance maior) às vezes deixam uma PEÇA INSCRITA no chão (G.pieces, não salva, como o espólio de
      G.drops). O toque a leva ao Armazém, com a cerimônia de G.revealForge só para Épico+; ninguém pegou em G.PIECE.life s: o herói que
      abateu leva a peça ao Armazém (nada se perde). A peça sai de G.rollGift (inscrições de G.rollIns). */
-  G.PIECE = { elite: 0.035, boss: 0.28, life: 150, blink: 12, rE: [[1, 56], [2, 32], [3, 10], [4, 2]], rB: [[2, 50], [3, 34], [4, 14], [5, 2]] };
+  G.PIECE = { elite: 0.035, boss: 0.28, life: 150, blink: 12, rE: [[1, 58], [2, 32], [3, 9], [4, 1]], rB: [[2, 56], [3, 32], [4, 11], [5, 1]] };
   G.pieces = [];
   let pieceN = 0;
   G.pieceAdd = (x, y, spec, by) => {
@@ -10698,6 +10700,25 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const cb0 = G.arenaCoinBuy;
     G.arenaCoinBuy = (id) => { const r = cb0(id); if (r.ok && id === 'perg') { G.addRes('pergaminho', 1); r.got = 'Pergaminho de Proteção'; } return r; };
   }
+
+  /* ================= 3D.5 moedas paradas ================= */
+  /* Quando o cofre passa de G.PARKED_X vezes o custo da Obra pública mais barata, a "próxima recompensa" sugere essa obra (pronta: um toque
+     e as moedas viram bônus permanente; o texto fica curto para caber em 360 px). Cede lugar a calendário, contrato, conquista e promoção prontos (prioridade 5). */
+  G.PARKED_X = 5;
+  G.parkedWork = () => {
+    const S = G.S; if (!S || !G.WORKS) return null;
+    let best = null;
+    for (const w of G.WORKS) { const l = G.workLvl(w.id), c = G.workCost(l); if (!best || c < best.c) best = { w, l, c }; }
+    return best && S.gold > G.PARKED_X * best.c ? best : null;
+  };
+  const nr0 = G.nextReward;
+  G.nextReward = () => {
+    const r = nr0(), pk = G.parkedWork();
+    if (!pk) return r;
+    const o = { id: 'ob' + pk.w.id, k: 'Obra', t: pk.w.name + ' nv ' + (pk.l + 1), ic: pk.w.icon, cur: 1, n: 1, pct: 1, rk: 1, ready: true, go: 'open:reino:publicas', pr: 5 };
+    const all = r.all.concat([o]), ready = all.filter((x) => x.ready).sort((a, b) => a.pr - b.pr);
+    return { best: ready[0] || r.best, all };
+  };
 
   /* @@fim3F */
 })();
@@ -10988,6 +11009,29 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     if (!r.ok) return UI.toast(r.why, 'bad');
     UI.itemModal(+a[0], +a[1], r); UI.sheetDirty();
   };
+
+  /* ================= 3D.5 vibração e tremor nos picos ================= */
+  /* UI.feel(tipo): tremor curto de tela (R.shake) e vibração (navigator.vibrate, quando o aparelho tem). Mais forte para Lendário/Mítico, chefe
+     derrotado, vitória na Arena a partir da liga Platina e marco de poder; curtinho para queda de herói e aviso de perigo. Opções › "Vibração e
+     tremor de tela" desliga os dois (S.opts.noVibe; o padrão é ligado). O Modo leve e "reduzir movimento" do aparelho também calam o tremor. */
+  const PAT = { epic: [30], legend: [45, 40, 70], myth: [60, 50, 60, 50, 160], boss: [90, 40, 110], arena: [50, 40, 130], mark: [40, 40, 40, 40, 90], fall: [140], danger: [30, 40, 30] };
+  const SHK = { epic: 3, legend: 5, myth: 7, boss: 6, arena: 5, mark: 4 };
+  const calm = () => { const S = G.S; return !S || (S.opts && S.opts.noVibe); };
+  const reduce = () => { try { return !!(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches); } catch (e) { return false; } };
+  UI.feel = (kind) => {
+    if (calm()) return;
+    const sh = SHK[kind];
+    if (sh && !(G.S.opts && G.S.opts.lowFx) && !reduce()) R.shake = Math.max(R.shake || 0, sh);
+    try { if (navigator.vibrate && PAT[kind]) navigator.vibrate(PAT[kind]); } catch (e) { /* sem suporte */ }
+  };
+  /* o interruptor das Opções vale também para os tremores que já existiam (chefe, cartas, cerimônias, Arena) */
+  { let shv = R.shake || 0; Object.defineProperty(R, 'shake', { get: () => shv, set: (x) => { shv = calm() || (G.S && G.S.opts && G.S.opts.lowFx) || reduce() ? 0 : x; }, configurable: true }); }
+  G.on('reveal', (d) => { if (!d.it || d.it.rar < 4) return; UI.feel(d.it.rar >= 5 ? 'myth' : 'legend'); });
+  G.on('bosskill', () => UI.feel('boss'));
+  G.on('pmark', () => UI.feel('mark'));
+  G.on('herofall', () => UI.feel('fall'));
+  G.on('danger', () => UI.feel('danger'));
+  G.on('arena', (d) => { if (d.t !== 'result') return; const a = G.arena(); if (a && a.last && a.last.win && G.arenaLeague(a.pts) >= 3) UI.feel('arena'); });
 
   /* @@fim6B */
 })();
