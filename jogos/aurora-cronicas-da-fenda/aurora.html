@@ -6426,7 +6426,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       }
       if (tab === 'especiais') {
         let h = '<div class="grid2"><div class="res"><span style="font-size:20px;color:#ff9ac8">' + ic('seal') + '</span><div class="gr"><b>' + v.T(() => G.S.selos) + '</b><small>Selos de Renome</small></div></div><div class="res"><span style="font-size:20px;color:#c8a0ff">' + ic('core') + '</span><div class="gr"><b>' + v.T(() => G.S.nucleos) + '</b><small>Núcleos</small></div></div></div>';
-        for (const id of ['alma', 'po_estelar', 'po_reforja', 'essencia']) h += '<div class="card" style="margin-top:8px"><div class="row"><i class="px ri-' + id + '" style="width:30px;height:30px"></i><div class="gr"><h3>' + G.RES[id].name + ' <span class="lvl">' + v.T(() => G.fmt(G.S.res[id] || 0)) + '</span></h3><p>' + SP_INFO[id] + '</p></div></div></div>';
+        for (const id of ['alma', 'po_estelar', 'po_reforja', 'essencia'].concat(G.RES.pergaminho ? ['pergaminho'] : [])) h += '<div class="card" style="margin-top:8px"><div class="row"><i class="px ri-' + id + '" style="width:30px;height:30px"></i><div class="gr"><h3>' + G.RES[id].name + ' <span class="lvl">' + v.T(() => G.fmt(G.S.res[id] || 0)) + '</span></h3><p>' + (SP_INFO[id] || G.RES[id].info || '') + '</p></div></div></div>';
         const embs = Object.keys(G.RES).filter((k) => G.RES[k].emb);
         h += '<div class="sec">Emblemas dos chefes</div><div class="bagg">' + embs.map((k) => '<span class="bi' + ((S.res[k] || 0) >= 1 ? '' : ' none') + '" title="' + G.RES[k].name + '"><i class="px ri-' + k + '"></i><b>' + v.T(() => G.fmt(G.S.res[k] || 0)) + '</b><small>' + G.RES[k].name.replace('Emblema ', '') + '</small></span>').join('') + '</div><p class="mut" style="font-size:11.5px;margin:8px 2px">Emblemas pagam promoções de rank, mudanças de classe e melhorias de construções.</p>';
         return h;
@@ -10636,8 +10636,9 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     const p = { id: ++pieceN, x: p0[0], y: p0[1], spec, rar: spec.rar, t: G.S.t, by: by || 0 };
     G.pieces.push(p); if (G.pieces.length > 12) G.pieces.shift();
     G.addFx({ t: 'sparks', x: p.x, y: p.y }); G.emit('piece', { t: 'drop', p });
-    if (spec.rar >= 2) G.log(G.RAR[spec.rar] + ': uma peça (' + G.GEAR[spec.type].name + ') caiu no chão. Toque nela para pegar.', spec.rar >= 3 ? 'epic' : 'good');
-    if (spec.rar >= 3) G.toast('Uma peça ' + G.RAR[spec.rar] + ' caiu no chão!', 'epic', 'hammer');
+    const rf = G.RAR[spec.rar].replace(/o$/, 'a');          // Raro → Rara, Lendário → Lendária
+    if (spec.rar >= 2) G.log('Uma peça ' + rf + ' (' + G.GEAR[spec.type].name + ') caiu no chão. Toque nela para pegar.', spec.rar >= 3 ? 'epic' : 'good');
+    if (spec.rar >= 3) G.toast('Uma peça ' + rf + ' caiu no chão!', 'epic', 'hammer');
     return p;
   };
   /* o jogador (ou o prazo) leva a peça: devolve o item no Armazém */
@@ -10900,6 +10901,93 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   G.on('decree', () => { const box = $('#dng'); if (box) { box.innerHTML = ''; dgSet(); } });
   const rfD = UI.refresh;
   UI.refresh = () => { rfD(); dgTick(); };
+
+  /* ================= 3D.4 peças no chão e +N com chance clara e proteção ================= */
+  /* Peças caídas (G.pieces, 3F): brilho na cor da raridade (feixe de luz em Épico+), ícone da peça, tremeluz nos últimos segundos.
+     Toque = Armazém (cerimônia só para Épico+, via G.giveItem → G.revealForge). */
+  const pcImgs = {};
+  const pcImg = (type) => {
+    let e = pcImgs[type]; if (e) return e.ok ? e.img : null;
+    e = pcImgs[type] = { ok: false, img: new Image() };
+    const t = document.createElement('i'); t.className = 'gi gi-' + type; t.style.display = 'none'; document.body.appendChild(t);
+    const m = /url\(["']?([^"')]+)["']?\)/.exec(getComputedStyle(t).backgroundImage); t.remove();
+    if (m) { e.img.onload = () => { e.ok = true; }; e.img.src = m[1]; }
+    return null;
+  };
+  const drawPiece = (p, X, Y, z) => {
+    const ctx = R.ctx, S = G.S, left = G.PIECE.life - (S.t - p.t);
+    if (left < G.PIECE.blink && Math.floor(R.t * 6) % 2) return;
+    const col = G.RAR_COLOR[p.rar], px = Math.round(X(p.x)), py = Math.round(Y(p.y)), sc = Math.max(1, Math.round(z * 1.05)), sz = 16 * sc;
+    const bob = Math.round((Math.sin(R.t * 3 + p.id) * 0.8 + 0.8) * sc), cy = py - sz / 2 - bob, pul = 0.5 + 0.5 * Math.sin(R.t * 4 + p.id);
+    ctx.save();
+    if (p.rar >= 3) {                                                  // feixe de luz para o alto
+      const g = ctx.createLinearGradient(0, py, 0, py - 95 * z); g.addColorStop(0, col); g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.globalAlpha = 0.4 + 0.2 * pul; ctx.fillStyle = g; ctx.fillRect(px - 4.2 * z, py - 95 * z, 8.4 * z, 95 * z);
+    }
+    const gr = (p.rar >= 3 ? 20 : 14) * z, rg = ctx.createRadialGradient(px, cy, 1, px, cy, gr);
+    rg.addColorStop(0, col); rg.addColorStop(0.55, col); rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = 0.5 + 0.3 * pul + (p.rar >= 4 ? 0.15 : 0); ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(px, cy, gr, 0, 6.283); ctx.fill();
+    ctx.globalAlpha = 0.9; ctx.strokeStyle = col; ctx.lineWidth = Math.max(1, Math.round(z * 0.6)); ctx.beginPath(); ctx.ellipse(px, py, 6 * z, 2.4 * z, 0, 0, 6.283); ctx.stroke();
+    ctx.globalAlpha = 1;
+    const im = pcImg(p.spec.type);
+    if (im) { ctx.imageSmoothingEnabled = false; ctx.drawImage(im, 0, 0, 16, 16, Math.round(px - sz / 2), Math.round(py - sz - bob), sz, sz); }
+    const tw = (R.t * 1.4 + p.id * 0.37) % 1.8;                        // cintilar
+    if (tw < 0.35) { const a = Math.sin(tw / 0.35 * Math.PI), sx = Math.round(px + ((p.id * 7) % 9 - 4) * sc), sy = Math.round(cy - sz * 0.3); ctx.globalAlpha = a; ctx.fillStyle = '#fff'; ctx.fillRect(sx - sc, sy, 3 * sc, sc); ctx.fillRect(sx, sy - sc, sc, 3 * sc); }
+    ctx.restore();
+  };
+  const dm0 = R.dynMore;
+  R.dynMore = (dyn, vx0, vx1, vy0, vy1) => {
+    if (dm0) dm0(dyn, vx0, vx1, vy0, vy1);
+    for (const p of G.pieces) if (p.x > vx0 && p.x < vx1 && p.y > vy0 && p.y < vy1 + 1) dyn.push({ y: p.y - 0.05, k: 'x', e: p, f: drawPiece });
+  };
+  const pm0 = R.pickMore;
+  R.pickMore = (wx, wy) => {
+    let best = null, bd = 1.0;
+    for (const p of G.pieces) { const d = Math.hypot(p.x - wx, p.y - 0.4 - wy); if (d < bd) { bd = d; best = p; } }
+    return best ? { type: 'drop', ref: best } : pm0 ? pm0(wx, wy) : null;
+  };
+  const nm0 = R.nightMore;
+  R.nightMore = (hole) => { if (nm0) nm0(hole); for (const p of G.pieces) hole(p.x, p.y - 0.3, 1.6, 0.7); };
+  const dt0 = UI.dropTap;
+  UI.dropTap = (d) => {
+    if (!d || !d.spec) return dt0 ? dt0(d) : null;
+    const it = G.pieceTake(d);
+    if (it && it.rar < 3) UI.toast('Peça no Armazém: ' + G.itemName(it) + ' (' + G.RAR[it.rar] + ')', it.rar >= 2 ? 'good' : 'info', 'hammer');
+  };
+
+  /* Aprimorar +N: chance em destaque, o que acontece numa falha e o Pergaminho de Proteção */
+  css.textContent += '\n' + [
+    '.upc{margin:10px 0 2px;padding:9px 11px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.04);text-align:left}',
+    '.upc .upr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;font-size:12.5px}',
+    '.upc .upp{font-family:"Aurora Cinzel",serif;font-size:20px}.upp.good{color:var(--good)}.upp.mid{color:var(--gold2)}.upp.bad{color:var(--bad)}',
+    '.upc .upn{margin:7px 0 0;font-size:11.5px;color:var(--mut);line-height:1.35}',
+    '.upc .tog{border-bottom:0;padding:8px 0 0}',
+  ].join('\n');
+  let protOn = true;
+  const im0 = UI.itemModal;
+  UI.itemModal = (id, hid, msg) => {
+    im0(id, hid, msg);
+    const it = UI.findItem && UI.findItem(id, hid), acts = $('#modal .acts'); if (!it || !acts) return;
+    const S = G.S, max = Math.min(15, 4 + G.bLvl('ferraria'));
+    if (msg && !msg.win) {                                            // texto da falha
+      const p = Array.from(document.querySelectorAll('#modal p.lead')).find((e) => e.textContent.indexOf('têmpera falhou') >= 0);
+      if (p) { p.textContent = msg.saved ? 'A têmpera falhou, mas o Pergaminho de Proteção devolveu moedas e materiais.' : 'A têmpera falhou. A peça continua em +' + it.plus + ', mas moedas e materiais se perderam.'; if (msg.saved) { p.classList.remove('bad'); p.classList.add('good'); } }
+    }
+    if (!G.bOk('ferraria') || it.plus >= max) return;
+    const c = G.upgradeCost(it), pct = Math.round(c.chance * 100), have = S.res.pergaminho || 0, cls = pct >= 70 ? 'good' : pct >= 40 ? 'mid' : 'bad', bar = pct >= 70 ? 'g' : pct >= 40 ? 'o' : 'r';
+    for (const e of document.querySelectorAll('#modal .cost')) if (/^chance/.test(e.textContent.trim())) e.remove();
+    if (have < 1) protOn = true;
+    acts.insertAdjacentHTML('beforebegin', '<div class="upc"><div class="upr"><b>Chance de sucesso</b><b class="upp ' + cls + '">' + pct + '%</b></div><div class="bar big ' + bar + '"><i style="width:' + pct + '%"></i></div>' +
+      '<p class="upn">' + (pct >= 100 ? 'Garantido nesta etapa.' : 'Se falhar: a peça continua em +' + it.plus + ', mas as moedas e os materiais se perdem.') + '</p>' +
+      (pct >= 100 ? '' : have > 0 ? '<button class="tog" data-a="protog"><span>Proteger com Pergaminho<small>Você tem ' + have + '. Se falhar, moedas e materiais voltam e o pergaminho é gasto; se der certo, ele fica.</small></span><i class="sw prot' + (protOn ? ' on' : '') + '"></i></button>' : '<p class="upn">Sem Pergaminho de Proteção. Ele vem do Baú do dia, de chefes e da Loja da Arena.</p>') + '</div>');
+  };
+  UI.ACT.protog = () => { protOn = !protOn; const sw = $('#modal .sw.prot'); if (sw) sw.classList.toggle('on', protOn); };
+  UI.ACT.mupg = (a) => {
+    const it = UI.findItem(+a[0], +a[1]); if (!it) return;
+    const r = G.upgradeItem(it, protOn && (G.S.res.pergaminho || 0) > 0 && G.upgradeCost(it).chance < 1);
+    if (!r.ok) return UI.toast(r.why, 'bad');
+    UI.itemModal(+a[0], +a[1], r); UI.sheetDirty();
+  };
 
   /* @@fim6B */
 })();
