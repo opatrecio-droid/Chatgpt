@@ -121,21 +121,21 @@ Notas técnicas do lote 3-A:
 - 3A.3 (sem tela, fila, robustez): o relatório do `sim.js` tem a linha "Colosso" (semanas, dano, posição, derrotado, marcos, baús, prêmios, lutadores, quedas honrosas por herói-minuto). 360 min, sementes 1 e 2, modo Convocar: 9 semanas cada, derrotado 8/9 e 7/9, posições 2º–6º (14º nas semanas fracas), zero erros; modo Livre: ~65–80% do dano da semana, posições 5º–19º, nenhum abate (como esperado: o robô joga só 15 min por fim de semana). Navegador (Chromium, `fakeClock`): quinta (aviso: toast, faixa e chip), sexta (despertar, heróis marchando e lutando, barra grande), domingo derrotado (baú e relíquia pela fila), segunda ao abrir o jogo (retorno → prêmio do ranking → marco de poder → calendário, nessa ordem), save da base v22 sem erros (412×860 e 360×640), Maré e Fenda durante o Colosso, toque no Colosso abre o inspetor, trocar o modo pela aba. Desempenho (Chromium sem GPU, 60 fps nos três casos): v24 sem Colosso, tempo de desenho 0,46 ms/quadro e laço 0,155 ms/quadro; v25 com o Colosso em cena e 8 heróis lutando, 0,79 ms e 0,178 ms (a 3×: 1,06 ms e 0,276 ms contra 0,62 ms e 0,299 ms sem ele).
 
 ### Lote 3-B — Nêmesis, visitantes e laços
-- [ ] 3B.1 Nêmesis e revanche (+ notícia no retorno)
-- [ ] 3B.2 Visitantes rivais na cidade
-- [ ] 3B.3 Laços entre heróis
+- [x] 3B.1 Nêmesis e revanche (+ notícia no retorno)
+- [x] 3B.2 Visitantes rivais na cidade
+- [x] 3B.3 Laços entre heróis
 
 ### Lote 3-C — Renascimento que dá vontade
-- [ ] 3C.1 Pontos de Renascimento e traços
-- [ ] 3C.2 Prévia e cerimônia
-- [ ] 3C.3 Ritmo do primeiro renascimento (6–10 h)
+- [x] 3C.1 Pontos de Renascimento e traços
+- [x] 3C.2 Prévia e cerimônia
+- [x] 3C.3 Ritmo do primeiro renascimento (6–10 h)
 
 ### Lote 3-D — Último atrito
-- [ ] 3D.1 Guia completo e pré-requisitos visíveis
-- [ ] 3D.2 HUD 360×640
-- [ ] 3D.3 Quedas raras e dramáticas
-- [ ] 3D.4 Peças inscritas de elites/chefes + proteção no +N
-- [ ] 3D.5 Vibração/tremor e sugestão de Obras; versão 25.0
+- [x] 3D.1 Guia completo e pré-requisitos visíveis
+- [x] 3D.2 HUD 360×640
+- [x] 3D.3 Quedas raras e dramáticas
+- [x] 3D.4 Peças inscritas de elites/chefes + proteção no +N
+- [x] 3D.5 Vibração/tremor e sugestão de Obras; versão 25.0
 
 ### Depois do ciclo 3
 - [ ] Avaliação do líder e notas novas em `AVALIACAO.md`
@@ -154,3 +154,4 @@ Notas técnicas do lote 3-A:
 | 2026-11-11 | 2 | Lote 2-C concluído (v24.0): tutorial que aponta, fila única de janelas, Poder da peça, Códex, próxima recompensa, HUD (módulos `3B-clareza` e `67-ui-clareza`) | Capturas em `capturas/ciclo2-c/`; primeira decisão em ~13 s (ritmo humano simulado); retorno → novidades → calendário sem sobreposição; simulador sem erros |
 | 2026-11-11 | 2 | Lote 2-C concluído (v24.0); avaliação do ciclo 2; robô do simulador segue a Jornada | Diversão 8,7 · Viciante 9,2 |
 | 2026-11-12 | 3 | Lote 3-A concluído: Colosso da Semana (módulos `3C-colosso` e `68-ui-colosso`) | Capturas em `capturas/ciclo3-a/`; simulador 360 min sem erros em 2 sementes; 60 fps com o Colosso em cena |
+| 2026-11-12 | 3 | Lotes 3-A a 3-D concluídos em paralelo e juntados na principal (`ferramentas/juntar-lotes.py`); versão 25.0 "O Mundo Reage" | Simulador e navegador sem erros; saves v22/v24 abrem |
