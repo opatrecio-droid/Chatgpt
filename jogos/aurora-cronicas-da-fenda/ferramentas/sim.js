@@ -60,6 +60,7 @@ if (G.arenaNow) {
 }
 /* ---------- jogador-robô ---------- */
 let thinkT = 0;
+const pieceRar = {};
 const bot = () => {
   const st = S();
   try {
@@ -99,6 +100,7 @@ const bot = () => {
     }
     if (REFORGE && G.reforgeRoll) reforgeBot(st);
     if (G.arenaOpen) arenaBot(st);
+    if (G.pieces) for (const p of G.pieces.slice()) { const it = G.pieceTake(p); if (it) pieceRar[it.rar] = (pieceRar[it.rar] || 0) + 1; }   // 3-D: o robô toca nas peças caídas
   } catch (e) { errors.push('bot: ' + e.stack); }
 };
 /* v25: duela na Arena enquanto houver tíquete grátis do dia, sempre contra o adversário do meio, com a melhor equipe automática */
@@ -184,6 +186,7 @@ if (G.kingPower && S().lendas) {
 if (G.codexStats && S().codex) { const cs = G.codexStats(); console.log('Códex: ' + cs.slots + '/' + cs.slotsMax + ' registros de inscrição (' + cs.ids + '/' + cs.idsMax + ' tipos, ' + cs.perf + ' perfeitas) · peças ' + cs.cells + '/' + cs.cellsMax + ' · marcos ' + Object.keys(S().codex.ms).length + '/' + G.CODEX_MS.length + ': ' + (codexMs.length ? codexMs.map((x) => x.id + '@' + (x.t / 60).toFixed(0) + 'm').join(' ') : '—')); }
 /* 3-D: quedas (heróis derrubados) — linha estável para a tabela por semente */
 console.log('Quedas: ' + S().stats.falls + ' · abates ' + S().stats.kills + ' · Nível de Reino ' + S().realm.lvl + ' · heróis ' + S().heroes.length);
+if (G.pieceTake) console.log('Peças caídas (pegas pelo robô ou levadas pelo herói): ' + (S().stats.pieces || 0) + ' ' + JSON.stringify(pieceRar) + ' · Pergaminhos: ' + (S().stats.scrollsGot || 0) + ' obtidos, ' + (S().res.pergaminho || 0) + ' guardados · alertas de perigo: ' + (S().stats.dangers || 0));
 console.log('Primeira promoção: ' + first('promo') + ' · primeiro momento épico: ' + first('epic'));
 if (!QUIET) for (const x of moments.slice(0, 60)) console.log('  [' + (x.t / 60).toFixed(1) + 'm] ' + x.k + ': ' + String(x.txt).slice(0, 110));
 if (opt('save', '')) { fs.writeFileSync(opt('save', ''), G.serialize()); console.log('Save gravado em ' + opt('save', '')); }
