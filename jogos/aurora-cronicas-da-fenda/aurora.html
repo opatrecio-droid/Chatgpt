@@ -11146,7 +11146,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* resultado do duelo: vingança, provocação do líder e o novo Nêmesis; duelo amistoso troca o resultado inteiro */
   let lastRes = null, friendly = null;
   G.on('arena', (d) => {
-    if (d.t === 'duel') { lastRes = d.res; return; }
+    if (d.t === 'duel') { lastRes = d.res; friendly = null; return; }     // um duelo valendo começou: nenhum amistoso abandonado vaza para o resultado dele
     if (d.t !== 'result') return;
     try {
       const box = $('#ar-res .ar-res'); if (!box) return;
