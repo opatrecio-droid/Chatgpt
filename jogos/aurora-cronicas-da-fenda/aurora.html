@@ -1668,6 +1668,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
         const need = m.lvl + (h.caution === 0 ? -1 : 1) - Math.min(3, allies) + (m.rift ? 0 : G.diffCur().shift);
         if (st.eff < need || h.hp < st.hp * 0.7) continue;
       }
+      if (G.engageRisk && G.engageRisk(h, m, st)) continue;
       let score = d - (m.tgt === h ? 3 : 0) - (m.mark ? 6 : 0);
       if (score < bd) { bd = score; best = m; }
     }
@@ -1810,7 +1811,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     }
   };
   const drink = (h, st) => {
-    h.potions--; h.tPot = 9; const v = st.hp * Math.min(0.8, 0.45 + 0.03 * G.bLvl('alquimista'));
+    h.potions--; h.tPot = G.DANGER ? G.DANGER.potCd : 9; const v = st.hp * Math.min(0.8, 0.45 + 0.03 * G.bLvl('alquimista'));
     h.hp = Math.min(st.hp, h.hp + v); G.S.stats.potions++;
     G.addFx({ t: 'dmg', x: h.x, y: h.y - 0.9, n: Math.round(v), c: '#7df09a', heal: 1 }); G.addFx({ t: 'potion', x: h.x, y: h.y - 0.6 }); G.sfx('potion', h.x, h.y);
   };
@@ -1830,14 +1831,14 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.heroGoHome = goHome;
   const hunt = (h, dt, st, mons) => {
     const S = G.S;
-    const thr = G.clamp(G.CAUTION[h.caution].thr + G.traitSum(h, 'retreat'), 0.08, 0.7);
+    const thr = G.retreatThr ? G.retreatThr(h, st, h.tgt) : G.clamp(G.CAUTION[h.caution].thr + G.traitSum(h, 'retreat'), 0.08, 0.7);
     const frac = h.hp / st.hp;
     let m = h.tgt;
     if (m && (m.dead || m.gone)) m = h.tgt = null;
-    const bossFight = m && m.boss && G.hasTrait(h, 'teimoso');
+    const bossFight = m && m.boss && G.hasTrait(h, 'teimoso') && !(G.DANGER && G.DANGER.on);
     if (frac < thr && !bossFight) {
       if (h.potions > 0 && h.tPot <= 0) drink(h, st);
-      else if (h.tPot <= 0 || frac < thr * 0.6) { if (h.potions <= 0) G.bark(h, 'hurt', 0.5); return goHome(h, true); }
+      else if (h.tPot <= 0 || frac < thr * (G.DANGER ? G.DANGER.flee : 0.6)) { if (h.potions <= 0) G.bark(h, 'hurt', 0.5); return goHome(h, true); }
     } else if (frac < 0.45 && h.potions > 0 && h.tPot <= 0 && S.t - h.lastHit < 3) drink(h, st);
     h.tThink -= dt;
     if (h.tThink <= 0) {
@@ -5926,12 +5927,12 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   /* ---------- jornada (rodapé) ---------- */
   let questSig = '';
   const refreshQuest = () => {
-    const q = G.questCur(), el = $('#quest'); const sig = q.t + '|' + q.done;
+    const q = G.questCur(), el = $('#quest'), pre = !q.done && G.questPrereq ? G.questPrereq() : null; const sig = q.t + '|' + q.done + '|' + (pre ? pre.txt : '');
     if (sig !== questSig) {
       questSig = sig; questV.reset();
-      el.classList.toggle('done', q.done);
-      el.setAttribute('data-a', q.done ? 'questclaim' : 'open:missoes:jornada');
-      el.innerHTML = '<span class="qi">' + ic(q.done ? 'chest' : 'scroll') + '</span><span class="qt"><b>' + esc(q.t) + '</b><div class="bar"><i ' + questV.W(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }) + '></i></div></span><span class="qn">' + (q.done ? 'Resgatar' : questV.T(() => { const c = G.questCur(); return G.fmt(c.cur) + '/' + G.fmt(c.n); })) + '</span>';
+      el.classList.toggle('done', q.done); el.classList.toggle('pre', !!pre);
+      el.setAttribute('data-a', q.done ? 'questclaim' : pre && pre.first.k === 'bld' ? 'gopre' : 'open:missoes:jornada');
+      el.innerHTML = '<span class="qi">' + ic(q.done ? 'chest' : 'scroll') + '</span><span class="qt"><b>' + esc(q.t) + '</b>' + (pre ? '<small class="qpre">' + esc(pre.txt) + '</small>' : '<div class="bar"><i ' + questV.W(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }) + '></i></div>') + '</span><span class="qn">' + (q.done ? 'Resgatar' : questV.T(() => { const c = G.questCur(); return G.fmt(c.cur) + '/' + G.fmt(c.n); })) + '</span>';
     } else questV.refresh();
   };
 
@@ -6430,7 +6431,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       }
       if (tab === 'especiais') {
         let h = '<div class="grid2"><div class="res"><span style="font-size:20px;color:#ff9ac8">' + ic('seal') + '</span><div class="gr"><b>' + v.T(() => G.S.selos) + '</b><small>Selos de Renome</small></div></div><div class="res"><span style="font-size:20px;color:#c8a0ff">' + ic('core') + '</span><div class="gr"><b>' + v.T(() => G.S.nucleos) + '</b><small>Núcleos</small></div></div></div>';
-        for (const id of ['alma', 'po_estelar', 'po_reforja', 'essencia']) h += '<div class="card" style="margin-top:8px"><div class="row"><i class="px ri-' + id + '" style="width:30px;height:30px"></i><div class="gr"><h3>' + G.RES[id].name + ' <span class="lvl">' + v.T(() => G.fmt(G.S.res[id] || 0)) + '</span></h3><p>' + SP_INFO[id] + '</p></div></div></div>';
+        for (const id of ['alma', 'po_estelar', 'po_reforja', 'essencia'].concat(G.RES.pergaminho ? ['pergaminho'] : [])) h += '<div class="card" style="margin-top:8px"><div class="row"><i class="px ri-' + id + '" style="width:30px;height:30px"></i><div class="gr"><h3>' + G.RES[id].name + ' <span class="lvl">' + v.T(() => G.fmt(G.S.res[id] || 0)) + '</span></h3><p>' + (SP_INFO[id] || G.RES[id].info || '') + '</p></div></div></div>';
         const embs = Object.keys(G.RES).filter((k) => G.RES[k].emb);
         h += '<div class="sec">Emblemas dos chefes</div><div class="bagg">' + embs.map((k) => '<span class="bi' + ((S.res[k] || 0) >= 1 ? '' : ' none') + '" title="' + G.RES[k].name + '"><i class="px ri-' + k + '"></i><b>' + v.T(() => G.fmt(G.S.res[k] || 0)) + '</b><small>' + G.RES[k].name.replace('Emblema ', '') + '</small></span>').join('') + '</div><p class="mut" style="font-size:11.5px;margin:8px 2px">Emblemas pagam promoções de rank, mudanças de classe e melhorias de construções.</p>';
         return h;
@@ -6516,7 +6517,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       if (tab === 'jornada') {
         const q = G.questCur(); const rw = [];
         for (const k in q.r) rw.push(k === 'gold' ? ic('coin') + G.fmt(q.r.gold) : k === 'selos' ? ic('seal') + q.r.selos : k === 'nucleos' ? ic('core') + q.r.nucleos : '<i class="px ri-' + k + '" style="width:16px;height:16px"></i>' + q.r[k]);
-        let h = '<div class="card hl"><p class="cz gold" style="font-size:11px;letter-spacing:.2em">' + (q.tag ? q.tag : q.decree ? 'DECRETO REAL ' + (S.quest.decreeN + 1) : 'CAPÍTULO ' + q.idx + ' DE ' + G.QUESTS.length) + '</p><h3 style="font-size:15.5px;margin-top:4px">' + esc(q.t) + '</h3><p>' + esc(q.h) + '</p><div style="margin-top:8px">' + bar(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }, 'big') + '</div><div class="row" style="margin-top:8px"><div class="gr"><div class="costs" style="margin:0">' + rw.map((x) => '<span class="cost">' + x + '</span>').join('') + '</div></div><button class="btn pri" data-a="questclaim" ' + v.Dis(() => !G.questCur().done) + '>' + ic('chest') + 'Resgatar</button></div></div>';
+        let h = '<div class="card hl"><p class="cz gold" style="font-size:11px;letter-spacing:.2em">' + (q.tag ? q.tag : q.decree ? 'DECRETO REAL ' + (S.quest.decreeN + 1) : 'CAPÍTULO ' + q.idx + ' DE ' + G.QUESTS.length) + '</p><h3 style="font-size:15.5px;margin-top:4px">' + esc(q.t) + '</h3><p>' + esc(q.h) + '</p>' + (UI.preCard ? UI.preCard() : '') + '<div style="margin-top:8px">' + bar(() => { const c = G.questCur(); return Math.round(100 * c.cur / c.n); }, 'big') + '</div><div class="row" style="margin-top:8px"><div class="gr"><div class="costs" style="margin:0">' + rw.map((x) => '<span class="cost">' + x + '</span>').join('') + '</div></div><button class="btn pri" data-a="questclaim" ' + v.Dis(() => !G.questCur().done) + '>' + ic('chest') + 'Resgatar</button></div></div>';
         if (!q.decree) { const nx = G.QUESTS.slice(S.quest.step + (q.tag ? 0 : 1), S.quest.step + (q.tag ? 2 : 3)); if (nx.length) h += '<div class="sec">A seguir</div>' + nx.map((d) => '<div class="card lock"><div class="row">' + ic('lock') + '<div class="gr"><b style="font-size:12.5px">' + esc(d.t) + '</b></div></div></div>').join(''); }
         h += '<div class="sec">Crônica de Aurora</div>';
         for (const l of S.log.slice(-14).reverse()) h += '<div class="logl ' + l.k + '"><small>Dia ' + l.d + ' · ' + G.clockStr(l.c) + '</small>' + esc(l.m) + '</div>';
@@ -6585,6 +6586,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
         const o = S.opts;
         return '<div class="tog"><span>' + ic('vol').replace('class="i"', 'class="i" style="display:inline;vertical-align:-2px"') + ' Efeitos sonoros</span><input type="range" min="0" max="100" value="' + Math.round(o.sfx * 100) + '" data-opt="sfx"></div><div class="tog"><span>Música ambiente</span><input type="range" min="0" max="100" value="' + Math.round(o.music * 100) + '" data-opt="music"></div>' +
           '<button class="tog" data-a="opt:lowFx"><span>Modo leve<small>Menos partículas e sem sombras de nuvens. Ajuda em aparelhos antigos.</small></span><i class="sw' + (o.lowFx ? ' on' : '') + '"></i></button>' +
+          '<button class="tog" data-a="opt:noVibe"><span>Vibração e tremor de tela<small>Vibra o aparelho (quando ele pode) e sacode a tela nos grandes momentos: peça Lendária, chefe derrotado, vitória na Arena, marco de poder.</small></span><i class="sw' + (o.noVibe ? '' : ' on') + '"></i></button>' +
           '<div class="sec">Jornada salva</div><p class="mut" style="font-size:12px;margin-bottom:8px">O jogo salva sozinho neste aparelho a cada 20 segundos. Exporte o código para guardar ou levar para outro aparelho.</p><div class="grid2"><button class="btn" data-a="export">' + ic('save') + 'Exportar</button><button class="btn" data-a="import">' + ic('save') + 'Importar</button></div><button class="btn wide" style="margin-top:8px" data-a="tutorial">' + ic('info') + 'Rever a apresentação</button><button class="btn wide" style="margin-top:8px;color:#ff9a9a" data-a="reset">' + ic('trash') + 'Apagar e recomeçar</button>' +
           '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "Rivais e Lendas"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
       }
@@ -7793,7 +7795,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (w.id === 'none') { wk.style.display = 'none'; lastWk = ''; }
     else {
       const t = w.id + '|' + G.fmtLeft(w.left);
-      if (t !== lastWk) { lastWk = t; wk.style.display = ''; wk.style.setProperty('--wc', w.col); wk.style.setProperty('--wl', rgba(w.col, 0.5)); wk.innerHTML = ic(w.icon) + '<b>' + esc(w.name) + '</b><small>termina em ' + G.fmtLeft(w.left) + '</small>'; }
+      if (t !== lastWk) { lastWk = t; wk.style.display = ''; wk.style.setProperty('--wc', w.col); wk.style.setProperty('--wl', rgba(w.col, 0.5)); wk.innerHTML = ic(w.icon) + '<b>' + esc(w.name).replace(/^(Semana d[ao]s? )/, '<span class="tm">$1</span>') + '</b><small><span class="tm">termina em </span>' + G.fmtLeft(w.left) + '</small>'; }
     }
     const sl = G.sorteLeft(), st = sl > 0 ? mmss(sl) : '';
     if (st !== lastSo) { lastSo = st; so.classList.toggle('on', !!st); so.innerHTML = st ? ic('spark') + 'Sorte ' + st : ''; }
@@ -10147,7 +10149,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* alvo do momento: { el | r, text, key, round } ou null */
   const guideTarget = () => {
     const S = G.S; if (!S || !S.tut || !S.tut.guide || !S.tut.done || !G.M.running) return null;
-    const st = S.quest.step; if (st > 4) { S.tut.guide = 0; return null; }
+    const st = S.quest.step; if (st > (UI.GUIDE_LAST || 4)) { S.tut.guide = 0; return null; }
     const q = G.questCur(), modal = UI.modalOpen;
     if (q.done) {                                                    // missão cumprida: falta resgatar
       if (modal) return null;
@@ -10173,6 +10175,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       const b = $('#roster .hc.add'); return vis(b) ? { el: b, text: 'Toque no + para chamar um herói.', key: 's0a' } : null;
     }
     if (modal) return null;
+    if (UI.guideExtra && st !== 0 && st !== 2 && st !== 3 && st !== 4) return UI.guideExtra(q, st);
     if (st === 2 || st === 3) {
       const id = st === 2 ? 'enfermaria' : 'ferraria', nm = st === 2 ? 'a Enfermaria' : 'a Ferraria';
       if (sheetOn('reino')) {
@@ -10193,6 +10196,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     return null;
   };
   UI.guideTarget = guideTarget;
+  UI.gd = { vis, covered, sheetOn, tabBtn }; UI.guideActive = () => gdOn;
   const guideHide = () => { if (gdOn) { gdOn = false; gd.classList.remove('on'); gdKey = ''; } };
   const guideFrame = () => {
     requestAnimationFrame(guideFrame);
@@ -10473,7 +10477,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const nrwRefresh = () => {
     const el = $('#nrw'), q = $('#quest'); if (!el || !q) return;
     const S = G.S;
-    if (!S.tut.done || (S.tut.guide && S.quest.step <= 4) || q.style.display === 'none' || !q.offsetHeight) { el.classList.remove('on'); return; }
+    if (!S.tut.done || (S.tut.guide && (S.quest.step <= 4 || (UI.guideActive && UI.guideActive()))) || q.style.display === 'none' || !q.offsetHeight) { el.classList.remove('on'); return; }
     if (q.offsetHeight !== nrQh) { nrQh = q.offsetHeight; document.documentElement.style.setProperty('--qh', nrQh + 'px'); }
     const r = G.nextReward(); let best = r.best;
     /* histerese: só troca de item se o novo for bem melhor, ou o atual sumiu, ou o novo já está pronto */
@@ -12835,6 +12839,532 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     S.altar = (t) => { tone(1047, t, 0.25, 'triangle', 0.14); tone(1568, t + 0.07, 0.4, 'sine', 0.12); tone(2093, t + 0.16, 0.5, 'sine', 0.08); };
     S.altar2 = (t) => { tone(131, t, 0.8, 'sine', 0.2, 98); seq([784, 988, 1319, 1568, 1976], 0.08, 'triangle', 0.13, 0.5); tone(3136, t + 0.4, 0.7, 'sine', 0.05); };
   }
+})();
+
+;
+/* ===== 3F-atrito.js ===== */
+/* 3F-atrito: v25 — último atrito (lote 3-D): pré-requisitos da Jornada (3D.1), recuo e aviso de perigo (3D.3), peças que caem e Pergaminho de Proteção (3D.4)
+   e moedas paradas (3D.5). Simulação, sem DOM. */
+'use strict';
+(function () {
+  /* ================= 3D.1 pré-requisitos da Jornada ================= */
+  /* Missões de obra ("Construa …", "Melhore …") nomeiam a construção e o nível (q.n). Se o alvo ainda não está liberado, a cadeia de
+     pré-requisitos sai de G.bAvailable/G.bMax/G.cidReq (as mesmas regras de G.canUpgrade): Cidadela nível N e, abaixo dela, Nível de Reino M.
+     Missões de chefe, de Fenda e de promoção têm o seu próprio pré-requisito (região fechada, Reino 5, nível do herói). Nada é caso a caso:
+     a barra da Jornada, o guia e a aba Jornada leem G.questPrereq(). */
+  G.questBuild = () => {
+    const q = G.questCur(); if (!q || q.decree || !/^(Construa|Melhore)\b/.test(q.t)) return null;
+    let id = G.BLD_IDS.find((i) => q.t.indexOf(G.BLD[i].name) >= 0) || G.BLD_IDS.find((i) => G.BLD[i].short && q.t.indexOf(G.BLD[i].short) >= 0);
+    return id ? { id, lvl: q.n, name: G.BLD[id].name } : null;
+  };
+  G.buildPrereqs = (id, lvl) => {
+    const S = G.S, out = []; let cur = id, want = lvl;
+    for (let g = 0; g < 6; g++) {
+      const have = G.bLvl(cur); if (have >= want) break;
+      const l = have + 1, b = S.b[cur];
+      if (!G.bAvailable(cur)) { const n = G.BLD[cur].cid; out.push({ k: 'bld', id: 'cidadela', lvl: n }); cur = 'cidadela'; want = n; continue; }
+      if (b && b.dmg) { out.push({ k: 'repair', id: cur }); break; }
+      if (cur === 'cidadela' && S.realm.lvl < G.cidReq(l)) { out.push({ k: 'realm', lvl: G.cidReq(l) }); break; }
+      if (cur !== 'cidadela' && l > G.bMax(cur)) { const n = l - 2; out.push({ k: 'bld', id: 'cidadela', lvl: n }); cur = 'cidadela'; want = n; continue; }
+      break;
+    }
+    return out;
+  };
+  /* promoção: o herói mais perto do rank pedido e o que ainda lhe falta (Guilda e nível; moedas e emblema são "faltam materiais") */
+  G.promoPrereqs = (rank) => {
+    let best = null;
+    for (const h of G.S.heroes) if (h.rank === rank - 1 && (!best || h.lvl > best.lvl)) best = h;
+    if (!best) return [];
+    const q = G.promoReq(best), out = [];
+    if (G.bLvl('guilda') < q.guilda) out.push({ k: 'bld', id: 'guilda', lvl: q.guilda });
+    if (best.lvl < q.lvl) out.push({ k: 'hlvl', lvl: q.lvl, have: best.lvl, name: best.name });
+    return out;
+  };
+  const stepTxt = (p) => p.k === 'bld' ? G.BLD[p.id].short + ' nível ' + p.lvl : p.k === 'realm' ? 'Nível de Reino ' + p.lvl : p.k === 'hlvl' ? 'um herói no nível ' + p.lvl : 'consertar ' + G.BLD[p.id].short;
+  G.preStepTxt = stepTxt;
+  /* { goal, steps: [do mais próximo ao mais distante], txt } ou null quando nada impede o passo atual (só faltam moedas e materiais) */
+  G.questPrereq = () => {
+    const q = G.questCur(); if (!q || q.done || q.decree) return null;
+    let steps = [], goal = null;
+    const b = G.questBuild();
+    if (b) { goal = b.name; steps = G.buildPrereqs(b.id, b.lvl); }
+    else {
+      const z = G.ZONES.find((zz) => q.t.indexOf(G.MON[zz.boss].name) >= 0);
+      if (z) { if (!G.zoneUnlocked(z)) { goal = G.MON[z.boss].name; steps = [{ k: 'realm', lvl: z.unlock }]; } }
+      else if (/Fenda Infinita/.test(q.t)) { if (!G.riftOpen()) { goal = 'a Fenda Infinita'; steps = [{ k: 'realm', lvl: 5 }]; } }
+      else { const m = /^Promova .* Rank (\w+)$/.exec(q.t), r = m ? G.RANKS.indexOf(m[1]) : -1; if (r > 0) { goal = 'Rank ' + m[1]; steps = G.promoPrereqs(r); } }
+    }
+    if (!steps.length) return null;
+    const first = steps[0], root = steps[steps.length - 1];
+    return { goal, steps, first, root, txt: 'Antes: ' + stepTxt(first) + (steps.length > 1 ? ' · ' + (root.k === 'realm' ? 'Reino ' + root.lvl : stepTxt(root)) : '') };
+  };
+
+  /* ================= 3D.3 quedas raras e dramáticas ================= */
+  /* Diagnóstico (10 sementes × 180 min, base v24: 12–62 quedas por semente, média 29): ~2/3 das quedas eram contra CHEFES (Ancião e Lich),
+     ~1/3 dos heróis caídos estava SEM poção e quase metade das quedas aconteceu depois de beber (a poção tinha 9 s de recarga e o herói só
+     fugia abaixo de 60% do limite) ou durante a fuga. As zonas escolhidas não eram fortes demais (a zona ficava quase sempre abaixo do
+     nível efetivo do herói) e a Maré quase não pesou. Ajustes, todos em G.DANGER:
+       • recuo mais cedo diante de chefe (+boss) e de elite (+elite) e sem poção (+nopot), e sempre cobrindo `lead` segundos do dano recente;
+       • sem poção o herói não encara chefe nem elite (a menos que seja Teimoso) e, contra chefe, só entra com `gap` de nível a mais a favor;
+       • poção recarrega em `potCd` s e o herói foge ao passar de `flee`×limite com a poção em recarga. */
+  G.DANGER = { on: 1, stubborn: 0.2, boss: 0.14, elite: 0.06, nopot: 0.1, lead: 3.2, tau: 3, potCd: 6, flee: 0.85, gap: 1, wait: 0.9 };
+  const dmgRec = new WeakMap();
+  const dh0 = G.dmgToHero;
+  G.dmgToHero = (m, h, mult) => {
+    const hp0 = h.hp, r = dh0(m, h, mult), d = hp0 - h.hp;
+    if (d > 0) { const t = G.S.t, o = dmgRec.get(h); dmgRec.set(h, { a: (o ? o.a * Math.exp(-(t - o.t) / G.DANGER.tau) : 0) + d, t }); }
+    return r;
+  };
+  /* dano por segundo que o herói vem levando (média móvel de G.DANGER.tau segundos) */
+  G.recentDps = (h) => { const o = dmgRec.get(h); return o ? o.a * Math.exp(-(G.S.t - o.t) / G.DANGER.tau) / G.DANGER.tau : 0; };
+  /* limite de vida (fração) abaixo do qual o herói bebe ou recua */
+  G.retreatThr = (h, st, m) => {
+    let thr = G.clamp(G.CAUTION[h.caution].thr + G.traitSum(h, 'retreat'), 0.08, 0.7);
+    const f = G.DANGER; if (!f.on) return thr;
+    if (m && !m.dead) thr += m.boss ? f.boss : m.elite ? f.elite : 0;
+    if (h.potions <= 0) thr += f.nopot;
+    if (m && m.boss && G.hasTrait(h, 'teimoso')) thr = Math.min(thr, f.stubborn);   // o Teimoso aguenta mais, mas não até a morte
+    thr = Math.max(thr, Math.min(0.6, G.recentDps(h) * f.lead / st.hp + 0.05));
+    return G.clamp(thr, 0.08, 0.7);
+  };
+  /* true = arriscado demais para este herói agora (G.findTarget pula o alvo) */
+  G.engageRisk = (h, m, st) => {
+    const f = G.DANGER; if (!f.on || !(m.boss || m.elite)) return false;
+    if (h.potions <= 0 && (m.boss || h.hp < st.hp * f.wait)) return true;
+    if (m.boss && !m.rift && m.lvl + G.diffCur().shift > st.eff + f.gap + (G.hasTrait(h, 'teimoso') ? 3 : 0)) { let al = 0; for (const a of G.S.heroes) if (a !== h && a.tgt === m && a.hp > G.heroStats(a).hp * 0.5) al++; if (al < 2) return true; }
+    return false;
+  };
+
+  /* aviso de "herói em perigo": a vida cai abaixo de G.DANGER.alert, sem poção para beber e com golpes recentes. Um aviso por perigo: só
+     rearma quando a vida passa de 60% ou o herói sai da luta. Evento 'danger' → { h, frac, boss }; conta em S.stats.dangers. */
+  G.DANGER.alert = 0.3;
+  const dangerFlag = new WeakMap(), dangerAt = new WeakMap();
+  let dangerAny = -999;
+  const FIGHT = { hunt: 1, flee: 1, travel: 1, defend: 1, rift: 1, inc: 1, return: 1 };
+  const uh0 = G.updateHero;
+  G.updateHero = (h, dt, mons) => {
+    uh0(h, dt, mons);
+    const S = G.S;
+    if (!FIGHT[h.state]) { if (dangerFlag.has(h)) dangerFlag.delete(h); return; }
+    const on = dangerFlag.get(h);
+    if (!on && S.t - h.lastHit < 3 && h.potions <= 0 && h.hp > 0) {
+      const st = G.heroStats(h), frac = h.hp / st.hp;
+      if (frac < G.DANGER.alert && S.t - dangerAny > 20 && S.t - (dangerAt.get(h) || -999) > 60) {   // no máximo um aviso a cada 20 s no reino e um por herói a cada 60 s
+        dangerFlag.set(h, 1); dangerAt.set(h, S.t); dangerAny = S.t; S.stats.dangers = (S.stats.dangers || 0) + 1;
+        let boss = false; for (const o of mons) if (!o.dead && o.tgt === h && o.boss) { boss = true; break; }
+        G.emit('danger', { h, frac, boss });
+      }
+    } else if (on && h.hp > G.heroStats(h).hp * 0.6) dangerFlag.delete(h);
+  };
+
+  /* ================= 3D.4 peças que caem e Pergaminho de Proteção ================= */
+  /* Elites (chance baixa) e chefes (chance maior) às vezes deixam uma PEÇA INSCRITA no chão (G.pieces, não salva, como o espólio de
+     G.drops). O toque a leva ao Armazém, com a cerimônia de G.revealForge só para Épico+; ninguém pegou em G.PIECE.life s: o herói que
+     abateu leva a peça ao Armazém (nada se perde). A peça sai de G.rollGift (inscrições de G.rollIns). */
+  G.PIECE = { elite: 0.035, boss: 0.28, life: 150, blink: 12, rE: [[1, 58], [2, 32], [3, 9], [4, 1]], rB: [[2, 56], [3, 32], [4, 11], [5, 1]] };
+  G.pieces = [];
+  let pieceN = 0;
+  G.pieceAdd = (x, y, spec, by) => {
+    const p0 = G.W.nearestWalk(x + G.rnd(-0.5, 0.5), y + G.rnd(-0.3, 0.3));
+    const p = { id: ++pieceN, x: p0[0], y: p0[1], spec, rar: spec.rar, t: G.S.t, by: by || 0 };
+    G.pieces.push(p); if (G.pieces.length > 12) G.pieces.shift();
+    G.addFx({ t: 'sparks', x: p.x, y: p.y }); G.emit('piece', { t: 'drop', p });
+    const rf = G.RAR[spec.rar].replace(/o$/, 'a');          // Raro → Rara, Lendário → Lendária
+    if (spec.rar >= 2) G.log('Uma peça ' + rf + ' (' + G.GEAR[spec.type].name + ') caiu no chão. Toque nela para pegar.', spec.rar >= 3 ? 'epic' : 'good');
+    if (spec.rar >= 3) G.toast('Uma peça ' + rf + ' caiu no chão!', 'epic', 'hammer');
+    return p;
+  };
+  /* o jogador (ou o prazo) leva a peça: devolve o item no Armazém */
+  G.pieceTake = (p, auto) => {
+    const i = G.pieces.indexOf(p); if (i < 0) return null;
+    G.pieces.splice(i, 1);
+    const it = G.giveItem(p.spec, !!auto);
+    if (auto && it && it.rar >= 3) G.revealForge(it, true);
+    G.S.stats.pieces = (G.S.stats.pieces || 0) + 1;
+    G.sfx('pick', p.x, p.y); G.emit('piece', { t: auto ? 'auto' : 'take', p, it });
+    return it;
+  };
+  const km0 = G.killMon;
+  G.killMon = (m, h) => {
+    const was = m.dead; km0(m, h);
+    if (was || !m.dead || m.rift || !(m.boss || m.elite) || !G.S) return;
+    const f = G.PIECE;
+    if (Math.random() < (m.boss ? f.boss : f.elite)) G.pieceAdd(m.x, m.y, G.rollGift({ rar: G.wpick(m.boss ? f.rB : f.rE) }), h ? h.id : 0);
+    if (m.boss && Math.random() < 0.1) { G.addRes('pergaminho', 1); G.S.stats.scrollsGot = (G.S.stats.scrollsGot || 0) + 1; G.toast('O chefe deixou um Pergaminho de Proteção!', 'good', 'scroll'); }
+  };
+  let pcT = 0;
+  const tk0 = G.tick;
+  G.tick = (dt) => {
+    tk0(dt);
+    if (!G.pieces.length) return;
+    pcT -= dt; if (pcT > 0) return; pcT = 1;
+    const t = G.S.t;
+    for (const p of G.pieces.slice()) if (t - p.t > G.PIECE.life) G.pieceTake(p, true);
+  };
+  G.on('start', () => { G.pieces.length = 0; });
+
+  /* Pergaminho de Proteção: recurso especial (não se vende). Hoje, numa falha do aprimoramento +N (G.upgradeItem) a peça CONTINUA no +N
+     (nada regride), mas as moedas e os materiais da tentativa se perdem. Com o pergaminho ligado, uma falha devolve moedas e materiais e
+     gasta o pergaminho; se der certo, ele não é gasto. Vem do Baú do dia (dias alternados), de 1 em 10 chefes e da Loja da Arena. */
+  G.RES.pergaminho = { name: 'Pergaminho de Proteção', shape: 'rune', c: ['#e8d49a', '#8a6a2a', '#fff6d0'], rare: 1, sp: 1, base: 60, info: 'Liga-se no Aprimorar: se a tentativa de +N falhar, moedas e materiais voltam para você. Vem do Baú do dia, de chefes e da Loja da Arena.' };
+  const up0 = G.upgradeItem;
+  G.upgradeItem = (it, prot) => {
+    const S = G.S;
+    if (!prot || (S.res.pergaminho || 0) < 1) return up0(it);
+    const c = G.upgradeCost(it), r = up0(it);
+    if (r.ok && !r.win) {
+      S.gold += c.gold; for (const k in c.cost) G.addRes(k, c.cost[k]);
+      G.addRes('pergaminho', -1); S.stats.scrollsUsed = (S.stats.scrollsUsed || 0) + 1; r.saved = true;
+    }
+    return r;
+  };
+  const dc0 = G.dailyChest;
+  G.dailyChest = () => {
+    const r = dc0(); if (!r) return r;
+    const n = (G.S.daily.streak % 2 === 0 ? 1 : 0) + (G.S.daily.streak % 5 === 0 ? 1 : 0);
+    if (n) { G.addRes('pergaminho', n); G.S.stats.scrollsGot = (G.S.stats.scrollsGot || 0) + n; G.log('O Baú do dia trouxe ' + n + ' Pergaminho' + (n > 1 ? 's' : '') + ' de Proteção.', 'good'); }
+    return r;
+  };
+  /* Loja da Arena (fileira em moedas): o item entra na lista e a compra entrega o pergaminho */
+  if (G.ARENA_COIN) {
+    G.ARENA_COIN.push({ id: 'perg', name: 'Pergaminho de Proteção', u: 5, grow: 1.4, max: 3, icon: 'scroll', desc: 'Protege um aprimoramento +N: se falhar, moedas e materiais voltam.' });
+    const cb0 = G.arenaCoinBuy;
+    G.arenaCoinBuy = (id) => { const r = cb0(id); if (r.ok && id === 'perg') { G.addRes('pergaminho', 1); r.got = 'Pergaminho de Proteção'; } return r; };
+  }
+
+  /* ================= 3D.5 moedas paradas ================= */
+  /* Quando o cofre passa de G.PARKED_X vezes o custo da Obra pública mais barata, a "próxima recompensa" sugere essa obra (pronta: um toque
+     e as moedas viram bônus permanente; o texto fica curto para caber em 360 px). Cede lugar a calendário, contrato, conquista e promoção prontos (prioridade 5). */
+  G.PARKED_X = 5;
+  G.parkedWork = () => {
+    const S = G.S; if (!S || !G.WORKS) return null;
+    let best = null;
+    for (const w of G.WORKS) { const l = G.workLvl(w.id), c = G.workCost(l); if (!best || c < best.c) best = { w, l, c }; }
+    return best && S.gold > G.PARKED_X * best.c ? best : null;
+  };
+  const nr0 = G.nextReward;
+  G.nextReward = () => {
+    const r = nr0(), pk = G.parkedWork();
+    if (!pk) return r;
+    const o = { id: 'ob' + pk.w.id, k: 'Obra', t: pk.w.name + ' nv ' + (pk.l + 1), ic: pk.w.icon, cur: 1, n: 1, pct: 1, rk: 1, ready: true, go: 'open:reino:publicas', pr: 5 };
+    const all = r.all.concat([o]), ready = all.filter((x) => x.ready).sort((a, b) => a.pr - b.pr);
+    return { best: ready[0] || r.best, all };
+  };
+
+  /* @@fim3F */
+})();
+
+;
+/* ===== 6B-ui-atrito.js ===== */
+/* 6B-ui-atrito: v25 — interface do lote 3-D: guia completo (3D.1), HUD compacto (3D.2), alerta de herói em perigo (3D.3),
+   peças no chão e +N com proteção (3D.4), vibração e tremor (3D.5). Só interface. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, A = G.A, R = G.R, ic = UI.ic, esc = UI.esc, $ = UI.$;
+  const css = document.createElement('style');
+  css.textContent = [
+    /* 3D.1: pré-requisito na barra da Jornada (no lugar da barrinha de progresso) */
+    '#quest .qpre{display:block;margin-top:3px;font-size:10.5px;font-weight:800;color:var(--gold2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '#quest.pre .qn{display:none}',
+    '.prebox{margin:8px 0 2px;padding:8px 10px;border-radius:10px;border:1px solid rgba(226,182,89,.5);background:rgba(226,182,89,.09)}',
+    '.prebox b{color:var(--gold2)}.prebox ol{margin:5px 0 0;padding-left:18px;font-size:12.5px;line-height:1.45}',
+    '.prebox .btn{margin-top:8px}',
+  ].join('\n');
+  document.head.appendChild(css);
+
+  /* ================= 3D.1 guia completo e pré-requisitos ================= */
+  /* A mão cobre toda a Jornada até "Construa o Mercado" (passo 13). Passos que pedem toque apontam o toque, com a cadeia de
+     pré-requisitos de G.questPrereq() na frente (Cidadela, Nível de Reino, nível do herói); passos que o jogo cumpre sozinho
+     (abates, nível, chefe) mostram uma dica curta junto da barra da Jornada por alguns segundos. Os passos 0, 2, 3 e 4 seguem na 67. */
+  UI.GUIDE_LAST = 13;
+  const MASC = { mercado: 1, treino: 1, santuario: 1, estabulo: 1 };
+  const art = (id) => (MASC[id] ? 'o ' : 'a ') + G.BLD[id].name;
+  let pasStep = -1, pasT0 = 0;
+  /* dica passiva: some depois de alguns segundos em cada passo; nunca fica por cima de painel aberto */
+  const hint = (st, text, ms) => {
+    const now = performance.now();
+    if (pasStep !== st) { pasStep = st; pasT0 = now; }
+    if (now - pasT0 > (ms || 16000) || R.sel) return null;
+    const e = $('#quest'); if (!UI.gd.vis(e) || UI.gd.covered(e)) return null;
+    return { el: e, text, key: 'pas' + st };
+  };
+  const buildTarget = (st, p) => {
+    const id = p.id, G0 = UI.gd, rep = p.k === 'repair', lvl = G.bLvl(id);
+    const verb = rep ? 'conserte' : lvl ? 'melhore' : 'construa', k = 'b' + st + id;
+    if (G0.sheetOn('reino')) {
+      if (UI.sheet.tab !== 'obras') { const t = G0.tabBtn('obras'); return G0.vis(t) ? { el: t, text: 'Abra a aba Prédios.', key: k + 't' } : null; }
+      const b = $('#sheet [data-a="' + (rep ? 'repair:' : 'upg:') + id + '"]') || $('#bc-' + id);
+      if (b) return { el: b, text: b.disabled ? 'Faltam moedas ou materiais: seus heróis vão juntar.' : 'Toque para ' + (rep ? 'consertar ' : lvl ? 'melhorar ' : 'construir ') + art(id) + '.', key: k + 'b', scroll: 1 };
+      return null;
+    }
+    return { el: $('#nav-reino'), text: 'Abra o Reino e ' + verb + ' ' + art(id) + '.', key: k + 'n' };
+  };
+  const contractTarget = (st) => {
+    const S = G.S, G0 = UI.gd, ready = S.daily.list.findIndex((c) => !c.claimed && c.p >= c.n);
+    if (G0.sheetOn('missoes')) {
+      if (UI.sheet.tab !== 'contratos') { const t = G0.tabBtn('contratos'); return G0.vis(t) ? { el: t, text: 'Abra a aba Contratos.', key: 'c' + st + 't' } : null; }
+      const b = ready >= 0 ? $('#sheet [data-a="contract:' + ready + '"]') : null;
+      return b ? { el: b, text: 'Toque em Receber.', key: 'c' + st + 'b', scroll: 1 } : null;
+    }
+    if (ready >= 0) return { el: $('#nav-missoes'), text: 'Um contrato está pronto! Abra Missões e receba.', key: 'c' + st + 'n' };
+    const now = performance.now(); if (pasStep !== st) { pasStep = st; pasT0 = now; }
+    return now - pasT0 < 20000 ? { el: $('#nav-missoes'), text: 'Abra Missões › Contratos. Seus heróis os cumprem sozinhos.', key: 'c' + st + 'o' } : null;
+  };
+  const promoTarget = (st) => {
+    const S = G.S, G0 = UI.gd, h = S.heroes.find((x) => G.canPromote(x)); if (!h) return null;
+    if (G0.sheetOn('herois')) {
+      const pb = $('#sheet [data-a="promote:' + h.id + '"]'); if (pb) return { el: pb, text: 'Toque em Promover.', key: 'p' + st + 'b', scroll: 1 };
+      const c = $('#sheet [data-a="herod:' + h.id + '"]'); if (c) return { el: c, text: h.name + ' pode ser promovido. Toque no cartão.', key: 'p' + st + 'c', scroll: 1 };
+      return null;
+    }
+    return { el: $('#nav-herois'), text: h.name + ' pode ser promovido! Abra Heróis.', key: 'p' + st + 'n' };
+  };
+  UI.guideExtra = (q, st) => {
+    const pre = G.questPrereq(), b = G.questBuild(), p = pre ? (pre.root.k === 'realm' ? pre.root : pre.first) : b ? { k: 'bld', id: b.id, lvl: b.lvl } : null;
+    if (p) {
+      if (p.k === 'realm') return hint(st, 'Primeiro, o Nível de Reino ' + p.lvl + ': construir, vencer chefes e cumprir missões o fazem subir.', 22000);
+      if (p.k === 'hlvl') return hint(st, 'Primeiro, ' + G.preStepTxt(p) + '. Eles sobem de nível caçando.', 22000);
+      return buildTarget(st, p);
+    }
+    if (/contrato/i.test(q.t)) return contractTarget(st);
+    if (/^Promova/.test(q.t)) return promoTarget(st) || hint(st, q.h);
+    return hint(st, q.h + (q.n > 1 ? ' (' + q.cur + '/' + q.n + ')' : ''));
+  };
+  /* barra da Jornada com pré-requisito: toque leva direto à obra de que o passo depende */
+  UI.ACT.gopre = () => {
+    const p = G.questPrereq(), f = p && p.first;
+    if (f && (f.k === 'bld' || f.k === 'repair')) UI.open('reino', 'obras', { bld: f.id });
+    else if (f && f.k === 'hlvl') UI.open('herois', 'lista');
+    else UI.open('missoes', 'jornada');
+  };
+  /* caixa "Antes" da aba Missões › Jornada */
+  UI.preCard = () => {
+    const p = G.questPrereq(); if (!p) return '';
+    const f = p.first, go = f.k === 'bld' || f.k === 'repair' ? 'Ir para ' + G.BLD[f.id].short : f.k === 'hlvl' ? 'Abrir Heróis' : '';
+    return '<div class="prebox"><b>Antes, falta isto' + (p.goal ? ' para ' + esc(p.goal) : '') + ':</b><ol>' + p.steps.map((s) => '<li>' + esc(G.preStepTxt(s).replace(/^./, (c) => c.toUpperCase())) + (s.k === 'realm' ? ' <small class="mut">(agora ' + G.S.realm.lvl + ')</small>' : s.k === 'hlvl' ? ' <small class="mut">(' + esc(s.name) + ' está no ' + s.have + ')</small>' : '') + '</li>').join('') + '</ol>' +
+      (go ? '<button class="btn sm pri" data-a="gopre">' + go + '</button>' : '') + '</div>';
+  };
+
+  /* ================= 3D.2 HUD compacto (360×640) ================= */
+  /* Em telas baixas (altura ≤ 720 px) o HUD encolhe: barra do reino menor, fichas e cartões de herói mais baixos, navegação de 54 px, e a
+     Jornada e a próxima recompensa colam mais. A Jornada vira grade (ícone | título em até 2 linhas | barra + contagem), então o título
+     não é mais cortado. Um botão ▾ no fim da faixa da semana recolhe a fila de heróis (lembrado neste aparelho). Em 412×860 só mudam a
+     Jornada (título inteiro) e a faixa da semana. */
+  css.textContent += '\n' + [
+    '@media (max-width:859px){',
+    '#quest{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:0 8px;align-items:center;padding:6px 10px}',
+    '#quest .qi{grid-column:1;grid-row:1/span 2}',
+    '#quest .qt{display:contents}',
+    '#quest .qt b{grid-column:2/span 2;grid-row:1;white-space:normal;line-height:1.2;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}',
+    '#quest .bar{grid-column:2;grid-row:2;margin-top:4px}',
+    '#quest .qpre{grid-column:2/span 2;grid-row:2}',
+    '#quest .qn{grid-column:3;grid-row:2;margin-top:4px}',
+    '#nrw .nt{white-space:normal;line-height:1.15;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}',
+    '}',
+    '@media (max-width:380px){',
+    '#quest .qt b{font-size:11.5px}',
+    '#quest{grid-template-columns:minmax(0,1fr) auto}#quest .qi{display:none}',
+    '#quest .qt b,#quest .qpre{grid-column:1/span 2}#quest .bar{grid-column:1}#quest .qn{grid-column:2}',
+    '}',
+    '#hudtog{display:none;margin-left:auto;flex:none;width:28px;height:24px;border-radius:12px;place-items:center;color:var(--gold2);position:relative}',
+    '#hudtog svg{width:14px;height:14px;fill:currentColor;transition:transform .2s}',
+    '#hudtog::after{content:"";position:absolute;inset:-7px -6px}',
+    '#hud.min #hudtog svg{transform:rotate(180deg)}',
+    '@media (max-width:420px){#hudx:has(.sorte.on) .tm{display:none}}',
+    '@media (max-width:859px) and (max-height:720px){',
+    ':root{--navh:50px}#hud.min #roster{display:none}',
+    '#hudtog{display:grid}',
+    '#hud{gap:3px;padding-top:calc(var(--sat) + 5px)}',
+    '.realm{padding:2px 9px 2px 3px}.ring,.ring svg{width:32px;height:32px}.ring b{font-size:13px}',
+    '.ctl button{width:40px}.ctl button.dif{width:46px}',
+    '.chip,.chip.mini{height:26px;font-size:12px}.chip svg{font-size:14px}',
+    '#hudx{min-height:24px}#hudx .wk,#hudx .pwr,#hudx .sorte{height:24px}',
+    '#roster{padding:0}',
+    '.hc{width:40px;height:42px;border-radius:10px}',
+    '.hc .pt{width:34px;height:34px;background-size:34px 34px}',
+    '.hc .rk{min-width:12px;height:12px;font-size:8px;border-radius:4px}',
+    '.hc .hpb{left:3px;right:3px;bottom:3px;height:4px}.hc .lv{bottom:6px;font-size:8.5px}.hc .st{bottom:6px;font-size:9.5px}',
+    '#nav button{height:44px;gap:1px}#nav button svg{font-size:20px}',
+    '#quest,#inspect,#fabs,#fabs-l{bottom:calc(var(--navh) + var(--sab) + 6px)}',
+    '#nrw{bottom:calc(var(--navh) + var(--sab) + 6px + var(--qh,40px) + 4px);height:30px;min-height:0;padding:0 10px!important}#nrw .nv{padding:2px 6px}',
+    '#nrw::after{content:"";position:absolute;left:0;right:0;top:-3px;bottom:-3px}',
+    '}',
+  ].join('\n');
+  const HM_KEY = 'aurora.hudmin';
+  const hmGet = () => { try { return localStorage.getItem(HM_KEY) === '1'; } catch (e) { return false; } };
+  const hmSet = (v) => { try { localStorage.setItem(HM_KEY, v ? '1' : '0'); } catch (e) { /* ok */ } };
+  UI.ACT.hudtog = () => { const h = $('#hud'); if (!h) return; const v = !h.classList.contains('min'); h.classList.toggle('min', v); hmSet(v); const b = $('#hudtog'); if (b) b.title = v ? 'Mostrar os heróis' : 'Recolher os heróis'; };
+  const bdHx = UI.build;
+  UI.build = () => {
+    bdHx();
+    const row = $('#hudx'); if (row && !$('#hudtog')) row.insertAdjacentHTML('beforeend', '<button id="hudtog" class="glass" data-a="hudtog" title="Recolher os heróis">' + ic('up') + '</button>');
+    const h = $('#hud'); if (h && hmGet()) { h.classList.add('min'); const b = $('#hudtog'); if (b) b.title = 'Mostrar os heróis'; }
+  };
+
+  /* ================= 3D.3 aviso de herói em perigo ================= */
+  /* Evento 'danger' (3F): a vida caiu muito, sem poção e com golpes recentes. Cartão vermelho com o retrato logo abaixo do HUD, uma vez por
+     perigo: toque no retrato para acompanhar o herói; "Reunir" (Toque de Reunir) e "Curar" (Luz da Aurora, +40% de vida de todos). Some
+     sozinho quando a vida se recupera, o herói sai da luta ou depois de 12 s. */
+  css.textContent += '\n' + [
+    '#dng{position:absolute;left:50%;transform:translateX(-50%);top:calc(var(--hudb,200px) + 8px);width:min(92vw,400px);z-index:9;display:flex;flex-direction:column;gap:6px;pointer-events:none}',
+    '.dg{pointer-events:auto;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 6px;border-radius:14px;background:linear-gradient(180deg,#4d1d26,#2b1119);border:1.5px solid #ee6464;box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 14px rgba(238,100,100,.4);animation:dgin .25s ease-out,dgp 1.1s ease-in-out infinite alternate}',
+    '@keyframes dgin{from{opacity:0;transform:translateY(-8px)}}@keyframes dgp{to{box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 22px rgba(238,100,100,.75)}}',
+    '.dg .dgp{flex:none;width:44px;height:44px;border-radius:10px;border:2px solid #ee6464;background:#141a30;display:grid;place-items:center;overflow:hidden}',
+    '.dg .dgp i{width:40px;height:40px;background-size:40px 40px}',
+    '.dg .dgt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}',
+    '.dg .dgt b{font-size:12.5px;color:#ffd0d0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '.dg .dgt small{font-size:11px;color:#ffb3b3;font-weight:700}',
+    '.dg .btn{flex:none;min-height:36px;padding:0 9px;font-size:11.5px}',
+    '@media (prefers-reduced-motion:reduce){.dg{animation:none}}',
+    '@media (max-width:859px){#app #toasts{top:calc(var(--hudb,200px) + 8px + var(--dgh,0px))}}',
+  ].join('\n');
+  const dgSet = () => { const b = $('#dng'); document.documentElement.style.setProperty('--dgh', b && b.children.length ? Math.ceil(b.getBoundingClientRect().height + 6) + 'px' : '0px'); };
+  const dgAdd = (d) => {
+    const box = $('#dng'); if (!box || !G.S) return;
+    const h = d.h; if (box.querySelector('[data-id="' + h.id + '"]')) return;
+    while (box.children.length >= 2) box.firstChild.remove();
+    const el = document.createElement('div'); el.className = 'dg'; el.dataset.id = h.id; el._t0 = performance.now();
+    el.innerHTML = '<button class="dgp" data-a="hero:' + h.id + '" title="Acompanhar ' + esc(h.name) + '"><i class="px" style="background-image:url(' + UI.portrait(h) + ')"></i></button>' +
+      '<span class="dgt"><b>' + esc(h.name) + ' em perigo!</b><small></small></span>' +
+      '<button class="btn sm" data-a="decree:reunir" data-dec="reunir" title="Toque de Reunir: todos voltam para a cidade">Reunir</button><button class="btn sm pri" data-a="decree:aurora" data-dec="aurora" title="Luz da Aurora: cura 40% da vida de todos os heróis em campo">Curar</button>';
+    box.appendChild(el); dgFill(el, h); dgSet(); G.sfx('weak');
+  };
+  const dgFill = (el, h) => {
+    const st = G.heroStats(h), pct = Math.max(1, Math.round(100 * h.hp / st.hp));
+    const sm = el.querySelector('small'); const t = 'Vida ' + pct + '% · sem poções' + (el.dataset.boss === '1' ? ' · chefe por perto' : '');
+    if (sm.textContent !== t) sm.textContent = t;
+    for (const b of el.querySelectorAll('[data-dec]')) { const d = G.DECREES.find((x) => x.id === b.dataset.dec), ok = G.decreeReady(d); if (b.disabled === ok) b.disabled = !ok; }
+  };
+  let dgT = 0;
+  const dgTick = () => {
+    const box = $('#dng'); if (!box || !box.children.length || !G.S) return;
+    const now = performance.now(); if (now - dgT < 400) return; dgT = now;
+    let ch = false;
+    for (const el of Array.from(box.children)) {
+      const h = G.S.heroes.find((x) => x.id === +el.dataset.id), st = h && G.heroStats(h);
+      if (!h || h.state === 'fallen' || h.state === 'recover' || h.state === 'town' || h.state === 'inside' || h.hp > st.hp * 0.5 || now - el._t0 > 12000) { el.remove(); ch = true; } else dgFill(el, h);
+    }
+    if (ch) dgSet();
+  };
+  const bdD = UI.build;
+  UI.build = () => { bdD(); const app = $('#app'); if (app && !$('#dng')) app.insertAdjacentHTML('beforeend', '<div id="dng"></div>'); };
+  G.on('danger', (d) => { if (G.S && G.M.running) { dgAdd(d); const el = $('#dng [data-id="' + d.h.id + '"]'); if (el && d.boss) el.dataset.boss = '1'; } });
+  G.on('decree', () => { const box = $('#dng'); if (box) { box.innerHTML = ''; dgSet(); } });
+  const rfD = UI.refresh;
+  UI.refresh = () => { rfD(); dgTick(); };
+
+  /* ================= 3D.4 peças no chão e +N com chance clara e proteção ================= */
+  /* Peças caídas (G.pieces, 3F): brilho na cor da raridade (feixe de luz em Épico+), ícone da peça, tremeluz nos últimos segundos.
+     Toque = Armazém (cerimônia só para Épico+, via G.giveItem → G.revealForge). */
+  const pcImgs = {};
+  const pcImg = (type) => {
+    let e = pcImgs[type]; if (e) return e.ok ? e.img : null;
+    e = pcImgs[type] = { ok: false, img: new Image() };
+    const t = document.createElement('i'); t.className = 'gi gi-' + type; t.style.display = 'none'; document.body.appendChild(t);
+    const m = /url\(["']?([^"')]+)["']?\)/.exec(getComputedStyle(t).backgroundImage); t.remove();
+    if (m) { e.img.onload = () => { e.ok = true; }; e.img.src = m[1]; }
+    return null;
+  };
+  const drawPiece = (p, X, Y, z) => {
+    const ctx = R.ctx, S = G.S, left = G.PIECE.life - (S.t - p.t);
+    if (left < G.PIECE.blink && Math.floor(R.t * 6) % 2) return;
+    const col = G.RAR_COLOR[p.rar], px = Math.round(X(p.x)), py = Math.round(Y(p.y)), sc = Math.max(1, Math.round(z * 1.05)), sz = 16 * sc;
+    const bob = Math.round((Math.sin(R.t * 3 + p.id) * 0.8 + 0.8) * sc), cy = py - sz / 2 - bob, pul = 0.5 + 0.5 * Math.sin(R.t * 4 + p.id);
+    ctx.save();
+    if (p.rar >= 3) {                                                  // feixe de luz para o alto
+      const g = ctx.createLinearGradient(0, py, 0, py - 95 * z); g.addColorStop(0, col); g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.globalAlpha = 0.4 + 0.2 * pul; ctx.fillStyle = g; ctx.fillRect(px - 4.2 * z, py - 95 * z, 8.4 * z, 95 * z);
+    }
+    const gr = (p.rar >= 3 ? 20 : 14) * z, rg = ctx.createRadialGradient(px, cy, 1, px, cy, gr);
+    rg.addColorStop(0, col); rg.addColorStop(0.55, col); rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = 0.5 + 0.3 * pul + (p.rar >= 4 ? 0.15 : 0); ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(px, cy, gr, 0, 6.283); ctx.fill();
+    ctx.globalAlpha = 0.9; ctx.strokeStyle = col; ctx.lineWidth = Math.max(1, Math.round(z * 0.6)); ctx.beginPath(); ctx.ellipse(px, py, 6 * z, 2.4 * z, 0, 0, 6.283); ctx.stroke();
+    ctx.globalAlpha = 1;
+    const im = pcImg(p.spec.type);
+    if (im) { ctx.imageSmoothingEnabled = false; ctx.drawImage(im, 0, 0, 16, 16, Math.round(px - sz / 2), Math.round(py - sz - bob), sz, sz); }
+    const tw = (R.t * 1.4 + p.id * 0.37) % 1.8;                        // cintilar
+    if (tw < 0.35) { const a = Math.sin(tw / 0.35 * Math.PI), sx = Math.round(px + ((p.id * 7) % 9 - 4) * sc), sy = Math.round(cy - sz * 0.3); ctx.globalAlpha = a; ctx.fillStyle = '#fff'; ctx.fillRect(sx - sc, sy, 3 * sc, sc); ctx.fillRect(sx, sy - sc, sc, 3 * sc); }
+    ctx.restore();
+  };
+  const dm0 = R.dynMore;
+  R.dynMore = (dyn, vx0, vx1, vy0, vy1) => {
+    if (dm0) dm0(dyn, vx0, vx1, vy0, vy1);
+    for (const p of G.pieces) if (p.x > vx0 && p.x < vx1 && p.y > vy0 && p.y < vy1 + 1) dyn.push({ y: p.y - 0.05, k: 'x', e: p, f: drawPiece });
+  };
+  const pm0 = R.pickMore;
+  R.pickMore = (wx, wy) => {
+    let best = null, bd = 1.0;
+    for (const p of G.pieces) { const d = Math.hypot(p.x - wx, p.y - 0.4 - wy); if (d < bd) { bd = d; best = p; } }
+    return best ? { type: 'drop', ref: best } : pm0 ? pm0(wx, wy) : null;
+  };
+  const nm0 = R.nightMore;
+  R.nightMore = (hole) => { if (nm0) nm0(hole); for (const p of G.pieces) hole(p.x, p.y - 0.3, 1.6, 0.7); };
+  const dt0 = UI.dropTap;
+  UI.dropTap = (d) => {
+    if (!d || !d.spec) return dt0 ? dt0(d) : null;
+    const it = G.pieceTake(d);
+    if (it && it.rar < 3) UI.toast('Peça no Armazém: ' + G.itemName(it) + ' (' + G.RAR[it.rar] + ')', it.rar >= 2 ? 'good' : 'info', 'hammer');
+  };
+
+  /* Aprimorar +N: chance em destaque, o que acontece numa falha e o Pergaminho de Proteção */
+  css.textContent += '\n' + [
+    '.upc{margin:10px 0 2px;padding:9px 11px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.04);text-align:left}',
+    '.upc .upr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;font-size:12.5px}',
+    '.upc .upp{font-family:"Aurora Cinzel",serif;font-size:20px}.upp.good{color:var(--good)}.upp.mid{color:var(--gold2)}.upp.bad{color:var(--bad)}',
+    '.upc .upn{margin:7px 0 0;font-size:11.5px;color:var(--mut);line-height:1.35}',
+    '.upc .tog{border-bottom:0;padding:8px 0 0}',
+  ].join('\n');
+  let protOn = true;
+  const im0 = UI.itemModal;
+  UI.itemModal = (id, hid, msg) => {
+    im0(id, hid, msg);
+    const it = UI.findItem && UI.findItem(id, hid), acts = $('#modal .acts'); if (!it || !acts) return;
+    const S = G.S, max = Math.min(15, 4 + G.bLvl('ferraria'));
+    if (msg && !msg.win) {                                            // texto da falha
+      const p = Array.from(document.querySelectorAll('#modal p.lead')).find((e) => e.textContent.indexOf('têmpera falhou') >= 0);
+      if (p) { p.textContent = msg.saved ? 'A têmpera falhou, mas o Pergaminho de Proteção devolveu moedas e materiais.' : 'A têmpera falhou. A peça continua em +' + it.plus + ', mas moedas e materiais se perderam.'; if (msg.saved) { p.classList.remove('bad'); p.classList.add('good'); } }
+    }
+    if (!G.bOk('ferraria') || it.plus >= max) return;
+    const c = G.upgradeCost(it), pct = Math.round(c.chance * 100), have = S.res.pergaminho || 0, cls = pct >= 70 ? 'good' : pct >= 40 ? 'mid' : 'bad', bar = pct >= 70 ? 'g' : pct >= 40 ? 'o' : 'r';
+    for (const e of document.querySelectorAll('#modal .cost')) if (/^chance/.test(e.textContent.trim())) e.remove();
+    if (have < 1) protOn = true;
+    acts.insertAdjacentHTML('beforebegin', '<div class="upc"><div class="upr"><b>Chance de sucesso</b><b class="upp ' + cls + '">' + pct + '%</b></div><div class="bar big ' + bar + '"><i style="width:' + pct + '%"></i></div>' +
+      '<p class="upn">' + (pct >= 100 ? 'Garantido nesta etapa.' : 'Se falhar: a peça continua em +' + it.plus + ', mas as moedas e os materiais se perdem.') + '</p>' +
+      (pct >= 100 ? '' : have > 0 ? '<button class="tog" data-a="protog"><span>Proteger com Pergaminho<small>Você tem ' + have + '. Se falhar, moedas e materiais voltam e o pergaminho é gasto; se der certo, ele fica.</small></span><i class="sw prot' + (protOn ? ' on' : '') + '"></i></button>' : '<p class="upn">Sem Pergaminho de Proteção. Ele vem do Baú do dia, de chefes e da Loja da Arena.</p>') + '</div>');
+  };
+  UI.ACT.protog = () => { protOn = !protOn; const sw = $('#modal .sw.prot'); if (sw) sw.classList.toggle('on', protOn); };
+  UI.ACT.mupg = (a) => {
+    const it = UI.findItem(+a[0], +a[1]); if (!it) return;
+    const r = G.upgradeItem(it, protOn && (G.S.res.pergaminho || 0) > 0 && G.upgradeCost(it).chance < 1);
+    if (!r.ok) return UI.toast(r.why, 'bad');
+    UI.itemModal(+a[0], +a[1], r); UI.sheetDirty();
+  };
+
+  /* ================= 3D.5 vibração e tremor nos picos ================= */
+  /* UI.feel(tipo): tremor curto de tela (R.shake) e vibração (navigator.vibrate, quando o aparelho tem). Mais forte para Lendário/Mítico, chefe
+     derrotado, vitória na Arena a partir da liga Platina e marco de poder; curtinho para queda de herói e aviso de perigo. Opções › "Vibração e
+     tremor de tela" desliga os dois (S.opts.noVibe; o padrão é ligado). O Modo leve e "reduzir movimento" do aparelho também calam o tremor. */
+  const PAT = { epic: [30], legend: [45, 40, 70], myth: [60, 50, 60, 50, 160], boss: [90, 40, 110], arena: [50, 40, 130], mark: [40, 40, 40, 40, 90], fall: [140], danger: [30, 40, 30] };
+  const SHK = { epic: 3, legend: 5, myth: 7, boss: 6, arena: 5, mark: 4 };
+  const calm = () => { const S = G.S; return !S || (S.opts && S.opts.noVibe); };
+  const reduce = () => { try { return !!(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches); } catch (e) { return false; } };
+  UI.feel = (kind) => {
+    if (calm()) return;
+    const sh = SHK[kind];
+    if (sh && !(G.S.opts && G.S.opts.lowFx) && !reduce()) R.shake = Math.max(R.shake || 0, sh);
+    try { if (navigator.vibrate && PAT[kind]) navigator.vibrate(PAT[kind]); } catch (e) { /* sem suporte */ }
+  };
+  /* o interruptor das Opções vale também para os tremores que já existiam (chefe, cartas, cerimônias, Arena) */
+  { let shv = R.shake || 0; Object.defineProperty(R, 'shake', { get: () => shv, set: (x) => { shv = calm() || (G.S && G.S.opts && G.S.opts.lowFx) || reduce() ? 0 : x; }, configurable: true }); }
+  G.on('reveal', (d) => { if (!d.it || d.it.rar < 4) return; UI.feel(d.it.rar >= 5 ? 'myth' : 'legend'); });
+  G.on('bosskill', () => UI.feel('boss'));
+  G.on('pmark', () => UI.feel('mark'));
+  G.on('herofall', () => UI.feel('fall'));
+  G.on('danger', () => UI.feel('danger'));
+  G.on('arena', (d) => { if (d.t !== 'result') return; const a = G.arena(); if (a && a.last && a.last.win && G.arenaLeague(a.pts) >= 3) UI.feel('arena'); });
+
+  /* @@fim6B */
 })();
 
 ;
