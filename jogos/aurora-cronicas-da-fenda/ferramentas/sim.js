@@ -54,6 +54,11 @@ G.on('codex', (d) => { if (d.t === 'ms') codexMs.push({ t: T0(), id: d.m.id }); 
 /* v25: a Arena usa um relógio próprio (G.arenaNow). Aqui cada dia de jogo vale um dia da Arena, começando numa segunda-feira, para o robô
    duelar até 5 vezes por dia de jogo e a temporada virar a cada 7 dias de jogo (testa o fim de temporada e o baú). */
 const arena = { duels: 0, wins: 0, ch: 0, leagues: [], lastSea: -1 };
+/* v28 (lote 3-B): Nêmesis, revanche e laços — eventos 'nemesis' e 'laco' (só medem; o jogo decide) */
+const rivs = { nem: 0, vingados: 0, revs: 0, revWins: 0, lacos: [0, 0, 0, 0], first: [0, 0, 0, 0], titles: {} };
+if (G.nemesis) { const ad0 = G.arenaDuel; G.arenaDuel = (o) => { const r = ad0(o); if (r && r.rev && r.rev.on) { rivs.revs++; if (r.win) rivs.revWins++; } return r; }; }   // conta toda revanche, do robô de revanche ou do duelo do meio
+G.on('nemesis', (d) => { if (d.t === 'novo') rivs.nem++; else if (d.t === 'vingado') rivs.vingados++; });
+G.on('laco', (d) => { rivs.lacos[d.lv]++; if (!rivs.first[d.lv]) rivs.first[d.lv] = T0(); });
 if (G.arenaNow) {
   const b0 = new Date(); b0.setHours(0, 0, 0, 0); b0.setDate(b0.getDate() - ((b0.getDay() + 6) % 7));
   G.arenaNow = () => b0.getTime() + ((S().day - 1) + S().clock / 1440) * 86400000;
@@ -98,8 +103,21 @@ const bot = () => {
       }
     }
     if (REFORGE && G.reforgeRoll) reforgeBot(st);
+    if (G.arenaOpen && G.nemesis) revBot(st);
     if (G.arenaOpen) arenaBot(st);
   } catch (e) { errors.push('bot: ' + e.stack); }
+};
+/* v28 (lote 3-B): quando o Nêmesis aparece entre os adversários, o robô aceita a revanche (com a melhor equipe automática) */
+const revBot = (st) => {
+  if (!G.arenaOpen() || st.heroes.length < 3) return;
+  G.arenaSync();
+  for (let guard = 0; guard < 4 && G.arenaTickets().free > 0; guard++) {
+    const of = G.arenaOffers(), k = of.findIndex((x) => x.rev); if (k < 0) break;
+    const rv = G.arenaRival(of[k].i), team = G.arenaAutoTeam(rv.size);
+    const r = G.arenaDuel({ ids: team.map((x) => x.id), rows: Object.fromEntries(team.map((x) => [x.id, x.r])), off: k });
+    if (r.err) { errors.push('revanche: ' + r.err); break; }
+    arena.duels++; if (r.win) arena.wins++; arena.ch += of[k].ch;
+  }
 };
 /* v25: duela na Arena enquanto houver tíquete grátis do dia, sempre contra o adversário do meio, com a melhor equipe automática */
 const arenaBot = (st) => {
@@ -171,6 +189,14 @@ if (G.arena && S().arena && S().arena.open) {
   const cnt = {}; for (const h of a.hist) cnt[L[h.liga].name] = (cnt[L[h.liga].name] || 0) + 1;
   console.log('Arena: ' + arena.duels + ' duelos · ' + arena.wins + ' vitórias (' + (arena.duels ? (100 * arena.wins / arena.duels).toFixed(1) : '0') + '%, chance estimada média ' + (arena.duels ? (100 * arena.ch / arena.duels).toFixed(0) : '0') + '%)' +
     ' · liga final ' + (last ? L[last.liga].name + ' (' + last.pts + ' pts, ' + last.pos + 'º)' : '—') + ' · ' + a.hist.length + ' temporadas: ' + Object.keys(cnt).map((k) => k + ' ×' + cnt[k]).join(', ') + ' · Insígnias ' + a.ins + ' · títulos ' + a.titulos.reduce((n, t) => n + t.n, 0));
+}
+if (G.nemesis && S().rivais) {
+  const nm = G.nemesis(), ls = G.lacoStats(), fm = (x) => (x ? (x / 60).toFixed(0) + 'min' : '—');
+  console.log('Rivais: Nêmesis formados ' + rivs.nem + ' · revanches ' + rivs.revs + ' (vencidas ' + rivs.revWins + ', vinganças ' + rivs.vingados + ') · Nêmesis agora ' + (nm ? nm.riv.name + ' (rancor ' + nm.l + ')' : '—') + ' · visitas ' + (S().stats.visits || 0) + ' (só com tela)');
+}
+if (G.lacoStats) {
+  const ls = G.lacoStats(), fm = (x) => (x ? (x / 60).toFixed(0) + 'min' : '—'), n = S().heroes.length;
+  console.log('Laços: ' + ls.n + ' de ' + (n * (n - 1) / 2) + ' pares (Conhecidos ' + ls.c[1] + ' · Companheiros/Rivais ' + ls.c[2] + ' · Irmãos ' + ls.c[3] + ') · formados no total ' + rivs.lacos.slice(1).join('/') + ' · primeiro de cada nível em ' + fm(rivs.first[1]) + '/' + fm(rivs.first[2]) + '/' + fm(rivs.first[3]) + ' · títulos Vingador/Irmão ' + S().heroes.reduce((a, h) => a + (G.titleHas(h, 'vingador') ? 1 : 0), 0) + '/' + S().heroes.reduce((a, h) => a + (G.titleHas(h, 'irmao') ? 1 : 0), 0));
 }
 if (G.kingPower && S().lendas) {
   const L = S().lendas, P = G.kingPowerParts(true), fm = (v) => v >= 1e6 ? (v / 1e6).toString().replace('.', ',') + 'M' : v >= 1e3 ? (v / 1e3).toString().replace('.', ',') + 'k' : String(v);
