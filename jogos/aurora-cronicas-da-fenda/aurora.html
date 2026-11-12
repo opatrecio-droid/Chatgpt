@@ -14535,44 +14535,44 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
      Efeitos (frações): atk def mhp crit cd(dano crítico) aspd eva ls regen heal cdr thorns. val = peso para sugerir e para a IA dos rivais. */
   G.SYN = [
     { id: 'muralha_arcana', name: 'Muralha Arcana', icon: 'shield', col: '#8f78e0', val: 0.06,
-      req: 'Cavaleiro na frente + Mago no fundo', txt: 'Mago +9% de ataque · Cavaleiro +8% de defesa',
-      need: [{ cls: 'cav', row: 0, fx: { def: 0.08 } }, { cls: 'mag', row: 1, fx: { atk: 0.09 } }] },
+      req: 'Cavaleiro na frente + Mago no fundo', txt: 'Mago +7% de ataque · Cavaleiro +6% de defesa',
+      need: [{ cls: 'cav', row: 0, fx: { def: 0.06 } }, { cls: 'mag', row: 1, fx: { atk: 0.07 } }] },
     { id: 'luz_compartilhada', name: 'Luz Compartilhada', icon: 'sun', col: '#f0cf63', val: 0.05, min: 2,
-      req: 'Paladino + qualquer aliado', txt: 'Paladino cura +40% · todos regeneram +0,2% da vida por segundo',
-      need: [{ cls: 'pal', fx: { heal: 0.4, regen: 0.002 } }], others: { regen: 0.002 } },
+      req: 'Paladino + qualquer aliado', txt: 'Paladino cura +20% · todos regeneram +0,05% da vida por segundo',
+      need: [{ cls: 'pal', fx: { heal: 0.2, regen: 0.0005 } }], others: { regen: 0.0005 } },
     { id: 'sombras_gemeas', name: 'Sombras Gêmeas', icon: 'eye', col: '#9a8fc2', val: 0.05,
-      req: '2 Ladinos', txt: 'Ladinos +6% de chance crítica e +10% de dano crítico',
-      need: [{ cls: 'lad', n: 2, fx: { crit: 0.06, cd: 0.10 } }] },
+      req: '2 Ladinos', txt: 'Ladinos +4% de chance crítica e +6% de dano crítico',
+      need: [{ cls: 'lad', n: 2, fx: { crit: 0.04, cd: 0.06 } }] },
     { id: 'chuva_cruzada', name: 'Chuva Cruzada', icon: 'wing', col: '#6fc385', val: 0.05,
-      req: '2 Arqueiros no fundo', txt: 'Arqueiros +10% de velocidade de ataque',
-      need: [{ cls: 'arq', row: 1, n: 2, fx: { aspd: 0.10 } }] },
+      req: '2 Arqueiros no fundo', txt: 'Arqueiros +6% de velocidade de ataque',
+      need: [{ cls: 'arq', row: 1, n: 2, fx: { aspd: 0.06 } }] },
     { id: 'gume_duplo', name: 'Gume Duplo', icon: 'sword', col: '#e0705a', val: 0.05,
-      req: '2 Espadachins na frente', txt: 'Espadachins +5% de ataque e +6% de velocidade de ataque',
-      need: [{ cls: 'esp', row: 0, n: 2, fx: { atk: 0.05, aspd: 0.06 } }] },
+      req: '2 Espadachins na frente', txt: 'Espadachins +3% de ataque e +4% de velocidade de ataque',
+      need: [{ cls: 'esp', row: 0, n: 2, fx: { atk: 0.03, aspd: 0.04 } }] },
     { id: 'escudo_da_fe', name: 'Escudo da Fé', icon: 'shield', col: '#e6c25a', val: 0.05,
-      req: 'Cavaleiro + Paladino na frente', txt: 'Os dois +10% de defesa',
-      need: [{ cls: 'cav', row: 0, fx: { def: 0.10 } }, { cls: 'pal', row: 0, fx: { def: 0.10 } }] },
+      req: 'Cavaleiro + Paladino na frente', txt: 'Os dois +12% de defesa',
+      need: [{ cls: 'cav', row: 0, fx: { def: 0.12 } }, { cls: 'pal', row: 0, fx: { def: 0.12 } }] },
     { id: 'fogo_cruzado', name: 'Fogo Cruzado', icon: 'bolt', col: '#f09a4a', val: 0.05,
-      req: 'Arqueiro + Mago no fundo', txt: 'Os dois +6% de ataque e -6% de recarga das habilidades',
-      need: [{ cls: 'arq', row: 1, fx: { atk: 0.06, cdr: 0.06 } }, { cls: 'mag', row: 1, fx: { atk: 0.06, cdr: 0.06 } }] },
+      req: 'Arqueiro + Mago no fundo', txt: 'Os dois +4% de ataque e -4% de recarga das habilidades',
+      need: [{ cls: 'arq', row: 1, fx: { atk: 0.04, cdr: 0.04 } }, { cls: 'mag', row: 1, fx: { atk: 0.04, cdr: 0.04 } }] },
     { id: 'sombra_do_escudo', name: 'Sombra do Escudo', icon: 'moon', col: '#8aa0c8', val: 0.04, colo: 0,
-      req: 'Ladino no fundo + Cavaleiro, Espadachim ou Paladino na frente', txt: 'Ladino +15% de dano crítico e +5% de esquiva',
-      need: [{ cls: 'lad', row: 1, fx: { cd: 0.15, eva: 0.05 } }, { cls: ['cav', 'esp', 'pal'], row: 0, fx: {} }] },
+      req: 'Ladino no fundo + Cavaleiro, Espadachim ou Paladino na frente', txt: 'Ladino +25% de dano crítico e +8% de esquiva',
+      need: [{ cls: 'lad', row: 1, fx: { cd: 0.25, eva: 0.08 } }, { cls: ['cav', 'esp', 'pal'], row: 0, fx: {} }] },
     { id: 'lamina_abencoada', name: 'Lâmina Abençoada', icon: 'spark', col: '#f2d98a', val: 0.04,
-      req: 'Espadachim na frente + Paladino', txt: 'Espadachim +6% de ataque e +1,5% de roubo de vida',
-      need: [{ cls: 'esp', row: 0, fx: { atk: 0.06, ls: 0.015 } }, { cls: 'pal', fx: {} }] },
+      req: 'Espadachim na frente + Paladino', txt: 'Espadachim +7% de ataque e +2% de roubo de vida',
+      need: [{ cls: 'esp', row: 0, fx: { atk: 0.07, ls: 0.02 } }, { cls: 'pal', fx: {} }] },
     { id: 'flecha_sob_escudo', name: 'Flecha sob o Escudo', icon: 'target', col: '#7fb4d6', val: 0.04,
-      req: 'Cavaleiro na frente + Arqueiro no fundo', txt: 'Arqueiro +5% de chance crítica e +4% de velocidade de ataque · Cavaleiro +4% de defesa',
-      need: [{ cls: 'cav', row: 0, fx: { def: 0.04 } }, { cls: 'arq', row: 1, fx: { crit: 0.05, aspd: 0.04 } }] },
+      req: 'Cavaleiro na frente + Arqueiro no fundo', txt: 'Arqueiro +6% de chance crítica e +5% de velocidade de ataque · Cavaleiro +5% de defesa',
+      need: [{ cls: 'cav', row: 0, fx: { def: 0.05 } }, { cls: 'arq', row: 1, fx: { crit: 0.06, aspd: 0.05 } }] },
     { id: 'tempestade_dupla', name: 'Tempestade Dupla', icon: 'star', col: '#b390f0', val: 0.05,
-      req: '2 Magos no fundo', txt: 'Magos +7% de ataque e -8% de recarga das habilidades',
-      need: [{ cls: 'mag', row: 1, n: 2, fx: { atk: 0.07, cdr: 0.08 } }] },
+      req: '2 Magos no fundo', txt: 'Magos +6% de ataque e -6% de recarga das habilidades',
+      need: [{ cls: 'mag', row: 1, n: 2, fx: { atk: 0.06, cdr: 0.06 } }] },
     { id: 'companhia_variada', name: 'Companhia Variada', icon: 'people', col: '#d0b88a', val: 0.04,
-      req: '3 ou 4 heróis, todos de classes diferentes', txt: 'Todos +2,5% de ataque e +2,5% de vida',
-      distinct: [3, 4], alldiff: 1, all: { atk: 0.025, mhp: 0.025 } },
+      req: '3 ou 4 heróis, todos de classes diferentes', txt: 'Todos +1,5% de ataque e +1,5% de vida',
+      distinct: [3, 4], alldiff: 1, all: { atk: 0.015, mhp: 0.015 } },
     { id: 'companhia_completa', name: 'Companhia Completa', icon: 'crown', col: '#ffd35a', val: 0.07,
-      req: '5 classes diferentes', txt: 'Todos +4% de ataque, de defesa e de vida',
-      distinct: [5, 9], all: { atk: 0.04, def: 0.04, mhp: 0.04 } },
+      req: '5 classes diferentes', txt: 'Todos +2% de ataque e +1,5% de defesa e de vida',
+      distinct: [5, 9], all: { atk: 0.02, def: 0.015, mhp: 0.015 } },
   ];
   G.SYN_BY = {}; for (const c of G.SYN) G.SYN_BY[c.id] = c;
 
@@ -14754,6 +14754,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   /* ---------- sinergia do grupo no Colosso ---------- */
   /* quem está em estado 'colosso' (a caminho ou lutando) forma um grupo; a posição de cada um é o alcance da classe
      (alcance < 2,5: frente; senão fundo). A cada segundo vê se o grupo mudou; os efeitos entram nos atributos pelo fluxo normal (h._cs + _dirty). */
+  G.SYN_COL = 0.6;   // o grupo do Colosso tem até 10 heróis e empilha várias combinações: lá os bônus valem 60%
   const rowOfCls = (cls) => (G.CLASSES[cls].rng >= 2.5 ? 1 : 0);
   let cT = 0, cKey = '', cPrev = [], cIds = '', cLog = 0;
   G.colSyn = { act: [], n: 0 };
@@ -14767,7 +14768,11 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     cPrev = g;
     if (!g.length) { G.colSyn = { act: [], n: 0 }; cIds = ''; return; }
     const r = G.synFind(g.map((h) => ({ cls: h.cls, row: rowOfCls(h.cls) })), { col: 1 });
-    r.fx.forEach((f, i) => { for (const k in f) { g[i]._cs = f; g[i]._dirty = true; break; } });
+    r.fx.forEach((f, i) => {                          // os efeitos da formação usam os nomes da Arena (mhp, cd); os atributos do herói, hp e critDmg
+      let any = false; const o = {};
+      for (const k in f) { any = true; o[k === 'mhp' ? 'hp' : k === 'cd' ? 'critDmg' : k] = f[k] * G.SYN_COL; }
+      if (any) { g[i]._cs = o; g[i]._dirty = true; }
+    });
     G.colSyn = { act: r.act.map((a) => ({ id: a.id, names: a.who.map((i) => g[i].name) })), n: g.length };
     const ids = r.act.map((a) => a.id).join(',');
     if (ids && ids !== cIds && S.t - cLog > 20) { cLog = S.t; G.log('Formação no Colosso: ' + r.act.map((a) => G.SYN_BY[a.id].name).join(', ') + '.', 'good'); }
@@ -14826,7 +14831,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     '.rs-ch b{color:#fff}',
     '.rs-ln{font-size:11.5px;line-height:1.4;color:#d8dcea;margin:3px 0 0}',
     '.rs-ln b{color:var(--fc)}',
-    '.rs-ln.up{color:#b8f0c4}.rs-ln.dn{color:#ffb4a8}',
+    '.rs-ln.rsu{color:#b8f0c4}.rs-ln.rsd{color:#ffb4a8}',
     '.rs-ln .ar{color:var(--mut)}',
     '.rs-cx .cxr{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line2)}',
     '.rs-cx .cxr:first-child{border-top:0}',
@@ -14857,6 +14862,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
     '.sy-bk .bk .ok{flex:none;font-size:9.5px;font-weight:900;letter-spacing:.08em;color:#9af0b0;text-transform:uppercase}',
     '.sy-duel{display:flex;flex-wrap:wrap;gap:4px 5px;justify-content:center;margin:2px 0 6px}',
     '.sy-duel .sy-ch{min-height:22px;padding:2px 8px 2px 6px;font-size:10.5px;animation:sypop .5s cubic-bezier(.2,1.5,.4,1) both}',
+    '.sy-lg{text-align:center;font-size:9.5px;letter-spacing:.06em;color:var(--mut);margin:-2px 0 5px}',
     '.sy-duel .sy-ch:nth-child(2){animation-delay:.15s}.sy-duel .sy-ch:nth-child(3){animation-delay:.3s}.sy-duel .sy-ch:nth-child(4){animation-delay:.45s}',
     '@keyframes sypop{from{transform:scale(.3);opacity:0}}',
     '.sy-res{margin:8px 0 2px;padding:9px 11px;border-radius:13px;background:var(--fg);border:1px solid var(--fc);text-align:left}',
@@ -14905,8 +14911,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   const tierLine = (f, a, b) => {
     const ta = G.resTier(a), tb = G.resTier(b), nb = tb ? f.tiers[tb - 1] : null;
     const need = (t) => (t < 3 ? G.RES_TIERS[t] : 4);
-    if (tb > ta) return '<p class="rs-ln up" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + ' · desperta <b>' + nb.n + '</b> (' + nb.txt + ')</p>';
-    if (tb < ta) return '<p class="rs-ln dn" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + ' · perde <b>' + f.tiers[ta - 1].n + '</b></p>';
+    if (tb > ta) return '<p class="rs-ln rsu" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + ' · desperta <b>' + nb.n + '</b> (' + nb.txt + ')</p>';
+    if (tb < ta) return '<p class="rs-ln rsd" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + ' · perde <b>' + f.tiers[ta - 1].n + '</b></p>';
     if (a !== b) return '<p class="rs-ln" style="' + fcv(f.col) + '"><b>' + f.name + '</b> <span class="ar">' + a + '/' + need(ta) + ' →</span> ' + b + '/' + need(tb) + (tb < 3 ? ' · faltam ' + (G.RES_TIERS[tb] - b) + ' para <b>' + f.tiers[tb].n + '</b>' : '') + '</p>';
     return '';
   };
@@ -14924,7 +14930,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       }
     } else {
       const help = G.resHelp(it).slice(0, 2);
-      if (help.length) for (const r of help) h += '<p class="rs-ln up" style="' + fcv(r.f.col) + '">Ajudaria <b style="color:#fff">' + esc(r.h.name) + '</b>: <b>' + r.f.name + '</b> ' + r.from + ' → ' + r.to + ' · desperta <b>' + r.f.tiers[r.tier - 1].n + '</b> (' + r.f.tiers[r.tier - 1].txt + ')</p>';
+      if (help.length) for (const r of help) h += '<p class="rs-ln rsu" style="' + fcv(r.f.col) + '">Ajudaria <b style="color:#fff">' + esc(r.h.name) + '</b>: <b>' + r.f.name + '</b> ' + r.from + ' → ' + r.to + ' · desperta <b>' + r.f.tiers[r.tier - 1].n + '</b> (' + r.f.tiers[r.tier - 1].txt + ')</p>';
       else h += '<p class="rs-ln mut">Nenhum herói sobe de nível de ressonância com esta peça agora.</p>';
     }
     return h + '</div>';
@@ -15026,7 +15032,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   UI.synDuel = (res) => {
     const sy = synOf(res); if (!sy || (!sy.me.length && !sy.rv.length)) return;
     const st = $('#modal .ar-stage'); if (!st) return;
-    st.insertAdjacentHTML('beforebegin', '<div class="sy-duel">' + sy.me.map((a) => comboChip(G.SYN_BY[a.id])).join('') + sy.rv.map((a) => comboChip(G.SYN_BY[a.id], 'rv')).join('') + '</div>');
+    st.insertAdjacentHTML('beforebegin', '<div class="sy-duel">' + sy.me.map((a) => comboChip(G.SYN_BY[a.id])).join('') + sy.rv.map((a) => comboChip(G.SYN_BY[a.id], 'rv')).join('') + '</div>' + (sy.rv.length && sy.me.length ? '<div class="sy-lg">combinações ativas · tracejadas: do rival</div>' : ''));
     setTimeout(() => G.sfx('arena'), 250);
   };
   /* resultado: a combinação decisiva */
@@ -15056,7 +15062,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       if (tab !== 'colosso') return html;
       let live = false; try { live = G.colossoInfo().live; } catch (e) { /* sem Colosso */ }
       const cur = G.colSyn || { act: [], n: 0 }, all = G.colSynAll(), use = live && cur.n > 0 ? cur : all;
-      let h = '<div class="sec">Formação do grupo</div><div class="card sy-col"><p class="rs-lead mut">Quem marcha junto se fortalece: classes e posições (corpo a corpo à frente; arqueiros e magos atrás) formam as mesmas combinações da Arena.</p>';
+      let h = '<div class="sec">Formação do grupo</div><div class="card sy-col"><p class="rs-lead mut">Quem marcha junto se fortalece: classes e posições (corpo a corpo à frente; arqueiros e magos atrás) formam as mesmas combinações da Arena. Como o grupo é grande e acumula várias, aqui os bônus valem ' + Math.round(G.SYN_COL * 100) + '%.</p>';
       h += '<div class="sy-h" style="margin-bottom:0"><b style="flex:none">' + (live && cur.n > 0 ? 'Lutando agora' : 'Se todos forem') + '</b><span style="flex:1;text-align:right">' + (use.act.length ? use.act.length + (use.act.length === 1 ? ' combinação' : ' combinações') : 'nenhuma combinação') + '</span></div>';
       if (use.act.length) {
         h += '<div class="sy-chs">' + use.act.map((a) => comboChip(G.SYN_BY[a.id])).join('') + '</div>' + use.act.map((a) => { const c = G.SYN_BY[a.id]; return '<p class="sy-eff" style="' + fcv(c.col) + '"><b>' + esc(c.name) + '</b> · ' + esc(joinNames(a.names)) + '<br><small>' + esc(c.txt) + '</small></p>'; }).join('');
