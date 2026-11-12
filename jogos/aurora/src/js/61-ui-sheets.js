@@ -32,16 +32,16 @@
       switch (id) {
         case 'cidadela': t = 'Outras construções até o nível ' + (l + 2) + ' · armazém ' + G.fmt(G.resCap('madeira')) + ' · até ' + G.popCap() + ' moradores'; break;
         case 'guilda': t = 'Autoriza promoção até o Rank ' + G.RANKS[Math.min(7, l)]; break;
-        case 'hospedaria': t = 'Abriga ' + (3 + l) + ' heróis · descanso ' + pct(0.12 * l) + ' mais rápido'; break;
-        case 'taverna': t = 'Estoque de ' + G.resCap('refeicao') + ' refeições · ânimo sobe ' + pct(0.1 * l) + ' mais rápido'; break;
-        case 'enfermaria': t = 'Cura ' + pct(0.2 * l) + ' mais rápida · caídos voltam ' + pct(1 - 1 / (1 + 0.3 * l)) + ' antes'; break;
-        case 'ferraria': t = 'Forja até ' + G.tierName(G.forgeMaxTier()) + ' · aprimora até +' + Math.min(15, 4 + l) + (l >= 3 ? ' · encomendas automáticas' : ''); break;
-        case 'alquimista': t = r.pocao.toFixed(1).replace('.', ',') + ' poções/h · estoque ' + G.resCap('pocao') + ' · poção cura ' + pct(Math.min(0.8, 0.45 + 0.03 * l)); break;
-        case 'mercado': t = 'Vende por ' + pct(0.45 + 0.05 * l) + ' do valor · dízimo maior · armazém +' + 60 * l; break;
+        case 'hospedaria': t = 'Abriga ' + G.heroCap() + ' heróis · descanso ' + pct(G.bfx.rest(l) - 1) + ' mais rápido'; break;
+        case 'taverna': t = 'Estoque de ' + G.resCap('refeicao') + ' refeições · ânimo sobe ' + pct(G.bfx.mood(l) - 1) + ' mais rápido'; break;
+        case 'enfermaria': t = 'Cura ' + pct(G.bfx.heal(l) - 1) + ' mais rápida · caídos voltam ' + pct(1 - 1 / G.bfx.revive(l)) + ' antes'; break;
+        case 'ferraria': t = 'Forja até ' + G.tierName(G.forgeMaxTier()) + ' · aprimora até +' + Math.min(15, 4 + l) + (G.autoForgeN() > 0 ? ' · encomendas automáticas' : ''); break;
+        case 'alquimista': t = r.pocao.toFixed(1).replace('.', ',') + ' poções/h · estoque ' + G.resCap('pocao') + ' · poção cura ' + pct(G.bfx.potHeal(l)); break;
+        case 'mercado': t = 'Vende por ' + pct(G.bfx.sell(l)) + ' do valor · dízimo maior · armazém +' + 60 * l; break;
         case 'padaria': t = r.refeicao.toFixed(1).replace('.', ',') + ' refeições/h (2 trigo cada)'; break;
-        case 'treino': t = l + ' herói(s) por vez · +' + pct(0.1 + 0.01 * l) + ' de experiência por sessão'; break;
-        case 'santuario': t = 'Bênçãos ' + pct(0.1 * l) + ' mais fortes · Graça das Luas ' + pct(Math.min(0.6, 0.12 + 0.05 * l)); break;
-        case 'torre': t = 'Na Maré, dispara a cada ' + Math.max(0.8, 2.6 - 0.15 * l).toFixed(1).replace('.', ',') + ' s · aviso com 2 dias'; break;
+        case 'treino': t = l + ' herói(s) por vez · +' + pct(G.bfx.trainXp(l)) + ' de experiência por sessão'; break;
+        case 'santuario': t = 'Bênçãos ' + pct(G.bfx.bless(l) - 1) + ' mais fortes · Graça das Luas ' + pct(G.bfx.grace(l)); break;
+        case 'torre': t = 'Na Maré, dispara a cada ' + G.bfx.towerGap(l).toFixed(1).replace('.', ',') + ' s · aviso com ' + G.mareLead() + ' dias'; break;
         case 'fazenda': t = r.trigo.toFixed(1).replace('.', ',') + ' trigo/h · ' + r.ervas.toFixed(1).replace('.', ',') + ' ervas/h'; break;
         case 'lenharia': t = r.madeira.toFixed(1).replace('.', ',') + ' madeira/h'; break;
         case 'pedreira': t = r.pedra.toFixed(1).replace('.', ',') + ' pedra/h · ' + r.minerio.toFixed(1).replace('.', ',') + ' minério/h'; break;
@@ -531,7 +531,7 @@
           '<button class="tog" data-a="opt:lowFx"><span>Modo leve<small>Menos partículas e sem sombras de nuvens. Ajuda em aparelhos antigos.</small></span><i class="sw' + (o.lowFx ? ' on' : '') + '"></i></button>' +
           '<button class="tog" data-a="opt:noVibe"><span>Vibração e tremor de tela<small>Vibra o aparelho (quando ele pode) e sacode a tela nos grandes momentos: peça Lendária, chefe derrotado, vitória na Arena, marco de poder.</small></span><i class="sw' + (o.noVibe ? '' : ' on') + '"></i></button>' +
           '<div class="sec">Jornada salva</div><p class="mut" style="font-size:12px;margin-bottom:8px">O jogo salva sozinho neste aparelho a cada 20 segundos. Exporte o código para guardar ou levar para outro aparelho.</p><div class="grid2"><button class="btn" data-a="export">' + ic('save') + 'Exportar</button><button class="btn" data-a="import">' + ic('save') + 'Importar</button></div><button class="btn wide" style="margin-top:8px" data-a="tutorial">' + ic('info') + 'Rever a apresentação</button><button class="btn wide" style="margin-top:8px;color:#ff9a9a" data-a="reset">' + ic('trash') + 'Apagar e recomeçar</button>' +
-          '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "Nenhum Minuto Vazio"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
+          '<p class="mut" style="text-align:center;font-size:11px;margin-top:14px">Aurora — Crônicas da Fenda · v' + G.VERSION + ' "Reino Sem Pausa"<br>Arraste para mover · pinça ou roda do mouse para zoom · toque em tudo</p>';
       }
       return '';
     },

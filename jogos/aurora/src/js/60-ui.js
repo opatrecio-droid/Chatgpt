@@ -117,7 +117,7 @@
     bindCanvas($('#view'));
     window.addEventListener('keydown', (e) => {
       if (!G.S || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
-      if (e.code === 'Space') { e.preventDefault(); UI.act('pause'); } else if (e.key === '1' || e.key === '2' || e.key === '3') { G.S.speed = +e.key; } else if (e.key === 'Escape') { if (UI.modalOpen) UI.closeModal(); else UI.close(); } else if (e.key === 'm' || e.key === 'M') UI.act('map');
+      if (e.code === 'Space') { e.preventDefault(); UI.act('pause'); } else if (e.key === '1' || e.key === '2' || e.key === '3') { G.S.speed = +e.key; } else if (e.key === 'Escape') { if (UI.modalOpen) UI.closeModal(); else if (UI.dock && UI.dock.kind) UI.dock.close(); else UI.close(); } else if (e.key === 'm' || e.key === 'M') UI.act('map');
     });
     wireEvents();
   };
@@ -248,6 +248,7 @@
     if (!G.S || !G.M.running) return;
     if (UI.placing && UI.placeTap) return UI.placeTap(x, y);
     const r = R.pick(x, y);
+    if (UI.dock && UI.dock.kind && !(r && (r.type === 'bld' || r.type === 'house'))) UI.dock.close();      // v27 (A4): toque fora do cartão fecha o cartão
     if (!r) { if (UI.sheet && window.innerWidth < 860) UI.close(); else UI.ACT.unsel(); return; }
     if (r.type === 'lucky') return UI.luckyTap && UI.luckyTap();     // v24: criatura da sorte (64-ui-retorno)
     G.sfx('click');
@@ -255,8 +256,9 @@
     else if (r.type === 'drop') { if (UI.dropTap) UI.dropTap(r.ref); }
     else if (r.type === 'mon' || r.type === 'npc') { R.follow = 0; UI.inspect(r); }
     else if (r.type === 'portal') UI.recruitModal();
+    else if (r.type === 'house') { if (UI.dock && UI.dock.key === 'casa' + r.i) UI.dock.close(); else UI.houseCard(r.i); }      // v27 (A4): casas da vila também têm cartão
     else if (r.type === 'board') UI.open('missoes', 'contratos');
-    else if (r.type === 'bld') UI.open('reino', 'obras', { bld: r.id });
+    else if (r.type === 'bld') { if (UI.dock && UI.dock.kind === 'predio' && UI.dock.key === r.id) UI.dock.close(); else if (UI.bldCard) UI.bldCard(r.id); else UI.open('reino', 'obras', { bld: r.id }); }   // v27 (A4): cartão do prédio (tocar de novo fecha)
   };
 
   /* ---------- atualização periódica (4×/s) ---------- */
@@ -276,14 +278,16 @@
   /* ---------- eventos do jogo ---------- */
   let zoneT = 0;
   const wireEvents = () => {
-    G.on('toast', (d) => UI.toast(d.m, d.k, d.icon));
+    G.on('toast', (d) => UI.toast(d.m, d.k, d.icon, null, d.act));
     G.on('heroes', buildRoster); G.on('promo', buildRoster); G.on('bld', () => { buildRoster(); });
     G.on('start', (d) => { $('#title').classList.remove('on'); buildRoster(); questSig = ''; UI.refresh(); if (d.off) UI.queueModal(UI.PRIO.retorno, () => UI.offlineModal(d.off), 'retorno'); if (!G.S.tut.done) UI.queueModal(UI.PRIO.tut, () => { if (G.S.tut.done) return false; UI.tutorial(); }, 'tut'); });
+    G.on('away', (d) => { if (d.off) UI.queueModal(UI.PRIO.retorno, () => UI.offlineModal(d.off), 'retorno'); });     // v27 (A1): voltou à aba depois de 1 min ou mais
     G.on('realm', (d) => { UI.banner(d.threatUp ? 'A ameaça cresce: ' + d.threatUp : 'O renome de Aurora cresce', 'Nível de Reino ' + d.lvl, '+' + G.fmt(d.gold) + ' moedas · +' + d.selos + ' Selo' + (d.selos > 1 ? 's' : '') + (d.unlocked.length ? ' · Novo: ' + d.unlocked.join(', ') : '')); });
     G.on('boss', (d) => { UI.banner('Um chefe despertou', G.MON[G.ZONE[d.z].boss].name, G.ZONE[d.z].name); });
-    G.on('mare', (d) => { if (d.on) UI.banner('Às armas!', 'Maré da Fenda', 'Invasores marcham sobre Aurora'); else UI.queueModal(UI.PRIO.evento, () => UI.mareModal(d)); });
+    /* v27 (A2): o resultado da Maré não abre janela: vira uma linha na caixa de pendências (6G) e o aviso da simulação ganha o toque que a abre */
+    G.on('mare', (d) => { if (d.on) UI.banner('Às armas!', 'Maré da Fenda', 'Invasores marcham sobre Aurora'); else UI.inboxAdd({ key: 'mare', ic: 'wave', title: d.win ? 'Aurora resistiu à Maré' : 'A Maré passou por Aurora', sub: 'Relatório · ' + d.a.killed + ' de ' + d.a.total + ' invasores abatidos', open: () => UI.mareModal(d) }); });
     G.on('rift', () => {});
-    G.on('event', (e) => UI.queueModal(UI.PRIO.evento, () => { if (G.S.ev.pending !== e.id) return false; UI.eventModal(e); }, 'evento'));
+    /* v27 (A2): o evento de cidade não abre janela: é uma decisão pendente no atalho do mapa (6G-ui-decisoes) */
     G.on('newday', (t) => { UI.toast('Dia ' + G.S.day + ' — ontem: +' + G.fmt(t._in) + ' / −' + G.fmt(t._out) + ' moedas', 'info', 'sun'); });
     G.on('camzone', (zi) => { const el = $('#zonechip'); const z = zi >= 0 && zi < G.ZONES.length ? G.ZONES[zi] : null; const name = z ? z.name + ' · Nv ' + G.zoneLvl(z, G.S.zones[z.id].tier) : zi === 7 ? 'Cratera da Fenda' : zi === 8 ? 'Aurora' : zi === 9 ? 'Mata dos Lenhadores' : ''; if (!name) { el.classList.remove('on'); return; } el.textContent = name; el.classList.add('on'); clearTimeout(zoneT); zoneT = setTimeout(() => el.classList.remove('on'), 2600); });
     for (const ev of ['bld', 'inv', 'heroes', 'daily', 'quest', 'bless', 'works', 'realm', 'rift', 'mare', 'ach', 'newday', 'promo', 'bosskill', 'boss', 'eventdone', 'hour', 'stable', 'decor', 'cos', 'diff', 'pets', 'inc']) G.on(ev, () => UI.sheetDirty(ev));
@@ -296,7 +300,7 @@
     t.innerHTML = '<div class="stars"></div><div class="moon m1"></div><div class="moon m2"></div><div class="sky">' + sky + '</div><div class="hill"></div>' +
       '<div class="inner"><div class="eyebrow">Cidade Viva</div><h1>Aurora</h1><div class="sub">Crônicas da Fenda</div><p class="tag">Sob duas luas, um reino de caçadores espera por você.<br>Erga a cidade, forje lendas, enfrente a Fenda.</p>' +
       (has ? '<button class="btn pri" data-a="t-continue">Continuar jornada</button><button class="btn" data-a="t-new">Nova jornada</button>' : '<button class="btn pri" data-a="t-new">Iniciar jornada</button>') +
-      '<button class="btn" data-a="t-import">Importar save</button><div class="ver">v' + G.VERSION + ' · Nenhum Minuto Vazio · salva sozinho neste aparelho</div></div>';
+      '<button class="btn" data-a="t-import">Importar save</button><div class="ver">v' + G.VERSION + ' · Reino Sem Pausa · salva sozinho neste aparelho</div></div>';
     t.classList.add('on');
   };
   UI.ACT['t-continue'] = () => { G.emit('audio-unlock'); G.M.start(false); };

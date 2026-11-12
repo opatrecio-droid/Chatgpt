@@ -5,6 +5,9 @@
 31-monsters.js
 32-town.js
 33-meta.js
+3J-ausencia.js
+3K-decisoes.js
+3L-predios.js
 34-vocacoes.js
 35-legado.js
 36-companheiros.js
@@ -44,4 +47,7 @@
 3I-progressivo.js
 6E-ui-progressivo.js
 6F-ui-livro.js
+6G-ui-decisoes.js
+6H-ui-predio.js
+6I-ui-ausencia.js
 90-main.js

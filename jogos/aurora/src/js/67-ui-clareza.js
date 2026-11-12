@@ -38,6 +38,7 @@
   /* alvo do momento: { el | r, text, key, round } ou null */
   const guideTarget = () => {
     const S = G.S; if (!S || !S.tut || !S.tut.guide || !S.tut.done || !G.M.running) return null;
+    if (UI.dock && UI.dock.kind) return null;          // v27: o cartão inferior (prédio, decisão) tem prioridade sobre a mão do guia
     const st = S.quest.step; if (st > (UI.GUIDE_LAST || 4)) { S.tut.guide = 0; return null; }
     const q = G.questCur(), modal = UI.modalOpen;
     if (q.done) {                                                    // missão cumprida: falta resgatar
@@ -192,8 +193,15 @@
     ['people', 'Combinações de formação', 'Na Arena e no Colosso, classes na posição certa formam combinações com nome, como a Muralha Arcana. A tela de equipe mostra as ativas e sugere uma troca.'],
     ['book', 'Livro do Reino e menos barulho', 'O ? no alto de cada painel abre a página da Rosa sobre aquela aba; o índice fica em Mais › Livro. Abas e botões só aparecem quando o sistema abre, com um selo Novo! até o primeiro toque. O jogo também liga sozinho o Modo leve se o aparelho estiver pesado.'],
   ] };
-  const NEWS_ORDER = ['v26', 'v25', 'v24', 'v22', 'v21', 'v20'];
+  UI.NEWS.v27 = { t: 'Reino sem pausa', n: 'Aurora v27', rows: [
+    ['moon', 'O reino não espera', 'Ao voltar, Aurora é simulada de verdade pelo tempo em que você esteve fora: metade do tempo nas primeiras 8 h, 30% nas 8 h seguintes, até 16 h. Um resumo mostra o que mudou.'],
+    ['scroll', 'Nada pausa, nada interrompe', 'Janelas não pausam mais o jogo (só o botão de pausa). Eventos viram uma decisão no atalho do mapa, com contagem: sem resposta, Aurora escolhe a opção segura e anota no registro.'],
+    ['castle', 'Toque num prédio', 'Um cartão mostra o que ele faz, o que dá agora e no próximo nível, quem está lá dentro e o botão Evoluir, sem sair do mapa.'],
+    ['hammer', 'Lenharia e Pedreira prontas', 'Começam no nível 1. A Jornada agora pede o nível 2 de cada uma.'],
+  ] };
+  const NEWS_ORDER = ['v27', 'v26', 'v25', 'v24', 'v22', 'v21', 'v20'];
   const newsPending = () => { const s = (G.S && G.S.tut && G.S.tut.seen) || {}; return NEWS_ORDER.filter((k) => !s[k] && UI.NEWS[k]); };
+  UI.newsPending = newsPending;
   UI.whatsNew = (keys) => {
     keys = (keys && keys.length ? keys : newsPending()).filter((k) => UI.NEWS[k]);
     if (!keys.length) return false;
@@ -218,11 +226,12 @@
   ].join('\n');
 
   /* ---------- avisos (toasts): no máximo 3, repetidos agrupam com ×N, e sempre abaixo do HUD (nunca sobre o chip de Poder) ---------- */
-  UI.toast = (m, k, icon, ms) => {
+  UI.toast = (m, k, icon, ms, act) => {          // v27 (A2): act = ação (data-a) que o toque no aviso executa, para o que antes abria janela sozinho
     const box = $('#toasts'); if (!box) return;
     k = k || '';
     for (const t of box.children) {
       if (t.dataset.m === m && t.dataset.k === k) {
+        if (act) t.setAttribute('data-a', act);
         const n = (+t.dataset.n || 1) + 1; t.dataset.n = n;
         let b = t.querySelector('.tx'); if (!b) { b = document.createElement('b'); b.className = 'tx'; t.appendChild(b); }
         b.textContent = '×' + n;
@@ -234,6 +243,7 @@
     while (box.children.length >= 3) box.firstChild.remove();
     const t = document.createElement('div'); t.className = 'toast ' + k; t.dataset.m = m; t.dataset.k = k;
     t.innerHTML = ic(icon || (k === 'bad' ? 'skull' : k === 'good' ? 'check' : 'info')) + '<span>' + esc(m) + '</span>';
+    if (act) t.setAttribute('data-a', act);
     box.appendChild(t); t._to = setTimeout(() => t.remove(), ms || 3500);
   };
 
@@ -253,8 +263,8 @@
   UI.refresh = () => {
     rfQ();
     const S = G.S; if (!S || !G.M.running) return;
-    if (S.tut.done && newsPending().length) UI.queueModal(PRIO.novidades, () => { if (!newsPending().length) return false; UI.whatsNew(); }, 'novidades');
-    if (S.ev && S.ev.pending && G.EVENTS) { const e = G.EVENTS.find((x) => x.id === S.ev.pending); if (e) UI.queueModal(PRIO.evento, () => { if (G.S.ev.pending !== e.id) return false; UI.eventModal(e); }, 'evento'); }   // evento que ficou pendente num save
+    /* v27 (A2): as novidades da versão e o evento pendente deixaram a fila de janelas: ficam na caixa de pendências (6G), com um aviso de toque */
+    if (S.tut.done && newsPending().length) UI.inboxPing('novidades', 'Novidades da versão ' + G.VERSION.replace(/\.0$/, '') + ' no atalho de pendências', 'spark');
     if (QQ.length && !UI.modalOpen) qPump();
   };
 

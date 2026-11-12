@@ -202,12 +202,19 @@
     const S = G.S, ms = G.mons;
     spawnT -= dt;
     if (spawnT <= 0) { spawnT = 1.6; G.ZONES.forEach((z, zi) => { if (G.zoneUnlocked(z)) spawnZone(z, zi); }); }
+    /* v27 (A1): no avanço do tempo ausente, um monstro errante a mais de 12 casas de qualquer herói não faz nada que importe (só passeia): é pulado.
+       Quase metade do custo do tick era isso. Chefes, elites com prazo, invasores, Fenda, Incursão e Colosso nunca são pulados. */
+    let hx = null;
+    if (G.OFFLINE) { hx = []; for (const h of S.heroes) if (!h.inside) hx.push(h.x, h.y); }
     for (let i = ms.length - 1; i >= 0; i--) {
       const m = ms[i];
       if (m.dead || m.gone) { ms[i] = ms[ms.length - 1]; ms.pop(); continue; }
+      if (hx && m.state === 'wander' && !m.until && !m.boss && !m.raid && !m.rift && !m.inc && !m.colosso && !m.dot && !(m.stun > S.t)) {
+        let near = false; for (let j = 0; j < hx.length; j += 2) if (Math.abs(hx[j] - m.x) < 12 && Math.abs(hx[j + 1] - m.y) < 12) { near = true; break; }
+        if (!near) continue;
+      }
       updateMon(m, dt);
     }
-    void S;
   };
 
   /* ================= Maré da Fenda ================= */
@@ -238,15 +245,18 @@
       }
     }
     /* a Torre de Vigia dispara */
-    if (G.bOk('torre')) { a.tw = (a.tw || 0) - dt; if (a.tw <= 0) { a.tw = Math.max(0.8, 2.6 - 0.15 * G.bLvl('torre')); const cand = G.mons.filter((m) => m.raid && !m.dead); if (cand.length) { const m = G.pick(cand); const dmg = Math.round(26 * G.PW(a.lvl) * (0.6 + 0.3 * G.bLvl('torre')) * G.work('muralhas')); const tw = Wd.plots.torre; G.addFx({ t: 'proj', x: tw.cx, y: tw.y - 1.5, tx: m.x, ty: m.y - 0.5, k: 'arrow', c: '#ffe08a' }); m.hp -= dmg; G.addFx({ t: 'dmg', x: m.x, y: m.y - 0.7, n: dmg, c: '#ffe08a' }); if (m.hp <= 0) { const h = S.heroes.find((x) => x.state === 'defend') || S.heroes[0]; if (h) G.killMon(m, h); else { m.dead = true; a.killed++; } } } } }
+    if (G.bOk('torre')) { a.tw = (a.tw || 0) - dt; if (a.tw <= 0) { a.tw = G.bfx.towerGap(); const cand = G.mons.filter((m) => m.raid && !m.dead); if (cand.length) { const m = G.pick(cand); const dmg = G.towerDamage(a.lvl); const tw = Wd.plots.torre; G.addFx({ t: 'proj', x: tw.cx, y: tw.y - 1.5, tx: m.x, ty: m.y - 0.5, k: 'arrow', c: '#ffe08a' }); m.hp -= dmg; G.addFx({ t: 'dmg', x: m.x, y: m.y - 0.7, n: dmg, c: '#ffe08a' }); if (m.hp <= 0) { const h = S.heroes.find((x) => x.state === 'defend') || S.heroes[0]; if (h) G.killMon(m, h); else { m.dead = true; a.killed++; } } } } }
     const alive = G.mons.some((m) => m.raid && !m.dead);
     const anyUp = S.heroes.some((h) => h.state === 'defend' || h.state === 'town' || h.state === 'goto' || h.state === 'inside');
     if ((a.spawned >= a.total && !alive) || a.t > 200 || (!anyUp && a.t > 20)) mareEnd();
   };
+  /* dano de um disparo da Torre de Vigia contra invasores de nível lvl (usado pela Maré e pelo cartão da Torre) */
+  G.towerDamage = (lvl) => Math.round(26 * G.PW(lvl) * G.bfx.towerDmg() * G.work('muralhas'));
   G.mareBreach = (m) => {
     const S = G.S, a = S.mare.active; m.gone = true;
     if (!a) return;
     a.breach++;
+    if (G.OFFLINE) return;     // v27 (A1): sem você por perto, invasores que chegam à praça contam para a derrota da Maré mas não saqueiam o cofre nem fecham prédios (ninguém estaria lá para consertar)
     const steal = Math.min(Math.round(S.gold * 0.04), Math.round(60 * G.PM(a.lvl)));
     if (steal > 0) { S.gold -= steal; S.rep.today['-saque'] = (S.rep.today['-saque'] || 0) + steal; }
     const cand = G.BLD_IDS.filter((id) => G.bOk(id) && id !== 'cidadela' && !G.BLD[id].site);
@@ -261,7 +271,7 @@
     if (lost) {
       S.mare.losses++; S.mare.ease = Math.min(0.4, S.mare.ease + 0.12); S.happy = Math.max(10, (S.happy || 70) - 15);
       G.log('A Maré passou por cima de Aurora. ' + a.breach + ' invasores chegaram à praça. A próxima virá um pouco mais fraca.', 'bad');
-      G.toast('Aurora sofreu com a Maré…', 'bad', 'skull');
+      G.toast('Aurora sofreu com a Maré…', 'bad', 'skull', 'ibopen:mare');
       G.emit('mare', { on: 0, win: 0, a });
     } else {
       S.mare.wins++; S.mare.ease = Math.max(0, S.mare.ease - 0.06); S.happy = Math.min(100, (S.happy || 70) + 10);
@@ -269,7 +279,7 @@
       G.earn(gold, 'mare'); S.selos += selos; S.nucleos += nuc; G.gainRealm(60 + 12 * S.realm.lvl, 'mare');
       const almas = 1 + Math.floor(S.realm.lvl / 12); G.addRes('alma', almas); G.addRes('tomo', 1);
       G.log('Aurora resistiu à Maré da Fenda! +' + G.fmt(gold) + ' moedas, +' + selos + ' Selo(s), +' + nuc + ' Núcleo(s), +' + almas + ' Cristal(is) de Alma e +1 Tomo de Técnica.', 'epic');
-      G.toast('A Maré foi repelida!', 'epic', 'crown'); G.sfx('victory'); G.questEvent('mare', 1);
+      G.toast('A Maré foi repelida!', 'epic', 'crown', 'ibopen:mare'); G.sfx('victory'); G.questEvent('mare', 1);
       G.emit('mare', { on: 0, win: 1, a, gold, selos, nuc });
     }
   };

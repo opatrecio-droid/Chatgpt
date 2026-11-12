@@ -136,14 +136,19 @@
       default: return 'Na cidade';
     }
   };
-  G.bark = (e, key, p) => { if (G.HEADLESS) return; if (Math.random() > (p == null ? 0.25 : p)) return; e.say = G.pick(G.BARKS[key]); e.sayT = 3.2; };
+  G.bark = (e, key, p) => { if (G.HEADLESS || G.OFFLINE) return; if (Math.random() > (p == null ? 0.25 : p)) return; e.say = G.pick(G.BARKS[key]); e.sayT = 3.2; };
 
   /* ---------- experiência ---------- */
   G.giveXp = (h, n) => {
     const S = G.S;
     n *= (1 + G.traitSum(h, 'xp') + G.heroStats(h).xpF) * G.bless('sabedoria') * G.work('academia') * (1 + 0.15 * h.stars);
     if (S.ev.buff.torneio > S.t) n *= 1.5;
-    const cap = G.RANK_CAP[h.rank];
+    G.xpApply(h, n);
+  };
+  /* v27 (A1): a parte de G.giveXp depois dos multiplicadores (soma, sobe de nível, respeita o teto do Rank). O avanço do tempo ausente a usa para
+     creditar a experiência estimada do trecho que não coube no orçamento: o ritmo medido já traz os multiplicadores dentro. */
+  G.xpApply = (h, n) => {
+    const S = G.S, cap = G.RANK_CAP[h.rank];
     h.xp += n; S.rep.today.xp = (S.rep.today.xp || 0) + n;
     while (h.lvl < cap && h.xp >= G.xpNeed(h.lvl)) {
       h.xp -= G.xpNeed(h.lvl); h.lvl++; h._dirty = true; G.artGain(h, 1);
@@ -411,7 +416,7 @@
   };
   G.heroFall = (h, m) => {
     const S = G.S, st = G.heroStats(h);
-    if (G.bOk('santuario') && h.grace !== S.day && Math.random() < Math.min(0.6, 0.12 + 0.05 * G.bLvl('santuario'))) {
+    if (G.bOk('santuario') && h.grace !== S.day && Math.random() < G.bfx.grace()) {
       h.grace = S.day; h.hp = st.hp * 0.3; h.state = h.state === 'rift' || h.state === 'defend' || h.state === 'inc' ? h.state : 'flee'; G.go(h, Wd.plaza.cx, Wd.plaza.cy);
       G.addFx({ t: 'healring', x: h.x, y: h.y - 0.3 }); G.log('A Graça das Duas Luas segurou ' + h.name + ' à beira da morte.', 'good'); return false;
     }
@@ -432,7 +437,7 @@
     G.emit('herofall', h); G.questEvent('fall', 1);
     return true;
   };
-  G.reviveTime = (h) => (70 + 2.5 * h.lvl) / (1 + 0.3 * G.bLvl('enfermaria')) * (G.bOk('enfermaria') ? 1 : 2.4) / (1 + G.decorV('altar'));
+  G.reviveTime = (h) => (70 + 2.5 * h.lvl) / G.bfx.revive() * (G.bOk('enfermaria') ? 1 : 2.4) / (1 + G.decorV('altar'));
   G.reviveNow = (h) => {
     if (h.state !== 'recover' && h.state !== 'fallen') return false;
     const c = G.price(h, 'revive') * 2; if (!G.spend(c, 'cura')) return false;
@@ -485,7 +490,7 @@
     }
   };
   const drink = (h, st) => {
-    h.potions--; h.tPot = G.DANGER ? G.DANGER.potCd : 9; const v = st.hp * Math.min(0.8, 0.45 + 0.03 * G.bLvl('alquimista'));
+    h.potions--; h.tPot = G.DANGER ? G.DANGER.potCd : 9; const v = st.hp * G.bfx.potHeal();
     h.hp = Math.min(st.hp, h.hp + v); G.S.stats.potions++;
     G.addFx({ t: 'dmg', x: h.x, y: h.y - 0.9, n: Math.round(v), c: '#7df09a', heal: 1 }); G.addFx({ t: 'potion', x: h.x, y: h.y - 0.6 }); G.sfx('potion', h.x, h.y);
   };
@@ -572,7 +577,7 @@
     if (!G.bOk(h.dest)) { h.state = 'town'; return; }
     switch (h.act) {
       case 'deliver': enter(h, 'deliver', 1.6); break;
-      case 'eat': if (S.res.refeicao >= 1) { G.addRes('refeicao', -1); S.stats.meals++; pay(h, 'meal'); if (h.lux) { h.lux = 0; const p = Math.round(h.gold * 0.12); h.gold -= p; G.earn(p, 'servicos'); h.animo = 100; } enter(h, 'eat', 5 / (1 + 0.08 * G.bLvl('taverna'))); } else { h.state = 'town'; G.bark(h, 'hungry', 0.6); } break;
+      case 'eat': if (S.res.refeicao >= 1) { G.addRes('refeicao', -1); S.stats.meals++; pay(h, 'meal'); if (h.lux) { h.lux = 0; const p = Math.round(h.gold * 0.12); h.gold -= p; G.earn(p, 'servicos'); h.animo = 100; } enter(h, 'eat', 5 / G.bfx.eatSpeed()); } else { h.state = 'town'; G.bark(h, 'hungry', 0.6); } break;
       case 'rest': pay(h, 'rest'); enter(h, 'rest', 60); break;
       case 'heal': pay(h, 'heal', 0.4 + 1.2 * (1 - h.hp / st.hp)); enter(h, 'heal', 60); break;
       case 'potion': { let n = 0; while (h.potions < G.potCap(h) && S.res.pocao >= 1 && h.gold >= G.price(h, 'potion')) { h.gold -= G.price(h, 'potion'); G.earn(G.price(h, 'potion'), 'pocoes'); G.addRes('pocao', -1); h.potions++; n++; } if (n) G.sfx('buy', h.x, h.y); enter(h, 'potion', 1.5); } break;
@@ -584,15 +589,15 @@
   const inside = (h, dt, st) => {
     const S = G.S;
     if (h.act === 'rest') {
-      h.energia = Math.min(100, h.energia + dt * 3.2 * (1 + 0.12 * G.bLvl('hospedaria')));
+      h.energia = Math.min(100, h.energia + dt * 3.2 * G.bfx.rest());
       h.hp = Math.min(st.hp, h.hp + st.hp * 0.02 * dt);
       if (G.hasTrait(h, 'preguicoso')) h.animo = Math.min(100, h.animo + dt * 0.8);
       if (h.energia >= 100) h.until = 0;
     } else if (h.act === 'heal') {
-      h.hp = Math.min(st.hp, h.hp + st.hp * dt * 0.07 * (1 + 0.2 * G.bLvl('enfermaria')));
+      h.hp = Math.min(st.hp, h.hp + st.hp * dt * 0.07 * G.bfx.heal());
       if (h.hp >= st.hp) h.until = 0;
     } else if (h.act === 'eat') {
-      h.fome = Math.min(100, h.fome + dt * 22); h.animo = Math.min(100, h.animo + dt * 4 * (1 + 0.1 * G.bLvl('taverna')));
+      h.fome = Math.min(100, h.fome + dt * 22); h.animo = Math.min(100, h.animo + dt * 4 * G.bfx.mood());
     }
     if (S.mare.active && h.act !== 'heal' && h.hp > st.hp * 0.5) h.until = 0;
     if (S.t >= h.until) {
@@ -601,7 +606,7 @@
         h.bag = {}; h.bagN = 0; n += G.petUnload(h); if (n) { G.addFx({ t: 'text', x: h.x, y: h.y - 1.2, s: '+' + n + ' espólio', c: '#e2b659' }); G.sfx('deliver', h.x, h.y); }
       } else if (h.act === 'train') {
         S._training = Math.max(0, (S._training || 0) - 1);
-        G.giveXp(h, G.xpNeed(h.lvl) * (0.1 + 0.01 * G.bLvl('treino')));
+        G.giveXp(h, G.xpNeed(h.lvl) * G.bfx.trainXp());
         h.energia = Math.max(0, h.energia - 12);
       }
       h.state = 'town'; h.inside = null; h.tThink = 0.2; G.bark(h, 'town', 0.12);

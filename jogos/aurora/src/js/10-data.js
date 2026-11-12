@@ -295,9 +295,9 @@ G.BLD = {
     desc: 'Flecha os invasores durante a Maré da Fenda e avisa da ameaça com antecedência.' },
   fazenda:    { name: 'Fazenda de Joca', short: 'Fazenda', plot: [63, 45], cost: 120, mat: 0.9, sign: 'wheat', roof: '#9e422b', wall: 'barn', built: 1, site: 1, staff: ['Joca', 'Lina'],
     desc: 'Trigo para as refeições e ervas para as poções.' },
-  lenharia:   { name: 'Lenharia', short: 'Lenharia', plot: [68, 24], cost: 130, mat: 0.8, sign: 'axe', roof: '#7a5236', wall: 'timber', cid: 1, site: 1, staff: ['Nuno'],
+  lenharia:   { name: 'Lenharia', short: 'Lenharia', plot: [68, 24], cost: 130, mat: 0.8, sign: 'axe', roof: '#7a5236', wall: 'timber', cid: 1, built: 1, site: 1, staff: ['Nuno'],
     desc: 'Madeira para construir e para arcos, cajados e couraças.' },
-  pedreira:   { name: 'Pedreira de Ocre', short: 'Pedreira', plot: [20, 72], cost: 200, mat: 0.9, sign: 'pick', roof: '#5c5852', wall: 'stone', cid: 1, site: 1, staff: ['Pedro'],
+  pedreira:   { name: 'Pedreira de Ocre', short: 'Pedreira', plot: [20, 72], cost: 200, mat: 0.9, sign: 'pick', roof: '#5c5852', wall: 'stone', cid: 1, built: 1, site: 1, staff: ['Pedro'],
     desc: 'Pedra para as obras e minério para a forja.' },
   /* v20: erguido ao norte das muralhas; late = terreno aberto depois da vegetação (não altera o resto do mapa) */
   estabulo:   { name: 'Estábulo do Vale', short: 'Estábulo', plot: [55, 35], cost: 450, mat: 1.1, sign: 'shoe', roof: '#8a5a34', wall: 'barn', cid: 3, site: 1, late: 1, staff: ['Tomé'],
@@ -307,6 +307,23 @@ G.BLD_IDS = Object.keys(G.BLD);
 G.bLvl = (id) => { const b = G.S.b[id]; return b ? b.lvl : 0; };
 G.bOk = (id) => { const b = G.S.b[id]; return !!b && b.lvl > 0 && !b.dmg; };
 G.bMax = (id) => (id === 'cidadela' ? 99 : G.bLvl('cidadela') + 2);
+/* v27 (A4): efeitos de prédio que dependem só do nível. A simulação (30-heroes, 31-monsters, 32-town, G.bless) e os cartões de prédio (3L-predios)
+   leem as MESMAS funções: o que o cartão promete é o que o jogo faz. l omitido = nível atual. */
+const bl_ = (id, l) => (l == null ? G.bLvl(id) : l);
+G.bfx = {
+  rest: (l) => 1 + 0.12 * bl_('hospedaria', l),                         // velocidade de descanso na Hospedaria
+  heal: (l) => 1 + 0.2 * bl_('enfermaria', l),                          // velocidade da cura na Enfermaria
+  revive: (l) => 1 + 0.3 * bl_('enfermaria', l),                        // quanto antes um caído volta
+  mood: (l) => 1 + 0.1 * bl_('taverna', l),                             // ânimo ganho comendo
+  eatSpeed: (l) => 1 + 0.08 * bl_('taverna', l),                        // a refeição termina mais rápido
+  potHeal: (l) => Math.min(0.8, 0.45 + 0.03 * bl_('alquimista', l)),   // fração da vida que uma poção cura
+  trainXp: (l) => 0.1 + 0.01 * bl_('treino', l),                        // fração do nível que uma sessão de treino rende
+  grace: (l) => Math.min(0.6, 0.12 + 0.05 * bl_('santuario', l)),       // chance da Graça das Duas Luas num golpe fatal
+  bless: (l) => 1 + 0.1 * bl_('santuario', l),                          // força das Bênçãos
+  towerGap: (l) => Math.max(0.8, 2.6 - 0.15 * bl_('torre', l)),         // segundos entre os disparos da Torre
+  towerDmg: (l) => 0.6 + 0.3 * bl_('torre', l),                         // multiplicador do dano do disparo
+  sell: (l) => 0.45 + 0.05 * bl_('mercado', l),                         // fração do valor que o Mercado paga pelo excedente
+};
 G.bCost = (id, l) => { // custo para chegar ao nível l
   const d = G.BLD[id];
   const gold = Math.round(d.cost * Math.pow(1.62, l - 1));
@@ -362,7 +379,7 @@ G.BLESS = [
   { id: 'oficio', name: 'Bênção do Ofício', per: 5, unit: '% de produção', icon: 'hammer', desc: 'Produção de fazenda, lenharia, pedreira, padaria e alquimista.' },
 ];
 G.blessCost = (lvl) => 1 + Math.floor(lvl * 0.75);
-G.bless = (id) => { const d = G.BLESS.find((b) => b.id === id); return 1 + ((G.S.bless[id] || 0) * d.per * (1 + 0.1 * G.bLvl('santuario'))) / 100; };
+G.bless = (id) => { const d = G.BLESS.find((b) => b.id === id); return 1 + ((G.S.bless[id] || 0) * d.per * G.bfx.bless()) / 100; };
 
 /* ---------- obras públicas (sumidouro infinito de moedas) ---------- */
 G.WORKS = [

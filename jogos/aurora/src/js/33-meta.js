@@ -30,13 +30,13 @@
     { t: 'Construa a Ferraria', h: 'É na Ferraria que o espólio vira equipamento.', p: () => G.bLvl('ferraria'), n: 1, r: { gold: 80, minerio: 12, couro: 6, gosma: 8 } },
     { t: 'Forje 2 equipamentos', h: 'Aba Forja. Os heróis compram o que você produz.', p: (S) => S.stats.crafted, n: 2, r: { gold: 120 } },
     { t: 'Leve um herói ao nível 5', h: 'Equipamento melhor acelera a caçada.', p: (S) => S.stats.maxLvl, n: 5, r: { gold: 100, selos: 1 } },
-    { t: 'Construa a Lenharia', h: 'Madeira para as obras, arcos e cajados.', p: () => G.bLvl('lenharia'), n: 1, r: { gold: 80, pedra: 15 } },
+    { t: 'Melhore a Lenharia para o nível 2', h: 'A Lenharia já funciona desde o início: mais madeira para as obras, arcos e cajados.', p: () => G.bLvl('lenharia'), n: 2, r: { gold: 80, pedra: 15 } },   // v27 (A3): a Lenharia nasce no nível 1; a missão pede o nível 2 (mantém os índices da jornada dos saves antigos)
     { t: 'Construa a Casa do Alquimista', h: 'Sem poções, heróis recuam cedo — ou caem.', p: () => G.bLvl('alquimista'), n: 1, r: { gold: 120, ervas: 20 } },
     { t: 'Conclua um contrato do dia', h: 'Aba Missões › Contratos.', p: (S) => S.stats.contracts, n: 1, r: { gold: 100, nucleos: 1 } },
     { t: 'Derrote o Ancião da Matilha', h: 'O chefe desperta quando a barra de caça do Bosque enche.', p: zb('bosque'), n: 1, r: { gold: 250, selos: 1 } },
     { t: 'Promova um herói ao Rank D', h: 'Nível 10, um Emblema do Bosque e moedas. Aba Heróis.', p: rk(1), n: 1, r: { gold: 200, nucleos: 1 } },
     { t: 'Melhore a Cidadela para o nível 2', h: 'Abre novos terrenos e eleva o limite das construções.', p: () => G.bLvl('cidadela'), n: 2, r: { gold: 300, selos: 1 } },
-    { t: 'Construa a Pedreira', h: 'Pedra e minério sem depender do mercado.', p: () => G.bLvl('pedreira'), n: 1, r: { gold: 150 } },
+    { t: 'Melhore a Pedreira para o nível 2', h: 'A Pedreira já funciona desde o início: mais pedra e minério sem depender do mercado.', p: () => G.bLvl('pedreira'), n: 2, r: { gold: 150 } },   // v27 (A3): idem
     { t: 'Construa o Mercado', h: 'Venda excedente e atraia caravanas.', p: () => G.bLvl('mercado'), n: 1, r: { gold: 200, selos: 1 } },
     { t: 'Tenha 6 heróis', h: 'Melhore a Hospedaria para abrigar mais caçadores.', p: (S) => S.heroes.length, n: 6, r: { gold: 300, nucleos: 2 } },
     { t: 'Resista a uma Maré da Fenda', h: 'Mantenha os heróis curados e com poções na noite da Maré.', p: (S) => S.mare.wins, n: 1, r: { gold: 400, selos: 2 } },
@@ -108,6 +108,7 @@
   G.dailyRoll = () => {
     const S = G.S, d = S.daily;
     if (d.day === S.day) return;
+    if (G.OFFLINE && d.list.length) return;     // v27 (A1): enquanto o tempo ausente corre, os contratos do dia ficam como estavam (a sequência não se perde); 3J reabre o dia ao fim
     if (d.day && !(d.list.length && d.list.every((c) => c.claimed))) d.streak = 0;
     d.day = S.day; d.claimed = false; d.list = [];
     const gens = G.shuffle(CONTRACT_GEN.slice());
@@ -167,36 +168,40 @@
   };
 
   /* ---------- eventos aleatórios ---------- */
+  /* v27 (A2): evento nunca abre janela nem pausa o jogo. Vira uma decisão pendente (S.ev.pending) com prazo (S.ev.until, em segundos de jogo =
+     e.ttl dias); se ninguém decidir até lá, 3K-decisoes aplica a opção padrão e.auto. Regra das padrões: nunca gastam moedas nem materiais e nunca
+     assumem risco (Lua Rubra: toque de recolher; Festival e Torneio: a opção gratuita); quando a opção 0 é grátis e boa, é ela. */
+  G.EVENT_IMMEDIATE = G.HEADLESS;          // o simulador do Node escolhe a opção 0 na hora (como na v26); os testes de decisão pendente desligam isto
   G.EVENTS = [
-    { id: 'caravana', w: 3, can: () => G.bOk('mercado'), title: 'Caravana do Leste', art: 'caravan',
+    { id: 'caravana', w: 3, ttl: 0.8, auto: 0, can: () => G.bOk('mercado'), title: 'Caravana do Leste', art: 'caravan',
       text: 'Carroças cobertas de poeira param diante do portão. O mestre da caravana sorri: "Compramos tudo — e pelo dobro, só hoje."',
       opts: [{ l: 'Abrir o mercado para eles', d: 'Vendas no Mercado rendem o dobro até o amanhecer.', f: (S) => { S.ev.caravan = S.day; return 'A caravana montou suas barracas. Venda o que puder hoje.'; } },
         { l: 'Comprar o lote de minério', d: () => 'Paga ' + G.fmt(Math.round(60 * G.PM(G.S.realm.lvl * 2))) + ' moedas por minério, pedra e madeira.', c: () => Math.round(60 * G.PM(G.S.realm.lvl * 2)), f: (S) => { const n = 20 + 6 * S.realm.lvl; G.addRes('minerio', n); G.addRes('pedra', n); G.addRes('madeira', n); return '+' + n + ' de minério, pedra e madeira.'; } }] },
-    { id: 'viajante', w: 2, can: () => G.S.heroes.length < G.heroCap(), title: 'Um viajante de outro mundo', art: 'portal',
+    { id: 'viajante', w: 2, ttl: 1, auto: 0, can: () => G.S.heroes.length < G.heroCap(), title: 'Um viajante de outro mundo', art: 'portal',
       text: 'O Portal se abriu sozinho. Dele saiu alguém de roupas estranhas, falando de carruagens sem cavalos e torres de vidro. "Onde… onde eu estou?"',
-      opts: [{ l: 'Acolher o Invocado', d: 'Ganha um herói Raro ou melhor com o traço Invocado.', f: () => { const c = G.rollCandidates('nucleo')[0]; c.traits = G.rollTraits(3, ['invocado']); const h = G.hire(c); return h ? h.name + ' agora luta por Aurora.' : 'Não havia cama livre.'; } },
+      opts: [{ l: 'Acolher o Invocado', d: 'Ganha um herói Raro ou melhor com o traço Invocado.', can: (S) => S.heroes.length < G.heroCap(), f: () => { const c = G.rollCandidates('nucleo')[0]; c.traits = G.rollTraits(3, ['invocado']); const h = G.hire(c); return h ? h.name + ' agora luta por Aurora.' : 'Não havia cama livre.'; } },
         { l: 'Devolvê-lo ao Portal', d: 'A energia do retorno cristaliza 3 Núcleos.', f: (S) => { S.nucleos += 3; return '+3 Núcleos.'; } }] },
-    { id: 'festival', w: 3, can: () => true, title: 'Festival da Colheita', art: 'festival',
+    { id: 'festival', w: 3, ttl: 1, auto: 1, can: () => true, title: 'Festival da Colheita', art: 'festival',
       text: 'Os moradores penduraram lanternas pela praça e pedem a sua bênção — e uma ajuda do cofre — para a festa.',
       opts: [{ l: 'Bancar o festival', d: () => 'Custa ' + G.fmt(Math.round(50 * G.PM(G.S.realm.lvl * 2))) + ' moedas. Ânimo cheio, produção +25% e dízimo em dobro por um dia.', c: () => Math.round(50 * G.PM(G.S.realm.lvl * 2)), f: (S) => { S.ev.buff.festival = S.t + G.DAY_SEC; S.happy = Math.min(100, (S.happy || 70) + 15); for (const h of S.heroes) h.animo = 100; return 'A cidade inteira dançou até tarde.'; } },
         { l: 'Só um discurso', d: 'Sem custo. Um pouco de ânimo.', f: (S) => { for (const h of S.heroes) h.animo = Math.min(100, h.animo + 15); return 'Palmas educadas.'; } }] },
-    { id: 'luarubra', w: 3, can: () => G.S.day > 3, title: 'Lua Rubra', art: 'redmoon',
+    { id: 'luarubra', w: 3, ttl: 0.5, auto: 1, can: () => G.S.day > 3, title: 'Lua Rubra', art: 'redmoon',
       text: 'A lua menor amanheceu vermelha. Os mais velhos dizem que nesta noite os monstros ficam ferozes — e carregados de espólio.',
       opts: [{ l: 'Caçada da Lua Rubra', d: 'Esta noite: monstros +25% de ataque, o dobro de elites e de materiais.', f: (S) => { S.ev.redMoon = S.t + G.DAY_SEC; return 'Os caçadores afiam as lâminas.'; } },
         { l: 'Toque de recolher', d: 'Heróis ficam na cidade até o amanhecer. Ninguém se arrisca.', f: (S) => { S.ev.curfew = S.t + G.DAY_SEC * 0.9; return 'Portões fechados esta noite.'; } }] },
-    { id: 'praga', w: 2, can: () => G.bOk('fazenda') && G.S.day > 4, title: 'Praga na lavoura', art: 'blight',
+    { id: 'praga', w: 2, ttl: 1, auto: 0, can: () => G.bOk('fazenda') && G.S.day > 4, title: 'Praga na lavoura', art: 'blight',
       text: 'Joca chega aflito: manchas escuras tomaram metade do trigal.',
       opts: [{ l: 'Usar ervas para tratar', d: 'Gasta 12 Ervas.', can: (S) => (S.res.ervas || 0) >= 12, f: () => { G.addRes('ervas', -12); return 'A lavoura foi salva.'; } },
         { l: 'Deixar a praga passar', d: 'Produção de trigo pela metade por 2 dias.', f: (S) => { S.ev.blight = S.day + 2; return 'Dias magros pela frente.'; } }] },
-    { id: 'inspirado', w: 2, can: () => G.bOk('ferraria'), title: 'O ferreiro sonhou', art: 'forge',
+    { id: 'inspirado', w: 2, ttl: 1, auto: 0, can: () => G.bOk('ferraria'), title: 'O ferreiro sonhou', art: 'forge',
       text: 'Fábio acordou com um desenho na cabeça — uma têmpera que ele nunca tinha tentado.',
       opts: [{ l: 'Deixá-lo tentar', d: 'Os próximos 3 itens forjados saem um grau de raridade acima.', f: (S) => { S.ev.inspired = 3; return 'A bigorna canta diferente hoje.'; } },
         { l: 'Vender a ideia à caravana', d: () => '+' + G.fmt(Math.round(90 * G.PM(G.S.realm.lvl * 2))) + ' moedas.', f: (S) => { G.earn(Math.round(90 * G.PM(S.realm.lvl * 2)), 'eventos'); return 'Negócio fechado.'; } }] },
-    { id: 'estrelas', w: 2, can: () => true, title: 'Chuva de estrelas', art: 'stars',
+    { id: 'estrelas', w: 2, ttl: 1, auto: 0, can: () => true, title: 'Chuva de estrelas', art: 'stars',
       text: 'Riscos de luz cruzaram o céu entre as Duas Luas. Um deles caiu perto da muralha.',
       opts: [{ l: 'Recolher os fragmentos', d: '+2 Núcleos.', f: (S) => { S.nucleos += 2; return '+2 Núcleos.'; } },
         { l: 'Oferecer ao Santuário', d: '+1 Selo de Renome.', f: (S) => { S.selos += 1; return '+1 Selo de Renome.'; } }] },
-    { id: 'torneio', w: 2, can: () => G.S.heroes.length >= 4, title: 'Torneio de Aurora', art: 'tourney',
+    { id: 'torneio', w: 2, ttl: 1, auto: 1, can: () => G.S.heroes.length >= 4, title: 'Torneio de Aurora', art: 'tourney',
       text: 'A Guilda propõe um torneio amistoso. Custa caro montar a arena, mas os heróis aprendem muito uns com os outros.',
       opts: [{ l: 'Montar a arena', d: () => 'Custa ' + G.fmt(Math.round(80 * G.PM(G.S.realm.lvl * 2))) + ' moedas. +50% de experiência por um dia.', c: () => Math.round(80 * G.PM(G.S.realm.lvl * 2)), f: (S) => { S.ev.buff.torneio = S.t + G.DAY_SEC; return 'Que vença o melhor!'; } },
         { l: 'Agora não', d: 'Nada acontece.', f: () => 'A Guilda entende.' }] },
@@ -207,22 +212,25 @@
     const pool = G.EVENTS.filter((e) => e.can() && e.id !== S.ev.lastId).map((e) => [e, e.w]);
     if (!pool.length) return;
     const e = G.wpick(pool); S.ev.lastId = e.id; S.ev.pending = e.id;
-    if (G.HEADLESS || G.AUTO) G.eventChoose(0); else G.emit('event', e);
+    S.ev.at = S.t; S.ev.until = S.t + (e.ttl || 1) * G.DAY_SEC;
+    if (G.EVENT_IMMEDIATE || G.AUTO) G.eventChoose(0); else G.emit('event', e);
   };
-  G.eventChoose = (i) => {
+  /* auto = true: ninguém decidiu a tempo; i vem de e.auto e o registro diz isso numa linha */
+  G.eventChoose = (i, auto) => {
     const S = G.S, e = G.EVENTS.find((x) => x.id === S.ev.pending); if (!e) return null;
     let o = e.opts[i];
     const cost = o.c ? o.c() : 0;
     if ((o.can && !o.can(S)) || (cost && S.gold < cost)) { o = e.opts[e.opts.length - 1]; if (o.c && S.gold < o.c()) return null; }
     if (o.c) G.spend(o.c(), 'eventos');
-    const res = o.f(S); S.ev.pending = null;
-    G.log(e.title + ': ' + res, 'info'); G.emit('eventdone', { e, res });
+    const res = o.f(S); S.ev.pending = null; S.ev.until = 0;
+    G.log(auto ? e.title + ': ninguém decidiu a tempo, Aurora seguiu o caminho seguro (' + o.l + '). ' + res : e.title + ': ' + res, 'info'); G.emit('eventdone', { e, res, auto: !!auto });
     return res;
   };
+  G.mareLead = () => (G.bOk('torre') ? 2 : 1);      // dias de aviso antes da Maré (a Torre de Vigia dá 2)
   G.mareSchedule = () => {
     const S = G.S, m = S.mare;
     if (S.realm.lvl < 3) { m.next = Math.max(m.next, S.day + 2); return; }
-    const lead = G.bOk('torre') ? 2 : 1;
+    const lead = G.mareLead();
     if (m.next - S.day <= lead && m.next > S.day && m.warned !== m.next) { m.warned = m.next; G.log('Os vigias avistaram a Fenda pulsando. A Maré chega em ' + (m.next - S.day) + ' dia(s), ao anoitecer.', 'boss'); G.toast('A Maré da Fenda se aproxima', 'boss', 'eye'); }
     if (m.next === S.day) { G.log('A Maré da Fenda chega esta noite, às 20h30. Prepare poções e descanse os heróis.', 'boss'); G.toast('A Maré chega esta noite!', 'boss', 'skull'); }
     if (m.next < S.day) m.next = S.day + 1;
@@ -247,6 +255,8 @@
     const S = G.S;
     S._stGen = (S._stGen || 0) + 1; S._training = 0;
     if (S.pop == null) S.pop = 12; if (S.happy == null) S.happy = 70;
+    /* v27 (A3): Lenharia e Pedreira nascem prontas; saves da v26 em que ainda estão no nível 0 as recebem de graça */
+    for (const id of G.BLD_IDS) if (G.BLD[id].built && !(S.b[id] && S.b[id].lvl >= 1)) S.b[id] = Object.assign(S.b[id] || {}, { lvl: 1 });
     G.vocMigrate();
     for (const z of G.ZONES) { if (!S.zones[z.id]) S.zones[z.id] = { tier: 0, maxTier: 0, gauge: 0, kills: 0, bossKills: 0, boss: 0, lock: 0 }; S.zones[z.id].boss = 0; }
     S.mare.active = null; S.rift.run = null;
@@ -262,24 +272,7 @@
     G.syncNpcs(); if (S.daily.day !== S.day) G.dailyRoll(); G.populate();
   };
 
-  /* ---------- progresso offline (estimado pelo histórico recente) ---------- */
-  G.offline = (secs) => {
-    const S = G.S; secs = Math.min(secs, 8 * 3600);
-    if (secs < 90 || !S.rep.hist.length) return null;
-    const hs = S.rep.hist.slice(-3); const n = hs.length;
-    const avg = (k) => hs.reduce((a, b) => a + (b[k] || 0), 0) / n;
-    const days = (secs / G.DAY_SEC) * 0.4;
-    const gold = Math.max(0, Math.round((avg('i') - avg('o')) * days));
-    const xp = avg('x') * days, kills = Math.round(avg('k') * days), mats = Math.round(avg('m') * days);
-    if (gold > 0) { S.gold += gold; S.stats.goldIn += gold; }
-    const alive = S.heroes.filter((h) => h.state !== 'recover');
-    for (const h of alive) G.giveXp(h, xp / Math.max(1, alive.length));
-    const zs = G.ZONES.filter(G.zoneUnlocked);
-    for (let i = 0; i < mats; i++) { const z = G.pick(zs), zm = G.ZMATS[z.n]; G.addRes(Math.random() < 0.5 ? zm.a : zm.b, 1); }
-    S.stats.kills += kills;
-    for (const h of S.heroes) { h.fome = Math.max(h.fome, 60); h.energia = Math.max(h.energia, 70); h.hp = G.heroStats(h).hp; }
-    return { secs, gold, kills, mats, xp: Math.round(xp) };
-  };
+  /* ---------- progresso offline: a simulação real mora em 3J-ausencia.js (v27) ---------- */
 
   /* ---------- laço da simulação ---------- */
   let achT = 0;

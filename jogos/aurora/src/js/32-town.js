@@ -41,13 +41,17 @@
     if (G.BASE_RES.indexOf(id) >= 0) return Math.round((120 + 80 * G.bLvl('cidadela') + 60 * G.bLvl('mercado')) * G.work('celeiros'));
     return 1e12;
   };
-  G.sellPrice = (id) => { const S = G.S; return Math.max(1, Math.round(G.RES[id].base * (0.45 + 0.05 * G.bLvl('mercado')) * G.work('feira') * (S.ev.caravan === S.day ? 2 : 1) * 10) / 10); };
+  G.sellPrice = (id) => { const S = G.S; return Math.max(1, Math.round(G.RES[id].base * G.bfx.sell() * G.work('feira') * (S.ev.caravan === S.day ? 2 : 1) * 10) / 10); };
   G.buyPrice = (id) => Math.round(G.RES[id].base * 3.2 * (1 + 0.03 * (G.S.realm.lvl - 1)) * 10) / 10;
   G.BUYABLE = ['madeira', 'pedra', 'minerio', 'trigo', 'ervas'];
   G.sellRes = (id, n) => { const S = G.S; if (!G.bOk('mercado')) return false; n = Math.min(n, Math.floor(S.res[id] || 0)); if (n <= 0) return false; G.addRes(id, -n); G.earn(G.sellPrice(id) * n, 'exportacao'); G.sfx('coin'); return true; };
   G.buyRes = (id, n) => { if (!G.bOk('mercado') || G.BUYABLE.indexOf(id) < 0) return false; const c = Math.ceil(G.buyPrice(id) * n); if (!G.spend(c, 'mercado')) return false; G.addRes(id, n); G.sfx('buy'); return true; };
 
   /* ---------- produção (a cada hora de jogo) ---------- */
+  /* v27 (A4): horas do dia em que a produção acontece (fazenda, lenharia, pedreira: expediente; padaria, alquimista, estábulo: serviço); os cartões
+     de prédio multiplicam as taxas por hora de G.prodRates por estas horas para mostrar "por dia" */
+  G.PROD = { work: [6, 18], serv: [5, 21] };
+  G.mealWheat = () => (G.bOk('padaria') ? 2 : 3);       // trigo gasto por refeição
   G.prodRates = () => {
     const S = G.S, of = G.bless('oficio') * (1 + 0.02 * G.workLvl('celeiros')) * (S.ev.buff.festival > S.t ? 1.25 : 1) * (0.6 + 0.4 * (S.happy || 70) / 70);
     const L = (id) => (G.bOk(id) ? G.bLvl(id) : 0);
@@ -64,15 +68,15 @@
   };
   const hourTick = () => {
     const S = G.S, h = Math.floor(S.clock / 60), r = G.prodRates();
-    const work = h >= 6 && h < 18;
+    const work = h >= G.PROD.work[0] && h < G.PROD.work[1];
     const add = (id, n) => {
       const cap = G.resCap(id), cur = S.res[id] || 0;
       if (cur + n > cap) { const over = cur + n - cap; n -= over; if (G.bOk('mercado') && S.opts.autoSell && G.BASE_RES.indexOf(id) >= 0 && id !== 'refeicao' && id !== 'pocao') G.earn(G.sellPrice(id) * over * 0.7, 'exportacao'); }
       if (n > 0) { G.addRes(id, n); S.rep.today.prod = (S.rep.today.prod || 0) + n; }
     };
     if (work) { add('trigo', r.trigo); add('ervas', r.ervas); add('madeira', r.madeira); add('pedra', r.pedra); add('minerio', r.minerio); }
-    if (h >= 5 && h < 21) {
-      const per = G.bOk('padaria') ? 2 : 3;
+    if (h >= G.PROD.serv[0] && h < G.PROD.serv[1]) {
+      const per = G.mealWheat();
       let n = Math.min(r.refeicao, (S.res.trigo || 0) / per, G.resCap('refeicao') - (S.res.refeicao || 0));
       if (n > 0) { G.addRes('trigo', -n * per); G.addRes('refeicao', n); }
       n = Math.min(r.pocao, (S.res.ervas || 0) / 2, G.resCap('pocao') - (S.res.pocao || 0));
@@ -81,11 +85,13 @@
       n = Math.min(r.racao, Math.max(0, (S.res.trigo || 0) - (S.pop || 12)) / 2, G.resCap('racao') - (S.res.racao || 0));
       if (n > 0) { G.addRes('trigo', -n * 2); G.addRes('racao', n); }
     }
-    if (S.opts.autoForge && G.bLvl('ferraria') >= 3 && work) autoForge();
+    if (S.opts.autoForge && G.autoForgeN() > 0 && work) autoForge();
     G.emit('hour', h);
   };
 
   /* ---------- forja ---------- */
+  /* encomendas automáticas da Ferraria por hora de expediente: 0 abaixo do nível 3 */
+  G.autoForgeN = (l) => { if (l == null) l = G.bLvl('ferraria'); return l >= 3 ? 1 + Math.floor(l / 3) : 0; };
   G.forgeMaxTier = () => { const l = G.bLvl('ferraria'); return l <= 0 ? 0 : 1 + Math.floor((l - 1) / 2); };
   G.rarWeights = (master) => {
     const S = G.S, L = G.bLvl('ferraria'), insp = S.ev.inspired > 0 ? 1 : 0;
@@ -123,7 +129,7 @@
   };
   const autoForge = () => {
     const S = G.S, mt = G.forgeMaxTier();
-    let left = 1 + Math.floor(G.bLvl('ferraria') / 3);
+    let left = G.autoForgeN();
     for (const h of S.heroes) {
       for (const [slot, type] of G.heroSlots(h)) {
         if (!G.gearUnlocked(type)) continue;
@@ -207,16 +213,17 @@
         }
         G.go(n, p[0], p[1]); n.state = 'walk';
       }
-      if (!G.HEADLESS && n.state !== 'walk' && !n.inside && Math.random() < 0.02) { n.say = G.pick(G.BARKS.npc); n.sayT = 3.5; }
+      if (!G.HEADLESS && !G.OFFLINE && n.state !== 'walk' && !n.inside && Math.random() < 0.02) { n.say = G.pick(G.BARKS.npc); n.sayT = 3.5; }
     }
     if (n.state === 'walk') {
       if (G.step(n, dt, n.spd * (n.act === 'hide' ? 1.6 : 1))) { n.state = n.goal === 'in' ? 'in' : n.goal; n.inside = n.goal === 'in'; n.moving = false; if (n.goal === 'toil') n.dir = Math.random() < 0.5 ? 1 : -1; }
     }
   };
-  G.updateNpcs = (dt) => { for (const n of G.npcs) if (!n._sc) updateNpc(n, dt); };   // v26: quem está numa cena da cidade (3G) é conduzido por ela
+  G.updateNpcs = (dt) => { if (G.OFFLINE) return; for (const n of G.npcs) if (!n._sc) updateNpc(n, dt); };   // v27 (A1): moradores só enfeitam; no avanço do tempo ausente ficam parados (≈10% do custo do tick)   // v26: quem está numa cena da cidade (3G) é conduzido por ela
 
   /* ---------- economia diária ---------- */
-  G.wages = () => { let w = 0; for (const id of G.BLD_IDS) { const l = G.bLvl(id); if (l > 0) w += 5 * Math.pow(1.33, l - 1); } return Math.round(w); };
+  G.bWage = (id, l) => { if (l == null) l = G.bLvl(id); return l > 0 ? 5 * Math.pow(1.33, l - 1) : 0; };      // salário diário da equipe de um prédio
+  G.wages = () => { let w = 0; for (const id of G.BLD_IDS) w += G.bWage(id); return Math.round(w); };
   G.popCap = () => 8 + 4 * G.bLvl('cidadela') + G.builtCount() + Math.floor(G.charm() / 10);
   G.taxEstimate = () => { const S = G.S; return Math.round((S.pop || 12) * (1.3 + 0.55 * G.bLvl('mercado')) * (1 + 0.09 * (S.realm.lvl - 1)) * G.work('feira') * ((S.happy || 70) / 70) * (S.ev.buff.festival > S.t ? 2 : 1) * (1 + 0.01 * G.charm())); };
   G.newDay = () => {

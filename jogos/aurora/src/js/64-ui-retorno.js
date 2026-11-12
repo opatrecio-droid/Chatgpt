@@ -102,6 +102,7 @@
     UI.modal(head + '<div class="rcd-h">Achados da viagem</div><p class="rcd-s">' + (n === 1 ? 'Uma carta' : n + ' cartas') + ' · uma por hora fora</p>' +
       '<div class="rcdg" style="max-width:' + (cols * 80 + (cols - 1) * 7) + 'px">' + off.cards.map(cardHtml).join('') + '</div><div class="rcd-c" id="rtc">' + countTxt(off) + '</div>' +
       '<div class="acts"><button class="btn" data-a="rtall" id="rtall"' + (flipped(off) >= n ? ' disabled' : '') + '>' + ic('spark') + 'Virar todas</button><button class="btn pri" data-a="mclose">Voltar ao trono</button></div>', { lock: true, onClose: closeReturn });
+    { const bx = $('#modal .mbox'); if (bx) bx.classList.add('rt'); }
   };
   const closeReturn = () => {
     const n = G.retFinish();
@@ -207,7 +208,7 @@
     const st = G.calState(), c = r.cal;
     if (st.ok && c.shown !== st.today) {
       if (!c.arm) c.arm = S.t + (S.stats.played < 400 ? 150 : 2);                               // jogo novo: só depois da apresentação, das primeiras missões e de um respiro
-      if (S.t >= c.arm) UI.queueModal(UI.PRIO.calendario, () => { const s2 = G.calState(); if (!s2.ok) return false; G.ret().cal.shown = s2.today; UI.calModal(); }, 'calendario');
+      if (S.t >= c.arm) { c.shown = st.today; UI.toast('O presente do dia espera no Calendário', 'epic', 'gift', 6500, 'cal'); }   // v27 (A2): era uma janela sozinha; agora um aviso com toque (o botão do calendário também pulsa)
     }
   };
   const rf1 = UI.refresh;

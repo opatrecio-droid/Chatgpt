@@ -192,7 +192,8 @@
   };
   UI.ACT.rcflip = () => { if (cur) flip(cur.cid); };
   UI.ACT.rclock = (a) => { const it = G.S.inv.find((i) => i.id === +a[0]) || (cur && cur.d.it); if (!it) return; G.toggleLock(it); const b = $('#rclock'); if (b) b.innerHTML = ic(it.lock ? 'lock' : 'unlock') + (it.lock ? 'Reservada' : 'Reservar'); UI.sheetDirty(); };
-  G.on('reveal', (d) => { Q.push(d); setTimeout(pump, 450); });
+  /* v27 (A2): só abre a carta quem acabou de causar a revelação (forja manual, peça pega no chão, baú aberto); o que a cidade faz sozinha (encomenda automática, peça que ninguém pegou) é só um aviso */
+  G.on('reveal', (d) => { if (d.silent) return; Q.push(d); setTimeout(pump, 450); });
   const rf0 = UI.refresh; UI.refresh = () => { rf0(); pump(); };
   UI.revealTest = (it) => { Q.push({ it, silent: false, big: it.rar >= 4 }); pump(); };   // para testes e capturas
   /* ---------- Garantia do Portal ---------- */

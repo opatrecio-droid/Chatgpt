@@ -55,7 +55,7 @@
     for (const n of G.npcs) { if (n.inside) continue; if (Math.hypot(n.x - wx, n.y - 0.6 - wy) < 0.9) return { type: 'npc', ref: n }; }
     if (Math.abs(wx - Wd.portal.x) < 1.8 && wy > Wd.portal.y - 3.6 && wy < Wd.portal.y + 1.4) return { type: 'portal' };
     if (Math.abs(wx - Wd.board.x) < 1 && wy > Wd.board.y - 1.8 && wy < Wd.board.y + 1) return { type: 'board' };
-    for (const id of G.BLD_IDS) { const p = Wd.plots[id]; if (wx >= p.x - 0.2 && wx <= p.x + 6.2 && wy >= p.y - 2.6 && wy <= p.y + 4.2) return { type: 'bld', id }; }
+    for (const id of G.BLD_IDS) { const p = Wd.plots[id]; if (!G.bAvailable(id)) continue; if (wx >= p.x - 0.2 && wx <= p.x + 6.2 && wy >= p.y - 2.6 && wy <= p.y + 4.2) return { type: 'bld', id }; }   // v27 (A4): só os prédios desenhados respondem ao toque
     return null;
   };
 

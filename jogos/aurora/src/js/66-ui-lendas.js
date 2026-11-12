@@ -287,10 +287,14 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
       '<div class="acts"><button class="btn pri" data-a="mclose">Continuar</button></div></div>', { pause: false, onClose: () => { cur = null; setTimeout(pump, 400); } });
     const n = $('#pm-n'); if (n) roll(n, d.v, 1100);
   };
-  const pump = () => {
-    if (Q.length) UI.queueModal(UI.PRIO.cerimonia, () => { if (!Q.length) return false; showMark(Q.shift()); }, 'marcos');
-  };
-  G.on('pmark', (d) => { Q.push(d); const chip = $('#pwr'); if (chip) { chip.classList.remove('big', 'up'); void chip.offsetWidth; chip.classList.add('big'); } setTimeout(pump, 500); });
+  /* v27 (A2): o marco de poder não abre janela sozinho (o prêmio já está no cofre): aviso com toque + linha na caixa de pendências (6G) */
+  const pump = () => { if (Q.length) showMark(Q.shift()); };
+  G.on('pmark', (d) => {
+    const chip = $('#pwr'); if (chip) { chip.classList.remove('big', 'up'); void chip.offsetWidth; chip.classList.add('big'); }
+    const key = 'pmark' + d.i;
+    UI.inboxAdd({ key, ic: 'crown', title: 'Marco de poder: ' + G.fmtFull(d.v), sub: 'Prêmio já no cofre · toque para ver', open: () => { Q.push(d); pump(); } });
+    UI.inboxPing(key, 'Marco de poder alcançado: ' + G.fmtFull(d.v) + '!', 'crown');
+  });
   G.on('start', () => { Q = []; cur = null; });
   UI.markTest = (i) => { Q.push({ i: i || 0, v: G.powerMark(i || 0), rw: G.powerPrize(i || 0) }); pump(); };   // para testes e capturas
 

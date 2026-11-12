@@ -177,16 +177,14 @@
   };
   /* o sorteio é gravado em S.ret.off ANTES de a janela abrir (M.start salva logo depois): reabrir a página reapresenta as
      mesmas cartas, nunca sorteia de novo. Cartas pendentes de um retorno anterior são entregues antes de criar o novo. */
-  const off0 = G.offline;
-  G.offline = (secs) => {
-    const o = off0(secs);
-    if (!o) return o;
+  /* v27 (A1): o resumo do retorno (3J-ausencia) já traz tudo o que o reino fez; as cartas entram nele pelo gancho G.offHooks, no mesmo fluxo e
+     na mesma janela. As cartas seguem a quantidade de HORAS REAIS fora (o.secs, até 16 h), não o tempo simulado. */
+  G.offHooks.push((o) => {
     G.retFinish();
     const cards = G.retRollCards(o.secs);
-    if (cards.length) G.ret().off = { secs: o.secs, gold: o.gold, kills: o.kills, mats: o.mats, xp: o.xp, cards };
+    if (cards.length) G.ret().off = Object.assign({}, o, { cards });
     o.cards = cards;
-    return o;
-  };
+  });
 
   /* ================= 1B.2 calendário de 7 dias ================= */
   G.CAL = [
@@ -289,7 +287,7 @@
     if (c.t >= c.life) { luckyEnd(false); G.emit('lucky', { t: 'puf', x: c.x, y: c.y }); }
   };
   const tk0 = G.tick;
-  G.tick = (dt) => { tk0(dt); if (!G.HEADLESS && G.S && G.luckyView) luckyTick(dt); };
+  G.tick = (dt) => { tk0(dt); if (!G.HEADLESS && !G.OFFLINE && G.S && G.luckyView) luckyTick(dt); };
   const ng1 = G.newGame; G.newGame = () => { G.lucky = null; return ng1(); };
   const al1 = G.afterLoad; G.afterLoad = () => { G.lucky = null; return al1(); };
 })();

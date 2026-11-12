@@ -510,12 +510,8 @@
   /* ================= fila, avisos e sons ================= */
   const startAt0 = { t: 0 };
   G.on('start', () => { startAt0.t = performance.now(); });
-  const pump = () => {
-    const S = G.S; if (!S || !G.M.running) return;
-    const a = S.arena; if (a && a.pend) UI.queueModal(UI.PRIO.arena, () => { const a2 = G.S.arena; if (!a2 || !a2.pend) return false; seasonModal(a2.pend); }, 'arena-bau');
-  };
-  const rf1 = UI.refresh;
-  UI.refresh = () => { rf1(); pump(); };
+  /* v27 (A2): o fim de temporada não abre janela sozinho: o baú já está no cofre; a cerimônia fica na caixa de pendências (6G) e abre quando o jogador quiser */
+  UI.arenaSeason = (rec) => seasonModal(rec);
   G.on('arena', (d) => {
     if (d.t === 'open') { UI.banner('Novidade em Aurora', 'A Arena abriu!', 'Arena das Duas Luas · Missões › Arena'); G.sfx('realm'); UI.arenaSyncTab && UI.arenaSyncTab(); }
     if (d.t === 'duel' || d.t === 'season' || d.t === 'shop' || d.t === 'coin' || d.t === 'ticket' || d.t === 'open') dirty();

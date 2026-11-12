@@ -7,7 +7,7 @@
   G.newGame = () => {
     const S = ng0();
     S.tut.seen = S.tut.seen || {};
-    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = S.tut.seen.v24 = S.tut.seen.v25 = S.tut.seen.v26 = 1;
+    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = S.tut.seen.v24 = S.tut.seen.v25 = S.tut.seen.v26 = S.tut.seen.v27 = 1;
     return S;
   };
 

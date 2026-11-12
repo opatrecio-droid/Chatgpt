@@ -668,7 +668,7 @@
   const hd0 = G.heroDecide;
   G.heroDecide = (h) => {
     const S = S_(), total = () => { let n = 0; for (const k in G.scenes) n += nHeroes(G.scenes[k]); return n; };
-    if (SC.on && G.scenes && heroOk(h) && h.bagN === 0 && S.t - (h._scT || -1e9) >= SC.roll && (h._scT = S.t) && Math.random() < SC.joinP && total() < SC.maxTotal) {
+    if (SC.on && !G.OFFLINE && G.scenes && heroOk(h) && h.bagN === 0 && S.t - (h._scT || -1e9) >= SC.roll && (h._scT = S.t) && Math.random() < SC.joinP && total() < SC.maxTotal) {
       const prefer = h.act === 'eat' ? ['tav', 'fire', 'train'] : h.act === 'train' ? ['train', 'fire', 'tav'] : ['fire', 'tav', 'train'];
       if (needs(h) || h.act === 'train') for (const k of prefer) {
         const sc = G.scenes[k]; if (!sc || nHeroes(sc) >= sc.maxH) continue;
@@ -682,8 +682,9 @@
   G.scenesInfo = () => { const o = {}; for (const k in G.scenes) { const sc = G.scenes[k]; o[k] = { n: occ(sc).length, h: nHeroes(sc), npc: nNpcs(sc), seats: sc.seats.length }; } return o; };
 
   const tk0 = G.tick;
-  G.tick = (dt) => { tk0(dt); if (G.S) tickScenes(dt); };
+  G.tick = (dt) => { tk0(dt); if (G.S && !G.OFFLINE) tickScenes(dt); };   // v27 (A1): no avanço do tempo ausente as cenas não rodam (heróis ficariam presos nelas)
   const reset = () => { for (const k in G.scenes) delete G.scenes[k]; acc = 0; chT = 4; };
+  G.scenesStop = () => { for (const k of Object.keys(G.scenes)) dissolve(k); acc = 0; chT = 4; };   // v27 (A1): antes de avançar o tempo ausente, solta quem está numa cena
   const ng = G.newGame; G.newGame = () => { const S = ng(); reset(); return S; };
   const al = G.afterLoad; G.afterLoad = () => { al(); reset(); };
   /* @@fim3G-cenas */

@@ -8,9 +8,9 @@
     o = o || {}; const m = $('#modal');
     m.innerHTML = '<div class="mbox">' + html + '</div>'; m.classList.add('on');
     UI.modalOpen = true; UI.modalLock = !!o.lock; onClose = o.onClose || null;
-    G.M.modalPause = o.pause !== false;
+    /* v27 (A2): nenhuma janela pausa o jogo (o antigo G.M.modalPause foi removido): só o botão de pausa pausa. A opção { pause } segue aceita e ignorada. */
   };
-  UI.closeModal = () => { const m = $('#modal'); m.classList.remove('on'); m.innerHTML = ''; UI.modalOpen = false; G.M.modalPause = false; clearInterval(mapTimer); const f = onClose; onClose = null; if (f) f(); };
+  UI.closeModal = () => { const m = $('#modal'); m.classList.remove('on'); m.innerHTML = ''; UI.modalOpen = false; clearInterval(mapTimer); const f = onClose; onClose = null; if (f) f(); };
   $('#app') && 0;
   document.addEventListener('click', (e) => { if (e.target.id === 'modal' && UI.modalOpen && !UI.modalLock) UI.closeModal(); });
   let confirmFn = null;
@@ -29,34 +29,60 @@
       '<button class="opt" data-a="summon:nucleo"' + (S.nucleos < n ? ' disabled' : '') + '><b class="epic">' + ic('core').replace('class="i"', 'class="i" style="display:inline;vertical-align:-2px"') + ' Invocar · ' + n + ' Núcleos</b><span>Garante Raro ou melhor. Épicos e Lendários só vêm por aqui (ou por pura sorte).</span></button>' +
       '<div class="acts"><button class="btn" data-a="mclose">Agora não</button></div>');
   };
+  let paid = null;      // v27 (A2): o que o sorteio custou, para devolver se a última cama for ocupada enquanto a janela está aberta (o jogo não pausa mais)
   UI.ACT.summon = (a) => {
     const S = G.S;
-    if (a[0] === 'gold') { if (!G.spend(G.recruitCost(), 'recrutas')) return; } else { const n = G.nucleoCost(); if (S.nucleos < n) return; S.nucleos -= n; }
+    if (a[0] === 'gold') { const c = G.recruitCost(); if (!G.spend(c, 'recrutas')) return; paid = { k: 'gold', n: c }; } else { const n = G.nucleoCost(); if (S.nucleos < n) return; S.nucleos -= n; paid = { k: 'nucleos', n }; }
     cands = G.rollCandidates(a[0]); G.sfx('summon');
     let h = '<div class="eyebrow">O Portal se abre</div><h2>Quem fica em Aurora?</h2><div style="margin-top:12px">';
     cands.forEach((c, i) => { const fake = { cls: c.cls, look: c.look, rank: G.rankForLevel(c.lvl), gear: { arma: { tier: 1 }, armadura: null } }; const cl = G.CLASSES[c.cls]; h += '<button class="cand rar' + c.rar + '" data-a="hire:' + i + '"><i class="pt px" style="background-image:url(' + A.fullBody(A.heroLook(fake)) + ')"></i><span class="gr"><b style="font-size:14.5px;color:#fff">' + esc(c.name) + '</b> <span class="rar' + c.rar + '" style="font-weight:800;font-size:12px">' + G.RAR[c.rar] + '</span><br><span style="font-size:12.5px;color:var(--gold2);font-weight:800">' + cl.name + ' · Nv ' + c.lvl + '</span><br><span class="mut" style="font-size:11.5px">' + cl.desc + '</span><br><span style="font-size:11.5px">' + c.traits.map((t) => '<span class="pill">' + G.TRAITS[t].name + '</span>').join(' ') + '</span></span></button>'; });
     UI.modal(h + '</div>', { lock: true });
   };
-  UI.ACT.hire = (a) => { const c = cands && cands[+a[0]]; if (!c) return; cands = null; const h = G.hire(c); UI.closeModal(); if (h) { R.follow = h.id; UI.banner('Um novo juramento', h.name, G.CLASSES[h.cls].name + ' ' + G.RAR[h.rar]); UI.inspect({ type: 'hero', ref: h }); if (UI.sheet && window.innerWidth < 860) UI.close(); } };
+  UI.ACT.hire = (a) => { const c = cands && cands[+a[0]]; if (!c) return; cands = null; const h = G.hire(c); UI.closeModal();
+    if (!h && paid) { if (paid.k === 'gold') G.earn(paid.n, 'recrutas'); else G.S.nucleos += paid.n; UI.toast('A última cama foi ocupada enquanto você escolhia: o valor foi devolvido.', 'info', 'coin'); }
+    paid = null;
+    if (h) { R.follow = h.id; UI.banner('Um novo juramento', h.name, G.CLASSES[h.cls].name + ' ' + G.RAR[h.rar]); UI.inspect({ type: 'hero', ref: h }); if (UI.sheet && window.innerWidth < 860) UI.close(); } };
   UI.ACT.mgo = (a) => { UI.closeModal(); UI.open(a[0], a[1], a[2] ? { bld: a[2] } : null); };
 
   /* ---------- eventos ---------- */
   const ART = { portal: ['linear-gradient(180deg,#2a1450,#120a28)', [[50, 55, 70, '#7a34c8'], [50, 55, 44, '#b06af0'], [50, 55, 20, '#ffffff']]], caravan: ['linear-gradient(180deg,#f0b860,#c8843a)', [[80, 30, 34, '#fff3c0'], [20, 110, 120, '#a86a2a'], [70, 105, 90, '#8a5220']]], festival: ['linear-gradient(180deg,#3a2a6a,#1a1438)', [[20, 40, 12, '#ffd070'], [40, 28, 12, '#ff9a70'], [60, 42, 12, '#ffd070'], [80, 30, 12, '#ff70a0']]], redmoon: ['linear-gradient(180deg,#3a0a14,#14060c)', [[62, 46, 50, '#e83a4a'], [30, 30, 16, '#f0e0c0']]], blight: ['linear-gradient(180deg,#6a7a3a,#3a4420)', [[30, 70, 30, '#3a3020'], [60, 80, 40, '#2a2418'], [80, 60, 22, '#4a3a28']]], forge: ['linear-gradient(180deg,#3a2018,#1a0e0a)', [[50, 80, 60, '#ff8a2a'], [50, 80, 34, '#ffd070'], [50, 80, 14, '#ffffff']]], stars: ['linear-gradient(180deg,#141c48,#080c20)', [[20, 20, 4, '#fff'], [44, 44, 3, '#fff'], [70, 24, 5, '#cfe'], [86, 60, 3, '#fff'], [60, 70, 26, '#b0c8ff']]], tourney: ['linear-gradient(180deg,#2a4a8a,#14244a)', [[30, 50, 30, '#e2b659'], [70, 50, 30, '#c8473d'], [50, 50, 10, '#ffffff']]] };
   const artBox = (k) => { const a = ART[k] || ART.stars; return '<div class="art" style="background:' + a[0] + '">' + a[1].map(([x, y, r, c]) => '<i style="left:calc(' + x + '% - ' + r / 2 + 'px);top:calc(' + y + '% - ' + r / 2 + 'px);width:' + r + 'px;height:' + r + 'px;background:' + c + ';box-shadow:0 0 ' + r / 2 + 'px ' + c + '"></i>').join('') + '</div>'; };
-  UI.eventModal = (e) => {
-    const S = G.S; let h = '<div class="eyebrow">Acontece em Aurora</div><h2>' + esc(e.title) + '</h2>' + artBox(e.art) + '<p class="lead">' + esc(e.text) + '</p>';
-    e.opts.forEach((o, i) => { const c = o.c ? o.c() : 0, dis = (o.can && !o.can(S)) || (c && S.gold < c); h += '<button class="opt" data-a="evopt:' + i + '"' + (dis ? ' disabled' : '') + '><b>' + esc(o.l) + '</b><span>' + esc(typeof o.d === 'function' ? o.d() : o.d) + '</span></button>'; });
-    UI.modal(h, { lock: true });
-  };
-  UI.ACT.evopt = (a) => { const r = G.eventChoose(+a[0]); UI.closeModal(); if (r) UI.toast(r, 'info', 'scroll'); };
+  UI.artBox = artBox; UI.ART = ART;
+  /* v27 (A2): o evento de cidade não abre mais janela sozinho nem pausa o jogo; vira uma decisão pendente no atalho do HUD (6G-ui-decisoes: UI.eventModal, UI.ACT.evopt) */
   UI.mareModal = (d) => {
     const a = d.a;
     UI.modal('<div class="eyebrow">Maré da Fenda</div><h2>' + (d.win ? 'Aurora resistiu!' : 'A Maré passou…') + '</h2>' + artBox(d.win ? 'festival' : 'redmoon') + '<div class="grid3"><div class="stat"><small>Invasores</small><b>' + a.total + '</b></div><div class="stat"><small>Abatidos</small><b class="good">' + a.killed + '</b></div><div class="stat"><small>Na praça</small><b class="' + (a.breach ? 'bad' : 'good') + '">' + a.breach + '</b></div></div>' +
       (d.win ? '<p class="lead">Os sinos tocam. Recompensa do reino: <b class="gold">+' + G.fmt(d.gold) + ' moedas, +' + d.selos + ' Selo(s), +' + d.nuc + ' Núcleo(s)</b>.</p>' : '<p class="lead">Invasores chegaram ao coração da cidade, saquearam o cofre e danificaram construções. A próxima Maré virá um pouco mais fraca — use o tempo para forjar, curar e estocar poções.</p>') + '<div class="acts"><button class="btn pri" data-a="mclose">Continuar</button></div>');
   };
+  /* v27 (A1): resumo do retorno. UMA janela, sem pausar o jogo: tempo fora, tempo vivido (e a regra de 50%/30% numa linha), o que mudou de verdade
+     (medido antes e depois da simulação) e as linhas notáveis. 64-ui-retorno acrescenta as cartas (antes do último .acts) e 69-ui-rivais as notícias
+     (depois do primeiro p.lead): a ordem do HTML abaixo precisa continuar assim. */
+  const hm = (s) => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60); return h > 0 ? h + ' h' + (m ? ' ' + (m < 10 ? '0' : '') + m + ' min' : '') : m > 0 ? m + ' min' : s + ' s'; };
+  UI.hm = hm;
+  const sg = (n) => (n > 0 ? '+' : n < 0 ? '−' : '') + G.fmt(Math.abs(n));
   UI.offlineModal = (o) => {
-    const m = Math.floor(o.secs / 60);
-    UI.modal('<div class="eyebrow">Enquanto você esteve fora</div><h2>Aurora não parou</h2>' + artBox('stars') + '<p class="lead">' + (m >= 60 ? Math.floor(m / 60) + 'h ' + (m % 60) + 'min' : m + ' min') + ' se passaram. Seus heróis seguiram caçando em ritmo mais calmo.</p><div class="grid3"><div class="stat"><small>Moedas</small><b class="gold">+' + G.fmt(o.gold) + '</b></div><div class="stat"><small>Abates</small><b>' + G.fmt(o.kills) + '</b></div><div class="stat"><small>Espólio</small><b>+' + G.fmt(o.mats) + '</b></div></div><div class="acts"><button class="btn pri" data-a="mclose">Voltar ao trono</button></div>');
+    const eff = o.eff != null ? o.eff : o.secs * 0.4, capped = o.raw && o.raw > o.secs + 60;
+    const rule = o.eff != null ? 'Regra: as primeiras 8 h fora valem 50% do tempo; as 8 h seguintes, 30%' + (capped ? '; contamos no máximo 16 h' : '') + '.' : '';
+    const dias = (n) => n + (n === 1 ? ' dia' : ' dias');
+    const lead = 'Você ficou fora ' + hm(o.raw || o.secs) + '. Aurora viveu ' + hm(eff) + ' de reino sem você' +
+      (o.est > 60 ? ': simulamos ' + hm(o.sim) + (o.days ? ' (' + dias(o.days) + ')' : '') + ' e estimamos os outros ' + hm(o.est) + ' pelo ritmo medido, só em moedas, recursos, experiência e abates (o calendário não avança nesse trecho).' : (o.days ? ' (' + dias(o.days) + ').' : '.'));
+    const cell = (l, v, c) => '<div class="stat"><small>' + l + '</small><b' + (c ? ' class="' + c + '"' : '') + '>' + v + '</b></div>';
+    let h = '<div class="eyebrow">Enquanto você esteve fora</div><h2>Aurora não parou</h2>' + artBox('stars') + '<p class="lead" style="margin-bottom:4px">' + esc(lead) + '</p>' + (rule ? '<p class="rtr">' + esc(rule) + '</p>' : '') +
+      '<div class="grid3">' + cell('Moedas', sg(o.gold), o.gold >= 0 ? 'gold' : 'bad') + cell('Abates', G.fmt(o.kills || 0)) + cell('Níveis de herói', o.lvls ? '+' + o.lvls : '0', o.lvls ? 'good' : '') + '</div>' +
+      '<div class="grid3" style="margin-top:6px">' + cell(o.est > 60 ? 'Dias simulados' : 'Dias', o.days != null ? '+' + o.days : '—') + cell('Peças', G.fmt(o.items || 0)) + cell('Quedas', G.fmt(o.falls || 0), o.falls ? 'bad' : '') + '</div>';
+    const res = (o.res || []).filter((x) => G.RES[x.id]);
+    if (res.length) h += '<div class="sec" style="margin-top:12px">Armazém</div><div class="costs" style="margin-top:0">' + res.map((x) => '<span class="cost"><i class="px ri-' + x.id + '"></i>' + sg(x.n) + ' <span class="mut">' + esc(G.RES[x.id].name.split(' ')[0]) + '</span></span>').join('') + '</div>';
+    const ex = [];
+    if (o.heroes && o.heroes.length) ex.push(o.heroes.map((x) => x.n + ' +' + x.up + ' (nv ' + x.lvl + ')').join(' · '));
+    if (o.mw || o.ml) ex.push((o.mw ? 'Maré repelida ×' + o.mw : '') + (o.mw && o.ml ? ' · ' : '') + (o.ml ? 'Maré perdida ×' + o.ml : ''));
+    if (o.realm > 0) ex.push('Nível de Reino +' + o.realm);
+    if (o.contr) ex.push(o.contr + (o.contr === 1 ? ' contrato pronto' : ' contratos prontos') + ' para receber');
+    if (o.sys && o.sys.length) ex.push('Novo: ' + o.sys.join(', '));
+    if (o.autoDec) ex.push(o.autoDec + (o.autoDec === 1 ? ' decisão tomada' : ' decisões tomadas') + ' por Aurora (a opção segura)');
+    for (const l of o.notable || []) ex.push(l);
+    if (ex.length) h += '<div class="sec" style="margin-top:12px">O que aconteceu</div><ul class="rtl">' + ex.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>';
+    UI.modal(h + '<div class="acts"><button class="btn pri" data-a="mclose">Voltar ao trono</button></div>', { pause: false });
+    const bx = $('#modal .mbox'); if (bx) bx.classList.add('rt');
   };
 
   /* ---------- itens ---------- */

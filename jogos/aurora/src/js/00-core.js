@@ -1,9 +1,9 @@
-/* Aurora — Crônicas da Fenda · v26 "Nenhum Minuto Vazio"
+/* Aurora — Crônicas da Fenda · v27 "Reino Sem Pausa"
    00-core: utilitários, barramento de eventos, relógio e estado. Sem DOM. */
 'use strict';
 var G = (typeof globalThis !== 'undefined' ? globalThis : window).G = {};
-G.VERSION = '26.0';
-G.BUILD = 'Aurora_ciclo_037_nenhum_minuto_vazio';
+G.VERSION = '27.0';
+G.BUILD = 'Aurora_ciclo_038_reino_sem_pausa';
 G.SAVE_KEY = 'aurora.v19.save';
 G.HEADLESS = typeof document === 'undefined';
 
@@ -42,12 +42,21 @@ G.roman = (n) => { const r = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
 /* ---------- eventos ---------- */
 G._ls = {};
 G.on = (ev, fn) => { (G._ls[ev] || (G._ls[ev] = [])).push(fn); };
-G.emit = (ev, d) => { const l = G._ls[ev]; if (l) for (let i = 0; i < l.length; i++) { try { l[i](d); } catch (e) { if (G.DEBUG) console.error(ev, e); } } };
+/* v27 (A1): G.OFFLINE = o tempo ausente está sendo simulado (3J-ausencia). Nesse modo a simulação roda como no Node (sem
+   efeitos, sons, avisos nem balões) e só os eventos que a própria simulação escuta chegam aos ouvintes; o resto é contado em
+   G._offEv e a interface se atualiza uma vez no fim. Assim nada de janela, aviso ou partícula se acumula durante o avanço. */
+G.OFFLINE = false;
+G._offEv = null;
+G.SIM_EVENTS = { gold: 1, duelo: 1, arena: 1, inv: 1, start: 1 };   // ouvintes de simulação (33-meta, 3A, 3B, 3F, 3G, 3D)
+G.emit = (ev, d) => {
+  if (G.OFFLINE && !G.SIM_EVENTS[ev]) { const c = G._offEv; if (c) c[ev] = (c[ev] || 0) + 1; return; }
+  const l = G._ls[ev]; if (l) for (let i = 0; i < l.length; i++) { try { l[i](d); } catch (e) { if (G.DEBUG) console.error(ev, e); } }
+};
 
 /* Efeitos visuais/sonoros: a simulação só enfileira; o render consome. */
 G.fx = [];
-G.addFx = (o) => { if (!G.HEADLESS && G.fx.length < 400) G.fx.push(o); };
-G.sfx = (name, x, y) => { if (!G.HEADLESS) G.emit('sfx', { name, x, y }); };
+G.addFx = (o) => { if (!G.HEADLESS && !G.OFFLINE && G.fx.length < 400) G.fx.push(o); };
+G.sfx = (name, x, y) => { if (!G.HEADLESS && !G.OFFLINE) G.emit('sfx', { name, x, y }); };
 
 /* ---------- relógio ---------- */
 G.DAY_SEC = 300;                 // segundos reais por dia de jogo em 1×
@@ -70,9 +79,10 @@ G.log = (msg, kind) => {
   const S = G.S; if (!S) return;
   S.log.push({ d: S.day, c: Math.floor(S.clock), m: msg, k: kind || 'info' });
   if (S.log.length > 80) S.log.splice(0, S.log.length - 80);
+  if (G.OFFLINE && G._offLog) G._offLog(msg, kind || 'info');       // v27 (A1): o resumo do retorno recolhe as linhas notáveis
   G.emit('log', { m: msg, k: kind || 'info' });
 };
-G.toast = (msg, kind, icon) => { if (!G.HEADLESS) G.emit('toast', { m: msg, k: kind || 'info', icon }); };
+G.toast = (msg, kind, icon, act) => { if (!G.HEADLESS && !G.OFFLINE) G.emit('toast', { m: msg, k: kind || 'info', icon, act }); };
 
 /* ---------- estado ---------- */
 G.S = null;

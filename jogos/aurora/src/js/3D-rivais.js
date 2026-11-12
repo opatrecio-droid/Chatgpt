@@ -174,12 +174,9 @@
     if (same && meLine) lines.push(meLine);
     return lines.length ? { lines, at: Math.round(now) } : null;
   };
-  const of0 = G.offline;
-  G.offline = (secs) => {
-    const o = of0(secs); if (!o) return o;
-    try { const n = G.rivaisNews(secs); if (n) { o.news = n; const off = G.ret && G.ret().off; if (off) off.news = n; } } catch (e) { if (G.DEBUG) console.error('news', e); }
-    return o;
-  };
+  G.offHooks.push((o) => {       // v27 (A1): antes embrulhava G.offline; agora entra no resumo do retorno por G.offHooks (depois das cartas de 38-retorno)
+    try { const n = G.rivaisNews(o.secs); if (n) { o.news = n; const off = G.ret && G.ret().off; if (off) off.news = n; } } catch (e) { if (G.DEBUG) console.error('news', e); }
+  });
 
   /* ================= 3B.3 laços entre heróis ================= */
   G.LACOS = {
@@ -261,7 +258,7 @@
     o2: ['Estou na frente, {p}!', 'Duvido que me alcance, {p}.', 'Conta aí, {p}: quantos foram?', 'Hoje eu venço, {p}.'],
     o3: ['Sem você, {p}, eu não tinha graça.', 'Empate de novo, {p}. Irritante.', 'Me alcança, {p}!', 'Rival é quem sabe do que eu sou capaz, {p}.'],
   };
-  const say = (h, txt, sec) => { if (G.HEADLESS || !h || h.sayT > 0) return false; h.say = txt; h.sayT = sec || 3.2; return true; };
+  const say = (h, txt, sec) => { if (G.HEADLESS || G.OFFLINE || !h || h.sayT > 0) return false; h.say = txt; h.sayT = sec || 3.2; return true; };
   let barkAt = 0;
   const pairBark = (a, b, p) => {
     const S = G.S, opp = isOpp(a, b), pool = LB[(opp && p.lv >= 2 ? 'o' : '') + p.lv]; if (!pool) return false;
@@ -270,7 +267,7 @@
     barkAt = S.t + 9; p.bk = S.t + 45; return true;
   };
   /* resgate: o salvador avisa e o salvo agradece */
-  const rescueBark = (a, b) => { if (G.HEADLESS) return; say(a, 'Cuidado aí, ' + b.name + '!', 2.6); setTimeout(() => say(b, 'Valeu, ' + a.name + '! Te devo uma.', 3), 900); };
+  const rescueBark = (a, b) => { if (G.HEADLESS || G.OFFLINE) return; say(a, 'Cuidado aí, ' + b.name + '!', 2.6); setTimeout(() => say(b, 'Valeu, ' + a.name + '! Te devo uma.', 3), 900); };
 
   /* a cada 2 s: quem está perto de um laço (histerese), bônus pelo fluxo de atributos e uma fala de vez em quando */
   let bT = 0, zT = 0;
@@ -327,7 +324,7 @@
   const hf1 = G.heroFall;
   G.heroFall = (h, m) => {
     const r = hf1(h, m);
-    if (r && !G.HEADLESS && G.S.lacos) {
+    if (r && !G.HEADLESS && !G.OFFLINE && G.S.lacos) {
       for (const k in G.S.lacos.p) {
         const p = G.S.lacos.p[k]; if (p.lv < 2 || (p.a !== h.id && p.b !== h.id)) continue;
         const o = heroOf(p.a === h.id ? p.b : p.a);
@@ -365,7 +362,7 @@
     return pairs.length ? G.wpick(pairs) : null;
   };
   G.visitorSpawn = (ri, k) => {
-    const S = G.S, Wd = G.W, r = G.rivais(); if (G.visitor || G.HEADLESS) return null;
+    const S = G.S, Wd = G.W, r = G.rivais(); if (G.visitor || G.HEADLESS || G.OFFLINE) return null;
     const rv = ri == null ? visPick() : G.arenaRival(ri); if (!rv) return null;
     const kk = k != null ? k : Math.random() < 0.35 ? 0 : G.ri(0, rv.roster.length - 1), sp = rv.roster[kk];
     const g = G.pick(['n', 's', 'w', 'e']), o = G.GATES[g], nem = G.nemesis();
@@ -496,7 +493,7 @@
     const S = G.S; if (!S) return;
     bT -= dt; if (bT <= 0) { bT = 2; bondTick(); }
     zT -= dt; if (zT <= 0) { zT = 4; zoneTick(); }
-    if (!G.HEADLESS) visTick(dt);
+    if (!G.HEADLESS && !G.OFFLINE) visTick(dt);
   };
   const reset = () => {
     G.visitor = null; bT = zT = 0; barkAt = 0; toastAt = -99;

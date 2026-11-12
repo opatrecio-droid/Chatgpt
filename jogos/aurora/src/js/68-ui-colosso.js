@@ -466,10 +466,8 @@
       '<div class="acts"><button class="btn pri" data-a="mclose">Até a próxima!</button></div>', { lock: true, onClose: () => { popPend('rank'); } });
   };
   const popPend = (k) => { const c = G.S.colosso; if (!c) return; const i = c.pend.findIndex((x) => x.k === k); if (i >= 0) c.pend.splice(i, 1); if (G.M && G.M.save) G.M.save(); };
-  const pump = () => {
-    const S = G.S; if (!S || !G.M.running || !S.colosso || !S.colosso.pend.length) return;
-    for (const k of ['win', 'rank']) if (S.colosso.pend.some((x) => x.k === k)) UI.queueModal(UI.PRIO.cerimonia, () => { const r = (G.S.colosso.pend || []).find((x) => x.k === k); if (!r) return false; (k === 'win' ? winModal : rankModal)(r); }, 'colosso-' + k);
-  };
+  /* v27 (A2): as cerimônias do Colosso (queda e prêmio da semana) não abrem janela sozinhas: ficam na caixa de pendências (6G) e abrem quando o jogador quiser */
+  UI.colossoPend = (k) => { const r = ((G.S.colosso || {}).pend || []).find((x) => x.k === k); if (r) (k === 'win' ? winModal : rankModal)(r); };
   /* ================= avisos e laço de interface ================= */
   G.on('colosso', (d) => {
     if (d.t === 'warn') UI.banner('A terra treme', 'Algo desperta na Cratera', 'O Colosso da semana acorda na sexta-feira · Missões › Colosso');
@@ -479,7 +477,7 @@
   let sheetT = 0;
   const rf1 = UI.refresh;
   UI.refresh = () => {
-    rf1(); paint(); pump();
+    rf1(); paint();
     if (UI.sheet && UI.sheet.name === 'missoes' && UI.sheet.tab === 'colosso' && !UI.modalOpen && performance.now() - sheetT > 3000) { sheetT = performance.now(); UI.sheetDirty(); }   // o ranking dos rivais anda sozinho
   };
   G.on('start', () => { lastChip = ''; lastBar = ''; });
