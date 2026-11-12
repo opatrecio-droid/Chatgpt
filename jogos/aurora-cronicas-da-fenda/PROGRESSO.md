@@ -141,8 +141,16 @@ Notas técnicas do lote 3-A:
 - [x] Avaliação do líder e notas novas em `AVALIACAO.md` → **Diversão 9,5 · Viciante 9,9**
 
 ### Lote 4-A — Pedidos dos moradores e vida na cidade (`PLANO-CICLO-4.md`, um agente por vez)
-- [ ] 4A.1 Pedidos dos moradores (maior vazio ≤ 180 s)
+- [x] 4A.1 Pedidos dos moradores (maior vazio ≤ 180 s)
 - [ ] 4A.2 Cenas da cidade
+
+Notas técnicas do lote 4-A (4A.1):
+- Código novo: `3G-cidade.js` (simulação, sem DOM) e `6C-ui-cidade.js` (balão, cartão, avisos), antes de `90-main.js`. Estado em `S.pedidos` (`G.pedidos()`, preguiçoso): `{ nA, nB, last, list, n, x, seq, hist, disc, who }`; cada pedido `{ id, m (modelo), who, lane, t0, dl, dln (nome do prazo), a (parâmetros), n, p (progresso), rw (prêmio), q (fala), fin? }`. Tudo em segundos do relógio do jogo (`S.t`), então respeita a velocidade.
+- Equilíbrio num só lugar: `G.PEDIDOS` (primeiro pedido depois de 150 s e 2 missões da Jornada; `cadA` 100–155 s, `cadB` 220–340 s, `chainB`, `gap` 35 s, desconto 25% por 600 s). Duas "pistas": A = entrega do Armazém (cumpre-se na hora; nunca pede mais de 25% do estoque nem de coisa que falta) e B = demorados (um por vez). Máximo 2 ativos; vencer não pune. É essa estrutura que garante o vazio máximo: toda entrega da pista A é um momento que o robô cumpre em segundos, e a pista A nasce a cada 100–155 s.
+- 17 modelos em `G.PEDIDO_MODELS` (`def(id, { kind: res|cnt|time, w, mk, title, quote, hit, ev|stat })`): entrega, mat, rara (Armazém); forja_rar, forja_n, abate, elite, chefe, refeicoes, pocoes, vendas, nivel, contrato, ouro, arena, colosso, obra (contagem por `G.questEvent` envolvido, evento `duelo`, estatística ou dano ao Colosso) e cuidado (prazo cumprido; uma queda antes do prazo cancela sem castigo). Prêmio: moedas + extra sorteado (Pó de Reforja, ânimo da cidade, desconto de obras no prédio do morador, Núcleo, Pergaminho de Proteção, Selo). Falas de agradecimento por morador em `G.THANKS`.
+- Conquista nova `pedidos` ("Vizinho de todos") em `G.ACH`. `G.bCost` envolvido (desconto). `G.nextReward` envolvido: item "Pedido" (pronto → toque entrega direto, `pedidoent:ID`; senão abre o cartão, `pedido:ID`). Evento `'pedido' { t: novo|entregue|expirou|falhou, r, ... }` (o simulador marca a entrega como momento). Aba Missões › Contratos ganhou a lista "Pedidos da cidade" (wrapper de `UI.SHEETS.missoes.render`).
+- UI: balão "!" dourado (verde com ✓ quando cumprido) sobre o morador ou sobre o letreiro do prédio dele, se estiver dentro (`R.dynMore`/`R.pick`/`R.nightMore` envolvidos); tocar abre o cartão; entregar mostra o agradecimento no balão de fala, texto flutuante, brilho e dois avisos.
+- Simulador: robô entrega o que estiver pronto e agora também conserta prédios danificados (sem isso uma Hospedaria quebrada travava o reino em algumas sementes); linhas novas `Maiores vazios:` e `Pedidos:`. Sementes 1–4, 180 min: maior vazio 353/403/302/488 s → 146/151/156/156 s; abates e Nível de Reino dentro do ruído (média 4 sementes ≈ −6%, 8 sementes ≈ −2%).
 
 ### Lote 4-B — Sinergias
 - [ ] 4B.1 Ressonância de inscrições

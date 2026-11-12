@@ -13375,6 +13375,580 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
 })();
 
 ;
+/* ===== 3G-cidade.js ===== */
+/* 3G-cidade: v26 (lote 4-A) — pedidos dos moradores (4A.1) e cenas da cidade (4A.2). Simulação, sem DOM:
+   a arte e as telas moram em 6C-ui-cidade.js. Estado novo: S.pedidos (inicialização preguiçosa, saves antigos funcionam). */
+'use strict';
+(function () {
+  const Wd = G.W, clamp = G.clamp;
+
+  /* ================= 4A.1 pedidos dos moradores ================= */
+  /* Equilíbrio num só lugar (tempos em segundos do relógio do jogo; o relógio já respeita a velocidade). */
+  G.PEDIDOS = {
+    on: 1, max: 2,
+    first: 150,           // primeiro pedido depois de tantos segundos jogados (e das 2 primeiras missões da Jornada: a apresentação é da Rosa)
+    // Duas "pistas": A = entrega (sai do Armazém, dá para cumprir na hora); B = pedido demorado (feito, abate, forja, prazo). Cada pista tem no máximo 1 pedido ativo.
+    cadA: [100, 155],     // intervalo entre um pedido de entrega e o seguinte
+    cadB: [220, 340],     // idem para os demorados
+    chainB: [110, 170],   // um demorado acabou (entregue, expirado ou falhado): outro vem mais cedo
+    gap: 35,              // no máximo ~1 aviso por minuto na média (e nunca dois em menos de 35 s)
+    grace: 90,            // tempo extra para entregar um pedido de "prazo cumprido" (cuidado)
+    discPct: 25, discSecs: 600,   // desconto temporário no prédio do morador: 25% por 2 dias de jogo
+  };
+  const PD = G.PEDIDOS;
+
+  G.pedidos = () => {
+    const S = G.S;
+    return S.pedidos || (S.pedidos = { nA: 0, nB: 0, last: -1e9, list: [], n: 0, x: 0, seq: 0, hist: [], disc: {}, who: {} });
+  };
+  const present = (name) => G.npcs.some((n) => n.name === name);
+  const castOf = (name) => G.CAST.find((c) => c.name === name) || { name, job: 'Morador', at: null };
+  const busyWho = () => { const o = {}; for (const r of G.pedidos().list) o[r.who] = 1; return o; };
+  const pickWho = (names) => { const b = busyWho(), ok = names.filter((n) => present(n) && !b[n]); return ok.length ? G.pick(ok) : null; };
+
+  /* zonas onde há herói caçando agora (o pedido de abates vai onde tem ação) */
+  const huntZones = () => {
+    const o = {};
+    for (const h of G.S.heroes) if ((h.state === 'hunt' || h.state === 'travel') && h.zone && G.ZONE[h.zone] && G.zoneUnlocked(G.ZONE[h.zone])) o[h.zone] = (o[h.zone] || 0) + 1;
+    const ks = Object.keys(o);
+    return ks.length ? ks : G.ZONES.filter(G.zoneUnlocked).map((z) => z.id);
+  };
+  const zName = (id) => G.ZONE[id].name;
+  const zIn = (id) => ({ bosque: 'no ', ruinas: 'nas ', ermos: 'nos ', pantano: 'no ', pico: 'no ', cinzas: 'nas ' }[id] || 'em ') + zName(id);
+
+  /* ---- pedidos de entrega (saem do Armazém): [quem, recurso, fala] ---- */
+  const RESQ = [
+    ['Alda', 'trigo', 'Meu forno não espera. Trigo para o pão de hoje!'], ['Breno', 'trigo', 'A mó está parada por falta de grão.'],
+    ['Joca', 'ervas', 'Algo roeu o canteiro. Preciso de ervas para replantar.'], ['Lina', 'madeira', 'Estacas novas para a cerca do trigal, por favor.'],
+    ['Zeno', 'madeira', 'Armadilha boa pede madeira boa.'], ['Heitor', 'refeicao', 'Chegou gente de fora e a panela já está vazia.'],
+    ['Iara', 'refeicao', 'Os caçadores voltaram com fome de dragão.'], ['Olívia', 'pocao', 'Curativo acaba rápido. Poções, se puder.'],
+    ['Olívia', 'ervas', 'Para o unguento, ervas frescas. Muitas.'], ['Quim', 'ervas', 'Uma receita nova pede ervas, e pede muitas.'],
+    ['Fábio', 'minerio', 'A bigorna está com sede de minério.'], ['Gilda', 'madeira', 'Cabos novos para as ferramentas: madeira, por favor.'],
+    ['Nuno', 'trigo', 'Lenhador também come. Um pouco de trigo?'], ['Pedro', 'refeicao', 'Pedreira dá fome. Uma refeição quente me salva.'],
+    ['Célia', 'pedra', 'Preciso de pedra para reforçar a barraca.'], ['Dário', 'trigo', 'A feira pediu trigo e eu pedi a você.'],
+    ['Elga', 'madeira', 'Caixas novas para o caixa do mercado.'], ['Yara', 'ervas', 'Vou aprender a fazer chá. Ervas?'],
+    ['Vasco', 'refeicao', 'Treino de manhã pede café reforçado.'], ['Úrsula', 'pocao', 'Guarda sem poção é guarda cansado.'],
+    ['Tomé', 'trigo', 'Os cavalos pedem trigo. Eles são insistentes.'], ['Bento', 'pedra', 'Uma placa de pedra para o mural dos feitos.'],
+    ['Rosa', 'madeira', 'O arquivo precisa de estantes novas.'], ['Soraia', 'pedra', 'Cofre pesa. Pedra para o reforço do porão.'],
+    ['Nina', 'refeicao', 'Os hóspedes pedem café da manhã.'], ['Rui', 'madeira', 'Camas novas, madeira de lei.'],
+  ];
+  const MATQ = ['Quando chega {m}, a gente cria. Pode ajudar?', 'Preciso de {m} para uma encomenda.', 'Dizem que {m} está em alta. Eu ia aproveitar.', 'Falta {m} na minha bancada. Ajuda?'];
+  const RAREQ = ['É coisa fina, só de elite e de chefe. {m}: consegue?', 'Pagaria bem por {m}. Sei que é difícil.', 'Um pouco de {m} e eu faço uma obra-prima.'];
+
+  const resHave = (id) => Math.floor(G.S.res[id] || 0);
+  /* quantidade pedida: uma fração do limite do Armazém, nunca mais que 25% do que há, e só de coisa que sobra (0 = não dá). Todo pedido de entrega pode ser atendido na hora e nunca deixa o reino sem o que precisa. */
+  const resN = (id, f) => {
+    const cap = G.resCap(id), meal = id === 'refeicao' || id === 'pocao', have = resHave(id);
+    if (have < (meal ? 8 : 40)) return 0;
+    const n = meal ? clamp(Math.round(cap * G.rnd(0.08, 0.16)), 2, 6) : Math.round(Math.min(cap, 2000) * G.rnd(f[0], f[1]));
+    return Math.max(meal ? 2 : 8, Math.min(n, Math.floor(have * 0.25)));
+  };
+  const rarName = (r) => G.RAR[r].toLowerCase();
+
+  /* ---- modelos: kind (res = sai do Armazém · cnt = contagem por evento ou estatística · time = prazo cumprido), peso, dureza, prazo, geração, texto ---- */
+  const M = {};
+  const def = (id, o) => { o.id = id; M[id] = o; return o; };
+  const q1 = (arr) => G.pick(arr);
+
+  def('entrega', { kind: 'res', hard: 0.8, dl: [110, 330], w: () => 3.2,
+    mk: () => { const b = busyWho(), ok = RESQ.filter((e) => present(e[0]) && !b[e[0]] && G.RES[e[1]] && resN(e[1], [0.04, 0.09]) > 0); if (!ok.length) return null; const e = G.pick(ok); return { who: e[0], a: { res: e[1], q: e[2] }, n: resN(e[1], [0.04, 0.09]) }; },
+    title: (r) => G.RES[r.a.res].name + ' ×' + G.fmt(r.n), quote: (r) => r.a.q });
+  def('mat', { kind: 'res', hard: 1, dl: [130, 340], w: (c) => (c.zs.length ? 1.3 : 0),
+    mk: (c) => { const who = pickWho(['Quim', 'Fábio', 'Gilda', 'Célia', 'Dário']); if (!who) return null; const z = G.pick(c.zs.slice(-3)), zm = G.ZMATS[z.n], id = Math.random() < 0.5 ? zm.a : zm.b, n = Math.min(Math.round((8 + 1.4 * c.L) * G.rnd(0.8, 1.2)), Math.floor(resHave(id) * 0.3)); return n >= 6 ? { who, a: { res: id, z: z.id }, n } : null; },
+    title: (r) => G.RES[r.a.res].name + ' ×' + G.fmt(r.n),
+    quote: (r) => q1(MATQ).replace('{m}', G.RES[r.a.res].name) });
+  def('rara', { kind: 'res', hard: 1.5, dl: [200, 360], w: (c) => (c.zs.length >= 2 ? 0.9 : 0),
+    mk: (c) => { const who = pickWho(['Quim', 'Fábio', 'Célia', 'Gilda']); if (!who) return null; const z = G.pick(c.zs.slice(-3)), id = G.ZMATS[z.n].r, n = Math.min(2 + (c.L >= 12 ? 1 : 0) + (c.L >= 24 ? 1 : 0), Math.floor(resHave(id) * 0.3)); return n >= 2 ? { who, a: { res: id, z: z.id }, n } : null; },
+    title: (r) => G.RES[r.a.res].name + ' ×' + G.fmt(r.n), quote: (r) => q1(RAREQ).replace('{m}', G.RES[r.a.res].name) });
+  def('forja_rar', { kind: 'cnt', ev: 'craft', hard: 1.2, dl: [220, 400], w: () => (G.bOk('ferraria') ? 1.3 : 0),
+    mk: () => { const who = pickWho(['Fábio', 'Gilda', 'Célia', 'Soraia']); if (!who) return null; const L = G.bLvl('ferraria'); return { who, a: { rar: L < 5 ? 1 : 2 }, n: 1 }; },
+    hit: (r, n, arg) => arg >= r.a.rar,
+    title: (r) => 'Uma peça ' + rarName(r.a.rar) + ' ou melhor forjada',
+    quote: (r) => q1(['Quero ver uma peça ' + rarName(r.a.rar) + ' sair da forja hoje. Só uma!', 'Dizem que a bigorna tem humor. Hoje eu queria uma peça ' + rarName(r.a.rar) + '.', 'Se sair uma peça ' + rarName(r.a.rar) + ', pendura na vitrine!']) });
+  def('forja_n', { kind: 'cnt', ev: 'craft', hard: 0.8, dl: [180, 380], w: () => (G.bOk('ferraria') ? 1 : 0),
+    mk: () => { const who = pickWho(['Gilda', 'Fábio', 'Vasco', 'Úrsula']); if (!who) return null; return { who, a: {}, n: Math.min(5, 2 + Math.floor(G.bLvl('ferraria') / 4)) }; },
+    title: (r) => G.fmt(r.n) + ' peças forjadas', quote: (r) => q1(['Quero praticar: forje ' + r.n + ' peças hoje e eu aprendo olhando.', 'A forja quente rende. Que tal ' + r.n + ' peças novas?', 'Os heróis pedem equipamento. ' + r.n + ' peças dão conta.']) });
+  def('abate', { kind: 'cnt', ev: 'kill', hard: 1, dl: [200, 400], w: (c) => (c.zs.length ? 1.4 : 0),
+    mk: (c) => { const who = pickWho(['Zeno', 'Úrsula', 'Nuno', 'Joca', 'Vasco']); if (!who) return null; const z = G.pick(huntZones()); return { who, a: { z }, n: Math.round((10 + 3 * c.H + 0.8 * c.L) * G.rnd(0.85, 1.15)) }; },
+    hit: (r, n, arg) => arg === r.a.z,
+    title: (r) => G.fmt(r.n) + ' monstros abatidos ' + zIn(r.a.z),
+    quote: (r) => q1(['Anda movimentado ' + zIn(r.a.z) + '. Limpem aquilo!', 'Ouvi rugidos ' + zIn(r.a.z) + '. Preciso de sossego.', 'Se os heróis derem conta de ' + r.n + ' ' + zIn(r.a.z) + ', durmo em paz.']) });
+  def('elite', { kind: 'cnt', ev: 'elite', hard: 1.3, dl: [260, 440], w: (c) => (c.zs.length ? 1.3 : 0),
+    mk: (c) => { const who = pickWho(['Bento', 'Úrsula', 'Vasco', 'Zeno']); if (!who) return null; const z = G.pick(huntZones()); return { who, a: { z }, n: clamp(2 + Math.floor(c.L / 8), 2, 5) }; },
+    hit: (r, n, arg) => arg === r.a.z,
+    title: (r) => G.fmt(r.n) + ' elites abatidos ' + zIn(r.a.z),
+    quote: (r) => q1(['A Guilda quer ver ' + r.n + ' elites ' + zIn(r.a.z) + ' caírem. Os grandes, sabe?', 'Os brutamontes ' + zIn(r.a.z) + ' se acham donos do lugar. Mostrem o contrário.', r.n + ' elites ' + zIn(r.a.z) + ' e o mural dos feitos agradece.']) });
+  def('chefe', { kind: 'cnt', ev: 'boss', hard: 1.6, dl: [260, 420], w: (c) => (c.L >= 3 ? 0.9 : 0),
+    mk: () => { const who = pickWho(['Úrsula', 'Bento', 'Vasco']); if (!who) return null; return { who, a: {}, n: 1 }; },
+    title: () => 'Um chefe derrotado', quote: () => q1(['Um chefe a menos e a cidade respira. Consegue?', 'Os vigias avistaram uma sombra grande. Que caiam os chefes!', 'Quando um chefe cai, a taverna enche. Faz isso por nós?']) });
+  def('cuidado', { kind: 'time', ev: 'fall', hard: 1.1, dl: [150, 300], w: () => 1,
+    mk: () => { const who = pickWho(['Olívia', 'Nina', 'Rui', 'Iara', 'Heitor']); if (!who) return null; return { who, a: {}, n: 1 }; },
+    title: (r) => 'Ninguém cai até ' + r.dln, quote: () => q1(['Não quero ninguém na maca. Cuidem dos nossos até lá.', 'Prometa que todos voltam inteiros. Eu confio.', 'Maca vazia é a melhor notícia. Que seja assim!']) });
+  def('refeicoes', { kind: 'cnt', stat: 'meals', hard: 0.8, dl: [240, 420], w: () => (G.bOk('taverna') ? 0.8 : 0),
+    mk: (c) => { const who = pickWho(['Heitor', 'Iara']); if (!who) return null; return { who, a: {}, n: 2 + Math.floor(c.H * 0.3) }; },
+    title: (r) => G.fmt(r.n) + ' refeições servidas na Taverna', quote: () => q1(['Quero ver a Taverna cheia: panela quente e barriga forte!', 'A cozinha está em ponto. Mandem os famintos!', 'Cheiro de ensopado atrai herói. Vamos ver quantos vêm?']) });
+  def('pocoes', { kind: 'cnt', stat: 'potions', hard: 0.8, dl: [180, 360], w: () => (G.bOk('alquimista') ? 0.8 : 0),
+    mk: (c) => { const who = pickWho(['Quim', 'Olívia']); if (!who) return null; return { who, a: {}, n: 2 + Math.floor(c.H * 0.5) }; },
+    title: (r) => G.fmt(r.n) + ' poções bebidas em combate', quote: () => q1(['Quero saber se a minha última fornada rende. Que bebam!', 'Poção na mão do herói é poção bem gasta. Vamos conferir?', 'Uma poção bebida a tempo é um herói de pé.']) });
+  def('vendas', { kind: 'cnt', ev: 'sold', hard: 0.9, dl: [180, 380], w: () => (G.bOk('ferraria') ? 0.9 : 0),
+    mk: (c) => { const who = pickWho(['Célia', 'Dário', 'Elga', 'Gilda']); if (!who) return null; return { who, a: {}, n: 1 + (c.H > 5 ? 1 : 0) }; },
+    title: (r) => G.fmt(r.n) + (r.n > 1 ? ' peças vendidas' : ' peça vendida') + ' aos heróis', quote: () => q1(['A vitrine está bonita. Falta um herói comprar.', 'Quando um herói compra, o comércio todo ri.', 'Equipamento vendido é o melhor anúncio. Vamos ver?']) });
+  def('nivel', { kind: 'cnt', ev: 'lvl', hard: 0.9, dl: [180, 380], w: () => 1,
+    mk: (c) => { const who = pickWho(['Vasco', 'Bento', 'Rosa']); if (!who) return null; return { who, a: {}, n: clamp(2 + Math.floor(c.H / 4), 2, 5) }; },
+    title: (r) => 'Heróis sobem ' + r.n + ' níveis', quote: () => q1(['Quero ver gente crescer! Que os heróis subam de nível.', 'Cada nível novo é um orgulho. Mostrem o que treinaram.', 'A Guilda adora herói mais forte. Vamos ver subir?']) });
+  def('contrato', { kind: 'cnt', stat: 'contracts', hard: 0.7, dl: [180, 380], w: () => (G.S.daily.list.some((x) => !x.claimed) ? 0.8 : 0),
+    mk: () => { const who = pickWho(['Rosa', 'Soraia', 'Bento']); if (!who) return null; return { who, a: {}, n: 1 }; },
+    title: () => 'Um contrato do dia concluído', quote: () => q1(['O quadro de contratos está cheio. Dê conta de um, por favor.', 'Palavra dada é palavra cumprida. Cumpra um contrato hoje.', 'Contrato feito é papel carimbado. Que tal um?']) });
+  def('ouro', { kind: 'cnt', stat: 'goldIn', hard: 0.8, dl: [180, 380], w: () => 0.8,
+    mk: (c) => { const who = pickWho(['Soraia', 'Célia', 'Dário', 'Elga']); if (!who) return null; const last = G.S.rep.last ? G.S.rep.last._in || 0 : 0; return { who, a: {}, n: Math.round(Math.max(G.taxEstimate() * 0.8, last * 0.5, 120 * G.PM(c.A)) / 10) * 10 }; },
+    title: (r) => G.fmt(r.n) + ' moedas no cofre', quote: () => q1(['O cofre anda magro. Que entrem moedas!', 'Façam o ouro girar. Os números pedem.', 'Uma boa entrada de moedas e eu fecho o livro-caixa sorrindo.']) });
+  def('arena', { kind: 'cnt', ev: 'duelo', hard: 1.2, dl: [220, 400], w: () => (G.arenaOpen && G.arenaOpen() && G.S.heroes.length >= 3 ? 1.2 : 0),
+    mk: () => { const who = pickWho(['Úrsula', 'Vasco', 'Bento']); if (!who) return null; return { who, a: {}, n: 1 }; },
+    hit: (r, n, arg) => arg === 1,
+    title: () => 'Uma vitória na Arena', quote: () => q1(['Quero ver o brasão de Aurora erguido na Arena. Uma vitória!', 'Os reinos rivais riem. Hora de calar a risada.', 'Um duelo vencido vale mais que mil discursos.']) });
+  def('colosso', { kind: 'cnt', ev: 'colosso', hard: 1.3, dl: [240, 420], w: () => (G.colossoLive && G.colossoLive() ? 1.3 : 0),
+    mk: () => { const who = pickWho(['Bento', 'Úrsula', 'Vasco']); if (!who) return null; const co = G.S.colosso; if (!co || !co.hpMax) return null; return { who, a: { b: co.dmg || 0 }, n: Math.max(100, Math.round(co.hpMax * 0.035 / 100) * 100) }; },
+    title: (r) => G.fmt(r.n) + ' de dano no Colosso', quote: () => q1(['O Colosso está de pé na Cratera. Que ele sinta cada golpe!', 'Cada pedaço do Colosso que cai é uma história pra contar.', 'Os vigias tremem com ele lá. Que ele trema mais!']) });
+  def('obra', { kind: 'cnt', ev: 'build', hard: 0.9, dl: [200, 400], w: (c) => (c.L >= 2 ? 1 : 0),
+    mk: () => { const who = pickWho(['Rosa', 'Soraia', 'Pedro', 'Nuno', 'Nina']); if (!who) return null; return { who, a: {}, n: 1 }; },
+    title: () => 'Uma obra: erga ou melhore um prédio', quote: () => q1(['Aurora precisa crescer. Uma obra hoje seria ótima.', 'Cheiro de tinta fresca anima a cidade. Que tal uma obra?', 'Quando a cidade cresce, todo mundo trabalha. Um prédio melhorado já serve!']) });
+  G.PEDIDO_MODELS = M;
+
+  /* ---- prazo: marco do relógio do dia a que o pedido se refere ---- */
+  const MARCOS = [[720, 'o meio-dia'], [1140, 'o anoitecer'], [0, 'a meia-noite'], [360, 'o amanhecer']];
+  const dlPick = (rng) => {
+    const c = G.S.clock, ok = [];
+    for (const [m, nm] of MARCOS) {
+      let rem = ((((m - c) % 1440) + 1440) % 1440) / G.MIN_PER_SEC;                // segundos de jogo até o marco
+      if (rem < rng[0]) rem += G.DAY_SEC;
+      if (rem <= rng[1] + 40) ok.push({ rem, nm });
+    }
+    return ok.length ? G.pick(ok) : { rem: rng[0] + 30, nm: 'o fim do dia' };
+  };
+
+  /* ---- recompensa: um pouco de moedas + um extra variado ---- */
+  const rewardFor = (m, c, who) => {
+    const hard = M[m].hard || 1, base = 50 * G.PM(c.A) * (1 + 0.05 * c.L);
+    const rw = { gold: Math.round(base * 0.38 * hard * G.rnd(0.9, 1.1)), xp: 6 + c.L };
+    const cast = castOf(who), canDisc = !!(cast.at && G.BLD[cast.at] && G.bLvl(cast.at) > 0 && G.bLvl(cast.at) < G.bMax(cast.at));
+    const pk = G.wpick([['po', 22], ['animo', 16], ['desc', canDisc ? 16 : 0], ['nuc', 7 * hard], ['perg', G.RES.pergaminho ? 4 * hard : 0], ['selo', 1.5 * hard], ['ouro', 18]]);
+    if (pk === 'po') rw.po = Math.max(3, Math.round((3 + 0.35 * c.L) * hard));
+    else if (pk === 'animo') rw.animo = 1;
+    else if (pk === 'desc') rw.desc = { id: cast.at, pct: hard >= 1.3 ? PD.discPct + 5 : PD.discPct, secs: PD.discSecs };
+    else if (pk === 'nuc') rw.nuc = 1;
+    else if (pk === 'perg') rw.perg = 1;
+    else if (pk === 'selo') rw.selo = 1;
+    else rw.gold = Math.round(rw.gold * 1.8);
+    return rw;
+  };
+  G.pedidoRewardParts = (rw) => {
+    const out = [];
+    if (rw.gold) out.push({ ic: 'coin', t: G.fmt(rw.gold) + ' moedas' });
+    if (rw.po) out.push({ ic: 'res', id: 'po_reforja', t: rw.po + ' Pó de Reforja' });
+    if (rw.nuc) out.push({ ic: 'core', t: rw.nuc + ' Núcleo' });
+    if (rw.selo) out.push({ ic: 'seal', t: rw.selo + ' Selo de Renome' });
+    if (rw.perg) out.push({ ic: 'res', id: 'pergaminho', t: rw.perg + ' Pergaminho de Proteção' });
+    if (rw.animo) out.push({ ic: 'smile', t: 'Ânimo da cidade em alta' });
+    if (rw.desc) out.push({ ic: 'hammer', t: '−' + rw.desc.pct + '% em obras: ' + G.BLD[rw.desc.id].short + ' (2 dias)' });
+    return out;
+  };
+  G.pedidoRewardText = (rw) => G.pedidoRewardParts(rw).map((x) => x.t).join(', ');
+
+  /* ---- falas de agradecimento: cada morador tem as suas ---- */
+  G.THANKS = {
+    Rosa: ['Anotei no livro: Aurora lhe deve um favor.', 'Que registro bonito! Obrigada.'], Soraia: ['Contas fechadas. Que alívio!', 'Isso entra no livro-caixa com carinho.'],
+    Bento: ['A Guilda não esquece quem ajuda.', 'Bom trabalho. Vai para o mural dos feitos.'], Nina: ['Os hóspedes agradecem. E eu também.', 'Que a sua cama seja sempre macia!'],
+    Rui: ['Salvou o meu dia. Pode contar comigo.', 'Camas arrumadas e coração agradecido.'], Heitor: ['Esta rodada é por conta da casa!', 'Que o seu prato nunca fique vazio.'],
+    Iara: ['Ufa! A cozinha respira de novo.', 'Guardei um pedaço de bolo para você.'], Olívia: ['Que a luz da Aurora cuide de você.', 'Cuidar de todos fica mais fácil assim.'],
+    Fábio: ['Boa! A bigorna canta de novo.', 'Aço bom lembra de quem ajuda.'], Gilda: ['Uau, valeu mesmo! Já vou aprender com isso.', 'Prometo caprichar na próxima peça.'],
+    Quim: ['Fascinante! Isso rende uma poção nova.', 'A ciência agradece, e o caldeirão também.'], Célia: ['Negócio fechado, e com sorriso.', 'Freguês assim eu atendo de portas abertas.'],
+    Dário: ['Hoje a feira está em festa!', 'Leva uma maçã, é cortesia!'], Elga: ['Contei duas vezes: está certinho. Obrigada!', 'Caixa feliz, cidade feliz.'],
+    Alda: ['O pão desta fornada é seu!', 'Que o forno nunca apague. Obrigada!'], Breno: ['A mó gira de novo. Valeu!', 'Farinha de primeira para você.'],
+    Vasco: ['Disciplina e gratidão: é o que sobra.', 'Assim se forma uma tropa!'], Úrsula: ['Aurora dorme melhor com gente assim.', 'Anotado. Os portões agradecem.'],
+    Joca: ['Que a colheita lhe seja farta!', 'As luas lhe paguem!'], Lina: ['Que alegria! O trigal vai brilhar.', 'Levo este favor no coração.'],
+    Nuno: ['Madeira de lei, amigo de lei.', 'Eita, valeu! Corto uma lenha extra pra você.'], Pedro: ['Pedra sobre pedra, graças a você.', 'A mina canta! Obrigado!'],
+    Yara: ['Aprendi muito com isso. Obrigada!', 'Posso ajudar na próxima também?'], Zeno: ['Boa caçada, amigo!', 'As feras que se cuidem. Valeu!'],
+    Tomé: ['Os cavalos relincharam de gratidão.', 'Bom coração, bom casco. Valeu!'],
+    _: ['Obrigado, de coração!', 'Aurora tem sorte de ter você.'],
+  };
+  G.pedidoThanks = (who) => G.pick(G.THANKS[who] || G.THANKS._);
+  /* quando um pedido não dá certo (sem punição) */
+  G.pedidoSorry = () => G.pick(['Tudo bem, fica para a próxima.', 'Sem problema. A cidade agradece a intenção.', 'Deixa pra lá, outro dia a gente tenta.']);
+
+  /* ---- ciclo de vida ---- */
+  G.pedidoOpen = () => { const S = G.S; return !!(PD.on && S && (G.HEADLESS || S.tut.done) && S.stats.played >= PD.first && (S.quest.step >= 2 || S.quest.done)); };
+  G.pedidoSpawn = (lane, force) => {
+    const S = G.S, P = G.pedidos(); if (P.list.length >= PD.max && !force) return null;
+    lane = lane || 'a';
+    const c = { S, L: S.realm.lvl, A: G.avgHeroLvl(), H: S.heroes.length, zs: G.ZONES.filter(G.zoneUnlocked) };
+    const recent = P.hist.slice(-3).map((h) => h.m), act = P.list.map((r) => r.m);
+    const slowOn = P.list.some((r) => M[r.m].kind !== 'res');
+    const build = (inst) => {
+      const pairs = [];
+      for (const id in M) { if ((M[id].kind === 'res') !== inst) continue; const w = M[id].w(c) * (recent.indexOf(id) >= 0 ? 0.15 : 1) * (act.indexOf(id) >= 0 ? 0.05 : 1); if (w > 0) pairs.push([id, w]); }
+      for (let tries = 0; tries < 8 && pairs.length; tries++) {
+        const id = G.wpick(pairs), m = M[id], g = m.mk(c);
+        if (g) return { id, m, g };
+        const i = pairs.findIndex((p) => p[0] === id); if (i >= 0) pairs.splice(i, 1);
+      }
+      return null;
+    };
+    let pk = null;
+    if (lane === 'a') pk = build(true) || (slowOn && !force ? null : build(false));      // sem entrega possível, a pista A aceita um demorado
+    else if (!slowOn || force) pk = build(false);
+    const nxt = (l) => (l === 'a' ? 'nA' : 'nB');
+    if (!pk) { P[nxt(lane)] = S.t + 30; return null; }
+    const { id, m, g } = pk, d = dlPick(m.dl), L = m.kind === 'res' ? 'a' : 'b';
+    const r = { id: ++P.seq, m: id, who: g.who, lane: L, t0: S.t, dl: S.t + d.rem, dln: d.nm, a: g.a || {}, n: Math.max(1, g.n), p: 0, rw: rewardFor(id, c, g.who) };
+    if (m.kind === 'time') { r.fin = r.dl; r.dl += PD.grace; }
+    if (m.stat) r.a.b = S.stats[m.stat] || 0;
+    r.q = m.quote(r);
+    P.list.push(r); P.hist.push({ m: id, who: g.who, t: S.t }); if (P.hist.length > 12) P.hist.shift();
+    P.last = S.t;
+    if (L === 'a') P.nA = S.t + G.rnd(PD.cadA[0], PD.cadA[1]); else P.nB = S.t + G.rnd(PD.cadB[0], PD.cadB[1]);
+    if (lane === 'a' && L === 'b') P.nB = Math.max(P.nB, S.t + 60);
+    G.emit('pedido', { t: 'novo', r });
+    return r;
+  };
+  G.pedidoOf = (who) => { const S = G.S; if (!S || !S.pedidos) return null; return S.pedidos.list.find((r) => r.who === who) || null; };
+  G.pedidoGet = (id) => { const S = G.S; return S && S.pedidos ? S.pedidos.list.find((r) => r.id === +id) || null : null; };
+  /* pronto para entregar? */
+  G.pedidoReady = (r) => {
+    const S = G.S, m = M[r.m];
+    if (r.fail) return false;
+    if (m.kind === 'res') return resHave(r.a.res) >= r.n;
+    if (m.kind === 'time') return S.t >= r.fin;
+    return r.p >= r.n;
+  };
+  /* leitura para as telas: progresso e tempo */
+  G.pedidoInfo = (r) => {
+    const S = G.S, m = M[r.m], c = castOf(r.who), ready = G.pedidoReady(r);
+    let cur, n = r.n, unit = '';
+    if (m.kind === 'res') { cur = Math.min(resHave(r.a.res), n); unit = 'no Armazém'; }
+    else if (m.kind === 'time') { const tot = Math.max(1, r.fin - r.t0); cur = Math.round(clamp((S.t - r.t0) / tot, 0, 1) * 100); n = 100; unit = '% do prazo'; }
+    else cur = Math.min(r.p, n);
+    const left = Math.max(0, r.fail ? 0 : r.dl - S.t), tot = Math.max(1, r.dl - r.t0);
+    return { r, m: m.id, kind: m.kind, who: r.who, job: c.job, at: c.at, title: m.title(r), quote: r.q, cur, n, unit, ready, left, pctLeft: clamp(left / tot, 0, 1), dln: r.dln, pct: n ? clamp(cur / n, 0, 1) : 0 };
+  };
+  G.pedidoText = (r) => r.who + ' · ' + M[r.m].title(r);
+  const resolve = (r, how) => {
+    const P = G.pedidos(), S = G.S, i = P.list.indexOf(r); if (i < 0) return;
+    P.list.splice(i, 1);
+    if (how !== 'entregue') P.x++;
+    if (r.lane === 'b') P.nB = Math.min(P.nB, Math.max(S.t + G.rnd(PD.chainB[0], PD.chainB[1]), P.last + PD.gap));
+  };
+  G.pedidoDeliver = (id) => {
+    const S = G.S, r = typeof id === 'object' ? id : G.pedidoGet(id); if (!r) return { err: 'Esse pedido já não existe.' };
+    const m = M[r.m], P = G.pedidos();
+    if (!G.pedidoReady(r)) return { err: m.kind === 'res' ? 'Faltam ' + G.fmt(r.n - resHave(r.a.res)) + ' ' + G.RES[r.a.res].name + ' no Armazém.' : 'Ainda não está cumprido.' };
+    if (m.kind === 'res') G.addRes(r.a.res, -r.n);
+    const rw = r.rw;
+    if (rw.gold) G.earn(rw.gold, 'pedidos');
+    if (rw.po) G.addRes('po_reforja', rw.po);
+    if (rw.nuc) S.nucleos += rw.nuc;
+    if (rw.selo) S.selos += rw.selo;
+    if (rw.perg && G.RES.pergaminho) G.addRes('pergaminho', rw.perg);
+    if (rw.animo) { S.happy = Math.min(100, (S.happy || 70) + 6); for (const h of S.heroes) h.animo = Math.min(100, h.animo + 20); }
+    if (rw.desc) P.disc[rw.desc.id] = { pct: rw.desc.pct, until: S.t + rw.desc.secs };
+    if (rw.xp) G.gainRealm(rw.xp);
+    S.stats.pedidos = (S.stats.pedidos || 0) + 1; P.n++;
+    P.who[r.who] = (P.who[r.who] || 0) + 1;
+    const thanks = G.pedidoThanks(r.who), title = m.title(r);
+    G.log('Pedido de ' + r.who + ' atendido (' + title + '): ' + G.pedidoRewardText(rw) + '.', 'good');
+    resolve(r, 'entregue');
+    G.emit('pedido', { t: 'entregue', r, who: r.who, title, thanks, rw, parts: G.pedidoRewardParts(rw) });
+    return { ok: 1, r, thanks, rw };
+  };
+  const giveUp = (r, why) => {
+    const sorry = G.pedidoSorry();
+    G.log('O pedido de ' + r.who + ' (' + M[r.m].title(r) + ') ' + (why === 'falhou' ? 'não deu certo' : 'expirou') + '. Sem problema.', 'info');
+    resolve(r, why);
+    G.emit('pedido', { t: why, r, who: r.who, sorry });
+  };
+
+  /* ---- progresso por evento (envolve questEvent: kill, elite, boss, craft, sold, lvl, fall, build) ---- */
+  let lastKillZ = null;
+  G.pedidoNote = (k, n, arg) => {
+    const S = G.S; if (!S || !S.pedidos || !S.pedidos.list.length) return;
+    if (k === 'kill') lastKillZ = arg; else if (k === 'elite') arg = lastKillZ;
+    for (const r of S.pedidos.list) {
+      const m = M[r.m]; if (r.fail) continue;
+      if (m.kind === 'time') { if (k === 'fall' && S.t < r.fin) r.fail = 1; continue; }
+      if (m.ev !== k || r.p >= r.n) continue;
+      if (m.hit && !m.hit(r, n, arg)) continue;
+      r.p = Math.min(r.n, r.p + n);
+    }
+  };
+  const qe0 = G.questEvent;
+  G.questEvent = (k, n, arg) => { qe0(k, n, arg); G.pedidoNote(k, n, arg); };
+  G.on('duelo', (d) => { G.pedidoNote('duelo', 1, d.win ? 1 : 0); });
+  /* progresso por estatística (refeições, poções, contratos, moedas) e pelo dano ao Colosso */
+  const pollP = (S) => {
+    for (const r of S.pedidos.list) {
+      const m = M[r.m]; if (r.fail) continue;
+      if (m.stat) r.p = clamp((S.stats[m.stat] || 0) - r.a.b, 0, r.n);
+      else if (m.ev === 'colosso') { const c = S.colosso; if (c) { if ((c.dmg || 0) < r.a.b) r.a.b = 0; r.p = clamp((c.dmg || 0) - r.a.b, 0, r.n); } }
+    }
+  };
+
+  /* ---- relógio dos pedidos (1 Hz) ---- */
+  const pedTick = () => {
+    const S = G.S, P = S.pedidos;
+    if (P && P.list.length) {
+      pollP(S);
+      for (const r of P.list.slice()) {
+        if (r.fail) giveUp(r, 'falhou');
+        else if (S.t >= r.dl) giveUp(r, 'expirou');
+      }
+    }
+    if (!G.pedidoOpen() || S.mare.active) return;
+    const Q = G.pedidos();
+    if (!Q.nA) { Q.nA = S.t + 8; Q.nB = S.t + 70; }
+    if (S.t - Q.last < PD.gap) return;
+    if (Q.list.length < PD.max && S.t >= Q.nA && !Q.list.some((r) => r.lane === 'a')) { G.pedidoSpawn('a'); return; }
+    if (Q.list.length < PD.max && S.t >= Q.nB && Q.nA - S.t > 40 && !Q.list.some((r) => r.lane === 'b')) G.pedidoSpawn('b');
+  };
+
+  /* ---- desconto temporário nas obras do prédio do morador ---- */
+  const bc0 = G.bCost;
+  G.bCost = (id, l) => {
+    const c = bc0(id, l), S = G.S, d = S && S.pedidos && S.pedidos.disc[id];
+    if (d && d.until > S.t) { const f = 1 - d.pct / 100; c.gold = Math.round(c.gold * f); for (const k in c.cost) c.cost[k] = Math.max(1, Math.round(c.cost[k] * f)); }
+    return c;
+  };
+  G.pedidoDisc = (id) => { const S = G.S, d = S && S.pedidos && S.pedidos.disc[id]; return d && d.until > S.t ? d : null; };
+
+  /* ---- próxima recompensa: os pedidos entram na fila do HUD ---- */
+  const nr0 = G.nextReward;
+  G.nextReward = () => {
+    const r = nr0(), S = G.S;
+    if (!S.pedidos || !S.pedidos.list.length) return r;
+    for (const q of S.pedidos.list) {
+      const i = G.pedidoInfo(q);
+      r.all.push({ id: 'pd' + q.id, k: 'Pedido', t: i.ready ? q.who + ' · toque para entregar' : q.who + ' · ' + i.title, ic: 'scroll', cur: i.cur, n: i.n, pct: i.pct, rk: Math.min(0.99, i.pct * 0.8 + (1 - i.pctLeft) * 0.2), ready: i.ready, go: (i.ready ? 'pedidoent:' : 'pedido:') + q.id, pr: 1.2 });
+    }
+    const ready = r.all.filter((o) => o.ready).sort((a, b) => a.pr - b.pr);
+    r.best = ready.length ? ready[0] : r.all.slice().sort((a, b) => b.rk - a.rk || a.pr - b.pr)[0] || null;
+    return r;
+  };
+
+  /* ---- conquista: Vizinho de todos ---- */
+  if (G.ACH && !G.ACH.some((a) => a.id === 'pedidos')) G.ACH.push({ id: 'pedidos', name: 'Vizinho de todos', stat: 'pedidos', tiers: [3, 12, 40, 120, 400, 1200], what: 'pedidos dos moradores atendidos' });
+
+  /* ---- ganchos do laço do jogo ---- */
+  let pT = 0;
+  const tk0 = G.tick;
+  G.tick = (dt) => {
+    tk0(dt);
+    const S = G.S; if (!S) return;
+    pT -= dt; if (pT <= 0) { pT = 1; pedTick(); }
+  };
+  const reset = () => { pT = 0; lastKillZ = null; };
+  const ng = G.newGame; G.newGame = () => { const S = ng(); reset(); return S; };
+  const al = G.afterLoad; G.afterLoad = () => { al(); reset(); };
+
+  /* @@fim3G-pedidos */
+})();
+;
+/* ===== 6C-ui-cidade.js ===== */
+/* 6C-ui-cidade: v26 (lote 4-A) — telas e arte dos pedidos dos moradores (balão sobre o morador, cartão, entrega e agradecimento)
+   e das cenas da cidade (fogueira, mesa da taverna, treino amistoso). A simulação mora em 3G-cidade.js. */
+'use strict';
+(function () {
+  if (G.HEADLESS) return;
+  const UI = G.UI, A = G.A, R = G.R, Wd = G.W, ic = UI.ic, esc = UI.esc, $ = UI.$;
+
+  /* ---------- estilo ---------- */
+  const css = document.createElement('style');
+  css.textContent = [
+    '.pdc .pdh{display:flex;gap:11px;align-items:center;margin:6px 0 8px}',
+    '.pdc .pdh .pt{width:56px;height:56px;border-radius:14px;background-color:rgba(0,0,0,.3);background-size:56px 56px;border:2px solid var(--gold);box-shadow:0 0 14px rgba(226,182,89,.35);flex:none}',
+    '.pdc .pdh .gr{flex:1;min-width:0}',
+    '.pdc .pdh b{display:block;font-size:15.5px;font-weight:800}',
+    '.pdc .pdh small{display:block;font-size:11.5px;color:var(--mut);font-weight:700;margin-top:1px}',
+    '.pdc .pdst{flex:none;height:22px;line-height:22px;padding:0 9px;border-radius:11px;font-size:10.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#1a1408;background:linear-gradient(180deg,#f7dc92,#d8a544)}',
+    '.pdc .pdst.ok{background:linear-gradient(180deg,#9af0b0,#46b868)}',
+    '.pdc q{display:block;quotes:none;font-style:italic;font-size:13px;line-height:1.45;color:#e6e0cc;padding:8px 11px;border-radius:12px;background:rgba(0,0,0,.26);border-left:3px solid var(--gold);margin:2px 0 8px}',
+    '.pdc h2{margin:2px 0 8px}',
+    '.pdc .pdp{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:12px;background:rgba(0,0,0,.24);border:1px solid var(--line2)}',
+    '.pdc .pdp .px{width:28px;height:28px;flex:none}',
+    '.pdc .pdp svg.i{font-size:24px;color:var(--gold2)}',
+    '.pdc .pdp .gr{flex:1;min-width:0}',
+    '.pdc .pdp .pdn{font-size:12.5px;color:var(--mut);font-weight:700;margin-bottom:5px}',
+    '.pdc .pdp .pdn b{color:#fff;font-size:14px}',
+    '.pdc .pdp.ok .pdn b{color:#9af0b0}',
+    '.pdc .pdr{margin-top:10px}',
+    '.pdc .pdr small,.pdc .pdt small{display:block;font-size:10.5px;color:var(--mut);font-weight:800;text-transform:uppercase;letter-spacing:.08em}',
+    '.pdc .pdr .costs{margin-top:5px}',
+    '.pdc .pdt{margin-top:10px}',
+    '.pdc .pdt .bar{margin-top:5px;height:4px}',
+    '.pdc .pdt .bar i{background:linear-gradient(90deg,#c8863a,#f0b050)}',
+    '.pdc .nt2{margin-top:8px;font-size:11.5px;color:var(--mut);line-height:1.4;text-align:center}',
+    '.pdl{margin:0 0 10px}',
+    '.pdl .pd1{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line2);margin-bottom:6px;color:inherit;font:inherit}',
+    '.pdl .pd1.ok{border-color:#58c070;box-shadow:0 0 12px rgba(88,192,112,.25)}',
+    '.pdl .pd1 .pt{width:38px;height:38px;border-radius:10px;background-color:rgba(0,0,0,.3);background-size:38px 38px;border:2px solid #4a557a;flex:none}',
+    '.pdl .pd1 .gr{flex:1;min-width:0}',
+    '.pdl .pd1 b{display:block;font-size:12.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '.pdl .pd1 small{display:block;font-size:11px;color:var(--mut);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+    '.pdl .pd1 .bar{margin-top:4px;height:4px}',
+    '.pdl .pd1 .tg{flex:none;font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:9px;color:#1a1408;background:linear-gradient(180deg,#f7dc92,#d8a544)}',
+    '.pdl .pd1.ok .tg{background:linear-gradient(180deg,#9af0b0,#46b868)}',
+    '.pdl .hd{display:flex;align-items:center;gap:6px;font-family:"Aurora Cinzel",serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin:2px 2px 7px}',
+    '.pdl .hd small{margin-left:auto;font-family:inherit;letter-spacing:.04em;text-transform:none;color:var(--mut);font-weight:700;font-size:11px}',
+  ].join('\n');
+  document.head.appendChild(css);
+
+  const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
+  const npcOf = (who) => G.npcs.find((n) => n.name === who) || null;
+  const npcPortrait = (n, who) => (n ? A.portrait(A.npcLook(n)) : A.portrait(A.npcLook({ name: who, look: 30, job: 'Morador' })));
+
+  /* ================= 4A.1 balão sobre o morador ================= */
+  /* posição do balão no mundo: sobre a cabeça do morador; se ele está dentro do prédio, sobre o letreiro do prédio dele */
+  const S0 = () => G.S;
+  const balloonAt = (r, i) => {
+    const n = npcOf(r.who);
+    if (n && !n.inside) return { x: n.x, y: n.y - 2.75, n, out: 1 };
+    const c = G.CAST.find((x) => x.name === r.who), p = c && c.at ? Wd.plots[c.at] : null;
+    if (p) { const b = S0().b[c.at], sp = A.building(c.at, b ? b.lvl : 1, b && b.dmg); return { x: p.x + 3 + (i ? 1.3 : 0), y: p.y + 4 - (sp.h - 1) / 16 - 1.7, n, out: 0 }; }
+    return n ? { x: n.x, y: n.y - 2.75, n, out: 1 } : null;
+  };
+  const drawBalloon = (d, X, Y, z, over) => {
+    const ctx = R.ctx, dpr = Math.min(3, window.devicePixelRatio || 1), S = G.S;
+    over.push(() => {
+      const r = d.r, ready = G.pedidoReady(r), age = S.t - r.t0, px = Math.round(X(d.x)), bob = Math.sin(R.t * 3.1 + r.id) * 1.7 * z, rad = Math.round(G.clamp(z * 6.2, 11.5 * dpr, 18 * dpr));
+      const pop = 1 + 0.4 * Math.max(0, 1 - age / 1.2);
+      const py = Math.round(Y(d.y) + bob), rr = rad * pop;
+      ctx.save();
+      if (ready) { const k = (R.t * 1.4) % 1; ctx.globalAlpha = (1 - k) * 0.65; ctx.strokeStyle = '#9af0b0'; ctx.lineWidth = Math.max(2, z * 0.8); ctx.beginPath(); ctx.arc(px, py, rr * (1.1 + 0.9 * k), 0, 6.283); ctx.stroke(); ctx.globalAlpha = 1; }
+      ctx.fillStyle = 'rgba(14,10,22,.55)'; ctx.beginPath(); ctx.ellipse(px, py + rr * 1.28, rr * 0.55, rr * 0.2, 0, 0, 6.283); ctx.fill();
+      ctx.lineJoin = 'round'; ctx.lineWidth = Math.max(2, z * 0.9); ctx.strokeStyle = '#3a2410';
+      ctx.fillStyle = ready ? '#7be59a' : '#ffd86a';
+      ctx.beginPath(); ctx.arc(px, py, rr, 0, 6.283); ctx.moveTo(px - rr * 0.45, py + rr * 0.78); ctx.lineTo(px, py + rr * 1.42); ctx.lineTo(px + rr * 0.45, py + rr * 0.78); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = ready ? '#fff' : '#fff6cc'; ctx.beginPath(); ctx.arc(px - rr * 0.3, py - rr * 0.32, rr * 0.32, 0, 6.283); ctx.globalAlpha = 0.35; ctx.fill(); ctx.globalAlpha = 1;
+      ctx.fillStyle = '#3a2410'; ctx.font = '900 ' + Math.round(rr * 1.35) + 'px "Aurora Manrope",system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(ready ? '✓' : '!', px, py + rr * 0.06); ctx.textBaseline = 'alphabetic';
+      ctx.restore();
+    });
+  };
+  /* agradecimento de quem está dentro do prédio: o balão de fala aparece sobre o prédio */
+  const thanks = [];
+  const rrect = (ctx, x, y, w, h, r) => { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r); ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r); ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r); ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r); ctx.closePath(); };
+  const drawThanks = (d, X, Y, z, over) => {
+    const ctx = R.ctx, dpr = Math.min(3, window.devicePixelRatio || 1);
+    over.push(() => {
+      const fs = Math.round(G.clamp(z * 2.6, 10.5 * dpr, 13 * dpr)), px = Math.round(X(d.x)), py = Math.round(Y(d.y));
+      const life = d.life - (performance.now() - d.t0) / 1000; if (life <= 0) return; ctx.save(); ctx.globalAlpha = Math.min(1, life / 0.5);
+      ctx.font = '700 ' + fs + 'px "Aurora Manrope",system-ui,sans-serif'; ctx.textAlign = 'center';
+      const nm = d.who + ': ' + d.text, tw = ctx.measureText(nm).width, w = tw + fs * 1.2, h = fs * 1.8, x = Math.round(G.clamp(px - w / 2, 4, ctx.canvas.width - w - 4)), y = py - h;
+      ctx.fillStyle = 'rgba(255,252,240,.97)'; rrect(ctx, x, y, w, h, fs * 0.6); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(px - fs * 0.4, y + h - 1); ctx.lineTo(px, y + h + fs * 0.45); ctx.lineTo(px + fs * 0.4, y + h - 1); ctx.fill();
+      ctx.fillStyle = '#2a2030'; ctx.textBaseline = 'middle'; ctx.fillText(nm, x + w / 2, y + h / 2 + 1);
+      ctx.restore();
+    });
+  };
+  const dm1 = R.dynMore;
+  R.dynMore = (dyn, vx0, vx1, vy0, vy1) => {
+    if (dm1) dm1(dyn, vx0, vx1, vy0, vy1);
+    const S = G.S, P = S.pedidos;
+    if (P && P.list.length) P.list.forEach((r, i) => {
+      const n = npcOf(r.who); if (n && n.sayT > 0 && n.say && !n.inside) return;      // falando: o balão de fala toma o lugar
+      const b = balloonAt(r, i); if (!b || b.x < vx0 - 2 || b.x > vx1 + 2 || b.y < vy0 - 3 || b.y > vy1 + 3) return;
+      dyn.push({ y: b.y + 20, k: 'x', e: { x: b.x, y: b.y, r }, f: drawBalloon });
+    });
+    const now = performance.now();
+    for (let i = thanks.length - 1; i >= 0; i--) { const t = thanks[i]; if (now - t.t0 > t.life * 1000) { thanks.splice(i, 1); continue; } dyn.push({ y: t.y + 20, k: 'x', e: t, f: drawThanks }); }
+  };
+  /* luz no balão à noite e toque: o balão aceita um toque generoso (e o morador também) */
+  const nm1 = R.nightMore;
+  R.nightMore = (hole) => {
+    if (nm1) nm1(hole);
+    const P = G.S.pedidos; if (P && P.list.length) P.list.forEach((r, i) => { const b = balloonAt(r, i); if (b) hole(b.x, b.y + 0.4, 1.9, 0.85); });
+  };
+  const pk1 = R.pick;
+  R.pick = (px, py) => {
+    const P = G.S && G.S.pedidos;
+    if (P && P.list.length) {
+      const w = R.screenToWorld(px, py);
+      for (let i = 0; i < P.list.length; i++) { const r = P.list[i], b = balloonAt(r, i); if (b && b.n && Math.hypot(b.x - w[0], b.y + 0.2 - w[1]) < 1.15) return { type: 'npc', ref: b.n }; }
+    }
+    return pk1(px, py);
+  };
+  const in1 = UI.inspect;
+  UI.inspect = (sel) => {
+    if (sel && sel.type === 'npc' && sel.ref && !sel.ref.vis && !sel.ref.guard) { const r = G.pedidoOf(sel.ref.name); if (r) { R.sel = null; R.follow = 0; return pedidoCard(r.id); } }
+    return in1(sel);
+  };
+
+  /* ================= 4A.1 o cartão do pedido ================= */
+  const rewardChips = (rw) => '<div class="costs">' + G.pedidoRewardParts(rw).map((p) => '<span class="cost">' + (p.id ? '<i class="px ri-' + p.id + '"></i>' : ic(p.ic)) + esc(p.t) + '</span>').join('') + '</div>';
+  const fmtLeft = (s) => { s = Math.max(0, Math.round(s)); const m = Math.floor(s / 60); return m + ' min ' + (s % 60 < 10 ? '0' : '') + (s % 60) + ' s'; };
+  const pedidoCard = (id) => {
+    const r = G.pedidoGet(id); if (!r) return;
+    const i = G.pedidoInfo(r), n = npcOf(r.who), bl = i.at && G.BLD[i.at] ? G.BLD[i.at].name : 'Aurora';
+    let prog;
+    if (i.kind === 'res') prog = '<div class="pdp' + (i.ready ? ' ok' : '') + '"><i class="px ri-' + r.a.res + '"></i><div class="gr"><div class="pdn"><b>' + G.fmt(G.S.res[r.a.res] || 0) + '</b> / ' + G.fmt(r.n) + ' ' + esc(G.RES[r.a.res].name) + ' no Armazém</div><div class="bar"><i style="width:' + Math.round(i.pct * 100) + '%"></i></div></div></div>';
+    else if (i.kind === 'time') prog = '<div class="pdp' + (i.ready ? ' ok' : '') + '">' + ic(i.ready ? 'check' : 'heart') + '<div class="gr"><div class="pdn">' + (i.ready ? '<b>Promessa cumprida</b>' : 'Ninguém caiu até agora: <b>' + i.cur + '%</b> do caminho') + '</div><div class="bar"><i style="width:' + Math.round(i.pct * 100) + '%"></i></div></div></div>';
+    else prog = '<div class="pdp' + (i.ready ? ' ok' : '') + '">' + ic(i.ready ? 'check' : 'target') + '<div class="gr"><div class="pdn"><b>' + G.fmt(i.cur) + '</b> / ' + G.fmt(i.n) + (i.ready ? ' · cumprido' : ' · os heróis cuidam disso sozinhos') + '</div><div class="bar"><i style="width:' + Math.round(i.pct * 100) + '%"></i></div></div></div>';
+    const btn = i.ready ? '<button class="btn pri" data-a="pedidoent:' + r.id + '">' + ic('gift') + (i.kind === 'res' ? 'Entregar' : 'Receber') + '</button>' : '<button class="btn" disabled>' + ic('lock') + (i.kind === 'res' ? 'Faltam ' + G.fmt(i.n - Math.min(i.n, G.S.res[r.a.res] || 0)) : 'Em andamento') + '</button>';
+    UI.modal('<div class="pdc"><div class="eyebrow">Pedido de morador</div>' +
+      '<div class="pdh"><i class="pt px" style="background-image:url(' + npcPortrait(n, r.who) + ')"></i><div class="gr"><b>' + esc(r.who) + '</b><small>' + esc(i.job) + ' · ' + esc(bl) + '</small></div><span class="pdst' + (i.ready ? ' ok' : '') + '">' + (i.ready ? 'Pronto' : 'Pedido') + '</span></div>' +
+      '<q>“' + esc(i.quote) + '”</q><h2>' + esc(i.title) + '</h2>' + prog +
+      '<div class="pdr"><small>Prêmio</small>' + rewardChips(r.rw) + '</div>' +
+      '<div class="pdt"><small>Prazo: até ' + esc(i.dln) + ' · restam ' + fmtLeft(i.left) + '</small><div class="bar"><i style="width:' + Math.round(i.pctLeft * 100) + '%"></i></div></div>' +
+      '<p class="nt2">Pedido que vence some sem castigo. Cada morador tem a sua maneira de agradecer.</p>' +
+      '<div class="acts"><button class="btn" data-a="mclose">Fechar</button>' + btn + '</div></div>');
+    G.sfx('click');
+  };
+  UI.pedidoCard = pedidoCard;
+  UI.ACT.pedido = (a) => { if (UI.modalOpen) UI.closeModal(); pedidoCard(+a[0]); };
+  UI.ACT.pedidoent = (a) => {
+    const res = G.pedidoDeliver(+a[0]);
+    if (res.err) { UI.toast(res.err, 'bad', 'scroll'); return; }
+    if (UI.modalOpen) UI.closeModal();
+  };
+
+  /* ================= 4A.1 avisos, entrega e agradecimento ================= */
+  const burst = (x, y) => { try { R.burst(x, y, 16, ['#ffd86a', '#ffffff', '#9af0b0'], 2.4, 0.8, 0); } catch (e) { /* ok */ } };
+  G.on('pedido', (d) => {
+    const S = G.S; if (!S) return;
+    if (d.t === 'novo') {
+      const r = d.r, n = npcOf(r.who);
+      G.sfx('pick'); UI.toast(r.who + ' pede ajuda: ' + G.PEDIDO_MODELS[r.m].title(r), 'info', 'scroll');
+      if (n && !n.inside && !(n.sayT > 0)) { n.say = r.q.length > 46 ? r.q.slice(0, r.q.lastIndexOf(' ', 44)) + '…' : r.q; n.sayT = 4; }
+    } else if (d.t === 'entregue') {
+      const n = npcOf(d.who), gold = d.rw.gold || 0;
+      G.sfx('quest'); G.sfx('coin');
+      if (n && !n.inside) { n.say = d.thanks; n.sayT = 5.2; n.dir = n.dir || 1; G.addFx({ t: 'text', x: n.x, y: n.y - 2.1, s: '+' + G.fmt(gold), c: '#ffd35a' }); burst(n.x, n.y - 1); }
+      else {
+        const c = G.CAST.find((x) => x.name === d.who), p = c && c.at ? Wd.plots[c.at] : null;
+        if (p) { const b = balloonAt(d.r, 0); thanks.push({ x: b ? b.x : p.x + 3, y: b ? b.y : p.y - 2, who: d.who, text: d.thanks, life: 5.2, t0: performance.now() }); G.addFx({ t: 'text', x: p.x + 3, y: p.y + 1, s: '+' + G.fmt(gold), c: '#ffd35a' }); burst(p.x + 3, p.y + 2.4); }
+      }
+      if (!n || n.inside) UI.toast(d.who + ': “' + d.thanks + '”', 'good', 'smile');
+      UI.toast('Recebido: ' + d.parts.map((x) => x.t).join(' · '), 'good', 'gift');
+    }
+    if (UI.sheet) UI.sheetDirty();
+  });
+
+  /* ================= 4A.1 lista na aba Missões › Contratos ================= */
+  const sh0 = UI.SHEETS.missoes.render;
+  UI.SHEETS.missoes.render = function (tab) {
+    const out = sh0.apply(this, arguments);
+    if (tab !== 'contratos') return out;
+    const P = G.S.pedidos; if (!P || (!P.list.length && !P.n)) return out;
+    let h = '<div class="pdl"><div class="hd">' + ic('scroll') + 'Pedidos da cidade<small>' + (P.n || 0) + ' atendidos</small></div>';
+    if (!P.list.length) h += '<p class="mut" style="margin:0 0 6px;font-size:11.5px">Nenhum pedido agora. Os moradores logo pedem de novo.</p>';
+    for (const r of P.list) {
+      const i = G.pedidoInfo(r), n = npcOf(r.who);
+      h += '<button class="pd1' + (i.ready ? ' ok' : '') + '" data-a="pedido:' + r.id + '"><i class="pt px" style="background-image:url(' + npcPortrait(n, r.who) + ')"></i><div class="gr"><b>' + esc(r.who) + ': ' + esc(i.title) + '</b><small>até ' + esc(i.dln) + '</small><div class="bar"><i style="width:' + Math.round(i.pct * 100) + '%"></i></div></div><span class="tg">' + (i.ready ? 'Pronto' : G.fmt(i.cur) + '/' + G.fmt(i.n)) + '</span></button>';
+    }
+    return h + '</div>' + out;
+  };
+  UI.SHEETS.missoes.badge.contratos = ((b0) => () => b0() + (G.S.pedidos ? G.S.pedidos.list.filter((r) => G.pedidoReady(r)).length : 0))(UI.SHEETS.missoes.badge.contratos);
+
+  /* @@fim6C-pedidos */
+})();
+;
 /* ===== 90-main.js ===== */
 /* 90-main: inicialização, laço principal, salvar/carregar e progresso offline. */
 'use strict';

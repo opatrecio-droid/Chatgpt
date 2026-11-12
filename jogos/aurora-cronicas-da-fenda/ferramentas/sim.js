@@ -43,6 +43,9 @@ const mark = (k, txt) => moments.push({ t: T0(), k, txt });
 G.on('realm', (d) => mark('reino', 'Nível de Reino ' + d.lvl));
 G.on('promo', (h) => mark('promo', h.name + ' → rank ' + G.RANKS[h.rank]));
 G.on('quest', () => mark('jornada', 'missão concluída'));
+/* v26 (lote 4-A): pedidos dos moradores — cada entrega é um momento legítimo (o jogador toca e recebe) */
+const ped = { novo: 0, entregue: 0, expirou: 0, falhou: 0, byM: {}, late: [] };
+G.on('pedido', (d) => { ped[d.t] = (ped[d.t] || 0) + 1; const m = d.r && d.r.m; if (m) { ped.byM[m] = ped.byM[m] || { n: 0, ok: 0 }; if (d.t === 'novo') ped.byM[m].n++; if (d.t === 'entregue') ped.byM[m].ok++; } if (d.t === 'entregue') { mark('pedido', d.who + ': ' + d.title); ped.late.push(S().t - d.r.t0); } });
 const origLog = G.log;
 G.log = (msg, kind) => { if (kind === 'epic' || kind === 'boss') mark(kind, msg); return origLog(msg, kind); };
 
@@ -142,6 +145,7 @@ const bot = () => {
       const opts = G.BLD_IDS.map((id) => [id, G.canUpgrade(id)]).filter(([, r]) => r.ok).sort((a, b) => a[1].c.gold - b[1].c.gold);
       if (opts.length && st.gold > opts[0][1].c.gold * 1.2) G.upgrade(opts[0][0]);
     }
+    for (const id of G.BLD_IDS) if (st.b[id] && st.b[id].dmg) G.repair(id);   // v26: conserta o que a Maré danificou (um jogador faria; sem isso a Hospedaria quebrada trava o reino)
     if (G.BLESS) for (const b of G.BLESS) G.buyBless(b.id);
     // forjar o que os heróis precisam (até 2 por decisão), como um jogador atento faria
     if (G.bOk('ferraria')) {
@@ -157,6 +161,7 @@ const bot = () => {
     if (G.arenaOpen && G.nemesis) revBot(st);
     if (G.arenaOpen) arenaBot(st);
     if (G.colossoInfo) colossoBot(st);
+    if (G.pedidoDeliver && G.pedidos) for (const r of G.pedidos().list.slice()) if (G.pedidoReady(r)) G.pedidoDeliver(r);   // 4-A: o robô entrega o que estiver pronto
     if (G.pieces) for (const p of G.pieces.slice()) { const it = G.pieceTake(p); if (it) pieceRar[it.rar] = (pieceRar[it.rar] || 0) + 1; }   // 3-D: o robô toca nas peças caídas
   } catch (e) { errors.push('bot: ' + e.stack); }
 };
@@ -237,6 +242,12 @@ console.log('Aurora sim · ' + path.basename(file) + ' · ' + MIN + ' min simula
 console.log('Amostras a cada 10 min:'); for (const x of samples) console.log('  ' + JSON.stringify(x));
 console.log('Momentos: ' + moments.length + ' ' + JSON.stringify(byK));
 console.log('Intervalo entre momentos: mediana ' + med.toFixed(0) + ' s, maior ' + max.toFixed(0) + ' s');
+{ const gl = []; for (let i = 1; i < moments.length; i++) gl.push({ g: moments[i].t - moments[i - 1].t, at: moments[i - 1].t, a: moments[i - 1].k, b: moments[i].k }); gl.sort((x, y) => y.g - x.g);
+  console.log('Maiores vazios: ' + gl.slice(0, 5).map((x) => x.g.toFixed(0) + ' s a partir de ' + (x.at / 60).toFixed(0) + ' min (' + x.a + '→' + x.b + ')').join(' · ')); }
+if (G.pedidos && S().pedidos) {
+  const P = S().pedidos, lt = ped.late.slice().sort((a, b) => a - b);
+  console.log('Pedidos: ' + ped.novo + ' surgiram · ' + ped.entregue + ' entregues · ' + ped.expirou + ' expiraram · ' + ped.falhou + ' falharam · espera mediana até entregar ' + (lt.length ? lt[Math.floor(lt.length / 2)].toFixed(0) : '—') + ' s · por modelo (entregues/surgidos): ' + Object.keys(ped.byM).map((k) => k + ' ' + ped.byM[k].ok + '/' + ped.byM[k].n).join(', ') + ' · descontos ' + Object.keys(P.disc).length);
+}
 if (G.rollIns) {
   const gear = []; for (const h of S().heroes) for (const k in h.gear) if (h.gear[k]) gear.push(h.gear[k]);
   const ins = gear.reduce((a, it) => a + (it.ins ? it.ins.length : 0), 0), perf = gear.reduce((a, it) => a + G.insPerfect(it.ins), 0);
