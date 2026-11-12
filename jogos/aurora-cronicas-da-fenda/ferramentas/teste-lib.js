@@ -21,6 +21,7 @@ exports.open = async (w, h, o) => {
   const browser = await chromium.launch();
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1, hasTouch: !!o.touch });
   if (o.save) await ctx.addInitScript((s) => { try { localStorage.setItem('aurora.v19.save', s); } catch (e) { /* ok */ } }, o.save);
+  if (o.init) await ctx.addInitScript(o.init, o.initArg);   // v28: script que roda antes da página (ex.: trocar Date.now para testar o relógio da semana)
   const page = await ctx.newPage();
   const errs = [];
   page.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
@@ -53,3 +54,6 @@ exports.mkSave = (file, o) => {
   return JSON.stringify(d);
 };
 exports.cont = async (page) => { await page.click('[data-a="t-continue"]'); };
+/* v28: relógio falso para testar a semana do Colosso/Arena. Use como { init: L.fakeClock, initArg: { base: new Date(2026, 10, 12, 15).getTime() } }
+   e avance com page.evaluate(() => { window.__dt += ms; }). Só Date.now() é trocado (é o que o jogo usa para o relógio da semana). */
+exports.fakeClock = (arg) => { const real = Date.now.bind(Date), off = arg.base - real(); window.__dt = 0; Date.now = () => real() + off + window.__dt; };

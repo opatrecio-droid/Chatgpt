@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Simulador headless do Aurora.
-   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge] [--week=forja|cacada|portal|ouro|none] [--save=arquivo.json]   (v25: o robô também duela na Arena; v26: relata títulos, Herói do Dia, recordes e marcos de poder)
+   Uso: node ferramentas/sim.js [arquivo.html] [--min=120] [--seed=1] [--quiet] [--noreforge] [--week=forja|cacada|portal|ouro|none] [--save=arquivo.json] [--cmode=0|1|2] [--cbudget=MIN] [--clab=MIN]   (v25: o robô também duela na Arena; v26: relata títulos, Herói do Dia, recordes e marcos de poder)
    Roda o jogo sem tela (G.HEADLESS) com um jogador-robô simples e imprime uma linha do tempo de
    "momentos de recompensa" e métricas de ritmo. Sai com código 1 se houver exceção na simulação. */
 'use strict';
@@ -13,6 +13,9 @@ const SEED = +opt('seed', 1);
 const QUIET = args.includes('--quiet');
 const QUESTLESS = args.includes('--questless');   // robô antigo: ignora a Jornada ao construir
 const WEEK = opt('week', '');                  // v24: força a semana temática (sem isso vale a semana real do relógio)
+const CMODE = +opt('cmode', 1);                // v28: Colosso — 0 Livre (fração dos heróis), 1 Convocar todos (jogador ativo), 2 Dispensar
+const CBUDGET = +opt('cbudget', 6);            // v28: minutos de fogo da equipe para derrubar o Colosso. O jogo usa 30 (≈70 min de jogo com todos convocados), mas o robô só tem os 15 min de um fim de semana (3 dias de jogo × 5 min), então o padrão aqui é proporcional (6); --cbudget=0 usa o do jogo
+const CLAB = +opt('clab', 0);                  // v28: laboratório do Colosso — a partir deste minuto a semana fica congelada num sábado ao meio-dia (Colosso sempre desperto, orçamento padrão) para medir o tempo de abate
 const REFORGE = !args.includes('--noreforge');   // v23: o robô também reforja inscrições (só se o jogo tiver a função)
 
 const html = fs.readFileSync(file, 'utf8');
@@ -30,6 +33,7 @@ try { vm.runInContext(m[1], ctx, { filename: 'aurora.js' }); } catch (e) { conso
 const G = ctx.G; G.DEBUG = true;
 if (WEEK && 'weekForce' in G) G.weekForce = WEEK;
 G.W.init && G.W.init();
+if (CBUDGET && G.COLOSSO) G.COLOSSO.budgetMin = CBUDGET;
 G.newGame();
 const S = () => G.S;
 
@@ -51,13 +55,28 @@ G.on('recorde', () => { lendas.recs++; });
 /* v27: Códex de Inscrições — minuto de cada marco */
 const codexMs = [];
 G.on('codex', (d) => { if (d.t === 'ms') codexMs.push({ t: T0(), id: d.m.id }); });
+/* v28: Colosso da Semana — a semana é a da Arena (relógio virtual: dia de jogo = dia real, começando numa segunda). O robô convoca os heróis assim que ele desperta. */
+const colo = { ss: 0, fs: 0, hs: 0, labT: 0, labDone: 0, weeks: [], marks: 0, wins: 0, wake: 0, warn: 0, chest: { n: 0, s: 0, p: 0 }, calls: 0, falls: 0, fallsHonor: 0 };
+if (G.colosso) {
+  G.on('colosso', (d) => {
+    if (d.t === 'mark') colo.marks++;
+    else if (d.t === 'win') { colo.wins++; colo.chest.n += d.chest.nucleos; colo.chest.s += d.chest.selos; colo.chest.p += d.chest.po_reforja; }
+    else if (d.t === 'rank') colo.weeks.push(d.rec);
+    else if (d.t === 'wake') colo.wake++; else if (d.t === 'warn') colo.warn++;
+  });
+}
 /* v25: a Arena usa um relógio próprio (G.arenaNow). Aqui cada dia de jogo vale um dia da Arena, começando numa segunda-feira, para o robô
    duelar até 5 vezes por dia de jogo e a temporada virar a cada 7 dias de jogo (testa o fim de temporada e o baú). */
 const arena = { duels: 0, wins: 0, ch: 0, leagues: [], lastSea: -1 };
 if (G.arenaNow) {
   const b0 = new Date(); b0.setHours(0, 0, 0, 0); b0.setDate(b0.getDate() - ((b0.getDay() + 6) % 7));
-  G.arenaNow = () => b0.getTime() + ((S().day - 1) + S().clock / 1440) * 86400000;
+  let frozen = 0;
+  G.arenaNow = () => {
+    if (CLAB && !frozen && t >= CLAB * 60) { const d = S().day - 1, wk0 = Math.floor(d / 7) * 7; frozen = b0.getTime() + (wk0 + 5.5) * 86400000; }
+    return frozen || b0.getTime() + ((S().day - 1) + S().clock / 1440) * 86400000;
+  };
 }
+let t = 0;
 /* ---------- jogador-robô ---------- */
 let thinkT = 0;
 const bot = () => {
@@ -99,7 +118,13 @@ const bot = () => {
     }
     if (REFORGE && G.reforgeRoll) reforgeBot(st);
     if (G.arenaOpen) arenaBot(st);
+    if (G.colossoInfo) colossoBot(st);
   } catch (e) { errors.push('bot: ' + e.stack); }
+};
+/* v28: ao despertar o Colosso, o robô escolhe o modo de convocação (padrão: Convocar todos, como um jogador ativo) uma vez por semana */
+const colossoBot = (st) => {
+  const ci = G.colossoInfo();
+  if (ci.live && st.colosso && st.colosso.mode !== CMODE && st.colosso.cw !== st.colosso.wk) { G.colossoCall(CMODE); st.colosso.cw = st.colosso.wk; colo.calls++; }
 };
 /* v25: duela na Arena enquanto houver tíquete grátis do dia, sempre contra o adversário do meio, com a melhor equipe automática */
 const arenaBot = (st) => {
@@ -137,12 +162,12 @@ const reforgeBot = (st) => {
 
 /* ---------- laço ---------- */
 const DT = 0.034, TOTAL = MIN * 60;
-let t = 0, nextBot = 0, nextSample = 0; const samples = [];
+let nextBot = 0, nextSample = 0; const samples = [];
 const t0 = Date.now();
 while (t < TOTAL) {
   try { G.tick(DT); } catch (e) { errors.push('tick: ' + e.stack); if (errors.length > 20) break; }
   t += DT;
-  if (t >= nextBot) { nextBot = t + 5; bot(); }
+  if (t >= nextBot) { nextBot = t + 5; bot(); if (G.colossoLive && G.colossoLive()) { colo.ss++; colo.fs += S().heroes.filter((h) => h.state === 'colosso').length; colo.hs += S().heroes.length; colo.labT = colo.labT || t; } if (G.colosso && S().colosso && S().colosso.win && colo.labT && !colo.labDone) colo.labDone = t; }
   if (t >= nextSample) {
     nextSample = t + 600;
     const st = S();
@@ -171,6 +196,13 @@ if (G.arena && S().arena && S().arena.open) {
   const cnt = {}; for (const h of a.hist) cnt[L[h.liga].name] = (cnt[L[h.liga].name] || 0) + 1;
   console.log('Arena: ' + arena.duels + ' duelos · ' + arena.wins + ' vitórias (' + (arena.duels ? (100 * arena.wins / arena.duels).toFixed(1) : '0') + '%, chance estimada média ' + (arena.duels ? (100 * arena.ch / arena.duels).toFixed(0) : '0') + '%)' +
     ' · liga final ' + (last ? L[last.liga].name + ' (' + last.pts + ' pts, ' + last.pos + 'º)' : '—') + ' · ' + a.hist.length + ' temporadas: ' + Object.keys(cnt).map((k) => k + ' ×' + cnt[k]).join(', ') + ' · Insígnias ' + a.ins + ' · títulos ' + a.titulos.reduce((n, t) => n + t.n, 0));
+}
+if (G.colosso && S().colosso) {
+  const c = S().colosso, ws = colo.weeks, pos = ws.filter((w) => w.pos).map((w) => w.pos), fm = (v) => v >= 1e6 ? (v / 1e6).toFixed(2).replace('.', ',') + 'M' : v >= 1e3 ? (v / 1e3).toFixed(1).replace('.', ',') + 'k' : String(Math.round(v));
+  const byId = {}; for (const w of ws) { const n = G.COLOSSI[w.id].name; byId[n] = (byId[n] || 0) + 1; }
+  console.log('Colosso: ' + (ws.length + (c.hpMax ? 1 : 0)) + ' semanas (' + ws.length + ' fechadas' + (c.hpMax ? ' + a atual com ' + Math.round(100 * c.dmg / c.hpMax) + '%' + (c.win ? ', derrotado' : '') : '') + ') · avisos ' + colo.warn + ', despertares ' + colo.wake + ' · ' + Object.keys(byId).map((k) => k + ' ×' + byId[k]).join(', ') +
+    ' · dano por semana: ' + (ws.length ? ws.map((w) => (w.pct >= 0.995 && w.pct < 1 ? '99,x' : Math.round(100 * w.pct)) + '%' + (w.win && w.bonus ? '+' + Math.round(100 * w.bonus / w.hpMax) : '')).join(' ') : '—') + ' (vida média ' + (ws.length ? fm(ws.reduce((a, w) => a + w.hpMax, 0) / ws.length) : '—') + ')' +
+    ' · posição final: ' + (pos.length ? pos.join('º ') + 'º' : '—') + ' · derrotado ' + colo.wins + '/' + ws.length + ' · marcos ' + colo.marks + ' · baús ' + colo.chest.n + ' Núcleos, ' + colo.chest.s + ' Selos, ' + colo.chest.p + ' Pó · prêmios no total ' + c.pr.nuc + ' Núcleos, ' + c.pr.sel + ' Selos, ' + c.pr.po + ' Pó · modo ' + ['Livre', 'Convocar', 'Dispensar'][CMODE] + ' · lutadores em média ' + (colo.ss ? (colo.fs / colo.ss).toFixed(1) + ' de ' + (colo.hs / colo.ss).toFixed(1) + ' heróis' : '—') + ' · quedas honrosas ' + (ws.reduce((a, w) => a + (w.fl || 0), 0) + (c.fl || 0)) + (CLAB && colo.labT ? ' · laboratório: ' + (colo.labDone ? 'derrubado após ' + ((colo.labDone - colo.labT) / 60).toFixed(1) + ' min de luta' : 'não derrubado em ' + ((t - colo.labT) / 60).toFixed(1) + ' min') : ''));
 }
 if (G.kingPower && S().lendas) {
   const L = S().lendas, P = G.kingPowerParts(true), fm = (v) => v >= 1e6 ? (v / 1e6).toString().replace('.', ',') + 'M' : v >= 1e3 ? (v / 1e3).toString().replace('.', ',') + 'k' : String(v);

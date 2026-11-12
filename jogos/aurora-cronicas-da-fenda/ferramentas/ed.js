@@ -3,7 +3,7 @@
    Uso: node ferramentas/ed.js edicoes.js   (edicoes.js exporta [[antigo, novo], ...]; cada "antigo" deve ocorrer exatamente 1 vez) */
 'use strict';
 const fs = require('fs'), path = require('path');
-const F = path.join(__dirname, '..', 'aurora.html');
+const F = process.env.AURORA_FILE || path.join(__dirname, '..', 'aurora.html');
 let h = fs.readFileSync(F, 'utf8');
 const edits = require(path.resolve(process.argv[2]));
 for (const [o, n] of edits) {
