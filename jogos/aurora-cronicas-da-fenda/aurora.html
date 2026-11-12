@@ -10236,9 +10236,10 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:12px}
   UI.guideTarget = guideTarget;
   UI.gd = { vis, covered, sheetOn, tabBtn }; UI.guideActive = () => gdOn;
   const guideHide = () => { if (gdOn) { gdOn = false; gd.classList.remove('on'); gdKey = ''; } };
+  let gdSkip = 0;
   const guideFrame = () => {
     requestAnimationFrame(guideFrame);
-    if (!gd) return;
+    if (!gd || (++gdSkip & 1)) return;      // v26 (4C.3): 30 Hz bastam (cada passada lê o layout várias vezes)
     let t = null; try { t = guideTarget(); } catch (e) { t = null; }
     if (!t) return guideHide();
     let r = t.r || vis(t.el); if (!r) return guideHide();
