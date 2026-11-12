@@ -28,6 +28,8 @@ pendente. Ele deve ser apagado quando as duas notas chegarem a 10/10.
   worktree a partir da sua branch auxiliar (o prompt manda `git reset --hard origin/<branch>` e seguir do primeiro `[ ]`).
   Quando os quatro terminarem: juntar as três branches na principal (blocos novos ficam todos antes de `90-main.js`;
   conflitos ali = manter os dois lados), marcar a lista abaixo, subir a versão para 25.0 e avaliar.
+- **Decisão do usuário (12/11): depois do ciclo 3, só UM agente por vez** (volta ao método em série, direto na
+  branch principal, push por item). O paralelismo vale apenas para os lotes 3-A a 3-D já em andamento.
 - Para retomar: o próximo item é o primeiro `[ ]` da lista. Relance um Sonnet (esforço extra alto) com o
   lote correspondente de `PLANO-CICLO-1.md`, dizendo quais itens já estão `[x]`.
 
