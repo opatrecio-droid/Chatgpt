@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="cidade-viva-build" content="Aurora_042_saques_por_dificuldade">
+<meta name="cidade-viva-build" content="Aurora_043_avisos_mapa_chefes_arte64">
 <title>Aurora — Crônicas da Fenda</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232b1a12'/><circle cx='26' cy='30' r='15' fill='%23e2b659'/><circle cx='33' cy='25' r='13' fill='%232b1a12'/><circle cx='45' cy='42' r='6' fill='%23b58cf2'/></svg>">
 <style id="aurora-theme">
@@ -4135,8 +4135,8 @@ html.aurora-rpg #app #bcard .bk-bottom .btn,html.aurora-rpg #modal .acts .btn {f
    00-core: utilitários, barramento de eventos, relógio e estado. Sem DOM. */
 'use strict';
 var G = (typeof globalThis !== 'undefined' ? globalThis : window).G = {};
-G.VERSION = '30.6';
-G.BUILD = 'Aurora_Economia_040';
+G.VERSION = '30.7';
+G.BUILD = 'Aurora_043_avisos_mapa_chefes_arte64';
 G.SAVE_KEY = 'aurora.economy.v2.save';
 G.HEADLESS = typeof document === 'undefined';
 
@@ -5563,6 +5563,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.zoneUnlocked = (z) => G.S.realm.lvl >= z.unlock;
   G.pickZone = (h) => {
     const S = G.S, st = G.heroStats(h);
+    { const rallyZone = G.rallyZone ? G.rallyZone(h) : null; if (rallyZone) return rallyZone; }
     if(h.order!=='auto'&&G.ZONE[h.order]&&G.zoneUnlocked(G.ZONE[h.order]))return h.order;
     if(S.stats.bosses===0&&S.t>=480&&S.zones.bosque.boss&&h.potions>0&&st.eff>=4)return 'bosque';
     const brave = G.traitSum(h,'brave')+(h.caution===0?1:h.caution===2?-2:0)+(G.hasTrait(h,'ambicioso')?3:0)+(S.posture==='ousada'?2:S.posture==='cautelosa'?-2:0);
@@ -5625,7 +5626,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (G.colossoPick && G.colossoPick(h)) return;   // v25: Colosso da Semana
     const z = G.pickZone(h); if (!z) { h.state = 'idle'; h.until = G.S.t + 6; return; }
     const zd = G.ZONE[z], l = G.zoneLvl(zd, G.S.zones[z].tier) + G.diffCur().shift, st = G.heroStats(h);
-    if (l > st.eff + 8 && h.order === 'auto') { // nenhuma zona segura
+    if (l > st.eff + 8 && h.order === 'auto' && !(G.rallyZone && G.rallyZone(h))) { // nenhuma zona segura
       G.startFallback(h);return;
     }
     h.noZone = false;h.edge=false;h.mentor=0; h.zone = z; h.state = 'travel'; h.tgt = null;
@@ -5675,8 +5676,10 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
 
   /* ---------- combate ---------- */
   const findTarget=(h,list,radius)=>{
+    if(G.rallyFind){const rallied=G.rallyFind(h,list,radius);if(rallied!==undefined)return rallied;}
     const st=G.heroStats(h),group=G.huntGroup(h);let best=null,bestScore=Infinity;
     for(const m of G.nearMons(h,list,radius)){if(m.dead||m.gone||m.inc||m.colosso)continue;const d=G.dist(h,m);if(d>radius)continue;if(h.edge&&(!m.entry||m.elite||m.boss))continue;
+      if(m.boss&&G.bossHold&&G.bossHold(h,m))continue;
       if(m.boss&&h.state==='hunt'&&!G.hasTrait(h,'teimoso')){if(h.caution===2)continue;const nearby=new Set(group?G.groupMembers(group).filter(a=>a!==h&&G.dist(a,h)<8&&a.hp>G.heroStats(a).hp*.6).map(a=>a.id):[]);for(const a of G.S.heroes)if(a!==h&&a.tgt===m)nearby.add(a.id);const allies=nearby.size;const need=m.lvl+(h.caution===0?-1:1)-Math.min(3,allies)+(m.rift?0:G.diffCur().shift);if(st.eff<need||h.hp<st.hp*.7)continue;}
       if(m.boss&&!G.groupReady(h,m))continue;if(G.engageRisk&&G.engageRisk(h,m,st))continue;if(G.hasTrait(h,'medroso')&&m.elite&&st.eff<m.lvl+5)continue;
       const beh=[G.MON[m.k].beh,...(G.MON[m.k].behExtra||[])],fragile=m.tgt&&['mag','arq'].includes(m.tgt.cls);
@@ -13814,7 +13817,11 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (R.follow) { const h = S.heroes.find((x) => x.id === R.follow); if (h && !h.inside) { R.tx = h.x * TS; R.ty = (h.y - 0.6) * TS; } else if (!h) R.follow = 0; }
     if (R.tx != null) { c.x += (R.tx - c.x) * Math.min(1, dt * 6); c.y += (R.ty - c.y) * Math.min(1, dt * 6); if (!R.follow && Math.abs(R.tx - c.x) < 0.5 && Math.abs(R.ty - c.y) < 0.5) R.tx = null; }
     const z = c.z, hw = cw / 2 / z, hh = ch / 2 / z;
-    c.x = G.clamp(c.x, Math.min(hw, Wd.w * TS / 2), Math.max(Wd.w * TS - hw, Wd.w * TS / 2)); c.y = G.clamp(c.y, Math.min(hh, Wd.h * TS / 2), Math.max(Wd.h * TS - hh, Wd.h * TS / 2));
+    { /* 043: a câmera passa da borda (neblina) para os extremos do mapa saírem de baixo do HUD */
+      const mw = Wd.w * TS, mh = Wd.h * TS, fog = R.fogMargin ? R.fogMargin(hw, hh) : { x: 0, top: 0, bottom: 0 };
+      c.x = G.clamp(c.x, Math.min(hw - fog.x, mw / 2), Math.max(mw - hw + fog.x, mw / 2));
+      c.y = G.clamp(c.y, Math.min(hh - fog.top, mh / 2), Math.max(mh - hh + fog.bottom, mh / 2));
+    }
     let shx = 0, shy = 0; if (R.shake > 0.2) { shx = (Math.random() - 0.5) * R.shake * dpr; shy = (Math.random() - 0.5) * R.shake * dpr; R.shake *= Math.pow(0.02, dt); } else R.shake = 0;
     const ox = Math.round(cw / 2 - c.x * z + shx), oy = Math.round(ch / 2 - c.y * z + shy);
     const X = (wx) => ox + wx * TS * z, Y = (wy) => oy + wy * TS * z;
@@ -13822,7 +13829,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     const dark = G.darkness(S.clock);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = false;
-    if (ox > 0 || oy > 0 || ox + terrain.width * z < cw || oy + terrain.height * z < ch) { ctx.fillStyle = '#1c3a1c'; ctx.fillRect(0, 0, cw, ch); }
+    if (ox > 0 || oy > 0 || ox + terrain.width * z < cw || oy + terrain.height * z < ch) { ctx.fillStyle = '#39464e'; ctx.fillRect(0, 0, cw, ch); }
     {
       const sx0 = Math.max(0, Math.floor(-ox / z)), sy0 = Math.max(0, Math.floor(-oy / z)), sx1 = Math.min(terrain.width, Math.ceil((cw - ox) / z)), sy1 = Math.min(terrain.height, Math.ceil((ch - oy) / z));
       if (sx1 > sx0 && sy1 > sy0) ctx.drawImage(terrain, sx0, sy0, sx1 - sx0, sy1 - sy0, ox + sx0 * z, oy + sy0 * z, (sx1 - sx0) * z, (sy1 - sy0) * z);
@@ -13930,6 +13937,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     }
     ctx.globalAlpha = 1;
     ambient(dt, vx0, vx1, vy0, vy1, dark);
+    if (R.drawEdgeFog) R.drawEdgeFog(ctx, X, Y, z, cw, ch, R.t);
 
     /* efeitos por cima */
     fontN = '400 ' + Math.round(15 * dpr) + 'px "Aurora Pixel",monospace';
@@ -36865,6 +36873,665 @@ html.aurora-rpg.hub-polished.aurora-clean #app #roster .hc.add {order:99!importa
  };
  for(const [id,url] of Object.entries(urls)){const img=new Image();img.onload=()=>{images[id]=img;toolCache.clear();A.invalidateEquipmentArt?.();};img.src=url;}
 })();
+</script>
+<style id="aurora-043-avisos">
+/* Aurora 043 · avisos em uma faixa só.
+   Tudo o que é passageiro (aviso, manchete, nome da zona) ocupa o mesmo lugar, um por vez,
+   logo abaixo dos retratos. Nada atravessa o centro do mapa. */
+html.aurora-rpg #app #banner {display:none!important}
+html.aurora-rpg #app #hud #tslot,
+html.aurora-rpg #app #hud #zonechip {display:none!important}
+
+html.aurora-rpg #app #hud #av-lane {
+  position:absolute;left:16px;top:calc(100% + 6px);z-index:2;
+  width:min(calc(100% - 16px - 92px), 420px);
+  display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  pointer-events:none;
+}
+html.aurora-rpg #app:has(#sheet.on) #hud #av-lane {display:none}
+html.aurora-rpg #app #hud #av-lane>* {pointer-events:auto}
+
+/* Seguir herói, chefe e Colosso: linhas fixas da faixa, sem posição própria. */
+html.aurora-rpg.hub-polished #app #hud #av-lane #hub-follow {
+  position:static!important;left:auto!important;top:auto!important;
+  height:30px!important;min-height:30px!important;max-width:100%!important;
+  padding:0 10px 0 6px!important;margin:0!important;gap:6px!important;
+  border:0!important;border-radius:0!important;border-left:2px solid var(--hud-accent,#d0bd95)!important;
+  background:linear-gradient(90deg,#0c1015e0,#0c1015a8 70%,#0c101500)!important;
+  color:var(--hud-text,#eeeae2)!important;font:500 12px/1.2 Arial,sans-serif!important;
+  text-shadow:0 1px 2px #000c;box-shadow:none!important;
+}
+html.aurora-rpg.hub-polished #app #hud #av-lane #hub-follow>.hub-sprite {--hub-icon-size:20px!important}
+html.aurora-rpg #app #hud #av-lane :is(#bossbar,#colbar) {
+  position:static!important;width:100%!important;max-width:320px!important;margin:0!important;
+  padding:5px 10px 6px 8px!important;box-sizing:border-box;
+  border:0!important;border-image:none!important;border-radius:0!important;border-left:2px solid #b79ad6!important;
+  background:linear-gradient(90deg,#0c1015e6,#0c1015b0 75%,#0c101500)!important;box-shadow:none!important;
+}
+html.aurora-rpg #app #hud #av-lane :is(#bossbar,#colbar):not(.on) {display:none!important}
+html.aurora-rpg #app #hud #av-lane :is(#bossbar,#colbar).on {display:block!important}
+html.aurora-rpg #app #hud #av-lane #bossbar>b {
+  display:flex;justify-content:space-between;gap:8px;margin:0 0 4px;
+  font:600 12px/1.2 Arial,sans-serif!important;color:#eeeae2!important;letter-spacing:.2px;text-shadow:0 1px 2px #000c;
+}
+html.aurora-rpg #app #hud #av-lane #bossbar #bb-p {color:#cdb9e6;font-variant-numeric:tabular-nums}
+html.aurora-rpg #app #hud #av-lane #bossbar .bar {
+  height:5px!important;min-height:0!important;padding:0!important;border:0!important;border-image:none!important;
+  background:#11161ccc!important;border-radius:0!important;box-shadow:none!important;overflow:hidden;
+}
+html.aurora-rpg #app #hud #av-lane #bossbar .bar>i {
+  display:block;height:100%!important;background:linear-gradient(90deg,#8a5fc0,#c9a3ee)!important;
+  border:0!important;box-shadow:none!important;transition:width .25s linear;
+}
+
+/* A mensagem: ícone, texto e uma faixa escura que some para a direita. */
+html.aurora-rpg #app #hud #av-slot {width:100%;min-height:0}
+html.aurora-rpg #app #hud .av-msg {
+  --av-c:#b8b9b5;
+  position:relative;display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;
+  min-height:34px;padding:5px 26px 5px 8px;margin:0;border:0;border-left:2px solid var(--av-c);
+  background:linear-gradient(90deg,#0c1015ec 0%,#0c1015c4 62%,#0c101500 100%);
+  color:#eeeae2;font:400 12px/1.35 Arial,sans-serif;text-align:left;text-shadow:0 1px 2px #000c;
+  animation:av-in .18s ease-out;
+}
+html.aurora-rpg #app #hud .av-msg.out {animation:av-out .22s ease-in forwards}
+html.aurora-rpg #app #hud .av-msg .av-ic {flex:none;display:grid;place-items:center;width:20px;height:20px}
+html.aurora-rpg #app #hud .av-msg .av-ic .i {width:18px;height:18px;filter:saturate(.75) drop-shadow(0 1px 1px #000a)}
+html.aurora-rpg #app #hud .av-msg .av-tx {
+  min-width:0;flex:1;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+html.aurora-rpg #app #hud .av-msg .av-n {
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  font:600 10px/1 Arial,sans-serif;color:#b8b9b5;letter-spacing:.3px;
+}
+html.aurora-rpg #app #hud .av-msg[data-a] {cursor:pointer}
+html.aurora-rpg #app #hud .av-msg[data-a] .av-tx::after {
+  content:" ›";color:var(--hud-accent,#d0bd95);font-weight:700;
+}
+html.aurora-rpg #app #hud .av-msg.k-good {--av-c:#98ad8a}
+html.aurora-rpg #app #hud .av-msg.k-bad {--av-c:#d08c80}
+html.aurora-rpg #app #hud .av-msg.k-epic,
+html.aurora-rpg #app #hud .av-msg.k-gold {--av-c:#d0bd95}
+html.aurora-rpg #app #hud .av-msg.k-boss {--av-c:#b79ad6}
+
+/* Manchete (chefe, Maré, nível de reino): mesma faixa, três linhas curtas. */
+html.aurora-rpg #app #hud .av-msg.head {min-height:52px;padding-top:7px;padding-bottom:7px;--av-c:#d0bd95}
+html.aurora-rpg #app #hud .av-msg.head .av-tx {display:flex;flex-direction:column;gap:1px;-webkit-line-clamp:unset}
+html.aurora-rpg #app #hud .av-msg.head small {
+  font:600 9px/1.2 Arial,sans-serif;letter-spacing:1.4px;text-transform:uppercase;color:var(--hud-accent,#d0bd95);
+}
+html.aurora-rpg #app #hud .av-msg.head b {
+  font:600 15px/1.2 Georgia,"Times New Roman",serif;color:#fff6e2;letter-spacing:.2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+html.aurora-rpg #app #hud .av-msg.head em {
+  font:400 11px/1.25 Arial,sans-serif;font-style:normal;color:#c9c6bd;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+html.aurora-rpg #app #hud .av-msg.head.k-boss {--av-c:#b79ad6}
+html.aurora-rpg #app #hud .av-msg.head.k-boss small {color:#cdb9e6}
+
+/* Nome da zona: só texto, e só quando a faixa está livre. */
+html.aurora-rpg #app #hud .av-msg.k-ambient {
+  min-height:24px;padding:3px 8px;border-left-color:transparent;background:none;
+  font:500 11px/1.2 Arial,sans-serif;letter-spacing:.8px;text-transform:uppercase;color:#d6d3ca;
+}
+html.aurora-rpg #app #hud .av-msg.k-ambient .av-ic {display:none}
+
+/* O que não coube vira um contador discreto; o toque abre os últimos avisos. */
+html.aurora-rpg #app #hud #av-more {
+  display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 10px 0 8px;margin:0;
+  border:0;border-left:2px solid #6f7275;background:linear-gradient(90deg,#0c1015d8,#0c101590 70%,#0c101500);
+  color:#c9c6bd;font:500 11px/1 Arial,sans-serif;text-shadow:0 1px 2px #000c;cursor:pointer;
+}
+html.aurora-rpg #app #hud #av-more[hidden],
+html.aurora-rpg #app #hud #av-tray[hidden] {display:none!important}
+html.aurora-rpg #app #hud #av-tray {
+  width:100%;max-height:min(40dvh,300px);overflow:auto;box-sizing:border-box;margin:0;padding:6px 0;
+  background:#0c1015f2;border-left:2px solid #6f7275;
+}
+html.aurora-rpg #app #hud #av-tray .av-row {
+  display:flex;gap:8px;padding:5px 10px;font:400 12px/1.35 Arial,sans-serif;color:#dedbd2;border-left:2px solid transparent;margin-left:-2px;
+}
+html.aurora-rpg #app #hud #av-tray .av-row small {flex:none;width:26px;color:#8f9296;font:400 10px/1.6 Arial,sans-serif}
+html.aurora-rpg #app #hud #av-tray .av-row.k-good {border-left-color:#98ad8a}
+html.aurora-rpg #app #hud #av-tray .av-row.k-bad {border-left-color:#d08c80}
+html.aurora-rpg #app #hud #av-tray .av-row.k-epic {border-left-color:#d0bd95}
+html.aurora-rpg #app #hud #av-tray .av-row.k-boss {border-left-color:#b79ad6}
+html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;font:400 12px/1.3 Arial,sans-serif}
+
+@keyframes av-in {from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes av-out {to{opacity:0;transform:translateX(-6px)}}
+@media (prefers-reduced-motion:reduce) {
+  html.aurora-rpg #app #hud .av-msg,html.aurora-rpg #app #hud .av-msg.out {animation:none}
+}
+@media(min-width:860px) {
+  html.aurora-rpg #app #hud #av-lane {left:24px;width:min(calc(100% - 24px), 420px)}
+}
+
+</style>
+<script id="aurora-043-avisos">
+/* Aurora 043 · avisos em uma faixa só.
+   Substitui a fila de avisos, a manchete do centro da tela e a ficha de zona por um único diretor:
+   uma mensagem visível por vez, com prioridade, logo abaixo dos retratos. O que não cabe vai para
+   o registro (contador "+N"). Seguir herói, barra de chefe e Colosso viram linhas fixas da mesma faixa. */
+(function () {
+  'use strict';
+  if (G.HEADLESS || !G.UI) return;
+  const UI = G.UI, $ = (s) => document.querySelector(s), esc = UI.esc, ic = UI.ic;
+  const PRI = { ambient: 0, info: 1, good: 2, gold: 2, epic: 3, bad: 3, boss: 4 };
+  const QUEUE_MAX = 4, LOG_MAX = 40;
+  const LOG = UI.logRec || (UI.logRec = []);
+  const Q = [];
+  let cur = null, curEl = null, timer = 0, dropped = 0, lane = null, slot = null, more = null, tray = null, trayT = 0;
+
+  const kind = (k) => (PRI[k] != null ? k : 'info');
+  const record = (m, k, icon) => {
+    if (!m) return;
+    LOG.push({ m, k: kind(k), icon, t: G.S ? G.S.t : 0, d: G.S ? G.S.day : 0 });
+    while (LOG.length > LOG_MAX) LOG.shift();
+  };
+
+  /* A faixa mora dentro do HUD; as linhas fixas são levadas para dentro dela. */
+  const ensure = () => {
+    const hud = $('#hud'); if (!hud) return false;
+    if (!lane || !lane.isConnected) {
+      lane = document.createElement('div'); lane.id = 'av-lane';
+      lane.innerHTML = '<div id="av-slot" role="status" aria-live="polite"></div><button id="av-more" data-a="avlog" hidden></button><div id="av-tray" hidden></div>';
+      hud.appendChild(lane);
+      slot = lane.querySelector('#av-slot'); more = lane.querySelector('#av-more'); tray = lane.querySelector('#av-tray');
+      cur = null; curEl = null; clearTimeout(timer);
+    }
+    for (const id of ['hub-follow', 'bossbar', 'colbar']) {
+      const el = document.getElementById(id);
+      if (el && el.parentNode !== lane) lane.insertBefore(el, slot);
+    }
+    return true;
+  };
+
+  /* Segura a fila enquanto a tela está ocupada por algo maior. */
+  const overlap = (a, b) => a && b && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+  const held = () => {
+    if (!G.S || !G.M || !G.M.running) return true;
+    if (UI.modalOpen || UI.sheet) return true;
+    const tip = $('#guide.on .gd-tip');
+    if (tip && lane) { const r = lane.getBoundingClientRect(); if (overlap(tip.getBoundingClientRect(), { left: r.left, right: r.right, top: r.top, bottom: r.top + 96 })) return true; }
+    return false;
+  };
+
+  const paintMore = () => {
+    if (!more) return;
+    const show = !cur && dropped > 0 && tray.hidden;
+    more.hidden = !show;
+    if (show) more.innerHTML = ic('scroll') + '<span>+' + dropped + (dropped === 1 ? ' aviso' : ' avisos') + '</span>';
+    if (curEl) { const n = curEl.querySelector('.av-n'); if (n) n.textContent = Q.length ? '+' + Q.length : ''; }
+  };
+
+  const finish = () => {
+    clearTimeout(timer);
+    const el = curEl; cur = null; curEl = null;
+    if (el) { el.classList.add('out'); setTimeout(() => el.remove(), 230); }
+    paintMore();
+    setTimeout(pump, 240);
+  };
+
+  const pump = () => {
+    if (cur || !Q.length || !ensure() || held()) { paintMore(); return; }
+    /* avisos comuns que esperaram demais já perderam a hora: vão direto para o registro */
+    const now = performance.now();
+    for (let i = Q.length - 1; i >= 0; i--) if (PRI[Q[i].k] <= 2 && !Q[i].head && now - Q[i].at > 14000) { Q.splice(i, 1); dropped++; }
+    if (!Q.length) { paintMore(); return; }
+    Q.sort((a, b) => (b.head ? 9 : PRI[b.k]) - (a.head ? 9 : PRI[a.k]) || a.at - b.at);
+    const q = Q.shift(), el = document.createElement(q.act ? 'button' : 'div');
+    el.className = 'av-msg k-' + q.k + (q.head ? ' head' : '');
+    if (q.act) el.setAttribute('data-a', q.act);
+    const icon = q.icon || (q.k === 'bad' ? 'skull' : q.k === 'good' ? 'check' : q.k === 'boss' ? 'skull' : q.k === 'epic' ? 'crown' : 'info');
+    const body = q.head
+      ? '<small>' + esc(q.head[0]) + '</small><b>' + esc(q.head[1]) + '</b>' + (q.head[2] ? '<em>' + esc(q.head[2]) + '</em>' : '')
+      : q.html || esc(q.n > 1 ? q.m + ' ×' + q.n : q.m);
+    el.innerHTML = '<span class="av-ic">' + ic(icon) + '</span><span class="av-tx">' + body + '</span><span class="av-n"></span>';
+    slot.textContent = ''; slot.appendChild(el);
+    cur = q; curEl = el;
+    const base = q.head ? 3400 : q.act ? 4600 : q.k === 'ambient' ? 2200 : Math.min(q.dur || 2800, 4200);
+    const dur = Q.length ? Math.min(base, q.head ? 2800 : 2000) : base;
+    timer = setTimeout(finish, dur);
+    paintMore();
+  };
+
+  const enqueue = (q) => {
+    q.k = kind(q.k); q.at = performance.now();
+    /* a zona sob a câmera só aparece com a faixa livre e nunca espera */
+    if (q.k === 'ambient') { if (cur || Q.length || held()) return; Q.push(q); return pump(); }
+    /* uma manchete substitui o nome da zona na hora */
+    if (cur && cur.k === 'ambient') finish();
+    Q.push(q);
+    while (Q.length > QUEUE_MAX) {
+      let i = -1, low = 99;
+      Q.forEach((x, j) => { const p = x.head ? 9 : PRI[x.k] + (x.act ? 0.5 : 0); if (p < low) { low = p; i = j; } });
+      Q.splice(i, 1); dropped++;
+    }
+    pump();
+  };
+
+  /* ---------- API pública (mesmas assinaturas de antes) ---------- */
+  UI.toast = (m, k, icon, dur, act) => {
+    m = String(m == null ? '' : m); k = kind(k); if (!m) return;
+    const same = Q.find((x) => !x.head && x.m === m && x.k === k);
+    if (same) { same.n = (same.n || 1) + 1; return; }
+    if (cur && !cur.head && cur.m === m && cur.k === k && curEl) {
+      cur.n = (cur.n || 1) + 1; const tx = curEl.querySelector('.av-tx'); if (tx) tx.textContent = m + ' ×' + cur.n; return;
+    }
+    record(m, k, icon);
+    enqueue({ m, k, icon, dur, act });
+  };
+  UI.toastHtml = (html, k, dur, m) => { record(m, k, 'star'); enqueue({ html, k, dur: dur || 4200, m: m || '' }); };
+  UI.banner = (small, big, sub) => {
+    const strip = (s) => String(s == null ? '' : s).replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+    const a = strip(small), b = strip(big), c = strip(sub);
+    const boss = /chefe|maré|mare|colosso|armas|ameaça/i.test(a + ' ' + b);
+    record(a + ': ' + b + (c ? ' · ' + c : ''), boss ? 'boss' : 'epic', boss ? 'skull' : 'crown');
+    /* o aviso simples do mesmo fato (ex.: "X despertou!") fica redundante com a manchete */
+    for (let i = Q.length - 1; i >= 0; i--) if (!Q[i].head && Q[i].m && b && Q[i].m.indexOf(b) === 0) Q.splice(i, 1);
+    if (cur && !cur.head && cur.m && b && cur.m.indexOf(b) === 0) finish();
+    enqueue({ head: [a, b, c], k: boss ? 'boss' : 'epic', icon: boss ? 'skull' : 'crown', m: b });
+  };
+  UI.ambient = (text) => enqueue({ m: String(text), k: 'ambient' });
+
+  const closeTray = () => { if (tray) tray.hidden = true; clearTimeout(trayT); paintMore(); };
+  UI.ACT.avlog = () => {
+    if (!ensure()) return;
+    if (!tray.hidden) return closeTray();
+    dropped = 0;
+    tray.innerHTML = LOG.length
+      ? LOG.slice(-12).reverse().map((l) => '<div class="av-row k-' + kind(l.k) + '"><small>D' + l.d + '</small><span>' + esc(l.m) + '</span></div>').join('')
+      : '<div class="av-empty">Nada por aqui ainda.</div>';
+    tray.hidden = false; paintMore();
+    clearTimeout(trayT); trayT = setTimeout(closeTray, 8000);
+  };
+  UI.ACT.logtray = UI.ACT.avlog;
+  G.hook('mapTap', () => { if (tray && !tray.hidden) closeTray(); }, 5);
+
+  /* ---------- ligações ---------- */
+  G.on('start', () => {
+    Q.length = 0; dropped = 0; LOG.length = 0; clearTimeout(timer);
+    if (curEl) curEl.remove(); cur = null; curEl = null;
+    ensure(); closeTray();
+  });
+  /* O nome da zona usava uma ficha própria no HUD; agora é a mensagem mais discreta da faixa. */
+  G.on('camzone', (zi) => {
+    if (!G.S) return;
+    const z = zi >= 0 && zi < G.ZONES.length ? G.ZONES[zi] : null;
+    const name = z ? z.name + ' · Nv ' + G.zoneLvl(z, G.S.zones[z.id].tier) : zi === 7 ? 'Cratera da Fenda' : zi === 8 ? 'Aurora' : zi === 9 ? 'Mata dos Lenhadores' : '';
+    if (name) UI.ambient(name);
+  });
+  G.hook('uiBuild', ensure, 90000);
+  G.hook('uiRefreshAfter', () => { ensure(); if (!cur && Q.length) pump(); else paintMore(); }, 90000);
+  UI.avisos = { queue: Q, log: LOG, state: () => ({ showing: cur ? (cur.head ? cur.head[1] : cur.m) : null, waiting: Q.length, dropped }) };
+  if ($('#hud')) ensure();
+})();
+
+</script>
+<script id="aurora-043-mapa-neblina">
+/* Aurora 043 · neblina da borda do mapa.
+   O mundo termina numa faixa de bruma em vez de uma linha reta. A câmera pode entrar nessa margem
+   (ver 20-mapa.patch.txt), então os cantos do mapa deixam de ficar escondidos atrás do HUD. */
+(function () {
+  'use strict';
+  if (G.HEADLESS || !G.R) return;
+  const R = G.R, TS = 16;
+  const NEAR = [163, 176, 182], FAR = [57, 70, 78];
+  const INNER = 3.4;                 // tiles de bruma por dentro da borda
+  const OUTER = 7;                   // tiles até a bruma fechar por fora
+
+  /* Quanto a câmera pode passar da borda, em pixels de mundo (metades da tela como referência). */
+  R.fogMargin = (hw, hh) => ({ x: hw * 0.55, top: hh * 0.62, bottom: hh * 0.55 });
+
+  const rgb = (c, a) => 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')';
+  const mix = (a, b, t) => [0, 1, 2].map((i) => Math.round(a[i] + (b[i] - a[i]) * t));
+
+  /* Mechas: elipses de borda irregular com quatro degraus de opacidade (pixel art, sem desfoque). */
+  let wispSprites = null, wisps = null;
+  const buildSprites = () => {
+    const rnd = G.seeded(9043), out = [];
+    for (let v = 0; v < 4; v++) {
+      const w = 56, h = 26, cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+      const c = cv.getContext('2d'), img = c.createImageData(w, h), ph = rnd() * 6.283, ph2 = rnd() * 6.283;
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+        const nx = (x + 0.5 - w / 2) / (w / 2), ny = (y + 0.5 - h / 2) / (h / 2);
+        const wob = 0.1 * Math.sin(nx * 7 + ph) + 0.08 * Math.sin(ny * 9 + nx * 4 + ph2);
+        const d = Math.hypot(nx, ny * 1.08) + wob;
+        const a = d > 1 ? 0 : d > 0.8 ? 0.2 : d > 0.58 ? 0.42 : d > 0.34 ? 0.62 : 0.78;
+        const i = (y * w + x) * 4; img.data[i] = 205; img.data[i + 1] = 215; img.data[i + 2] = 220; img.data[i + 3] = Math.round(a * 255);
+      }
+      c.putImageData(img, 0, 0); out.push(cv);
+    }
+    return out;
+  };
+  const buildWisps = () => {
+    const rnd = G.seeded(4307), W = G.W.w, H = G.W.h, per = 2 * (W + H), list = [];
+    const n = Math.round(per / 2.6);
+    for (let i = 0; i < n; i++) {
+      let p = (i + rnd() * 0.8) / n * per, x, y, nx = 0, ny = 0;
+      if (p < W) { x = p; y = 0; ny = -1; } else if ((p -= W) < H) { x = W; y = p; nx = 1; } else if ((p -= H) < W) { x = W - p; y = H; ny = 1; } else { p -= W; x = 0; y = H - p; nx = -1; }
+      const off = -2.2 + rnd() * 7.6;                       // negativo = por dentro do mapa
+      list.push({ x: x + nx * off, y: y + ny * off, w: 6 + rnd() * 7, v: rnd() * 4 | 0, sp: 0.12 + rnd() * 0.22, ph: rnd() * 6.283, a: off < 0 ? 0.26 + rnd() * 0.2 : 0.22 + rnd() * 0.26, tx: nx === 0 ? 1 : 0.25, ty: ny === 0 ? 1 : 0.25 });
+    }
+    return list;
+  };
+
+  R.drawEdgeFog = (ctx, X, Y, z, cw, ch, t) => {
+    const W = G.W.w, H = G.W.h, x0 = X(0), y0 = Y(0), x1 = X(W), y1 = Y(H), u = TS * z, fin = INNER * u, fo = OUTER * u;
+    if (x0 + fin < 0 && y0 + fin < 0 && x1 - fin > cw && y1 - fin > ch) return;       // a borda está longe: nada a desenhar
+    const calm = !!(G.S && (G.S.opts.lowFx || G.S.opts.reduceMotion));
+    const near1 = rgb(NEAR, 1), far1 = rgb(FAR, 1), mid1 = rgb(mix(NEAR, FAR, 0.55), 1);
+    const lin = (ax, ay, bx, by, stops) => { const g = ctx.createLinearGradient(ax, ay, bx, by); for (const s of stops) g.addColorStop(s[0], s[1]); return g; };
+    ctx.save();
+    /* 1. por fora: da bruma clara, junto à borda, até a bruma fechada (lados retos + cantos em leque) */
+    const OUT = [[0, near1], [0.45, mid1], [1, far1]];
+    ctx.fillStyle = far1;
+    ctx.beginPath(); ctx.rect(-4, -4, cw + 8, ch + 8); ctx.rect(x0 - fo, y0 - fo, x1 - x0 + 2 * fo, y1 - y0 + 2 * fo); ctx.fill('evenodd');
+    ctx.fillStyle = lin(0, y0, 0, y0 - fo, OUT); ctx.fillRect(x0, y0 - fo, x1 - x0, fo + 1);
+    ctx.fillStyle = lin(0, y1, 0, y1 + fo, OUT); ctx.fillRect(x0, y1 - 1, x1 - x0, fo + 1);
+    ctx.fillStyle = lin(x0, 0, x0 - fo, 0, OUT); ctx.fillRect(x0 - fo, y0, fo + 1, y1 - y0);
+    ctx.fillStyle = lin(x1, 0, x1 + fo, 0, OUT); ctx.fillRect(x1 - 1, y0, fo + 1, y1 - y0);
+    for (const [cx, cy, sx, sy] of [[x0, y0, -1, -1], [x1, y0, 1, -1], [x0, y1, -1, 1], [x1, y1, 1, 1]]) {
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, fo); for (const s of OUT) g.addColorStop(s[0], s[1]);
+      ctx.fillStyle = far1; ctx.fillRect(sx < 0 ? cx - fo : cx, sy < 0 ? cy - fo : cy, fo, fo);
+      ctx.fillStyle = g; ctx.fillRect(sx < 0 ? cx - fo : cx, sy < 0 ? cy - fo : cy, fo, fo);
+    }
+    /* 2. por dentro: a bruma invade as últimas casas do mapa e some aos poucos */
+    const IN = [[0, rgb(NEAR, 0.94)], [0.3, rgb(NEAR, 0.62)], [0.65, rgb(NEAR, 0.24)], [1, rgb(NEAR, 0)]];
+    ctx.fillStyle = lin(0, y0, 0, y0 + fin, IN); ctx.fillRect(x0, y0, x1 - x0, fin);
+    ctx.fillStyle = lin(0, y1, 0, y1 - fin, IN); ctx.fillRect(x0, y1 - fin, x1 - x0, fin);
+    ctx.fillStyle = lin(x0, 0, x0 + fin, 0, IN); ctx.fillRect(x0, y0, fin, y1 - y0);
+    ctx.fillStyle = lin(x1, 0, x1 - fin, 0, IN); ctx.fillRect(x1 - fin, y0, fin, y1 - y0);
+    /* 3. mechas à deriva dão volume e escondem os degraus */
+    if (!wispSprites) { wispSprites = buildSprites(); wisps = buildWisps(); }
+    ctx.imageSmoothingEnabled = false;
+    for (const w of wisps) {
+      const dr = calm ? 0 : Math.sin(t * w.sp + w.ph) * 1.4, wx = w.x + dr * w.tx, wy = w.y + dr * w.ty * 0.5;
+      const pw = w.w * u, phh = pw * 0.46, px = X(wx) - pw / 2, py = Y(wy) - phh / 2;
+      if (px > cw || py > ch || px + pw < 0 || py + phh < 0) continue;
+      ctx.globalAlpha = w.a * (calm ? 1 : 0.85 + 0.15 * Math.sin(t * 0.5 + w.ph));
+      ctx.drawImage(wispSprites[w.v], Math.round(px), Math.round(py), Math.round(pw), Math.round(phh));
+    }
+    ctx.restore();
+  };
+})();
+
+</script>
+<script id="aurora-043-chefes">
+/* Aurora 043 · convocação contra o chefe de zona (simulação, sem DOM).
+
+   1. Quando um chefe desperta, os heróis aptos são convocados: reúnem-se a uma distância segura do
+      covil e atacam juntos, em vez de esbarrar nele um a um.
+   2. Cada investida que termina sem derrubar o chefe conta uma derrota seguida (S.zones[z].bf).
+      Na terceira, a companhia para de insistir e passa a "estudar" o chefe.
+   3. Em estudo, um avaliador oculto (G.bossOdds) simula a luta com todos os heróis atacando juntos.
+      A companhia só volta a investir quando a chance estimada de vitória passa de 80%.
+      Se mesmo assim perder, o avaliador fica mais desconfiado daquele chefe (S.zones[z].bb).
+
+   O jogador não vê números: só o motivo do herói ("Reunindo a companhia…") e as linhas da crônica. */
+(function () {
+  'use strict';
+  const W = G.W;
+  const CFG = (G.RALLY = {
+    study: 3,          // derrotas seguidas até a companhia parar para estudar o chefe
+    odds: 0.8,         // chance mínima estimada para investir em modo de estudo
+    quorum: 0.6,       // fração dos heróis à altura que precisa estar apta para a convocação comum
+    grace: 40,         // s depois do despertar em que a convocação comum espera juntar o quórum
+    wait: 14,          // s de espera no ponto de encontro depois que o primeiro chega
+    callMax: 70,       // s máximos de reunião
+    assaultMax: 240,   // s máximos de investida
+    cooldown: 50,      // s entre investidas
+    gap: 7,            // heróis mais de `gap` níveis abaixo do chefe ficam de fora
+    brave: 0.1,        // quanto a investida reduz o limite de recuo
+    uptime: 0.7, bossK: 1.42, splash: 0.9, spread: 0.18, trials: 40,   // calibragem do avaliador (dev/tests/calibra-chefe.js)
+  });
+  const rallies = {};          // zona -> investida em curso (não é salvo)
+  const coolUntil = {};        // zona -> S.t em que outra investida pode começar
+  const oddsCache = {};        // zona -> { t, p }
+
+  const live = (h) => h && h.state !== 'fallen' && h.state !== 'recover';
+  const zoneBoss = (z) => { const zi = G.ZONES.indexOf(z); for (const m of G.mons) if (m.boss && m.zi === zi && !m.dead && !m.gone && !m.rift && !m.raid && !m.inc && !m.colosso) return m; return null; };
+  const bossById = (id) => { for (const m of G.mons) if (m.id === id && !m.dead && !m.gone) return m; return null; };
+  const rallyOf = (h) => (h._rally && h._rallyZ && rallies[h._rallyZ] && rallies[h._rallyZ].boss === h._rally ? rallies[h._rallyZ] : null);
+  const busy = (h) => h.state === 'rift' || h.state === 'inc' || h.state === 'colosso' || h.state === 'defend' || h._carrying || h.rescuer;
+  /* à altura do chefe e livre para ir (ordem manual para outra zona é respeitada) */
+  const worthy = (h, b, z) => live(h) && !busy(h) && (h.order === 'auto' || h.order === z.id) && G.heroStats(h).eff >= b.lvl - CFG.gap;
+  const outside = (h) => h.state === 'hunt' || h.state === 'travel' || h.state === 'return' || h.state === 'apprentice';
+  /* apto agora: vida, fome e vigor para uma luta longa */
+  const fit = (h) => {
+    const S = G.S, st = G.heroStats(h);
+    if (h.hp < st.hp * 0.7 || h.fome < 20 || h.energia < 25 || (h.wound > S.t && h.hp < st.hp * 0.85)) return false;
+    /* sem poção, com Alquimista abastecido e moedas no bolso: repõe antes de ir */
+    if (h.potions <= 0 && !outside(h) && G.bOk('alquimista') && S.res.pocao >= 1 && h.gold >= G.price(h, 'potion')) return false;
+    return true;
+  };
+
+  /* ---------- avaliador oculto: chance de vitória com estes heróis atacando juntos ---------- */
+  const SKILL = { esp: 1.5, cav: 1.1, arq: 2.7, mag: 2.1, pal: 0, lad: 2.6 };
+  G.bossOdds = (b, heroes, trials) => {
+    if (!b || !heroes || !heroes.length) return 0;
+    const d = G.MON[b.k], z = b.zi >= 0 ? G.ZONES[b.zi] : null, zs = z ? G.S.zones[z.id] : null;
+    const wary = Math.max(1, (zs && zs.bb) || 1), def = G.BOSS && G.BOSS[b.k];
+    const P = heroes.map((h) => {
+      const st = G.heroStats(h), md = G.heroMod(h), a = st.atk * md.a;
+      const crit = 1 + Math.min(1, st.crit) * (st.critDmg - 1);
+      const hit = (a * a) / (a + b.def) * (1 + G.bestBonus(d.fam)) * (1 + G.traitSum(h, 'elite') + st.eliteF) * (1 - (b.eva || 0));
+      const pow = G.skillPower(h, 0), cd = Math.max(2.5, G.skillCooldown(h, 0));
+      const sk = h.cls === 'lad' ? SKILL.lad * st.critDmg : (SKILL[h.cls] == null ? 1 : SKILL[h.cls]) * crit;
+      const dps = hit * crit / Math.max(0.3, st.int) + sk * pow * hit / cd;
+      const hdef = st.def * md.d * (1 - (d.pierce || 0));
+      const blow = (b.atk * b.atk) / (b.atk + hdef) * (1 - Math.min(0.6, st.eva || 0));
+      const q = G.potionQueue ? G.potionQueue(h) : null;
+      return { max: st.hp, hp: Math.min(st.hp, Math.max(1, h.hp)), dps, blow, pots: h.potions | 0, potV: G.potionPower(q && q[0] ? q[0] : 1),
+        melee: st.rng < 2, heal: h.cls === 'pal' ? 0.24 * pow * (1 + (st.healF || 0)) : 0, cd, wall: h.cls === 'cav' ? Math.min(0.6, 5 / cd) : 0,
+        thr: Math.max(0.12, G.clamp(G.CAUTION[h.caution].thr + G.traitSum(h, 'retreat'), 0.08, 0.7) + 0.14 - CFG.brave) };
+    });
+    const n = trials || CFG.trials, dt = 0.5; let wins = 0;
+    /* ruído determinístico: a estimativa não consome o gerador da simulação */
+    let seed = (Math.floor(G.S.t) * 2654435761 + b.id * 40503) >>> 0;
+    const rnd = () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const swing = () => 1 + (rnd() + rnd() - 1) * CFG.spread * 2;
+    for (let k = 0; k < n; k++) {
+      const A = P.map((p) => ({ p, hp: p.hp, pots: p.pots, potCd: 0, skT: p.cd * rnd(), luck: swing() }));
+      let hpB = b.hp, t = 0, special = 4, won = false; const bossLuck = swing() * CFG.bossK * wary;
+      while (t < 200 && A.length) {
+        t += dt;
+        let dmg = 0; for (const a of A) dmg += a.p.dps * a.luck * CFG.uptime * dt;
+        hpB -= dmg; if (hpB <= 0) { won = true; break; }
+        if (def && def.regen) hpB = Math.min(b.hpMax, hpB + b.hpMax * 0.004 * dt);
+        const frac = hpB / b.hpMax;
+        let tg = A[0]; for (const a of A) if (a.p.melee) { tg = a; break; }
+        tg.hp -= tg.p.blow * bossLuck * (1 - tg.p.wall * 0.55) * dt / Math.max(0.5, b.int);
+        special -= dt;
+        if (special <= 0) { special = frac <= 0.33 ? 4.5 : 6; for (const a of A) if (rnd() < 0.5) a.hp -= a.p.blow * bossLuck * CFG.splash * (frac <= 0.33 ? 1.25 : 1); }
+        for (let i = A.length - 1; i >= 0; i--) {
+          const a = A[i]; a.potCd -= dt; a.skT -= dt;
+          if (a.p.heal && a.skT <= 0) { a.skT = a.p.cd; for (const o of A) o.hp = Math.min(o.p.max, o.hp + o.p.max * a.p.heal); }
+          if (a.hp < a.p.max * 0.45 && a.pots > 0 && a.potCd <= 0) { a.hp = Math.min(a.p.max, a.hp + a.p.potV); a.pots--; a.potCd = 6; }
+          if (a.hp <= 0 || (a.hp < a.p.max * a.p.thr && a.pots <= 0)) A.splice(i, 1);
+        }
+      }
+      if (won) wins++;
+    }
+    return wins / n;
+  };
+  const oddsFor = (z, b, party) => {
+    const c = oddsCache[z.id], key = b.id + ':' + party.map((h) => h.id).join(',');
+    if (c && c.key === key && G.S.t - c.t < 4) return c.p;
+    const p = G.bossOdds(b, party); oddsCache[z.id] = { t: G.S.t, p, key }; return p;
+  };
+
+  /* ---------- ponto de encontro: fora do faro do chefe, do lado da entrada da zona ---------- */
+  const stageOf = (r) => {
+    if (r.stage) return r.stage;
+    const z = G.ZONE[r.z], b = bossById(r.boss), e = G.entryPoint(z), bx = b ? b.hx : z.lair[0], by = b ? b.hy : z.lair[1];
+    const dx = e[0] - bx, dy = e[1] - by, len = Math.hypot(dx, dy) || 1;
+    r.stage = W.nearestWalk(bx + dx / len * 7.5, by + dy / len * 7.5);
+    return r.stage;
+  };
+  const spot = (r, h) => { const s = stageOf(r), a = (h.id * 2.399) % 6.283, q = W.nearestWalk(s[0] + Math.cos(a) * 1.5, s[1] + Math.sin(a) * 1.1); return q; };
+
+  const bossName = (r) => G.MON[G.ZONE[r.z].boss].name;
+  const join = (h, r) => {
+    h._rally = r.boss; h._rallyZ = r.z; h._rallyAt = 0;
+    if (outside(h) && !h.inside) {
+      if (h.tgt && h.tgt.tgt === h && !h.tgt.dead && G.dist(h, h.tgt) < 3) return;      // termina a luta em que já está
+      h.zone = r.z; h.edge = false; h.mentor = 0; h.tgt = null; h.state = 'travel';
+      const p = spot(r, h); G.go(h, p[0], p[1]);
+      G.heroWhy(h, 'Convocado contra ' + bossName(r) + '.', 'Reunir a companhia e atacar juntos.');
+    } else if (h.state === 'town' || h.state === 'idle') { h.state = 'town'; h.tThink = Math.min(h.tThink || 0, 0.3); }
+  };
+  const leave = (h) => { h._rally = 0; h._rallyZ = null; h._rallyAt = 0; };
+  const membersOf = (r) => G.S.heroes.filter((h) => h._rally === r.boss && h._rallyZ === r.z && live(h));
+
+  const begin = (z, b, party, studied) => {
+    const r = (rallies[z.id] = { z: z.id, boss: b.id, phase: 'call', t0: G.S.t, firstAt: 0, assaultAt: 0, falls: 0, studied: !!studied, hp0: b.hp, stage: null });
+    b.until = Math.max(b.until || 0, G.S.t + CFG.callMax + CFG.assaultMax);
+    for (const h of party) join(h, r);
+    G.log(studied ? 'A companhia sente que agora pode vencer ' + bossName(r) + ' e parte unida.' : 'A companhia foi convocada contra ' + bossName(r) + '.', 'boss');
+    G.emit('rally', { z: z.id, phase: 'call', studied: !!studied });
+    return r;
+  };
+  const end = (r, result) => {
+    const S = G.S, zs = S.zones[r.z], b = bossById(r.boss);
+    for (const h of S.heroes) if (h._rally === r.boss) leave(h);
+    delete rallies[r.z];
+    coolUntil[r.z] = S.t + CFG.cooldown;
+    if (result === 'win') { zs.bf = 0; zs.bb = Math.max(1, (zs.bb || 1) * 0.9); }
+    else if (result === 'fail') {
+      const fought = r.assaultAt && (r.falls > 0 || (b && b.hp < r.hp0 - 1));
+      if (fought) {
+        zs.bf = (zs.bf || 0) + 1;
+        if (r.studied) zs.bb = Math.min(2.2, (zs.bb || 1) * 1.15);          // a conta estava otimista: desconfia mais deste chefe
+        if (zs.bf === CFG.study) G.log('Depois de ' + CFG.study + ' derrotas seguidas, a companhia decidiu estudar ' + bossName(r) + ' antes de tentar de novo.', 'boss');
+        else G.log('A investida contra ' + bossName(r) + ' fracassou. A companhia recua para se recompor.', 'bad');
+      }
+    }
+    G.emit('rally', { z: r.z, phase: 'end', result, pred: r.pred, studied: r.studied, falls: r.falls });
+  };
+
+  /* ---------- ganchos chamados pelo núcleo (ver 30-chefes.patch.txt) ---------- */
+  /* zona que um herói convocado deve escolher ao sair da cidade */
+  G.rallyZone = (h) => { const r = rallyOf(h); return r ? r.z : null; };
+  /* alvo de um herói convocado: undefined = regra normal; null = não ataca agora */
+  G.rallyFind = (h, list) => {
+    const r = rallyOf(h); if (!r) { if (h._rally) leave(h); return undefined; }
+    const b = bossById(r.boss); if (!b) return undefined;
+    if (r.phase === 'assault') return b;
+    let best = null, bd = 3.2;
+    for (const m of list) { if (m.dead || m.gone || m.boss || m.tgt !== h) continue; const d = G.dist(h, m); if (d < bd) { bd = d; best = m; } }
+    return best;
+  };
+  /* true = este herói não deve puxar o chefe sozinho agora */
+  G.bossHold = (h, m) => {
+    if (m.rift || m.raid || m.inc || m.colosso || m.zi < 0) return false;
+    const z = G.ZONES[m.zi]; if (!z) return false;
+    const r = rallies[z.id];
+    if (r) return r.phase !== 'assault';                                      // reunião em curso: ninguém ataca antes da hora
+    if (m.tgt && live(m.tgt)) return false;                                   // alguém já está na luta: pode ajudar
+    return (G.S.zones[z.id].bf || 0) >= CFG.study;                            // em estudo: só com a companhia inteira
+  };
+  /* movimento de grupo, chamado no começo de cada passo de caça */
+  G.groupMove = (h, dt, st) => {
+    const r = rallyOf(h); if (!r) { if (h._rally) leave(h); return false; }
+    if (r.phase !== 'call') return false;
+    if (h.tgt && !h.tgt.dead && !h.tgt.gone && !h.tgt.boss && h.tgt.tgt === h && G.dist(h, h.tgt) < 4) return false;   // defende-se
+    h.tgt = null;
+    const p = spot(r, h), d = Math.hypot(p[0] - h.x, p[1] - h.y);
+    if (d > 1.1) { if (!h.path || !h.path.length || Math.hypot((h._gx || 0) - p[0], (h._gy || 0) - p[1]) > 0.5) G.go(h, p[0], p[1]); G.step(h, dt, st.spd); h._rallyAt = 0; }
+    else { h.moving = false; h.path = null; if (!h._rallyAt) h._rallyAt = G.S.t; const b = bossById(r.boss); if (b) h.dir = b.x >= h.x ? 1 : -1; }
+    if (h.why == null || h.why.indexOf('Reunindo') !== 0) G.heroWhy(h, 'Reunindo a companhia para enfrentar ' + bossName(r) + '.', 'Atacar todos juntos.');
+    return true;
+  };
+  /* na investida o herói aguenta um pouco mais antes de recuar */
+  const thr0 = G.retreatThr;
+  G.retreatThr = (h, st, m) => {
+    const thr = thr0 ? thr0(h, st, m) : G.clamp(G.CAUTION[h.caution].thr + G.traitSum(h, 'retreat'), 0.08, 0.7);
+    const r = rallyOf(h);
+    return r && r.phase === 'assault' && m && m.boss ? Math.max(0.12, thr - CFG.brave) : thr;
+  };
+  /* um chefe com convocação pendente não é "arriscado demais": a decisão já foi tomada em grupo */
+  G.hook('heroOptions', (h, opts) => {
+    const r = rallyOf(h); if (!r || !fit(h)) return;
+    opts.push({ id: 'rally', score: 92, why: 'Convocado contra ' + bossName(r) + '.', next: 'Reunir a companhia e atacar juntos.' });
+  }, 500);
+
+  /* ---------- condução das investidas (2×/s) ---------- */
+  let acc = 0;
+  const conduct = () => {
+    const S = G.S;
+    for (const z of G.ZONES) {
+      if (!G.zoneUnlocked(z)) continue;
+      const zs = S.zones[z.id], b = zoneBoss(z); let r = rallies[z.id];
+      if (r && (!b || b.id !== r.boss)) { end(r, b ? 'gone' : zs.boss ? 'gone' : 'win'); r = null; }
+      if (!b) continue;
+      if (!r) {
+        if (S.mare.active || S.ev.curfew > S.t || S.t < (coolUntil[z.id] || 0)) continue;
+        if (Object.keys(rallies).length) continue;                             // uma investida por vez
+        const roster = S.heroes.filter((h) => worthy(h, b, z)); if (!roster.length) continue;
+        const ready = roster.filter(fit);
+        if ((zs.bf || 0) >= CFG.study) {
+          /* estudo: todos prontos e conta acima de 80% */
+          if (ready.length < roster.length) continue;
+          if (oddsFor(z, b, ready) < CFG.odds) continue;
+          begin(z, b, ready, true);
+        } else {
+          const need = Math.max(1, Math.ceil(roster.length * CFG.quorum));
+          if (ready.length < need && S.t - b.born < CFG.grace) continue;
+          if (!ready.length) continue;
+          begin(z, b, ready, false);
+        }
+        continue;
+      }
+      const mem = membersOf(r);
+      if (r.phase === 'call') {
+        /* quem ficou apto depois da chamada ainda entra */
+        for (const h of S.heroes) if (!h._rally && worthy(h, b, z) && fit(h) && (!r.studied || true)) { join(h, r); mem.push(h); }
+        if (!mem.length) { end(r, 'empty'); continue; }
+        const st = stageOf(r), there = mem.filter((h) => h.state === 'hunt' && Math.hypot(h.x - st[0], h.y - st[1]) < 3.2);
+        if (there.length && !r.firstAt) r.firstAt = S.t;
+        const pulled = b.tgt && live(b.tgt);
+        const all = there.length >= mem.length;
+        const timeUp = (r.firstAt && S.t - r.firstAt > CFG.wait && there.length >= Math.ceil(mem.length * 0.5)) || S.t - r.t0 > CFG.callMax;
+        if (pulled || all || timeUp) {
+          if (!there.length && !pulled) { end(r, 'empty'); continue; }
+          r.phase = 'assault'; r.assaultAt = S.t; r.hp0 = b.hp;
+          r.pred = G.bossOdds(b, pulled && !there.length ? mem : there.length ? mem.filter((h) => h.state === 'hunt' || h.state === 'travel') : mem);
+          b.until = Math.max(b.until || 0, S.t + CFG.assaultMax);
+          for (const h of mem) { h.tThink = 0; G.heroWhy(h, 'Investindo contra ' + bossName(r) + ' com a companhia.', 'Derrubar o chefe.'); }
+          const lead = there[0] || mem[0]; if (lead && G.bark) G.bark(lead, 'boss', 1);
+          G.emit('rally', { z: z.id, phase: 'assault' });
+        }
+      } else {
+        const fighting = mem.filter((h) => (h.state === 'hunt' || h.state === 'travel') && !h.inside);
+        /* quem recuou sai da investida; quem ficou segue lutando */
+        for (const h of mem) if (h.state === 'flee' || h.state === 'return' || h.state === 'goto' || h.state === 'inside') leave(h);
+        if (!fighting.length || S.t - r.assaultAt > CFG.assaultMax) end(r, 'fail');
+      }
+    }
+  };
+  G.hook('tick', (dt) => { acc += dt; if (acc < 0.5) return; acc = 0; if (G.S) conduct(); }, 150);
+  G.hook('heroFallen', (h, m) => {
+    if (!m || !m.boss || m.zi < 0 || m.rift || m.raid || m.inc || m.colosso) return;
+    const z = G.ZONES[m.zi]; if (!z) return;
+    const r = rallies[z.id];
+    if (r) { r.falls++; leave(h); return; }
+    /* queda fora de uma investida (herói teimoso, chefe que veio atrás): também é uma derrota para este chefe */
+    const zs = G.S.zones[z.id]; zs.bf = (zs.bf || 0) + 1;
+    if (zs.bf === CFG.study) G.log('Depois de ' + CFG.study + ' derrotas seguidas, a companhia decidiu estudar ' + G.MON[m.k].name + ' antes de tentar de novo.', 'boss');
+  }, 150);
+  G.hook('bossDefeated', (zid) => { const r = rallies[zid]; const zs = G.S.zones[zid]; if (r) end(r, 'win'); else if (zs) { zs.bf = 0; zs.bb = Math.max(1, (zs.bb || 1) * 0.9); } }, 150);
+  const reset = () => { for (const k in rallies) delete rallies[k]; for (const k in coolUntil) delete coolUntil[k]; for (const k in oddsCache) delete oddsCache[k]; acc = 0; if (G.S) for (const h of G.S.heroes) leave(h); };
+  G.hook('newGame', reset, 150); G.hook('afterLoad', reset, 150);
+
+  /* leitura para testes e para a ficha do herói */
+  G.rallyState = (zid) => { const r = rallies[zid], zs = G.S.zones[zid]; return { fails: zs.bf || 0, wary: zs.bb || 1, studying: (zs.bf || 0) >= CFG.study, phase: r ? r.phase : null, members: r ? membersOf(r).length : 0, falls: r ? r.falls : 0 }; };
+  G.rallyOdds = (zid) => { const z = G.ZONE[zid], b = z && zoneBoss(z); if (!b) return null; return G.bossOdds(b, G.S.heroes.filter((h) => worthy(h, b, z))); };
+})();
+
 </script>
 </body>
 </html>

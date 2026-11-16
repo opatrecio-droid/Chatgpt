@@ -1,0 +1,28 @@
+Trocas exatas na IA dos heróis (30-heroes) para a convocação contra o chefe.
+
+<<<< findTarget: herói convocado segue a decisão do grupo
+  const findTarget=(h,list,radius)=>{
+    const st=G.heroStats(h),group=G.huntGroup(h);let best=null,bestScore=Infinity;
+    for(const m of G.nearMons(h,list,radius)){if(m.dead||m.gone||m.inc||m.colosso)continue;const d=G.dist(h,m);if(d>radius)continue;if(h.edge&&(!m.entry||m.elite||m.boss))continue;
+====
+  const findTarget=(h,list,radius)=>{
+    if(G.rallyFind){const rallied=G.rallyFind(h,list,radius);if(rallied!==undefined)return rallied;}
+    const st=G.heroStats(h),group=G.huntGroup(h);let best=null,bestScore=Infinity;
+    for(const m of G.nearMons(h,list,radius)){if(m.dead||m.gone||m.inc||m.colosso)continue;const d=G.dist(h,m);if(d>radius)continue;if(h.edge&&(!m.entry||m.elite||m.boss))continue;
+      if(m.boss&&G.bossHold&&G.bossHold(h,m))continue;
+>>>>
+
+<<<< pickZone: zona da convocação tem prioridade
+  G.pickZone = (h) => {
+    const S = G.S, st = G.heroStats(h);
+====
+  G.pickZone = (h) => {
+    const S = G.S, st = G.heroStats(h);
+    { const rallyZone = G.rallyZone ? G.rallyZone(h) : null; if (rallyZone) return rallyZone; }
+>>>>
+
+<<<< leaveTown: convocado vai mesmo que a zona seja perigosa para ele sozinho
+    if (l > st.eff + 8 && h.order === 'auto') { // nenhuma zona segura
+====
+    if (l > st.eff + 8 && h.order === 'auto' && !(G.rallyZone && G.rallyZone(h))) { // nenhuma zona segura
+>>>>

@@ -1,0 +1,11 @@
+'use strict';
+const path = require('path');
+const { load, start, run } = require('./headless');
+const G = load(path.join(__dirname, '..', '..', 'aurora-cronicas-da-fenda.html')); const S = start(G, 271);
+run(G, G.DAY_SEC * 5);
+console.log('orders', JSON.stringify(G.tradeState().requests));
+console.log('tradeItems has emb1', G.tradeItems().includes('emb1'), 'order', JSON.stringify(G.tradeOrder('emb1')));
+for (const id of ['ferraria', 'alquimista', 'padaria', 'taverna', 'estabulo', 'guilda']) console.log(id, G.bOk(id), 'inputs has emb1', G.managementInputs(id).includes('emb1'), 'n inputs', G.managementInputs(id).length);
+console.log('price', G.managementPrice('emb1', 'guilda'), 'cap', G.resCap('emb1'), 'have', S.res.emb1 || 0, 'budget', G.tradeBudget(), 'gold', S.gold);
+console.log('tradeBuyer', G.tradeBuyer('emb1'));
+for (const h of S.heroes) console.log(h.name, 'saleBuyer', G.saleBuyer(h), 'state', h.state, 'pend emb1', (h.pendingSale || {}).emb1);

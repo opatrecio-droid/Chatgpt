@@ -1,0 +1,133 @@
+/* Aurora 043 · avisos em uma faixa só.
+   Tudo o que é passageiro (aviso, manchete, nome da zona) ocupa o mesmo lugar, um por vez,
+   logo abaixo dos retratos. Nada atravessa o centro do mapa. */
+html.aurora-rpg #app #banner {display:none!important}
+html.aurora-rpg #app #hud #tslot,
+html.aurora-rpg #app #hud #zonechip {display:none!important}
+
+html.aurora-rpg #app #hud #av-lane {
+  position:absolute;left:16px;top:calc(100% + 6px);z-index:2;
+  width:min(calc(100% - 16px - 92px), 420px);
+  display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  pointer-events:none;
+}
+html.aurora-rpg #app:has(#sheet.on) #hud #av-lane {display:none}
+html.aurora-rpg #app #hud #av-lane>* {pointer-events:auto}
+
+/* Seguir herói, chefe e Colosso: linhas fixas da faixa, sem posição própria. */
+html.aurora-rpg.hub-polished #app #hud #av-lane #hub-follow {
+  position:static!important;left:auto!important;top:auto!important;
+  height:30px!important;min-height:30px!important;max-width:100%!important;
+  padding:0 10px 0 6px!important;margin:0!important;gap:6px!important;
+  border:0!important;border-radius:0!important;border-left:2px solid var(--hud-accent,#d0bd95)!important;
+  background:linear-gradient(90deg,#0c1015e0,#0c1015a8 70%,#0c101500)!important;
+  color:var(--hud-text,#eeeae2)!important;font:500 12px/1.2 Arial,sans-serif!important;
+  text-shadow:0 1px 2px #000c;box-shadow:none!important;
+}
+html.aurora-rpg.hub-polished #app #hud #av-lane #hub-follow>.hub-sprite {--hub-icon-size:20px!important}
+html.aurora-rpg #app #hud #av-lane :is(#bossbar,#colbar) {
+  position:static!important;width:100%!important;max-width:320px!important;margin:0!important;
+  padding:5px 10px 6px 8px!important;box-sizing:border-box;
+  border:0!important;border-image:none!important;border-radius:0!important;border-left:2px solid #b79ad6!important;
+  background:linear-gradient(90deg,#0c1015e6,#0c1015b0 75%,#0c101500)!important;box-shadow:none!important;
+}
+html.aurora-rpg #app #hud #av-lane :is(#bossbar,#colbar):not(.on) {display:none!important}
+html.aurora-rpg #app #hud #av-lane :is(#bossbar,#colbar).on {display:block!important}
+html.aurora-rpg #app #hud #av-lane #bossbar>b {
+  display:flex;justify-content:space-between;gap:8px;margin:0 0 4px;
+  font:600 12px/1.2 Arial,sans-serif!important;color:#eeeae2!important;letter-spacing:.2px;text-shadow:0 1px 2px #000c;
+}
+html.aurora-rpg #app #hud #av-lane #bossbar #bb-p {color:#cdb9e6;font-variant-numeric:tabular-nums}
+html.aurora-rpg #app #hud #av-lane #bossbar .bar {
+  height:5px!important;min-height:0!important;padding:0!important;border:0!important;border-image:none!important;
+  background:#11161ccc!important;border-radius:0!important;box-shadow:none!important;overflow:hidden;
+}
+html.aurora-rpg #app #hud #av-lane #bossbar .bar>i {
+  display:block;height:100%!important;background:linear-gradient(90deg,#8a5fc0,#c9a3ee)!important;
+  border:0!important;box-shadow:none!important;transition:width .25s linear;
+}
+
+/* A mensagem: ícone, texto e uma faixa escura que some para a direita. */
+html.aurora-rpg #app #hud #av-slot {width:100%;min-height:0}
+html.aurora-rpg #app #hud .av-msg {
+  --av-c:#b8b9b5;
+  position:relative;display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;
+  min-height:34px;padding:5px 26px 5px 8px;margin:0;border:0;border-left:2px solid var(--av-c);
+  background:linear-gradient(90deg,#0c1015ec 0%,#0c1015c4 62%,#0c101500 100%);
+  color:#eeeae2;font:400 12px/1.35 Arial,sans-serif;text-align:left;text-shadow:0 1px 2px #000c;
+  animation:av-in .18s ease-out;
+}
+html.aurora-rpg #app #hud .av-msg.out {animation:av-out .22s ease-in forwards}
+html.aurora-rpg #app #hud .av-msg .av-ic {flex:none;display:grid;place-items:center;width:20px;height:20px}
+html.aurora-rpg #app #hud .av-msg .av-ic .i {width:18px;height:18px;filter:saturate(.75) drop-shadow(0 1px 1px #000a)}
+html.aurora-rpg #app #hud .av-msg .av-tx {
+  min-width:0;flex:1;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+html.aurora-rpg #app #hud .av-msg .av-n {
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  font:600 10px/1 Arial,sans-serif;color:#b8b9b5;letter-spacing:.3px;
+}
+html.aurora-rpg #app #hud .av-msg[data-a] {cursor:pointer}
+html.aurora-rpg #app #hud .av-msg[data-a] .av-tx::after {
+  content:" ›";color:var(--hud-accent,#d0bd95);font-weight:700;
+}
+html.aurora-rpg #app #hud .av-msg.k-good {--av-c:#98ad8a}
+html.aurora-rpg #app #hud .av-msg.k-bad {--av-c:#d08c80}
+html.aurora-rpg #app #hud .av-msg.k-epic,
+html.aurora-rpg #app #hud .av-msg.k-gold {--av-c:#d0bd95}
+html.aurora-rpg #app #hud .av-msg.k-boss {--av-c:#b79ad6}
+
+/* Manchete (chefe, Maré, nível de reino): mesma faixa, três linhas curtas. */
+html.aurora-rpg #app #hud .av-msg.head {min-height:52px;padding-top:7px;padding-bottom:7px;--av-c:#d0bd95}
+html.aurora-rpg #app #hud .av-msg.head .av-tx {display:flex;flex-direction:column;gap:1px;-webkit-line-clamp:unset}
+html.aurora-rpg #app #hud .av-msg.head small {
+  font:600 9px/1.2 Arial,sans-serif;letter-spacing:1.4px;text-transform:uppercase;color:var(--hud-accent,#d0bd95);
+}
+html.aurora-rpg #app #hud .av-msg.head b {
+  font:600 15px/1.2 Georgia,"Times New Roman",serif;color:#fff6e2;letter-spacing:.2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+html.aurora-rpg #app #hud .av-msg.head em {
+  font:400 11px/1.25 Arial,sans-serif;font-style:normal;color:#c9c6bd;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+html.aurora-rpg #app #hud .av-msg.head.k-boss {--av-c:#b79ad6}
+html.aurora-rpg #app #hud .av-msg.head.k-boss small {color:#cdb9e6}
+
+/* Nome da zona: só texto, e só quando a faixa está livre. */
+html.aurora-rpg #app #hud .av-msg.k-ambient {
+  min-height:24px;padding:3px 8px;border-left-color:transparent;background:none;
+  font:500 11px/1.2 Arial,sans-serif;letter-spacing:.8px;text-transform:uppercase;color:#d6d3ca;
+}
+html.aurora-rpg #app #hud .av-msg.k-ambient .av-ic {display:none}
+
+/* O que não coube vira um contador discreto; o toque abre os últimos avisos. */
+html.aurora-rpg #app #hud #av-more {
+  display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 10px 0 8px;margin:0;
+  border:0;border-left:2px solid #6f7275;background:linear-gradient(90deg,#0c1015d8,#0c101590 70%,#0c101500);
+  color:#c9c6bd;font:500 11px/1 Arial,sans-serif;text-shadow:0 1px 2px #000c;cursor:pointer;
+}
+html.aurora-rpg #app #hud #av-more[hidden],
+html.aurora-rpg #app #hud #av-tray[hidden] {display:none!important}
+html.aurora-rpg #app #hud #av-tray {
+  width:100%;max-height:min(40dvh,300px);overflow:auto;box-sizing:border-box;margin:0;padding:6px 0;
+  background:#0c1015f2;border-left:2px solid #6f7275;
+}
+html.aurora-rpg #app #hud #av-tray .av-row {
+  display:flex;gap:8px;padding:5px 10px;font:400 12px/1.35 Arial,sans-serif;color:#dedbd2;border-left:2px solid transparent;margin-left:-2px;
+}
+html.aurora-rpg #app #hud #av-tray .av-row small {flex:none;width:26px;color:#8f9296;font:400 10px/1.6 Arial,sans-serif}
+html.aurora-rpg #app #hud #av-tray .av-row.k-good {border-left-color:#98ad8a}
+html.aurora-rpg #app #hud #av-tray .av-row.k-bad {border-left-color:#d08c80}
+html.aurora-rpg #app #hud #av-tray .av-row.k-epic {border-left-color:#d0bd95}
+html.aurora-rpg #app #hud #av-tray .av-row.k-boss {border-left-color:#b79ad6}
+html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;font:400 12px/1.3 Arial,sans-serif}
+
+@keyframes av-in {from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes av-out {to{opacity:0;transform:translateX(-6px)}}
+@media (prefers-reduced-motion:reduce) {
+  html.aurora-rpg #app #hud .av-msg,html.aurora-rpg #app #hud .av-msg.out {animation:none}
+}
+@media(min-width:860px) {
+  html.aurora-rpg #app #hud #av-lane {left:24px;width:min(calc(100% - 24px), 420px)}
+}

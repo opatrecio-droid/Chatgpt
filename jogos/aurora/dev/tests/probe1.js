@@ -1,0 +1,14 @@
+'use strict';
+const path = require('path');
+const { load, start, run } = require('./headless');
+const G = load(path.join(__dirname, '..', '..', 'aurora-cronicas-da-fenda.html')); const S = start(G, 271);
+run(G, G.DAY_SEC * 6);
+const h = S.heroes.find(h => h.lvl >= 10);
+console.log('promoReq', JSON.stringify(G.promoReq(h)), 'guilda', G.bLvl('guilda'), 'gold', Math.round(S.gold), 'canPromote', G.canPromote(h));
+console.log('res', JSON.stringify(Object.fromEntries(Object.entries(S.res).filter(([k, v]) => v > 0).map(([k, v]) => [k, Math.round(v)]))));
+console.log('ZMATS', JSON.stringify(G.ZMATS));
+console.log('bags', S.heroes.map(h => h.name + ':' + JSON.stringify(h.bag) + ' gold ' + Math.round(h.gold) + ' pend ' + JSON.stringify(h.pendingSale)).join('\n'));
+console.log('blds', G.BLD_IDS.map(id => id + ':' + G.bLvl(id)).join(' '));
+console.log('quest', S.quest.step, G.questCur().t, G.questCur().cur + '/' + G.questCur().n);
+console.log('actions', JSON.stringify(G._actions));
+console.log('drops on ground', (G.drops || S.drops || []).length, Object.keys(S).join(','));

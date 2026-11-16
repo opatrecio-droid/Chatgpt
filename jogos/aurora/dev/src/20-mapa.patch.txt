@@ -1,0 +1,26 @@
+Trocas exatas no desenho do mundo (50-render) para a margem de neblina.
+
+<<<< câmera: margem além da borda do mapa
+    c.x = G.clamp(c.x, Math.min(hw, Wd.w * TS / 2), Math.max(Wd.w * TS - hw, Wd.w * TS / 2)); c.y = G.clamp(c.y, Math.min(hh, Wd.h * TS / 2), Math.max(Wd.h * TS - hh, Wd.h * TS / 2));
+====
+    { /* 043: a câmera passa da borda (neblina) para os extremos do mapa saírem de baixo do HUD */
+      const mw = Wd.w * TS, mh = Wd.h * TS, fog = R.fogMargin ? R.fogMargin(hw, hh) : { x: 0, top: 0, bottom: 0 };
+      c.x = G.clamp(c.x, Math.min(hw - fog.x, mw / 2), Math.max(mw - hw + fog.x, mw / 2));
+      c.y = G.clamp(c.y, Math.min(hh - fog.top, mh / 2), Math.max(mh - hh + fog.bottom, mh / 2));
+    }
+>>>>
+
+<<<< fundo fora do mapa: cor da neblina
+    if (ox > 0 || oy > 0 || ox + terrain.width * z < cw || oy + terrain.height * z < ch) { ctx.fillStyle = '#1c3a1c'; ctx.fillRect(0, 0, cw, ch); }
+====
+    if (ox > 0 || oy > 0 || ox + terrain.width * z < cw || oy + terrain.height * z < ch) { ctx.fillStyle = '#39464e'; ctx.fillRect(0, 0, cw, ch); }
+>>>>
+
+<<<< neblina da borda antes dos efeitos por cima
+    ctx.globalAlpha = 1;
+    ambient(dt, vx0, vx1, vy0, vy1, dark);
+====
+    ctx.globalAlpha = 1;
+    ambient(dt, vx0, vx1, vy0, vy1, dark);
+    if (R.drawEdgeFog) R.drawEdgeFog(ctx, X, Y, z, cw, ch, R.t);
+>>>>
