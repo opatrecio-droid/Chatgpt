@@ -28,13 +28,37 @@
   function runeRing() {
     var out = '', k = 0, a, x, y, rot;
     for (a = 0; a <= 180; a += 14) {
-      x = 50 + 43.5 * Math.cos(a * Math.PI / 180); y = 46 - 39.5 * Math.sin(a * Math.PI / 180); rot = 90 - a;
+      x = 50 + 39.8 * Math.cos(a * Math.PI / 180); y = 47 - 36.6 * Math.sin(a * Math.PI / 180); rot = 90 - a;
       out += '<path d="' + rune(++k * 7) + '" transform="translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + rot + ') translate(-1.5 -2.5)"/>';
     }
     for (var yy = 54; yy <= 128; yy += 7.5) {
-      out += '<path d="' + rune(++k * 7) + '" transform="translate(6.6 ' + yy + ') translate(-1.5 -2.5)"/><path d="' + rune(++k * 7) + '" transform="translate(93.4 ' + yy + ') translate(-1.5 -2.5)"/>';
+      out += '<path d="' + rune(++k * 7) + '" transform="translate(10.2 ' + yy + ') translate(-1.5 -2.5)"/><path d="' + rune(++k * 7) + '" transform="translate(89.8 ' + yy + ') translate(-1.5 -2.5)"/>';
     }
     return out;
+  }
+  function runeCircle() {
+    var o = '', k = 0;
+    for (var a = 0; a < 360; a += 15) o += '<path d="' + rune(++k * 11) + '" transform="rotate(' + a + ') translate(-1.5 -44)"/>';
+    return o;
+  }
+  function galaxy() {
+    var cols = ['#ff4fd8', '#38e8ff', '#8a5cff'], o = '', s = 17, i, k;
+    var rnd = function () { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    [[9, .13], [5, .2], [2.2, .4], [.8, .9]].forEach(function (L) {
+      for (k = 0; k < 3; k++) {
+        var d = '';
+        for (var u = 0; u <= 1.0001; u += .04) { var rr = 3 + 43 * Math.pow(u, 1.08), an = u * 4.2 + k * 2.0944; d += (u ? 'L' : 'M') + (rr * Math.cos(an)).toFixed(1) + ' ' + (rr * Math.sin(an)).toFixed(1); }
+        o += '<path d="' + d + '" stroke="' + (L[0] < 1 ? '#fff' : cols[k]) + '" stroke-width="' + L[0] + '" stroke-opacity="' + L[1] + '" fill="none" stroke-linecap="round"/>';
+      }
+    });
+    for (i = 0; i < 54; i++) { var ra = 4 + rnd() * 44, an2 = rnd() * 6.283; o += '<circle cx="' + (ra * Math.cos(an2)).toFixed(1) + '" cy="' + (ra * Math.sin(an2)).toFixed(1) + '" r="' + (.3 + rnd() * .7).toFixed(2) + '" fill="#fff" opacity="' + (.5 + rnd() * .5).toFixed(2) + '"/>'; }
+    return '<svg class="rcx-gx" viewBox="-50 -50 100 100">' + o + '</svg>';
+  }
+  var GAL = null, SS = null;
+  function sigilStar() {
+    var p = '', i, rr;
+    for (i = 0; i < 16; i++) { rr = i % 2 ? 15 : (i % 4 ? 34 : 47); p += (i ? 'L' : 'M') + (rr * Math.sin(i * Math.PI / 8)).toFixed(1) + ' ' + (-rr * Math.cos(i * Math.PI / 8)).toFixed(1); }
+    return '<svg class="rcx-ss" viewBox="-50 -50 100 100"><circle r="50" fill="url(#rcg-gl)"/><circle r="40" fill="rgba(8,12,56,.55)" stroke="#b8f4ff" stroke-width="1.2" stroke-opacity=".9"/><circle r="35" fill="none" stroke="#e6b8ff" stroke-width=".6" stroke-opacity=".8" stroke-dasharray="2 3"/><path d="' + p + 'Z" fill="rgba(160,240,255,.28)" stroke="#fff" stroke-width=".7" stroke-opacity=".9"/></svg>';
   }
   function sharedDefs() {
     var d = '';
@@ -44,6 +68,10 @@
     d += lg('m3', ['#d6a0ff', '#8744cc', '#46207c', '#1f0c3e']);
     d += lg('m4', ['#fff6bd', '#ffc83c', '#c6730f', '#6a3406']);
     d += lg('m5', ['#dff8ff', '#7fd8ff', '#6a5fe0', '#26286e']);
+    d += '<linearGradient id="rcg-m5g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fe8ff" stop-opacity=".4"/><stop offset=".5" stop-color="#3f34c8" stop-opacity=".55"/><stop offset="1" stop-color="#0a0c48" stop-opacity=".8"/></linearGradient>';
+    d += lg('cr', ['#ffffff', '#9ff0ff', '#8a7cff'], 1, 1) + lg('mg', ['#fffbe6', '#ffe08a', '#d9a02a', '#8a5a10']);
+    d += '<radialGradient id="rcg-gl"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".3" stop-color="#8ff3ff" stop-opacity=".55"/><stop offset=".65" stop-color="#b070ff" stop-opacity=".2"/><stop offset="1" stop-color="#b070ff" stop-opacity="0"/></radialGradient>';
+    d += '<g id="rcm-rr">' + runeCircle() + '</g>';
     d += lg('pl', ['#272a31', '#14161a', '#0a0b0d']);
     d += '<linearGradient id="rcg-sheen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>';
     d += rg('gB', ['#d9ecff', '#3f8dff', '#0b2a8a']) + rg('gP', ['#f1d6ff', '#a24dff', '#3a0f7a']) + rg('gR', ['#ffd4c8', '#ff3b2a', '#6e0808']) + rg('gC', ['#f0ffff', '#37e6ff', '#0a4f8a']) + rg('gG', ['#e9ffd0', '#6fd14a', '#1c5a14']) + rg('gA', ['#fff4c0', '#ffb62e', '#8a4a06']);
@@ -58,7 +86,7 @@
   var OUT = 'M8 2H92Q98 2 98 8V132Q98 138 92 138H8Q2 138 2 132V8Q2 2 8 2Z';
   var OUT5 = 'M6 138Q2 138 2 134V46C2 20 24 2 50 2C76 2 98 20 98 46V134Q98 138 94 138Z';
   var HOLE = 'M14 11H86Q89 11 89 14V114Q89 117 86 117H14Q11 117 11 114V14Q11 11 14 11Z';
-  var HOLE5 = 'M11 117V46C11 25 28 11 50 11C72 11 89 25 89 46V117Z';
+  var HOLE5 = 'M14 115V47C14 27 30 14 50 14C70 14 86 27 86 47V115Z';
   function gem(cx, cy, r, g, m) {
     return '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r + 1.1) + '" fill="url(#rcg-m' + m + ')" stroke="#000" stroke-opacity=".6" stroke-width=".5"/><circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="url(#rcg-g' + g + ')"/><circle cx="' + (cx - r * .35) + '" cy="' + (cy - r * .4) + '" r="' + (r * .3).toFixed(2) + '" fill="#fff" opacity=".9"/>';
   }
@@ -78,7 +106,7 @@
   }
   function frame(r) {
     var arch = r === 5, out = arch ? OUT5 : OUT, hole = arch ? HOLE5 : HOLE, s = '';
-    s += '<path d="' + out + ' ' + hole + '" fill-rule="evenodd" fill="url(#rcg-m' + r + ')"/>';
+    s += '<path d="' + out + ' ' + hole + '" fill-rule="evenodd" fill="url(#rcg-m' + (r === 5 ? '5g' : r) + ')"/>';
     if (r === 1) s += '<g stroke="#2a1608" stroke-opacity=".35" stroke-width=".5" fill="none"><path d="M4.5 12V128M7.2 12V128M92.8 12V128M95.5 12V128M16 4.5H84M16 7.2H84"/></g>';
     if (r === 0) s += '<g fill="none" stroke="#0b0b0d" stroke-opacity=".7" stroke-width=".7" stroke-linejoin="round"><path d="M8 38l4 5-3 6 5 6"/><path d="M91 80l-4 5 3 7-3 5"/><path d="M30 5l3 3-2 3"/><path d="M70 133l3-2-1-4"/></g>';
     s += '<path d="' + out + ' ' + hole + '" fill-rule="evenodd" fill="url(#rcg-sheen)"/>';
@@ -114,12 +142,25 @@
       s += gem(6.6, 64, 2.2, 'A', 4) + gem(93.4, 64, 2.2, 'A', 4);
     }
     if (r === 5) {
-      s += '<g stroke="#bff6ff" stroke-width=".7" opacity=".95"><use href="#rcm-run"/></g>';
-      s += '<path d="' + hole + '" fill="none" stroke="#c9f8ff" stroke-opacity=".8" stroke-width=".6" transform="translate(50 64) scale(.965) translate(-50 -64)"/>';
-      s += '<circle cx="50" cy="3.6" r="7.5" fill="#62f4ff" opacity=".28"/>' + gem(50, 3.6, 4, 'C', 5) + '<path d="M50 -4L51.2 2.4L57 3.6L51.2 4.8L50 11.2L48.8 4.8L43 3.6L48.8 2.4Z" fill="#fff" opacity=".9"/>';
-      s += gem(6.6, 132, 2.2, 'C', 5) + gem(93.4, 132, 2.2, 'C', 5) + gem(6.6, 64, 2, 'P', 5) + gem(93.4, 64, 2, 'P', 5);
+      var sc = function (x, y) { return 'transform="translate(50 70) scale(' + x + ' ' + y + ') translate(-50 -70)"'; };
+      s += '<path d="' + out + '" fill="none" stroke="#fff6d0" stroke-width="1.3" stroke-opacity=".95"/>';
+      s += '<path d="' + out + '" fill="none" stroke="#fff6d0" stroke-width=".7" stroke-opacity=".9" ' + sc(.958, .966) + '/>';
+      s += '<path d="' + out + '" fill="none" stroke="#9ff0ff" stroke-width=".6" stroke-opacity=".85" ' + sc(.918, .934) + '/>';
+      s += '<g stroke="#d4fbff" stroke-width=".6" opacity=".95"><use href="#rcm-run"/></g>';
+      s += '<path d="' + hole + '" fill="none" stroke="#fff6d0" stroke-opacity=".9" stroke-width=".6" transform="translate(50 64.5) scale(.98) translate(-50 -64.5)"/>';
+      s += '<g transform="translate(50 8) scale(1.22) translate(-50 -8)">';
+      var wing = '<path d="M44 7L1 -13L18 3Z"/><path d="M44 10L-1 -2L19 9Z"/><path d="M44 13L3 21L24 17Z"/><path d="M44 15.5L10 26L26 21Z"/>';
+      s += '<g fill="url(#rcg-cr)" stroke="#fff" stroke-width=".6" stroke-linejoin="round" fill-opacity=".92">' + wing + '<g transform="translate(100 0) scale(-1 1)">' + wing + '</g></g>';
+      s += '<g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width=".4"><path d="M44 7L12 -2M44 10L10 3M44 13L12 15M44 15.5L18 22"/><g transform="translate(100 0) scale(-1 1)"><path d="M44 7L12 -2M44 10L10 3M44 13L12 15M44 15.5L18 22"/></g></g>';
+      s += '<circle cx="50" cy="-3" r="13" fill="url(#rcg-gl)"/>';
+      s += '<path d="M38 9L36 -4L43 2L50 -16L57 2L64 -4L62 9Z" fill="url(#rcg-mg)" stroke="#6a4a0c" stroke-width=".8" stroke-linejoin="round"/><rect x="37" y="7" width="26" height="4.6" rx="1.6" fill="url(#rcg-mg)" stroke="#6a4a0c" stroke-width=".6"/>';
+      s += gem(43, 9.3, 1.5, 'C', 4) + gem(57, 9.3, 1.5, 'P', 4) + gem(50, 9.3, 1.7, 'R', 4);
+      s += '<path d="M50 -13L52 -4L60 -2L52 0L50 9L48 0L40 -2L48 -4Z" fill="#fff" opacity=".95"/>' + gem(50, -3, 3.1, 'C', 4);
+      s += '</g>';
+      s += gem(7.5, 132, 2, 'C', 5) + gem(92.5, 132, 2, 'P', 5) + gem(8, 64, 2.2, 'P', 5) + gem(92, 64, 2.2, 'C', 5);
     }
     s += '<path d="M17 119H83L87 126.5L83 134H17L13 126.5Z" fill="url(#rcg-pl)" stroke="url(#rcg-m' + r + ')" stroke-width="1.7" stroke-linejoin="round"/><path d="M17 119H83L87 126.5L83 134H17L13 126.5Z" fill="none" stroke="#000" stroke-opacity=".7" stroke-width=".5"/>';
+    if (r === 5) s += '<path d="M17 119H83L87 126.5L83 134H17L13 126.5Z" fill="none" stroke="#fff6d0" stroke-width=".5" transform="translate(50 126.5) scale(.95 .78) translate(-50 -126.5)"/>' + gem(12, 126.5, 1.7, 'C', 5) + gem(88, 126.5, 1.7, 'P', 5);
     return '<svg class="rcx-svg" viewBox="0 0 100 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">' + s + '</svg>';
   }
   var FR = {};
@@ -133,13 +174,16 @@
     if (r === 2) f += '<i class="rcx-stars s1"></i><i class="rcx-stars s2"></i>';
     if (r === 3) f += '<i class="rcx-spin a"></i><i class="rcx-ring3"></i><i class="rcx-stars s1"></i>';
     if (r === 4) f += '<i class="rcx-spin a"></i><i class="rcx-ring4"></i><i class="rcx-lava"></i>';
-    if (r === 5) f += '<i class="rcx-spin a"></i><i class="rcx-spin b"></i><i class="rcx-stars s1"></i><i class="rcx-stars s2"></i><i class="rcx-core"></i>';
+    if (r === 5) {
+      GAL = GAL || galaxy();
+      f += '<i class="rcx-gal"></i><i class="rcx-spin c"></i>' + GAL + '<i class="rcx-stars s1"></i><i class="rcx-stars s2"></i><i class="rcx-stars s3"></i><svg class="rcx-rr" viewBox="-50 -50 100 100"><g fill="none" stroke="#8ff3ff" stroke-linecap="round"><circle r="47.5" stroke-opacity=".6" stroke-width=".5"/><circle r="40" stroke-opacity=".45" stroke-width=".4"/><g stroke-width=".9" stroke-opacity=".9"><use href="#rcm-rr"/></g></g></svg><svg class="rcx-const" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="14,20 32,32 46,24 62,38 80,28 88,50" fill="none" stroke="#bff6ff" stroke-width=".5" stroke-opacity=".6"/><g fill="#fff"><circle cx="14" cy="20" r="1.3"/><circle cx="32" cy="32" r="1"/><circle cx="46" cy="24" r="1.4"/><circle cx="62" cy="38" r="1"/><circle cx="80" cy="28" r="1.3"/><circle cx="88" cy="50" r="1"/></g></svg><i class="rcx-core"></i>';
+    }
     return f + '</div>';
   }
   function layersHTML(r) {
     var h = '<div class="rcx-clip">';
     if (r >= 3) h += '<i class="rcx-holo"></i>';
-    h += '<i class="rcx-shine"></i></div>';
+    h += '<i class="rcx-shine"></i>' + (r === 5 ? '<i class="rcx-shine2"></i>' : '') + '</div>';
     return h;
   }
 
@@ -167,10 +211,10 @@
     return (G.RAR && G.RAR[c.r]) || '';
   }
   function backHTML(r, name) {
-    return '<div class="rcx-f rcx-back">' + '<i class="rcx-aura-in"></i>' + fieldHTML(r).replace('</div>', '<i class="rcx-sigil">' + (r >= 3 ? '' : '?') + '</i></div>') + frameOf(r) + layersHTML(r) + '<div class="rcx-plate"><span>' + esc(name) + '</span></div></div>';
+    return '<div class="rcx-f rcx-back">' + (r === 5 ? '<i class="rcx-prism"><b></b></i>' : '') + fieldHTML(r).replace('</div>', '<i class="rcx-sigil">' + (r >= 3 ? '' : '?') + '</i></div>') + frameOf(r) + layersHTML(r) + '<div class="rcx-plate"><span>' + esc(name) + '</span></div></div>';
   }
   function frontHTML(r, c) {
-    return '<div class="rcx-f rcx-front">' + fieldHTML(r).replace('</div>', '<i class="rcx-bloom"></i></div>') +
+    return '<div class="rcx-f rcx-front">' + (r === 5 ? '<i class="rcx-prism"><b></b></i>' : '') + fieldHTML(r).replace('</div>', '<i class="rcx-bloom"></i>' + (r === 5 ? (SS = SS || sigilStar()) : '') + '</div>') +
       '<div class="rcx-fc"><span class="rcx-rar">' + esc(G.RAR[r]) + '</span><span class="rcx-ico">' + cardIcon(c) + '</span><span class="rcx-nm">' + esc(cardTitle(c)) + '</span></div>' +
       frameOf(r) + layersHTML(r) + '<div class="rcx-plate rcx-val"><span>' + esc(cardValue(c)) + '</span></div></div>';
   }
@@ -271,7 +315,7 @@
       stage.appendChild(grid);
       cv = mk('canvas', 'rcx-cv'); stage.appendChild(cv);
       stage.appendChild(mk('div', 'rcx-sflash'));
-      stage.appendChild(mk('div', 'rcx-banner', '<span></span>'));
+      stage.appendChild(mk('div', 'rcx-banner', '<span><b></b></span>'));
       A.appendChild(stage);
       var cnt = mk('div', 'rcx-count'); if (rtc) cnt.appendChild(rtc);
       var pp = mk('div', 'rcx-pips'); cnt.appendChild(pp);
@@ -284,7 +328,7 @@
         el.className = el.className.replace(/\brar\d\b/g, '') + ' rar' + r + ' rcx-card';
         el.style.cssText = '--c:' + th.c + ';--d:' + th.d + ';--i:' + i;
         el.setAttribute('role', 'button'); el.tabIndex = 0;
-        el.innerHTML = '<i class="rcx-aura"></i>' + (r === 4 ? '<i class="rcx-fl l"></i><i class="rcx-fl r"></i>' : '') + '<div class="rcx-lift"><div class="rcx-in">' + backHTML(r, G.RAR[r]) + frontHTML(r, c) + '</div></div>';
+        el.innerHTML = (r === 5 ? '<i class="rcx-gods"></i>' : '') + '<i class="rcx-aura"></i>' + (r === 5 ? '<i class="rcx-aura b"></i><i class="rcx-halo"></i>' : '') + (r === 4 ? '<i class="rcx-fl l"></i><i class="rcx-fl r"></i>' : '') + '<div class="rcx-lift"><div class="rcx-in">' + backHTML(r, G.RAR[r]) + frontHTML(r, c) + '</div></div>' + (r === 5 ? '<i class="rcx-cry c1"></i><i class="rcx-cry c2"></i><i class="rcx-cry c3"></i><i class="rcx-cry c4"></i>' : '');
         pips.push(pp.appendChild(mk('i', 'rcx-pip', '')));
         cardEls.push(el);
         el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
@@ -355,19 +399,23 @@
 
     /* partículas */
     var P_ = [], ctx2 = cv.getContext('2d'), CAP = low ? 36 : 90, last = 0, acc = 0;
+    var SP5 = [[4, 'tw', ['#b4fcff', '#d6b6ff', '#fff']], [4.5, 'prism', ['#62f4ff', '#ff6ad5', '#ffe27a', '#a98bff', '#7affc8']], [2.6, 'orb', ['#fff', '#9ff6ff', '#ffe9a0']]];
     var SP = [[1.1, 'ember', ['#ff9a4a', '#ff6a2a']], [.6, 'mote', ['#a4ec74']], [1.8, 'tw', ['#cfe9ff', '#6cc0ff']], [2.2, 'wisp', ['#e0b0ff', '#a35cff']], [6, 'ember', ['#ffd27a', '#ff8a2a', '#ffb347']], [4.5, 'tw', ['#b4fcff', '#d6b6ff', '#fff']]];
     function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
     function spawn(i, kind, cols) {
       var rc = rects[i]; if (!rc || P_.length >= CAP) return;
       var p = { t: 0, col: pick(cols), k: kind };
-      if (kind === 'ember' || kind === 'mote' || kind === 'wisp') {
-        p.x = rc.x + Math.random() * rc.w; p.y = rc.y + rc.h * (.55 + Math.random() * .45); p.vx = (Math.random() - .5) * 14; p.vy = -(kind === 'mote' ? 8 : 16 + Math.random() * 28); p.life = .9 + Math.random() * 1.2; p.s = kind === 'wisp' ? 2.4 : 1 + Math.random() * 1.6;
+      if (kind === 'orb') {
+        var oc = 0; for (var q = 0; q < P_.length; q++) if (P_[q].k === 'orb') oc++; if (oc >= (low ? 3 : 8)) return;
+        p.cx = rc.x + rc.w / 2; p.cy = rc.y + rc.h / 2; p.a = Math.random() * 6.283; p.w = (Math.random() < .5 ? -1 : 1) * (1.2 + Math.random()); p.rx = rc.w * (.6 + Math.random() * .1); p.ry = rc.h * (.58 + Math.random() * .1); p.x = p.cx; p.y = p.cy; p.vx = p.vy = 0; p.life = 2.2 + Math.random() * 1.4; p.s = 2.2 + Math.random() * 1.4;
+      } else if (kind === 'ember' || kind === 'mote' || kind === 'wisp' || kind === 'prism') {
+        p.x = rc.x + Math.random() * rc.w; p.y = rc.y + rc.h * (.55 + Math.random() * .45); p.vx = (Math.random() - .5) * 14; p.vy = -(kind === 'mote' ? 8 : kind === 'prism' ? 26 + Math.random() * 40 : 16 + Math.random() * 28); p.life = .9 + Math.random() * 1.2; p.s = kind === 'wisp' ? 2.4 : 1 + Math.random() * 1.6;
       } else { p.x = rc.x + rc.w * (.08 + Math.random() * .84); p.y = rc.y + rc.h * (.06 + Math.random() * .8); p.vx = p.vy = 0; p.life = .8 + Math.random() * 1.1; p.s = 1.6 + Math.random() * 1.8; }
       P_.push(p);
     }
     function burst(i, r) {
-      var rc = rects[i]; if (!rc) return; var n = (r >= 4 ? 34 : r >= 2 ? 20 : 9) * (low ? .5 : 1), cx = rc.x + rc.w / 2, cy = rc.y + rc.h / 2, cols = r === 5 ? ['#62f4ff', '#c9a0ff', '#fff'] : r === 4 ? ['#ffd27a', '#ff8a2a', '#fff2b0'] : [THEME[r].c, '#fff'];
-      for (var k = 0; k < n && P_.length < CAP + 40; k++) { var a = Math.random() * 6.283, sp = 70 + Math.random() * (r >= 4 ? 260 : 170); P_.push({ t: 0, k: 'b', x: cx, y: cy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: .5 + Math.random() * .6, s: 1.6 + Math.random() * 2.2, col: pick(cols) }); }
+      var rc = rects[i]; if (!rc) return; var n = (r === 5 ? 64 : r >= 4 ? 34 : r >= 2 ? 20 : 9) * (low ? .5 : 1), cx = rc.x + rc.w / 2, cy = rc.y + rc.h / 2, cols = r === 5 ? ['#62f4ff', '#ff6ad5', '#ffe27a', '#a98bff', '#fff'] : r === 4 ? ['#ffd27a', '#ff8a2a', '#fff2b0'] : [THEME[r].c, '#fff'];
+      for (var k = 0; k < n && P_.length < CAP + (r === 5 ? 80 : 40); k++) { var a = Math.random() * 6.283, sp = 70 + Math.random() * (r >= 4 ? 260 : 170); P_.push({ t: 0, k: 'b', star: r === 5 && k % 2 === 0, x: cx, y: cy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: .5 + Math.random() * .6, s: 1.6 + Math.random() * 2.2, col: pick(cols) }); }
     }
     function frameLoop(ts) {
       if (!win.isConnected) { if (ro) ro.disconnect(); mo.disconnect(); window.removeEventListener('resize', layout); return; }
@@ -375,15 +423,16 @@
       if (rm || document.hidden || !stage.offsetParent) return;
       if (ts - last < 32) return; var dt = Math.min(.08, (ts - last) / 1000); last = ts;
       var W = cv.width, Hc = cv.height; ctx2.setTransform(1, 0, 0, 1, 0, 0); ctx2.clearRect(0, 0, W, Hc); ctx2.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cardEls.forEach(function (e, i) { var sp = SP[cards[i].r | 0], rate = sp[0] * dt * (e.classList.contains('on') ? .55 : 1) * (low ? .5 : 1); if (Math.random() < rate) spawn(i, sp[1], sp[2]); });
+      cardEls.forEach(function (e, i) { (cards[i].r | 0) === 5 ? SP5.forEach(function (sp) { var rate = sp[0] * dt * (e.classList.contains('on') ? .8 : 1) * (low ? .5 : 1); if (Math.random() < rate) spawn(i, sp[1], sp[2]); }) : (function () { var sp = SP[cards[i].r | 0], rate = sp[0] * dt * (e.classList.contains('on') ? .55 : 1) * (low ? .5 : 1); if (Math.random() < rate) spawn(i, sp[1], sp[2]); })(); });
       ctx2.globalCompositeOperation = 'lighter';
       for (var j = P_.length - 1; j >= 0; j--) {
         var p = P_[j]; p.t += dt; if (p.t >= p.life) { P_.splice(j, 1); continue; }
         var u = p.t / p.life, al = p.k === 'tw' ? Math.sin(u * 3.1416) : p.k === 'b' ? 1 - u : Math.sin(u * 3.1416) * .9;
         if (p.k === 'b') { p.vx *= .93; p.vy *= .93; }
-        p.x += p.vx * dt + (p.k === 'ember' ? Math.sin(p.t * 6 + j) * .25 : 0); p.y += p.vy * dt;
+        if (p.k === 'orb') { p.a += p.w * dt; p.x = p.cx + Math.cos(p.a) * p.rx; p.y = p.cy + Math.sin(p.a) * p.ry; }
+        if (p.k !== 'orb') p.x += p.vx * dt + (p.k === 'ember' ? Math.sin(p.t * 6 + j) * .25 : 0); if (p.k !== 'orb') p.y += p.vy * dt;
         ctx2.globalAlpha = Math.max(0, al); ctx2.fillStyle = p.col;
-        if (p.k === 'tw') { var s = p.s * (.6 + al * .6); ctx2.fillRect(p.x - s * 1.4, p.y - .5, s * 2.8, 1); ctx2.fillRect(p.x - .5, p.y - s * 1.4, 1, s * 2.8); ctx2.fillRect(p.x - s * .35, p.y - s * .35, s * .7, s * .7); }
+        if (p.k === 'tw' || p.k === 'orb' || p.star) { var s = p.s * (.6 + al * .6) * (p.star ? 1.4 : 1); ctx2.fillRect(p.x - s * 1.4, p.y - .5, s * 2.8, 1); ctx2.fillRect(p.x - .5, p.y - s * 1.4, 1, s * 2.8); ctx2.fillRect(p.x - s * .35, p.y - s * .35, s * .7, s * .7); }
         else { ctx2.beginPath(); ctx2.arc(p.x, p.y, p.s * (p.k === 'b' ? 1 - u * .5 : 1), 0, 6.283); ctx2.fill(); }
       }
       ctx2.globalAlpha = 1;
@@ -396,11 +445,12 @@
       var el = cardEls[i], r = cards[i].r | 0; if (!el) return;
       if (rm) return;
       el.classList.add('rcx-up'); restart(el, 'rcx-popping');
-      var b = mk('div', 'rcx-burst', '<i class="rcx-flash"></i><i class="rcx-ring"></i><i class="rcx-rays"></i>'); el.appendChild(b);
+      var b = mk('div', 'rcx-burst', '<i class="rcx-flash"></i><i class="rcx-ring"></i><i class="rcx-rays"></i>' + (r === 5 ? '<i class="rcx-shock"></i><i class="rcx-rays b"></i>' : '')); el.appendChild(b);
       setTimeout(function () { b.remove(); el.classList.remove('rcx-up'); el.classList.remove('rcx-popping'); }, 1700);
       setTimeout(function () { if (win.isConnected) burst(i, r); }, 260);
+      if (r === 5) setTimeout(function () { if (win.isConnected) burst(i, r); }, 520);
       if (r >= 4) {
-        banner.className = 'rcx-banner r' + r; banner.firstChild.textContent = BANNER[r]; restart(banner, 'go');
+        banner.className = 'rcx-banner r' + r; banner.querySelector('b').textContent = BANNER[r]; restart(banner, 'go');
         sflash.className = 'rcx-sflash r' + r; restart(sflash, 'go');
       }
     }
