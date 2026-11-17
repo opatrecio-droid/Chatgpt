@@ -25,8 +25,13 @@ const fs = require('fs');
   const snap = (n) => p.screenshot({ path: out + '-' + n + '.png' });
   await p.waitForTimeout(600);
   await cam(74.5, 27.5, 2.6); await p.waitForTimeout(500); await snap('cena');
-  await p.evaluate(() => { G.S.speed = 2; }); await p.waitForTimeout(3000);
+  const tStart = await p.evaluate(() => { G.S.speed = 3; return G.S.t; });
+  while ((await p.evaluate(() => G.S.t)) - tStart < 60) await p.waitForTimeout(500);       // ~60 s de jogo
   await cam(74.5, 27.5, 2.6); await snap('cena2');
+  const dist = await p.evaluate(() => { const B = G.bosque, d = G.W.plots.lenharia.door, an = B.an.filter(a => a.st !== 'dead' && !a.gone), f = (a, b) => an.filter(x => x.y >= a && x.y < b).length;
+    return { total: an.length, 'y5-15': f(5, 15), 'y15-25': f(15, 25), 'y25-35': f(25, 35), a_menos_de_6_da_Lenharia: an.filter(a => Math.hypot(a.x - d[0], a.y - d[1]) < 6).length, longe_da_casa_7: an.filter(a => Math.hypot(a.x - a.home[0], a.y - a.home[1]) > 7).length, porEspecie: an.reduce((o, a) => (o[a.sp] = (o[a.sp] || 0) + 1, o), {}) }; });
+  console.log('distribuição:', JSON.stringify(dist));
+  await cam(76, 20.5, 1.5); await p.waitForTimeout(400); await snap('mata');
   /* um animal e um fruto de perto */
   const near = await p.evaluate(() => { const B = G.bosque; const f = B.fr.find(f => f.st === 'ground'); const a = B.an.find(a => a.sp === 'deer'); return { f: f && [f.x, f.y], a: a && [a.x, a.y], st: B.an.map(a => a.sp + ':' + a.st).join(' '), fr: B.fr.length, ft: B.ft.length }; });
   console.log(JSON.stringify(near));

@@ -244,9 +244,10 @@
     const opts = [];
     if (popCount() < CAP) {
       const d = adults('deer'), r = adults('rabbit'), b = adults('boar');
-      if (d.some((a) => a.sex === 'm') && d.some((a) => a.sex === 'f')) opts.push('deer');
-      if (r.length >= 2) opts.push('rabbit', 'rabbit');
-      if (b.length >= 2) opts.push('boar');
+      const cnt = (sp) => B.an.filter((x) => x.sp === sp && aliveAn(x)).length;
+      if (d.some((a) => a.sex === 'm') && d.some((a) => a.sex === 'f') && cnt('deer') < 5) opts.push('deer');
+      if (r.length >= 2 && cnt('rabbit') < 5) opts.push('rabbit', 'rabbit');
+      if (b.length >= 2 && cnt('boar') < 3) opts.push('boar');
     }
     if (B.an.filter((a) => a.sp === 'bird' && aliveAn(a)).length < BIRDS) opts.push('bird');
     if (!opts.length) return;

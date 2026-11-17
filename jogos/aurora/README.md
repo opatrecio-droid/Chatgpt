@@ -24,10 +24,14 @@
 - **Cidade viva**: portas das casas abrem quando o morador chega e ele entra pela soleira; janelas das casas acendem
   uma a uma ao anoitecer (mais luz com gente em casa) e apagam de madrugada; postes acendem em sequência a partir
   da praça, com poça de luz, névoa, mariposas e vagalumes.
+- **Colisão** nos objetos da cidade (bancos, postes, barris, caixotes, canteiros, barracas…): ninguém atravessa.
+- **HUD mais limpo**: sem o cartão "herói em perigo" (Reunir/Curar) e sem a barra de vida do chefe no topo; a vida
+  do chefe aparece só sobre ele, no mapa.
 - **Guardas vivos**: ronda ao longo do muro, olham para os lados, ficam em alerta e saúdam quando um herói passa,
   falas ociosas, tocha à noite e troca de turno às 6h.
-- **Bosque de caça (Lenharia)**: 1/3 das árvores dá frutos que amadurecem e caem; cervos, javalis, coelhos e pássaros
-  comem os frutos, fogem de gente e do barulho do tiro e se reproduzem com fartura. Zeno caça com arco (6h–17h),
+- **Bosque de caça (Lenharia)**: a mata inteira a leste do rio; 1/3 das árvores dá frutos que amadurecem e caem;
+  16 animais (cervos, javalis, coelhos, pássaros), cada um com seu território espalhado pela mata, comem os frutos,
+  fogem de gente e do barulho do tiro e se reproduzem com fartura. Zeno caça com arco (6h–17h),
   nunca abate o último de uma espécie e entrega na Lenharia: cervo +2 couro +3 refeição; javali +2 couro +1 presa
   +4 refeição; coelho +1 refeição.
 
