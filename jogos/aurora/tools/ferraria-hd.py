@@ -74,9 +74,16 @@ edge = al & ((sh(A, 1, 0) == 0) | (sh(A, -1, 0) == 0) | (sh(A, 0, 1) == 0) | (sh
 ol = np.array([26, 20, 34], np.float32)
 out = np.where(edge[..., None], out * 0.4 + ol * 0.6, out)
 res = np.concatenate([np.clip(out, 0, 255), o[..., 3:4]], -1).astype(np.uint8)
+# regras específicas de um prédio (opcional): tools/hd_rules/<id>.py recebe e pode alterar `res` (uint8 H2×W2×4),
+# `a` (original 1× float), `hsh`, `np`; assim cada prédio ganha detalhe próprio sem mudar os demais.
+_rules = os.path.join(ROOT, 'tools', 'hd_rules', ID + '.py')
+if os.path.exists(_rules):
+    _env = {'res': res, 'a': a, 'hsh': hsh, 'np': np, 'ID': ID}
+    exec(open(_rules, encoding='utf8').read(), _env)
+    res = _env['res']
 img = Image.fromarray(res, 'RGBA'); assert img.size == (W * 2, H * 2)
 buf = io.BytesIO(); img.save(buf, 'PNG', optimize=True)
-open(os.path.join(ROOT, 'src', ID + '-hd.js'), 'w').write("(function(){'use strict';if(typeof G==='undefined'||G.HEADLESS||!G.A)return;const i=new Image();i.src='data:image/png;base64," + base64.b64encode(buf.getvalue()).decode() + "';(G.A.BuildingHD=G.A.BuildingHD||{})." + ID + "=i;})();")
+open(os.path.join(ROOT, 'src', 'hd', ID + '-hd.js'), 'w').write("(function(){'use strict';if(typeof G==='undefined'||G.HEADLESS||!G.A)return;const i=new Image();i.src='data:image/png;base64," + base64.b64encode(buf.getvalue()).decode() + "';(G.A.BuildingHD=G.A.BuildingHD||{})." + ID + "=i;})();")
 img.save(os.environ.get('HD_PREVIEW', '/dev/null') if os.environ.get('HD_PREVIEW') else os.devnull if False else io.BytesIO(), 'PNG')
 if os.environ.get('HD_PREVIEW'):
     img.save(os.environ['HD_PREVIEW'])

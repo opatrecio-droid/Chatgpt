@@ -6,9 +6,11 @@
   'use strict';
   if (typeof G === 'undefined' || G.HEADLESS || !G.A || !G.R || !G.W) return;
   const A = G.A, R = G.R, W = G.W;
-  const IMG = { ferraria: [104, 114], fazenda: [104, 114] };   // tamanho da arte embutida em aurora-building-image-sprites
+  const IMG = {};   // tamanho da arte embutida em aurora-building-image-sprites: todos os prédios usam 104×114
+  for (const id of G.BLD_IDS || []) IMG[id] = [104, 114];
   /* prédios cuja equipe trabalha DENTRO da animação (some da porta). Na Fazenda a equipe trabalha no campo (3M-vida). */
-  const STAFF_IN_ART = { ferraria: 1 };
+  /* a arte declara se a equipe trabalha nela (função com .staffInArt = true): some da porta e vira o.workers */
+  const STAFF_IN_ART = new Proxy({}, { get: (_, id) => !!(A.BuildingArt && A.BuildingArt[id] && A.BuildingArt[id].staffInArt) || id === 'ferraria' });
   const media = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   let crafted = -1, craftUntil = 0;
 

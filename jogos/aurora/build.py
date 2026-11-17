@@ -3,7 +3,8 @@
 
 Uso: python3 build.py   ->  aurora-046-animacoes.html
      python3 build.py --out /caminho/teste.html --only skill-fx-core.js,skill-fx-esp-cav-arq.js
-       (--only limita os módulos e patches incluídos; útil para testar um módulo isolado)
+       (--only limita os módulos e patches incluídos; útil para testar um módulo isolado.
+        Pastas: 'hd/' inclui todos os src/hd/*.js; 'art/' todos os src/art/*.js)
 """
 import importlib.util
 import os
@@ -26,11 +27,14 @@ MODULES = [
     ('script', 'aurora-return-cards', 'return-cards.js'),
     ('script', 'aurora-portal-art', 'portal-art.js'),
     ('script', 'aurora-portal', 'portal.js'),
-    ('script', 'aurora-ferraria-hd', 'ferraria-hd.js'),
-    ('script', 'aurora-fazenda-hd', 'fazenda-hd.js'),
+    ('glob', 'aurora-hd', 'hd'),
     ('script', 'aurora-buildings-art', 'buildings-art.js'),
+    ('glob', 'aurora-art', 'art'),
     ('script', 'aurora-buildings-anim', 'buildings-anim.js'),
     ('script', 'aurora-farm-crops', 'farm-crops.js'),
+    ('script', 'aurora-cidade-viva', 'cidade-viva.js'),
+    ('script', 'aurora-guardas', 'guardas.js'),
+    ('script', 'aurora-bosque-caca', 'bosque-caca.js'),
 ]
 PY_PATCHES = ['patch_core.py', 'patch_ferreiro.py']
 
@@ -63,8 +67,17 @@ def main():
             html = mod.apply(html)
             print('patch aplicado:', name)
     blocks = []
+    expanded = []
     for kind, ident, name in MODULES:
-        if only is not None and name not in only:
+        if kind == 'glob':   # todos os .js da pasta src/<name>/, em ordem alfabética
+            folder = os.path.join(SRC, name)
+            for f in sorted(os.listdir(folder)) if os.path.isdir(folder) else []:
+                if f.endswith('.js'):
+                    expanded.append(('script', ident + '-' + f[:-3], name + '/' + f))
+        else:
+            expanded.append((kind, ident, name))
+    for kind, ident, name in expanded:
+        if only is not None and name not in only and name.split('/')[0] + '/' not in only:
             continue
         path = os.path.join(SRC, name)
         if not os.path.exists(path):
