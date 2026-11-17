@@ -30,7 +30,8 @@
   /* faixa caminhável paralela ao muro, a mais próxima do guarda com mais tiles abertos */
   const lane = (g) => {
     let best = null, bs = -1;
-    for (const o of [0, -1, 1, -2, 2]) {
+    const inward = (g._gk === 'n' || g._gk === 'w') ? 1 : -1;            // prefere a faixa de dentro da cidade (na frente do muro)
+    for (const o of inward > 0 ? [1, 0, 2, -1, -2] : [-1, 0, -2, 1, 2]) {
       const c = g._axis === 'x' ? Math.floor(g.y) + o + 0.5 : Math.floor(g.x) + o + 0.5;
       let n = 0;
       for (let s = -2.5; s <= 2.5; s += 0.5) {

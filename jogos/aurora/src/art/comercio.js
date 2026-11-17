@@ -105,6 +105,14 @@
     return K;
   }
 
+  /* estrela de 4 pontas: cruz de 1 px com centro claro (nunca um quadrado cheio) */
+  function star(K, ctx, x, y, e, col) {
+    if (e < 0.08) return; const L = e > 0.7 ? 2 : 1;
+    ctx.globalAlpha = e * 0.85; ctx.fillStyle = col;
+    K.fr(x - 0.5, y - 0.5 - L, 1, L); K.fr(x - 0.5, y + 0.5, 1, L); K.fr(x - 0.5 - L, y - 0.5, L, 1); K.fr(x + 0.5, y - 0.5, L, 1);
+    ctx.globalAlpha = Math.min(1, e); ctx.fillStyle = '#fffaf0'; K.fr(x - 0.5, y - 0.5, 1, 1); ctx.globalAlpha = 1;
+  }
+
   /* ---------- notas musicais (taverna à noite) ---------- */
   function notes(K, ctx, x0, y0, n) {
     if (K.quiet || K.dmg || K.nt < 0.3) return;
@@ -294,7 +302,7 @@
       for (let i = 0; i < 2; i++) {
         const P = 1.7 + i * 0.5, tt = t + i * 0.9, ag = (tt % P) / P, cyc = Math.floor(tt / P), p = cx[(cyc * 2 + i + (hs(cyc, i, 1) * 3 | 0)) % 4];
         if (ag > 0.45) continue; const e = Math.sin(ag / 0.45 * Math.PI);
-        ctx.fillStyle = '#fff'; ctx.globalAlpha = e; K.fr(p[0] - 0.5, p[1] - 2 * e, 1, 4 * e); K.fr(p[0] - 2 * e, p[1] - 0.5, 4 * e, 1);
+        star(K, ctx, p[0], p[1], e, '#fff4c8');
       }
       ctx.globalAlpha = 1;
     }
@@ -367,8 +375,7 @@
       const n = Math.ceil(5 * third);
       for (let i = 0; i < n; i++) {
         const P = 1.6 + i * 0.37, tt = tq + i * 1.1, ag = (tt % P) / P, cyc = Math.floor(tt / P); if (quiet && i > 1) continue; if (ag > 0.4) continue;
-        const e = Math.sin(ag / 0.4 * Math.PI), x = 27.5 + hs(cyc, i, 1) * 10, y = 79 + hs(cyc, i, 2) * 12; ctx.fillStyle = ['#fff', '#ffe08a', '#e0c0ff', '#a0f0c0'][i % 4]; ctx.globalAlpha = e;
-        K.fr(x - 0.5, y - 1.5 * e, 1, 3 * e); K.fr(x - 1.5 * e, y - 0.5, 3 * e, 1);
+        const e = Math.sin(ag / 0.4 * Math.PI), x = 27.5 + hs(cyc, i, 1) * 10, y = 79 + hs(cyc, i, 2) * 12; star(K, ctx, x, y, e, ['#f4e8ff', '#ffeeb8', '#e0c8ff', '#d0ffe0'][i % 4]);
       }
       ctx.globalAlpha = 1;
     }

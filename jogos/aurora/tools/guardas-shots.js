@@ -18,7 +18,7 @@ const path = require('path');
   });
   const log = () => p.evaluate(() => G.guards
     .filter(g => Math.hypot(g.x - 44, g.y - 39.2) < 6)
-    .map(g => `${g.id} (${g.x.toFixed(1)},${g.y.toFixed(1)}) dir${g.dir} ${g.moving ? 'andando' : 'parado'}${g.swing > 0 ? ' golpe' : ''}${g.say ? ' "' + g.say + '"' : ''}`)
+    .map(g => `${g.id} (${g.x.toFixed(1)},${g.y.toFixed(1)}) dir${g.dir} ${g.moving ? 'andando' : 'parado'}${g.swing > 0 ? ' golpe' : ''}${g._al ? ' alerta' : ''}${g.say ? ' "' + g.say + '"' : ''}`)
     .join(' | '));
   const clip = { x: 65, y: 230, width: 300, height: 400 };
   const shot = async (name) => { await p.screenshot({ path: out + '-' + name + '.png', clip }); console.log(name + ': ' + await log()); };
