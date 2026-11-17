@@ -1,0 +1,9 @@
+/* Aurora 046 · HUD mais limpo (pedido do dono).
+   1) Sai o cartão vermelho "herói em perigo" com os botões Reunir/Curar (#dng): só saturava a tela. Os decretos continuam no
+      menu de poderes; o aviso sonoro e a lógica de perigo não mudam.
+   2) Sai a barra de vida do chefe no topo (#bossbar): a vida do chefe aparece só nele, na barra roxa sobre o sprite no mapa.
+   Os seletores repetem o id para vencer a regra !important do tema RPG (html.aurora-rpg #app #hud #av-lane …). */
+#dng#dng#dng#dng#dng,
+#bossbar#bossbar#bossbar#bossbar#bossbar,
+#bossbar#bossbar#bossbar#bossbar#bossbar.on { display: none !important; }
+:root { --dgh: 0px !important; }

@@ -36,6 +36,7 @@ MODULES = [
     ('script', 'aurora-cidade-viva', 'cidade-viva.js'),
     ('script', 'aurora-guardas', 'guardas.js'),
     ('script', 'aurora-bosque-caca', 'bosque-caca.js'),
+    ('style', 'aurora-hud-limpo-style', 'hud-limpo.css'),
 ]
 PY_PATCHES = ['patch_core.py', 'patch_ferreiro.py']
 
