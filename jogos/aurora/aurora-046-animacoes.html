@@ -42447,7 +42447,9 @@ html.aurora-rpg #app #modal .mbox.aurora-return-window .rcd.rar5 .rcx-aura.b{bor
   'use strict';
   if (typeof G === 'undefined' || G.HEADLESS || !G.A || !G.R || !G.W) return;
   const A = G.A, R = G.R, W = G.W;
-  const IMG = { ferraria: [104, 114] };   // tamanho da arte embutida em aurora-building-image-sprites
+  const IMG = { ferraria: [104, 114], fazenda: [104, 114] };   // tamanho da arte embutida em aurora-building-image-sprites
+  /* prédios cuja equipe trabalha DENTRO da animação (some da porta). Na Fazenda a equipe trabalha no campo (3M-vida). */
+  const STAFF_IN_ART = { ferraria: 1 };
   const media = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   let crafted = -1, craftUntil = 0;
 
@@ -42498,7 +42500,7 @@ html.aurora-rpg #app #modal .mbox.aurora-return-window .rcd.rar5 .rcx-aura.b{bor
       ctx.drawImage(s.cv, i * fw, 0, fw, fh, Math.round(-ax * fs * z), Math.round(-ay * fs * z), Math.round(fw * fs * z), Math.round(fh * fs * z)); ctx.restore();
     } catch (e) { /* aparência indisponível */ }
   };
-  const staffOn = id => { const b = G.S && G.S.b[id]; return !!(A.BuildingArt && A.BuildingArt[id] && IMG[id] && b && b.lvl > 0 && !b.dmg); };
+  const staffOn = id => { const b = G.S && G.S.b[id]; return !!(STAFF_IN_ART[id] && A.BuildingArt && A.BuildingArt[id] && IMG[id] && b && b.lvl > 0 && !b.dmg); };
   /* quem trabalha na forja é desenhado nela: some o sprite parado à porta para não aparecer duplicado */
   G.hook('renderItems', dyn => {
     for (const id in IMG) {
@@ -42519,10 +42521,10 @@ html.aurora-rpg #app #modal .mbox.aurora-return-window .rcd.rar5 .rcx-aura.b{bor
     const o = { quiet: !!((S && S.opts.reduceMotion) || media.matches), light: !!(S && S.opts.lowFx), dark: S ? G.darkness(S.clock) : 0, hour: hr,
       damaged: !!(b && b.dmg), working: hr >= 6 && hr < 20, crafting: !!(S && S.t < craftUntil), lvl };
     /* equipe real do prédio: o mestre (1º do elenco, ex.: Fábio, Ferreiro) e o ajudante (ex.: Gilda, Aprendiz de forja) */
-    const staff = atPost(id);
+    const staff = STAFF_IN_ART[id] ? atPost(id) : [];
     const main = staff.find(n => n.job === 'Ferreiro') || staff[0] || null, help = staff.find(n => n !== main) || null;
     o.workers = { main: main ? { name: main.name, job: main.job, draw: npcDrawer(main, z) } : null, helper: help ? { name: help.name, job: help.job, draw: npcDrawer(help, z) } : null };
-    o.working = o.working && !!(main || help);
+    if (STAFF_IN_ART[id]) o.working = o.working && !!(main || help);
     const ctx = R.ctx; ctx.save(); ctx.imageSmoothingEnabled = false;
     try { art(ctx, mapFor(id, lvl, p, sp, X, Y, z), R.t, o); }
     catch (e) { if (!R.bldWork.warned) { R.bldWork.warned = 1; console.error('prédio animado', id, e); } }

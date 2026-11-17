@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Gera src/ferraria-hd.js: a arte da Ferraria em 2x (208x228), mesmo layout, com detalhe procedural.
 Fonte: bloco aurora-building-image-sprites de aurora-045-original.html. Reproduzivel (ruido por hash)."""
-import re, base64, io, os
+import re, base64, io, os, sys
+ID = sys.argv[1] if len(sys.argv) > 1 else 'ferraria'   # ferraria | fazenda
 import numpy as np
 from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src = open(os.path.join(ROOT, 'aurora-045-original.html'), encoding='utf8').read()
-b64 = re.search(r'"ferraria":"data:image/png;base64,([^"]+)"', src).group(1)
+b64 = re.search(r'"' + ID + r'":"data:image/png;base64,([^"]+)"', src).group(1)
 im = Image.open(io.BytesIO(base64.b64decode(b64))).convert('RGBA')
 a = np.asarray(im).astype(np.float32); H, W = a.shape[:2]
 
@@ -33,6 +34,11 @@ wood = al & (r > b + 18) & (r >= g) & (sat > 0.22) & (lum < 170)
 slate = al & (b >= r - 4) & (sat > 0.06) & (lum < 120)
 stone = al & ~wood & ~slate & (sat < 0.3) & (lum > 60) & (lum < 200)
 metal = al & (sat < 0.22) & (lum >= 120)
+roof = np.zeros_like(al); plaster = roof
+if ID == 'fazenda':
+    roof = al & (Y < 2 * 84) & (r > g + 22) & (r > b + 30) & (lum < 175)
+    plaster = al & (lum > 150) & (sat < 0.4) & (Y > 2 * 56)
+    wood = wood & ~roof; metal = metal & ~plaster; stone = stone & ~plaster
 add = np.zeros_like(lum)
 # bevel direcional (luz de cima-esquerda) a partir da luminancia suavizada
 def sh(arr, dy, dx): return np.roll(np.roll(arr, dy, 0), dx, 1)
@@ -49,6 +55,10 @@ add += np.where(wood, (vein - 0.5) * 16 + (hsh(X, Y // 3, 5) - 0.5) * 8, 0)
 # telhado: linha de luz/sombra por fileira de telhas
 row = (Y % 8)
 add += np.where(slate, np.where(row == 0, 14, np.where(row == 7, -18, 0)) + (hsh(X // 5 + (Y // 8 % 2) * 2, Y // 8, 6) - 0.5) * 14, 0)
+# celeiro: telhas vermelhas (luz/sombra por fileira, escalonadas) e reboco granulado
+rr = Y % 7
+add += np.where(roof, np.where(rr == 0, 16, np.where(rr == 6, -22, 0)) + (hsh(X // 5 + (Y // 7 % 2) * 2, Y // 7, 11) - 0.5) * 16, 0)
+add += np.where(plaster, (hsh(X, Y, 12) - 0.5) * 9, 0)
 # metal: reflexo
 add += np.where(metal, np.where(hsh(X // 2, Y // 2, 7) > 0.8, 18, 0), 0)
 # musgo/terra na base (y > 200 => y1x > 100)
@@ -66,7 +76,7 @@ out = np.where(edge[..., None], out * 0.4 + ol * 0.6, out)
 res = np.concatenate([np.clip(out, 0, 255), o[..., 3:4]], -1).astype(np.uint8)
 img = Image.fromarray(res, 'RGBA'); assert img.size == (W * 2, H * 2)
 buf = io.BytesIO(); img.save(buf, 'PNG', optimize=True)
-open(os.path.join(ROOT, 'src', 'ferraria-hd.js'), 'w').write("(function(){'use strict';if(typeof G==='undefined'||G.HEADLESS||!G.A)return;const i=new Image();i.src='data:image/png;base64," + base64.b64encode(buf.getvalue()).decode() + "';(G.A.BuildingHD=G.A.BuildingHD||{}).ferraria=i;})();")
+open(os.path.join(ROOT, 'src', ID + '-hd.js'), 'w').write("(function(){'use strict';if(typeof G==='undefined'||G.HEADLESS||!G.A)return;const i=new Image();i.src='data:image/png;base64," + base64.b64encode(buf.getvalue()).decode() + "';(G.A.BuildingHD=G.A.BuildingHD||{})." + ID + "=i;})();")
 img.save(os.environ.get('HD_PREVIEW', '/dev/null') if os.environ.get('HD_PREVIEW') else os.devnull if False else io.BytesIO(), 'PNG')
 if os.environ.get('HD_PREVIEW'):
     img.save(os.environ['HD_PREVIEW'])
