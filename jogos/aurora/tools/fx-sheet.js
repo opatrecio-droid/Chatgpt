@@ -56,7 +56,8 @@ const path = require('path');
         drawHero(info ? info.cls : 'esp', cx, gy, 'cast0', false);
         drawMon(tx, gy); drawMon(tx + 30, gy - 14); drawMon(tx + 22, gy + 12);
         const sc = { x: cx, y: gy, tx, ty: gy, z, tile, dir: 1, quiet: false, light: false, world: false, seed: 1234 + row, W: cv.width, H: cv.height,
-          others: [{ x: tx + 30, y: gy - 14 }, { x: tx + 22, y: gy + 12 }], allies: [{ x: cx - 34, y: gy + 6 }], shake: () => {} };
+          others: [{ x: tx + 30, y: gy - 14 }, { x: tx + 22, y: gy + 12 }], allies: [{ x: cx - 34, y: gy + 6 }], shake: () => {},
+          drawCaster: FX.casterDrawer(fake(info ? info.cls : 'esp'), z) };
         FX.render(ctx, key, t, sc);
         ctx.restore();
         ctx.fillStyle = '#fff8'; ctx.font = '10px Arial'; ctx.fillText('t=' + t.toFixed(2), x0 + 4, y0 + 12);

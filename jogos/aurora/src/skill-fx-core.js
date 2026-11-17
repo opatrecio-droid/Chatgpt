@@ -27,7 +27,8 @@
      sc: { x, y: pés do conjurador (px) · tx, ty: pés do alvo (px) · z: px por pixel de arte · tile: px por unidade do mundo (16*z)
            dir: 1/-1 · quiet: movimento reduzido · light: efeitos leves · world: true no mapa, false na prévia
            seed: inteiro estável por evento · others: [{x,y}] inimigos próximos ao alvo · allies: [{x,y}] aliados próximos
-           shake(px): tremor de tela (ignorado com quiet) · W, H: tamanho do canvas } */
+           shake(px): tremor de tela (ignorado com quiet) · W, H: tamanho do canvas
+           drawCaster(ctx, x, y, { alpha, pose, flip, tint }): desenha o sprite do próprio conjurador (ecos e sombras) } */
   FX.register = (key, def) => {
     if (!key || !def || typeof def.draw !== 'function') throw new TypeError('SkillFX.register: definição inválida para ' + key);
     FX.defs[key] = Object.assign({ dur: 1.2, hits: [0.2] }, def);
@@ -42,6 +43,29 @@
     catch (e) { if (!FX._warned) { FX._warned = 1; (G.recordError || console.error)(e, 'skillfx:' + key); } }
     finally { ctx.restore(); }
     return true;
+  };
+
+  /* ---------- sprite do conjurador (ecos, sombras, pós-imagens) ----------
+     FX.casterDrawer(heroiOuAparencia, z) -> (ctx, x, y, { alpha, pose, flip, tint }) desenha o herói com os pés em (x, y).
+     pose: 'idle0', 'walk0-3', 'atk0-2', 'cast0-2', 'victory0-1'. tint: cor sólida opcional (silhueta). */
+  const tintCache = new WeakMap();
+  const tinted = (cv, n, fw, fh, color) => {
+    let m = tintCache.get(cv); if (!m) { m = new Map(); tintCache.set(cv, m); }
+    const key = n + '|' + color; let c = m.get(key);
+    if (!c) { c = A.mk(fw, fh); const x = c.getContext('2d'); x.drawImage(cv, n * fw, 0, fw, fh, 0, 0, fw, fh); x.globalCompositeOperation = 'source-atop'; x.fillStyle = color; x.fillRect(0, 0, fw, fh); m.set(key, c); }
+    return c;
+  };
+  FX.casterDrawer = (hero, z) => (ctx, x, y, o) => {
+    o = o || {};
+    try {
+      const s = A.charSheet(hero && hero.look && !hero.cls ? hero : A.heroLook(hero)), pose = o.pose || 'idle0';
+      if (s.need) s.need(pose);
+      const n = (s.idx && s.idx[pose]) || 0, fw = s.fw || 26, fh = s.fh || 30, fs = s.scale || 1, ax = s.ax == null ? 13 : s.ax, ay = s.ay == null ? 27 : s.ay;
+      ctx.save(); ctx.globalAlpha = K.clamp(o.alpha == null ? 1 : o.alpha, 0, 1); ctx.translate(x, y); if (o.flip) ctx.scale(-1, 1);
+      if (o.tint) ctx.drawImage(tinted(s.cv, n, fw, fh, o.tint), 0, 0, fw, fh, -ax * fs * z, -ay * fs * z, fw * fs * z, fh * fs * z);
+      else ctx.drawImage(s.cv, n * fw, 0, fw, fh, -ax * fs * z, -ay * fs * z, fw * fs * z, fh * fs * z);
+      ctx.restore();
+    } catch (e) { /* aparência indisponível: só o efeito é desenhado */ }
   };
 
   /* ---------- kit de desenho ---------- */
@@ -175,6 +199,7 @@
         others: e.others.filter(o => !o.gone).map(o => ({ x: X(o.x), y: Y(o.y) })),
         allies: e.allies.map(a => ({ x: X(a.x), y: Y(a.y) })),
         shake: px => { if (!quiet && px > 0) R.shake = Math.max(R.shake || 0, Math.min(px, 6)); },
+        drawCaster: e.h ? FX.casterDrawer(e.h, z) : () => {},
       };
       FX.render(ctx, e.key, t, sc);
     }
