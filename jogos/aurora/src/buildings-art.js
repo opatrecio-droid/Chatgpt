@@ -25,8 +25,7 @@
   const BACK = [70, 83];                    // fundo escuro do arco (cobre a chama pintada)
   const CHIM = [76, 17];                    // boca da chaminé
   const LANT = [22, 87];                    // chama da lanterna
-  const SW = 38, SH = 30, SPY = 70;         // sprite do ferreiro: origem y na imagem
-  const CX = 12, SX0 = 41, SX1 = 50;        // x do centro do ferreiro: trabalhando / junto à forja
+  const SX0 = 41, SX1 = 52, FEET = 100, HX = 62, HFEET = 101;   // ferreiro na bigorna / junto à forja; ajudante entre bigorna e forja
 
   /* ---------- chamas ---------- */
   const FSETS = { low: 5, mid: 11, big: 15 }, FRAMES = 8, FH = 17;
@@ -60,71 +59,11 @@
     });
   }
 
-  /* ---------- ferreiro ---------- */
-  const SKIN = '#e0a074', SKIN2 = '#b9704f', SKIN3 = '#f0bd90', BEARD = '#6a4126', BEARD2 = '#4b2c1a', BEARD3 = '#8c5c34';
-  const LEA = '#8a5429', LEA2 = '#5e381c', LEA3 = '#a96d38', SHIRT = '#b59a70', SHIRT2 = '#8b7452', PANT = '#3d3550', BOOT = '#241a28', RED = '#c23c3c', RED2 = '#8c2630', STEEL = '#9aa3b8', STEEL2 = '#5b6278', STEEL3 = '#dde3f2', WOOD = '#9a6634';
-  const POSES = {
-    hit0: { R: { h: [19, 8], i: 'ham', t: [20, 2] }, L: { h: [5, 21], i: 'ton' } },
-    hit1: { R: { h: [19, 12], i: 'ham', t: [21, 7] }, L: { h: [5, 21], i: 'ton' } },
-    hit2: { R: { h: [17, 19], i: 'ham', t: [16, 24] }, L: { h: [5, 21], i: 'ton' } },
-    hit3: { R: { h: [19, 15], i: 'ham', t: [21, 10] }, L: { h: [5, 21], i: 'ton' } },
-    wipeA: { R: { h: [17, 4] }, L: { h: [5, 21], i: 'ton' }, belt: 1 },
-    wipeB: { R: { h: [15, 5] }, L: { h: [5, 21], i: 'ton' }, belt: 1 },
-    reheat: { R: { h: [23, 19], i: 'ton2' }, L: { h: [4, 19], i: 'ham', t: [3, 24] } }
-  };
-  function smith(pose) {
-    const m = mk(SW, SH), c = m.x, r = (X, Y, W, H, col) => { c.fillStyle = col; c.fillRect(X, Y, W, H); };
-    const P = POSES[pose];
-    // pernas e botas
-    r(8, 22, 4, 8, PANT); r(13, 22, 4, 8, PANT); r(8, 22, 1, 8, '#2c2640'); r(7, 28, 5, 2, BOOT); r(13, 28, 5, 2, BOOT);
-    // camisa
-    r(6, 12, 12, 11, SHIRT); r(6, 12, 2, 11, SHIRT2); r(16, 14, 2, 8, SHIRT2);
-    // avental de couro
-    r(9, 13, 6, 2, LEA); r(8, 15, 8, 8, LEA); r(7, 23, 10, 4, LEA); r(8, 15, 1, 11, LEA3); r(15, 15, 1, 11, LEA2); r(16, 23, 1, 4, LEA2);
-    r(8, 12, 1, 2, LEA2); r(15, 12, 1, 2, LEA2); r(8, 20, 8, 1, '#3a2a1e'); r(11, 20, 2, 1, '#d8b04a'); r(10, 23, 4, 1, LEA2); r(9, 17, 1, 1, '#c98a52'); r(14, 17, 1, 1, LEA2);
-    // cabeça + lenço
-    r(8, 3, 8, 6, SKIN); r(8, 3, 1, 6, SKIN2); r(15, 3, 1, 6, SKIN2); r(9, 5, 2, 1, SKIN3);
-    r(8, 2, 8, 3, RED); r(7, 4, 10, 1, RED2); r(9, 2, 3, 1, '#e0605a'); r(16, 3, 2, 2, RED); r(17, 5, 1, 2, RED2); r(18, 4, 1, 2, RED2);
-    r(10, 6, 1, 1, OUT); r(13, 6, 1, 1, OUT); r(9, 5, 3, 1, BEARD2); r(12, 5, 3, 1, BEARD2); r(11, 7, 2, 1, SKIN2);
-    // barba
-    r(8, 8, 8, 1, BEARD); r(9, 8, 6, 1, BEARD3); r(7, 9, 10, 2, BEARD); r(8, 11, 8, 1, BEARD); r(9, 12, 6, 1, BEARD2); r(7, 9, 1, 2, BEARD2); r(16, 9, 1, 2, BEARD2); r(9, 10, 2, 1, BEARD3); r(13, 10, 1, 1, BEARD3);
-    // braços
-    const seg = (x0, y0, x1, y1, w, col, oy) => { const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0), 1); for (let i = 0; i <= n; i++) r(Math.round(x0 + (x1 - x0) * i / n - w / 2 + 0.5), Math.round(y0 + (y1 - y0) * i / n - 1) + oy, w, 3, col); };
-    const arm = (sx, sy, a, side) => {
-      const hx = a.h[0], hy = a.h[1], ex = (sx + hx) / 2 + side * 2, ey = (sy + hy) / 2 + 3;
-      seg(sx, sy, ex, ey, 4, SKIN2, 1); seg(ex, ey, hx, hy, 3, SKIN2, 1);
-      seg(sx, sy, ex, ey, 4, SKIN, 0); seg(ex, ey, hx, hy, 3, SKIN, 0);
-      r(Math.round((sx + ex) / 2), Math.round((sy + ey) / 2) - 1, 1, 1, SKIN3); r(Math.round((ex + hx) / 2), Math.round((ey + hy) / 2) - 1, 1, 1, SKIN3);
-      r(hx - 1, hy - 1, 3, 3, SKIN); r(hx - 1, hy + 1, 3, 1, SKIN2);
-    };
-    const item = (a) => {
-      const hx = a.h[0], hy = a.h[1];
-      if (a.i === 'ham') {
-        const tx = a.t[0], ty = a.t[1], n = Math.max(Math.abs(tx - hx), Math.abs(ty - hy), 1);
-        for (let i = 0; i <= n; i++) r(Math.round(hx + (tx - hx) * i / n), Math.round(hy + (ty - hy) * i / n), 1, 1, WOOD);
-        r(tx - 3, ty - 2, 6, 4, STEEL); r(tx - 3, ty - 2, 6, 1, STEEL3); r(tx - 3, ty + 1, 6, 1, STEEL2); r(tx - 3, ty - 1, 1, 2, STEEL3);
-        r(hx - 1, hy - 1, 3, 3, SKIN); r(hx - 1, hy + 1, 3, 1, SKIN2);
-      } else if (a.i === 'ton') { r(hx - 1, hy + 1, 1, 4, STEEL); r(hx + 1, hy + 1, 1, 4, STEEL2); r(hx - 2, hy - 2, 1, 3, STEEL2); r(hx - 1, hy - 1, 3, 3, SKIN); }
-      else if (a.i === 'ton2') { r(hx + 1, hy - 1, 5, 1, STEEL); r(hx + 1, hy + 1, 5, 1, STEEL2); r(hx - 1, hy - 1, 3, 3, SKIN); r(hx - 1, hy + 1, 3, 1, SKIN2); }
-    };
-    arm(6, 14, P.L, -1); arm(18, 14, P.R, 1);
-    r(4, 12, 3, 3, SHIRT); r(4, 14, 3, 1, SHIRT2); r(17, 12, 3, 3, SHIRT); r(17, 14, 3, 1, SHIRT2);
-    if (P.belt) { r(18, 18, 1, 4, WOOD); r(17, 21, 4, 3, STEEL); r(17, 21, 4, 1, STEEL3); }
-    item(P.L); item(P.R); if (P.L.h && P.L.i !== 'ton') arm(6, 14, P.L, -1);
-    // contorno automático
-    const im = c.getImageData(0, 0, SW, SH), d = im.data, ou = rgb(OUT), a = (x, y) => x >= 0 && y >= 0 && x < SW && y < SH && d[(y * SW + x) * 4 + 3] > 0;
-    const add = [];
-    for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) if (!a(x, y) && (a(x - 1, y) || a(x + 1, y) || a(x, y - 1) || a(x, y + 1))) add.push(x, y);
-    for (let i = 0; i < add.length; i += 2) { const k = (add[i + 1] * SW + add[i]) * 4; d[k] = ou[0]; d[k + 1] = ou[1]; d[k + 2] = ou[2]; d[k + 3] = 255; }
-    c.putImageData(im, 0, 0); return m.cv;
-  }
-
   /* ---------- cache ---------- */
   let C = null;
   function init() {
-    C = { fl: {}, back: back(), smith: {}, puff: [[], []] };
+    C = { fl: {}, back: back(), puff: [[], []] };
     for (const k in FSETS) { C.fl[k] = []; for (let i = 0; i < FRAMES; i++) C.fl[k].push(flame(FSETS[k], i * 3 + 1)); }
-    for (const k in POSES) C.smith[k] = smith(k);
     const pals = [['#ece9f4', '#bfbad0', '#8f8aa8'], ['#74707f', '#53505f', '#38343f']];
     for (let p = 0; p < 2; p++) for (let i = 0; i < PUFF.length; i++) C.puff[p].push(puff(PUFF[i], pals[p], i + p * 9));
   }
@@ -144,12 +83,13 @@
     const dr = (cv, ix, iy, w, h) => { const x = Math.round(m.sx(ix)), y = Math.round(m.sy(iy)); ctx.drawImage(cv, x, y, Math.max(1, Math.round(m.sx(ix + (w || cv.width))) - x), Math.max(1, Math.round(m.sy(iy + (h || cv.height))) - y)); };
     const glow = (ix, iy, rad, col, a) => { const x = m.sx(ix), y = m.sy(iy), rr = rad * s, g = ctx.createRadialGradient(x, y, 0, x, y, rr); g.addColorStop(0, 'rgba(' + col + ',' + a + ')'); g.addColorStop(1, 'rgba(' + col + ',0)'); ctx.fillStyle = g; ctx.fillRect(x - rr, y - rr, rr * 2, rr * 2); };
     const quiet = o.quiet, third = o.light ? 1 / 3 : 1, nt = o.dark, dmg = o.damaged;
-    const smithOn = o.working && !dmg, crafting = o.crafting && !dmg;
+    const W = o.workers || {}, smithW = dmg ? null : (W.main || W.helper), helperW = (!dmg && W.main && W.helper) ? W.helper : null, solo = smithW && !W.main;
+    const smithOn = !!smithW, crafting = o.crafting && !dmg;
     const tq = quiet ? 0 : t;
 
     /* nível do fogo: 0.18 danificado · 0.4 noite · 1 dia · 1.5 forjando; fole a cada ~4,6 s */
-    const bp = tq % 4.6, bell = (!quiet && smithOn && bp < 0.7) ? Math.sin(Math.PI * bp / 0.7) : 0;
-    const lvl = dmg ? 0.18 : crafting ? 1.5 : o.working ? 1 : 0.4;
+    const bp = tq % 4.6, bell = (!quiet && (smithOn || helperW) && bp < 0.7) ? Math.sin(Math.PI * bp / 0.7) : 0;
+    const lvl = dmg ? 0.18 : crafting ? 1.5 : smithOn ? 1 : (o.hour >= 6 && o.hour < 20) ? 0.7 : 0.4;
     const L = lvl + bell * 0.55, fl = quiet ? 0.9 : 0.85 + 0.15 * Math.sin(t * 17) * Math.sin(t * 7.3 + 1);
     const set = L < 0.55 ? 'low' : L < 1.15 ? 'mid' : 'big', fi = quiet ? 0 : (hs(Math.floor(t * 10), 5) * FRAMES) | 0;
 
@@ -210,33 +150,40 @@
       ctx.globalCompositeOperation = 'lighter'; glow(LANT[0], LANT[1], 9 + 7 * nt, '255,190,80', (0.14 + 0.5 * nt) * lf); ctx.globalCompositeOperation = 'source-over';
     }
 
-    /* ---------- ferreiro ---------- */
+    /* ---------- moradores reais (sprites do jogo) ---------- */
+    const drawW = (w, x, y, pose, flip) => { try { w.draw(ctx, m.sx(x), m.sy(y), { pose, flip: !!flip, alpha: 1 }); } catch (e) {} ctx.imageSmoothingEnabled = false; };
+    if (helperW) {   // ajudante aciona o fole entre a bigorna e a forja
+      let hp = 'idle0';
+      if (!quiet) { hp = bp < 0.7 ? (bp < 0.25 ? 'atk0' : bp < 0.45 ? 'atk1' : 'atk2') : (Math.floor(t / 0.9) % 2 ? 'idle1' : 'idle0'); if (bp > 2.4 && bp < 3.4) hp = 'idle0'; }
+      drawW(helperW, HX, HFEET, hp, true);
+    }
     if (!smithOn) return;
-    const per = crafting ? 0.56 : 0.92, CY = 10, HAM = 6.6, VAR = CY - HAM;
-    let pose = 'hit0', sxc = SX0, T = 0.75, k = -1, f = 0, tt = 0, hammering = true, cyc = 0;
+    const per = (crafting ? 0.56 : 0.92) * (solo ? 1.25 : 1), CY = 10, HAM = 6.6, VAR = CY - HAM;
+    let pose = 'atk0', sxc = SX0, T = 0.75, k = -1, f = 0, tt = 0, hammering = true, cyc = 0, flip = false, reheat = false;
     if (!quiet) {
       cyc = Math.floor(t / CY); tt = t - cyc * CY;
       if (crafting || tt < HAM) {
         tt = crafting ? t : tt; k = Math.floor(tt / per); f = (tt - k * per) / per;
-        pose = f < 0.45 ? 'hit0' : f < 0.58 ? 'hit1' : f < 0.72 ? 'hit2' : f < 0.86 ? 'hit3' : 'hit1';
+        pose = f < 0.5 ? 'atk0' : f < 0.66 ? 'atk1' : f < 0.86 ? 'atk2' : 'atk0';
         T = crafting ? 0.95 - 0.35 * ((t % 3.2) / 3.2) : (cyc % 2 === 0 ? 1 : 0.7) - 0.5 * (tt / HAM);
       } else {
         hammering = false; const v = tt - HAM;
-        if (cyc % 2 === 0) {   // leva a barra à forja
-          pose = 'reheat'; const e = v < 0.6 ? v / 0.6 : v < VAR - 0.6 ? 1 : (VAR - v) / 0.6; sxc = SX0 + (SX1 - SX0) * (e * e * (3 - 2 * e));
-          T = 0.3 + 0.7 * cl((v - 0.4) / 1.4, 0, 1) * (v < VAR - 0.6 ? 1 : 1);
-        } else { pose = Math.floor(v / 0.28) % 2 ? 'wipeB' : 'wipeA'; T = 0.4 - 0.1 * (v / VAR); }
+        if (cyc % 2 === 0) {   // vira para a forja e reaquece a barra
+          const e = v < 0.7 ? v / 0.7 : v < VAR - 0.7 ? 1 : (VAR - v) / 0.7, es = e * e * (3 - 2 * e);
+          sxc = SX0 + (SX1 - SX0) * es; flip = true; reheat = es > 0.98 || (v > 0.7 && v < VAR - 0.7);
+          pose = e > 0 && e < 1 ? 'walk' + (Math.floor(t * 8) % 4) : 'idle' + (Math.floor(t * 2) % 2);
+          T = 0.3 + 0.7 * cl((v - 0.4) / 1.6, 0, 1);
+        } else { pose = Math.floor(t * 1.4) % 2 ? 'idle1' : 'idle0'; T = 0.4 - 0.1 * (v / VAR); }
       }
     }
-    const x0 = Math.round(sxc) - CX;
-    ctx.imageSmoothingEnabled = false;
-    dr(C.smith[pose], x0, SPY);
+    const x0 = Math.round(sxc) - 12;
+    drawW(smithW, sxc, FEET, pose, flip);
     m.blit(ctx, 31, 97, 21, 12);                    // bigorna passa à frente do ferreiro
     // barra incandescente
     const col = heat(T);
-    if (pose === 'reheat') {
-      ctx.fillStyle = col; fr(x0 + 24, SPY + 19, 12, 1); ctx.fillStyle = heat(T - 0.15); fr(x0 + 24, SPY + 20, 12, 1);
-      if (T > 0.4) { ctx.globalCompositeOperation = 'lighter'; glow(x0 + 33, SPY + 20, 8, '255,200,90', 0.5 * T); ctx.globalCompositeOperation = 'source-over'; }
+    if (reheat) {
+      ctx.fillStyle = col; fr(x0 + 15, 90, 14, 1); ctx.fillStyle = heat(T - 0.15); fr(x0 + 15, 91, 14, 1);
+      ctx.globalCompositeOperation = 'lighter'; glow(x0 + 27, 90, 8, '255,200,90', 0.5 * T); ctx.globalCompositeOperation = 'source-over';
     } else {
       ctx.fillStyle = col; fr(x0 + 4, 95, 14, 1); ctx.fillStyle = heat(T - 0.15); fr(x0 + 4, 96, 14, 1);
       if (T > 0.45) { ctx.globalCompositeOperation = 'lighter'; glow(x0 + 12, 95, 7, '255,170,60', 0.35 * T); ctx.globalCompositeOperation = 'source-over'; }

@@ -14,7 +14,7 @@
 - **Janela de retorno em abas** (Achados, Resumo, Diário) com cartas por raridade, brilhos e revelação 3D.
 - **Portal de Aurora** no eixo da cidade (portão norte → fonte), com arco gótico animado, vórtice em espiral,
   runas, círculo rúnico no chão e explosão ao chamar um herói.
-- **Ferraria animada**: forja acesa, fumaça na chaminé e o ferreiro martelando na bigorna (descansa à noite;
+- **Ferraria animada**: forja acesa e fumaça na chaminé; os moradores Fábio (martela na bigorna) e Gilda (aviva o fogo) trabalham ali no expediente (descansam à noite;
   acelera quando uma peça é forjada).
 
 ## Estrutura
