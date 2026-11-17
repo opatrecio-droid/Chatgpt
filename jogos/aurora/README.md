@@ -16,6 +16,8 @@
   runas, círculo rúnico no chão e explosão ao chamar um herói.
 - **Ferraria animada**: forja acesa e fumaça na chaminé; os moradores Fábio (martela na bigorna) e Gilda (aviva o fogo) trabalham ali no expediente (descansam à noite;
   acelera quando uma peça é forjada).
+- **Fazenda animada**: celeiro em 2× com galo cata-vento, fumaça e galinhas ciscando; plantação em 2× com trigo e
+  ervas em todos os estágios, vento em ondas, rajada dourada, borboletas, abelhas, pássaros e vagalumes à noite.
 
 ## Estrutura
 | Arquivo | Papel |
@@ -29,7 +31,8 @@
 | `src/return-cards.js`, `src/return-cards.css` | janela de retorno com abas e cartas |
 | `src/portal.js`, `src/portal-art.js` | posição e arte animada do portal |
 | `src/buildings-anim.js`, `src/buildings-art.js` | prédios de serviço animados (Ferraria) e arte 2× no mapa |
-| `src/ferraria-hd.js` (gerado por `tools/ferraria-hd.py`) | Ferraria em 2×, mesma densidade dos moradores |
+| `src/ferraria-hd.js`, `src/fazenda-hd.js` (gerados por `tools/ferraria-hd.py <id>`) | prédios em 2×, mesma densidade dos moradores |
+| `src/farm-crops.js` | plantação da Fazenda em 2× com vento e vida |
 | `src/BRIEF-FX.md` | contrato para criar novas animações |
 | `tools/` | testes visuais (Playwright): `fx-sheet.js`, `shots.js`, `world-fx.js` |
 
