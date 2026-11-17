@@ -27,6 +27,7 @@ MODULES = [
     ('script', 'aurora-return-cards', 'return-cards.js'),
     ('script', 'aurora-portal-art', 'portal-art.js'),
     ('script', 'aurora-portal', 'portal.js'),
+    ('script', 'aurora-colisao', 'colisao.js'),
     ('glob', 'aurora-hd', 'hd'),
     ('script', 'aurora-buildings-art', 'buildings-art.js'),
     ('glob', 'aurora-art', 'art'),

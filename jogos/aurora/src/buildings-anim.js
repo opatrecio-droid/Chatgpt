@@ -61,6 +61,16 @@
       ctx.drawImage(s.cv, i * fw, 0, fw, fh, Math.round(-ax * fs * z), Math.round(-ay * fs * z), Math.round(fw * fs * z), Math.round(fh * fs * z)); ctx.restore();
     } catch (e) { /* aparência indisponível */ }
   };
+  /* mão da frente do sprite, na mesma convenção do jogo (lavradores seguram a ferramenta aqui): unidades da arte
+     antiga 26×30 com os pés em (13, 27), personagem virado para a direita */
+  const HAND0 = { idle0: [16.5, 20.5], idle1: [16.5, 21.5], walk0: [16.5, 20.5], walk1: [16.5, 21.5], walk2: [16.5, 20.5], walk3: [16.5, 21.5], atk0: [13.7, 15], atk1: [19.5, 17.8], atk2: [17, 20.5] };
+  const handOf = (n, pose) => {
+    try { const s = A.charSheet(A.npcLook(n)); const h = s.hand && s.hand(pose); if (h) return h; } catch (e) { /* aparência indisponível */ }
+    if (/^bend[01]$/.test(pose) && A.BEND) { const b = A.BEND[+pose[4]]; if (b) return [b.hx, b.hy]; }
+    return HAND0[pose] || HAND0.idle0;
+  };
+  /* posição da mão em pixels da IMAGEM do prédio, para um morador com os pés em (x, y) da imagem */
+  const handFor = (n, m) => (pose, x, y, flip) => { const h = handOf(n, pose || 'idle0'), k = m.z / ((m.kx + m.ky) / 2); return [x + (flip ? -1 : 1) * (h[0] - 13) * k, y + (h[1] - 27) * k]; };
   const staffOn = id => { const b = G.S && G.S.b[id]; return !!(STAFF_IN_ART[id] && A.BuildingArt && A.BuildingArt[id] && IMG[id] && b && b.lvl > 0 && !b.dmg); };
   /* quem trabalha na forja é desenhado nela: some o sprite parado à porta para não aparecer duplicado */
   G.hook('renderItems', dyn => {
@@ -86,10 +96,14 @@
     /* equipe real do prédio: o mestre (1º do elenco, ex.: Fábio, Ferreiro) e o ajudante (ex.: Gilda, Aprendiz de forja) */
     const staff = STAFF_IN_ART[id] ? atPost(id) : [];
     const main = staff.find(n => n.job === 'Ferreiro') || staff[0] || null, help = staff.find(n => n !== main) || null;
-    o.workers = { main: main ? { name: main.name, job: main.job, draw: npcDrawer(main, z) } : null, helper: help ? { name: help.name, job: help.job, draw: npcDrawer(help, z) } : null };
+    const m = mapFor(id, lvl, p, sp, X, Y, z);
+    /* w.hand(pose, x, y, flip) → [x, y] da mão da frente, em pixels da imagem, para quem tem os pés em (x, y):
+       objetos seguros (caneca, bandeja, vassoura, pá…) devem ser desenhados ali, quadro a quadro */
+    const wk = n => n ? { name: n.name, job: n.job, draw: npcDrawer(n, z), hand: handFor(n, m) } : null;
+    o.workers = { main: wk(main), helper: wk(help) };
     if (STAFF_IN_ART[id]) o.working = o.working && !!(main || help);
     const ctx = R.ctx; ctx.save(); ctx.imageSmoothingEnabled = false;
-    try { art(ctx, mapFor(id, lvl, p, sp, X, Y, z), R.t, o); }
+    try { art(ctx, m, R.t, o); }
     catch (e) { if (!R.bldWork.warned) { R.bldWork.warned = 1; console.error('prédio animado', id, e); } }
     ctx.restore();
   };
