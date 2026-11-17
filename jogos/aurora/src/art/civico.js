@@ -125,35 +125,35 @@
       const pu = quiet ? 0.7 : 0.6 + 0.4 * Math.sin(t * 1.3);
       glow(52, 40, 10, '255,210,90', (0.1 + 0.12 * pu + 0.1 * on) * (T.dmg ? 0.4 : 1));
       glow(52.5, 73.5, 12, '255,205,80', (0.08 + 0.1 * pu + 0.1 * on) * (T.dmg ? 0.4 : 1));
-      if (!quiet && !T.dmg) { const sw = (tq * 0.22) % 1; if (sw < 0.4) { const x = 46 + sw / 0.4 * 14; ctx.globalAlpha = 0.3 * Math.sin(sw / 0.4 * Math.PI); ctx.fillStyle = '#c8d6ff'; fr(x, 66, 2, 23); ctx.globalAlpha = 1; if (x > 48 && x < 57) { ctx.fillStyle = '#fff2b0'; ctx.globalAlpha = 0.6; fr(x, 70, 2, 7); ctx.globalAlpha = 1; } } }
+      if (!quiet && !T.dmg) { const sw = (tq * 0.22) % 1; if (sw < 0.4) { const x = 46 + sw / 0.4 * 14; ctx.globalAlpha = 0.16 * Math.sin(sw / 0.4 * Math.PI); ctx.fillStyle = '#c8d6ff'; fr(x, 66, 2, 23); ctx.globalAlpha = 1;  } }
       if (!quiet && !T.dmg) { const P = [[52, 13, 0.0], [23, 21, 0.31], [82, 21, 0.62], [52, 41, 0.17]]; for (let i = 0; i < 4; i++) T.spark(P[i][0] - 0.5, P[i][1], ((t * 0.45 + P[i][2]) % 1.6) / 0.35); }
     });
     T.floor(53, 108, 30, '255,200,110', 0.3 * on);
     /* equipe real: Rosa escreve no pergaminho; Soraia conta moedas */
+    const hnd = (w, pose, x, y, flip) => { try { return w.hand(pose, x, y, flip); } catch (e) { return [x + (flip ? -3.5 : 3.5), y - 6.5]; } };
     if (S.main) {
-      const RX = 36, SY = 108;
-      T.worker(S.main, RX, SY, quiet ? 'idle0' : (Math.floor(t * 1.7) % 2 ? 'idle1' : 'idle0'), false);
-      ctx.fillStyle = '#6a4326'; fr(41, 102, 1, 6); fr(44.5, 102, 1, 6); ctx.fillStyle = '#8a5c34'; fr(40, 100.5, 7, 2);
-      ctx.fillStyle = '#f2e8cc'; fr(40.5, 98.5, 6, 2.4); ctx.fillStyle = '#d6c79a'; fr(40.5, 100.4, 6, 0.8);
-      const wr = quiet ? 3 : (tq % 7) / 7 * 4.4;   // linhas de tinta crescendo
-      ctx.fillStyle = '#3a2a40'; fr(41, 99, Math.min(4.4, wr), 0.7); if (wr > 2.2) fr(41, 100, wr - 2.2, 0.6);
-      const qa = quiet ? 0 : Math.sin(t * 6), qx = 41 + (quiet ? 3 : wr);
-      ctx.strokeStyle = '#fff'; ctx.lineWidth = Math.max(1, T.s * 0.8); ctx.beginPath(); ctx.moveTo(m.sx(qx), m.sy(99.2 + qa * 0.3)); ctx.lineTo(m.sx(qx + 2.8), m.sy(95.5 + qa * 0.5)); ctx.stroke();
-      ctx.fillStyle = '#c9b8e0'; fr(qx + 2, 95.4, 1.5, 1);
+      const RX = 36, pose = quiet ? 'idle0' : (Math.floor(t / 2.4) % 2 ? 'idle1' : 'idle0'), h = hnd(S.main, pose, RX, 108, false);
+      T.worker(S.main, RX, 108, pose, false);
+      /* pergaminho no atril logo abaixo da pena; a pena sai da mão da escrivã */
+      const top = 102.6;
+      ctx.fillStyle = '#6a4326'; fr(h[0] + 0.5, top, 1, 105.5 - top); fr(h[0] + 4, top, 1, 105.5 - top); ctx.fillStyle = '#8a5c34'; fr(h[0] - 0.8, top - 0.6, 7, 1.6);
+      ctx.fillStyle = '#f2e8cc'; fr(h[0] - 0.3, top - 2, 6, 1.6); ctx.fillStyle = '#d6c79a'; fr(h[0] - 0.3, top - 0.6, 6, 0.6);
+      const wr = quiet ? 3 : (tq % 8) / 8 * 4.6;
+      ctx.fillStyle = '#3a2a40'; fr(h[0] + 0.2, top - 1.6, Math.min(4.6, wr), 0.6);
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = Math.max(1, T.s * 0.8); ctx.beginPath(); ctx.moveTo(m.sx(h[0]), m.sy(h[1])); ctx.lineTo(m.sx(h[0] + 2.6), m.sy(h[1] - 4.2)); ctx.stroke();
+      ctx.fillStyle = '#c9b8e0'; fr(h[0] + 1.8, h[1] - 4.6, 1.4, 1);
     }
     if (S.help) {
-      const SX = 70, cx = 63, tb = 103;
-      T.worker(S.help, SX, SY2(), quiet ? 'idle0' : (Math.floor(t * 1.2) % 2 ? 'idle1' : 'idle0'), true);
-      ctx.fillStyle = '#6a4326'; fr(cx - 1, tb, 7, 1.8); fr(cx - 0.5, tb + 1.8, 1, 4); fr(cx + 4.5, tb + 1.8, 1, 4);
+      const SX = 70, tb = 102, cx = 61.5, cyc = quiet ? 0 : (tq % 4.2), bend = !quiet && cyc > 2.6 && cyc < 3.6;
+      const pose = quiet ? 'idle0' : bend ? 'bend0' : (Math.floor(t / 2.1) % 2 ? 'idle1' : 'idle0'), h = hnd(S.help, pose, SX, 108, true);
+      T.worker(S.help, SX, 108, pose, true);
+      ctx.fillStyle = '#6a4326'; fr(cx, tb, 7, 1.8); fr(cx + 0.5, tb + 1.8, 1, 4.2); fr(cx + 5.5, tb + 1.8, 1, 4.2);
       const stk = (x, n) => { for (let i = 0; i < n; i++) { ctx.fillStyle = i % 2 ? '#e3b13a' : '#f3cd55'; fr(x, tb - 1 - i, 2, 1); } };
-      stk(cx, 3); stk(cx + 2.4, 2);
-      if (!quiet) {
-        const P = 1.8, ph = (t % P) / P, cyc = Math.floor(t / P);
-        if (ph < 0.7) { const e = ph / 0.7, x = cx + 0.6 + (cyc % 2 ? 1 : -1) * (1 - e) * 0 + e * 2.4 * (cyc % 2 ? -1 : 1) * -1 + (cyc % 2 ? 0 : 0), y = tb - 5 - Math.sin(e * Math.PI) * 6 + e * 2; ctx.fillStyle = '#ffd54a'; fr(x, y, 1.6, 1.6); T.add(() => { ctx.fillStyle = '#fff4b8'; ctx.globalAlpha = 0.8 * Math.sin(e * Math.PI); fr(x - 0.4, y - 0.4, 0.8, 0.8); ctx.globalAlpha = 1; }); }
-        T.add(() => glow(cx + 2, tb - 2, 5, '255,210,80', 0.18 + 0.14 * Math.sin(t * 5)));
-      }
+      stk(cx + 0.6, 3); stk(cx + 3, 2 + (bend ? 0 : 0));
+      if (!bend) { ctx.fillStyle = '#ffd54a'; fr(h[0] - 0.8, h[1] - 0.8, 1.6, 1.6); ctx.fillStyle = '#fff4b8'; fr(h[0] - 0.8, h[1] - 0.8, 0.8, 0.8); }
+      else { ctx.fillStyle = '#ffd54a'; fr(h[0] - 0.8, h[1] - 0.8, 1.6, 1.6); }
+      if (!quiet) T.add(() => glow(cx + 3, tb - 2, 5, '255,210,80', 0.16 + 0.1 * Math.sin(t * 2)));
     }
-    function SY2() { return 108; }
   }
   cidadela.staffInArt = true;
 
@@ -168,8 +168,8 @@
     for (let i = 0; i < LAN.length; i++) { const f = T.lamp(i + 3); T.add(() => glow(LAN[i][0], LAN[i][1], 8 + 7 * on, '255,185,80', (0.12 + 0.5 * on) * f * (dmg ? 0.4 : 1))); }
     T.floor(52, 108, 30, '255,190,100', 0.32 * on);
     /* quadro de contratos com papéis balançando */
-    ctx.fillStyle = '#3e2616'; fr(81.5, 86, 11.5, 14.5); ctx.fillStyle = '#b3844a'; fr(82.5, 87, 9.5, 12.5); ctx.fillStyle = '#c59a5c'; fr(82.5, 87, 9.5, 1);
-    const PP = [[83, 88.5, '#efe6cc'], [87.5, 88, '#d9c79a'], [84, 93.5, '#f2e4c0'], [88.5, 93.2, '#d2dcc4'], [85.7, 97.2, '#e8d9b0']];
+    ctx.fillStyle = '#3e2616'; fr(21, 83, 10.5, 14.5); ctx.fillStyle = '#b3844a'; fr(22, 84, 8.5, 12.5); ctx.fillStyle = '#c59a5c'; fr(22, 84, 8.5, 1);
+    const PP = [[22.8, 85.5, '#efe6cc'], [26.8, 85, '#d9c79a'], [23.2, 90.5, '#f2e4c0'], [27, 90.2, '#d2dcc4'], [25, 94.2, '#e8d9b0']];
     for (let i = 0; i < PP.length; i++) {
       const sw = quiet ? 0 : Math.sin(t * 1.9 + i * 1.7) * 0.7 + (Math.sin(t * 0.6 + i * 2.4) > 0.85 ? Math.sin(t * 9 + i) * 0.9 : 0);
       ctx.fillStyle = PP[i][2]; fr(PP[i][0] + sw, PP[i][1], 3, 2); fr(PP[i][0] + sw * 0.4, PP[i][1] + 2, 3, 2);
@@ -183,8 +183,7 @@
     T.puffs(21, 37, dmg ? 3 : 2, 4.6, dmg ? 0.7 : 0.35, dmg, 22, 7);
     if (S.main) {
       /* Bento à porta; de vez em quando olha o quadro */
-      const ph = (tq % 12), flip = ph > 8 && ph < 11;
-      T.worker(S.main, 51, 108, quiet ? 'idle0' : (ph > 8.3 && ph < 8.9 ? 'atk0' : Math.floor(t * 1.1) % 2 ? 'idle1' : 'idle0'), flip);
+      T.worker(S.main, 51, 108, quiet ? 'idle0' : (Math.floor(t / 2.2) % 2 ? 'idle1' : 'idle0'), false);
     }
   }
   guilda.staffInArt = true;
@@ -214,15 +213,24 @@
       } else { ctx.fillStyle = '#ff7a24'; fr(BX - 0.5, BY - 4, 1, 1); }
     }
     if (S.main) {
-      /* Úrsula de vigia com a luneta, varrendo o horizonte */
-      const P = 12, ph = tq % P, dirR = ph < 6, ux = dirR ? 46 : 58, ease = ph < 6 ? ph / 6 : (ph - 6) / 6, sway = Math.sin(ease * Math.PI) * 0;
-      const x = quiet ? 50 : (dirR ? 45 + 12 * (0.5 - 0.5 * Math.cos(ease * Math.PI)) : 57 - 12 * (0.5 - 0.5 * Math.cos(ease * Math.PI)));
-      const walking = !quiet && ((ease < 0.1) || (ease > 0.9));
-      const pose = quiet ? 'idle0' : (Math.floor(t * 1.2) % 2 ? 'idle1' : 'idle0');
-      T.worker(S.main, x + sway, 47, pose, !dirR);
-      m.blit(ctx, 28, 45, 50, 7);    // ameias passam à frente dos pés
-      ctx.strokeStyle = '#2a1e16'; ctx.lineWidth = Math.max(1.5, T.s * 1.5); ctx.beginPath(); ctx.moveTo(m.sx(x + (dirR ? 2 : -2)), m.sy(33.5)); ctx.lineTo(m.sx(x + (dirR ? 9 : -9)), m.sy(30 - Math.sin(t * 0.7) * 0.6)); ctx.stroke();
-      ctx.strokeStyle = '#d4a94a'; ctx.lineWidth = Math.max(1, T.s * 0.9); ctx.beginPath(); ctx.moveTo(m.sx(x + (dirR ? 2 : -2)), m.sy(33.5)); ctx.lineTo(m.sx(x + (dirR ? 8 : -8)), m.sy(30.4 - Math.sin(t * 0.7) * 0.6)); ctx.stroke();
+      /* Úrsula: mira o horizonte à esquerda, caminha até o outro lado e mira à direita */
+      const P = 14, ph = tq % P, A = 44, B = 58;
+      let x = A, flip = true, aim = true, pose = 'cast0';
+      if (quiet) { x = 51; flip = false; }
+      else if (ph < 5) { x = A; flip = true; }
+      else if (ph < 7) { const e = (ph - 5) / 2; x = A + (B - A) * (e * e * (3 - 2 * e)); flip = false; aim = false; pose = 'walk' + (Math.floor(t * 6) % 4); }
+      else if (ph < 12) { x = B; flip = false; }
+      else { const e = (ph - 12) / 2; x = B - (B - A) * (e * e * (3 - 2 * e)); flip = true; aim = false; pose = 'walk' + (Math.floor(t * 6) % 4); }
+      T.worker(S.main, x, 47, pose, flip);
+      m.blit(ctx, 28, 46, 50, 6);
+      if (aim) {
+        let h; try { h = S.main.hand(pose, x, 47, flip); } catch (e) { h = [x + (flip ? -3.5 : 3.5), 40]; }
+        const d = flip ? -1 : 1, bob = quiet ? 0 : Math.sin(t * 0.8) * 0.4, x1 = h[0] - d * 2.2, y1 = h[1] + 0.8, x2 = h[0] + d * 7.5, y2 = h[1] - 3.4 + bob;
+        ctx.lineCap = 'butt'; ctx.strokeStyle = '#1e1620'; ctx.lineWidth = Math.max(2, T.s * 2.3); ctx.beginPath(); ctx.moveTo(m.sx(x1), m.sy(y1)); ctx.lineTo(m.sx(x2), m.sy(y2)); ctx.stroke();
+        ctx.strokeStyle = '#d4a94a'; ctx.lineWidth = Math.max(1, T.s * 1.3); ctx.beginPath(); ctx.moveTo(m.sx(x1 + d * 0.4), m.sy(y1)); ctx.lineTo(m.sx(x2 - d * 0.4), m.sy(y2)); ctx.stroke();
+        ctx.strokeStyle = '#f4e2a0'; ctx.lineWidth = Math.max(1, T.s * 0.5); ctx.beginPath(); ctx.moveTo(m.sx(x1 + d * 3), m.sy(y1 - 0.5)); ctx.lineTo(m.sx(x2 - d * 1.5), m.sy(y2 - 0.5)); ctx.stroke();
+        ctx.fillStyle = '#1e1620'; fr(x2 - (d > 0 ? 0 : 1.4), y2 - 1.4, 1.4, 2.8);
+      }
     }
   }
   torre.staffInArt = true;
@@ -246,10 +254,11 @@
       }
       const m2 = mask.slice();
       for (let y = 1; y < sh - 1; y++) for (let x = 1; x < sw - 1; x++) if (!mask[y * sw + x] && x / q < 19.5) { const p = px(x, y); if (p[0] + p[1] + p[2] < 330 && (mask[y * sw + x - 1] || mask[y * sw + x + 1] || mask[(y - 1) * sw + x] || mask[(y + 1) * sw + x])) m2[y * sw + x] = 1; }
+      const m3 = m2.slice(); for (let y = 1; y < sh - 1; y++) for (let x = 1; x < sw - 1; x++) if (!m2[y * sw + x] && x / q < 20 && (m2[y * sw + x - 1] || m2[y * sw + x + 1] || m2[(y - 1) * sw + x] || m2[(y + 1) * sw + x])) m3[y * sw + x] = 1;
       const dv = mk(sw, sh), pt = mk(sw, sh), di = dv.x.createImageData(sw, sh), pi = tmp.x.getImageData(0, 0, sw, sh);
       for (let y = 0; y < sh; y++) for (let x = 0; x < sw; x++) {
         const i = (y * sw + x) * 4;
-        if (m2[y * sw + x]) { for (let c = 0; c < 4; c++) di.data[i + c] = d[i + c];
+        if (m3[y * sw + x]) { if (m2[y * sw + x]) for (let c = 0; c < 4; c++) di.data[i + c] = d[i + c];
           const bx = Math.min(sw - 1, Math.round((y / q < 7.5 ? 5 : 21) * q)), j = (y * sw + bx) * 4; for (let c = 0; c < 4; c++) pi.data[i + c] = d[j + c]; }
       }
       dv.x.putImageData(di, 0, 0); pt.x.putImageData(pi, 0, 0); v = { dv: dv.cv, pt: pt.cv };
@@ -280,27 +289,39 @@
     }
     /* Vasco golpeia o boneco de palha */
     const DX = 24.5, DY = 90;
-    let age = 99, idx = -1, cyc = 0, pose = 'idle0', hitAge = 99;
+    let age = 99, pose = 'idle0', swing = false, f = 0;
+    const PER = 1.4, HIT = 0.55, NS = 4, CY = 10, cyc = Math.floor(t / CY), tt = t - cyc * CY, lastHit = (NS - 1) * PER + HIT * PER;
     if (S.main && !quiet) {
-      const CY = 10; cyc = Math.floor(t / CY); const tt = t - cyc * CY; idx = Math.floor(tt - 0.58); age = idx >= 0 ? tt - (idx + 0.58) : tt + CY - 5.58; if (idx < 0) { idx = 5; cyc--; } if (idx > 5) idx = 5; if (idx === 5 && tt >= 6.58 || tt >= 6) age = tt - 5.58;
-      if (tt < 6) { const f = tt - Math.floor(tt); pose = f < 0.35 ? 'atk0' : f < 0.5 ? 'atk1' : f < 0.7 ? 'atk2' : 'atk0'; if (f > 0.75) pose = 'idle0'; } else pose = Math.floor(t * 1.3) % 2 ? 'idle1' : 'idle0';
-      hitAge = age;
+      let idx = Math.floor((tt - HIT * PER) / PER); if (idx > NS - 1) idx = NS - 1;
+      age = idx >= 0 ? tt - (idx * PER + HIT * PER) : tt + CY - lastHit;
+      if (tt < NS * PER) { swing = true; f = (tt % PER) / PER; pose = f < 0.4 ? 'atk0' : f < 0.55 ? 'atk1' : f < 0.72 ? 'atk2' : 'idle0'; }
+      else pose = Math.floor(t / 2) % 2 ? 'idle1' : 'idle0';
     }
+    const seed = Math.floor(age < 99 ? (t - age) * 10 : 0);
     const kit = dummyKit(m, ctx);
-    if (kit && S.main && !quiet && age < 2.2) {
-      const ang = -0.13 * Math.exp(-age * 2.4) * Math.cos(age * 10.5), kxs = T.kx, kys = T.ky;
+    if (kit) {
+      const ang = (S.main && !quiet && age < 2.4) ? -0.12 * Math.exp(-age * 2.2) * Math.cos(age * 7.5) : 0, kxs = T.kx, kys = T.ky;
       ctx.drawImage(kit.pt, 0, 0, kit.pt.width, kit.pt.height, Math.round(m.sx(13)), Math.round(m.sy(66)), Math.round(22 * kxs), Math.round(26 * kys));
       ctx.save(); ctx.translate(m.sx(DX), m.sy(DY)); ctx.rotate(ang); ctx.translate(-m.sx(DX), -m.sy(DY));
       ctx.drawImage(kit.dv, 0, 0, kit.dv.width, kit.dv.height, Math.round(m.sx(13)), Math.round(m.sy(66)), Math.round(22 * kxs), Math.round(26 * kys)); ctx.restore();
     }
-    if (S.main) T.worker(S.main, 38, 91.5, quiet ? 'atk0' : pose, true);
-    if (S.main && !quiet && hitAge < 0.6) {
-      const seed = idx + cyc * 13, N = Math.max(2, Math.ceil(6 * T.third));
-      if (hitAge < 0.12) T.add(() => glow(27, 77, 6, '255,235,170', 0.6 * (1 - hitAge / 0.12)));
+    if (S.main) {
+      const VX = 38, VY = 91.5, vp = quiet ? 'idle0' : pose;
+      T.worker(S.main, VX, VY, vp, true);
+      /* espada de treino na mão (mesma pose e flip do sprite) */
+      let h; try { h = S.main.hand(vp, VX, VY, true); } catch (e) { h = [VX - 3.5, VY - 6.5]; }
+      const ang = vp === 'atk0' ? -1.35 : vp === 'atk1' ? -0.55 : vp === 'atk2' ? 0.45 : -0.9, L = 8, dx = -Math.cos(ang), dy = Math.sin(ang), ex = h[0] + dx * L, ey = h[1] + dy * L;
+      ctx.lineCap = 'butt'; ctx.strokeStyle = '#2a1c14'; ctx.lineWidth = Math.max(2, s * 2.2); ctx.beginPath(); ctx.moveTo(m.sx(h[0] - dx * 1.5), m.sy(h[1] - dy * 1.5)); ctx.lineTo(m.sx(ex), m.sy(ey)); ctx.stroke();
+      ctx.strokeStyle = '#d9b46a'; ctx.lineWidth = Math.max(1, s * 1.1); ctx.beginPath(); ctx.moveTo(m.sx(h[0] + dx * 0.8), m.sy(h[1] + dy * 0.8)); ctx.lineTo(m.sx(ex - dx * 0.4), m.sy(ey - dy * 0.4)); ctx.stroke();
+      ctx.fillStyle = '#7a4a2a'; fr(h[0] - 0.7, h[1] - 0.7, 1.4, 1.4);
+    }
+    if (S.main && !quiet && age < 0.6) {
+      const N = Math.max(2, Math.ceil(6 * T.third));
+      if (age < 0.12) T.add(() => glow(27, 77, 6, '255,235,170', 0.6 * (1 - age / 0.12)));
       for (let i = 0; i < N; i++) {
-        const a = -Math.PI * (0.55 + 0.9 * hs(seed, i, 1)) + 0.4, v = 11 + 14 * hs(seed, i, 2), e = hitAge / 0.6;
+        const a = -Math.PI * (0.55 + 0.9 * hs(seed, i, 1)) + 0.4, v = 11 + 14 * hs(seed, i, 2), e = age / 0.6;
         ctx.globalAlpha = 1 - e; ctx.fillStyle = i % 2 ? '#e8c35a' : '#cfa040';
-        fr(25 + Math.cos(a) * v * hitAge - 2, 77 + Math.sin(a) * v * hitAge + 28 * hitAge * hitAge, i % 3 === 0 ? 2 : 1, 1);
+        fr(25 + Math.cos(a) * v * age - 2, 77 + Math.sin(a) * v * age + 28 * age * age, i % 3 === 0 ? 2 : 1, 1);
       }
       ctx.globalAlpha = 1;
     }
@@ -333,14 +354,19 @@
     /* borboletas nas floreiras */
     if (!quiet && !dmg && nt < 0.45) { const n = o.light ? 1 : 2; for (let i = 0; i < n; i++) { const a = t * (0.6 + i * 0.2) + i * 3, x = (i ? 78 : 20) + Math.sin(a) * 9, y = 94 - 4 + Math.sin(a * 1.7 + i) * 4, w = Math.sin(t * 22 + i) > 0 ? 2 : 1; ctx.fillStyle = i ? '#f4b8d0' : '#fff2a0'; fr(x - w / 2, y, w, 1.3); ctx.fillStyle = '#4a3040'; fr(x, y + 0.2, 0.7, 1); } }
     if (S.main) {
-      const OX = 27, mortar = !quiet && (tq % 9) > 5.5;
-      T.worker(S.main, OX, 108, quiet ? 'idle0' : mortar ? (Math.floor(t * 3.4) % 2 ? 'atk0' : 'idle0') : (Math.floor(t * 1.1) % 2 ? 'idle1' : 'idle0'), false);
-      /* bancada: ervas, bandagens, chá fumegando */
+      const OX = 27, cy = quiet ? 0 : tq % 10, bend = cy > 6 && cy < 7.6;
+      const pose = quiet ? 'idle0' : bend ? 'bend0' : (Math.floor(t / 2.2) % 2 ? 'idle1' : 'idle0');
+      T.worker(S.main, OX, 108, pose, false);
+      /* bancada: bandagens, ervas, chá fumegando */
       ctx.fillStyle = '#6a4326'; fr(31, 101.5, 9, 1.8); fr(31.8, 103.3, 1, 4.7); fr(38, 103.3, 1, 4.7);
       ctx.fillStyle = '#f4efe2'; fr(31.8, 99.2, 2.6, 2.3); ctx.fillStyle = '#cfc8b4'; fr(31.8, 100.6, 2.6, 0.7);
-      ctx.fillStyle = '#4f8a42'; fr(35, 99.8, 3.4, 1.7); ctx.fillStyle = '#6fb05a'; fr(35.4, 99.4, 1.6, 0.8); ctx.fillStyle = '#d65a7a'; fr(37.2, 99.4, 1, 1);
+      ctx.fillStyle = '#4f8a42'; fr(35, 99.8, 3.4, 1.7); ctx.fillStyle = '#6fb05a'; fr(35.4, 99.4, 1.6, 0.8);
       ctx.fillStyle = '#e9e4d8'; fr(38.4, 99.5, 2, 2); ctx.fillStyle = '#7a5030'; fr(38.6, 99.5, 1.6, 0.6);
-      if (!quiet) for (let i = 0; i < Math.max(1, Math.ceil(3 * T.third)); i++) { const ag = ((t * 0.5 + i / 3) % 1), x = 39.3 + Math.sin(ag * 7 + i * 2) * 1.4, y = 98.8 - ag * 9; ctx.globalAlpha = Math.sin(ag * Math.PI) * 0.55; ctx.fillStyle = '#f2f6f0'; fr(x, y, 1.4, 1.4); }
+      /* ramo de ervas na mão (mesma pose e flip do sprite) */
+      let h; try { h = S.main.hand(pose, OX, 108, false); } catch (e) { h = [OX + 3.5, 101.5]; }
+      ctx.fillStyle = '#4f8a42'; fr(h[0] - 0.4, h[1] - 3.2, 1.2, 3.6); ctx.fillStyle = '#6fb05a'; fr(h[0] - 1.4, h[1] - 3.8, 1.4, 1.6); fr(h[0] + 0.8, h[1] - 3, 1.4, 1.4); ctx.fillStyle = '#d65a7a'; fr(h[0] - 0.2, h[1] - 4.4, 1, 1);
+      ctx.fillStyle = '#e9e4d8'; fr(h[0] - 0.6, h[1] - 0.4, 1.6, 1);
+      if (!quiet) for (let i = 0; i < Math.max(1, Math.ceil(3 * T.third)); i++) { const ag = ((t * 0.4 + i / 3) % 1), x = 39.3 + Math.sin(ag * 7 + i * 2) * 1.4, y = 98.8 - ag * 9; ctx.globalAlpha = Math.sin(ag * Math.PI) * 0.55; ctx.fillStyle = '#f2f6f0'; fr(x, y, 1.4, 1.4); }
       ctx.globalAlpha = 1;
     }
   }

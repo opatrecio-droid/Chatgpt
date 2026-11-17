@@ -202,7 +202,6 @@
       headBob(26, 80, 21, 12, n1 * 0.5, Math.max(0, n1) * 1.4);
       const p2 = (t + 4) % 9, n2 = p2 < 1.2 ? Math.sin(p2 / 1.2 * Math.PI * 2) * Math.sin(p2 / 1.2 * Math.PI) : 0;
       headBob(58, 80, 20, 12, -n2 * 0.6, Math.max(0, -n2) * 1.2);
-      if (p2 > 1.0 && p2 < 2.6) { ctx.globalAlpha = 0.5 * Math.sin((p2 - 1) / 1.6 * Math.PI); dr(C.puff.smoke[0], 54 - (p2 - 1) * 2, 88 - (p2 - 1) * 1.5); ctx.globalAlpha = 1; }   // bufo
     }
 
     /* cata-vento em forma de cavalo no cume */
@@ -214,17 +213,6 @@
 
     /* chaminé */
     if (!quiet) plume(T, t, o, 78.5, 44, dmg ? 3 : nt > 0.5 ? 2 : 3, 4.6, dmg ? 0.6 : nt > 0.5 ? 0.3 : 0.45, 26, 8, 'smoke', 3);
-
-    /* feno: fiapos voando do palheiro e dos fardos */
-    if (!quiet && !dmg) {
-      const n = Math.max(1, Math.ceil(5 * third));
-      for (let i = 0; i < n; i++) {
-        const P = 3.4 + i * 0.6, u = t + i * 1.3, ag = (u % P) / P, cyc = Math.floor(u / P), L = i % 2;
-        ctx.globalAlpha = Math.min(1, ag * 6) * (1 - ag * ag); ctx.fillStyle = i % 2 ? '#e8c35a' : '#cfa040';
-        fr((L ? 80 : 26) + hs(cyc, i, 5) * 10 + ag * (14 + 8 * hs(cyc, i, 6)), (L ? 72 : 102) - Math.sin(ag * Math.PI) * (5 + 5 * hs(cyc, i, 7)) + ag * 5, Math.sin(u * 6 + i) > 0 ? 2 : 1, 1);
-      }
-      ctx.globalAlpha = 1;
-    }
 
     /* lanternas e janelinhas do frontão acendem à noite */
     {
@@ -241,15 +229,13 @@
     const W = o.workers && o.workers.main;
     if (W && !dmg) {
       const X = 11, FY = 108.5, cyc = quiet ? 0 : Math.floor(t / 8), tt = quiet ? 0 : t - cyc * 8, brushing = !quiet && tt < 5.6;
-      let pose = 'idle0';
-      if (brushing) { const ph = (tt * 1.45) % 1; pose = ph < 0.3 ? 'atk0' : ph < 0.55 ? 'atk1' : ph < 0.8 ? 'atk2' : 'atk1'; }
-      else if (!quiet) pose = Math.floor(t * 1.2) % 2 ? 'idle1' : 'idle0';
+      const pose = brushing ? 'atk0' : (quiet ? 'idle0' : Math.floor(t * 1.2) % 2 ? 'idle1' : 'idle0');
       T.ell(X, FY, 6.5, 1.9, 'rgba(20,14,28,0.35)');
       try { W.draw(ctx, m.sx(X), m.sy(FY), { pose, flip: false, alpha: 1 }); } catch (e) {}
-      if (brushing) {   // pelos soltos pelo ar
-        ctx.fillStyle = '#f2efe8';
-        for (let i = 0; i < 2; i++) { const ag = ((tt * 1.45 + i * 0.5) % 1); ctx.globalAlpha = (1 - ag) * 0.8; fr(25 + ag * 4 + i * 2, 88 + ag * 8, 1, 1); }
-        ctx.globalAlpha = 1;
+      if (brushing && W.hand) {   // escova segura pela mão do quadro atual; vai e vem curto e lento no flanco do cavalo
+        const h = W.hand(pose, X, FY, false), sw = Math.sin(tt * 3.2) * 1.6, bx = h[0] + sw, by = h[1] + Math.sin(tt * 3.2 + 1) * 0.6;
+        ctx.fillStyle = '#6a4220'; fr(h[0], h[1] - 0.5, Math.max(1, bx - h[0] + 2), 1);
+        ctx.fillStyle = '#d8c08a'; fr(bx + 1, by - 1.5, 2, 3); ctx.fillStyle = '#8a6a3a'; fr(bx + 1, by - 1.5, 2, 1);
       }
     }
     ctx.restore();
@@ -278,7 +264,7 @@
     if (run) {
       const P = 9, ph = t % P, go = ph < 7 ? ph / 7 : -1;
       if (go >= 0) {
-        const e = go, px = 34 + e * 52, L = 17, y = TOP - 3, cut = px + L > CX;
+        const e = go, px = 40 + e * 36, L = 13, y = TOP - 1, cut = px + L > CX;
         const plank = (x0, x1) => { if (x1 - x0 < 0.5) return; ctx.fillStyle = '#c98a44'; fr(x0, y, x1 - x0, 3); ctx.fillStyle = '#e9bf78'; fr(x0, y, x1 - x0, 1); ctx.fillStyle = '#8a5a2c'; fr(x0, y + 2, x1 - x0, 1); };
         if (!cut) plank(px, px + L);
         else { plank(px, Math.min(px + L, CX - 0.6)); plank(CX + 0.6 + 0.5 * Math.min(1, (px + L - CX) / 4), px + L + 0.5 * Math.min(1, (px + L - CX) / 4)); }
@@ -298,17 +284,6 @@
         ctx.fillStyle = '#e2c27e'; fr(61, 104, 6, 1); fr(62, 103, 4, 1);
       }
     }
-    /* serragem solta e pairando ao redor, mesmo sem corte */
-    if (!quiet && !dmg) {
-      const n = Math.max(1, Math.ceil(4 * third));
-      for (let i = 0; i < n; i++) {
-        const P = 4 + i * 0.7, u = t + i * 1.9, ag = (u % P) / P, cyc = Math.floor(u / P);
-        ctx.globalAlpha = Math.sin(ag * Math.PI) * 0.7; ctx.fillStyle = '#f0d494';
-        fr(44 + hs(cyc, i, 3) * 24 + Math.sin(ag * 5 + i) * 2, 96 - ag * 12, 1, 1);
-      }
-      ctx.globalAlpha = 1;
-    }
-
     /* chaminé */
     if (!quiet) plume(T, t, o, 23, 38, dmg ? 3 : o.working ? 5 : 3, 4.2, dmg ? 0.6 : o.working ? 0.55 : 0.3, 28, 9, 'smoke', 4);
 

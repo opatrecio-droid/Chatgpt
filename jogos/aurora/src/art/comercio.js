@@ -99,6 +99,11 @@
         if (!w) return; ctx.fillStyle = 'rgba(20,14,28,0.35)'; ctx.beginPath(); ctx.ellipse(m.sx(x), m.sy(y), 6.5 * kx, 1.9 * ky, 0, 0, TAU); ctx.fill();
         try { w.draw(ctx, m.sx(x), m.sy(y), { pose, flip: !!flip, alpha: 1 }); } catch (e) { /* sprite indisponível */ } ctx.imageSmoothingEnabled = false;
       },
+      /* desenha o morador e devolve a mão da frente [x, y] (mesma pose/flip do desenho) para segurar objetos */
+      work(w, x, y, pose, flip) {
+        K.worker(w, x, y, pose, flip); let h = null; try { h = w.hand && w.hand(pose, x, y, !!flip); } catch (e) { h = null; }
+        return h || [x + (flip ? -3.5 : 3.5), y - 6.5];
+      },
       walk(sp) { return 'walk' + (Math.floor(t * sp) % 4); },
       idle(sp) { return 'idle' + (Math.floor(t * (sp || 1.6)) % 2); }
     };
@@ -149,25 +154,18 @@
       ctx.restore();
     }
     /* moradores */
-    if (hei) {   // Heitor serve canecas ao lado da porta
-      const P = 9, ph = quiet ? 0 : t % P, serving = !quiet && ph > 3.5 && ph < 5.6, k = serving ? (ph - 3.5) / 2.1 : 0, X = 37;
-      const pose = quiet ? 'idle0' : serving ? (k < 0.3 ? 'atk0' : k < 0.5 ? 'atk1' : k < 0.8 ? 'atk2' : 'atk0') : K.idle(1.1);
-      K.worker(hei, X, 107, pose, false);
-      const mx = X + 7 + (serving ? Math.sin(k * Math.PI) * 6 : 0), my = serving ? 94 + k * 3 : 95;
-      ctx.fillStyle = '#e0a838'; K.fr(mx, my, 3, 4); ctx.fillStyle = '#fff6e0'; K.fr(mx, my - 1, 3, 1); ctx.fillStyle = '#b87a28'; K.fr(mx + 3, my + 1, 1, 2);
-      if (serving && k > 0.55) { ctx.globalAlpha = Math.min(1, (k - 0.55) * 4); ctx.fillStyle = '#e0a838'; K.fr(X + 15, 105, 3, 3); ctx.fillStyle = '#fff6e0'; K.fr(X + 15, 104, 3, 1); ctx.globalAlpha = 1; }
+    const mug = (hx, hy) => { ctx.fillStyle = '#b87a28'; K.fr(hx + 1.5, hy - 2, 1.5, 2.5); ctx.fillStyle = '#e0a838'; K.fr(hx - 1.5, hy - 3, 3, 4); ctx.fillStyle = '#fff6e0'; K.fr(hx - 1.5, hy - 4, 3, 1); };
+    if (hei) {   // Heitor segura a caneca e faz um brinde de tempos em tempos
+      const P = 12, ph = quiet ? 0 : t % P, toast = !quiet && ph > 5 && ph < 7.2, pose = toast ? 'atk1' : K.idle(0.8);
+      const h = K.work(hei, 37, 107, pose, false); mug(h[0], h[1]);
     }
-    if (iara) {  // Iara leva a bandeja de lá para cá
-      const A = 66, B = 86, V = 9, wait = 1.4, per = (B - A) / V + wait, cyc = quiet ? 0 : t % (2 * per);
+    if (iara) {  // Iara vai e volta com a bandeja apoiada na mão
+      const A = 66, B = 84, V = 6, wait = 2.2, wk = (B - A) / V, per = wk + wait, cyc = quiet ? 0 : t % (2 * per), right = cyc < per, u = cyc % per;
       let x = A, flip = false, pose = 'idle0';
-      if (!quiet) {
-        const u = cyc % per, right = cyc < per, walkT = (B - A) / V;
-        if (u < walkT) { const f = u / walkT; x = right ? A + (B - A) * f : B - (B - A) * f; flip = !right; pose = K.walk(8); }
-        else { x = right ? B : A; flip = !right; pose = K.idle(1.4); }
-      }
-      K.worker(iara, x, 108, pose, flip);
-      const d = flip ? -1 : 1, bx = x + d * 5.5, by = 93 + (pose.startsWith('walk') ? Math.sin(t * 16) * 0.3 : 0);
-      ctx.fillStyle = '#6a4326'; K.fr(bx - 4, by, 8, 1); ctx.fillStyle = '#e0a838'; K.fr(bx - 3, by - 3, 2.5, 3); K.fr(bx + 0.5, by - 3, 2.5, 3); ctx.fillStyle = '#fff6e0'; K.fr(bx - 3, by - 4, 2.5, 1); K.fr(bx + 0.5, by - 4, 2.5, 1);
+      if (!quiet) { if (u < wk) { const f = u / wk; x = right ? A + (B - A) * f : B - (B - A) * f; flip = !right; pose = K.walk(6); } else { x = right ? B : A; flip = !right; pose = K.idle(0.8); } }
+      const h = K.work(iara, x, 108, pose, flip), hx = h[0], hy = h[1];
+      ctx.fillStyle = '#4a2c1a'; K.fr(hx - 4.5, hy - 1, 9, 1.3); ctx.fillStyle = '#7a4a28'; K.fr(hx - 4.5, hy - 1, 9, 0.6);
+      mug(hx - 2.5, hy - 1); mug(hx + 2, hy - 1);
     }
     notes(K, ctx, 52, 86, o.light ? 1 : 3);
     ctx.globalAlpha = 1;
@@ -224,38 +222,32 @@
     K.smoke(32.5, 27, dmg ? 'dark' : 'warm', dmg ? 4 : (nt > 0.4 ? 4 : 6), dmg ? 0.78 : 0.62, 4.6, 32, 9);
     /* moradores */
     const SHELF = [62, 96];
-    if (alda) {   // Alda tira o pão do forno com a pá e leva ao balcão
-      const P = 13, ph = quiet ? 1 : t % P; let x = 42, flip = true, pose = 'idle0', peel = 0, loaf = 0;
-      if (quiet) { pose = 'idle0'; }
-      else if (ph < 3.2) { const k = ph / 3.2; pose = k < 0.25 ? 'atk0' : k < 0.5 ? 'atk1' : k < 0.75 ? 'atk2' : 'atk0'; peel = 1; loaf = k > 0.6 ? 1 : 0; }
-      else if (ph < 5.4) { const f = (ph - 3.2) / 2.2; x = 42 + 9 * f; flip = false; pose = K.walk(8); peel = 2; loaf = 1; }
-      else if (ph < 6.8) { x = 51; flip = false; pose = ph < 6.2 ? 'atk1' : 'atk0'; peel = 3; loaf = ph < 5.9 ? 1 : 0; }
-      else if (ph < 9) { const f = (ph - 6.8) / 2.2; x = 51 - 9 * f; flip = true; pose = K.walk(8); }
-      else { pose = K.idle(1.2); }
-      K.worker(alda, x, 107, pose, flip);
-      const d = flip ? -1 : 1;
-      if (peel === 1) {   // pá entrando e saindo da boca do forno
-        const ext = Math.sin(clampPi(ph / 3.2)) , tx = 33 + (1 - ext) * 5, ty = 91 - (1 - ext) * 0;
-        K.line(x - 3, 97, tx, ty - 1, 1.2, '#8a6338'); ctx.fillStyle = '#b8864a'; K.fr(tx - 3, ty - 2, 4, 2);
-        if (loaf) { ctx.fillStyle = '#d9a04a'; K.fr(tx - 2, ty - 4, 3, 2); ctx.fillStyle = '#f2c46a'; K.fr(tx - 2, ty - 4, 3, 1); }
-      } else if (peel === 2 || peel === 3) {
-        const ty = peel === 3 ? 96 : 94, tx = x + 8;
-        K.line(x - 1, 97, tx, ty, 1.2, '#8a6338'); ctx.fillStyle = '#b8864a'; K.fr(tx - 1, ty - 1, 4, 2);
-        if (loaf) { ctx.fillStyle = '#d9a04a'; K.fr(tx, ty - 3, 3, 2); ctx.fillStyle = '#f2c46a'; K.fr(tx, ty - 3, 3, 1); }
-      }
-      if (!quiet && ph >= 6 && ph < 8.4) { const e = (ph - 6) / 2.4; ctx.globalAlpha = Math.min(1, e * 6) * (1 - e * 0.3); ctx.fillStyle = '#d9a04a'; K.fr(SHELF[0] + 6, SHELF[1] - 1.5, 4, 2.5); ctx.fillStyle = '#f2c46a'; K.fr(SHELF[0] + 6, SHELF[1] - 1.5, 4, 1); ctx.globalAlpha = 1; }
-      if (!quiet && ph >= 6 && ph < 8) { const e = (ph - 6) / 2; ctx.globalAlpha = 0.6 * (1 - e); ctx.fillStyle = '#fff'; K.fr(SHELF[0] + 7 + Math.sin(e * 9), SHELF[1] - 4 - e * 7, 1, 1); ctx.globalAlpha = 1; }
+    const bread = (x, y) => { ctx.fillStyle = '#d9a04a'; K.fr(x - 1.5, y - 2, 3, 2); ctx.fillStyle = '#f2c46a'; K.fr(x - 1.5, y - 2, 3, 1); };
+    if (alda) {   // Alda: pá na mão; põe o pão no forno, tira, leva ao balcão
+      const P = 14, ph = quiet ? 0 : t % P; let x = 42, flip = true, pose = K.idle(1), vx = -7.5, vy = -10.5, reach = 0.6, loaf = 0, counter = 0;
+      if (quiet) { reach = 0.6; }
+      else if (ph < 3.5) { reach = 0.55 + 0.45 * Math.sin(Math.PI * ph / 3.5); loaf = ph > 1.75 ? 1 : 0; }
+      else if (ph < 5.8) { const f = (ph - 3.5) / 2.3; x = 42 + 9 * f; flip = false; pose = K.walk(6); vx = 8; vy = -9; loaf = 1; }
+      else if (ph < 7.6) { x = 51; flip = false; const f = cl((ph - 5.8) / 1.4, 0, 1); vx = 8; vy = -9 + 5 * f; loaf = ph < 6.9 ? 1 : 0; counter = ph >= 6.9 ? 1 : 0; }
+      else if (ph < 9.9) { const f = (ph - 7.6) / 2.3; x = 51 - 9 * f; flip = true; pose = K.walk(6); counter = 1; }
+      else { counter = ph < 11.5 ? 1 : 0; }
+      const h = K.work(alda, x, 107, pose, flip), d = flip ? -1 : 1, tx = h[0] + d * Math.abs(vx) * reach, ty = h[1] + vy * reach;
+      K.line(h[0] - d * Math.abs(vx) * 0.25, h[1] - vy * 0.25, tx, ty, 1.1, '#8a6338'); ctx.fillStyle = '#b8864a'; K.fr(tx - 2, ty - 1, 4, 1.4);
+      if (loaf) bread(tx, ty - 0.8);
+      if (counter) { ctx.globalAlpha = ph > 11 ? 1 - (ph - 11) / 1 : 1; bread(SHELF[0] - 1, SHELF[1] + 0.5); ctx.globalAlpha = 1; }
     }
-    if (breno) {  // Breno leva sacas de farinha do palheiro ao balcão e volta
-      const A = 70, B = 90, V = 6, wait = 1.6, wk = (B - A) / V, per = wk + wait, cyc = quiet ? 0 : t % (2 * per), left = cyc >= per, u = cyc % per;
-      let x = B, pose = 'idle0', carry = false, flip = false;
+    if (breno) {  // Breno leva sacas de farinha do palheiro ao balcão
+      const A = 74, B = 90, V = 5, wk = (B - A) / V, pk = 1.8, per = pk + wk + pk + wk, c = quiet ? 0 : t % per;
+      let x = B, flip = false, pose = 'idle0', sack = false;
       if (!quiet) {
-        if (!left) { if (u < wait) { x = B; pose = K.idle(1.5); flip = true; carry = u > wait * 0.6; } else { x = B - (B - A) * (u - wait) / wk; pose = K.walk(7); flip = true; carry = true; } }
-        else { if (u < wk) { x = A + (B - A) * u / wk; pose = K.walk(7); flip = false; } else { x = B; pose = K.idle(1.5); flip = true; } }
+        if (c < pk) { x = B; pose = c < 1.2 ? 'bend0' : K.idle(1); sack = c > 0.7; }
+        else if (c < pk + wk) { x = B - (B - A) * (c - pk) / wk; flip = true; pose = K.walk(6); sack = true; }
+        else if (c < pk * 2 + wk) { const u = c - pk - wk; x = A; flip = true; pose = u < 1.2 ? 'bend0' : K.idle(1); sack = u < 0.6; }
+        else { x = A + (B - A) * (c - pk * 2 - wk) / wk; pose = K.walk(6); }
       }
-      K.worker(breno, x, 109, pose, flip);
-      if (carry && !left) { const bx = x, by = 94 + (pose.startsWith('walk') ? Math.sin(t * 14) * 0.3 : 0); ctx.fillStyle = '#e9e0c8'; K.fr(bx - 4, by, 8, 6); ctx.fillStyle = '#c9bd9a'; K.fr(bx - 4, by + 4, 8, 2); K.fr(bx - 2, by - 1, 4, 1); ctx.fillStyle = '#8a6a4a'; K.fr(bx - 4, by + 2, 8, 1); }
-      if (!quiet && left && u < 1.4 && !dmg) { const e = u / 1.4; ctx.globalAlpha = (1 - e) * 0.8; K.dr(C.puff.flour[Math.min(2, (e * 3) | 0)], Math.round(A - 4 + e * 2), Math.round(98 - e * 6)); ctx.globalAlpha = 1; }
+      const h = K.work(breno, x, 109, pose, flip);
+      if (sack || quiet) { const hx = h[0], hy = h[1] - 2.5; ctx.fillStyle = '#e9e0c8'; K.fr(hx - 3.5, hy - 3, 7, 6); ctx.fillStyle = '#c9bd9a'; K.fr(hx - 3.5, hy + 1.5, 7, 1.5); ctx.fillStyle = '#8a6a4a'; K.fr(hx - 3.5, hy - 0.5, 7, 0.9); K.fr(hx - 2, hy - 3.8, 4, 1); }
+      if (!quiet && c >= pk + wk + 0.5 && c < pk + wk + 1.9) { const e = (c - pk - wk - 0.5) / 1.4; ctx.globalAlpha = (1 - e) * 0.8; K.dr(C.puff.flour[Math.min(2, (e * 3) | 0)], Math.round(A - 8 + e * 2), Math.round(101 - e * 6)); ctx.globalAlpha = 1; }
     }
     /* fiapos de farinha ao vento junto à torre */
     if (!quiet && !dmg) {
@@ -307,22 +299,21 @@
       ctx.globalAlpha = 1;
     }
     /* feirantes */
-    if (dario) {   // Dário arruma frutas na bancada da esquerda
-      const P = 7, ph = quiet ? 0 : t % P, tossing = !quiet && ph > 1 && ph < 3.4, k = tossing ? (ph - 1) / 2.4 : 0, X = 43;
-      const pose = quiet ? 'idle0' : tossing ? (k < 0.3 ? 'atk0' : k < 0.55 ? 'atk1' : k < 0.8 ? 'atk2' : 'atk0') : K.idle(1.3);
-      K.worker(dario, X, 107, pose, true);
-      if (tossing && k > 0.3 && k < 0.85) { const f = (k - 0.3) / 0.55, x = X - 5 - 11 * f, y = 95 - Math.sin(f * Math.PI) * 6 + f * 4; ctx.fillStyle = '#d83a2a'; K.fr(x, y, 2.5, 2.5); ctx.fillStyle = '#ff7a60'; K.fr(x, y, 1, 1); }
-      else if (!tossing) { ctx.fillStyle = '#d83a2a'; K.fr(X - 7, 95, 2.5, 2.5); }
+    if (dario) {   // Dário pega uma maçã e a coloca na bancada da esquerda
+      const P = 9, ph = quiet ? 0 : t % P, X = 38; let pose = K.idle(0.9), apple = ph < 5.2 || ph > 6.4, a = 1;
+      if (!quiet) { if (ph >= 3 && ph < 4.5) pose = 'bend0'; else if (ph >= 4.5 && ph < 5.6) { pose = 'bend1'; a = 1 - (ph - 4.5) / 1.1; apple = a > 0.05; } else if (ph >= 6.4 && ph < 7) a = (ph - 6.4) / 0.6; }
+      const h = K.work(dario, X, 107, pose, true);
+      if (apple || quiet) { ctx.globalAlpha = a; ctx.fillStyle = '#d83a2a'; K.fr(h[0] - 1.5, h[1] - 2.5, 3, 3); ctx.fillStyle = '#ff7a60'; K.fr(h[0] - 1.5, h[1] - 2.5, 1, 1); ctx.fillStyle = '#4a7a2a'; K.fr(h[0], h[1] - 3.3, 1, 1); ctx.globalAlpha = 1; }
     }
     if (celia) {   // Célia apregoa: ondas de voz e balão de moeda
-      const per = 6.5, ph = quiet ? 0 : t % per, call = !quiet && ph > 0.6 && ph < 3.2, X = 60, pose = quiet ? 'idle0' : call ? (Math.floor(t * 5) % 2 ? 'atk0' : 'idle1') : K.idle(1.1);
-      K.worker(celia, X, 107, pose, false);
+      const per = 6.5, ph = quiet ? 0 : t % per, call = !quiet && ph > 0.6 && ph < 3.2, X = 60;
+      K.work(celia, X, 107, quiet ? 'idle0' : K.idle(call ? 2.2 : 1), false);
       if (call) {
         const e = (ph - 0.6) / 2.6;
-        for (let i = 0; i < 3; i++) { const a = ((e * 2.2 + i / 3) % 1); ctx.globalAlpha = (1 - a) * 0.8; ctx.strokeStyle = '#fff6d8'; ctx.lineWidth = Math.max(1, K.s * 0.8); ctx.beginPath(); ctx.arc(m.sx(X + 7 + a * 7), m.sy(92), (1.5 + a * 3) * K.s, -0.8, 0.8); ctx.stroke(); }
+        for (let i = 0; i < 3; i++) { const a = ((e * 2.2 + i / 3) % 1); ctx.globalAlpha = (1 - a) * 0.8; ctx.strokeStyle = '#fff6d8'; ctx.lineWidth = Math.max(1, K.s * 0.8); ctx.beginPath(); ctx.arc(m.sx(X + 5 + a * 7), m.sy(86), (1.5 + a * 3) * K.s, -0.8, 0.8); ctx.stroke(); }
         ctx.globalAlpha = Math.min(1, e * 8) * Math.min(1, (1 - e) * 8);
-        ctx.fillStyle = OUT; K.fr(X + 6, 70, 13, 10); ctx.fillStyle = '#fffaf0'; K.fr(X + 7, 71, 11, 8); K.fr(X + 8, 80, 2, 2);
-        ctx.fillStyle = '#e0a838'; K.fr(X + 10, 73, 6, 4); ctx.fillStyle = '#fff2a8'; K.fr(X + 11, 73, 3, 1); ctx.fillStyle = '#b8802a'; K.fr(X + 10, 76, 6, 1);
+        ctx.fillStyle = OUT; K.fr(X + 6, 68, 13, 10); ctx.fillStyle = '#fffaf0'; K.fr(X + 7, 69, 11, 8); K.fr(X + 8, 78, 2, 2);
+        ctx.fillStyle = '#e0a838'; K.fr(X + 10, 71, 6, 4); ctx.fillStyle = '#fff2a8'; K.fr(X + 11, 71, 3, 1); ctx.fillStyle = '#b8802a'; K.fr(X + 10, 74, 6, 1);
         ctx.globalAlpha = 1;
       }
     }
@@ -389,11 +380,10 @@
       ctx.globalAlpha = 1;
     }
     /* Quim mexe o caldeirão */
-    if (quim) {
-      const X = 47, pose = quiet ? 'idle0' : (Math.floor(t * 2.2) % 3 === 0 ? 'atk0' : Math.floor(t * 2.2) % 3 === 1 ? 'atk1' : 'atk2');
-      K.worker(quim, X, 107, pose, true);
-      const a = quiet ? 0 : t * 4.2, sx = CAU[0] + Math.cos(a) * 2.6, sy = CAU[1] - 4 + Math.sin(a) * 0.9;
-      K.line(X - 4, 96, sx, sy, 1.1, '#8a6338'); ctx.fillStyle = '#c8a066'; K.fr(sx - 1, sy - 1, 2, 2);
+    if (quim) {   // Quim mexe o caldeirão com a colher presa à mão
+      const X = 47, h = K.work(quim, X, 107, quiet ? 'idle0' : K.idle(1.1), true);
+      const a = quiet ? 0 : t * 3.2, sx = CAU[0] + Math.cos(a) * 2.6, sy = CAU[1] - 4 + Math.sin(a) * 0.9;
+      K.line(h[0], h[1] - 0.5, sx, sy, 1.1, '#8a6338'); ctx.fillStyle = '#c8a066'; K.fr(sx - 1, sy - 1, 2, 2);
     }
   }
 
@@ -426,27 +416,29 @@
         ctx.fillStyle = '#6a4a2a'; K.fr(x + 1, y - 0.5, 1, 1.5);
       });
     }
-    /* Nina varre a entrada */
+    /* Nina varre a entrada: a vassoura é presa à mão */
     if (nina) {
-      const X = 41, ph = quiet ? 0 : (t * 1.5) % 1, sw = quiet ? 0 : Math.sin(t * 1.5 * TAU), pose = quiet ? 'idle0' : ph < 0.34 ? 'atk0' : ph < 0.6 ? 'atk1' : ph < 0.85 ? 'atk2' : 'atk0';
-      K.worker(nina, X, 107, pose, false);
-      const tx = X + 8 + sw * 3.5, ty = 107.5;
-      K.line(X + 4, 94, tx, ty - 1, 1.1, '#8a6338'); ctx.fillStyle = '#d9b050'; K.fr(tx - 2.5, ty - 1.5, 5, 2); ctx.fillStyle = '#a88030'; K.fr(tx - 2.5, ty, 5, 1);
-      if (!quiet) for (let i = 0; i < Math.ceil(4 * third); i++) { const P = 0.7, ag = ((t + i * 0.18) % P) / P, cyc = Math.floor((t + i * 0.18) / P); ctx.globalAlpha = (1 - ag) * 0.8; ctx.fillStyle = i % 2 ? '#e8dcc0' : '#b8a888'; K.fr(tx + (sw > 0 ? 2 : -2) + hs(cyc, i, 1) * 4 - 1 + ag * (sw > 0 ? 3 : -3), 106.5 - ag * 4 - hs(cyc, i, 2) * 1.5, 1, 1); }
+      const X = 41, h = K.work(nina, X, 107, quiet ? 'idle0' : K.idle(0.8), false), sw = quiet ? 0 : Math.sin(t * 2.2), tx = h[0] + 4 + sw * 3, ty = 107.5;
+      K.line(h[0], h[1] - 1, tx, ty - 1.5, 1.1, '#8a6338'); ctx.fillStyle = '#d9b050'; K.fr(tx - 2.5, ty - 1.5, 5, 2); ctx.fillStyle = '#a88030'; K.fr(tx - 2.5, ty, 5, 1);
+      if (!quiet) for (let i = 0; i < Math.ceil(3 * third); i++) { const P = 1.1, ag = ((t + i * 0.37) % P) / P, cyc = Math.floor((t + i * 0.37) / P); ctx.globalAlpha = (1 - ag) * 0.7; ctx.fillStyle = i % 2 ? '#e8dcc0' : '#b8a888'; K.fr(tx + (sw > 0 ? 2 : -2) + hs(cyc, i, 1) * 3 + ag * (sw > 0 ? 2 : -2), 106.5 - ag * 3, 1, 1); }
       ctx.globalAlpha = 1;
     }
-    /* Rui leva lençóis até o varal */
+    /* Rui leva lençóis ao cesto ao lado do varal e volta de mãos vazias */
+    {
+      ctx.fillStyle = '#6a4a2a'; K.fr(105, 103, 8, 4.5); ctx.fillStyle = '#8a6a3a'; K.fr(105, 103, 8, 1); ctx.fillStyle = '#4a3018'; K.fr(105, 106.5, 8, 1);
+    }
     if (rui) {
-      const out = 56, far = 100, V = 8, wk = (far - out) / V, P = wk * 2 + 5.5, cyc = quiet ? 1 : t % P;
-      let x = out, flip = false, pose = 'idle0', carry = true;
+      const out = 56, far = 99, V = 6, wk = (far - out) / V, bd = 1.6, P = wk * 2 + bd + 3, c = quiet ? 0 : t % P;
+      let x = out, flip = false, pose = 'idle0', carry = true, pile = false;
       if (!quiet) {
-        if (cyc < wk) { x = out + (far - out) * cyc / wk; pose = K.walk(8); }
-        else if (cyc < wk + 2) { x = far; pose = cyc < wk + 1.2 ? 'atk1' : 'atk0'; carry = cyc < wk + 0.8; }
-        else if (cyc < wk * 2 + 2) { x = far - (far - out) * (cyc - wk - 2) / wk; flip = true; pose = K.walk(8); carry = false; }
-        else { x = out; flip = true; pose = K.idle(1.2); carry = false; if (cyc > P - 1.2) { flip = false; carry = true; } }
-      }
-      K.worker(rui, x, 108, pose, flip);
-      if (carry) { const by = 95 + (pose.startsWith('walk') ? Math.sin(t * 16) * 0.3 : 0), bx = x + 1; ctx.fillStyle = '#f6f1e6'; K.fr(bx - 5, by, 10, 5); ctx.fillStyle = '#d8d0c0'; K.fr(bx - 5, by + 3, 10, 2); ctx.fillStyle = '#a889c8'; K.fr(bx - 5, by + 1.5, 10, 1); }
+        if (c < wk) { x = out + (far - out) * c / wk; pose = K.walk(6); }
+        else if (c < wk + bd) { const u = c - wk; x = far; pose = u < 1.1 ? 'bend0' : K.idle(1); carry = u < 0.7; pile = !carry; }
+        else if (c < wk * 2 + bd) { x = far - (far - out) * (c - wk - bd) / wk; flip = true; pose = K.walk(6); carry = false; pile = true; }
+        else { x = out; flip = true; pose = K.idle(1); carry = false; pile = c < wk * 2 + bd + 1; }
+      } else carry = false;
+      const h = K.work(rui, x, 108, pose, flip);
+      if (carry) { const hx = h[0], hy = h[1] - 2.5; ctx.fillStyle = '#f6f1e6'; K.fr(hx - 4.5, hy - 2.5, 9, 5); ctx.fillStyle = '#d8d0c0'; K.fr(hx - 4.5, hy + 1, 9, 1.5); ctx.fillStyle = '#a889c8'; K.fr(hx - 4.5, hy - 0.5, 9, 1); }
+      if (pile) { ctx.fillStyle = '#f6f1e6'; K.fr(106, 101.5, 6, 2); ctx.fillStyle = '#a889c8'; K.fr(107, 102.5, 4, 1); }
     }
   }
 
