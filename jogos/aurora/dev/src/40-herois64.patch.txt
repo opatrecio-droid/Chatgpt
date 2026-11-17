@@ -1,0 +1,40 @@
+Trocas exatas para os quadros de herói deixarem de ter tamanho fixo (26×30).
+A folha passa a dizer o tamanho do quadro, a escala no mundo e a âncora dos pés.
+
+<<<< drawChar: recorte conforme a folha
+    const sxp = sheet.idx[fr] * 26;
+    let lift = 0, mSheet = null;
+====
+    const fw = sheet.fw || 26, fh = sheet.fh || 30, fs = sheet.scale || 1, fax = sheet.ax == null ? 13 : sheet.ax, fay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * fw;
+    let lift = 0, mSheet = null;
+>>>>
+
+<<<< drawChar: desenho do quadro e do clarão de golpe
+    ctx.drawImage(sheet.cv, sxp, 0, 26, 30, -13 * z, -27 * z - lift, 26 * z, 30 * z);
+    if (e.flash > 0) { ctx.globalAlpha = 0.75; ctx.drawImage(A.flashOf(sheet.cv), sxp, 0, 26, 30, -13 * z, -27 * z - lift, 26 * z, 30 * z); ctx.globalAlpha = 1; }
+====
+    ctx.drawImage(sheet.cv, sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z));
+    if (e.flash > 0) { ctx.globalAlpha = 0.75; ctx.drawImage(A.flashOf(sheet.cv), sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z)); ctx.globalAlpha = 1; }
+>>>>
+
+<<<< visitante rival: mesmo recorte
+    const sheet = A.charSheet(visLook(v)), fr = A.charFrame(v, R.t), sxp = sheet.idx[fr] * 26;
+====
+    const sheet = A.charSheet(visLook(v)), fr = A.charFrame(v, R.t), vfw = sheet.fw || 26, vfh = sheet.fh || 30, vfs = sheet.scale || 1, vax = sheet.ax == null ? 13 : sheet.ax, vay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * vfw;
+>>>>
+
+<<<< visitante rival: desenho do quadro
+    ctx.drawImage(sheet.cv, sxp, 0, 26, 30, -13 * z, -27 * z, 26 * z, 30 * z);
+    ctx.restore();
+    ctx.globalAlpha = 1;
+====
+    ctx.drawImage(sheet.cv, sxp, 0, vfw, vfh, Math.round(-vax * vfs * z), Math.round(-vay * vfs * z), Math.round(vfw * vfs * z), Math.round(vfh * vfs * z));
+    ctx.restore();
+    ctx.globalAlpha = 1;
+>>>>
+
+<<<< galeria de arte: quadros de herói no tamanho da folha
+for(const[k,n]of Object.entries(sheet.idx)){sprite(r,k,sheet.cv,n*26,0,26,30);counts.herois++;}}});
+====
+for(const[k,n]of Object.entries(sheet.idx)){sprite(r,k,sheet.cv,n*(sheet.fw||26),0,sheet.fw||26,sheet.fh||30,sheet.fw?1.5:2);counts.herois++;}}});
+>>>>
