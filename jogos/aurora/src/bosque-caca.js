@@ -16,14 +16,14 @@
   const rr = (a, b) => a + rnd() * (b - a);
   const pk = (arr) => arr[Math.floor(rnd() * arr.length)];
   const clamp = G.clamp, lerp = (a, b, t) => a + (b - a) * t;
-  const ZB = { x0: 66.2, y0: 19.3, x1: 83.6, y1: 34.8 };          // o bosque: a leste do rio, em volta da Lenharia
-  const CAP = 10, BIRDS = 3, ADULT = 1;
+  const ZB = { x0: 66.2, y0: 5.5, x1: 85.6, y1: 34.8 };            // o bosque inteiro: a leste do rio, de norte a sul
+  const CAP = 16, BIRDS = 3, ADULT = 1, ROAM = 7, FORAGE = 9;
   const low = () => !!(G.S && G.S.opts && G.S.opts.lowFx);
   const calm = () => !!(G.S && G.S.opts && (G.S.opts.reduceMotion || G.S.opts.lowFx));
   const B = (G.bosque = { S: null, an: [], fr: [], ft: [], arrows: [], stuck: [], hunt: null, zn: null, t: 0, bt: 0, nid: 1, cd: 0, scare: [], stats: { shot: 0, hit: 0, delivered: 0, born: 0, eaten: 0, fell: 0 } });
 
   /* ================= o mapa do bosque ================= */
-  let mask = null, tiles = [], bushes = [];
+  let mask = null, tiles = [], bushes = [], homes = [], homeI = 0;
   const okTile = (x, y) => x >= ZB.x0 && x < ZB.x1 && y >= ZB.y0 && y < ZB.y1 && mask && mask[(y | 0) * W.w + (x | 0)] === 1;
   const clear = (ax, ay, bx, by) => { const d = Math.hypot(bx - ax, by - ay), n = Math.ceil(d * 2.5); for (let i = 1; i <= n; i++) { const t = i / n; if (!okTile(ax + (bx - ax) * t, ay + (by - ay) * t)) return false; } return true; };
   const buildMask = () => {
@@ -39,6 +39,11 @@
     }
     mask = new Uint8Array(w * h); tiles = [];
     for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (comp[y * w + x] === best) { mask[y * w + x] = 1; tiles.push([x + 0.5, y + 0.5]); }
+    /* territórios: pontos bem espalhados (o mais distante dos já escolhidos), nenhum a menos de 6 tiles da porta */
+    const cand = tiles.filter((t) => Math.hypot(t[0] - door[0], t[1] - door[1]) >= 6); homes = [];
+    if (cand.length) { homes.push(cand[Math.floor(rnd() * cand.length)]); while (homes.length < 16) { let bt = null, bd = 0; for (const t of cand) { let m = 99; for (const h of homes) m = Math.min(m, Math.hypot(h[0] - t[0], h[1] - t[1])); if (m > bd) { bd = m; bt = t; } } if (!bt || bd < 3.5) break; homes.push(bt); } }
+    for (let i = homes.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); const t = homes[i]; homes[i] = homes[j]; homes[j] = t; }
+    homeI = 0;
     bushes = W.props.filter((p) => p.t === 'bush' && okTile(p.x, p.y)).map((p) => [p.x, p.y + 0.15]);
   };
 
@@ -64,9 +69,10 @@
 
   /* ================= estado ================= */
   const aliveAn = (a) => a.st !== 'dead' && a.st !== 'carried' && !a.gone;
-  const spawn = (sp, sex, age, x, y) => {
+  const spawn = (sp, sex, age, x, y, home) => {
+    if (x == null && homes.length) { home = homes[homeI++ % homes.length]; x = home[0] + rr(-0.3, 0.3); y = home[1] + rr(-0.3, 0.3); if (!okTile(x, y)) { x = home[0]; y = home[1]; } }
     if (x == null) { for (let i = 0; i < 40; i++) { const t = pk(tiles); if (!t) break; x = t[0] + rr(-0.3, 0.3); y = t[1] + rr(-0.3, 0.3); if (okTile(x, y) && !B.an.some((o) => Math.hypot(o.x - x, o.y - y) < 1.6)) break; } }
-    const a = { id: B.nid++, sp, sex, age, x, y, dir: rnd() < 0.5 ? 1 : -1, st: 'idle', t: rr(0, 2), tEnd: rr(1, 3), tx: x, ty: y, ph: rr(0, 9), hunger: rr(0.2, 0.9), fruit: null, z: 0, hp: 0, alert: 0, stuck: 0, hold: 0, hide: 0, thk: rr(0, 0.3), hop: 0, fx: 0, fy: 0 };
+    const a = { id: B.nid++, sp, sex, age, x, y, home: home ? [home[0], home[1]] : [x, y], dir: rnd() < 0.5 ? 1 : -1, st: 'idle', t: rr(0, 2), tEnd: rr(1, 3), tx: x, ty: y, ph: rr(0, 9), hunger: rr(0.2, 0.9), fruit: null, z: 0, hp: 0, alert: 0, stuck: 0, hold: 0, hide: 0, thk: rr(0, 0.3), hop: 0, fx: 0, fy: 0 };
     B.an.push(a); return a;
   };
   const reset = () => {
@@ -76,10 +82,7 @@
     if (!W.ready) return;
     buildMask(); buildTrees();
     if (!tiles.length) return;
-    spawn('deer', 'm', 2); spawn('deer', 'f', 2); spawn('deer', 'f', 2);
-    spawn('rabbit', 'm', 2); spawn('rabbit', 'f', 2); spawn('rabbit', 'f', 2);
-    spawn('boar', 'm', 2); spawn('boar', 'f', 2);
-    spawn('bird', 'f', 2); spawn('bird', 'm', 2);
+    for (const [sp, sx] of [['deer', 'm'], ['deer', 'f'], ['deer', 'f'], ['deer', 'm'], ['deer', 'f'], ['rabbit', 'm'], ['rabbit', 'f'], ['rabbit', 'f'], ['rabbit', 'm'], ['rabbit', 'f'], ['boar', 'm'], ['boar', 'f'], ['boar', 'm'], ['bird', 'f'], ['bird', 'm'], ['bird', 'f']]) spawn(sp, sx, 2);
   };
   const adults = (sp) => B.an.filter((a) => a.sp === sp && a.age >= ADULT && aliveAn(a));
   const popCount = () => B.an.filter((a) => a.sp !== 'bird' && aliveAn(a)).length;
@@ -155,17 +158,20 @@
     return d <= s + 0.03;
   };
   const wanderTo = (a, r) => {
-    for (let i = 0; i < 8; i++) { const ang = rr(0, 6.283), d = rr(1.2, r), x = a.x + Math.cos(ang) * d, y = a.y + Math.sin(ang) * d; if (okTile(x, y) && clear(a.x, a.y, x, y)) { a.tx = x; a.ty = y; return true; } }
+    for (let i = 0; i < 8; i++) { const ang = rr(0, 6.283), d = rr(1.2, r), x = a.x + Math.cos(ang) * d, y = a.y + Math.sin(ang) * d; if (okTile(x, y) && Math.hypot(x - a.home[0], y - a.home[1]) <= ROAM && clear(a.x, a.y, x, y)) { a.tx = x; a.ty = y; return true; } }
     return false;
   };
   const nearestFruit = (a, maxD) => {
     let best = null, bd = maxD;
-    for (const f of B.fr) { if (f.st === 'fall' || f.gone || (f.by && f.by !== a.id)) continue; const d = Math.hypot(f.x - a.x, f.y - a.y); if (d < bd && clear(a.x, a.y, f.x, f.y)) { bd = d; best = f; } }
+    for (const f of B.fr) { if (f.st === 'fall' || f.gone || (f.by && f.by !== a.id)) continue; const d = Math.hypot(f.x - a.x, f.y - a.y); if (d < bd && Math.hypot(f.x - a.home[0], f.y - a.home[1]) <= FORAGE && clear(a.x, a.y, f.x, f.y)) { bd = d; best = f; } }
     return best;
   };
   const decide = (a) => {
     a.t = 0;
     const lazy = calm() ? 1.8 : 1;
+    if (Math.hypot(a.x - a.home[0], a.y - a.home[1]) > ROAM) {                                  // voltou da fuga: de volta ao território
+      for (let i = 0; i < 6; i++) { const x = a.home[0] + rr(-2.5, 2.5), y = a.home[1] + rr(-2.5, 2.5); if (okTile(x, y) && (i > 3 || clear(a.x, a.y, x, y))) { a.tx = x; a.ty = y; a.st = a.sp === 'bird' ? 'fly' : 'wander'; a.tEnd = 40; a.fx = a.x; a.fy = a.y; a.hop = 0; return; } }
+    }
     if (a.hunger > 0.35) { const f = nearestFruit(a, 11); if (f) { a.fruit = f; f.by = a.id; a.st = 'seek'; a.tx = f.x; a.ty = f.y; a.stuck = 0; return; } }
     const r = rnd();
     if (a.sp === 'bird') { if (r < 0.5) { a.st = 'peck'; a.tEnd = rr(1.5, 4) * lazy; } else if (r < 0.8 && wanderTo(a, 3)) { a.st = 'wander'; a.tEnd = 6; } else { a.st = 'idle'; a.tEnd = rr(1.5, 3) * lazy; } return; }
@@ -245,7 +251,7 @@
     if (B.an.filter((a) => a.sp === 'bird' && aliveAn(a)).length < BIRDS) opts.push('bird');
     if (!opts.length) return;
     const sp = pk(opts), mom = pk(adults(sp)) || null;
-    const a = spawn(sp, rnd() < 0.5 ? 'm' : 'f', sp === 'bird' ? 2 : 0, mom ? mom.x + rr(-0.6, 0.6) : undefined, mom ? mom.y + rr(0.2, 0.8) : undefined);
+    const a = spawn(sp, rnd() < 0.5 ? 'm' : 'f', sp === 'bird' ? 2 : 0, mom ? mom.x + rr(-0.6, 0.6) : undefined, mom ? mom.y + rr(0.2, 0.8) : undefined, mom ? mom.home : undefined);
     if (!okTile(a.x, a.y) && mom) { a.x = mom.x; a.y = mom.y; }
     B.stats.born++;
   };
