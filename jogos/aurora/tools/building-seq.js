@@ -11,7 +11,7 @@ const path = require('path');
   await p.waitForTimeout(400); await p.click('[data-a="t-new"]'); await p.waitForTimeout(1500);
   const pin = () => p.evaluate(([id, H]) => { G.UI.closeModal(); G.UI.close(); G.R.follow = 0; const pl = G.W.plots[id];
     G.S.b[id] = Object.assign(G.S.b[id] || {}, { lvl: 1, dmg: 0 }); G.S.clock = H * 60; G.R.focus(pl.x + 3, pl.y + 1.2, true); G.R.cam.zf = 4.6; G.R.cam.z = 4.6;
-    for (const n of G.npcs || []) if (n.at === id) { n.act = H >= 6 && H < 20 ? 'work' : 'home'; n.state = 'in'; n.inside = true; n.tThink = 999; n.until = 0; } }, [id, +H]);
+    for (const n of G.npcs || []) if (n.at === id) { n.act = H >= 6 && H < 20 ? 'work' : 'home'; n.state = 'in'; n.inside = true; n.tThink = 999; n.until = 0; n.carry = null; const d = G.W.door(id); n.x = d[0]; n.y = d[1]; } }, [id, +H]);
   await pin(); if (await p.evaluate(() => !!G.syncNpcs)) await p.evaluate(() => G.syncNpcs()); await pin(); await p.waitForTimeout(800);
   const clip = { x: 15, y: 175, width: 400, height: 520 }, files = [];
   for (let i = 0; i < +N; i++) { await pin(); const fn = `${out}-${String(i).padStart(2, '0')}.png`; await p.screenshot({ path: fn, clip }); files.push(fn); await p.waitForTimeout(+D); }

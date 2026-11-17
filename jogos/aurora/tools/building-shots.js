@@ -15,7 +15,7 @@ const path = require('path');
     if (!G.S.b[id] || !G.S.b[id].lvl) { G.S.b[id] = Object.assign(G.S.b[id] || {}, { lvl: 1 }); }
     G.S.clock = 10 * 60; G.R.focus(pl.x + 3, pl.y + 2.2, true); G.R.cam.zf = z; G.R.cam.z = z;
     if (G.syncNpcs) G.syncNpcs();
-    for (const n of G.npcs || []) if (n.at === id) { n.act = 'work'; n.state = 'in'; n.inside = true; n.tThink = 999; n.until = 0; }  // equipe no posto durante as fotos
+    for (const n of G.npcs || []) if (n.at === id) { n.act = 'work'; n.state = 'in'; n.inside = true; n.tThink = 999; n.until = 0; n.carry = null; const d = G.W.door(id); n.x = d[0]; n.y = d[1]; }  // equipe no posto durante as fotos
   }, [id, z]);
   await cam(3); await p.waitForTimeout(900); await p.screenshot({ path: out + '-cena.png' });
   await cam(6); await p.waitForTimeout(700);

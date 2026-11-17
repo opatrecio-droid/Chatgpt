@@ -43927,7 +43927,15 @@ html.aurora-rpg #app #modal .mbox.aurora-return-window .rcd.rar5 .rcx-aura.b{bor
   };
 
   /* moradores do prédio que estão de fato no expediente, já no posto (dentro ou à porta), não andando */
-  const atPost = id => (G.npcs || []).filter(n => n.at === id && n.act === 'work' && (n.state === 'in' || n.state === 'toil'));
+  /* no expediente e de fato junto do próprio prédio (prédios de campo, como o Estábulo, mandam a equipe levar carga
+     ao Mercado: lá ela não pode continuar desenhada na arte) */
+  const doorOf = id => (W.door ? W.door(id) : W.plots[id] && W.plots[id].door);
+  const atPost = id => { const dr = doorOf(id), site = !!(G.BLD && G.BLD[id] && G.BLD[id].site);
+    return (G.npcs || []).filter(n => n.at === id && n.act === 'work' && (n.state === 'in' || n.state === 'toil') && !n.carry        // levando carga a outro prédio
+      && (!site || !dr || Math.hypot(n.x - dr[0], n.y - dr[1]) <= 4.2)); };                                                      // prédio de campo: só junto dele
+  /* a arte desenha no máximo dois: o mestre (1º do elenco) e um ajudante. Um 3º da equipe (ex.: Elga, Caixa do Mercado)
+     continua como morador comum, visível à porta */
+  const crewOf = id => { const st = atPost(id); const main = st.find(n => n.job === 'Ferreiro') || st[0] || null; return { main, help: st.find(n => n !== main) || null }; };
   /* desenha o sprite real do morador (mesma aparência do mapa) com os pés em (x, y) */
   const npcDrawer = (n, z) => (ctx, x, y, op) => {
     op = op || {};
@@ -43950,11 +43958,30 @@ html.aurora-rpg #app #modal .mbox.aurora-return-window .rcd.rar5 .rcx-aura.b{bor
   /* posição da mão em pixels da IMAGEM do prédio, para um morador com os pés em (x, y) da imagem */
   const handFor = (n, m) => (pose, x, y, flip) => { const h = handOf(n, pose || 'idle0'), k = m.z / ((m.kx + m.ky) / 2); return [x + (flip ? -1 : 1) * (h[0] - 13) * k, y + (h[1] - 27) * k]; };
   const staffOn = id => { const b = G.S && G.S.b[id]; return !!(STAFF_IN_ART[id] && A.BuildingArt && A.BuildingArt[id] && IMG[id] && b && b.lvl > 0 && !b.dmg); };
+  /* o 045 manda quem está no expediente dar voltas curtas perto da porta (8–30 s cada): fora do prédio ('toil') ou
+     de volta para dentro ('in'). Com a equipe desenhada na arte, isso aparecia como o morador saindo andando do
+     posto e "teletransportando" de volta ao chegar. Quem já estava no posto e recebe uma dessas voltas até a
+     própria porta conclui a volta na hora (mesmo estado final do jogo, sem a caminhada visível). Chegar de casa,
+     almoçar e ir embora continuam visíveis. */
+  const posted = new WeakSet(), near = (n, p, r) => p && Math.hypot(n.x - p[0], n.y - p[1]) <= r;
+  const settle = (id) => {
+    const dr = doorOf(id); if (!dr) return;
+    for (const n of G.npcs || []) {
+      if (n.at !== id || n._sc || n.act !== 'work' || n.state !== 'walk' || !posted.has(n)) continue;
+      if (n.goal !== 'in' && n.goal !== 'toil') continue;
+      const end = n.path && n.path.length ? n.path[n.path.length - 1] : [n._gx, n._gy];
+      if (!near({ x: end[0], y: end[1] }, dr, 7) || !near(n, dr, 7)) continue;   // só a volta curta em torno da porta do próprio prédio
+      n.x = end[0]; n.y = end[1]; n.path = null; n.moving = false; n.state = n.goal; n.inside = n.goal === 'in';
+    }
+  };
   /* quem trabalha na forja é desenhado nela: some o sprite parado à porta para não aparecer duplicado */
   G.hook('renderItems', dyn => {
     for (const id in IMG) {
       if (!staffOn(id)) continue;
-      const here = new Set(atPost(id)); if (!here.size) continue;
+      settle(id);
+      const cr0 = crewOf(id);
+      for (const n of G.npcs || []) if (n.at === id) { if (n === cr0.main || n === cr0.help) posted.add(n); else if (n.state !== 'walk' || n.act !== 'work') posted.delete(n); }
+      const cr = crewOf(id), here = new Set([cr.main, cr.help].filter(Boolean)); if (!here.size) continue;
       for (let i = dyn.length - 1; i >= 0; i--) if (dyn[i].k === 'n' && here.has(dyn[i].e)) dyn.splice(i, 1);
     }
   }, 60);
@@ -43972,8 +43999,7 @@ html.aurora-rpg #app #modal .mbox.aurora-return-window .rcd.rar5 .rcx-aura.b{bor
     const o = { quiet: !!((S && S.opts.reduceMotion) || media.matches), light: !!(S && S.opts.lowFx), dark: S ? G.darkness(S.clock) : 0, hour: hr,
       damaged: !!(b && b.dmg), working: hr >= 6 && hr < 20, crafting: !!(S && S.t < craftUntil), lvl };
     /* equipe real do prédio: o mestre (1º do elenco, ex.: Fábio, Ferreiro) e o ajudante (ex.: Gilda, Aprendiz de forja) */
-    const staff = STAFF_IN_ART[id] ? atPost(id) : [];
-    const main = staff.find(n => n.job === 'Ferreiro') || staff[0] || null, help = staff.find(n => n !== main) || null;
+    const cr = STAFF_IN_ART[id] ? crewOf(id) : { main: null, help: null }, main = cr.main, help = cr.help;
     const m = mapFor(id, lvl, p, sp, X, Y, z);
     /* w.hand(pose, x, y, flip) → [x, y] da mão da frente, em pixels da imagem, para quem tem os pés em (x, y):
        objetos seguros (caneca, bandeja, vassoura, pá…) devem ser desenhados ali, quadro a quadro */
