@@ -1,0 +1,9 @@
+Rótulo "×N" das pilhas de espólio: com as pilhas agrupadas quase todas teriam número.
+
+<<<< espólio: número só nas pilhas grandes
+    if (d.n > 1) over.push(() => {
+      const fs = Math.round(15 * dpr());
+====
+    if (d.n >= (G.DROP_LABEL_MIN || 2)) over.push(() => {
+      const fs = Math.round(15 * dpr());
+>>>>

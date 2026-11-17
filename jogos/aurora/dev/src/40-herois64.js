@@ -147,6 +147,9 @@
         p.hF = { x: cx + [-10, -3, 9][k], y: sy + [8, 9, 5][k] }; p.wAng2 = [-0.6, 0.9, 1.5][k]; p.farFront = k === 2;
       } else if (wt === 'martelo') {
         p.hN = { x: cx + [10, 10, 8][k], y: sy + [-7, 0, 9][k] }; p.wAng = [-0.15, 0.85, 2.1][k]; p.wScale = [0.95, 0.8, 0.78][k]; p.hF = { x: cx + [6, 6, 4][k], y: sy + [-4, 3, 11][k] }; p.farFront = true;
+      } else if (o.isNpc && !wt) {
+        /* morador com ferramenta: a mão fica na altura do peito e a ferramenta gira por cima (desenhada pelo jogo) */
+        p.hN = { x: [33, 45, 40][k] + p.lean, y: [36, 42, 47][k] + p.by }; p.hF = { x: p.shF.x - 2, y: sy + 11 };
       } else {
         p.hN = { x: cx + [11, 12, 10][k], y: sy + [-7, 3, 10][k] }; p.wAng = [-0.2, 1.05, 2.15][k]; p.wScale = [1, 0.8, 0.78][k]; p.hF = { x: p.shF.x - 3, y: sy + [9, 10, 11][k] }; p.slash = k;
       }
@@ -271,7 +274,9 @@
     const rest = frame.startsWith('sleep') || frame === 'fall';
     const p = pose(o, rest ? 'idle0' : frame), D = new Uint32Array(N), side = p.view === 'side', backV = p.view === 'back';
     if (rest) { p.eyes = 'closed'; p.mouth = 'calm'; p.noWeapon = frame !== 'fall'; }
-    const c = CLS[o.cls] || CLS.esp, gear = o.equipment || {}, cos = o.costume || null;
+    const npc = !!o.isNpc;
+    const c = npc ? { cloth: o.body || '#8a7a6a', pants: o.legs || '#4a4458', trim: o.trim || mix(o.body || '#8a7a6a', '#fff3d2', 0.5), leather: '#6e4a30', hairOff: 0 } : (CLS[o.cls] || CLS.esp);
+    const gear = o.equipment || {}, cos = o.costume || null;
     const arm = gear.armadura || null, ap = arm ? gearPal(arm) : null, aRank = rankOf(arm), aType = arm ? arm.type : null;
     const skin = ramp(A.SKIN[o.skin] || A.SKIN[1]), hair = ramp(A.HAIR[o.hair] || A.HAIR[1]);
     const clothHex = cos && cos.body ? cos.body : arm ? (aType === 'pesada' ? ap.main : aType === 'media' ? mix(ap.leather, ap.main, 0.35) : mix(c.cloth, ap.cloth, 0.55)) : c.cloth;
@@ -281,11 +286,11 @@
     const boots = gear.botas ? gearPal(gear.botas) : null, bootR = ramp(boots ? boots.mid : aType === 'pesada' ? ap.dark : c.leather), bootT = ramp(boots ? boots.trim : trimHex);
     const glove = gear.luvas ? gearPal(gear.luvas) : null, handR = glove ? ramp(glove.mid) : aType === 'pesada' ? ramp(ap.mid) : skin;
     const under = ramp(shade(c.cloth, 0.78)), sleeve = aType === 'pesada' ? under : cloth, fore = aType === 'pesada' ? ramp(ap.mid) : glove ? ramp(glove.mid) : o.cls === 'mag' || o.cls === 'pal' || aType === 'leve' ? cloth : skin;
-    const cx = p.tx, hw = p.hw, top = p.top, waist = p.waist, robe = (o.cls === 'mag' && !p.sit) || (aType === 'leve' && o.cls !== 'lad' && !p.sit);
+    const cx = p.tx, hw = p.hw, top = p.top, waist = p.waist, robe = ((o.cls === 'mag' || (npc && o.robe)) && !p.sit) || (aType === 'leve' && o.cls !== 'lad' && !p.sit);
     const wk = o.weaponKind, wit = gear.arma || null;
 
     /* capa: manto de classe ou armadura de rank alto */
-    const capeHex = cos && cos.cape ? cos.cape : (arm && aRank >= 4) ? ap.cloth : o.cls === 'pal' && arm ? mix(ap.cloth, '#8a2f3a', 0.4) : null;
+    const capeHex = npc && o.cape ? o.cape : cos && cos.cape ? cos.cape : (arm && aRank >= 4) ? ap.cloth : o.cls === 'pal' && arm ? mix(ap.cloth, '#8a2f3a', 0.4) : null;
     if (capeHex && !p.sit) {
       const sway = p.walk ? [1, 0, -1, 0][p.ph % 4] : p.atk ? -2 : 0, bot = GY - 6 - p.jump;
       mPoly([[cx - hw - 1, top + 2], [cx + hw + 1, top + 2], [cx + hw + 3 + sway, bot], [cx - hw - 4 + sway, bot]]);
@@ -305,7 +310,7 @@
     };
     const drawWeapon = (h, ang, second) => {
       if (!wk || p.noWeapon) return;
-      weapon(D, wit, wk, Math.round(h.x), Math.round(h.y), ang, { draw: p.draw, shift: p.wShift, glow: p.glow && (p.atk || p.cast) ? p.glow : 0, second, scale: p.wScale || 1 });
+      weapon(D, wit, wk, Math.round(h.x), Math.round(h.y), ang, npc && wk === 'martelo' ? { scale: 0.62 } : { draw: p.draw, shift: p.wShift, glow: p.glow && (p.atk || p.cast) ? p.glow : 0, second, scale: p.wScale || 1 });
     };
 
     /* costas: a arma fica à frente do corpo, então é desenhada antes */
@@ -362,6 +367,12 @@
         if (o.cls === 'cav') { rowIf(D, cx - hw + 2, cx + hw - 3, top + 5, cloth[1]); rowIf(D, cx - hw + 2, cx + hw - 3, top + 8, cloth[1]); colIf(D, cx + fx, top + 2, waist - 1, cloth[3]); }
         if (aType === 'leve' && aRank >= 2) { rowIf(D, cx - hw, cx + hw - 1, top + 1, trim[2]); }
       }
+      if (npc) {
+        if (o.armor) { mRect(cx - hw + 1 + fx, top + 2, hw * 2 - 2, 8); paint(D, ramp(o.metal || '#8a96aa'), { contour: false, side: 0.7 }); rowIf(D, cx - hw + 1 + fx, cx + hw - 2 + fx, top + 9, darker(C(o.metal || '#8a96aa'))); }
+        if (o.apron) { mRect(cx - 5 + fx, top + 4, 10, waist - top + 3); paint(D, ramp(o.apron), { side: 0.75 }); pxIf(D, cx - 4 + fx, top + 2, C(o.apron)); pxIf(D, cx + 3 + fx, top + 2, C(o.apron)); pxIf(D, cx - 4 + fx, top + 3, C(o.apron)); pxIf(D, cx + 3 + fx, top + 3, C(o.apron)); }
+        if (o.scarf) { mRect(cx - 5, top - 1, 10 + (side ? 1 : 0), 3); paint(D, ramp(o.scarf), { contour: false }); }
+        if (o.robe) { colIf(D, cx + fx, top + 1, waist, trim[2]); }
+      }
       /* gola / cachecol */
       if (o.cls === 'esp' || o.cls === 'lad') { const sc = ramp(c.trim); mRect(cx - 5, top - 1, 10 + (side ? 1 : 0), 3); paint(D, sc, { contour: false }); if (o.cls === 'esp') { mRect(cx - hw - 1, top + 1, 3, 6 + (p.walk ? p.ph % 2 : 0)); paint(D, sc); } }
       if (o.cls === 'arq') { mRect(cx - 6, top - 1, 12, 3); paint(D, ramp(shade(clothHex, 0.8)), { contour: false }); }
@@ -406,6 +417,11 @@
       else if (p.mouth === 'smile') { px(D, mx - 1, iy + 6, sd); px(D, mx, iy + 7, sd); px(D, mx + 1, iy + 7, sd); px(D, mx + 2, iy + 6, sd); }
       else { px(D, mx, iy + 7, sd); px(D, mx + 1, iy + 7, sd); }
       if ((o.seed || 0) % 4 === 1 && !side) { px(D, ix - 7, iy + 4, skin[1]); }           // sarda/cicatriz discreta
+      if (npc && o.beard) {
+        const bd = ramp(o.beard);
+        for (let y = iy + 5; y <= iy + 10; y++) for (let x = ix - 8 + fo; x <= ix + 8 + fo; x++) { const i = y * W + x; if (x < 0 || y < 0 || x >= W || y >= H || !D[i]) continue; const edge = y >= iy + 8 || x <= ix - 5 + fo || x >= ix + 5 + fo; if (edge && D[i] !== INK) D[i] = bd[y >= iy + 9 ? 1 : 2]; }
+        px(D, mx, iy + 7, sd); px(D, mx + 1, iy + 7, sd);
+      }
     }
     /* cabelo */
     const style = ((o.style || 0) + c.hairOff) % 8, hood = helm && (o.cls === 'arq' || o.cls === 'lad');
@@ -448,6 +464,26 @@
       /* brilho do cabelo */
       for (const [dx, dy, w] of [[-5, -7, 4], [-6, -6, 2], [1, -8, 3]]) for (let i = 0; i < w; i++) { const X = ix + dx + i, Y = iy + dy; if (X >= 0 && Y >= 0 && D[Y * W + X] === hair[2]) D[Y * W + X] = hair[4 - (i === 0 ? 0 : 1)]; }
     }
+    /* chapéus e capacetes dos moradores */
+    if (npc && o.head) {
+      const hatHex = o.head === 'straw' ? (o.hat || '#d9b95c') : o.head === 'hood' ? (o.hoodC || '#6a5a3a') : o.head === 'helm' ? (o.metal || '#8a96aa') : (o.hat || '#8a4a2e'), hr = ramp(hatHex);
+      if (o.head === 'straw') {
+        mEll(hx, hy - 5, RX + 5, 3.2); paint(D, hr, { side: 0.75 });
+        mEll(hx, hy - 8.5, 6.5, 4.5); for (let y = iy - 5; y <= iy; y++) for (let x = ix - 8; x <= ix + 8; x++) if (y >= 0 && x >= 0 && x < W) M[y * W + x] = 0; paint(D, hr, { side: 0.7 });
+        rowIf(D, ix - 6, ix + 6, iy - 6, darker(C(hatHex)));
+      } else if (o.head === 'hood') {
+        mEll(hx, hy - 1, RX + 2, RY + 1.6); if (!backV) for (let y = iy - 1; y <= iy + 9; y++) for (let x = ix - 6 + fo; x <= ix + 7 + fo; x++) if (y >= 0 && y < H && x >= 0 && x < W) M[y * W + x] = 0;
+        paint(D, hr, { side: 0.74 });
+      } else if (o.head === 'helm') {
+        mEll(hx, hy - 1, RX + 1, RY); for (let y = iy - 2; y <= iy + 12; y++) for (let x = ix - 12; x <= ix + 12; x++) if (y >= 0 && y < H && x >= 0 && x < W) M[y * W + x] = 0;
+        paint(D, hr, { side: 0.72 });
+        rowIf(D, ix - 9, ix + 9, iy - 3, hr[1]); if (!backV) colIf(D, ix + fo, iy - 2, iy + 3, hr[2]);
+        if (o.plume) { mPoly([[hx - 1, hy - 10], [hx + 2, hy - 10], [hx + (side ? -6 : 3), hy - 17], [hx - 4, hy - 13]]); paint(D, ramp(o.plume)); }
+      } else {
+        mEll(hx, hy - 4, RX + 0.5, 6.5); for (let y = iy - 3; y <= iy + 4; y++) for (let x = ix - 12; x <= ix + 12; x++) if (y >= 0 && y < H && x >= 0 && x < W) M[y * W + x] = 0; paint(D, hr, { side: 0.72 });
+        if (!backV) { mRect(ix - 3 + fo * 2, iy - 4, 11, 2); paint(D, ramp(shade(hatHex, 0.8))); }
+      }
+    }
     /* elmo / chapéu / capuz conforme a classe */
     if (helm) {
       const hm = ramp(helm.main), hl = ramp(helm.light), ht = ramp(helm.trim), hc = ramp(mix(c.cloth, helm.cloth, 0.5));
@@ -485,6 +521,8 @@
     /* testeira dos ranks altos do herói */
     if (!helm && !backV && (o.heroRank || 0) >= 4) { rowIf(D, ix - 7 + fo, ix + 7 + fo, iy - 3, trim[2]); pxIf(D, ix + fo, iy - 3, C((A.HERO_RARITY_VISUAL && A.HERO_RARITY_VISUAL[o.heroRarity || 0] || {}).primary || '#ffffff')); }
 
+    if (npc && o.shield && !backV) { const q = p.hF; mEll(q.x - 1, q.y - 3, 5, 6.5); paint(D, ramp(o.shield), { side: 0.7 }); mEll(q.x - 1, q.y - 3, 1.8, 2.2); paint(D, ramp('#d8c27a')); }
+    if (npc && o.carry && !backV) { mEll(cx + (side ? 4 : 0), top + 9, 6, 5.5); paint(D, ramp(o.carry), { side: 0.7 }); rowIf(D, cx + (side ? 1 : -3), cx + (side ? 7 : 3), top + 6, darker(C(o.carry))); }
     /* arma e braço da frente */
     if (!backV) drawWeapon(p.hN, p.wAng);
     if (p.farFront) { drawArm(p.shF, p.hF, false); }
@@ -505,31 +543,55 @@
   /* ---------- folhas, retratos e corpo inteiro ---------- */
   const sheets = new Map(), images = new Map();
   let revision = 1;
-  const weaponKind = (o) => { const it = o.equipment && o.equipment.arma; if (!it) return o.weapon || (G.CLASSES[o.cls] && G.CLASSES[o.cls].w) || ''; return /^machado/.test(it.e2catalog || it.art || '') ? 'machado' : it.type; };
+  const weaponKind = (o) => { if (o.isNpc) return o.weapon === 'lanca' ? 'lanca' : o.weapon === 'ferramenta' ? 'martelo' : ''; const it = o.equipment && o.equipment.arma; if (!it) return o.weapon || (G.CLASSES[o.cls] && G.CLASSES[o.cls].w) || ''; return /^machado/.test(it.e2catalog || it.art || '') ? 'machado' : it.type; };
   const keyOf = (o) => 'h64|' + revision + '|' + o.key;
   const prep = (o) => { if (o.weaponKind == null) o.weaponKind = o.bare ? '' : weaponKind(o); return o; };
   A.hero64Frame = (o, frame) => toCanvas(frame64(prep(o), frame));
   const oldSheet = A.charSheet, oldPortrait = A.portrait, oldFull = A.fullBody;
   A.charSheet = (o) => {
-    if (!o || !o.heroBase) return oldSheet(o);
+    if (!o || !(o.heroBase || o.isNpc)) return oldSheet(o);
     const k = keyOf(o); let s = sheets.get(k); if (s) return s;
     prep(o);
-    const frames = A.FRAMES, cv = A.mk(W * frames.length, H), ctx = cv.getContext('2d'), idx = {}, im = ctx.createImageData(W, H), u = new Uint32Array(im.data.buffer);
-    frames.forEach((f, i) => { idx[f] = i; u.set(frame64(o, f)); ctx.putImageData(im, i * W, 0); });
-    s = { cv, idx, fw: W, fh: H, scale: 0.5, ax: 32, ay: GY + 1, key: k, layers: { body: true, equipment: true, aura: false } };
-    if (sheets.size >= 160) sheets.clear(); sheets.set(k, s); return s;
+    /* Os quadros são desenhados sob demanda: uma folha tem 40 poses e a maioria nunca aparece.
+       Até lá cada casa mostra a pose parada, então nenhum consumidor vê um quadro vazio. */
+    const frames = A.FRAMES, cv = A.mk(W * frames.length, H), ctx = cv.getContext('2d'), idx = {}, im = ctx.createImageData(W, H), u = new Uint32Array(im.data.buffer), done = new Uint8Array(frames.length);
+    frames.forEach((f, i) => { idx[f] = i; });
+    u.set(frame64(o, 'idle0')); for (let i = 0; i < frames.length; i++) ctx.putImageData(im, i * W, 0); done[idx.idle0] = 1;
+    let flash = null, flashDirty = true;
+    const need = (f) => { const i = idx[f]; if (i == null || done[i]) return; done[i] = 1; u.set(frame64(o, f)); ctx.putImageData(im, i * W, 0); flashDirty = true; };
+    const flashCv = () => {
+      if (!flash) flash = A.mk(cv.width, H);
+      if (flashDirty) { const x = flash.getContext('2d'); x.globalCompositeOperation = 'copy'; x.drawImage(cv, 0, 0); x.globalCompositeOperation = 'source-in'; x.fillStyle = '#ffffff'; x.fillRect(0, 0, flash.width, H); x.globalCompositeOperation = 'source-over'; flashDirty = false; }
+      return flash;
+    };
+    /* mão da frente no sistema antigo (26×30), para as ferramentas e cargas desenhadas por cima dos moradores */
+    const hands = {}, hand = (f) => hands[f] || (hands[f] = (() => { const q = pose(o, f).hN; return [13 + (q.x - 32) / 2, 27 + (q.y - GY - 1) / 2]; })());
+    s = { cv, idx, fw: W, fh: H, scale: 0.5, ax: 32, ay: GY + 1, key: k, hand, headRows: 28, need, flashCv, layers: { body: true, equipment: true, aura: false } };
+    if (sheets.size >= 220) sheets.clear(); sheets.set(k, s); return s;
   };
   const cut = (o, frame) => { const cv = A.mk(W, H), c = cv.getContext('2d'), im = c.createImageData(W, H); new Uint32Array(im.data.buffer).set(frame64(prep(o), frame)); c.putImageData(im, 0, 0); return cv; };
   A.fullBody = (o) => {
+    if (o && o.isNpc) {                                                                    // mesma proporção do quadro antigo (26:30)
+      const k = 'nf|' + keyOf(o); if (images.has(k)) return images.get(k);
+      const cv = A.mk(104, 120), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
+      c.drawImage(cut(o, 'idle0'), 6, 2, 52, 60, 0, 0, 104, 120);
+      const url = cv.toDataURL(); if (images.size > 500) images.clear(); images.set(k, url); return url;
+    }
     if (!o || !o.heroBase) return oldFull(o);
     const k = 'full|' + keyOf(o); if (images.has(k)) return images.get(k);
-    const cv = A.mk(160, 160), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
-    if (o.wings && A.wingSheet) { const wings = A.wingSheet(o.wings); if (wings) c.drawImage(wings, 0, 0, 30, 22, 20, 30, 120, 88); }
-    c.drawImage(cut(o, 'idle0'), 0, 0, W, H, 16, 22, 128, 128);
+    const cv = A.mk(192, 192), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
+    if (o.wings && A.wingSheet) { const wings = A.wingSheet(o.wings); if (wings) c.drawImage(wings, 0, 0, 30, 22, 6, 34, 180, 132); }
+    c.drawImage(cut(o, 'idle0'), 0, 0, W, H, 0, 8, 192, 192);
     const url = cv.toDataURL() + '#aurora-h64-' + encodeURIComponent(k);
     if (images.size > 500) images.clear(); images.set(k, url); if (A.HERO_IMAGE_META) A.HERO_IMAGE_META.set(url, Object.assign({}, o)); return url;
   };
   A.portrait = (o) => {
+    if (o && o.isNpc) {
+      const k = 'np|' + keyOf(o); if (images.has(k)) return images.get(k);
+      const cv = A.mk(84, 84), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
+      c.drawImage(cut(Object.assign({}, o, { weaponKind: '' }), 'frontIdle0'), 18, 3, 28, 28, 0, 0, 84, 84);
+      const url = cv.toDataURL(); if (images.size > 500) images.clear(); images.set(k, url); return url;
+    }
     if (!o || !o.heroBase) return oldPortrait(o);
     const k = 'portrait|' + keyOf(o); if (images.has(k)) return images.get(k);
     const cv = A.mk(88, 88), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
@@ -537,7 +599,6 @@
     const g = c.createLinearGradient(0, 0, 0, 88); g.addColorStop(0, '#2b2a38'); g.addColorStop(1, '#17161f'); c.fillStyle = g; c.fillRect(0, 0, 88, 88);
     c.drawImage(cut(Object.assign({}, o, { weaponKind: '' }), 'frontIdle0'), 18, 3, 28, 28, 2, 2, 84, 84);
     c.strokeStyle = col; c.lineWidth = 4; c.strokeRect(2, 2, 84, 84);
-    c.fillStyle = '#15141de0'; c.fillRect(4, 66, 26, 18); c.fillStyle = col; c.font = 'bold 15px Arial, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(G.RANKS[o.heroRank || 0], 17, 76);
     const url = cv.toDataURL(); if (images.size > 500) images.clear(); images.set(k, url); return url;
   };
   A.invalidateHero64 = () => { revision++; sheets.clear(); images.clear(); if (G.S) for (const h of G.S.heroes) { delete h._look; delete h._lk; delete h._dirtyKey; } if (G.UI && G.UI.rosterBuild) G.UI.rosterBuild(); };

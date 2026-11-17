@@ -9512,7 +9512,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
   G.hook('newGame',() => {
     const S = G.S;
     S.tut.seen = S.tut.seen || {};
-    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = S.tut.seen.v24 = S.tut.seen.v25 = S.tut.seen.v26 = S.tut.seen.v27=S.tut.seen.v28=S.tut.seen.v28f1=S.tut.seen.v28f2=S.tut.seen.v28f3=S.tut.seen.v28visual=S.tut.seen.v28f4=S.tut.seen.v28f5=S.tut.seen.v28f6=S.tut.seen.v28f7=S.tut.seen.v28f8=S.tut.seen.v28f9=1;
+    S.tut.seen.v20 = S.tut.seen.v21 = S.tut.seen.v22 = S.tut.seen.v24 = S.tut.seen.v25 = S.tut.seen.v26 = S.tut.seen.v27=S.tut.seen.v28=S.tut.seen.v28f1=S.tut.seen.v28f2=S.tut.seen.v28f3=S.tut.seen.v28visual=S.tut.seen.v28f4=S.tut.seen.v28f5=S.tut.seen.v28f6=S.tut.seen.v28f7=S.tut.seen.v28f8=S.tut.seen.v28f9=S.tut.seen.v307=1;
     return S;
   },10002);
 
@@ -14297,6 +14297,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       return;
     }
     const fr = A.visualPose ? A.visualPose(e, R.t) : A.charFrame(e, R.t);
+    if (sheet.need) sheet.need(fr);
     const fw = sheet.fw || 26, fh = sheet.fh || 30, fs = sheet.scale || 1, fax = sheet.ax == null ? 13 : sheet.ax, fay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * fw;
     let lift = 0, mSheet = null;
     if (isHero && e.mount && !fallen && !Wd.inTown(e.x, e.y)) { const mt = G.mountOf(e); mSheet = mt ? A.mountSheet(mt.k) : null; if (mSheet) lift = 8 * z; }
@@ -14309,7 +14310,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     if (mSheet) ctx.drawImage(mSheet, (e.moving ? Math.floor(R.t * 8 + e._ph) % 2 : 0) * 30, 0, 30, 22, -15 * z, -20 * z, 30 * z, 22 * z);
     if (isHero && e.cos && e.cos.asas && !fallen && A.wingSheet) { const ws = A.wingSheet(e.cos.asas); if (ws) ctx.drawImage(ws, (Math.floor(R.t * (e.moving ? 7 : 2.5) + e._ph) % 2) * 30, 0, 30, 22, -19 * z, -24 * z - lift, 30 * z, 22 * z); }
     ctx.drawImage(sheet.cv, sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z));
-    if (e.flash > 0) { ctx.globalAlpha = 0.75; ctx.drawImage(A.flashOf(sheet.cv), sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z)); ctx.globalAlpha = 1; }
+    if (e.flash > 0) { ctx.globalAlpha = 0.75; ctx.drawImage(sheet.flashCv ? sheet.flashCv() : A.flashOf(sheet.cv), sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z)); ctx.globalAlpha = 1; }
     ctx.restore();
     if (isHero) {
       const st = G.heroStats(e);
@@ -15407,7 +15408,7 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
       ctx.fillRect(sx, sy - sc, sc, 3 * sc);
       ctx.globalAlpha = 1;
     }
-    if (d.n > 1) over.push(() => {
+    if (d.n >= (G.DROP_LABEL_MIN || 2)) over.push(() => {
       const fs = Math.round(15 * dpr());
       ctx.font = fs + 'px "Aurora Pixel",monospace';
       ctx.textAlign = 'center';
@@ -16080,9 +16081,11 @@ G.GATES = { n: { x: 44, y: 39.2, out: [44, 36] }, s: { x: 44, y: 67.8, out: [44,
     shadow(px, py, 6.5, z);
     ctx.save(); ctx.translate(px, py); if (e.dir < 0) ctx.scale(-1, 1);
     const dy = P.dy || 0;
-    ctx.drawImage(sheet.cv, sheet.idx[P.fr] * 26, 0, 26, 30, -13 * z, (-27 + dy) * z, 26 * z, 30 * z);
-    if (P.item) { drawItem(ctx, P.item, bob, z, P.fr); if (P.item === 'log' || P.item === 'sack') ctx.drawImage(sheet.cv, sheet.idx[P.fr] * 26, 0, 26, 14, -13 * z, (-27 + dy) * z, 26 * z, 14 * z); }      // a cabeça volta por cima: a carga fica no ombro, não na cara
-    if (P.tool) { const h = HAND[P.fr] || HAND.idle0, c = toolCv(P.tool, Math.round(P.ang / 6) * 6); ctx.drawImage(c, Math.round((h[0] - 14 - 13) * z), Math.round((h[1] - 14 - 27 + dy) * z), 28 * z, 28 * z); }
+    if (sheet.need) sheet.need(P.fr);
+    const nfw = sheet.fw || 26, nfh = sheet.fh || 30, nfs = sheet.scale || 1, nax = sheet.ax == null ? 13 : sheet.ax, nay = sheet.ay == null ? 27 : sheet.ay, nhr = sheet.headRows || 14;
+    ctx.drawImage(sheet.cv, sheet.idx[P.fr] * nfw, 0, nfw, nfh, Math.round(-nax * nfs * z), Math.round((-nay * nfs + dy) * z), Math.round(nfw * nfs * z), Math.round(nfh * nfs * z));
+    if (P.item) { drawItem(ctx, P.item, bob, z, P.fr); if (P.item === 'log' || P.item === 'sack') ctx.drawImage(sheet.cv, sheet.idx[P.fr] * nfw, 0, nfw, nhr, Math.round(-nax * nfs * z), Math.round((-nay * nfs + dy) * z), Math.round(nfw * nfs * z), Math.round(nhr * nfs * z)); }      // a cabeça volta por cima: a carga fica no ombro, não na cara
+    if (P.tool) { const h = (sheet.hand && sheet.hand(P.fr)) || HAND[P.fr] || HAND.idle0, c = toolCv(P.tool, Math.round(P.ang / 6) * 6); ctx.drawImage(c, Math.round((h[0] - 14 - 13) * z), Math.round((h[1] - 14 - 27 + dy) * z), 28 * z, 28 * z); }
     if (P.seeds && !low()) {
       for (let i = 0; i < 4; i++) {
         const k = (w.t * 2.4 + i * 0.25) % 1;
@@ -22372,7 +22375,8 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:max(11px, calc(15px * var(-
   UI.NEWS.v28f7={t:'As crônicas das luas',n:'Aurora v28 · Fase 7',rows:[['book','Seis capítulos','A Jornada conserva suas 35 etapas e conta a origem da Fenda nos relatos de Rosa.'],['flag','Escolhas que retornam','Vinte e quatro eventos, com decisões que voltam três dias depois.'],['people','Histórias da cidade','Três partes por morador, novas criaturas e encontros em cada zona.']]};
   UI.NEWS.v28f8={t:'Seu jeito de jogar',n:'Aurora v28 · Fase 8',rows:[['book','Leitura e conforto','Texto maior, contraste, movimento e símbolos de raridade nas opções.'],['flag','Seu próximo passo','Fixe um objetivo, busque equipamento e use Voltar para fechar as telas.'],['vol','Ritmo do aparelho','Qualidade, economia de bateria, velocidade inicial e aviso de gastos manuais.']]};
   UI.NEWS.v28f9={t:'O reino em harmonia',n:'Aurora v28 · Fase 9',rows:[['flag','Buscas mais leves','Os alvos próximos são consultados sem mudar as prioridades dos heróis.'],['book','Sua jornada continua','Seu reino continua ao carregar, com opções e progresso preservados.'],['grid','Qualidade adaptativa','Se o desenho pesar, a nitidez baixa antes de diminuir os efeitos.']]};
-  const NEWS_ORDER = ['v28f9','v28f8','v28f7','v28f6','v28f5','v28f4','v28visual','v28f3','v28f2','v28f1','v28', 'v27', 'v26', 'v25', 'v24', 'v22', 'v21', 'v20'];
+  UI.NEWS.v307={t:'Avisos limpos, neblina, chefes e arte nova',n:'Aurora v30.7',rows:[['scroll','Avisos em uma faixa só','Uma mensagem por vez, logo abaixo dos retratos. Chefe, Maré e nível do reino não cobrem mais o centro do mapa.'],['map','Borda de neblina','Arraste além da borda do mapa: a bruma abre espaço para ver os cantos fora do HUD.'],['skull','Convocação contra o chefe','Quando um chefe desperta, os heróis aptos se reúnem e atacam juntos. Depois de três derrotas seguidas, só voltam quando se sentem prontos para vencer.'],['people','Heróis e moradores redesenhados','Sprites em 64×64 com roupa de classe, armadura, elmo e armas que mudam de forma a cada dois ranks.'],['chest','Espólio agrupado','Materiais iguais que caem perto um do outro se juntam numa pilha só.']]};
+  const NEWS_ORDER = ['v307','v28f9','v28f8','v28f7','v28f6','v28f5','v28f4','v28visual','v28f3','v28f2','v28f1','v28', 'v27', 'v26', 'v25', 'v24', 'v22', 'v21', 'v20'];
   const newsPending = () => { const s = (G.S && G.S.tut && G.S.tut.seen) || {}; return NEWS_ORDER.filter((k) => !s[k] && UI.NEWS[k]); };
   UI.newsPending = newsPending;
   UI.whatsNew = (keys) => {
@@ -24324,7 +24328,7 @@ button.ttl{padding:4px 0 0;text-align:left;font-size:max(11px, calc(15px * var(-
   const drawVis = (v, X, Y, z, over) => {
     const ctx = R.ctx, riv = G.arenaRival(v.riv), px = Math.round(X(v.x)), py = Math.round(Y(v.y)), dpr = (G.R.dpr||Math.min(3,window.devicePixelRatio||1));
     if (v._ph == null) v._ph = (G.hash(v.name) % 100) / 25;
-    const sheet = A.charSheet(visLook(v)), fr = A.charFrame(v, R.t), vfw = sheet.fw || 26, vfh = sheet.fh || 30, vfs = sheet.scale || 1, vax = sheet.ax == null ? 13 : sheet.ax, vay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * vfw;
+    const sheet = A.charSheet(visLook(v)), fr = A.charFrame(v, R.t), vfw = sheet.fw || 26, vfh = sheet.fh || 30, vfs = sheet.scale || 1, vax = sheet.ax == null ? 13 : sheet.ax, vay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * vfw; if (sheet.need) sheet.need(fr);
     const out = v.state === 'leave' ? 0.85 : 1;
     ctx.globalAlpha = out;
     /* sombra e anel de toque */
@@ -28861,7 +28865,7 @@ if(rib&&rib.offsetHeight&&UI.mapObstacles){const r=rib.getBoundingClientRect();U
  const row=(section,label)=>{const e=document.createElement('div');e.className='ag-row';const b=document.createElement('b');b.className='ag-label';b.textContent=label;e.appendChild(b);section.appendChild(e);return e;};
  const sprite=(parent,label,cv,sx,sy,w,h,scale=2,silhouette=false)=>{const fig=document.createElement('figure'),c=document.createElement('canvas');c.width=w*scale;c.height=h*scale;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(cv,sx,sy,w,h,0,0,c.width,c.height);if(silhouette){x.globalCompositeOperation='source-in';x.fillStyle='#030403';x.fillRect(0,0,c.width,c.height);fig.style.background='#dfd3b4';}const cap=document.createElement('figcaption');cap.textContent=label;fig.append(c,cap);parent.appendChild(fig);return c;};
  const hsec=sec('herois','Heróis · classes, equipamento e todos os quadros');counts.herois=0;
- G.CLASS_IDS.forEach((cls,i)=>{for(const[tier,rar,rank]of[[1,0,0],[3,2,3],[6,5,7]]){const h={cls,rank,rar,cos:{},look:{skin:i%5,hair:i%10,style:i%6,seed:101+i},gear:{arma:{type:G.CLASSES[cls].w,tier,rar,plus:0},armadura:{type:G.CLASSES[cls].a,tier,rar,plus:0}}},look=A.heroLook(h),sheet=A.charSheet(look),r=row(hsec,G.CLASSES[cls].name+' · nível de peça '+tier+' · '+G.RAR[rar]);for(const[k,n]of Object.entries(sheet.idx)){sprite(r,k,sheet.cv,n*(sheet.fw||26),0,sheet.fw||26,sheet.fh||30,sheet.fw?1.5:2);counts.herois++;}}});
+ G.CLASS_IDS.forEach((cls,i)=>{for(const[tier,rar,rank]of[[1,0,0],[3,2,3],[6,5,7]]){const h={cls,rank,rar,cos:{},look:{skin:i%5,hair:i%10,style:i%6,seed:101+i},gear:{arma:{type:G.CLASSES[cls].w,tier,rar,plus:0},armadura:{type:G.CLASSES[cls].a,tier,rar,plus:0}}},look=A.heroLook(h),sheet=A.charSheet(look),r=row(hsec,G.CLASSES[cls].name+' · nível de peça '+tier+' · '+G.RAR[rar]);for(const[k,n]of Object.entries(sheet.idx)){if(sheet.need)sheet.need(k);sprite(r,k,sheet.cv,n*(sheet.fw||26),0,sheet.fw||26,sheet.fh||30,sheet.fw?1.5:2);counts.herois++;}}});
  const nsec=sec('moradores','Moradores · todos os quadros');counts.moradores=0;for(const n of G.CAST){const look=A.npcLook(n),sheet=A.charSheet(look),r=row(nsec,n.name+' · '+n.job);for(const[k,f]of Object.entries(sheet.idx)){sprite(r,k,sheet.cv,f*26,0,26,30);counts.moradores++;}}
  const msec=sec('monstros','Monstros, elites, chefes e silhuetas');counts.monstros=0;for(const[k,d]of Object.entries(G.MON)){const r=row(msec,d.name+(d.boss?' · chefe':''));for(const elite of[false,true]){const s=A.monSheet(k,elite);for(let f=0;f<s.cv.width/s.w;f++){sprite(r,(elite?'Elite · ':'')+'quadro '+f,s.cv,f*s.w,0,s.w,s.h);counts.monstros++;}if(!elite)sprite(r,'Silhueta',s.cv,0,0,s.w,s.h,2,true);}}
  const bsec=sec('predios','Construções · estágios visuais e danos');counts.predios=0;for(const id of G.BLD_IDS){const r=row(bsec,G.BLD[id].name);for(const level of[0,1,3,6,12])for(const damaged of level?[false,true]:[false]){const s=A.building(id,level,damaged);sprite(r,'Nível '+level+(damaged?' · dano':''),s.cv,0,0,s.w,s.h,1);counts.predios++;}}
@@ -37009,6 +37013,17 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
   html.aurora-rpg #app #hud #av-lane {left:24px;width:min(calc(100% - 24px), 420px)}
 }
 
+/* Dica da guia (mão que aponta): mesma linguagem dos avisos, sem a caixa marrom que cobria o HUD. */
+html.aurora-rpg #app #guide .gd-tip {
+  min-height:0!important;padding:8px 4px 8px 12px!important;gap:4px!important;
+  max-width:min(230px,calc(100vw - 24px))!important;
+  background:#0c1015f0!important;border:0!important;border-left:2px solid var(--hud-accent,#d0bd95)!important;border-image:none!important;
+  box-shadow:0 2px 10px #0008!important;color:#eeeae2!important;
+  font:500 12px/1.4 Arial,sans-serif!important;letter-spacing:.1px;
+}
+html.aurora-rpg #app #guide .gd-tip .gd-x {width:32px!important;height:32px!important;color:#b8b9b5!important}
+html.aurora-rpg #app #guide .gd-ring {border-width:2px!important;border-color:var(--hud-accent,#d0bd95)!important;box-shadow:none!important}
+
 </style>
 <script id="aurora-043-avisos">
 /* Aurora 043 · avisos em uma faixa só.
@@ -37533,6 +37548,23 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
 })();
 
 </script>
+<style id="aurora-043-herois64">
+/* Aurora 043 · heróis em 64×64 nas telas: figuras maiores e sempre com pixels nítidos. */
+html.aurora-rpg #app .dollw .doll .dfig {
+  width:92px!important;height:92px!important;margin-top:-16px!important;
+  background-size:contain!important;background-position:center bottom!important;background-repeat:no-repeat!important;
+  image-rendering:pixelated;
+}
+html.aurora-rpg #app .hcard .hc-pt {
+  width:88px!important;height:88px!important;margin:0 auto!important;
+  background-size:contain!important;background-position:center bottom!important;background-repeat:no-repeat!important;
+  image-rendering:pixelated;
+}
+html.aurora-rpg #app #roster .hc .pt,
+html.aurora-rpg #app .ip.px,
+html.aurora-rpg #app .hsheet-portrait {image-rendering:pixelated}
+
+</style>
 <script id="aurora-043-herois64">
 /* Aurora 043 · heróis em 64×64.
    Cada quadro é desenhado num buffer de 64×64 pixels (antes: 26×30) e mostrado no mapa em meia escala,
@@ -37683,6 +37715,9 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
         p.hF = { x: cx + [-10, -3, 9][k], y: sy + [8, 9, 5][k] }; p.wAng2 = [-0.6, 0.9, 1.5][k]; p.farFront = k === 2;
       } else if (wt === 'martelo') {
         p.hN = { x: cx + [10, 10, 8][k], y: sy + [-7, 0, 9][k] }; p.wAng = [-0.15, 0.85, 2.1][k]; p.wScale = [0.95, 0.8, 0.78][k]; p.hF = { x: cx + [6, 6, 4][k], y: sy + [-4, 3, 11][k] }; p.farFront = true;
+      } else if (o.isNpc && !wt) {
+        /* morador com ferramenta: a mão fica na altura do peito e a ferramenta gira por cima (desenhada pelo jogo) */
+        p.hN = { x: [33, 45, 40][k] + p.lean, y: [36, 42, 47][k] + p.by }; p.hF = { x: p.shF.x - 2, y: sy + 11 };
       } else {
         p.hN = { x: cx + [11, 12, 10][k], y: sy + [-7, 3, 10][k] }; p.wAng = [-0.2, 1.05, 2.15][k]; p.wScale = [1, 0.8, 0.78][k]; p.hF = { x: p.shF.x - 3, y: sy + [9, 10, 11][k] }; p.slash = k;
       }
@@ -37807,7 +37842,9 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
     const rest = frame.startsWith('sleep') || frame === 'fall';
     const p = pose(o, rest ? 'idle0' : frame), D = new Uint32Array(N), side = p.view === 'side', backV = p.view === 'back';
     if (rest) { p.eyes = 'closed'; p.mouth = 'calm'; p.noWeapon = frame !== 'fall'; }
-    const c = CLS[o.cls] || CLS.esp, gear = o.equipment || {}, cos = o.costume || null;
+    const npc = !!o.isNpc;
+    const c = npc ? { cloth: o.body || '#8a7a6a', pants: o.legs || '#4a4458', trim: o.trim || mix(o.body || '#8a7a6a', '#fff3d2', 0.5), leather: '#6e4a30', hairOff: 0 } : (CLS[o.cls] || CLS.esp);
+    const gear = o.equipment || {}, cos = o.costume || null;
     const arm = gear.armadura || null, ap = arm ? gearPal(arm) : null, aRank = rankOf(arm), aType = arm ? arm.type : null;
     const skin = ramp(A.SKIN[o.skin] || A.SKIN[1]), hair = ramp(A.HAIR[o.hair] || A.HAIR[1]);
     const clothHex = cos && cos.body ? cos.body : arm ? (aType === 'pesada' ? ap.main : aType === 'media' ? mix(ap.leather, ap.main, 0.35) : mix(c.cloth, ap.cloth, 0.55)) : c.cloth;
@@ -37817,11 +37854,11 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
     const boots = gear.botas ? gearPal(gear.botas) : null, bootR = ramp(boots ? boots.mid : aType === 'pesada' ? ap.dark : c.leather), bootT = ramp(boots ? boots.trim : trimHex);
     const glove = gear.luvas ? gearPal(gear.luvas) : null, handR = glove ? ramp(glove.mid) : aType === 'pesada' ? ramp(ap.mid) : skin;
     const under = ramp(shade(c.cloth, 0.78)), sleeve = aType === 'pesada' ? under : cloth, fore = aType === 'pesada' ? ramp(ap.mid) : glove ? ramp(glove.mid) : o.cls === 'mag' || o.cls === 'pal' || aType === 'leve' ? cloth : skin;
-    const cx = p.tx, hw = p.hw, top = p.top, waist = p.waist, robe = (o.cls === 'mag' && !p.sit) || (aType === 'leve' && o.cls !== 'lad' && !p.sit);
+    const cx = p.tx, hw = p.hw, top = p.top, waist = p.waist, robe = ((o.cls === 'mag' || (npc && o.robe)) && !p.sit) || (aType === 'leve' && o.cls !== 'lad' && !p.sit);
     const wk = o.weaponKind, wit = gear.arma || null;
 
     /* capa: manto de classe ou armadura de rank alto */
-    const capeHex = cos && cos.cape ? cos.cape : (arm && aRank >= 4) ? ap.cloth : o.cls === 'pal' && arm ? mix(ap.cloth, '#8a2f3a', 0.4) : null;
+    const capeHex = npc && o.cape ? o.cape : cos && cos.cape ? cos.cape : (arm && aRank >= 4) ? ap.cloth : o.cls === 'pal' && arm ? mix(ap.cloth, '#8a2f3a', 0.4) : null;
     if (capeHex && !p.sit) {
       const sway = p.walk ? [1, 0, -1, 0][p.ph % 4] : p.atk ? -2 : 0, bot = GY - 6 - p.jump;
       mPoly([[cx - hw - 1, top + 2], [cx + hw + 1, top + 2], [cx + hw + 3 + sway, bot], [cx - hw - 4 + sway, bot]]);
@@ -37841,7 +37878,7 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
     };
     const drawWeapon = (h, ang, second) => {
       if (!wk || p.noWeapon) return;
-      weapon(D, wit, wk, Math.round(h.x), Math.round(h.y), ang, { draw: p.draw, shift: p.wShift, glow: p.glow && (p.atk || p.cast) ? p.glow : 0, second, scale: p.wScale || 1 });
+      weapon(D, wit, wk, Math.round(h.x), Math.round(h.y), ang, npc && wk === 'martelo' ? { scale: 0.62 } : { draw: p.draw, shift: p.wShift, glow: p.glow && (p.atk || p.cast) ? p.glow : 0, second, scale: p.wScale || 1 });
     };
 
     /* costas: a arma fica à frente do corpo, então é desenhada antes */
@@ -37898,6 +37935,12 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
         if (o.cls === 'cav') { rowIf(D, cx - hw + 2, cx + hw - 3, top + 5, cloth[1]); rowIf(D, cx - hw + 2, cx + hw - 3, top + 8, cloth[1]); colIf(D, cx + fx, top + 2, waist - 1, cloth[3]); }
         if (aType === 'leve' && aRank >= 2) { rowIf(D, cx - hw, cx + hw - 1, top + 1, trim[2]); }
       }
+      if (npc) {
+        if (o.armor) { mRect(cx - hw + 1 + fx, top + 2, hw * 2 - 2, 8); paint(D, ramp(o.metal || '#8a96aa'), { contour: false, side: 0.7 }); rowIf(D, cx - hw + 1 + fx, cx + hw - 2 + fx, top + 9, darker(C(o.metal || '#8a96aa'))); }
+        if (o.apron) { mRect(cx - 5 + fx, top + 4, 10, waist - top + 3); paint(D, ramp(o.apron), { side: 0.75 }); pxIf(D, cx - 4 + fx, top + 2, C(o.apron)); pxIf(D, cx + 3 + fx, top + 2, C(o.apron)); pxIf(D, cx - 4 + fx, top + 3, C(o.apron)); pxIf(D, cx + 3 + fx, top + 3, C(o.apron)); }
+        if (o.scarf) { mRect(cx - 5, top - 1, 10 + (side ? 1 : 0), 3); paint(D, ramp(o.scarf), { contour: false }); }
+        if (o.robe) { colIf(D, cx + fx, top + 1, waist, trim[2]); }
+      }
       /* gola / cachecol */
       if (o.cls === 'esp' || o.cls === 'lad') { const sc = ramp(c.trim); mRect(cx - 5, top - 1, 10 + (side ? 1 : 0), 3); paint(D, sc, { contour: false }); if (o.cls === 'esp') { mRect(cx - hw - 1, top + 1, 3, 6 + (p.walk ? p.ph % 2 : 0)); paint(D, sc); } }
       if (o.cls === 'arq') { mRect(cx - 6, top - 1, 12, 3); paint(D, ramp(shade(clothHex, 0.8)), { contour: false }); }
@@ -37942,6 +37985,11 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
       else if (p.mouth === 'smile') { px(D, mx - 1, iy + 6, sd); px(D, mx, iy + 7, sd); px(D, mx + 1, iy + 7, sd); px(D, mx + 2, iy + 6, sd); }
       else { px(D, mx, iy + 7, sd); px(D, mx + 1, iy + 7, sd); }
       if ((o.seed || 0) % 4 === 1 && !side) { px(D, ix - 7, iy + 4, skin[1]); }           // sarda/cicatriz discreta
+      if (npc && o.beard) {
+        const bd = ramp(o.beard);
+        for (let y = iy + 5; y <= iy + 10; y++) for (let x = ix - 8 + fo; x <= ix + 8 + fo; x++) { const i = y * W + x; if (x < 0 || y < 0 || x >= W || y >= H || !D[i]) continue; const edge = y >= iy + 8 || x <= ix - 5 + fo || x >= ix + 5 + fo; if (edge && D[i] !== INK) D[i] = bd[y >= iy + 9 ? 1 : 2]; }
+        px(D, mx, iy + 7, sd); px(D, mx + 1, iy + 7, sd);
+      }
     }
     /* cabelo */
     const style = ((o.style || 0) + c.hairOff) % 8, hood = helm && (o.cls === 'arq' || o.cls === 'lad');
@@ -37984,6 +38032,26 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
       /* brilho do cabelo */
       for (const [dx, dy, w] of [[-5, -7, 4], [-6, -6, 2], [1, -8, 3]]) for (let i = 0; i < w; i++) { const X = ix + dx + i, Y = iy + dy; if (X >= 0 && Y >= 0 && D[Y * W + X] === hair[2]) D[Y * W + X] = hair[4 - (i === 0 ? 0 : 1)]; }
     }
+    /* chapéus e capacetes dos moradores */
+    if (npc && o.head) {
+      const hatHex = o.head === 'straw' ? (o.hat || '#d9b95c') : o.head === 'hood' ? (o.hoodC || '#6a5a3a') : o.head === 'helm' ? (o.metal || '#8a96aa') : (o.hat || '#8a4a2e'), hr = ramp(hatHex);
+      if (o.head === 'straw') {
+        mEll(hx, hy - 5, RX + 5, 3.2); paint(D, hr, { side: 0.75 });
+        mEll(hx, hy - 8.5, 6.5, 4.5); for (let y = iy - 5; y <= iy; y++) for (let x = ix - 8; x <= ix + 8; x++) if (y >= 0 && x >= 0 && x < W) M[y * W + x] = 0; paint(D, hr, { side: 0.7 });
+        rowIf(D, ix - 6, ix + 6, iy - 6, darker(C(hatHex)));
+      } else if (o.head === 'hood') {
+        mEll(hx, hy - 1, RX + 2, RY + 1.6); if (!backV) for (let y = iy - 1; y <= iy + 9; y++) for (let x = ix - 6 + fo; x <= ix + 7 + fo; x++) if (y >= 0 && y < H && x >= 0 && x < W) M[y * W + x] = 0;
+        paint(D, hr, { side: 0.74 });
+      } else if (o.head === 'helm') {
+        mEll(hx, hy - 1, RX + 1, RY); for (let y = iy - 2; y <= iy + 12; y++) for (let x = ix - 12; x <= ix + 12; x++) if (y >= 0 && y < H && x >= 0 && x < W) M[y * W + x] = 0;
+        paint(D, hr, { side: 0.72 });
+        rowIf(D, ix - 9, ix + 9, iy - 3, hr[1]); if (!backV) colIf(D, ix + fo, iy - 2, iy + 3, hr[2]);
+        if (o.plume) { mPoly([[hx - 1, hy - 10], [hx + 2, hy - 10], [hx + (side ? -6 : 3), hy - 17], [hx - 4, hy - 13]]); paint(D, ramp(o.plume)); }
+      } else {
+        mEll(hx, hy - 4, RX + 0.5, 6.5); for (let y = iy - 3; y <= iy + 4; y++) for (let x = ix - 12; x <= ix + 12; x++) if (y >= 0 && y < H && x >= 0 && x < W) M[y * W + x] = 0; paint(D, hr, { side: 0.72 });
+        if (!backV) { mRect(ix - 3 + fo * 2, iy - 4, 11, 2); paint(D, ramp(shade(hatHex, 0.8))); }
+      }
+    }
     /* elmo / chapéu / capuz conforme a classe */
     if (helm) {
       const hm = ramp(helm.main), hl = ramp(helm.light), ht = ramp(helm.trim), hc = ramp(mix(c.cloth, helm.cloth, 0.5));
@@ -38021,6 +38089,8 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
     /* testeira dos ranks altos do herói */
     if (!helm && !backV && (o.heroRank || 0) >= 4) { rowIf(D, ix - 7 + fo, ix + 7 + fo, iy - 3, trim[2]); pxIf(D, ix + fo, iy - 3, C((A.HERO_RARITY_VISUAL && A.HERO_RARITY_VISUAL[o.heroRarity || 0] || {}).primary || '#ffffff')); }
 
+    if (npc && o.shield && !backV) { const q = p.hF; mEll(q.x - 1, q.y - 3, 5, 6.5); paint(D, ramp(o.shield), { side: 0.7 }); mEll(q.x - 1, q.y - 3, 1.8, 2.2); paint(D, ramp('#d8c27a')); }
+    if (npc && o.carry && !backV) { mEll(cx + (side ? 4 : 0), top + 9, 6, 5.5); paint(D, ramp(o.carry), { side: 0.7 }); rowIf(D, cx + (side ? 1 : -3), cx + (side ? 7 : 3), top + 6, darker(C(o.carry))); }
     /* arma e braço da frente */
     if (!backV) drawWeapon(p.hN, p.wAng);
     if (p.farFront) { drawArm(p.shF, p.hF, false); }
@@ -38041,31 +38111,55 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
   /* ---------- folhas, retratos e corpo inteiro ---------- */
   const sheets = new Map(), images = new Map();
   let revision = 1;
-  const weaponKind = (o) => { const it = o.equipment && o.equipment.arma; if (!it) return o.weapon || (G.CLASSES[o.cls] && G.CLASSES[o.cls].w) || ''; return /^machado/.test(it.e2catalog || it.art || '') ? 'machado' : it.type; };
+  const weaponKind = (o) => { if (o.isNpc) return o.weapon === 'lanca' ? 'lanca' : o.weapon === 'ferramenta' ? 'martelo' : ''; const it = o.equipment && o.equipment.arma; if (!it) return o.weapon || (G.CLASSES[o.cls] && G.CLASSES[o.cls].w) || ''; return /^machado/.test(it.e2catalog || it.art || '') ? 'machado' : it.type; };
   const keyOf = (o) => 'h64|' + revision + '|' + o.key;
   const prep = (o) => { if (o.weaponKind == null) o.weaponKind = o.bare ? '' : weaponKind(o); return o; };
   A.hero64Frame = (o, frame) => toCanvas(frame64(prep(o), frame));
   const oldSheet = A.charSheet, oldPortrait = A.portrait, oldFull = A.fullBody;
   A.charSheet = (o) => {
-    if (!o || !o.heroBase) return oldSheet(o);
+    if (!o || !(o.heroBase || o.isNpc)) return oldSheet(o);
     const k = keyOf(o); let s = sheets.get(k); if (s) return s;
     prep(o);
-    const frames = A.FRAMES, cv = A.mk(W * frames.length, H), ctx = cv.getContext('2d'), idx = {}, im = ctx.createImageData(W, H), u = new Uint32Array(im.data.buffer);
-    frames.forEach((f, i) => { idx[f] = i; u.set(frame64(o, f)); ctx.putImageData(im, i * W, 0); });
-    s = { cv, idx, fw: W, fh: H, scale: 0.5, ax: 32, ay: GY + 1, key: k, layers: { body: true, equipment: true, aura: false } };
-    if (sheets.size >= 160) sheets.clear(); sheets.set(k, s); return s;
+    /* Os quadros são desenhados sob demanda: uma folha tem 40 poses e a maioria nunca aparece.
+       Até lá cada casa mostra a pose parada, então nenhum consumidor vê um quadro vazio. */
+    const frames = A.FRAMES, cv = A.mk(W * frames.length, H), ctx = cv.getContext('2d'), idx = {}, im = ctx.createImageData(W, H), u = new Uint32Array(im.data.buffer), done = new Uint8Array(frames.length);
+    frames.forEach((f, i) => { idx[f] = i; });
+    u.set(frame64(o, 'idle0')); for (let i = 0; i < frames.length; i++) ctx.putImageData(im, i * W, 0); done[idx.idle0] = 1;
+    let flash = null, flashDirty = true;
+    const need = (f) => { const i = idx[f]; if (i == null || done[i]) return; done[i] = 1; u.set(frame64(o, f)); ctx.putImageData(im, i * W, 0); flashDirty = true; };
+    const flashCv = () => {
+      if (!flash) flash = A.mk(cv.width, H);
+      if (flashDirty) { const x = flash.getContext('2d'); x.globalCompositeOperation = 'copy'; x.drawImage(cv, 0, 0); x.globalCompositeOperation = 'source-in'; x.fillStyle = '#ffffff'; x.fillRect(0, 0, flash.width, H); x.globalCompositeOperation = 'source-over'; flashDirty = false; }
+      return flash;
+    };
+    /* mão da frente no sistema antigo (26×30), para as ferramentas e cargas desenhadas por cima dos moradores */
+    const hands = {}, hand = (f) => hands[f] || (hands[f] = (() => { const q = pose(o, f).hN; return [13 + (q.x - 32) / 2, 27 + (q.y - GY - 1) / 2]; })());
+    s = { cv, idx, fw: W, fh: H, scale: 0.5, ax: 32, ay: GY + 1, key: k, hand, headRows: 28, need, flashCv, layers: { body: true, equipment: true, aura: false } };
+    if (sheets.size >= 220) sheets.clear(); sheets.set(k, s); return s;
   };
   const cut = (o, frame) => { const cv = A.mk(W, H), c = cv.getContext('2d'), im = c.createImageData(W, H); new Uint32Array(im.data.buffer).set(frame64(prep(o), frame)); c.putImageData(im, 0, 0); return cv; };
   A.fullBody = (o) => {
+    if (o && o.isNpc) {                                                                    // mesma proporção do quadro antigo (26:30)
+      const k = 'nf|' + keyOf(o); if (images.has(k)) return images.get(k);
+      const cv = A.mk(104, 120), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
+      c.drawImage(cut(o, 'idle0'), 6, 2, 52, 60, 0, 0, 104, 120);
+      const url = cv.toDataURL(); if (images.size > 500) images.clear(); images.set(k, url); return url;
+    }
     if (!o || !o.heroBase) return oldFull(o);
     const k = 'full|' + keyOf(o); if (images.has(k)) return images.get(k);
-    const cv = A.mk(160, 160), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
-    if (o.wings && A.wingSheet) { const wings = A.wingSheet(o.wings); if (wings) c.drawImage(wings, 0, 0, 30, 22, 20, 30, 120, 88); }
-    c.drawImage(cut(o, 'idle0'), 0, 0, W, H, 16, 22, 128, 128);
+    const cv = A.mk(192, 192), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
+    if (o.wings && A.wingSheet) { const wings = A.wingSheet(o.wings); if (wings) c.drawImage(wings, 0, 0, 30, 22, 6, 34, 180, 132); }
+    c.drawImage(cut(o, 'idle0'), 0, 0, W, H, 0, 8, 192, 192);
     const url = cv.toDataURL() + '#aurora-h64-' + encodeURIComponent(k);
     if (images.size > 500) images.clear(); images.set(k, url); if (A.HERO_IMAGE_META) A.HERO_IMAGE_META.set(url, Object.assign({}, o)); return url;
   };
   A.portrait = (o) => {
+    if (o && o.isNpc) {
+      const k = 'np|' + keyOf(o); if (images.has(k)) return images.get(k);
+      const cv = A.mk(84, 84), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
+      c.drawImage(cut(Object.assign({}, o, { weaponKind: '' }), 'frontIdle0'), 18, 3, 28, 28, 0, 0, 84, 84);
+      const url = cv.toDataURL(); if (images.size > 500) images.clear(); images.set(k, url); return url;
+    }
     if (!o || !o.heroBase) return oldPortrait(o);
     const k = 'portrait|' + keyOf(o); if (images.has(k)) return images.get(k);
     const cv = A.mk(88, 88), c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
@@ -38073,13 +38167,37 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
     const g = c.createLinearGradient(0, 0, 0, 88); g.addColorStop(0, '#2b2a38'); g.addColorStop(1, '#17161f'); c.fillStyle = g; c.fillRect(0, 0, 88, 88);
     c.drawImage(cut(Object.assign({}, o, { weaponKind: '' }), 'frontIdle0'), 18, 3, 28, 28, 2, 2, 84, 84);
     c.strokeStyle = col; c.lineWidth = 4; c.strokeRect(2, 2, 84, 84);
-    c.fillStyle = '#15141de0'; c.fillRect(4, 66, 26, 18); c.fillStyle = col; c.font = 'bold 15px Arial, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(G.RANKS[o.heroRank || 0], 17, 76);
     const url = cv.toDataURL(); if (images.size > 500) images.clear(); images.set(k, url); return url;
   };
   A.invalidateHero64 = () => { revision++; sheets.clear(); images.clear(); if (G.S) for (const h of G.S.heroes) { delete h._look; delete h._lk; delete h._dirtyKey; } if (G.UI && G.UI.rosterBuild) G.UI.rosterBuild(); };
   const oldInv = A.invalidateEquipmentArt; A.invalidateEquipmentArt = () => { if (oldInv) oldInv(); revision++; sheets.clear(); images.clear(); };
   G.hook('afterLoad', () => { sheets.clear(); images.clear(); }, 95000);
   A.hero64Stats = () => ({ sheets: sheets.size, images: images.size, revision });
+})();
+
+</script>
+<script id="aurora-043-saque-agrupado">
+/* Aurora 043 · espólio agrupado (simulação, sem DOM).
+   Cada abate largava uma pilha nova no chão e, numa caçada movimentada, dezenas de ícones cobriam o
+   campo. Agora o material que cai perto de uma pilha igual se junta a ela. Nada se perde: o toque já
+   recolhia as pilhas vizinhas de uma vez, e a pilha unida vale a soma das duas. */
+(function () {
+  'use strict';
+  if (!G.dropAdd) return;
+  const add0 = G.dropAdd;
+  G.DROP_MERGE = 1.7;            // casas: mesma ordem do raio que um toque já recolhe (1,3)
+  G.DROP_LABEL_MIN = 6;          // o "×N" só aparece em pilhas grandes (ver 50-saque.patch.txt)
+  G.dropAdd = (x, y, k, n, by) => {
+    let best = null, bd = G.DROP_MERGE;
+    for (const d of G.drops) {
+      if (d.k !== k || !(d.n > 0) || d.pet) continue;          // pilha já reservada por um mascote fica como está
+      const dist = Math.hypot(d.x - x, d.y - y);
+      if (dist < bd) { bd = dist; best = d; }
+    }
+    if (!best) return add0(x, y, k, n, by);
+    best.n += n; best.t = G.S.t; if (by) best.by = by;
+    return best;
+  };
 })();
 
 </script>

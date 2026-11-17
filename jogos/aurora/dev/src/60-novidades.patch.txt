@@ -1,0 +1,14 @@
+Entrada desta versão no "O que mudou desde a sua última visita".
+
+<<<< novidades: seção da versão 30.7
+  const NEWS_ORDER = ['v28f9','v28f8',
+====
+  UI.NEWS.v307={t:'Avisos limpos, neblina, chefes e arte nova',n:'Aurora v30.7',rows:[['scroll','Avisos em uma faixa só','Uma mensagem por vez, logo abaixo dos retratos. Chefe, Maré e nível do reino não cobrem mais o centro do mapa.'],['map','Borda de neblina','Arraste além da borda do mapa: a bruma abre espaço para ver os cantos fora do HUD.'],['skull','Convocação contra o chefe','Quando um chefe desperta, os heróis aptos se reúnem e atacam juntos. Depois de três derrotas seguidas, só voltam quando se sentem prontos para vencer.'],['people','Heróis e moradores redesenhados','Sprites em 64×64 com roupa de classe, armadura, elmo e armas que mudam de forma a cada dois ranks.'],['chest','Espólio agrupado','Materiais iguais que caem perto um do outro se juntam numa pilha só.']]};
+  const NEWS_ORDER = ['v307','v28f9','v28f8',
+>>>>
+
+<<<< novidades: jogo novo já começa com a seção lida
+=S.tut.seen.v28f9=1;
+====
+=S.tut.seen.v28f9=S.tut.seen.v307=1;
+>>>>

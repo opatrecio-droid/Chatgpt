@@ -1,0 +1,14 @@
+/* Aurora 043 · heróis em 64×64 nas telas: figuras maiores e sempre com pixels nítidos. */
+html.aurora-rpg #app .dollw .doll .dfig {
+  width:92px!important;height:92px!important;margin-top:-16px!important;
+  background-size:contain!important;background-position:center bottom!important;background-repeat:no-repeat!important;
+  image-rendering:pixelated;
+}
+html.aurora-rpg #app .hcard .hc-pt {
+  width:88px!important;height:88px!important;margin:0 auto!important;
+  background-size:contain!important;background-position:center bottom!important;background-repeat:no-repeat!important;
+  image-rendering:pixelated;
+}
+html.aurora-rpg #app #roster .hc .pt,
+html.aurora-rpg #app .ip.px,
+html.aurora-rpg #app .hsheet-portrait {image-rendering:pixelated}

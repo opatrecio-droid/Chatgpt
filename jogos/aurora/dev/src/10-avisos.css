@@ -131,3 +131,14 @@ html.aurora-rpg #app #hud #av-tray .av-empty {padding:8px 10px;color:#8f9296;fon
 @media(min-width:860px) {
   html.aurora-rpg #app #hud #av-lane {left:24px;width:min(calc(100% - 24px), 420px)}
 }
+
+/* Dica da guia (mão que aponta): mesma linguagem dos avisos, sem a caixa marrom que cobria o HUD. */
+html.aurora-rpg #app #guide .gd-tip {
+  min-height:0!important;padding:8px 4px 8px 12px!important;gap:4px!important;
+  max-width:min(230px,calc(100vw - 24px))!important;
+  background:#0c1015f0!important;border:0!important;border-left:2px solid var(--hud-accent,#d0bd95)!important;border-image:none!important;
+  box-shadow:0 2px 10px #0008!important;color:#eeeae2!important;
+  font:500 12px/1.4 Arial,sans-serif!important;letter-spacing:.1px;
+}
+html.aurora-rpg #app #guide .gd-tip .gd-x {width:32px!important;height:32px!important;color:#b8b9b5!important}
+html.aurora-rpg #app #guide .gd-ring {border-width:2px!important;border-color:var(--hud-accent,#d0bd95)!important;box-shadow:none!important}

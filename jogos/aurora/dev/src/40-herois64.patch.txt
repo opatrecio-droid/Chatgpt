@@ -5,6 +5,7 @@ A folha passa a dizer o tamanho do quadro, a escala no mundo e a âncora dos pé
     const sxp = sheet.idx[fr] * 26;
     let lift = 0, mSheet = null;
 ====
+    if (sheet.need) sheet.need(fr);
     const fw = sheet.fw || 26, fh = sheet.fh || 30, fs = sheet.scale || 1, fax = sheet.ax == null ? 13 : sheet.ax, fay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * fw;
     let lift = 0, mSheet = null;
 >>>>
@@ -14,13 +15,13 @@ A folha passa a dizer o tamanho do quadro, a escala no mundo e a âncora dos pé
     if (e.flash > 0) { ctx.globalAlpha = 0.75; ctx.drawImage(A.flashOf(sheet.cv), sxp, 0, 26, 30, -13 * z, -27 * z - lift, 26 * z, 30 * z); ctx.globalAlpha = 1; }
 ====
     ctx.drawImage(sheet.cv, sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z));
-    if (e.flash > 0) { ctx.globalAlpha = 0.75; ctx.drawImage(A.flashOf(sheet.cv), sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z)); ctx.globalAlpha = 1; }
+    if (e.flash > 0) { ctx.globalAlpha = 0.75; ctx.drawImage(sheet.flashCv ? sheet.flashCv() : A.flashOf(sheet.cv), sxp, 0, fw, fh, Math.round(-fax * fs * z), Math.round(-fay * fs * z - lift), Math.round(fw * fs * z), Math.round(fh * fs * z)); ctx.globalAlpha = 1; }
 >>>>
 
 <<<< visitante rival: mesmo recorte
     const sheet = A.charSheet(visLook(v)), fr = A.charFrame(v, R.t), sxp = sheet.idx[fr] * 26;
 ====
-    const sheet = A.charSheet(visLook(v)), fr = A.charFrame(v, R.t), vfw = sheet.fw || 26, vfh = sheet.fh || 30, vfs = sheet.scale || 1, vax = sheet.ax == null ? 13 : sheet.ax, vay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * vfw;
+    const sheet = A.charSheet(visLook(v)), fr = A.charFrame(v, R.t), vfw = sheet.fw || 26, vfh = sheet.fh || 30, vfs = sheet.scale || 1, vax = sheet.ax == null ? 13 : sheet.ax, vay = sheet.ay == null ? 27 : sheet.ay, sxp = sheet.idx[fr] * vfw; if (sheet.need) sheet.need(fr);
 >>>>
 
 <<<< visitante rival: desenho do quadro
@@ -36,5 +37,25 @@ A folha passa a dizer o tamanho do quadro, a escala no mundo e a âncora dos pé
 <<<< galeria de arte: quadros de herói no tamanho da folha
 for(const[k,n]of Object.entries(sheet.idx)){sprite(r,k,sheet.cv,n*26,0,26,30);counts.herois++;}}});
 ====
-for(const[k,n]of Object.entries(sheet.idx)){sprite(r,k,sheet.cv,n*(sheet.fw||26),0,sheet.fw||26,sheet.fh||30,sheet.fw?1.5:2);counts.herois++;}}});
+for(const[k,n]of Object.entries(sheet.idx)){if(sheet.need)sheet.need(k);sprite(r,k,sheet.cv,n*(sheet.fw||26),0,sheet.fw||26,sheet.fh||30,sheet.fw?1.5:2);counts.herois++;}}});
+>>>>
+
+<<<< morador trabalhando: quadro no tamanho da folha
+    ctx.drawImage(sheet.cv, sheet.idx[P.fr] * 26, 0, 26, 30, -13 * z, (-27 + dy) * z, 26 * z, 30 * z);
+====
+    if (sheet.need) sheet.need(P.fr);
+    const nfw = sheet.fw || 26, nfh = sheet.fh || 30, nfs = sheet.scale || 1, nax = sheet.ax == null ? 13 : sheet.ax, nay = sheet.ay == null ? 27 : sheet.ay, nhr = sheet.headRows || 14;
+    ctx.drawImage(sheet.cv, sheet.idx[P.fr] * nfw, 0, nfw, nfh, Math.round(-nax * nfs * z), Math.round((-nay * nfs + dy) * z), Math.round(nfw * nfs * z), Math.round(nfh * nfs * z));
+>>>>
+
+<<<< morador trabalhando: a cabeça volta por cima da carga
+ctx.drawImage(sheet.cv, sheet.idx[P.fr] * 26, 0, 26, 14, -13 * z, (-27 + dy) * z, 26 * z, 14 * z);
+====
+ctx.drawImage(sheet.cv, sheet.idx[P.fr] * nfw, 0, nfw, nhr, Math.round(-nax * nfs * z), Math.round((-nay * nfs + dy) * z), Math.round(nfw * nfs * z), Math.round(nhr * nfs * z));
+>>>>
+
+<<<< morador trabalhando: ferramenta na mão do quadro novo
+const h = HAND[P.fr] || HAND.idle0, c = toolCv(
+====
+const h = (sheet.hand && sheet.hand(P.fr)) || HAND[P.fr] || HAND.idle0, c = toolCv(
 >>>>
