@@ -14,6 +14,8 @@
 - **Janela de retorno em abas** (Achados, Resumo, Diário) com cartas por raridade, brilhos e revelação 3D.
 - **Portal de Aurora** no eixo da cidade (portão norte → fonte), com arco gótico animado, vórtice em espiral,
   runas, círculo rúnico no chão e explosão ao chamar um herói.
+- **Ferraria animada**: forja acesa, fumaça na chaminé e o ferreiro martelando na bigorna (descansa à noite;
+  acelera quando uma peça é forjada).
 
 ## Estrutura
 | Arquivo | Papel |
@@ -26,6 +28,7 @@
 | `src/patch_ferreiro.py`, `src/ferreiro.css` | Ferreiro com todas as armas |
 | `src/return-cards.js`, `src/return-cards.css` | janela de retorno com abas e cartas |
 | `src/portal.js`, `src/portal-art.js` | posição e arte animada do portal |
+| `src/buildings-anim.js`, `src/buildings-art.js` | prédios de serviço animados (Ferraria) |
 | `src/BRIEF-FX.md` | contrato para criar novas animações |
 | `tools/` | testes visuais (Playwright): `fx-sheet.js`, `shots.js`, `world-fx.js` |
 

@@ -1,5 +1,5 @@
 // Capturas de um prédio de serviço animado. Uso: node tools/building-shots.js <arquivo.html> <prefixo> [id=ferraria]
-// Gera <prefixo>-cena.png (zoom normal) e close-ups: -dia-1..4 (a cada 0,22 s), -forjando-1/2, -noite.
+// Gera <prefixo>-cena.png (zoom normal) e close-ups: -dia-1..8 (a cada 0,12 s), -noite, -forjando-1/2.
 const { chromium } = require('playwright');
 const path = require('path');
 (async () => {
@@ -17,10 +17,11 @@ const path = require('path');
   await cam(3); await p.waitForTimeout(900); await p.screenshot({ path: out + '-cena.png' });
   await cam(6); await p.waitForTimeout(700);
   const clip = { x: 15, y: 130, width: 400, height: 470 };
-  for (let i = 1; i <= 4; i++) { await p.screenshot({ path: out + '-dia-' + i + '.png', clip }); await p.waitForTimeout(220); }
+  for (let i = 1; i <= 8; i++) { await p.screenshot({ path: out + '-dia-' + i + '.png', clip }); await p.waitForTimeout(120); }
+  await p.evaluate(() => { G.S.clock = 23 * 60; }); await p.waitForTimeout(600); await p.screenshot({ path: out + '-noite.png', clip });
+  await p.evaluate(() => { G.S.clock = 12 * 60; });
   await p.evaluate(() => { G.S.stats.crafted = (G.S.stats.crafted || 0) + 1; });
   await p.waitForTimeout(300); await p.screenshot({ path: out + '-forjando-1.png', clip });
   await p.waitForTimeout(260); await p.screenshot({ path: out + '-forjando-2.png', clip });
-  await p.evaluate(() => { G.S.clock = 23 * 60; }); await p.waitForTimeout(600); await p.screenshot({ path: out + '-noite.png', clip });
   console.log(errs.slice(0, 10).join('\n') || 'sem erros'); await b.close();
 })();
