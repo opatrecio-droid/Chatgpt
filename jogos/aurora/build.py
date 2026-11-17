@@ -27,8 +27,10 @@ MODULES = [
     ('script', 'aurora-portal-art', 'portal-art.js'),
     ('script', 'aurora-portal', 'portal.js'),
     ('script', 'aurora-ferraria-hd', 'ferraria-hd.js'),
+    ('script', 'aurora-fazenda-hd', 'fazenda-hd.js'),
     ('script', 'aurora-buildings-art', 'buildings-art.js'),
     ('script', 'aurora-buildings-anim', 'buildings-anim.js'),
+    ('script', 'aurora-farm-crops', 'farm-crops.js'),
 ]
 PY_PATCHES = ['patch_core.py', 'patch_ferreiro.py']
 
