@@ -25,7 +25,7 @@
   const BACK = [70, 83];                    // fundo escuro do arco (cobre a chama pintada)
   const CHIM = [76, 17];                    // boca da chaminé
   const LANT = [22, 87];                    // chama da lanterna
-  const SX0 = 41, SX1 = 52, FEET = 100, HX = 62, HFEET = 101;   // ferreiro na bigorna / junto à forja; ajudante entre bigorna e forja
+  const SX0 = 41, SX1 = 52, FEET = 105, HX = 64, HFEET = 107;   // ferreiro na bigorna / junto à forja; ajudante entre bigorna e forja
 
   /* ---------- chamas ---------- */
   const FSETS = { low: 5, mid: 11, big: 15 }, FRAMES = 8, FH = 17;
@@ -151,11 +151,11 @@
     }
 
     /* ---------- moradores reais (sprites do jogo) ---------- */
-    const drawW = (w, x, y, pose, flip) => { try { w.draw(ctx, m.sx(x), m.sy(y), { pose, flip: !!flip, alpha: 1 }); } catch (e) {} ctx.imageSmoothingEnabled = false; };
+    const drawW = (w, x, y, pose, flip) => { ctx.fillStyle = 'rgba(20,14,28,0.35)'; ctx.beginPath(); ctx.ellipse(m.sx(x), m.sy(y), 6.5 * kx, 1.9 * ky, 0, 0, TAU); ctx.fill(); try { w.draw(ctx, m.sx(x), m.sy(y), { pose, flip: !!flip, alpha: 1 }); } catch (e) {} ctx.imageSmoothingEnabled = false; };
     if (helperW) {   // ajudante aciona o fole entre a bigorna e a forja
       let hp = 'idle0';
       if (!quiet) { hp = bp < 0.7 ? (bp < 0.25 ? 'atk0' : bp < 0.45 ? 'atk1' : 'atk2') : (Math.floor(t / 0.9) % 2 ? 'idle1' : 'idle0'); if (bp > 2.4 && bp < 3.4) hp = 'idle0'; }
-      drawW(helperW, HX, HFEET, hp, true);
+      drawW(helperW, HX, HFEET, hp, false);
     }
     if (!smithOn) return;
     const per = (crafting ? 0.56 : 0.92) * (solo ? 1.25 : 1), CY = 10, HAM = 6.6, VAR = CY - HAM;
@@ -178,7 +178,7 @@
     }
     const x0 = Math.round(sxc) - 12;
     drawW(smithW, sxc, FEET, pose, flip);
-    m.blit(ctx, 31, 97, 21, 12);                    // bigorna passa à frente do ferreiro
+    m.blit(ctx, 31, 97, 21, 13);                    // bigorna passa à frente do ferreiro
     // barra incandescente
     const col = heat(T);
     if (reheat) {

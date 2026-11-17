@@ -28,7 +28,8 @@
 | `src/patch_ferreiro.py`, `src/ferreiro.css` | Ferreiro com todas as armas |
 | `src/return-cards.js`, `src/return-cards.css` | janela de retorno com abas e cartas |
 | `src/portal.js`, `src/portal-art.js` | posição e arte animada do portal |
-| `src/buildings-anim.js`, `src/buildings-art.js` | prédios de serviço animados (Ferraria) |
+| `src/buildings-anim.js`, `src/buildings-art.js` | prédios de serviço animados (Ferraria) e arte 2× no mapa |
+| `src/ferraria-hd.js` (gerado por `tools/ferraria-hd.py`) | Ferraria em 2×, mesma densidade dos moradores |
 | `src/BRIEF-FX.md` | contrato para criar novas animações |
 | `tools/` | testes visuais (Playwright): `fx-sheet.js`, `shots.js`, `world-fx.js` |
 
