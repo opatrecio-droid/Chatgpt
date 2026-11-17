@@ -20,6 +20,30 @@
       blit: (ctx, ix, iy, iw2, ih2) => { const fx = sp.cv.width / sp.w, fy = sp.cv.height / sp.h; ctx.drawImage(sp.cv, (ox + ix * w / iw) * fx, (oy + iy * h / ih) * fy, iw2 * w / iw * fx, ih2 * h / ih * fy, dx + (ox + ix * w / iw) * z, dy + (oy + iy * h / ih) * z, iw2 * kx, ih2 * ky); } };
   };
 
+  /* ---------- arte em alta resolução (2×) no mapa ----------
+     G.A.BuildingHD[id] = Image com o MESMO desenho da arte original em 2× (ex.: ferraria 208×228). Só é usada no
+     desenho do mapa (entre os ganchos groundDecor e worldEffects); galeria e tela de título seguem com a arte 1×. */
+  const HD = A.BuildingHD = A.BuildingHD || {}, hdCache = new Map(), K = 2;
+  let inWorld = false;
+  G.hook('groundDecor', () => { inWorld = true; }, -1e6);
+  G.hook('worldEffects', () => { inWorld = false; }, -1e6);
+  const build0 = A.building;
+  A.building = function (id, lvl, damaged) {
+    const base = build0.apply(this, arguments), img = HD[id];
+    if (!inWorld || !img || !img.complete || !img.naturalWidth || !IMG[id] || !(lvl >= 1) || !base || !base.cv) return base;
+    const tier = lvl < 3 ? 0 : lvl < 6 ? 1 : lvl < 10 ? 2 : 3, key = id + '|' + tier + '|' + !!damaged + '|' + base.w + 'x' + base.h;
+    let hit = hdCache.get(key); if (hit) return hit;
+    const cv = A.mk(base.w * K, base.h * K), c = cv.getContext('2d'), sc = [0.91, 0.94, 0.97, 1][tier];
+    const w = Math.round(base.w * sc), h = Math.round(base.h * sc);   // mesma conta do embrulho 1×, em 2×
+    c.imageSmoothingEnabled = false; c.drawImage(img, Math.round((base.w - w) / 2) * K, (base.h - h) * K, w * K, h * K);
+    if (damaged) {
+      c.globalCompositeOperation = 'source-atop'; c.fillStyle = 'rgba(36,24,25,.42)'; c.fillRect(0, 0, cv.width, cv.height);
+      c.strokeStyle = 'rgba(25,18,17,.9)'; c.lineWidth = K;
+      for (let n = 0; n < 3; n++) { const x = cv.width * (0.3 + n * 0.2), y = cv.height * (0.43 + n * 0.07); c.beginPath(); c.moveTo(x, y); c.lineTo(x - 3 * K, y + 6 * K); c.lineTo(x + K, y + 10 * K); c.lineTo(x - 3 * K, y + 17 * K); c.stroke(); }
+    }
+    hit = Object.assign({}, base, { cv, hd: K }); hdCache.set(key, hit); return hit;
+  };
+
   /* moradores do prédio que estão de fato no expediente, já no posto (dentro ou à porta), não andando */
   const atPost = id => (G.npcs || []).filter(n => n.at === id && n.act === 'work' && (n.state === 'in' || n.state === 'toil'));
   /* desenha o sprite real do morador (mesma aparência do mapa) com os pés em (x, y) */
