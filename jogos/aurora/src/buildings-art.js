@@ -209,5 +209,121 @@
     ctx.globalCompositeOperation = 'source-over';
   }
 
-  G.A.BuildingArt = Object.assign(G.A.BuildingArt || {}, { ferraria });
+  /* ---------- Fazenda (celeiro) ---------- */
+  const HEN = [{ b: '#f2ece0', s: '#c9bfae' }, { b: '#b8763a', s: '#8a5126' }, { b: '#d9d2c4', s: '#7a6a58' }];
+  let F = null;
+  function outline(m, W, H) {
+    const c = m.x, im = c.getImageData(0, 0, W, H), d = im.data, ou = rgb(OUT), a = (x, y) => x >= 0 && y >= 0 && x < W && y < H && d[(y * W + x) * 4 + 3] > 0, add = [];
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (!a(x, y) && (a(x - 1, y) || a(x + 1, y) || a(x, y - 1) || a(x, y + 1))) add.push(x, y);
+    for (let i = 0; i < add.length; i += 2) { const k = (add[i + 1] * W + add[i]) * 4; d[k] = ou[0]; d[k + 1] = ou[1]; d[k + 2] = ou[2]; d[k + 3] = 255; }
+    c.putImageData(im, 0, 0); return m.cv;
+  }
+  function hen(pal, pose) {
+    const m = mk(16, 14), c = m.x, r = (x, y, w, h, col) => { c.fillStyle = col; c.fillRect(x, y, w, h); }, LEG = '#e0a030', RD = '#d03a3a';
+    const wing = pose === 'flap';
+    r(1, 4, 3, 5, pal.b); r(0, 3, 2, 3, pal.s); r(3, 6, 9, 5, pal.b); r(4, 10, 7, 1, pal.s);
+    if (wing) { r(4, 2, 4, 5, pal.s); r(8, 3, 3, 4, pal.b); r(5, 1, 2, 2, pal.s); } else r(5, 7, 5, 3, pal.s);
+    if (pose === 'peck') { r(10, 5, 2, 3, pal.b); r(12, 6, 3, 3, pal.b); r(13, 5, 2, 1, RD); r(15, 8, 1, 1, '#f0a030'); r(14, 7, 1, 1, OUT); }
+    else { r(10, 4, 2, 3, pal.b); r(11, 2, 3, 4, pal.b); r(12, 1, 2, 1, RD); r(14, 3, 1, 1, '#f0a030'); r(13, 3, 1, 1, OUT); r(13, 5, 1, 1, RD); }
+    if (pose === 'walkB') { r(5, 11, 1, 2, LEG); r(5, 13, 2, 1, LEG); r(10, 11, 1, 2, LEG); r(10, 13, 2, 1, LEG); } else { r(6, 11, 1, 2, LEG); r(6, 13, 2, 1, LEG); r(9, 11, 1, 2, LEG); r(9, 13, 2, 1, LEG); }
+    return outline(m, 16, 14);
+  }
+  function rooster() {
+    const m = mk(16, 14), c = m.x, r = (x, y, w, h, col) => { c.fillStyle = col; c.fillRect(x, y, w, h); };
+    r(0, 2, 3, 6, '#2a6a5a'); r(1, 1, 2, 2, '#3a8a6a'); r(3, 6, 8, 5, '#c8552a'); r(10, 5, 3, 5, '#d8742a'); r(5, 7, 4, 3, '#a03a1e'); r(11, 2, 3, 4, '#e8a030');
+    r(11, 0, 2, 2, '#e03a3a'); r(14, 3, 2, 1, '#f0d050'); r(13, 3, 1, 1, OUT); r(13, 5, 1, 1, '#e03a3a'); r(7, 11, 2, 2, '#6a6a80');
+    return outline(m, 16, 14);
+  }
+  function initF() {
+    F = { hen: {}, roost: rooster() };
+    for (let i = 0; i < HEN.length; i++) for (const p of ['stand', 'peck', 'flap', 'walkA', 'walkB']) F.hen[i + p] = hen(HEN[i], p);
+  }
+  const HENS = [{ x: 34, a: 15, w: 0.33, ph: 0.4, y: 110 }, { x: 58, a: 13, w: 0.27, ph: 2.1, y: 111.5 }, { x: 80, a: 10, w: 0.41, ph: 4.0, y: 110.8 }];
+
+  function fazenda(ctx, m, t, o) {
+    if (!C) init(); if (!F) initF();
+    const kx = m.kx, ky = m.ky, s = m.s, quiet = o.quiet, third = o.light ? 1 / 3 : 1, nt = o.dark, dmg = o.damaged;
+    const fr = (ix, iy, w, h) => { const x = Math.round(m.sx(ix)), y = Math.round(m.sy(iy)); ctx.fillRect(x, y, Math.max(1, Math.round(m.sx(ix + w)) - x), Math.max(1, Math.round(m.sy(iy + h)) - y)); };
+    const dr = (cv, ix, iy, w, h) => { const x = Math.round(m.sx(ix)), y = Math.round(m.sy(iy)); ctx.drawImage(cv, x, y, Math.max(1, Math.round(m.sx(ix + (w || cv.width))) - x), Math.max(1, Math.round(m.sy(iy + (h || cv.height))) - y)); };
+    const glow = (ix, iy, rad, col, a) => { const x = m.sx(ix), y = m.sy(iy), rr = rad * s, g = ctx.createRadialGradient(x, y, 0, x, y, rr); g.addColorStop(0, 'rgba(' + col + ',' + a + ')'); g.addColorStop(1, 'rgba(' + col + ',0)'); ctx.fillStyle = g; ctx.fillRect(x - rr, y - rr, rr * 2, rr * 2); };
+    const tq = quiet ? 0 : t, night = nt > 0.55;
+
+    /* porta do celeiro entreabre de vez em quando (14 s): fresta escura com feno */
+    if (!dmg) {
+      const ph = (tq + 3) % 14, op = quiet ? 0 : ph < 0.8 ? ph / 0.8 : ph < 3.6 ? 1 : ph < 4.4 ? (4.4 - ph) / 0.8 : 0;
+      if (op > 0.02) {
+        const gw = 0.8 + 3.2 * op;
+        ctx.fillStyle = '#1a1018'; fr(42 - gw / 2, 84, gw, 22);
+        ctx.fillStyle = '#2c1a14'; fr(42 - gw / 2, 84, gw, 2);
+        if (gw > 2) { ctx.fillStyle = '#d9b04a'; fr(41.2, 102, 1, 1); fr(42.4, 100, 1, 1); fr(41, 105, 2, 1); fr(42, 103, 1, 1); ctx.fillStyle = '#b8873a'; fr(41.6, 104, 1, 1); }
+        ctx.fillStyle = '#7a5a3a'; fr(42 - gw / 2 - 1, 84, 1, 22);
+      }
+    }
+    /* janelas e lanterna acesas à noite */
+    const fl = quiet ? 1 : 0.88 + 0.12 * Math.sin(t * 9) * Math.sin(t * 3.3 + 1);
+    ctx.globalCompositeOperation = 'lighter';
+    if (!dmg) {
+      const wa = (0.1 + 0.55 * nt) * fl;
+      glow(18.5, 92, 9 + 5 * nt, '255,196,90', wa); glow(64, 91, 8 + 4 * nt, '255,196,90', wa);
+      if (nt > 0.15) glow(78, 94, 10 * (0.6 + 0.4 * nt) + 3, '255,180,70', 0.5 * nt * fl);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    if (!dmg) { ctx.fillStyle = '#5b6278'; fr(77, 88, 3, 1); ctx.fillStyle = nt > 0.15 ? '#ffe08a' : '#9a8a60'; fr(77.5, 89, 2, 3); ctx.fillStyle = '#5b6278'; fr(77.5, 92, 2, 1); }
+
+    /* galo cata-vento: gira (achata no eixo x) com o vento */
+    {
+      const ang = quiet ? 0.5 : t * 0.45 + Math.sin(t * 0.37) * 1.6 + Math.sin(t * 1.3) * 0.25, sc = Math.cos(ang), sg = Math.abs(sc) < 0.28 ? (sc < 0 ? -0.28 : 0.28) : sc;
+      ctx.fillStyle = '#5b6278'; fr(57.5, 33, 1, 8);
+      const w = 8 * Math.abs(sg), cx = m.sx(58), top = m.sy(30);
+      ctx.save(); ctx.translate(cx, top); ctx.scale(sg, 1); ctx.drawImage(F.roost, Math.round(-4 * kx), 0, Math.round(8 * kx), Math.round(7 * ky)); ctx.restore();
+    }
+
+    /* fumaça suave da chaminé */
+    if (!quiet) {
+      let N = dmg ? 4 : night ? 2 : 4; N = Math.max(1, Math.ceil(N * third)); const LF = 4.4, A = dmg ? 0.78 : night ? 0.3 : 0.55, pal = C.puff[dmg ? 1 : 0];
+      for (let i = 0; i < N; i++) {
+        const ag = ((t + i * LF / N) % LF) / LF, cyc = Math.floor((t + i * LF / N) / LF), sz = Math.min(3, (ag * 4.2) | 0);
+        const x = 75.5 + (hs(cyc, i, 4) - 0.5) * 3 + Math.sin(ag * 5 + i * 2.1) * 2 + ag * 8, y = 34 - ag * 26 - PUFF[sz] / 2;
+        ctx.globalAlpha = Math.min(1, ag * 7) * Math.pow(1 - ag, 1.3) * A;
+        dr(pal[sz], Math.round(x - PUFF[sz] / 2), Math.round(y));
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    /* fiapos de palha voando dos fardos */
+    if (!quiet && !dmg) {
+      const N = Math.max(1, Math.ceil(4 * third));
+      for (let i = 0; i < N; i++) {
+        const P = 3.2 + i * 0.7, tt = t + i * 1.3, ag = (tt % P) / P, cyc = Math.floor(tt / P);
+        ctx.globalAlpha = Math.min(1, ag * 6) * (1 - ag * ag); ctx.fillStyle = i % 2 ? '#e8c35a' : '#cfa040';
+        const x = 66 + hs(cyc, i, 5) * 12 + ag * (14 + 6 * hs(cyc, i, 6)), y = 97 - Math.sin(ag * Math.PI) * (6 + 5 * hs(cyc, i, 7)) + ag * 4;
+        fr(x, y, Math.sin(tt * 6 + i) > 0 ? 2 : 1, 1);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    /* galinhas ciscando no terreiro (se recolhem à noite) */
+    if (!dmg) {
+      const fade = 1 - cl((nt - 0.4) / 0.25, 0, 1);
+      if (fade > 0.02) {
+        const n = o.light ? 2 : 3; ctx.globalAlpha = fade;
+        for (let i = 0; i < n; i++) {
+          const H = HENS[i], arg = tq * H.w + H.ph, x = H.x + H.a * Math.sin(arg), vel = H.a * H.w * Math.cos(arg);
+          let pose = 'stand', bob = 0;
+          if (!quiet) {
+            if (Math.abs(vel) > 2.2) { pose = Math.floor(t * 6 + i) % 2 ? 'walkA' : 'walkB'; bob = Math.floor(t * 6 + i) % 2 ? 0 : -0.5; }
+            else if (((t + i * 3.7) % 11) < 0.6) pose = Math.floor(t * 10) % 2 ? 'flap' : 'stand';
+            else pose = Math.floor(t * 3 + i * 1.7) % 3 ? 'peck' : 'stand';
+          }
+          const dir = vel >= 0 ? 1 : -1, y = H.y + bob;
+          ctx.fillStyle = 'rgba(20,14,28,0.3)'; ctx.beginPath(); ctx.ellipse(m.sx(x), m.sy(H.y + 3.3), 4 * kx, 1.2 * ky, 0, 0, TAU); ctx.fill();
+          const cv = F.hen[i + pose], px = m.sx(x), py = m.sy(y - 3.5);
+          ctx.save(); ctx.translate(px, py); ctx.scale(dir, 1); ctx.drawImage(cv, Math.round(-4 * kx), 0, Math.round(8 * kx), Math.round(7 * ky)); ctx.restore();
+        }
+        ctx.globalAlpha = 1;
+      }
+    }
+  }
+
+  G.A.BuildingArt = Object.assign(G.A.BuildingArt || {}, { ferraria, fazenda });
 })();
