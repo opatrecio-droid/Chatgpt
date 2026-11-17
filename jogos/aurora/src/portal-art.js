@@ -28,13 +28,13 @@
   const OUTC = rgb(OUT);
 
   /* ---------- glifos de runa (3x5) ---------- */
-  const GLY = [['010', '111', '010', '010', '111'], ['101', '101', '111', '001', '001'], ['111', '100', '111', '001', '111'], ['010', '101', '111', '101', '101'], ['110', '011', '010', '110', '011'], ['101', '010', '111', '010', '101']];
+  const GLY = [['01110','10001','10101','10101','10001','01110','00100'], ['00100','01010','10001','01010','00100','00100','01100'], ['11111','10001','01010','00100','00000','10101','00000'], ['00100','10101','01110','00100','01110','10101','00100'], ['11011','10001','00000','00100','00000','10001','11011'], ['01010','01010','11111','00100','01110','00100','00100']];
 
   /* ---------- geometria do arco (unidades de arte; origem = centro dos pés; y negativo = para cima) ---------- */
   const PH = [0.55, 1.05];
   const HORN = [], WING = [];
   for (let u = 0; u <= 1.0001; u += 0.04) {
-    HORN.push([5.5 + 12.5 * u, -67 - 9.5 * Math.pow(u, 1.6), 2.8 * (1 - u) + 0.7]);
+    HORN.push([5 + 14 * u, -66 - 11 * Math.pow(u, 1.7), 3.7 * Math.pow(1 - u, 0.9) + 0.8]);
     WING.push([7 + 15 * u, -63 + 9 * Math.pow(u, 1.4), 2.3 * (1 - u) + 0.8]);
   }
   function crest(x, y) {
@@ -90,12 +90,12 @@
       if (dO <= 3) { put(o, OUTC); return; }
       const ax = Math.abs(x), n = hs(fx, fy, 1), n2 = hs(fx >> 2, fy >> 2, 2);
       if (m === 2) {
-        let tone = 3.0 - x * 0.07 - (y + 68) * 0.07 + (n - 0.5) * 0.7;
+        let tone = 3.5 - x * 0.07 - (y + 68) * 0.07 + (n - 0.5) * 0.7;
         if (ax < 0.45 && y > -75 && y < -61) tone += 1.0;
         if (!at(mat, fx, fy - 4)) tone += 1.2; if (!at(mat, fx, fy + 4)) tone -= 0.9;
         const dd = Math.hypot(x, y + 67); if (dd < 3.9) tone = dd > 3.1 ? 4.2 : 0;
         if (nearOut(fx, fy, 5) <= 4 && dd >= 3.9) tone -= 0.7;
-        put(o, METAL[cl(Math.round(tone), 0, 5)]); return;
+        { const mc = METAL[cl(Math.round(tone), 0, 5)], vk = 0.22; put(o, [mc[0] + (150 - mc[0]) * vk, mc[1] + (100 - mc[1]) * vk, mc[2] + (235 - mc[2]) * vk]); } return;
       }
       let tone = 2.7 - x * 0.022, field = 0;
       const dy = y + 44;
@@ -141,7 +141,7 @@
     c.archW = W; c.archH = H;
     /* runas apagadas gravadas na pedra */
     const ax = c.arch.getContext('2d');
-    for (const r of RUNES) { ax.fillStyle = '#6a4aa8'; const g = GLY[r[2]], px = Math.round(OX + r[0] * S - 4.5), py = Math.round(OY + r[1] * S - 7.5); for (let j = 0; j < 5; j++) for (let i = 0; i < 3; i++) if (g[j][i] === '1') ax.fillRect(px + i * 3, py + j * 3, 3, 3); }
+    for (const r of RUNES) { ax.fillStyle = '#6a4aa8'; const g = GLY[r[2]], px = Math.round(OX + r[0] * S - 5), py = Math.round(OY + r[1] * S - 7); for (let j = 0; j < 7; j++) for (let i = 0; i < 5; i++) if (g[j][i] === '1') ax.fillRect(px + i * 2, py + j * 2, 2, 2); }
 
     /* ----- vórtice (duas camadas) ----- */
     const N = 62 * S;
@@ -185,9 +185,9 @@
 
     /* ----- runas acesas ----- */
     c.glyphs = GLY.map(g => {
-      const m = mk(27, 33), x = m.x; x.fillStyle = '#e9b8ff';
-      for (let pass = 0; pass < 2; pass++) { x.shadowColor = '#b050ff'; x.shadowBlur = pass ? 4 : 9; for (let j = 0; j < 5; j++) for (let i = 0; i < 3; i++) if (g[j][i] === '1') x.fillRect(9 + i * 3, 9 + j * 3, 3, 3); }
-      x.shadowBlur = 0; x.fillStyle = '#fff4ff'; for (let j = 0; j < 5; j++) for (let i = 0; i < 3; i++) if (g[j][i] === '1') x.fillRect(10 + i * 3, 10 + j * 3, 1, 3);
+      const m = mk(28, 32), x = m.x; x.fillStyle = '#e9b8ff';
+      for (let pass = 0; pass < 2; pass++) { x.shadowColor = '#b050ff'; x.shadowBlur = pass ? 3 : 8; for (let j = 0; j < 7; j++) for (let i = 0; i < 5; i++) if (g[j][i] === '1') x.fillRect(9 + i * 2, 9 + j * 2, 2, 2); }
+      x.shadowBlur = 0; x.fillStyle = '#fff4ff'; for (let j = 0; j < 7; j++) for (let i = 0; i < 5; i++) if (g[j][i] === '1') x.fillRect(9 + i * 2, 9 + j * 2, 1, 1);
       return m.cv;
     });
     /* ----- gema do brasão ----- */
@@ -242,7 +242,7 @@
     /* anel girante de glifos (quadrado, é achatado ao desenhar) */
     const RS = 84 * S, rg = mk(RS, RS), g = rg.x; g.translate(RS / 2, RS / 2);
     g.strokeStyle = '#e0b0ff'; g.lineWidth = 2.2 * S / 3 * 1.4; g.beginPath(); g.arc(0, 0, 38.5 * S, 0, TAU); g.stroke(); g.beginPath(); g.arc(0, 0, 31 * S, 0, TAU); g.stroke();
-    for (let i = 0; i < 16; i++) { g.save(); g.rotate(i * TAU / 16); g.translate(0, -34.8 * S); const gl = GLY[(i * 5) % 6]; g.fillStyle = '#fff0ff'; g.shadowColor = '#b050ff'; g.shadowBlur = 6; for (let j = 0; j < 5; j++) for (let k = 0; k < 3; k++) if (gl[j][k] === '1') g.fillRect((k - 1.5) * 1.5 * S * 0.9, (j - 2.5) * 1.5 * S * 0.9, 1.5 * S * 0.9, 1.5 * S * 0.9); g.restore(); }
+    for (let i = 0; i < 16; i++) { g.save(); g.rotate(i * TAU / 16); g.translate(0, -34.8 * S); const gl = GLY[(i * 5) % 6]; g.fillStyle = '#fff0ff'; g.shadowColor = '#b050ff'; g.shadowBlur = 6; for (let j = 0; j < 7; j++) for (let k = 0; k < 5; k++) if (gl[j][k] === '1') g.fillRect((k - 2.5) * 3.4, (j - 3.5) * 3.4, 3.4, 3.4); g.restore(); }
     c.ring = rg.cv;
     /* anel de choque */
     const SR = 100 * 2;
@@ -258,7 +258,7 @@
   }
 
   const pulse = (t, f, p) => 0.5 + 0.5 * Math.sin(t * f + (p || 0));
-  const SHARDS = [[-35, -52, 0, 0, 0.0], [34, -60, 1, 1, 1.7], [-34, -24, 2, 0, 3.1], [36, -36, 0, 1, 4.4], [-27, -78, 1, 0, 2.2], [27, -81, 2, 1, 5.3], [-38, -66, 2, 1, 0.9]];
+  const SHARDS = [[-33, -48, 0, 0, 0.0], [32, -58, 1, 1, 1.7], [-34, -20, 2, 0, 3.1], [35, -34, 0, 1, 4.4], [-24, -73, 1, 0, 2.2], [24, -75, 2, 1, 5.3], [-35, -62, 2, 1, 0.9]];
 
   function draw(ctx, x, y, z, t, o) {
     if (failed) return;
@@ -298,7 +298,7 @@
     const R = RUNES;
     for (let i = 0; i < R.length; i++) {
       const r = R[i]; let L; if (q) L = 0.55; else { const ph = ((t - r[3] * 0.1) % 2.6 + 2.6) % 2.6; L = 0.22 + 0.78 * Math.pow(Math.max(0, 1 - ph / 1.0), 1.6); if (bp > 0) L = Math.max(L, Math.min(1, bp * 1.6)); }
-      ctx.globalAlpha = Math.min(1, L * gl); ctx.drawImage(C.glyphs[r[2]], X(r[0] - 4.5 - 3), Y(r[1] - 7.5 - 3), Math.round(9 * U), Math.round(11 * U));
+      ctx.globalAlpha = Math.min(1, L * gl); ctx.drawImage(C.glyphs[r[2]], X(r[0] - 28 / 6), Y(r[1] - 32 / 6), Math.round(28 / 3 * U), Math.round(32 / 3 * U));
     }
     /* gema do brasão */
     const gp = q ? 0.8 : 0.72 + 0.28 * Math.sin(t * 2.2);
@@ -308,13 +308,14 @@
     ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, 0.5 * gp * gl); bblit(C.gem, -3.5, -71.5, 7, 9);
     ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
     /* fragmentos flutuantes */
-    const ns = lo ? 4 : SHARDS.length, ex = 1 + 0.7 * bp;
+    const ns = lo ? 4 : SHARDS.length, ex = 1 + 0.3 * bp, SU = 0.72;
     for (let i = 0; i < ns; i++) {
-      const s = SHARDS[i], bob = q ? 0 : Math.sin(t * 0.9 + s[4]) * 2.2, dx = q ? 0 : Math.cos(t * 0.6 + s[4] * 1.3) * 1.6;
-      const sx = s[0] * ex + dx, sy = -34 + (s[1] + 34) * ex + bob, im = C.shards[s[2]];
-      if (s[3]) { ctx.save(); ctx.translate(X(sx), 0); ctx.scale(-1, 1); ctx.drawImage(im, -Math.round(5 * U), Y(sy - 5.5), Math.round(10 * U), Math.round(11 * U)); ctx.restore(); }
-      else ctx.drawImage(im, X(sx - 5), Y(sy - 5.5), Math.round(10 * U), Math.round(11 * U));
+      const s = SHARDS[i], bob = q ? 0 : Math.sin(t * 0.9 + s[4]) * 1.8, dx = q ? 0 : Math.cos(t * 0.6 + s[4] * 1.3) * 1.2, rot = q ? 0 : Math.sin(t * 0.7 + s[4]) * 0.3;
+      const sx = s[0] * ex + dx, sy = -34 + (s[1] + 34) * ex + bob, im = C.shards[s[2]], w = 10 * U * SU, h = 11 * U * SU;
+      ctx.save(); ctx.translate(X(sx), Y(sy)); ctx.rotate(rot); if (s[3]) ctx.scale(-1, 1); ctx.drawImage(im, Math.round(-w / 2), Math.round(-h / 2), Math.round(w), Math.round(h));
+      ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 0.5 * gl; ctx.drawImage(C.ember, Math.round(-w * 0.45), Math.round(h * 0.05), Math.round(w * 0.9), Math.round(w * 0.9)); ctx.restore();
     }
+    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
     /* faíscas sugadas para dentro */
     if (!q) {
       ctx.globalCompositeOperation = 'lighter';
@@ -337,7 +338,7 @@
       }
     }
     /* clarão */
-    if (fl > 0) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, fl * 1.1); const fs = 120 + 40 * (1 - fl); bblit(C.flash, -fs / 2, -34 - fs / 2, fs, fs); ctx.globalAlpha = fl * 0.8; ctx.fillStyle = '#fff4ff'; ctx.fillRect(X(-42 * (2 - fl)), Y(-34.8), 84 * (2 - fl) * U, 1.6 * U); }
+    if (fl > 0) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, fl * 1.1); const fs = 120 + 40 * (1 - fl); bblit(C.flash, -fs / 2, -34 - fs / 2, fs, fs); ctx.fillStyle = '#fff4ff'; const lw = 38 * (0.6 + 0.4 * fl); for (const [wf, hh, af] of [[1, 0.9, 0.35], [0.62, 1.7, 0.6], [0.28, 2.6, 0.9]]) { ctx.globalAlpha = fl * af; ctx.fillRect(X(-lw * wf), Y(-34 - hh / 2), lw * wf * 2 * U, Math.ceil(hh * U)); } }
     ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   }
 

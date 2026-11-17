@@ -11,6 +11,10 @@
 - **Ferreiro mostra todas as armas**: todos os graus visíveis por padrão (bloqueados com cadeado pequeno e
   “Ferraria Nv.X”) e nova seção **Armas de classe**, que abre a Oficina de Classes.
 
+- **Janela de retorno em abas** (Achados, Resumo, Diário) com cartas por raridade, brilhos e revelação 3D.
+- **Portal de Aurora** no eixo da cidade (portão norte → fonte), com arco gótico animado, vórtice em espiral,
+  runas, círculo rúnico no chão e explosão ao chamar um herói.
+
 ## Estrutura
 | Arquivo | Papel |
 |---|---|
@@ -20,6 +24,8 @@
 | `src/skill-fx-esp-cav-arq.js`, `src/skill-fx-mag-pal-lad.js` | arte das animações por classe |
 | `src/skill-preview-ui.js`, `src/skill-preview.css` | Grimório e prévias |
 | `src/patch_ferreiro.py`, `src/ferreiro.css` | Ferreiro com todas as armas |
+| `src/return-cards.js`, `src/return-cards.css` | janela de retorno com abas e cartas |
+| `src/portal.js`, `src/portal-art.js` | posição e arte animada do portal |
 | `src/BRIEF-FX.md` | contrato para criar novas animações |
 | `tools/` | testes visuais (Playwright): `fx-sheet.js`, `shots.js`, `world-fx.js` |
 
