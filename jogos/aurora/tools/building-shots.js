@@ -1,4 +1,5 @@
 // Capturas de um prédio de serviço animado. Uso: node tools/building-shots.js <arquivo.html> <prefixo> [id=ferraria]
+// Equipe do prédio (ex.: Fábio e Gilda) fica no posto às 10h; à noite vai para casa.
 // Gera <prefixo>-cena.png (zoom normal) e close-ups: -dia-1..8 (a cada 0,12 s), -noite, -forjando-1/2.
 const { chromium } = require('playwright');
 const path = require('path');
@@ -12,14 +13,16 @@ const path = require('path');
   const cam = (z) => p.evaluate(([id, z]) => {
     G.UI.closeModal(); G.UI.close(); G.R.follow = 0; const pl = G.W.plots[id];
     if (!G.S.b[id] || !G.S.b[id].lvl) { G.S.b[id] = Object.assign(G.S.b[id] || {}, { lvl: 1 }); }
-    G.S.clock = 12 * 60; G.R.focus(pl.x + 3, pl.y + 2.2, true); G.R.cam.zf = z; G.R.cam.z = z;
+    G.S.clock = 10 * 60; G.R.focus(pl.x + 3, pl.y + 2.2, true); G.R.cam.zf = z; G.R.cam.z = z;
+    if (G.syncNpcs) G.syncNpcs();
+    for (const n of G.npcs || []) if (n.at === id) { n.act = 'work'; n.state = 'in'; n.inside = true; n.tThink = 999; n.until = 0; }  // equipe no posto durante as fotos
   }, [id, z]);
   await cam(3); await p.waitForTimeout(900); await p.screenshot({ path: out + '-cena.png' });
   await cam(6); await p.waitForTimeout(700);
   const clip = { x: 15, y: 130, width: 400, height: 470 };
   for (let i = 1; i <= 8; i++) { await p.screenshot({ path: out + '-dia-' + i + '.png', clip }); await p.waitForTimeout(120); }
-  await p.evaluate(() => { G.S.clock = 23 * 60; }); await p.waitForTimeout(600); await p.screenshot({ path: out + '-noite.png', clip });
-  await p.evaluate(() => { G.S.clock = 12 * 60; });
+  await p.evaluate((id) => { G.S.clock = 23 * 60; for (const n of G.npcs || []) if (n.at === id) { n.act = 'home'; n.state = 'in'; } }, id); await p.waitForTimeout(600); await p.screenshot({ path: out + '-noite.png', clip });
+  await p.evaluate((id) => { G.S.clock = 10 * 60; for (const n of G.npcs || []) if (n.at === id) { n.act = 'work'; n.state = 'in'; } }, id);
   await p.evaluate(() => { G.S.stats.crafted = (G.S.stats.crafted || 0) + 1; });
   await p.waitForTimeout(300); await p.screenshot({ path: out + '-forjando-1.png', clip });
   await p.waitForTimeout(260); await p.screenshot({ path: out + '-forjando-2.png', clip });
