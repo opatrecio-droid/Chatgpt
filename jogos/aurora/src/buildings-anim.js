@@ -73,8 +73,10 @@
 
   const work0 = R.bldWork;
   R.bldWork = function (id, lvl, p, sp, X, Y, z) {
-    if (work0) work0.apply(this, arguments);
     const art = A.BuildingArt && A.BuildingArt[id];
+    /* partículas quadradas do jogo original (bolhas do alquimista, fumaça da padaria/taverna) colidem com a arte nova:
+       só seguem onde não há arte animada, e na Ferraria (faíscas da forja, aprovadas) */
+    if (work0 && (!art || id === 'ferraria')) work0.apply(this, arguments);
     if (!art || !IMG[id] || !(lvl > 0) || !sp || !sp.cv) return;
     const S = G.S, b = S && S.b[id];
     if (id === 'ferraria' && S) { if (S.stats.crafted !== crafted) { if (crafted >= 0) craftUntil = S.t + 7; crafted = S.stats.crafted; } }

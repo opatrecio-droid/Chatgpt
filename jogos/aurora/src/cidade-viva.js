@@ -294,7 +294,7 @@
     ctx.globalAlpha = 1;
     /* mariposas e vagalumes: determinísticos, só com efeitos completos e movimento normal */
     if (!light && !quiet && dark > .45 && vis.length) {
-      const per = Math.min(5, Math.floor((LIMIT - T.prims) / vis.length));
+      const per = Math.min(5, Math.floor((LIMIT - T.prims) / vis.length)); T.dbg = { per, vis: vis.length, prims: T.prims };
       for (const r of vis) {
         if (r.lit < .9) continue;
         let used = 0;
@@ -320,5 +320,5 @@
   };
 
   /* depuração: G.A.cidadeViva() devolve um resumo (casas, portas, postes) */
-  A.cidadeViva = () => ({ prims: T.prims, dark: T.dark, hour: T.hour, houses: [...houseSt.values()].map(s => ({ i: s.h.i, open: +s.open.toFixed(2), occ: s.occ, lit: s.win.map(w => +w.lit.toFixed(2)) })), lamps: LAMPS.map(r => +r.lit.toFixed(2)) });
+  A.cidadeViva = () => ({ dbg: T.dbg, prims: T.prims, dark: T.dark, hour: T.hour, houses: [...houseSt.values()].map(s => ({ i: s.h.i, open: +s.open.toFixed(2), occ: s.occ, lit: s.win.map(w => +w.lit.toFixed(2)) })), lamps: LAMPS.map(r => +r.lit.toFixed(2)) });
 })();
