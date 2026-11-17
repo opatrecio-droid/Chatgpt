@@ -52,34 +52,32 @@
   const MIST = () => radial('mist', 96, 96, [[0, 'rgba(255,226,170,.55)'], [.45, 'rgba(255,208,150,.22)'], [1, 'rgba(255,200,140,0)']]);
   const FLY = () => radial('fly', 32, 32, [[0, 'rgba(235,255,140,.95)'], [.35, 'rgba(200,255,110,.4)'], [1, 'rgba(170,255,90,0)']]);
   const pix = (c, cx, cy, rx, ry, col) => { c.fillStyle = col; for (let y = 0; y < c.canvas.height; y++) for (let x = 0; x < c.canvas.width; x++) { const dx = (x + .5 - cx) / rx, dy = (y + .5 - cy) / ry; if (dx * dx + dy * dy <= 1) c.fillRect(x, y, 1, 1); } };
-  const FLAMES = [];       // 4 quadros da chama (7×11 px de arte), base embaixo ao centro
+  const FLAMES = [];       // 4 quadros da chama (5×8 px de arte), base embaixo ao centro
   const flame = i => {
     if (FLAMES[i]) return FLAMES[i];
-    const c = mk(7, 11), x = c.getContext('2d'), h = [5.2, 6.2, 4.6, 5.8][i], lean = [0, .5, -.5, .25][i];
-    pix(x, 3.5 + lean * .6, 8.4 - h * .45, 2.5, h * .56 + .4, '#ff7a1c');
-    pix(x, 3.5 + lean * .4, 8.9 - h * .38, 1.9, h * .46, '#ffb53c');
-    pix(x, 3.5 + lean * .2, 9.4 - h * .26, 1.1, h * .3, '#fff1a6');
-    x.fillStyle = '#ff7a1c'; x.fillRect(3 + (lean > 0 ? 1 : 0), 1 + (i % 2), 1, 1);
+    const c = mk(5, 8), x = c.getContext('2d'), h = [5.4, 6.4, 4.8, 6][i], lean = [0, .5, -.5, .25][i];
+    pix(x, 2.5 + lean * .4, 7.2 - h * .5, 1.8, h * .5 + .2, '#ff9a24');
+    pix(x, 2.5 + lean * .3, 7.5 - h * .38, 1.3, h * .4, '#ffd25c');
+    pix(x, 2.5, 7.7 - h * .22, .8, h * .24, '#fff6c8');
     return (FLAMES[i] = c);
   };
   const GLASS = {};        // vidro apagado por variante/janela, na resolução da imagem
   const glass = (v, j) => {
     const key = v * 8 + j; if (GLASS[key]) return GLASS[key];
-    const [x0, y0, x1, y1] = VAR[v].win[j], w = x1 - x0 + 3, h = y1 - y0 + 3, c = mk(w, h), x = c.getContext('2d');
+    const [x0, y0, x1, y1] = VAR[v].win[j], w = x1 - x0 + 3, h = y1 - y0 + 4, c = mk(w, h), x = c.getContext('2d');
     x.fillStyle = '#2a1b14'; x.fillRect(0, 0, w, h);
-    const g = x.createLinearGradient(0, 1, 0, h - 1); g.addColorStop(0, '#42566e'); g.addColorStop(.55, '#26344a'); g.addColorStop(1, '#161e2e');
+    const g = x.createLinearGradient(0, 1, 0, h - 1); g.addColorStop(0, '#46607a'); g.addColorStop(.5, '#27374e'); g.addColorStop(1, '#151d2c');
     x.fillStyle = g; x.fillRect(1, 1, w - 2, h - 2);
-    x.fillStyle = 'rgba(190,215,240,.42)'; for (let i = 0; i < Math.min(w, h) - 3; i++) x.fillRect(2 + i, 2 + Math.max(0, (h - 4) - i - 2 - ((h - 4) >> 1)) + (i >> 2), 1, 1);
-    x.fillStyle = 'rgba(150,185,220,.3)'; x.fillRect(1, 1, w - 2, 1);
-    x.fillStyle = '#2a1b14'; x.fillRect((w >> 1), 1, 1, h - 2); if (h > 7) x.fillRect(1, (h >> 1), w - 2, 1);
+    x.fillStyle = 'rgba(200,222,245,.5)'; x.fillRect(2, 3, 1, 1); x.fillRect(3, 2, 1, 1); if (w > 8) { x.fillRect(3, 4, 1, 1); x.fillRect(4, 3, 1, 1); }
+    x.fillStyle = '#2a1b14'; x.fillRect(w >> 1, 1, 1, h - 2); if (h > 7) x.fillRect(1, (h >> 1) + 1, w - 2, 1);
     return (GLASS[key] = c);
   };
 
   /* ---------- estado ---------- */
   const T = { t: 0, dt: 0, dark: 0, hour: 12, quiet: false, light: false, prims: 0, v: null, fx: [], frame: -1 };
   const houseSt = new Map();                 // casa -> estado
-  const npcPrev = new Map();                 // morador -> estava dentro no quadro anterior
-  const looks = new Map();
+  const npcPrev = new WeakMap();                 // morador -> estava dentro no quadro anterior
+  const looks = new WeakMap();
   const doorWorld = h => h.door;
   const stOf = h => {
     let s = houseSt.get(h);
@@ -129,11 +127,12 @@
       if (!n.inside && n.goal === 'in' && n.state === 'walk' && dist < 1.7 && (n.act === 'home' || n.act === 'hide')) s.hold = Math.max(s.hold, .55);
       if (prev === undefined || prev === !!n.inside || dist > 1.1) continue;
       if (!seen(h, v, 3)) { s.hold = Math.max(s.hold, .3); continue; }
-      if (n.inside && (n.act === 'home' || n.act === 'hide')) { s.ghosts.push({ n, t0: t, dir: 1, sx: n.x, sy: n.y, fd: n.dir || 1 }); s.hold = Math.max(s.hold, 1); }
-      else if (!n.inside) { s.ghosts.push({ n, t0: t, dir: -1, sx: n.x, sy: n.y, fd: n.dir || 1 }); s.hold = Math.max(s.hold, 1.05); }
+      if (n.inside && (n.act === 'home' || n.act === 'hide')) { s.ghosts.push({ n, t0: t, dir: 1, sx: n.x, sy: n.y, fd: n.dir || 1 }); s.hold = Math.max(s.hold, .8); }
+      else if (!n.inside) { s.ghosts.push({ n, t0: t, dir: -1, sx: n.x, sy: n.y, fd: n.dir || 1 }); s.hold = Math.max(s.hold, .85); }
     }
     const hour = T.hour;
-    for (const s of W.houses.map(stOf)) {
+    for (const h of houses) {
+      const s = stOf(h);
       s.hold = Math.max(0, s.hold - dt);
       const want = s.hold > 0 || s.ghosts.length > 0;
       s.open = clamp(s.open + (want ? dt / .28 : -dt / .36), 0, 1);
@@ -141,7 +140,7 @@
       const night = j => hour >= s.win[j].on || hour < s.win[j].off;
       for (let j = 0; j < s.win.length; j++) {
         const w = s.win[j]; let tg = 0;
-        if (night(j)) tg = s.occ > 0 ? (s.occ > 1 ? 1 : .92) : (j === VAR[s.v].main ? .42 : 0);
+        if (night(j)) tg = s.occ > 0 ? (s.occ > 1 ? 1 : .92) : (j === VAR[s.v].main ? .62 : 0);
         if (s.init) w.lit = tg; else w.lit += Math.abs(tg - w.lit) < .01 ? tg - w.lit : (tg - w.lit) * Math.min(1, dt * 1.7);
       }
       s.init = false;
@@ -176,10 +175,10 @@
     const dark = T.dark, flick = !T.quiet;
     /* vidros: de dia apagados; acesos mostram a arte original (a luz vem de buracos na noite e brilhos aditivos) */
     for (let j = 0; j < V.win.length; j++) {
-      const w = s.win[j], [x0, y0, x1, y1] = V.win[j], bx = Math.round(PX(x0 - 1)), by = Math.round(PY(y0 - 1)), bw = Math.round(PX(x1 + 2)) - bx, bh = Math.round(PY(y1 + 2)) - by;
+      const w = s.win[j], [x0, y0, x1, y1] = V.win[j], bx = Math.round(PX(x0 - 1)), by = Math.round(PY(y0 - 2)), bw = Math.round(PX(x1 + 2)) - bx, bh = Math.round(PY(y1 + 2)) - by;
       const f = flick && w.lit > .05 ? .9 + .1 * Math.sin(T.t * 8.3 + w.ph) * Math.cos(T.t * 5.1 + w.ph * 2) + .03 * Math.sin(T.t * 21 + w.ph) : 1;
       const L = w.lit * f;
-      if (L < .97 && take(1)) { ctx.globalAlpha = clamp(1 - L, 0, 1); ctx.drawImage(glass(s.v, j), bx, by, bw, bh); }
+      if (L < .97 && take(1)) { ctx.globalAlpha = Math.pow(clamp(1 - L, 0, 1), 1.6); ctx.drawImage(glass(s.v, j), bx, by, bw, bh); }
       if (w.lit > .03 && dark > .02) T.fx.push({ k: 'w', x: (bx + bw / 2), y: (by + bh / 2), r: Math.max(bw, bh), a: w.lit * f, ground: y0 > 70, base: PY(112), bw });
     }
     ctx.globalAlpha = 1;
@@ -243,8 +242,9 @@
   R.nightMore = function (hole) {
     if (nm0) nm0.apply(this, arguments);
     if (T.dark < .02) return;
-    for (const s of houseSt.values()) {
-      const h = s.h, sp = A.cottage(h.i), g = geoOf(sp, s.v); if (!g) continue;
+    for (const h of W.houses) {
+      const s = houseSt.get(h); if (!s) continue;
+      const sp = A.cottage(h.i), g = geoOf(sp, s.v); if (!g) continue;
       for (let j = 0; j < s.win.length; j++) {
         const w = s.win[j]; if (w.lit < .05) continue;
         const [x0, y0, x1, y1] = VAR[s.v].win[j], u = (x0 + x1) / 2, vv = (y0 + y1) / 2;
@@ -279,7 +279,7 @@
     for (const r of vis) {
       const I = r.lit * (.4 + .6 * Math.max(dark, .35)), fl = quiet ? 1 : .88 + .12 * Math.sin(t * 7.5 + r.ph) * Math.cos(t * 11.3 + r.ph * 1.7) + .05 * Math.sin(t * 19 + r.ph * 3);
       const cx = X(r.x), cy = Y(r.y - 1.75), by = Y(r.y);
-      if (take(1)) spr(ctx, POOL(), cx, by + .12 * TS * z, 5.4 * TS * z * (.94 + .06 * fl), 2.7 * TS * z * (.94 + .06 * fl), .52 * I);
+      if (take(1)) spr(ctx, POOL(), cx, by + .12 * TS * z, 5.4 * TS * z * (.94 + .06 * fl), 2.7 * TS * z * (.94 + .06 * fl), .74 * I);
       if (!light && !quiet && take(1)) spr(ctx, MIST(), cx + Math.sin(t * .32 + r.ph) * .3 * TS * z, by - .6 * TS * z, 3.4 * TS * z, 2 * TS * z, .2 * I * (.8 + .2 * Math.sin(t * .5 + r.ph * 2)));
       else if (!light && quiet && take(1)) spr(ctx, MIST(), cx, by - .6 * TS * z, 3.4 * TS * z, 2 * TS * z, .17 * I);
       if (take(1)) spr(ctx, CORE(), cx, cy, 11 * z * fl * (1 + .5 * Math.sin(Math.PI * r.lit)), 11 * z * fl * (1 + .5 * Math.sin(Math.PI * r.lit)), .85 * r.lit * fl);
@@ -287,23 +287,24 @@
     ctx.globalCompositeOperation = 'source-over'; ctx.imageSmoothingEnabled = false; ctx.globalAlpha = 1;
     for (const r of vis) {
       if (!take(1)) break;
-      const k = quiet ? 0 : Math.floor(t * 9 + r.ph * 3) % 4, c = flame(k), sc = z * (.8 + .2 * r.lit);
+      const k = quiet ? 0 : Math.floor(t * 9 + r.ph * 3) % 4, c = flame(k), sc = z * (.85 + .15 * r.lit);
       ctx.globalAlpha = clamp(r.lit * 1.4, 0, 1);
-      ctx.drawImage(c, Math.round(X(r.x) - 3.5 * sc), Math.round(Y(r.y - 1.75) + 1.2 * z - 9.4 * sc), Math.round(7 * sc), Math.round(11 * sc));
+      ctx.drawImage(c, Math.round(X(r.x) - 2.5 * sc), Math.round(Y(r.y - 1.75) + 3.4 * z - 7.6 * sc), Math.round(5 * sc), Math.round(8 * sc));
     }
     ctx.globalAlpha = 1;
     /* mariposas e vagalumes: determinísticos, só com efeitos completos e movimento normal */
     if (!light && !quiet && dark > .45 && vis.length) {
-      const per = Math.min(5, Math.floor((LIMIT - T.prims) / vis.length)); T.dbg = { per, vis: vis.length, prims: T.prims };
+      const per = Math.min(5, Math.floor((LIMIT - T.prims) / vis.length));
       for (const r of vis) {
         if (r.lit < .9) continue;
         let used = 0;
-        for (let m = 0; m < 2 && used + 1 <= per; m++) {         // mariposas em órbita da chama
-          const a = t * (2.6 + m * .9) * (m ? -1 : 1) + r.ph * (m + 1), rr = (.3 + .16 * Math.sin(t * .8 + r.ph + m * 2)) * TS * z;
+        for (let m = 0; m < 2 && used + 2 <= per; m++) {         // mariposas em órbita da chama
+          const a = t * (2.3 + m * .8) * (m ? -1 : 1) + r.ph * (m + 1), rr = (.5 + .2 * Math.sin(t * .8 + r.ph + m * 2)) * TS * z;
           const mx = X(r.x) + Math.cos(a) * rr + Math.sin(t * 13 + m) * .5 * z, my = Y(r.y - 1.75) + Math.sin(a) * rr * .55 + Math.cos(t * 9 + r.ph + m * 3) * .8 * z;
-          if (!take(1)) break; used++;
-          ctx.fillStyle = Math.sin(t * 28 + r.ph + m * 4) > 0 ? 'rgba(255,244,214,.95)' : 'rgba(224,206,170,.9)';
-          const wv = Math.sin(t * 28 + r.ph + m * 4) > 0 ? 2.4 * z : 1.3 * z; ctx.fillRect(Math.round(mx - wv / 2), Math.round(my), Math.round(wv), Math.max(1, Math.round(z * .9)));
+          if (!take(2)) break; used += 2;
+          const open = Math.sin(t * 28 + r.ph + m * 4) > 0, wv = (open ? 3.2 : 1.6) * z, hv = (open ? 1.3 : 2) * z;
+          ctx.fillStyle = 'rgba(30,20,12,.55)'; ctx.fillRect(Math.round(mx - wv / 2 + .6 * z), Math.round(my + .6 * z), Math.round(wv), Math.round(hv));
+          ctx.fillStyle = open ? 'rgba(255,246,222,.97)' : 'rgba(236,222,190,.95)'; ctx.fillRect(Math.round(mx - wv / 2), Math.round(my), Math.round(wv), Math.round(hv));
         }
         if (used + 2 <= per && dark > .6) {                         // vagalume passeando ao redor, piscando
           const a = t * .34 + r.ph * 2, fx0 = X(r.x) + (Math.cos(a) * 1.25 + Math.cos(t * .9 + r.ph) * .25) * TS * z, fy0 = Y(r.y - .7) + (Math.sin(a * 1.3) * .6 - .3) * TS * z, b = Math.pow(Math.max(0, Math.sin(t * 1.7 + r.ph * 3)), 2);
@@ -320,5 +321,5 @@
   };
 
   /* depuração: G.A.cidadeViva() devolve um resumo (casas, portas, postes) */
-  A.cidadeViva = () => ({ dbg: T.dbg, prims: T.prims, dark: T.dark, hour: T.hour, houses: [...houseSt.values()].map(s => ({ i: s.h.i, open: +s.open.toFixed(2), occ: s.occ, lit: s.win.map(w => +w.lit.toFixed(2)) })), lamps: LAMPS.map(r => +r.lit.toFixed(2)) });
+  A.cidadeViva = () => ({ prims: T.prims, dark: T.dark, hour: T.hour, houses: [...houseSt.values()].map(s => ({ i: s.h.i, open: +s.open.toFixed(2), occ: s.occ, lit: s.win.map(w => +w.lit.toFixed(2)) })), lamps: LAMPS.map(r => +r.lit.toFixed(2)) });
 })();

@@ -280,7 +280,7 @@
   };
   const startHunt = (n, prey) => {
     n._sc = 1; n._wk = 1; n.w = { site: 'lenharia', ph: 'hunt', t: 0 }; n._hunt = 1; n.inside = false; n.carry = null; n.talk = 0; n.say = null; n.sayT = 0; n.moving = false; n.path = null;
-    B.hunt = { ph: 'approach', t: 0, prey, re: 0, shootD: rr(4.1, 5.0), pull: 0, aimT: 1.2, hit: false, wait: 0, rew: false, k: 0 };
+    B.hunt = { ph: 'approach', t: 0, prey, re: 0, ct: 0, swaps: 0, force: false, shootD: rr(4.8, 6.0), pull: 0, aimT: 1.2, hit: false, wait: 0, rew: false, k: 0 };
     zgo(n, prey.x, prey.y);
   };
   const deliver = (n, a) => {
@@ -294,10 +294,19 @@
     G.log('Zeno entregou ' + NAME[a.sp] + ' na Lenharia (' + txt.join(', ') + ').', 'info');
     B.stats.delivered++;
   };
-  const kill = (a) => { a.st = 'dead'; a.hp = 0; a.hold = 0; a.t = 0; a.z = 0; releaseFruit(a); B.stats.hit++; puff(a.x, a.y - 0.2, 5, ['#d8c8a0', '#a89870']); scare(a.x, a.y, 7); a.st = 'dead'; };
+  const kill = (a) => { a.st = 'dead'; a.hp = 0; a.hold = 0; a.t = 0; a.z = 0; releaseFruit(a); B.stats.hit++; puff(a.x, a.y - 0.2, 5, ['#d8c8a0', '#a89870']); scare(a.x, a.y, 5); a.st = 'dead'; };
   const puff = (x, y, n, cols) => {
     if (low() || R.parts.length > 500) return;
     for (let i = 0; i < n; i++) R.parts.push({ x: x + rr(-0.2, 0.2), y, vx: rr(-0.4, 0.4), vy: rr(-0.5, -0.1), life: rr(0.5, 0.9), max: 0.9, c: pk(cols), size: 2, g: -0.1, kind: 'puff' });
+  };
+  /* troca de alvo: o animal mais próximo que pasta ou come; depois de 3 trocas sem tiro, atira no melhor alvo que houver */
+  const retarget = (n) => {
+    const H = B.hunt; H.swaps = (H.swaps || 0) + 1; if (H.prey) H.prey.hold = 0;
+    const c = B.an.filter((a) => a !== H.prey && canShoot(a)); if (!c.length) return false;
+    const d = (a) => Math.hypot(a.x - n.x, a.y - n.y), calmOnes = c.filter((a) => a.st === 'graze' || a.st === 'eat');
+    const pool = H.swaps >= 3 ? c : calmOnes.length ? calmOnes : c; pool.sort((a, b) => d(a) - d(b));
+    H.prey = pool[0]; H.ph = d(pool[0]) <= 9.5 ? 'stalk' : 'approach'; H.t = 0; H.ct = 0; H.re = 0; H.shootD = rr(4.8, 6.0); H.force = H.swaps >= 3; n.path = null; zgo(n, H.prey.x, H.prey.y);
+    return true;
   };
   const huntTick = (n, dt) => {
     const H = B.hunt, S = G.S; H.t += dt;
@@ -308,7 +317,7 @@
     const gone = () => !p || !aliveAn(p) || p.st === 'flee' || p.st === 'fly' || p.st === 'hide';
     switch (H.ph) {
       case 'approach': {
-        if (!p || !aliveAn(p)) return endHunt(n, 'lost');
+        if (!p || !aliveAn(p)) { if (!retarget(n)) return endHunt(n, 'lost'); break; }
         const d = Math.hypot(n.x - p.x, n.y - p.y);
         if (d <= 9.5 && p.st !== 'flee') { H.ph = 'stalk'; H.t = 0; H.re = 0; n.path = null; break; }
         H.re -= dt; if (H.re <= 0 || !n.path || !n.path.length) { H.re = 1.5; zgo(n, p.x, p.y); }
@@ -317,19 +326,20 @@
         break;
       }
       case 'stalk': {
-        if (gone()) return endHunt(n, 'lost');
+        H.ct += dt;
+        if (gone() || H.ct > 12) { if (!retarget(n)) return endHunt(n, 'lost'); break; }
         const d = Math.hypot(n.x - p.x, n.y - p.y);
-        if (d <= H.shootD + 0.2 && W.los(n.x, n.y - 0.1, p.x, p.y)) { H.ph = 'aim'; H.t = 0; H.aimT = rr(1.1, 1.5); n.moving = false; n.path = null; n.dir = p.x >= n.x ? 1 : -1; p.hold = 1; p.st = 'alert'; p.dir = n.x >= p.x ? 1 : -1; break; }
+        if (d <= H.shootD + 0.2 && (H.force || W.los(n.x, n.y - 0.1, p.x, p.y))) { H.ph = 'aim'; H.t = 0; H.aimT = rr(1.1, 1.5); n.moving = false; n.path = null; n.dir = p.x >= n.x ? 1 : -1; p.hold = 1; p.st = 'alert'; p.dir = n.x >= p.x ? 1 : -1; break; }
         H.re -= dt;
         if (H.re <= 0) { H.re = 0.6; if (d <= H.shootD + 0.2) H.shootD = Math.max(2.6, H.shootD - 0.6); const ux = (n.x - p.x) / d, uy = (n.y - p.y) / d; zgo(n, p.x + ux * H.shootD * 0.85, p.y + uy * H.shootD * 0.85); }
-        G.step(n, dt, n.spd * 0.5); n.crouch = 1;
-        if (H.t > 30) return endHunt(n, 'lost');
+        G.step(n, dt, n.spd * 0.8); n.crouch = 1;
+        if (H.t > 45) return endHunt(n, 'lost');
         break;
       }
       case 'aim': {
         n.moving = false; n.dir = p.x >= n.x ? 1 : -1; p.hold = 1; p.st = 'alert';
         H.pull = clamp(H.t / H.aimT, 0, 1);
-        if (!aliveAn(p) || Math.hypot(n.x - p.x, n.y - p.y) < 2.1) { p.hold = 0; return endHunt(n, 'lost'); }
+        if (!aliveAn(p) || Math.hypot(n.x - p.x, n.y - p.y) < 2.5) { p.hold = 0; if (!retarget(n)) return endHunt(n, 'lost'); break; }
         if (H.t >= H.aimT) {
           H.hit = rnd() < 0.7; B.stats.shot++;
           const d = Math.hypot(p.x - n.x, p.y - n.y), ex = H.hit ? p.x : p.x + (p.x - n.x) / d * rr(0.5, 1.4) + rr(-0.5, 0.5), ey = H.hit ? p.y : p.y + (p.y - n.y) / d * rr(0.3, 1.0) + rr(-0.4, 0.4);
@@ -343,7 +353,7 @@
         if (!B.arrows.some((q) => q.prey === p && !q.done)) {
           if (H.hit && aliveAn(p) && p.st === 'dead') { H.ph = 'fetch'; H.t = 0; zgo(n, p.x, p.y + 0.1); }
           else if (p.st === 'dead') { H.ph = 'fetch'; H.t = 0; zgo(n, p.x, p.y + 0.1); }
-          else { H.ph = 'wait'; H.t = 0; H.wait = rr(10, 16); H.prey = null; }
+          else { H.ph = 'wait'; H.t = 0; H.wait = rr(3, 5); H.prey = null; H.swaps = 0; H.force = false; }
         }
         break;
       }
@@ -369,7 +379,7 @@
       case 'drop': {
         n.moving = false;
         if (H.t >= 0.4 && !H.rew) { H.rew = true; deliver(n, p); }
-        if (H.t >= 1.0) { p.gone = true; H.ph = 'wait'; H.t = 0; H.wait = rr(14, 22); H.prey = null; }
+        if (H.t >= 1.0) { p.gone = true; H.ph = 'wait'; H.t = 0; H.wait = rr(8, 12); H.prey = null; H.swaps = 0; H.force = false; }
         break;
       }
       case 'wait': {
@@ -377,7 +387,7 @@
         if (!hunting(S)) return endHunt(n, 'late');
         if (H.t >= H.wait) {
           const q = pickPrey(n);
-          if (q) { H.prey = q; H.ph = 'approach'; H.t = 0; H.re = 0; H.shootD = rr(4.1, 5.0); H.rew = false; zgo(n, q.x, q.y); }
+          if (q) { H.prey = q; H.ph = 'approach'; H.t = 0; H.ct = 0; H.re = 0; H.shootD = rr(4.8, 6.0); H.rew = false; zgo(n, q.x, q.y); }
           else if (H.t > H.wait + 50) return endHunt(n, 'none');
         }
         break;
@@ -393,7 +403,7 @@
         q.done = true;
         const a = q.prey;
         if (q.hit && a && aliveAn(a)) kill(a);
-        else { B.stuck.push({ x: q.x1, y: q.y1, h: 0, dx: q.x1 - q.x0, t: 0 }); if (a) { a.hold = 0; if (aliveAn(a)) startFlee(a, q.x0, q.y0); } scare(q.x1, q.y1, 5.5); }
+        else { B.stuck.push({ x: q.x1, y: q.y1, h: 0, dx: q.x1 - q.x0, t: 0 }); if (a) { a.hold = 0; if (aliveAn(a)) startFlee(a, q.x0, q.y0); } scare(q.x1, q.y1, 5); }
       }
       if (q.done) B.arrows.splice(i, 1);
     }
@@ -494,8 +504,8 @@
     } else { const nx = u(g.neck[0]), ny = u(g.neck[1]) + by; p.ell((nx + hx) / 2 - 1, (ny + hy) / 2, Math.max(2, u(3.8)), Math.max(2, u(4)), pal.main); }
     const part = (vx, vy) => { const r = rot(u(vx), u(vy), th); return [hx + r[0], hy + r[1]]; };
     if (vari === 'stag') {                                                                          // galhada: haste, pontas e a segunda, mais escura, ao fundo
-      const A1 = [[-1, -2, -2.6, -6.4], [-2.6, -6.4, -3.4, -10.5], [-1.9, -4.4, 1, -7.4], [-2.9, -8.2, -6, -9.6], [-2.9, -8.2, 0.2, -11.4], [-3.4, -10.5, -3.6, -13]];
-      for (const [x0, y0, x1, y1] of A1) { const a0 = part(x0 + 2.4, y0 + 0.4), b0 = part(x1 + 2.4, y1 + 0.4); p.line(a0[0], a0[1], b0[0], b0[1], pal.antlerD); }
+      const A1 = [[-1, -2, -2.6, -6.4], [-2.6, -6.4, -3.4, -10.5], [-1.9, -4.4, 1, -7.4], [-2.9, -8.2, -6.4, -9.4]];
+      for (const [x0, y0, x1, y1] of A1) { const a0 = part(x0 + 3, y0 + 0.6), b0 = part(x1 + 3, y1 + 0.6); p.line(a0[0], a0[1], b0[0], b0[1], pal.antlerD); }
       for (const [x0, y0, x1, y1] of A1) { const a0 = part(x0, y0), b0 = part(x1, y1); p.line(a0[0], a0[1], b0[0], b0[1], pal.antler); }
     }
     if (kind === 'deer') {
@@ -741,6 +751,10 @@
     for (const f of B.fr) if (inView(f.x, f.y, v, 1)) drawFruitGround(f, X, Y, z);
   }, 60);
 
+  B.spawn = spawn; B.ok = okTile;
+  /* painel do prédio: Zeno aparece "caçando" em vez de "treinando" (o rótulo vem de _sc) */
+  const bp0 = G.bldPresence;
+  if (bp0) G.bldPresence = function (id) { const r = bp0.apply(this, arguments); if (r && r.npcs && B.hunt) for (const o of r.npcs) if (o.name === 'Zeno') o.st = B.hunt.ph === 'carry' ? 'levando a caça' : B.hunt.ph === 'stalk' || B.hunt.ph === 'aim' ? 'espreitando a caça' : 'caçando'; return r; };
   /* folha de sprites para conferir a arte (usada por tools/bosque-shots.js) */
   B.sheet = (scale) => {
     const rows = [['deer', 'm', 3, ['stand0', 'stand1', 'walk0', 'walk1', 'walk2', 'walk3', 'graze0', 'graze1', 'alert', 'run0', 'run1']], ['deer', 'f', 3, ['stand0', 'stand1', 'walk0', 'walk1', 'walk2', 'walk3', 'graze0', 'graze1', 'alert', 'run0', 'run1']], ['deer', 'f', 0, ['stand0', 'walk1', 'graze0', 'alert', 'run0']],

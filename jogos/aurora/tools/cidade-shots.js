@@ -30,7 +30,7 @@ const path = require('path');
     for (const hi of [0, 1, 2, 3, 4, 5]) {
       await focus(G_H(hi)[0] + 2, G_H(hi)[1] + 1.4, Z);
       await clock(11); await homeAll(); await p.waitForTimeout(500); await shot('casa' + hi + '-dia');
-      await clock(18.5); await away(); await p.waitForTimeout(700); await shot('casa' + hi + '-1830');
+      await clock(19.3); await away(); await p.waitForTimeout(900); await shot('casa' + hi + '-1830');
       await clock(22); await homeAll(); await p.waitForTimeout(2500); await shot('casa' + hi + '-22h');
       await clock(2.4); await p.waitForTimeout(1800); await shot('casa' + hi + '-madrugada');
     }
