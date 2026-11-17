@@ -24,6 +24,8 @@ MODULES = [
     ('script', 'aurora-skill-preview-ui', 'skill-preview-ui.js'),
     ('style', 'aurora-return-cards-style', 'return-cards.css'),
     ('script', 'aurora-return-cards', 'return-cards.js'),
+    ('script', 'aurora-portal-art', 'portal-art.js'),
+    ('script', 'aurora-portal', 'portal.js'),
 ]
 PY_PATCHES = ['patch_core.py', 'patch_ferreiro.py']
 
