@@ -31289,7 +31289,7 @@ if(!G.HEADLESS){
   const rarNames = ['Comum', 'Incomum', 'Raro', 'Épico', 'Lendário', 'Mítico'];
   const rarColors = ['#b9af91', '#8eb867', '#76acc7', '#b58bd2', '#d5ad5b', '#da8d90'];
   const grades = ['Regular', 'Robusto', 'Refinado', 'Poderoso', 'Extremo'];
-  let grade = '0', kind = 'all', craftableOnly = false, draft = null, scroll = 0;
+  let grade = 'all', kind = 'all', craftableOnly = false, draft = null, scroll = 0;
   const E = () => G.E2;
   const list = () => Array.isArray(E().gear) ? E().gear : Object.values(E().gear || {});
   const find = id => list().find(d => d.id === id);
@@ -31317,19 +31317,61 @@ if(!G.HEADLESS){
     return (Array.isArray(rows) ? rows : [rows]).filter(Boolean).map(s => '<p class="e2-passive">◆ ' + esc(typeof s === 'string' ? s : s.text || s.name || '') + '</p>').join('');
   };
 
+  const lockSvg = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="#e2c27a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.2 7V5.3a2.8 2.8 0 0 1 5.6 0V7"/><rect x="3.6" y="7" width="8.8" height="6.6" rx="1.4" fill="#e2c27a" fill-opacity=".22"/></svg>';
+  const lockBadge = '<span class="e2-lock" aria-hidden="true">' + lockSvg + '</span>';
+  const inlineLock = '<span class="e2-lock-inline" aria-hidden="true">' + lockSvg + '</span>';
+  const cardHtml = d => {
+    const q = quote(d, 1), locked = G.bLvl('ferraria') < (d.minLevel || 1);
+    return '<button class="e2-gear-card' + (locked ? ' e2-locked' : '') + '" data-a="e2craftopen:' + esc(d.id) + '" data-e2-gear="' + esc(d.id) + '" style="--e2-rarity:' + (rarColors[d.rar] || rarColors[0]) + '" aria-label="Ver receita de ' + esc(d.name) + (locked ? ' (bloqueado)' : '') + '">' + lockBadge + art(d) + '<b>' + esc(d.name) + '</b><small>' + esc(rarityLabel(d.rar)) + '</small><span class="e2-craft-state' + (q.ok ? ' ready' : '') + '">' + (locked ? 'Ferraria Nv.' + d.minLevel : q.ok ? 'Fabricar' : 'Ver receita') + '</span></button>';
+  };
+  const gridHtml = rows => {
+    let last = -1;
+    return rows.map(d => {
+      const g = gradeOf(d);
+      let head = '';
+      if (grade === 'all' && g !== last) {
+        last = g;
+        const locked = G.bLvl('ferraria') < g + 1;
+        head = '<div class="e2-grade-head"><span>' + esc(grades[g] || grades[0]) + '</span>' + (locked ? '<em>' + inlineLock + ' Ferraria Nv.' + (g + 1) + '</em>' : '') + '</div>';
+      }
+      return head + cardHtml(d);
+    }).join('');
+  };
+  const classGear = () => {
+    if (!G.HUNTER_GEAR || !G.EQUIPMENT) return [];
+    return (G.HUNTER_GEAR.catalog || []).filter(d => d && G.GEAR[d.type] && G.GEAR[d.type].kind === 'arma' && (!craftableOnly || G.EQUIPMENT.craftQuote(d.id).ok));
+  };
+  const classCardHtml = d => {
+    const q = G.EQUIPMENT.craftQuote(d.id), locked = !q.ok && !/^(Faltam|O tesouro|Armazém)/.test(q.why || '');
+    const info = G.HUNTER_GEAR.classes[d.hunterClass] || {};
+    return '<button class="e2-gear-card e2-class-card' + (locked ? ' e2-locked' : '') + '" data-a="hgopen:' + esc(d.hunterClass) + '" data-e2-class-gear="' + esc(d.id) + '" style="--e2-rarity:' + (rarColors[d.rar] || rarColors[0]) + ';--e2-class:' + esc(info.color || '#c4a769') + '" aria-label="' + esc(d.name) + (locked ? ' (bloqueado)' : '') + '">' + (locked ? lockBadge : '') + '<span class="e2-art" style="--e2-rarity:' + (rarColors[d.rar] || rarColors[0]) + '">' + UI.gi({id: 0, type: d.type, tier: d.tier || 1, rar: d.rar, rank: d.rank, rankOrigin: 0, plus: 0, eqCatalog: d.id}) + '</span><b>' + esc(d.name) + '</b><small>Etapa ' + esc(String(d.hunterStage || 1)) + '</small><span class="e2-craft-state">' + esc(locked ? (q.why || 'Bloqueada') : 'Abrir Oficina') + '</span></button>';
+  };
+  const classSection = items => {
+    if (!items.length) return '';
+    const H = G.HUNTER_GEAR;
+    const groups = Object.keys(H.classes).map(cls => {
+      const list = items.filter(d => d.hunterClass === cls);
+      if (!list.length) return '';
+      const info = H.classes[cls];
+      return '<div class="e2-class-group"><h4 class="e2-class-head" style="--e2-class:' + esc(info.color) + '">' + esc(info.name) + '</h4><div class="e2-forge-grid">' + list.map(classCardHtml).join('') + '</div></div>';
+    }).join('');
+    return '<section class="e2-class-gear" data-e2-class-section><h3 class="e2-class-title">Armas de classe</h3>' + groups + '</section>';
+  };
+
   UI.e2Forge = () => {
     if (!G.S || !E()) return;
     E().ensure(); draft = null;
-    const rows = list().filter(d => (gradeOf(d) === Number(grade)) && (kind === 'all' || typeKind(d) === kind) && (!craftableOnly || quote(d, 1).ok));
+    const isAll = grade === 'all';
+    const rows = list().filter(d => (isAll || gradeOf(d) === Number(grade)) && (kind === 'all' || typeKind(d) === kind) && (!craftableOnly || quote(d, 1).ok));
+    if (isAll) rows.sort((a, b) => gradeOf(a) - gradeOf(b));
+    const classRows = (kind === 'all' || kind === 'arma') ? classGear() : [];
+    const shownCount = rows.length + classRows.length;
     const options = grades.map((name,n) => ({name,n,minLevel:n+1}));
     const content = '<section class="e2-forge" data-e2-forge="catalog"><header class="e2-forge-header"><div class="eyebrow">Nv.' + G.bLvl('ferraria') + ' · Ferraria</div><h3>Ferreiro de Aurora</h3><p>Transforme o saque dos caçadores em armas e armaduras para a cidade.</p></header>' +
-      '<div class="e2-forge-filters"><label><span>Grau do equipamento</span><select id="e2-forge-grade" aria-label="Filtrar grau do equipamento">' + options.map(o => '<option value="' + o.n + '"' + (grade === String(o.n) ? ' selected' : '') + (G.bLvl('ferraria') < o.minLevel ? ' disabled' : '') + '>' + esc(o.name) + (G.bLvl('ferraria') < o.minLevel ? ' · Nv.' + o.minLevel : '') + '</option>').join('') + '</select></label>' +
+      '<div class="e2-forge-filters"><label><span>Grau do equipamento</span><select id="e2-forge-grade" aria-label="Filtrar grau do equipamento"><option value="all"' + (grade === 'all' ? ' selected' : '') + '>Todos os graus</option>' + options.map(o => '<option value="' + o.n + '"' + (grade === String(o.n) ? ' selected' : '') + '>' + esc(o.name) + (G.bLvl('ferraria') < o.minLevel ? ' · Nv.' + o.minLevel : '') + '</option>').join('') + '</select></label>' +
       '<label><span>Categoria</span><select id="e2-forge-kind" aria-label="Filtrar categoria"><option value="all"' + (kind === 'all' ? ' selected' : '') + '>Todas</option><option value="arma"' + (kind === 'arma' ? ' selected' : '') + '>Armas</option><option value="armadura"' + (kind === 'armadura' ? ' selected' : '') + '>Armaduras</option></select></label></div>' +
-      '<label class="e2-forge-check"><input id="e2-forge-craftable" type="checkbox"' + (craftableOnly ? ' checked' : '') + '> Itens fabricáveis agora <small data-e2-catalog-count>' + rows.length + ' receitas</small></label>' +
-      '<div class="e2-forge-grid">' + rows.map(d => {
-        const q = quote(d, 1), locked = G.bLvl('ferraria') < (d.minLevel || 1);
-        return '<button class="e2-gear-card" data-a="e2craftopen:' + esc(d.id) + '" data-e2-gear="' + esc(d.id) + '" style="--e2-rarity:' + (rarColors[d.rar] || rarColors[0]) + '" aria-label="Ver receita de ' + esc(d.name) + '">' + art(d) + '<b>' + esc(d.name) + '</b><small>' + esc(rarityLabel(d.rar)) + '</small><span class="e2-craft-state' + (q.ok ? ' ready' : '') + '">' + (locked ? 'Ferraria Nv.' + d.minLevel : q.ok ? 'Fabricar' : 'Ver receita') + '</span></button>';
-      }).join('') + '</div>' + (rows.length ? '' : '<div class="e2-forge-empty">Nenhuma receita nesta seleção.<br>Altere os filtros ou abasteça os materiais no Posto Comercial.</div>') + '</section>';
+      '<label class="e2-forge-check"><input id="e2-forge-craftable" type="checkbox"' + (craftableOnly ? ' checked' : '') + '> Itens fabricáveis agora <small data-e2-catalog-count>' + shownCount + ' receitas</small></label>' +
+      '<div class="e2-forge-grid">' + gridHtml(rows) + '</div>' + classSection(classRows) + (shownCount ? '' : '<div class="e2-forge-empty">Nenhuma receita nesta seleção.<br>Altere os filtros ou abasteça os materiais no Posto Comercial.</div>') + '</section>';
     const foot = '<div class="e2-forge-footer"><p data-e2-forge-space>Armazenamento: <b>' + G.S.inv.length + ' / ' + G.invCap() + '</b> · ' + capacity() + ' vagas</p><div class="e2-footer-actions"><button class="btn" data-a="e2warehouse:gear">' + UI.ic('chest') + ' Equipamentos</button><button class="btn red" data-a="dockx">Fechar</button></div></div>';
     UI.closeModal();
     UI.dock.open('e2forge', content, {key: 'ferraria', foot});
@@ -31340,6 +31382,9 @@ if(!G.HEADLESS){
       if (space) space.innerHTML = 'Armazenamento: <b>' + G.S.inv.length + ' / ' + G.invCap() + '</b> · ' + capacity() + ' vagas';
       for (const button of root.querySelectorAll('[data-e2-gear]')) {
         const d = find(button.dataset.e2Gear), q = quote(d, 1), state = button.querySelector('.e2-craft-state');
+        const lockedNow = G.bLvl('ferraria') < (d.minLevel || 1);
+        button.classList.toggle('e2-locked', lockedNow);
+        button.setAttribute('aria-label', 'Ver receita de ' + d.name + (lockedNow ? ' (bloqueado)' : ''));
         state.classList.toggle('ready', q.ok);
         state.textContent = G.bLvl('ferraria') < (d.minLevel || 1) ? 'Ferraria Nv.' + d.minLevel : q.ok ? 'Fabricar' : 'Ver receita';
       }
@@ -38865,6 +38910,146 @@ html.aurora-rpg #app .hsheet-portrait {image-rendering:pixelated}
 })();
 
 </script>
+<style id="aurora-skill-preview-style">
+/* Aurora 046 · Prévias animadas de habilidades */
+html.aurora-rpg #app .sfx-frame{position:relative;display:block;overflow:hidden;border-radius:7px;background:#0b1020;
+  box-shadow:0 0 0 2px #070a14,0 0 0 3px var(--c,#8a62c9),0 0 12px 1px var(--cg,rgba(138,98,201,.5)),inset 0 0 0 1px rgba(255,255,255,.12);isolation:isolate}
+html.aurora-rpg #app .sfx-frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;border-radius:inherit;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.16) 50%,transparent 60%) -140% 0/260% 100% no-repeat;animation:sfx-sheen 4.2s ease-in-out infinite}
+html.aurora-rpg #app .sfx-cv{display:block;width:100%;height:100%;image-rendering:pixelated;touch-action:manipulation}
+html.aurora-rpg #app .sfx-frame.is-lock .sfx-cv,html.aurora-rpg #app .sfx-big.is-lock .sfx-cv{filter:saturate(.55) brightness(.9)}
+@keyframes sfx-sheen{0%,55%{background-position:-140% 0}100%{background-position:140% 0}}
+@keyframes sfx-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+html.aurora-rpg #app .sfx-seal{position:absolute;left:5px;top:5px;z-index:4;font:900 9px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em;color:#fff6d0;
+  background:rgba(8,10,20,.78);border:1px solid var(--c,#8a62c9);border-radius:999px;padding:3px 6px 3px 5px;box-shadow:0 0 6px var(--cg,transparent)}
+html.aurora-rpg #app .sfx-seal b{display:inline-block;color:var(--c,#ffd75a);filter:brightness(1.5);animation:sfx-pulse 1.4s ease-in-out infinite;margin-right:1px}
+html.aurora-rpg #app .sfx-lv{position:absolute;right:5px;top:5px;z-index:4;font:900 10px/1 ui-monospace,Menlo,Consolas,monospace;color:#10131f;background:var(--c,#ffd75a);
+  border-radius:4px;padding:3px 5px;box-shadow:0 1px 0 rgba(0,0,0,.5),inset 0 -2px 0 rgba(0,0,0,.2);text-transform:uppercase}
+html.aurora-rpg #app .sfx-lk{position:absolute;right:5px;bottom:5px;z-index:4;width:20px;height:20px;display:grid;place-items:center;background:rgba(8,10,20,.82);
+  border:1px solid rgba(255,255,255,.35);border-radius:5px;color:#ffd75a}
+html.aurora-rpg #app .sfx-lk .i{width:12px;height:12px}
+html.aurora-rpg #app .sfx-lk i,html.aurora-rpg #app .sfx-lk svg{width:12px;height:12px}
+
+/* grimório */
+html.aurora-rpg #app .sfx-grim{margin:4px 0 12px;padding:8px;border-radius:12px;background:linear-gradient(180deg,rgba(32,38,64,.85),rgba(16,20,36,.9));
+  border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 14px rgba(0,0,0,.35)}
+html.aurora-rpg #app .sfx-gh{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:2px 4px;background:none;border:0;color:inherit;text-align:left;cursor:pointer}
+html.aurora-rpg #app .sfx-gt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+html.aurora-rpg #app .sfx-gt b{font-size:15px;letter-spacing:.02em;color:#ffe9a8}
+html.aurora-rpg #app .sfx-gt small{font-size:11px;opacity:.72;line-height:1.25}
+html.aurora-rpg #app .sfx-gc{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.07);transition:transform .2s}
+html.aurora-rpg #app .sfx-collapsed .sfx-gc{transform:rotate(180deg)}
+html.aurora-rpg #app .sfx-gg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+html.aurora-rpg #app .sfx-collapsed .sfx-gg{display:none}
+html.aurora-rpg #app .sfx-card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:5px;min-width:0;padding:6px 6px 7px;border-radius:10px;cursor:pointer;
+  background:rgba(8,11,22,.55);border:1px solid rgba(255,255,255,.08);-webkit-tap-highlight-color:transparent;transition:transform .12s,border-color .12s}
+html.aurora-rpg #app .sfx-card:active{transform:scale(.98)}
+html.aurora-rpg #app .sfx-card:focus-visible{outline:2px solid #ffe07a;outline-offset:2px}
+html.aurora-rpg #app .sfx-card.t1{grid-column:1/-1}
+html.aurora-rpg #app .sfx-card .sfx-frame{aspect-ratio:19/10;width:100%}
+html.aurora-rpg #app .sfx-card.t1 .sfx-frame{aspect-ratio:3.2/1}
+html.aurora-rpg #app .sfx-card.st-locked,html.aurora-rpg #app .sfx-card.st-closed{border-color:rgba(255,255,255,.05)}
+html.aurora-rpg #app .sfx-card.st-learned{border-color:var(--c)}
+html.aurora-rpg #app .sfx-nm{font:800 13px/1.2 inherit;color:#f4f1e6;padding:0 2px;overflow-wrap:anywhere}
+html.aurora-rpg #app .sfx-chips{display:flex;flex-wrap:wrap;gap:4px;padding:0 2px}
+html.aurora-rpg #app .sfx-chip{font:700 10px/1 ui-monospace,Menlo,Consolas,monospace;font-style:normal;padding:3px 6px;border-radius:5px;background:rgba(255,255,255,.1);color:#e8e8f0;white-space:nowrap}
+html.aurora-rpg #app .sfx-chip.cd{background:rgba(255,224,122,.16);color:#ffe07a}
+html.aurora-rpg #app .sfx-chip.t-dano{background:rgba(255,110,90,.22);color:#ffb0a2}
+html.aurora-rpg #app .sfx-chip.t-area{background:rgba(255,165,70,.22);color:#ffcb8a}
+html.aurora-rpg #app .sfx-chip.t-cont{background:rgba(170,120,255,.24);color:#d2b8ff}
+html.aurora-rpg #app .sfx-chip.t-ctrl{background:rgba(90,200,255,.2);color:#a6e4ff}
+html.aurora-rpg #app .sfx-chip.t-sup{background:rgba(110,230,150,.2);color:#a8f0c0}
+html.aurora-rpg #app .sfx-st{display:flex;align-items:center;gap:4px;font-size:11px;line-height:1.2;color:#cfd3e4;padding:0 2px}
+html.aurora-rpg #app .sfx-st.lg{margin-left:auto;font-size:12px}
+html.aurora-rpg #app .sfx-sti{display:inline-grid;place-items:center;width:14px;height:14px;font-size:11px;color:#8fe6a8;flex:none}
+html.aurora-rpg #app .sfx-sti .i{width:12px;height:12px;color:#ffd75a}
+html.aurora-rpg #app .sfx-card.st-locked .sfx-st,html.aurora-rpg #app .sfx-card.st-closed .sfx-st{color:#b8bccc}
+html.aurora-rpg #app .sfx-card.st-avail .sfx-sti{color:#ffe07a}
+
+/* miniatura nos cartões .sk */
+html.aurora-rpg #app .sk .sfx-th{flex:0 0 96px;width:96px;height:62px;align-self:center;cursor:pointer;margin:0 2px;box-sizing:border-box;min-width:0}
+html.aurora-rpg #app .sk .sfx-th:focus-visible{outline:2px solid #ffe07a;outline-offset:2px}
+html.aurora-rpg #app .sfx-th::after{display:none}
+html.aurora-rpg #app .sfx-th .sfx-play{position:absolute;left:4px;bottom:4px;z-index:4;width:18px;height:18px;display:grid;place-items:center;font-size:9px;line-height:1;color:#fff6d0;
+  background:rgba(8,10,20,.8);border:1px solid var(--c);border-radius:50%;padding-left:1px;box-sizing:border-box}
+html.aurora-rpg #app .sfx-th .sfx-lk{width:18px;height:18px}
+html.aurora-rpg #app .sk.sfx-has .row>.gr{min-width:0}
+
+/* prévia grande */
+html.aurora-rpg #app .sfx-prev-host{margin:6px 0 10px}
+html.aurora-rpg #app .sfx-big .sfx-frame{width:100%;max-width:420px;aspect-ratio:9/5;margin:0 auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+html.aurora-rpg #app .sfx-big .sfx-seal{font-size:10px;padding:4px 8px 4px 6px}
+html.aurora-rpg #app .sfx-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 2px 4px}
+html.aurora-rpg #app .sfx-bar .sfx-rp{min-height:44px;min-width:44px;padding:0 14px}
+html.aurora-rpg #app .sfx-name{margin:8px 2px 2px;font-size:17px;color:#ffe9a8}
+html.aurora-rpg #app .sfx-desc{margin:4px 2px 0;font-size:13px;line-height:1.4;opacity:.9}
+html.aurora-rpg #app .sfx-desc.sm{font-size:12px;opacity:.8}
+html.aurora-rpg #app .sfx-win h2{margin:0 0 4px}
+html.aurora-rpg #app .sfx-wbtns{display:flex;gap:8px;margin-top:12px}
+html.aurora-rpg #app .sfx-wbtns .btn{flex:1;min-height:44px}
+
+/* movimento reduzido */
+html.aurora-rpg.sfx-rm #app .sfx-frame::after{animation:none;display:none}
+html.aurora-rpg.sfx-rm #app .sfx-seal b{animation:none}
+@media (prefers-reduced-motion:reduce){
+  html.aurora-rpg #app .sfx-frame::after{animation:none;display:none}
+  html.aurora-rpg #app .sfx-seal b{animation:none}
+  html.aurora-rpg #app .sfx-gc{transition:none}
+}
+@media (max-width:360px){
+  html.aurora-rpg #app .sk .sfx-th{flex-basis:80px;width:80px;height:52px}
+}
+
+</style>
+<style id="aurora-ferreiro-arsenal-style">
+/* Aurora 046 · Ferreiro: graus bloqueados visíveis com cadeado e seção "Armas de classe". */
+
+.aurora-rpg #app .e2-gear-card {position:relative}
+.aurora-rpg #app .e2-gear-card.e2-locked {opacity:.72}
+.aurora-rpg #app .e2-gear-card>.e2-lock {display:none}
+.aurora-rpg #app .e2-gear-card.e2-locked>.e2-lock {
+  position:absolute;top:5px;right:5px;z-index:2;display:flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:6px;pointer-events:none;
+  background:linear-gradient(#2a2318,#100d08);border:1px solid #6e5a33;box-shadow:0 1px 3px #0009,inset 0 1px #e2c27a22;
+}
+.aurora-rpg #app .e2-lock svg,
+.aurora-rpg #app .e2-lock-inline svg {display:block;width:13px;height:13px}
+.aurora-rpg #app .e2-lock-inline {display:inline-flex;align-items:center}
+
+/* Cabeçalhos de grau: ocupam a linha inteira da grade */
+.aurora-rpg #app .e2-grade-head {
+  grid-column:1/-1;display:flex;align-items:center;gap:8px;min-width:0;
+  margin:12px 0 4px;padding:0 2px 5px;border-bottom:1px solid #c9a65e;
+  font:700 10px/1.2 Arial,sans-serif;letter-spacing:1.4px;text-transform:uppercase;color:#e2c27a;
+}
+.aurora-rpg #app .e2-grade-head:first-child {margin-top:2px}
+.aurora-rpg #app .e2-grade-head em {
+  margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-style:normal;
+  font-size:9px;letter-spacing:.6px;text-transform:none;color:#bda984;white-space:nowrap;
+}
+
+/* Seção "Armas de classe" */
+.aurora-rpg #app .e2-class-gear {margin:16px 0 10px;padding-top:12px;border-top:1px solid #84704b}
+.aurora-rpg #app .e2-class-title {
+  margin:0 0 4px;font:700 12px/1.2 Georgia,serif;letter-spacing:1.4px;text-transform:uppercase;color:#ecdbb4;
+}
+.aurora-rpg #app .e2-class-group {margin-bottom:10px}
+.aurora-rpg #app .e2-class-head {
+  margin:8px 0 5px;padding:2px 0 2px 7px;border-left:3px solid var(--e2-class,#d6bb6b);
+  font:700 10px/1.2 Arial,sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--e2-class,#d6bb6b);
+}
+.aurora-rpg #app .e2-class-card {box-shadow:inset 0 2px 0 var(--e2-class,#6a5839)}
+.aurora-rpg #app .e2-class-card>.e2-craft-state {
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  font-weight:400;line-height:1.3;text-align:center;height:auto;max-height:2.7em;min-height:0;white-space:normal;padding-top:0;padding-bottom:0;font-size:10px;
+}
+
+@media(max-width:370px){
+  .aurora-rpg #app .e2-grade-head {font-size:9px;letter-spacing:1px}
+  .aurora-rpg #app .e2-grade-head em {font-size:8px}
+}
+
+</style>
 <script id="aurora-skill-fx-core">
 /* Aurora 046 · Núcleo das animações de habilidades.
    Registro de animações, kit de desenho em pixel art, eventos no mundo e API para as prévias.
@@ -38895,7 +39080,8 @@ html.aurora-rpg #app .hsheet-portrait {image-rendering:pixelated}
      sc: { x, y: pés do conjurador (px) · tx, ty: pés do alvo (px) · z: px por pixel de arte · tile: px por unidade do mundo (16*z)
            dir: 1/-1 · quiet: movimento reduzido · light: efeitos leves · world: true no mapa, false na prévia
            seed: inteiro estável por evento · others: [{x,y}] inimigos próximos ao alvo · allies: [{x,y}] aliados próximos
-           shake(px): tremor de tela (ignorado com quiet) · W, H: tamanho do canvas } */
+           shake(px): tremor de tela (ignorado com quiet) · W, H: tamanho do canvas
+           drawCaster(ctx, x, y, { alpha, pose, flip, tint }): desenha o sprite do próprio conjurador (ecos e sombras) } */
   FX.register = (key, def) => {
     if (!key || !def || typeof def.draw !== 'function') throw new TypeError('SkillFX.register: definição inválida para ' + key);
     FX.defs[key] = Object.assign({ dur: 1.2, hits: [0.2] }, def);
@@ -38910,6 +39096,29 @@ html.aurora-rpg #app .hsheet-portrait {image-rendering:pixelated}
     catch (e) { if (!FX._warned) { FX._warned = 1; (G.recordError || console.error)(e, 'skillfx:' + key); } }
     finally { ctx.restore(); }
     return true;
+  };
+
+  /* ---------- sprite do conjurador (ecos, sombras, pós-imagens) ----------
+     FX.casterDrawer(heroiOuAparencia, z) -> (ctx, x, y, { alpha, pose, flip, tint }) desenha o herói com os pés em (x, y).
+     pose: 'idle0', 'walk0-3', 'atk0-2', 'cast0-2', 'victory0-1'. tint: cor sólida opcional (silhueta). */
+  const tintCache = new WeakMap();
+  const tinted = (cv, n, fw, fh, color) => {
+    let m = tintCache.get(cv); if (!m) { m = new Map(); tintCache.set(cv, m); }
+    const key = n + '|' + color; let c = m.get(key);
+    if (!c) { c = A.mk(fw, fh); const x = c.getContext('2d'); x.drawImage(cv, n * fw, 0, fw, fh, 0, 0, fw, fh); x.globalCompositeOperation = 'source-atop'; x.fillStyle = color; x.fillRect(0, 0, fw, fh); m.set(key, c); }
+    return c;
+  };
+  FX.casterDrawer = (hero, z) => (ctx, x, y, o) => {
+    o = o || {};
+    try {
+      const s = A.charSheet(hero && hero.look && !hero.cls ? hero : A.heroLook(hero)), pose = o.pose || 'idle0';
+      if (s.need) s.need(pose);
+      const n = (s.idx && s.idx[pose]) || 0, fw = s.fw || 26, fh = s.fh || 30, fs = s.scale || 1, ax = s.ax == null ? 13 : s.ax, ay = s.ay == null ? 27 : s.ay;
+      ctx.save(); ctx.globalAlpha = K.clamp(o.alpha == null ? 1 : o.alpha, 0, 1); ctx.translate(x, y); if (o.flip) ctx.scale(-1, 1);
+      if (o.tint) ctx.drawImage(tinted(s.cv, n, fw, fh, o.tint), 0, 0, fw, fh, -ax * fs * z, -ay * fs * z, fw * fs * z, fh * fs * z);
+      else ctx.drawImage(s.cv, n * fw, 0, fw, fh, -ax * fs * z, -ay * fs * z, fw * fs * z, fh * fs * z);
+      ctx.restore();
+    } catch (e) { /* aparência indisponível: só o efeito é desenhado */ }
   };
 
   /* ---------- kit de desenho ---------- */
@@ -38927,7 +39136,11 @@ html.aurora-rpg #app .hsheet-portrait {image-rendering:pixelated}
   /* gerador determinístico (mulberry32): o mesmo seed gera as mesmas partículas a cada quadro */
   K.rng = seed => { let a = (seed >>> 0) || 1; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
   /* pixel quadrado alinhado à grade de arte */
-  K.px = (ctx, x, y, s, color, alpha) => { if (alpha != null) ctx.globalAlpha = alpha; ctx.fillStyle = color; s = Math.max(1, Math.round(s)); ctx.fillRect(Math.round(x - s / 2), Math.round(y - s / 2), s, s); };
+  K.px = (ctx, x, y, s, color, alpha) => {
+    const a0 = ctx.globalAlpha; if (alpha != null) ctx.globalAlpha = K.clamp(alpha, 0, 1);
+    ctx.fillStyle = color; s = Math.max(1, Math.round(s)); ctx.fillRect(Math.round(x - s / 2), Math.round(y - s / 2), s, s);
+    ctx.globalAlpha = a0;   // não vaza a transparência para os próximos desenhos
+  };
   /* brilho aditivo suave */
   K.glow = (ctx, x, y, r, color, alpha) => {
     if (!(r > 0)) return; ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = K.clamp(alpha == null ? 1 : alpha, 0, 1);
@@ -39043,12 +39256,1771 @@ html.aurora-rpg #app .hsheet-portrait {image-rendering:pixelated}
         others: e.others.filter(o => !o.gone).map(o => ({ x: X(o.x), y: Y(o.y) })),
         allies: e.allies.map(a => ({ x: X(a.x), y: Y(a.y) })),
         shake: px => { if (!quiet && px > 0) R.shake = Math.max(R.shake || 0, Math.min(px, 6)); },
+        drawCaster: e.h ? FX.casterDrawer(e.h, z) : () => {},
       };
       FX.render(ctx, e.key, t, sc);
     }
   }, 37);
   G.hook('newGame', () => { FX.events.length = 0; }, 211);
   G.hook('afterLoad', () => { FX.events.length = 0; }, 211);
+})();
+
+</script>
+<script id="aurora-skill-fx-vanguarda">
+/* Aurora 046 · Animações de habilidades: Espadachim, Cavaleiro e Arqueiro (21 chaves). Somente visual. */
+(function () {
+  'use strict';
+  if (typeof G === 'undefined' || G.HEADLESS || !G.A || !G.A.SkillFX) return;
+  const FX = G.A.SkillFX, K = FX.kit, TAU = Math.PI * 2, C = Math.cos, S = Math.sin, PI = Math.PI;
+
+  /* ---------- helpers ---------- */
+  const geo = sc => { const l = sc.tile; return { x: sc.x, y: sc.y, by: sc.y - l * 0.6, hy: sc.y - l * 1.1, tx: sc.tx, ty: sc.ty, tb: sc.ty - l * 0.55, th: sc.ty - l * 1.15, d: sc.dir || 1, l, z: sc.z }; };
+  const N = (sc, n) => (sc.light ? Math.max(2, Math.ceil(n / 3)) : n);
+  const seg = K.seg, E = K.ease;
+  const out = (t, a, b) => 1 - seg(t, a, b);               // some entre a e b
+  const env = (t, a, b, c, d) => seg(t, a, b) * (1 - seg(t, c, d)); // sobe a..b, desce c..d
+  /* registro com modo quiet: menos partículas */
+  const reg = (key, def) => { const dr = def.draw; def.draw = (ctx, t, sc, k, info) => dr(ctx, t, sc.quiet && !sc.light ? Object.assign(Object.create(sc), { light: true }) : sc, k, info); FX.register(key, def); };
+
+  /* clarão em cruz */
+  function star(ctx, x, y, r, col, a, k) {
+    if (!(r > 0)) return; k = k || 0.16; ctx.save(); ctx.globalAlpha = K.clamp(a == null ? 1 : a, 0, 1); ctx.fillStyle = col; ctx.beginPath();
+    ctx.moveTo(x - r, y); ctx.lineTo(x, y - r * k); ctx.lineTo(x + r, y); ctx.lineTo(x, y + r * k); ctx.closePath();
+    ctx.moveTo(x, y - r); ctx.lineTo(x + r * k, y); ctx.lineTo(x, y + r); ctx.lineTo(x - r * k, y); ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+  /* lâmina cônica entre dois pontos (cauda fina -> ponta) */
+  function blade(ctx, x1, y1, x2, y2, w, col, a, core) {
+    const dx = x2 - x1, dy = y2 - y1, l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l, mx = x1 + dx * 0.62, my = y1 + dy * 0.62;
+    K.poly(ctx, [[x1, y1], [mx + nx * w, my + ny * w], [x2, y2], [mx - nx * w * 0.35, my - ny * w * 0.35]], col, a);
+    if (core) K.poly(ctx, [[x1 + dx * 0.18, y1 + dy * 0.18], [mx + nx * w * 0.4, my + ny * w * 0.4], [x2, y2], [mx - nx * w * 0.1, my - ny * w * 0.1]], core, a);
+  }
+  /* corte diagonal centrado em (x,y): u 0..1 */
+  function cut(ctx, x, y, ang, len, w, u, col, core, a) {
+    if (u <= 0 || u >= 1) return; const dx = C(ang), dy = S(ang), h = E.out(K.clamp(u * 1.7, 0, 1)), tl = K.clamp((u - 0.2) * 1.5, 0, 1);
+    blade(ctx, x + dx * len * (tl * 0.9 - 0.5), y + dy * len * (tl * 0.9 - 0.5), x + dx * len * (h - 0.5), y + dy * len * (h - 0.5), w * (1 - K.clamp((u - 0.5) * 2, 0, 1) * 0.6), col, (a == null ? 1 : a) * (1 - K.clamp((u - 0.5) / 0.5, 0, 1)), core);
+  }
+  /* impacto padrão: brilho + cruz + anel + faíscas. u 0..1 */
+  function impact(ctx, sc, x, y, u, o) {
+    if (u <= 0 || u >= 1) return; const l = sc.tile, z = sc.z, r = (o.r || 1) * l, e = E.out(u), cols = o.cols;
+    K.glow(ctx, x, y, r * (0.5 + 0.7 * e), cols[0], 0.75 * (1 - u));
+    star(ctx, x, y, r * (0.45 + 0.6 * e), o.core || '#fff', 1 - u, 0.1 + 0.12 * u);
+    if (!o.noRing) K.ring(ctx, x, y + (o.ry || 0), r * e * 1.1, cols[1] || cols[0], z * (2.4 - u * 1.6), (1 - u) * 0.9, o.sq == null ? 1 : o.sq);
+    K.burst(ctx, x, y, { n: N(sc, o.n || 10), r: r * 1.25, size: z * 1.9, colors: cols, seed: o.seed || 5, u, squash: 0.85, fall: o.fall == null ? l * 0.3 : o.fall });
+  }
+  /* partículas que sobem de um disco no chão */
+  function motes(ctx, sc, x, y, o) {
+    const rnd = K.rng(o.seed || 3), n = N(sc, o.n || 10), t = o.t;
+    for (let i = 0; i < n; i++) {
+      const ph = rnd(), a = rnd() * TAU, rr = Math.sqrt(rnd()) * o.r, sp = 0.6 + rnd() * 0.6, u = (t * (o.rate || 0.7) * sp + ph) % 1;
+      const px = x + C(a) * rr + S(u * TAU * 2 + i) * (o.sway || 0), py = y + S(a) * rr * 0.42 - u * o.h;
+      K.px(ctx, px, py, o.size * (1 - u * 0.4), o.cols[i % o.cols.length], (o.a == null ? 1 : o.a) * Math.min(1, u * 5) * (1 - u));
+    }
+  }
+  const chev = (ctx, x, y, s, col, a) => K.poly(ctx, [[x, y - s], [x + s, y], [x + s * 0.55, y + s * 0.32], [x, y - s * 0.38], [x - s * 0.55, y + s * 0.32], [x - s, y]], col, a);
+  function flame(ctx, x, y, h, w, t, a, seed, cols) {
+    for (let k = 0; k < cols.length; k++) {
+      const s = 1 - k * 0.27, f = S(t * 14 + seed * 1.7 + k) * 0.14;
+      K.poly(ctx, [[x - w * s, y], [x - w * s * 0.6 + h * f * 0.3, y - h * s * 0.5], [x + h * f * 0.5, y - h * s * (1 + f)], [x + w * s * 0.6 + h * f * 0.3, y - h * s * 0.5], [x + w * s, y]], cols[k], a);
+    }
+  }
+  function stunStars(ctx, sc, x, y, t, a, col) {
+    for (let i = 0; i < 3; i++) { const an = t * 7 + i * TAU / 3; K.diamond(ctx, x + C(an) * sc.tile * 0.32, y + S(an) * sc.tile * 0.1, sc.z * 1.9, col || '#ffe48a', a * (S(an) > -0.2 ? 1 : 0.5), true); }
+  }
+  function arrow(ctx, x, y, ang, len, z, shaft, head, a) {
+    ctx.save(); ctx.globalAlpha = a == null ? 1 : K.clamp(a, 0, 1); ctx.translate(x, y); ctx.rotate(ang);
+    ctx.fillStyle = shaft; ctx.fillRect(-len, -z / 2, len, Math.max(1, z));
+    ctx.fillStyle = '#e8f1d8'; ctx.fillRect(-len, -z * 1.3, z * 2.5, z * 0.9); ctx.fillRect(-len, z * 0.4, z * 2.5, z * 0.9);
+    ctx.fillStyle = head; ctx.beginPath(); ctx.moveTo(z * 3.6, 0); ctx.lineTo(0, -z * 1.7); ctx.lineTo(0, z * 1.7); ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+  function shield(ctx, x, y, s, col, rim, a, emb) {
+    const P = [[-1, -1.05], [1, -1.05], [1, 0.1], [0.62, 0.78], [0, 1.2], [-0.62, 0.78], [-1, 0.1]].map(p => [x + p[0] * s * 0.8, y + p[1] * s]);
+    K.poly(ctx, P, rim, a); K.poly(ctx, P.map(p => [x + (p[0] - x) * 0.78, y + (p[1] - y) * 0.78]), col, a);
+    if (emb) { K.poly(ctx, [[x - s * 0.1, y - s * 0.7], [x + s * 0.1, y - s * 0.7], [x + s * 0.1, y + s * 0.7], [x - s * 0.1, y + s * 0.7]], emb, a * 0.9); K.poly(ctx, [[x - s * 0.5, y - s * 0.15], [x + s * 0.5, y - s * 0.15], [x + s * 0.5, y + s * 0.05], [x - s * 0.5, y + s * 0.05]], emb, a * 0.9); }
+  }
+  const arcS = (ctx, x, y, r, a0, a1, w, col, a) => { ctx.save(); ctx.globalAlpha = K.clamp(a, 0, 1); ctx.strokeStyle = col; ctx.lineWidth = Math.max(1, w); ctx.beginPath(); ctx.arc(x, y, r, a0, a1); ctx.stroke(); ctx.restore(); };
+  /* linhas de velocidade horizontais */
+  function speed(ctx, sc, x, y, d, u, n, col, seed, spread) {
+    const rnd = K.rng(seed), l = sc.tile;
+    for (let i = 0; i < N(sc, n); i++) { const oy = (rnd() - 0.5) * (spread || 1.4) * l, len = (0.5 + rnd() * 0.9) * l, ox = (rnd() - 0.2) * l * 1.6, p = (u * 1.3 + rnd()) % 1; K.streak(ctx, x - d * (ox + p * l * 0.8), y + oy, x - d * (ox + p * l * 0.8 + len), y + oy, sc.z, col, (1 - p) * 0.55); }
+  }
+  /* poeira do chão */
+  const dust = (ctx, sc, x, y, u, seed, r, n, cols) => K.burst(ctx, x, y, { n: N(sc, n || 10), r: r || sc.tile, size: sc.z * 2.4, colors: cols || ['#d8c9a8', '#a89878'], seed, u, squash: 0.28, up: sc.tile * 0.25 });
+  /* trajeto de projétil do herói ao alvo, com arco */
+  const path = (g, u, arc) => ({ x: K.lerp(g.x + g.d * g.l * 0.45, g.tx, u), y: K.lerp(g.by, g.tb, u) - (arc || 0) * g.l * S(u * PI) });
+
+  /* ======================= BÁSICAS ======================= */
+  /* Dança dos Ecos */
+  reg('base:esp', { dur: 1.5, hits: [0.3, 0.5, 0.7], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d } = g;
+    const w = seg(t, 0, 0.24);
+    if (t < 0.3) {
+      K.ring(ctx, x, y, l * (2.3 - 1.7 * E.out(w)), '#ff7a5a', z, 0.8 * (1 - w * 0.3));
+      K.ring(ctx, x, y, l * (1.6 - 1.1 * w), '#ffd0a0', z, 0.6);
+      K.glow(ctx, x, by, l * (0.4 + 0.7 * w), '#ff5a3a', 0.65 * w);
+      const rnd = K.rng(sc.seed); for (let i = 0; i < N(sc, 10); i++) { const a = rnd() * TAU, r = l * 2.2 * (1 - E.in(w)) + l * 0.3; K.px(ctx, x + C(a) * r, by + S(a) * r * 0.5, z * 1.6, i % 2 ? '#ffd0a0' : '#ff7a5a', w); }
+    }
+    /* turbilhão de cortes (raio 2,1) */
+    const wu = seg(t, 0.2, 1.1), a = Math.sin(K.clamp(wu, 0, 1) * PI) ** 0.6, r = 2.1 * l * E.out(seg(t, 0.2, 0.42)) * (1 - 0.15 * seg(t, 0.85, 1.1));
+    if (wu > 0 && wu < 1) {
+      K.ring(ctx, x, y, r, '#ff7a5a', z, 0.35 * a); K.disc(ctx, x, y, r, '#ff5a3a', 0.1 * a);
+      for (let L = 0; L < 2; L++) for (let k = 0; k < 3; k++) {
+        const a0 = t * 15 * (L ? -1 : 1) + k * TAU / 3 + L, yy = y + (L ? -0.85 : -0.15) * l;
+        ctx.save(); ctx.translate(x, yy); ctx.scale(1, 0.42);
+        K.slash(ctx, 0, 0, r * (L ? 0.78 : 1), a0, a0 + (L ? -1.5 : 1.5), l * 0.2, '#e8503e', 0.85 * a, 1);
+        K.slash(ctx, 0, 0, r * (L ? 0.78 : 1), a0, a0 + (L ? -1.5 : 1.5), l * 0.06, '#fff3d6', a, 1); ctx.restore();
+      }
+    }
+    [0.3, 0.5, 0.7].forEach((h, i) => { const u = seg(t, h, h + 0.3); if (u > 0 && u < 1) {
+      K.burst(ctx, x, by, { n: N(sc, 12), r: l * 2.3, size: z * 1.8, colors: ['#ff7a5a', '#ffd0a0', '#fff'], seed: sc.seed + i * 9, u, squash: 0.5 });
+      cut(ctx, x + d * l * (0.9 + i * 0.1), by + (i - 1) * l * 0.2, (i % 2 ? 0.5 : -0.5) + (d < 0 ? PI : 0), l * 1.2, l * 0.1, u, '#ff7a5a', '#fff', 0.9); } });
+    /* surgimento dos ecos */
+    for (const s of [-1, 1]) {
+      const ex = x + s * 0.7 * l, ey = y + 0.5 * l, u = seg(t, 0.22, 0.75);
+      if (u > 0 && u < 1) {
+        K.glow(ctx, ex, ey - 0.6 * l, l * 1.1, '#ff6a50', 0.7 * (1 - u));
+        ctx.save(); ctx.globalAlpha = 0.8 * (1 - u); ctx.fillStyle = '#ffd0a0'; ctx.fillRect(Math.round(ex - l * 0.14 * (1 - u)), Math.round(ey - l * 1.5), Math.max(1, Math.round(l * 0.28 * (1 - u))), Math.round(l * 1.5)); ctx.restore();
+        K.ring(ctx, ex, ey, l * (0.2 + 0.9 * E.out(u)), '#ff7a5a', z, 1 - u);
+      }
+    }
+    if (!sc.world) { /* prévia: ecos avançam e cortam o alvo */
+      const ends = [[g.tx - d * 0.55 * l, g.ty + 0.25 * l], [g.tx - d * 0.3 * l, g.ty - 0.35 * l]], sx = [x + 0.7 * l, x - 0.7 * l];
+      for (let i = 0; i < 2; i++) {
+        const p = E.inOut(seg(t, 0.28 + i * 0.04, 0.62 + i * 0.04)), al = 0.6 * seg(t, 0.24, 0.34) * (1 - seg(t, 1.1, 1.45));
+        for (let k = 2; k >= 0; k--) { const pp = E.inOut(K.clamp(seg(t, 0.28 + i * 0.04, 0.62 + i * 0.04) - k * 0.07, 0, 1));
+          const px = K.lerp(sx[i], ends[i][0], pp), py = K.lerp(y + 0.5 * l, ends[i][1], pp), at = t > 0.62 + i * 0.04;
+          sc.drawCaster(ctx, px, py, { alpha: al * (k ? 0.22 : 1), pose: at ? 'atk' + (Math.floor(t * 12) % 3) : 'walk' + (Math.floor(t * 14) % 4), flip: d < 0, tint: '#ff6a50' }); }
+        for (let c = 0; c < 4; c++) { const t0 = 0.66 + i * 0.05 + c * 0.14, u = seg(t, t0, t0 + 0.14); cut(ctx, g.tx, g.tb, (c % 2 ? 0.7 : -0.7) + (c > 1 ? 0.5 : 0), l * 1.3, l * 0.1, u, '#ff7a5a', '#fff', 0.95); K.glow(ctx, g.tx, g.tb, l * 0.5 * u * (1 - u) * 4, '#ff7a5a', 0.6); }
+      }
+    }
+  } });
+
+  /* Muralha */
+  reg('base:cav', { dur: 1.7, hits: [0.28], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d } = g, w = seg(t, 0, 0.28);
+    /* brado: onda de provocação no chão */
+    for (let i = 0; i < 3; i++) { const u = seg(t, 0.12 + i * 0.1, 0.75 + i * 0.1); if (u > 0 && u < 1) K.ring(ctx, x, y, 4.5 * l * E.out(u), i ? '#8fb4ee' : '#dbe9ff', z * (2.5 - u * 1.5), (1 - u) * 0.8); }
+    K.disc(ctx, x, y, 4.5 * l * E.out(seg(t, 0.1, 0.6)), '#5b7fb5', 0.12 * out(t, 0.3, 0.9));
+    K.glow(ctx, x, by, l * (0.5 + 0.7 * w), '#8fb4ee', 0.6 * w * out(t, 0.7, 1.1));
+    /* escudo emblema à frente do herói */
+    const su = E.back(seg(t, 0.12, 0.42)), sa = env(t, 0.1, 0.3, 1.3, 1.7), sx = x + d * l * 0.95, sy = by - l * 0.05 + S(t * 6) * z;
+    if (sa > 0) {
+      K.glow(ctx, sx, sy, l * 1.2 * su, '#8fb4ee', 0.5 * sa);
+      shield(ctx, sx, sy, l * 0.85 * su, '#5b7fb5', '#dbe9ff', sa, '#ffd36a');
+      const sh = seg(t, 0.4, 0.7); if (sh > 0 && sh < 1) { ctx.save(); ctx.globalAlpha = 0.8 * (1 - sh); ctx.fillStyle = '#fff'; ctx.fillRect(Math.round(sx - l * 0.7 + sh * l * 1.4), Math.round(sy - l * 0.9), Math.round(l * 0.14), Math.round(l * 1.8)); ctx.restore(); }
+    }
+    /* chamas de provocação sobre inimigos */
+    const foes = [{ x: g.tx, y: g.ty }].concat(sc.others || []);
+    foes.forEach((o, i) => { const u = seg(t, 0.3 + i * 0.05, 0.5 + i * 0.05), a = u * out(t, 1.1, 1.6); if (a > 0) {
+      const oy = o.y - l * 1.35 - E.pulse(u) * l * 0.2 - S(t * 8 + i) * z; K.diamond(ctx, o.x, oy, z * 3.2, '#ff5a3a', a, true); K.px(ctx, o.x, oy - z * 2.6, z * 1.6, '#ff5a3a', a); K.px(ctx, o.x, oy + z * 2.2, z * 1.6, '#ffe0b0', a);
+      K.glow(ctx, o.x, oy, l * 0.35, '#ff5a3a', 0.5 * a); K.glow(ctx, o.x, o.y - l * 0.5, l * 0.6, '#ff5a3a', 0.25 * a); } });
+    /* hexágonos da barreira ao redor do herói */
+    const ba = env(t, 0.3, 0.55, 1.2, 1.7);
+    if (ba > 0) for (let i = 0; i < N(sc, 6); i++) { const a = i * TAU / 6 + t * 1.5, px = x + C(a) * l * 0.75, py = by + S(a) * l * 0.3 - l * 0.05; K.diamond(ctx, px, py, z * 2.6, '#8fb4ee', ba * (0.55 + 0.4 * S(a)), true); K.px(ctx, px, py, z, '#fff', ba); }
+    if (t > 0.26 && t < 0.5) { const u = seg(t, 0.26, 0.5); dust(ctx, sc, x, y, u, sc.seed, l * 1.6, 10); sc.shake(2); K.flash(ctx, sc, '#bcd4ff', 0.12 * (1 - u)); }
+  } });
+
+  /* Fênix Ardente */
+  reg('base:arq', { dur: 1.5, hits: [0.28], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, tb } = g, F = ['#ff5a1e', '#ffa030', '#ffe27a', '#fff6c8'];
+    const wa = seg(t, 0, 0.14); K.glow(ctx, x + d * l * 0.4, by, l * (0.5 + wa * 0.8), '#ff8a30', 0.7 * wa * out(t, 0.12, 0.4));
+    if (t < 0.3) for (let i = 0; i < N(sc, 8); i++) { const a = (i / 8) * TAU, r = l * 0.9 * (1 - wa); K.px(ctx, x + C(a) * r, by + S(a) * r, z * 1.6, F[i % 3], wa); }
+    const fu = seg(t, 0.06, 0.28);
+    /* rastro de fogo no arco */
+    for (let i = 0; i < N(sc, 16); i++) { const u = fu * (1 - i / 16 * 0.85), p = path(g, u, 0.35); if (u <= 0) continue; const f = 1 - i / 16, rr = K.rng(sc.seed + i);
+      K.px(ctx, p.x + (rr() - 0.5) * z * 4, p.y + (rr() - 0.2) * z * 4 + i * z * 0.5 * (1 - fu * 0.5), z * (3 - i * 0.14), F[Math.min(3, Math.floor(i / 4))], f * out(t, 0.3, 0.5)); }
+    if (!sc.world && fu > 0 && fu < 1) { /* prévia: a ave */
+      const p = path(g, E.in(fu) * 0.5 + fu * 0.5, 0.35); K.glow(ctx, p.x, p.y, l * 0.9, '#ff8a30', 0.7);
+      try { const cv = G.A.phoenixSkillSprite(Math.floor(t * 16) % 4); if (cv) { ctx.save(); ctx.translate(p.x, p.y); if (d < 0) ctx.scale(-1, 1); ctx.drawImage(cv, -19 * z, -13 * z, 38 * z, 26 * z); ctx.restore(); } } catch (e) { /* sem sprite */ }
+    }
+    /* explosão flamejante */
+    const u = seg(t, 0.28, 0.85);
+    if (u > 0 && u < 1) {
+      K.glow(ctx, tx, tb, l * (0.8 + u * 1.2), '#ff8a30', 0.8 * (1 - u)); star(ctx, tx, tb, l * (0.5 + 1.0 * E.out(u)), '#fff6c8', 1 - u, 0.14);
+      K.ring(ctx, tx, g.ty, l * 1.6 * E.out(u), '#ff8a30', z * 2.5 * (1 - u) + 1, 0.9 * (1 - u)); K.ring(ctx, tx, tb, l * 0.9 * E.out(u), '#ffe27a', z * 2, 0.9 * (1 - u), 1);
+      K.burst(ctx, tx, tb, { n: N(sc, 18), r: l * 1.8, size: z * 2.6, colors: F, seed: sc.seed + 3, u, up: l * 0.9, squash: 0.8 });
+      for (let i = 0; i < 6; i++) { const a = i * TAU / 6 + 0.3, r = l * 0.5 * E.out(u); flame(ctx, tx + C(a) * r, g.ty + S(a) * r * 0.4, l * (0.9 - u * 0.5), l * 0.22, t, (1 - u), sc.seed + i, F); }
+      if (t < 0.5) { sc.shake(3); K.flash(ctx, sc, '#ffb060', 0.14 * (1 - u)); }
+    }
+    /* chamas residuais (queimadura) */
+    const ra = env(t, 0.4, 0.6, 1.15, 1.5);
+    if (ra > 0) for (let i = 0; i < N(sc, 4); i++) { const ox = (i - 1.5) * l * 0.3; flame(ctx, tx + ox, g.ty - l * 0.05 + (i % 2) * z * 2, l * (0.5 + 0.15 * S(t * 9 + i)), l * 0.14, t, ra, i * 3, F);
+      K.px(ctx, tx + ox + S(t * 5 + i) * z * 3, g.ty - l * (0.6 + ((t * 1.4 + i * 0.27) % 0.6)), z * 1.4, '#ffe27a', ra * 0.8); }
+  } });
+
+  /* ======================= ESPADACHIM ======================= */
+  /* Estocada Dupla */
+  reg('duelista', { dur: 0.95, hits: [0.18, 0.34], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, tb } = g, R = ['#c8473d', '#ff7a5a', '#fff3d6'];
+    K.glow(ctx, x + d * l * 0.4, by, l * 0.7, '#ff7a5a', 0.5 * env(t, 0, 0.08, 0.1, 0.25));
+    for (let i = 0; i < 2; i++) {
+      const t0 = 0.06 + i * 0.16, u = seg(t, t0, t0 + 0.13), fa = out(t, t0 + 0.12, t0 + 0.34);
+      const oy = (i ? 0.18 : -0.12) * l, sy = by + oy, ex = tx - d * l * 0.15, ey = tb + oy * 0.6;
+      if (u > 0 && fa > 0) {
+        const hx = K.lerp(x + d * l * 0.4, ex, E.out(u)), hy = K.lerp(sy, ey, E.out(u)), bx = K.lerp(x + d * l * 0.4, ex, E.out(K.clamp(u - 0.5, 0, 1))), by2 = K.lerp(sy, ey, E.out(K.clamp(u - 0.5, 0, 1)));
+        blade(ctx, bx, by2 - z * 3, hx, hy, z * 3.2, R[1], fa * 0.9, R[2]); K.streak(ctx, bx, by2, hx, hy, z * 1.3, '#fff', fa);
+        K.glow(ctx, hx, hy, l * 0.35, R[1], 0.7 * fa);
+        sc.drawCaster(ctx, K.lerp(x, ex - d * l * 0.7, E.out(u)) - d * l * 0.0, y, { alpha: 0.4 * fa, pose: 'atk' + (i + 1), flip: d < 0, tint: R[0] });
+        speed(ctx, sc, hx, hy, d, u, 4, R[1], sc.seed + i, 0.5);
+      }
+      const hu = seg(t, t0 + 0.12, t0 + 0.42);
+      if (hu > 0) { impact(ctx, sc, ex, ey, hu, { r: 0.7 + i * 0.25, cols: [R[1], R[0], '#fff'], seed: sc.seed + i, n: 10 }); cut(ctx, ex, ey, (i ? -0.9 : 0.9) + (d < 0 ? PI : 0), l * 1.3, l * 0.09, hu * 1.2, R[1], '#fff', 1); }
+      if (hu > 0 && hu < 0.15) sc.shake(i ? 3 : 2);
+    }
+  } });
+
+  /* Brado de Guerra */
+  reg('mercenario', { dur: 1.6, hits: [0.24], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, hy, l, z, d } = g, O = ['#ff5a3a', '#ffb060', '#ffe9b8'];
+    const w = seg(t, 0, 0.2);
+    if (t < 0.28) { K.ring(ctx, x, y, l * (1.8 - 1.4 * w), O[1], z, 0.7); K.glow(ctx, x, by, l * (0.4 + 0.8 * w), O[0], 0.7 * w); }
+    for (let i = 0; i < 3; i++) { const u = seg(t, 0.2 + i * 0.1, 0.85 + i * 0.1); if (u > 0 && u < 1) K.ring(ctx, x, y, 4.5 * l * E.out(u), O[i], z * (3 - u * 2), (1 - u) * 0.85); }
+    K.disc(ctx, x, y, 4.5 * l * E.out(seg(t, 0.2, 0.7)), O[0], 0.12 * out(t, 0.4, 1));
+    /* ondas sonoras saindo da boca */
+    for (let i = 0; i < 4; i++) { const u = seg(t, 0.16 + i * 0.06, 0.6 + i * 0.06); if (u > 0 && u < 1) { const r = l * (0.4 + 1.8 * E.out(u)), c = d < 0 ? PI : 0; arcS(ctx, x + d * l * 0.15, hy, r, c - 0.8, c + 0.8, z * (3 - u * 2), i % 2 ? O[1] : O[2], (1 - u) * 0.9); } }
+    if (t > 0.2 && t < 0.45) { sc.shake(2); K.flash(ctx, sc, '#ffb060', 0.1 * (1 - seg(t, 0.2, 0.45))); dust(ctx, sc, x, y, seg(t, 0.2, 0.7), sc.seed, l * 2.8, 12); }
+    /* selos de ataque subindo no herói e aliados */
+    const us = [{ x, y }].concat(sc.allies || []);
+    us.forEach((o, k) => { const st = 0.3 + k * 0.08, a = env(t, st, st + 0.15, 1.2, 1.55); if (a <= 0) return;
+      K.glow(ctx, o.x, o.y - l * 0.6, l * 0.8, O[0], 0.35 * a);
+      for (let i = 0; i < 3; i++) { const p = ((t - st) * 0.9 + i / 3) % 1; chev(ctx, o.x + (i - 1) * l * 0.28, o.y - l * (0.1 + p * 1.5), z * 3, i % 2 ? O[1] : O[0], a * Math.sin(p * PI)); K.px(ctx, o.x + (i - 1) * l * 0.28, o.y - l * (0.1 + p * 1.5) + z * 4, z, O[2], a * Math.sin(p * PI)); }
+      K.ring(ctx, o.x, o.y, l * 0.7, O[1], z, 0.6 * a); });
+  } });
+
+  /* Dança das Lâminas */
+  reg('mestre_laminas', { dur: 1.4, hits: [0.2, 0.38, 0.56, 0.74, 0.92], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d } = g, R = ['#c8473d', '#ff7a5a', '#fff3d6'];
+    const foes = [{ x: g.tx, y: g.ty }].concat((sc.others || []).slice(0, 4)); if (foes.length < 3) foes.push({ x: g.tx - d * l * 0.5, y: g.ty + l * 0.3 }, { x: g.tx + d * l * 0.5, y: g.ty - l * 0.3 });
+    K.glow(ctx, x, by, l * 0.9, R[1], 0.4 * env(t, 0, 0.1, 0.15, 0.4));
+    K.ring(ctx, g.tx, g.ty, l * 2.6 * E.out(seg(t, 0, 0.3)), R[1], z, 0.3 * out(t, 0.3, 1.3));
+    for (let i = 0; i < 5; i++) {
+      const t0 = 0.12 + i * 0.18, f = foes[i % foes.length], p = foes[(i + foes.length - 1) % foes.length], u = seg(t, t0, t0 + 0.2), fy = f.y - l * 0.55;
+      if (u <= 0) continue;
+      if (i > 0 && u < 0.5) { const m = seg(t, t0 - 0.05, t0 + 0.08); K.streak(ctx, p.x, p.y - l * 0.5, K.lerp(p.x, f.x, m), K.lerp(p.y - l * 0.5, fy, m), z * 1.2, R[1], 0.5 * (1 - m * 0.5)); }
+      const ang = [-0.75, 0.7, -0.3, 0.95, -1.1][i] + (d < 0 ? PI : 0);
+      impact(ctx, sc, f.x, fy, u, { r: 0.9, cols: [R[1], R[0], '#fff'], seed: sc.seed + i, n: 9 });
+      cut(ctx, f.x, fy, ang, l * 2.1, l * 0.17, u, R[1], '#fff', 1); K.glow(ctx, f.x, fy, l * 0.9 * Math.sin(u * PI), R[1], 0.6);
+      /* fantasma do herói passando pelo alvo */
+      if (u < 0.7) sc.drawCaster(ctx, f.x - d * l * 0.6, f.y + l * 0.05, { alpha: 0.3 * (1 - u / 0.7), pose: 'atk' + (i % 3), flip: d < 0, tint: R[0] });
+    }
+    if (t > 0.9 && t < 1.4) { const u = seg(t, 0.9, 1.4); K.ring(ctx, x, y, l * (0.4 + u), R[1], z, 0.5 * (1 - u)); }
+  } });
+
+  /* Corte Fantasma */
+  reg('espada_fantasma', { dur: 1.3, hits: [0.3], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, tb } = g, G1 = ['#7fd8ff', '#c8f4ff', '#ffffff'];
+    const w = seg(t, 0, 0.22);
+    /* herói vira espectro: ecos translúcidos pulsando */
+    const ga = env(t, 0.02, 0.1, 0.25, 0.5);
+    for (let i = 1; i <= 3; i++) sc.drawCaster(ctx, x - d * l * 0.22 * i + S(t * 40 + i) * z, y, { alpha: 0.28 * ga / i, pose: 'atk0', flip: d < 0, tint: G1[0] });
+    K.glow(ctx, x, by, l * (0.5 + w), '#9fe8ff', 0.5 * ga);
+    /* fantasma investe até o alvo */
+    const m = seg(t, 0.12, 0.3);
+    if (m > 0 && t < 0.55) { for (let i = 0; i < 4; i++) { const mm = E.out(K.clamp(m - i * 0.12, 0, 1)); sc.drawCaster(ctx, K.lerp(x, tx - d * l * 0.7, mm), K.lerp(y, g.ty, mm), { alpha: 0.5 * (1 - i * 0.22) * out(t, 0.3, 0.55), pose: 'atk1', flip: d < 0, tint: i ? G1[0] : G1[1] }); } }
+    /* o corte: linha branca que se abre */
+    const u = seg(t, 0.28, 0.9), ang = -0.8 + (d < 0 ? PI * 0.0 : 0) * 1, len = l * 2.6;
+    if (t > 0.26) {
+      const gp = E.out(seg(t, 0.28, 0.4)), ga2 = (1 - seg(t, 0.6, 1.0));
+      const cx = tx, cy = tb, dx = C(ang) * d, dy = S(ang), nx = -dy, ny = dx, open = E.out(seg(t, 0.3, 0.7)) * l * 0.22;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; K.poly(ctx, [[cx - dx * len / 2 * gp, cy - dy * len / 2 * gp], [cx + nx * open, cy + ny * open], [cx + dx * len / 2 * gp, cy + dy * len / 2 * gp], [cx - nx * open, cy - ny * open]], G1[0], 0.55 * ga2); ctx.restore();
+      K.streak(ctx, cx - dx * len / 2 * gp, cy - dy * len / 2 * gp, cx + dx * len / 2 * gp, cy + dy * len / 2 * gp, z * 2, '#fff', ga2);
+      K.glow(ctx, cx, cy, l * 1.4 * gp, G1[0], 0.45 * ga2);
+      if (t < 0.5) { star(ctx, cx, cy, l * 1.6 * (1 - seg(t, 0.28, 0.5)), '#fff', 1, 0.08); K.flash(ctx, sc, '#bfeaff', 0.14 * (1 - seg(t, 0.28, 0.45))); sc.shake(3); }
+      /* estrela crítica vermelha */
+      const cu = seg(t, 0.3, 0.7); if (cu < 1) { star(ctx, cx, cy, l * 0.9 * E.out(cu), '#ff6a5a', 1 - cu, 0.12); K.ring(ctx, cx, cy, l * 1.5 * E.out(cu), '#ff8a7a', z * 2, 0.8 * (1 - cu), 1); }
+    }
+    /* almas subindo */
+    const rnd = K.rng(sc.seed); for (let i = 0; i < N(sc, 14); i++) { const o = rnd(), st = 0.32 + rnd() * 0.2, uu = seg(t, st, st + 0.8); if (uu <= 0 || uu >= 1) continue; K.px(ctx, tx + (o - 0.5) * l * 1.6 + S(uu * 9 + i) * z * 3, tb + (rnd() - 0.5) * l * 0.8 - uu * l * 1.4, z * (1.5 + rnd() * 1.5), i % 3 ? G1[1] : '#fff', (1 - uu) * 0.9); }
+  } });
+
+  /* Terremoto */
+  reg('senhor_guerra', { dur: 1.7, hits: [0.3, 0.46, 0.62], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z } = g, R = 2.8 * l, rnd = K.rng(sc.seed);
+    const w = seg(t, 0, 0.28);
+    if (t < 0.32) { K.glow(ctx, x, g.y - l * 1.3, l * (0.4 + w * 0.9), '#ffb060', 0.7 * w); K.ring(ctx, x, y, l * (1.4 - 0.9 * w), '#ffb060', z, 0.7); for (let i = 0; i < N(sc, 8); i++) { const a = i * TAU / 8; K.px(ctx, x + C(a) * l * (1.3 - w), y + S(a) * l * (1.3 - w) * 0.42, z * 1.6, '#ffd890', w); } }
+    const u = seg(t, 0.3, 1.3), gp = E.out(seg(t, 0.3, 0.55));
+    if (t >= 0.3) {
+      /* sombra do tremor + rachaduras radiais */
+      K.disc(ctx, x, y, R * gp, '#2a1a10', 0.35 * (1 - seg(t, 1.0, 1.6)));
+      const nC = N(sc, 10), fa = 1 - seg(t, 1.0, 1.6);
+      for (let i = 0; i < nC; i++) {
+        const a = i / nC * TAU + rnd() * 0.3, len = R * (0.7 + rnd() * 0.35) * gp; let px = x, py = y; ctx.save(); ctx.lineJoin = 'miter';
+        const pts = [[px, py]]; const sg = 6; for (let s = 1; s <= sg; s++) { const f = s / sg, aa = a + (rnd() - 0.5) * 0.45; px = x + C(aa) * len * f; py = y + S(aa) * len * f * 0.45; pts.push([px, py]); }
+        ctx.strokeStyle = '#1b0f08'; ctx.lineWidth = z * 3; ctx.globalAlpha = fa; ctx.beginPath(); pts.forEach((p, k) => (k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke();
+        ctx.strokeStyle = '#ff8a30'; ctx.lineWidth = z * 1.4; ctx.globalAlpha = fa * (0.7 + 0.3 * S(t * 12 + i)); ctx.beginPath(); pts.forEach((p, k) => (k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke(); ctx.restore();
+      }
+      [0, 0.16, 0.32].forEach((o, i) => { const uu = seg(t, 0.3 + o, 0.85 + o); if (uu > 0 && uu < 1) K.ring(ctx, x, y, R * E.out(uu), i ? '#d8c9a8' : '#ffd890', z * (3 - uu * 2), (1 - uu) * 0.85); });
+      /* pedras que sobem e caem */
+      for (let i = 0; i < N(sc, 16); i++) { const a = rnd() * TAU, r = R * (0.15 + rnd() * 0.85), s0 = 0.3 + rnd() * 0.3, h = l * (0.5 + rnd() * 0.9), uu = seg(t, s0, s0 + 0.75); if (uu <= 0 || uu >= 1) continue;
+        K.px(ctx, x + C(a) * r * gp, y + S(a) * r * 0.45 * gp - 4 * h * uu * (1 - uu), z * (2 + rnd() * 2.5), i % 3 ? '#7a5a3c' : '#a8845c', 1 - uu * uu); }
+      dust(ctx, sc, x, y, seg(t, 0.3, 1.0), sc.seed + 5, R, 16);
+      /* atordoamento: estrelas girando */
+      const sa = env(t, 0.5, 0.65, 1.4, 1.7); if (sa > 0) [{ x: g.tx, y: g.ty }].concat(sc.others || []).forEach(o => stunStars(ctx, sc, o.x, o.y - l * 1.2, t, sa));
+    }
+    [0.3, 0.46, 0.62].forEach((h, i) => { if (t > h && t < h + 0.12) sc.shake(4 - i); });
+    if (t > 0.3 && t < 0.55) K.flash(ctx, sc, '#ffd8a0', 0.14 * (1 - seg(t, 0.3, 0.55)));
+  } });
+
+  /* Lâmina da Aurora */
+  reg('santo_espada', { dur: 1.6, hits: [0.3, 0.52], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, tx, ty, tb } = g, Y = ['#ffd36a', '#fff0a8', '#ffffff', '#ff9a6a'];
+    /* antecipação: raio do céu */
+    const dsc = E.in(seg(t, 0.02, 0.3)), top = tb - l * 4.5;
+    if (t < 0.34) { K.glow(ctx, tx, top, l * 0.6 * (0.5 + seg(t, 0, 0.2)), Y[1], 0.7); K.ring(ctx, tx, ty, l * 2.2 * (1 - 0.5 * seg(t, 0, 0.3)), Y[0], z, 0.5 * seg(t, 0, 0.25)); }
+    if (t > 0.02 && t < 0.4) { const sy = K.lerp(top, tb - l * 0.2, dsc), a = 1 - seg(t, 0.3, 0.4); K.poly(ctx, [[tx, sy + l * 1.3], [tx - l * 0.18, sy], [tx + l * 0.18, sy], [tx, sy + l * 1.3]], '#fff', a); K.poly(ctx, [[tx - l * 0.07, sy + l * 1.2], [tx - l * 0.28, sy - l * 0.1], [tx + l * 0.28, sy - l * 0.1], [tx + l * 0.07, sy + l * 1.2]], Y[1], a * 0.6); K.poly(ctx, [[tx - l * 0.4, sy - l * 0.12], [tx + l * 0.4, sy - l * 0.12], [tx + l * 0.4, sy], [tx - l * 0.4, sy]], Y[0], a); K.glow(ctx, tx, sy + l * 0.6, l * 1.1, Y[1], 0.6 * a); }
+    /* coluna de luz + raios do amanhecer */
+    const ca = env(t, 0.28, 0.34, 0.6, 1.2);
+    if (ca > 0) { const cw = l * (0.9 + 0.15 * S(t * 20)) * (1 - seg(t, 0.6, 1.2) * 0.7);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = Y[0]; ctx.globalAlpha = 0.35 * ca; ctx.fillRect(Math.round(tx - cw / 2), Math.round(tb - l * 5), Math.round(cw), Math.round(l * 5 + l * 0.55));
+      ctx.fillStyle = '#fff'; ctx.globalAlpha = 0.7 * ca; ctx.fillRect(Math.round(tx - cw * 0.22), Math.round(tb - l * 5), Math.max(1, Math.round(cw * 0.44)), Math.round(l * 5 + l * 0.55)); ctx.restore(); }
+    const ra = env(t, 0.3, 0.38, 0.75, 1.3);
+    if (ra > 0) for (let i = 0; i < N(sc, 12); i++) { const a = i / 12 * TAU + t * 0.8, r0 = l * 0.4, r1 = l * (1.6 + (i % 2) * 0.8) * E.out(seg(t, 0.3, 0.5)); ctx.save(); ctx.globalCompositeOperation = 'lighter'; K.poly(ctx, [[tx + C(a) * r0, ty + S(a) * r0 * 0.45], [tx + C(a - 0.07) * r1, ty + S(a - 0.07) * r1 * 0.45], [tx + C(a + 0.07) * r1, ty + S(a + 0.07) * r1 * 0.45]], Y[1], 0.5 * ra); ctx.restore(); }
+    impact(ctx, sc, tx, tb, seg(t, 0.3, 0.8), { r: 2.2, cols: [Y[0], Y[1], '#fff'], core: '#fff', seed: sc.seed, n: 18, ry: l * 0.55, sq: 0.42 });
+    const u2 = seg(t, 0.5, 1.0); if (u2 > 0 && u2 < 1) K.ring(ctx, tx, ty, l * 2.2 * E.out(u2), Y[3], z * 2, (1 - u2) * 0.7);
+    if (t > 0.3 && t < 0.5) { sc.shake(3); K.flash(ctx, sc, '#fff0b0', 0.16 * (1 - seg(t, 0.3, 0.5))); }
+    /* cura no herói */
+    const hu = seg(t, 0.4, 1.5); if (hu > 0 && hu < 1) { motes(ctx, sc, x, y, { t: t, r: l * 0.6, h: l * 1.6, n: 10, seed: sc.seed + 4, cols: ['#9affb0', '#fff0a8', '#fff'], size: z * 1.8, a: Math.sin(hu * PI), rate: 0.9 }); K.glow(ctx, x, by, l * 0.8, '#9affb0', 0.3 * Math.sin(hu * PI)); K.px(ctx, x, y - l * (1.5 + hu * 0.4), z * 2.5, '#9affb0', 1 - hu); }
+  } });
+
+  /* ======================= CAVALEIRO ======================= */
+  /* Golpe de Escudo */
+  reg('guardiao_aco', { dur: 1.2, hits: [0.2], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, tb } = g, B = ['#5b7fb5', '#8fb4ee', '#dbe9ff', '#ffd36a'];
+    const m = E.in(seg(t, 0.02, 0.2)), a = 1 - seg(t, 0.22, 0.4);
+    const sx = K.lerp(x + d * l * 0.5, tx - d * l * 0.3, m), sy = K.lerp(by, tb, m);
+    if (t < 0.42) { K.glow(ctx, sx, sy, l * 0.9, B[1], 0.5 * a); shield(ctx, sx, sy, l * (0.55 + 0.35 * m), B[0], B[2], a, B[3]);
+      for (let i = 1; i < 5; i++) { const mm = K.clamp(m - i * 0.1, 0, 1); shield(ctx, K.lerp(x + d * l * 0.5, tx - d * l * 0.3, mm), K.lerp(by, tb, mm), l * 0.5, B[1], B[1], a * 0.18 * (1 - i / 5), null); }
+      speed(ctx, sc, sx, sy, d, m, 5, B[2], sc.seed, 0.9); }
+    const u = seg(t, 0.2, 0.7);
+    if (u > 0 && u < 1) {
+      impact(ctx, sc, tx, tb, u, { r: 1.1, cols: [B[1], B[2], B[3]], seed: sc.seed, n: 14, sq: 1 });
+      /* onda plana do impacto (disco vertical) + anel no chão */
+      K.ring(ctx, tx, tb, l * 1.5 * E.out(u), '#fff', z * 2, 0.7 * (1 - u), 1.0); K.ring(ctx, tx, g.ty, l * 1.9 * E.out(u), B[1], z * 2, (1 - u) * 0.8);
+      const rnd = K.rng(sc.seed + 2); for (let i = 0; i < N(sc, 10); i++) { const an = rnd() * TAU, r0 = l * 0.3, r1 = l * (0.8 + rnd()) * E.out(u); K.streak(ctx, tx + C(an) * r0, tb + S(an) * r0, tx + C(an) * r1, tb + S(an) * r1, z, '#fff', (1 - u) * 0.8); }
+      dust(ctx, sc, tx, g.ty, u, sc.seed + 8, l * 1.6, 8);
+    }
+    if (t > 0.2 && t < 0.3) { sc.shake(3); K.flash(ctx, sc, '#bcd4ff', 0.14); }
+    const sa = env(t, 0.3, 0.42, 0.95, 1.2); if (sa > 0) stunStars(ctx, sc, tx, g.th, t, sa);
+  } });
+
+  /* Investida */
+  reg('lanceiro', { dur: 1.2, hits: [0.26], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, ty, tb } = g, B = ['#5b7fb5', '#8fb4ee', '#dbe9ff', '#ffd36a'];
+    const endx = tx + d * l * 1.3, w = seg(t, 0, 0.12);
+    if (t < 0.16) { K.glow(ctx, x, by, l * (0.5 + w), B[1], 0.5 * w); dust(ctx, sc, x, y, w, sc.seed, l * 1.2, 8); }
+    const p = E.in(seg(t, 0.08, 0.4)), px = K.lerp(x, endx, p), py = K.lerp(y, ty, p);
+    if (t > 0.08 && t < 0.7) {
+      const fa = out(t, 0.38, 0.7);
+      for (let i = 4; i >= 0; i--) { const pp = E.in(K.clamp(seg(t, 0.08, 0.4) - i * 0.07, 0, 1)); sc.drawCaster(ctx, K.lerp(x, endx, pp), K.lerp(y, ty, pp), { alpha: (i ? 0.22 : 0.5) * fa * (1 - i * 0.1), pose: 'atk2', flip: d < 0, tint: i ? B[1] : B[2] }); }
+      const lx = px + d * l * 0.5, ly = by - l * 0.05;
+      blade(ctx, lx - d * l * 1.4, ly + z, lx + d * l * 0.75, ly, z * 2.4, B[2], fa, '#fff'); K.glow(ctx, lx + d * l * 0.7, ly, l * 0.7, B[1], 0.7 * fa);
+      K.diamond(ctx, lx + d * l * 0.8, ly, z * 3, '#fff', fa, true);
+      speed(ctx, sc, px, by, d, p, 9, B[2], sc.seed + 2, 1.5);
+      for (let i = 0; i < N(sc, 6); i++) K.px(ctx, K.lerp(x, px, i / 6), K.lerp(y, py, i / 6) - z * 1, z * 3, '#c8b898', fa * 0.6 * (1 - i / 7));
+    }
+    const u = seg(t, 0.26, 0.8);
+    if (u > 0 && u < 1) {
+      impact(ctx, sc, tx, tb, u, { r: 1.3, cols: [B[1], B[2], B[3]], seed: sc.seed + 1, n: 16 });
+      /* cone de perfuração atravessando */
+      const co = E.out(seg(t, 0.26, 0.5)) * (1 - seg(t, 0.4, 0.8)); K.poly(ctx, [[tx - d * l * 0.3, tb], [tx + d * l * 2.2 * E.out(u), tb - l * 0.5 * co], [tx + d * l * 2.2 * E.out(u), tb + l * 0.5 * co]], B[2], 0.5 * co);
+      K.ring(ctx, tx, ty, l * 1.8 * E.out(u), B[1], z * 2, (1 - u) * 0.8);
+      K.burst(ctx, tx + d * l * 0.8, tb, { n: N(sc, 10), r: l * 1.8, size: z * 2, colors: [B[2], B[1]], seed: sc.seed + 4, u, squash: 0.5 });
+    }
+    if (t > 0.26 && t < 0.36) { sc.shake(3); K.flash(ctx, sc, '#bcd4ff', 0.12); }
+  } });
+
+  /* Bastião */
+  reg('baluarte', { dur: 1.9, hits: [0.3], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z } = g, B = ['#5b7fb5', '#8fb4ee', '#dbe9ff', '#ffd36a'];
+    const us = [{ x, y }].concat(sc.allies || []);
+    for (let i = 0; i < 2; i++) { const u = seg(t, 0.05 + i * 0.12, 0.7 + i * 0.12); if (u > 0 && u < 1) K.ring(ctx, x, y, 4.5 * l * E.out(u), i ? B[1] : B[2], z * (3 - u * 2), (1 - u) * 0.8); }
+    const ga = out(t, 0.9, 1.7), gu = E.out(seg(t, 0.05, 0.5)); K.disc(ctx, x, y, 4.5 * l * gu, B[0], 0.16 * ga);
+    /* hexágonos rúnicos no chão */
+    for (let i = 0; i < N(sc, 12); i++) { const a = i / 12 * TAU + t * 0.5, r = l * 3.4 * gu; K.diamond(ctx, x + C(a) * r, y + S(a) * r * 0.42, z * 2.4, B[1], 0.5 * ga * (1 - i % 2 * 0.4), true); }
+    us.forEach((o, k) => {
+      const st = 0.2 + k * 0.1, u = seg(t, st, st + 0.3), a = env(t, st, st + 0.12, 1.3, 1.85); if (a <= 0) return;
+      const oy = o.y - l * 0.55, rx = l * 0.62, ry = l * 0.95, pl = 1 + 0.04 * S(t * 7 + k);
+      if (k) K.streak(ctx, x, by, K.lerp(x, o.x, E.out(seg(t, 0.12, 0.35))), K.lerp(by, oy, E.out(seg(t, 0.12, 0.35))), z, B[1], 0.5 * out(t, 0.3, 0.6));
+      ctx.save(); ctx.globalAlpha = 0.18 * a; ctx.fillStyle = B[1]; ctx.beginPath(); ctx.ellipse(o.x, oy, rx * pl * E.back(u), ry * pl * E.back(u), 0, PI, TAU); ctx.lineTo(o.x + rx, o.y + l * 0.05); ctx.lineTo(o.x - rx, o.y + l * 0.05); ctx.closePath(); ctx.fill(); ctx.restore();
+      ctx.save(); ctx.globalAlpha = 0.85 * a; ctx.strokeStyle = B[2]; ctx.lineWidth = Math.max(1, z * 1.4); ctx.beginPath(); ctx.ellipse(o.x, oy, rx * pl * E.back(u), ry * pl * E.back(u), 0, PI, TAU); ctx.stroke(); ctx.restore();
+      K.ring(ctx, o.x, o.y, rx, B[2], z, 0.7 * a);
+      const ia = E.elastic(u); shield(ctx, o.x, oy - l * 0.15, l * 0.4 * ia, B[0], B[2], a, B[3]); K.glow(ctx, o.x, oy - l * 0.15, l * 0.7 * ia, B[1], 0.4 * a);
+      const sh = seg(t, st + 0.3, st + 0.6); if (sh > 0 && sh < 1) { const an = PI + sh * PI; K.px(ctx, o.x + C(an) * rx, oy + S(an) * ry, z * 3, '#fff', 1 - sh); }
+    });
+    if (t > 0.25 && t < 0.45) { sc.shake(2); K.flash(ctx, sc, '#bcd4ff', 0.1); dust(ctx, sc, x, y, seg(t, 0.25, 0.8), sc.seed, l * 2.4, 12); }
+  } });
+
+  /* Carapaça de Espinhos */
+  reg('sentinela', { dur: 1.7, hits: [0.24], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z } = g, B = ['#5b7fb5', '#8fb4ee', '#dbe9ff', '#ff6a5a'];
+    const pu = E.back(seg(t, 0.1, 0.34)), a = env(t, 0.08, 0.2, 1.3, 1.7);
+    for (let i = 0; i < 2; i++) { const u = seg(t, 0.2 + i * 0.12, 0.8 + i * 0.12); if (u > 0 && u < 1) K.ring(ctx, x, y, 4.5 * l * E.out(u), i ? B[3] : B[1], z * (3 - u * 2), (1 - u) * 0.75); }
+    K.glow(ctx, x, by, l * 1.1, B[1], 0.4 * a * (0.8 + 0.2 * S(t * 9)));
+    if (t < 0.3) { K.ring(ctx, x, y, l * (1.5 - seg(t, 0, 0.25)), B[1], z, 0.6); }
+    const nS = N(sc, 12);
+    for (let i = 0; i < nS; i++) {
+      const an = i / nS * TAU + 0.2, rx = l * 0.5, ry = l * 0.62, cx = x + C(an) * rx, cy = by + S(an) * ry, nx = C(an) * 0.8, ny = S(an), ln = l * (0.55 + 0.1 * S(t * 10 + i * 2) + (i % 2) * 0.18) * pu;
+      if (a <= 0) break; const px = -ny * l * 0.1, py = nx * l * 0.1;
+      K.poly(ctx, [[cx + px, cy + py], [cx + nx * ln, cy + ny * ln], [cx - px, cy - py]], '#9fb2cc', a); K.poly(ctx, [[cx + px * 0.4, cy + py * 0.4], [cx + nx * ln, cy + ny * ln], [cx - px * 0.1, cy - py * 0.1]], '#fff', a * 0.9);
+      K.px(ctx, cx + nx * ln, cy + ny * ln, z * 1.6, B[3], a * (0.5 + 0.5 * S(t * 12 + i)));
+    }
+    const ra = seg(t, 0.2, 1.6); if (ra > 0 && ra < 1) { const rn = K.rng(sc.seed); for (let i = 0; i < N(sc, 6); i++) { const an = rn() * TAU, s0 = (t * 1.5 + rn()) % 1; K.px(ctx, x + C(an) * l * (0.6 + s0 * 0.9), by + S(an) * l * (0.8 + s0 * 0.9), z * 1.6, '#fff', (1 - s0) * 0.8 * a); } }
+    /* provocação */
+    const ta = env(t, 0.3, 0.5, 1.0, 1.4); [{ x: g.tx, y: g.ty }].concat(sc.others || []).forEach((o, i) => { if (ta > 0) { K.streak(ctx, o.x, o.y - l * 0.5, K.lerp(o.x, x, 0.25 * E.out(seg(t, 0.3, 0.6))), K.lerp(o.y - l * 0.5, by, 0.25 * E.out(seg(t, 0.3, 0.6))), z, B[3], 0.4 * ta); K.diamond(ctx, o.x, o.y - l * 1.3, z * 2.6, B[3], ta, true); } });
+    if (t > 0.1 && t < 0.3) { sc.shake(2); K.flash(ctx, sc, '#bcd4ff', 0.08); }
+  } });
+
+  /* Salto do Dragão */
+  reg('lanca_dragao', { dur: 1.7, hits: [0.56, 0.7], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, ty, tb } = g, B = ['#5b7fb5', '#8fb4ee', '#dbe9ff', '#ffd36a', '#3ad0b0'];
+    /* decolagem */
+    const up = seg(t, 0.04, 0.26);
+    if (up > 0 && t < 0.5) { K.glow(ctx, x, by, l * (0.5 + up), B[3], 0.6 * (1 - up)); dust(ctx, sc, x, y, seg(t, 0.05, 0.4), sc.seed, l * 1.8, 10); K.ring(ctx, x, y, l * 1.4 * E.out(seg(t, 0.05, 0.35)), B[2], z * 2, 0.7 * (1 - seg(t, 0.05, 0.35)));
+      K.streak(ctx, x, by, x, by - l * 5 * E.out(up), z * 3, B[1], 0.5 * (1 - up)); K.streak(ctx, x, by, x, by - l * 5 * E.out(up), z, '#fff', 0.8 * (1 - up)); }
+    /* sombra de aviso no chão */
+    const sh = seg(t, 0.2, 0.56), sa = env(t, 0.2, 0.3, 0.56, 0.62); if (sa > 0) { K.disc(ctx, tx, ty, l * (1.6 - 0.8 * sh), '#10182a', 0.45 * sa); K.ring(ctx, tx, ty, l * (2.4 - 1.5 * sh), B[3], z, 0.8 * sa); }
+    /* queda: herói espectral com lança, envolto em fogo de dragão */
+    const fall = E.in(seg(t, 0.3, 0.56)), fy = ty - l * 4.6 * (1 - fall), fa = env(t, 0.3, 0.36, 0.56, 0.6);
+    if (fa > 0) {
+      for (let i = 5; i >= 0; i--) { const ff = E.in(K.clamp(seg(t, 0.3, 0.56) - i * 0.06, 0, 1)); K.glow(ctx, tx - d * l * 0.15 * (1 - ff), ty - l * 4.6 * (1 - ff) - l * 0.6, l * (0.9 - i * 0.1), i % 2 ? B[4] : B[3], 0.4 * fa); }
+      sc.drawCaster(ctx, tx - d * l * 0.15 * (1 - fall), fy, { alpha: 0.75 * fa, pose: 'atk2', flip: d < 0, tint: B[2] });
+      const lx = tx - d * l * 0.15 * (1 - fall), ly = fy - l * 0.6; blade(ctx, lx + d * l * 0.1, ly - l * 2, lx + d * l * 0.3, ly + l * 0.5, z * 2.2, B[2], fa, '#fff'); K.glow(ctx, lx + d * l * 0.3, ly + l * 0.5, l * 0.6, B[1], 0.8 * fa);
+      const rn = K.rng(sc.seed); for (let i = 0; i < N(sc, 10); i++) { const o = (rn() - 0.5) * l * 0.8, h = rn() * l * 3; K.px(ctx, lx + o, ly - h, z * (1.5 + rn() * 2), i % 2 ? B[4] : '#ffe9b8', fa * (1 - h / (l * 3)) * 0.9); }
+    }
+    /* impacto principal (300%) */
+    const u = seg(t, 0.56, 1.2);
+    if (u > 0 && u < 1) {
+      K.disc(ctx, tx, ty, l * 1.6 * E.out(seg(t, 0.56, 0.7)), '#1b1410', 0.5 * (1 - seg(t, 0.9, 1.5)));
+      impact(ctx, sc, tx, tb, u, { r: 1.8, cols: [B[3], B[2], B[1], B[4]], seed: sc.seed, n: 20, ry: l * 0.55, sq: 0.42 });
+      const ra = ((1 - u) ** 2); ctx.save(); ctx.globalAlpha = ra * 0.7; ctx.fillStyle = '#fff'; ctx.fillRect(Math.round(tx - l * 0.15), Math.round(ty - l * 4 * E.out(Math.min(1, u * 3))), Math.round(l * 0.3), Math.round(l * 4 * E.out(Math.min(1, u * 3)))); ctx.restore();
+      dust(ctx, sc, tx, ty, u, sc.seed + 3, l * 2.8, 18);
+      for (let i = 0; i < 8; i++) { const an = i / 8 * TAU + 0.2, r = l * 1.4 * E.out(u); const L = K.clamp(1 - u * 1.4, 0, 1); K.poly(ctx, [[tx + C(an) * r * 0.5, ty + S(an) * r * 0.2], [tx + C(an) * r, ty + S(an) * r * 0.42 - l * 0.1], [tx + C(an) * r * 0.5 + 3 * z, ty + S(an) * r * 0.2]], '#1b1410', L); }
+    }
+    /* segundo golpe: onda de dragão (140% área) */
+    const u2 = seg(t, 0.7, 1.4); if (u2 > 0 && u2 < 1) { K.ring(ctx, tx, ty, 2.2 * l * E.out(u2), B[4], z * (3.5 - u2 * 2.5), (1 - u2) * 0.9); K.ring(ctx, tx, ty, 1.6 * l * E.out(u2), B[3], z * 2, (1 - u2) * 0.8); K.disc(ctx, tx, ty, 2.2 * l * E.out(u2), B[4], 0.15 * (1 - u2)); }
+    if (t > 0.56 && t < 0.68) { sc.shake(4); K.flash(ctx, sc, '#fff0c0', 0.18 * (1 - seg(t, 0.56, 0.68))); } if (t > 0.7 && t < 0.78) sc.shake(2);
+  } });
+
+  /* Estandarte */
+  reg('marechal', { dur: 2.0, hits: [0.28], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d } = g, B = ['#5b7fb5', '#8fb4ee', '#dbe9ff', '#ffd36a'];
+    const px = x + d * l * 0.9, py = y + l * 0.05, fall = E.in(seg(t, 0, 0.26)), ga = env(t, 0.0, 0.1, 1.55, 2.0), top = l * 2.5;
+    for (let i = 0; i < 2; i++) { const u = seg(t, 0.26 + i * 0.1, 0.9 + i * 0.1); if (u > 0 && u < 1) K.ring(ctx, px, py, 5 * l * E.out(u), i ? B[3] : B[2], z * (3 - u * 2), (1 - u) * 0.8); }
+    K.disc(ctx, px, py, 5 * l * E.out(seg(t, 0.26, 0.8)), B[3], 0.1 * out(t, 0.5, 1.5));
+    const pyTop = py - top - (1 - fall) * l * 4;
+    if (ga > 0) {
+      K.glow(ctx, px, py - top * 0.5, l * 1.8, B[1], 0.3 * ga * seg(t, 0.26, 0.5));
+      ctx.save(); ctx.globalAlpha = ga; ctx.fillStyle = '#d9c8a0'; ctx.fillRect(Math.round(px - z), Math.round(pyTop), Math.round(z * 2), Math.round(py - pyTop - (1 - fall) * l * 4 + (1 - fall) * l * 4)); ctx.fillStyle = B[3]; ctx.fillRect(Math.round(px - z * 2), Math.round(pyTop - z * 2), Math.round(z * 4), Math.round(z * 3)); ctx.restore();
+      const un = E.out(seg(t, 0.28, 0.6)), fw = l * 1.35 * un, fh = l * 1.05, sx = d;
+      for (let i = 0; i < 12; i++) { const f = i / 12, cx = px + sx * (z * 2 + f * fw), wv = S(t * 9 - f * 5 + 1) * l * 0.1 * f, cw = Math.ceil(fw / 12) + 1;
+        ctx.save(); ctx.globalAlpha = ga * (f * un > 0 ? 1 : 0); ctx.fillStyle = i % 2 ? B[0] : '#6c92cc'; ctx.fillRect(Math.round(sx > 0 ? cx : cx - cw), Math.round(pyTop + wv), cw, Math.round(fh * (1 - f * 0.18)));
+        ctx.fillStyle = B[3]; ctx.fillRect(Math.round(sx > 0 ? cx : cx - cw), Math.round(pyTop + wv), cw, Math.max(1, z)); ctx.fillRect(Math.round(sx > 0 ? cx : cx - cw), Math.round(pyTop + wv + fh * (1 - f * 0.18) - z), cw, Math.max(1, z)); ctx.restore(); }
+      if (un > 0.5) K.diamond(ctx, px + sx * fw * 0.42, pyTop + fh * 0.5 + S(t * 9 - 2) * l * 0.04, l * 0.2, B[3], ga, true);
+    }
+    if (t > 0.24 && t < 0.4) { const u = seg(t, 0.24, 0.5); dust(ctx, sc, px, py, u, sc.seed, l * 2, 12); K.ring(ctx, px, py, l * 1.3 * E.out(u), '#fff', z * 2, 1 - u); sc.shake(2); K.flash(ctx, sc, '#ffe9b8', 0.1); }
+    /* aliados: seta de ataque + vento da velocidade */
+    const us = [{ x, y }].concat(sc.allies || []);
+    us.forEach((o, k) => { const st = 0.4 + k * 0.1, a = env(t, st, st + 0.15, 1.5, 1.95); if (a <= 0) return;
+      K.glow(ctx, o.x, o.y - l * 0.6, l * 0.8, B[3], 0.28 * a); K.ring(ctx, o.x, o.y, l * 0.7, B[3], z, 0.6 * a);
+      for (let i = 0; i < 2; i++) { const p = ((t - st) * 0.8 + i * 0.5) % 1; chev(ctx, o.x + (i ? l * 0.3 : -l * 0.3), o.y - l * (0.2 + p * 1.4), z * 3, i ? B[2] : B[3], a * Math.sin(p * PI)); }
+      speed(ctx, sc, o.x, o.y - l * 0.5, d, t * 0.8 + k * 0.3, 3, B[2], sc.seed + k, 1.0); });
+  } });
+
+  /* ======================= ARQUEIRO ======================= */
+  /* Tiro Perfurante */
+  reg('atirador', { dur: 1.1, hits: [0.22], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, ty, tb } = g, A = ['#4f9d5d', '#9be07a', '#e8ffcf', '#ffe48a'];
+    /* mira convergindo */
+    const m = seg(t, 0, 0.18), ma = env(t, 0, 0.05, 0.18, 0.3);
+    if (ma > 0) { const r = l * (1.1 - 0.7 * E.out(m)); K.ring(ctx, tx, tb, r, A[3], z, ma, 1); K.ring(ctx, tx, tb, r * 0.5, A[3], z, ma * 0.7, 1);
+      ctx.save(); ctx.globalAlpha = ma; ctx.fillStyle = A[3]; ctx.fillRect(Math.round(tx - r * 1.3), Math.round(tb), Math.round(r * 0.8), z); ctx.fillRect(Math.round(tx + r * 0.5), Math.round(tb), Math.round(r * 0.8), z); ctx.fillRect(Math.round(tx), Math.round(tb - r * 1.3), z, Math.round(r * 0.8)); ctx.fillRect(Math.round(tx), Math.round(tb + r * 0.5), z, Math.round(r * 0.8)); ctx.restore(); }
+    K.glow(ctx, x + d * l * 0.45, by, l * 0.5, A[1], 0.6 * env(t, 0, 0.1, 0.12, 0.25));
+    /* flecha superveloz com anel de choque */
+    const f = seg(t, 0.1, 0.22), sx = x + d * l * 0.45, ang = Math.atan2(tb - by, tx - sx);
+    if (f > 0 && t < 0.4) { const e = E.out(f), ex = K.lerp(sx, tx + d * l * 2.6, e * 1.0), ey = K.lerp(by, tb, e) + (ex - tx) * (tb - by) / (tx - sx || 1) * 0.0, fa = out(t, 0.24, 0.4);
+      K.streak(ctx, sx, by, ex, ey, z * 3, A[1], 0.35 * fa); K.streak(ctx, sx, by, ex, ey, z, '#fff', 0.9 * fa);
+      arrow(ctx, ex, ey, ang, l * 0.9, z, A[2], '#fff', fa); K.glow(ctx, ex, ey, l * 0.5, A[1], 0.8 * fa);
+      for (let i = 1; i < 4; i++) { const rr = K.lerp(sx, ex, i / 4); ctx.save(); ctx.globalAlpha = 0.5 * fa * (1 - i / 4); ctx.strokeStyle = '#fff'; ctx.lineWidth = z; ctx.beginPath(); ctx.ellipse(rr, K.lerp(by, ey, i / 4), l * 0.06, l * (0.14 + 0.05 * i), 0, 0, TAU); ctx.stroke(); ctx.restore(); } }
+    /* perfuração: casco rachando, estilhaços de armadura */
+    const u = seg(t, 0.22, 0.8);
+    if (u > 0 && u < 1) {
+      impact(ctx, sc, tx, tb, u, { r: 0.95, cols: [A[1], A[2], A[3]], seed: sc.seed, n: 12 });
+      const rn = K.rng(sc.seed + 1); for (let i = 0; i < N(sc, 9); i++) { const an = rn() * 1.8 - 0.9 + (d < 0 ? PI : 0), sp = l * (0.8 + rn() * 1.7) * E.out(u); K.diamond(ctx, tx + d * l * 0.3 + C(an) * sp, tb + S(an) * sp * 0.8 + l * 0.6 * u * u, z * (1.5 + rn() * 1.8), i % 2 ? '#c9d3e0' : '#8a97aa', 1 - u, true); }
+      K.burst(ctx, tx + d * l * 0.9, tb, { n: N(sc, 8), r: l * 1.2, size: z * 2, colors: [A[1], '#fff'], seed: sc.seed + 5, u, squash: 0.4 });
+      /* quebra de defesa: escudo rachado */
+      const sa = env(t, 0.26, 0.34, 0.5, 0.8); if (sa > 0) { const sy = tb - l * 0.95 - (t - 0.26) * l * 0.4; shield(ctx, tx, sy, l * 0.32, '#8a97aa', '#c9d3e0', sa, null); K.bolt(ctx, tx - l * 0.1, sy - l * 0.3, tx + l * 0.12, sy + l * 0.35, { seed: 4, segments: 4, jag: z * 2, color: '#fff', width: z, alpha: sa }); }
+    }
+    if (t > 0.22 && t < 0.3) { sc.shake(2); K.flash(ctx, sc, '#d6ffc0', 0.1); }
+  } });
+
+  /* Flecha Envenenada */
+  reg('patrulheiro', { dur: 1.5, hits: [0.24], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, ty, tb } = g, V = ['#3f8f3a', '#7fe05a', '#d6ff9a', '#b46cff'];
+    K.glow(ctx, x + d * l * 0.45, by, l * 0.6, V[1], 0.6 * env(t, 0, 0.08, 0.1, 0.3));
+    const f = seg(t, 0.06, 0.24), p = path(g, E.in(f * 0.6 + f * 0.4), 0.28), p2 = path(g, E.in(Math.max(0, f - 0.05)), 0.28);
+    if (f > 0 && t < 0.34) { const fa = out(t, 0.24, 0.34), nx = path(g, Math.min(1, f + 0.04), 0.28), ang = Math.atan2(nx.y - p.y, nx.x - p.x) || 0;
+      const rn = K.rng(sc.seed); for (let i = 0; i < N(sc, 14); i++) { const u = f * (1 - i / 14), q = path(g, E.in(u), 0.28), gr = (i / 14) ** 2 * l * 0.9; K.px(ctx, q.x + (rn() - 0.5) * z * 3, q.y + gr + (rn() - 0.5) * z * 2, z * (2.6 - i * 0.12), i % 3 ? V[1] : V[2], (1 - i / 14) * fa); }
+      arrow(ctx, p.x, p.y, ang, l * 0.8, z, '#9a7a4a', V[1], fa); K.glow(ctx, p.x, p.y, l * 0.5, V[1], 0.7 * fa); }
+    /* impacto + poça tóxica */
+    const u = seg(t, 0.24, 0.8);
+    if (u > 0 && u < 1) { impact(ctx, sc, tx, tb, u, { r: 0.9, cols: [V[1], V[2], V[0]], seed: sc.seed + 3, n: 12, ry: l * 0.55, sq: 0.42 }); sc.shake(1); }
+    const pa = env(t, 0.26, 0.5, 1.15, 1.5), pr = l * 0.95 * E.out(seg(t, 0.26, 0.55));
+    if (pa > 0) {
+      K.disc(ctx, tx, ty, pr, V[0], 0.35 * pa); K.ring(ctx, tx, ty, pr, V[1], z * 1.5, 0.7 * pa); K.glow(ctx, tx, tb, l * 0.9, V[1], 0.2 * pa);
+      motes(ctx, sc, tx, ty, { t: t, r: pr * 0.8, h: l * 1.4, n: 12, seed: sc.seed + 7, cols: [V[1], V[2], V[3]], size: z * 2.2, a: pa, rate: 0.9, sway: z * 3 });
+      for (let i = 0; i < N(sc, 3); i++) { const bu = (t * 1.2 + i * 0.37) % 1, bx = tx + (i - 1) * l * 0.4; K.ring(ctx, bx, ty - l * (0.2 + bu * 0.8), z * (1.6 + bu * 1.4), V[2], z * 0.8, pa * (1 - bu), 1); }
+      /* gotas escorrendo do alvo */
+      const rn = K.rng(sc.seed + 9); for (let i = 0; i < N(sc, 5); i++) { const o = (rn() - 0.5) * l * 0.7, s0 = (t * 1.1 + rn()) % 1; K.px(ctx, tx + o, tb - l * 0.3 + s0 * l * 0.9, z * 1.8, V[1], pa * (1 - s0)); }
+    }
+  } });
+
+  /* Tiro Mortal */
+  reg('olho_falcao', { dur: 1.4, hits: [0.5], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, hy, l, z, d, tx, ty, tb } = g, Gd = ['#ffd36a', '#fff0b0', '#ffffff', '#ff6a5a'];
+    /* olho do falcão sobre o herói */
+    const ea = env(t, 0.02, 0.12, 0.38, 0.5); if (ea > 0) { const ey = hy - l * 0.45, ew = l * 0.5 * E.out(seg(t, 0.02, 0.15)), eh = ew * 0.38 * (1 - 0.7 * seg(t, 0.3, 0.4));
+      ctx.save(); ctx.globalAlpha = ea; ctx.fillStyle = Gd[0]; ctx.beginPath(); ctx.moveTo(x - ew, ey); ctx.quadraticCurveTo(x, ey - eh * 2, x + ew, ey); ctx.quadraticCurveTo(x, ey + eh * 2, x - ew, ey); ctx.fill();
+      ctx.fillStyle = '#2a1a08'; ctx.beginPath(); ctx.arc(x, ey, eh * 0.9, 0, TAU); ctx.fill(); ctx.fillStyle = '#fff'; ctx.fillRect(Math.round(x - eh * 0.4), Math.round(ey - eh * 0.5), Math.max(1, Math.round(eh * 0.4)), Math.max(1, Math.round(eh * 0.4))); ctx.restore(); K.glow(ctx, x, ey, l * 0.8, Gd[0], 0.5 * ea); }
+    /* mira de asas convergindo no alvo (câmera lenta) */
+    const c = seg(t, 0.08, 0.48), ca = env(t, 0.08, 0.16, 0.5, 0.62);
+    if (ca > 0) { const r = l * (1.9 - 1.35 * E.inOut(c)); K.ring(ctx, tx, tb, r, Gd[0], z * 1.5, ca, 1); K.ring(ctx, tx, tb, r * 0.55, Gd[1], z, ca * 0.8, 1);
+      for (let s = -1; s <= 1; s += 2) { ctx.save(); ctx.globalAlpha = ca * 0.9; ctx.fillStyle = Gd[1]; ctx.beginPath(); ctx.moveTo(tx + s * r * 0.55, tb); for (let i = 1; i <= 4; i++) ctx.lineTo(tx + s * (r * 0.9 + i * l * 0.18), tb - i * l * 0.12 * (i % 2 ? 1 : 0.4) - l * 0.02); ctx.lineTo(tx + s * r * 0.9, tb + l * 0.08); ctx.closePath(); ctx.fill(); ctx.restore(); }
+      const lk = c > 0.85 ? 1 : 0; ctx.save(); ctx.globalAlpha = ca; ctx.fillStyle = lk ? Gd[3] : Gd[0]; ctx.fillRect(Math.round(tx - r * 1.4), Math.round(tb), Math.round(r * 2.8), z); ctx.fillRect(Math.round(tx), Math.round(tb - r * 1.4), z, Math.round(r * 2.8)); ctx.restore(); }
+    /* linhas de tempo congelado */
+    if (t < 0.5) speed(ctx, sc, x, by, -d, t, 5, Gd[1], sc.seed, 2.2);
+    /* o tiro: atravessa a tela */
+    const f = seg(t, 0.44, 0.52), sx = x + d * l * 0.45, ang = Math.atan2(tb - by, tx - sx), fa = out(t, 0.52, 0.7);
+    if (f > 0 && fa > 0) { const ex = K.lerp(sx, tx + d * l * 3, E.out(f)), ey = K.lerp(by, tb + (tb - by) * 0.8, E.out(f));
+      K.streak(ctx, sx, by, ex, ey, z * 6, Gd[0], 0.4 * fa); K.streak(ctx, sx, by, ex, ey, z * 3, Gd[1], 0.7 * fa); K.streak(ctx, sx, by, ex, ey, z, '#fff', fa); arrow(ctx, ex, ey, ang, l * 1.0, z * 1.3, Gd[2], '#fff', fa); K.glow(ctx, ex, ey, l * 0.8, Gd[1], 0.9 * fa); }
+    /* impacto mortal */
+    const u = seg(t, 0.5, 1.2);
+    if (u > 0 && u < 1) {
+      impact(ctx, sc, tx, tb, u, { r: 1.8, cols: [Gd[0], Gd[1], Gd[3]], core: '#fff', seed: sc.seed, n: 18, sq: 1 });
+      star(ctx, tx, tb, l * 2.2 * E.out(Math.min(1, u * 2)) * (1 - u), Gd[3], 0.9 * (1 - u), 0.07);
+      K.ring(ctx, tx, ty, l * 2 * E.out(u), Gd[0], z * 2.5, (1 - u) * 0.8);
+      const rn = K.rng(sc.seed + 3); for (let i = 0; i < N(sc, 8); i++) { const a = rn() * TAU, r = l * (0.5 + rn() * 1.5) * E.out(u), sw = S(u * 8 + i) * z * 2; ctx.save(); ctx.globalAlpha = 1 - u; ctx.fillStyle = i % 2 ? '#d9b27a' : '#fff0d0'; ctx.fillRect(Math.round(tx + C(a) * r + sw), Math.round(tb + S(a) * r * 0.8 + u * l * 0.8), z * 3, z); ctx.restore(); }
+    }
+    if (t > 0.5 && t < 0.62) { sc.shake(4); K.flash(ctx, sc, '#fff0b0', 0.2 * (1 - seg(t, 0.5, 0.62))); }
+  } });
+
+  /* Marca do Caçador */
+  reg('cacador_feras', { dur: 1.6, hits: [0.22], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, ty, tb, th } = g, H = ['#d9542a', '#ff9a3a', '#ffe0a0', '#4f9d5d'];
+    K.glow(ctx, x + d * l * 0.45, by, l * 0.5, H[1], 0.5 * env(t, 0, 0.06, 0.08, 0.22));
+    const f = seg(t, 0.05, 0.22), p = path(g, E.in(f), 0.15);
+    if (f > 0 && t < 0.3) { const fa = out(t, 0.22, 0.3), nx = path(g, Math.min(1, f + 0.05), 0.15), ang = Math.atan2(nx.y - p.y, nx.x - p.x) || 0;
+      K.streak(ctx, x + d * l * 0.45, by, p.x, p.y, z * 1.5, H[1], 0.4 * fa); arrow(ctx, p.x, p.y, ang, l * 0.8, z, '#9a7a4a', H[2], fa); K.glow(ctx, p.x, p.y, l * 0.4, H[1], 0.6 * fa); }
+    const u = seg(t, 0.22, 0.7);
+    if (u > 0 && u < 1) impact(ctx, sc, tx, tb, u, { r: 0.9, cols: [H[1], H[2], H[0]], seed: sc.seed, n: 10 });
+    /* marca: três garras + anel rúnico que pulsa sobre o alvo */
+    const m = seg(t, 0.26, 0.55), ma = env(t, 0.26, 0.34, 1.2, 1.6);
+    if (ma > 0) {
+      const cy = th - l * 0.35 - S(t * 5) * z, rr = l * (0.5 + 0.12 * S(t * 8)) * E.back(m);
+      K.glow(ctx, tx, cy, l * 0.9, H[0], 0.5 * ma); K.ring(ctx, tx, cy, rr, H[1], z * 1.5, ma, 1); K.ring(ctx, tx, cy, rr * 1.3, H[0], z, ma * 0.6, 1);
+      for (let i = 0; i < 4; i++) { const a = i * PI / 2 + t * 1.5; K.diamond(ctx, tx + C(a) * rr * 1.3, cy + S(a) * rr * 1.3, z * 2, H[2], ma, true); }
+      for (let i = 0; i < 3; i++) { const o = (i - 1) * l * 0.16, k = E.out(K.clamp(m * 2 - i * 0.3, 0, 1)); blade(ctx, tx + o - l * 0.1, cy - l * 0.3 * k, tx + o + l * 0.06, cy + l * 0.3 * k, z * 2, H[0], ma, H[2]); }
+      /* alvo ganha contorno vermelho pulsante */
+      K.ring(ctx, tx, ty, l * 0.55, H[0], z * 1.5, ma * (0.5 + 0.4 * S(t * 9)));
+      K.glow(ctx, tx, tb, l * 0.7, H[0], 0.2 * ma * (0.6 + 0.4 * S(t * 9)));
+    }
+    const ua = env(t, 0.5, 0.6, 1.3, 1.6); for (let i = 0; i < N(sc, 3); i++) { const p2 = ((t - 0.5) * 0.9 + i / 3) % 1; chev(ctx, tx + (i - 1) * l * 0.22, th - l * 0.8 - p2 * l * 0.6, z * 2, '#ff6a3a', ua * (1 - p2)); }
+    if (t > 0.22 && t < 0.3) { sc.shake(2); }
+  } });
+
+  /* Saraivada */
+  reg('guarda_bosque', { dur: 1.8, hits: [0.35, 0.82], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d, tx, ty } = g, A = ['#4f9d5d', '#9be07a', '#e8ffcf', '#ffe48a'], R = 2.6 * l;
+    const ra = env(t, 0, 0.1, 1.2, 1.8); K.ring(ctx, tx, ty, R * (1 - 0.1 * S(t * 6)), A[1], z, 0.5 * ra); K.disc(ctx, tx, ty, R, A[0], 0.12 * ra);
+    K.glow(ctx, x + d * l * 0.45, by, l * 0.6, A[1], 0.5 * (env(t, 0, 0.08, 0.1, 0.25) + env(t, 0.42, 0.5, 0.52, 0.65)));
+    for (let v = 0; v < 2; v++) {
+      const hs = [0.35, 0.82][v], n = N(sc, 10), rn = K.rng(sc.seed + v * 31), fall = 0.22;
+      for (let i = 0; i < n; i++) {
+        const a = rn() * TAU, r = Math.sqrt(rn()) * R * 0.95, ox = tx + C(a) * r, oy = ty + S(a) * r * 0.45, dl = rn() * 0.12, t0 = hs - fall - 0.04 + dl, u = seg(t, t0, t0 + fall);
+        if (u <= 0) continue; const lx = ox - d * l * 0.5, ly = oy - l * 4.5 * (1 - E.in(u)) - 0, lx2 = ox - d * l * 0.5 * (1 - E.in(u));
+        if (u < 1) { const ang = Math.atan2(oy - (oy - l * 4.5), ox - lx), cx = K.lerp(ox - d * l * 0.9, ox, E.in(u)), cy = oy - l * 4.5 * (1 - E.in(u)); const a2 = Math.atan2(oy - cy + l * 0.001, ox - cx);
+          K.streak(ctx, cx - d * l * 0.45 * (1 - u), cy - l * 1.0 * (1 - u * 0.5), cx, cy, z, A[2], 0.5); arrow(ctx, cx, cy, a2, l * 0.7, z, '#9a7a4a', A[2], 1); }
+        else { const su = seg(t, t0 + fall, t0 + fall + 0.55), sa = 1 - su; if (sa > 0) { ctx.save(); ctx.globalAlpha = sa; ctx.fillStyle = '#9a7a4a'; ctx.fillRect(Math.round(ox - z / 2), Math.round(oy - l * 0.42), z, Math.round(l * 0.42)); ctx.fillStyle = A[2]; ctx.fillRect(Math.round(ox - z * 1.2), Math.round(oy - l * 0.46), Math.round(z * 2.4), z); ctx.restore(); }
+          const iu = seg(t, t0 + fall, t0 + fall + 0.28); if (iu < 1) { K.ring(ctx, ox, oy, l * 0.5 * E.out(iu), A[2], z, 1 - iu); K.burst(ctx, ox, oy, { n: N(sc, 4), r: l * 0.5, size: z * 1.8, colors: [A[1], '#d8c9a8'], seed: sc.seed + i + v * 50, u: iu, squash: 0.5, up: l * 0.2 }); } }
+      }
+      const bu = seg(t, hs, hs + 0.45); if (bu > 0 && bu < 1) { K.ring(ctx, tx, ty, R * E.out(bu), A[3], z * 2, (1 - bu) * 0.7); K.glow(ctx, tx, ty - l * 0.4, l * 1.2, A[1], 0.3 * (1 - bu)); }
+      if (t > hs && t < hs + 0.1) sc.shake(2 + v);
+    }
+  } });
+
+  /* Passo do Vento */
+  reg('vento_errante', { dur: 1.8, hits: [0.3], draw(ctx, t, sc) {
+    const g = geo(sc), { x, y, by, l, z, d } = g, W = ['#4f9d5d', '#9be0b0', '#e8fff0', '#cfe8ff'];
+    const a = env(t, 0.04, 0.3, 1.35, 1.8), w = seg(t, 0, 0.2);
+    for (let i = 0; i < 2; i++) { const u = seg(t, 0.05 + i * 0.15, 0.7 + i * 0.15); if (u > 0 && u < 1) K.ring(ctx, x, y, l * (0.4 + 1.7 * E.out(u)), i ? W[3] : W[2], z * (2.5 - u * 1.5), (1 - u) * 0.8); }
+    /* hélices de vento ao redor do corpo */
+    for (let s = 0; s < 3; s++) for (let i = 0; i < N(sc, 12); i++) {
+      const k = i / 12, an = t * 6.5 - k * 2.4 + s * TAU / 3, h = ((t * 0.55 + s / 3 + k * 0.0) % 1), r = l * (0.7 - 0.25 * h) * E.out(seg(t, 0.05, 0.3)),
+        px = x + C(an) * r, py = y - l * (0.1 + 1.2 * ((t * 0.5 + s / 3) % 1)) - k * l * 0.15 + S(an) * r * 0.3;
+      K.px(ctx, px, py, z * (3 - k * 2), s % 2 ? W[2] : W[1], a * (1 - k) * (S(an) > 0 ? 1 : 0.5));
+    }
+    K.glow(ctx, x, by, l * 1.1, W[1], 0.35 * a);
+    /* pós-imagens: o herói desliza para trás deixando eco */
+    for (let i = 1; i <= 3; i++) { const o = i * l * 0.35 * (0.5 + 0.5 * S(t * 4 - i * 0.6)); sc.drawCaster(ctx, x - d * o, y, { alpha: 0.22 * a / i, pose: 'walk' + (Math.floor(t * 12) % 4), flip: d < 0, tint: W[1] }); }
+    speed(ctx, sc, x, by, d, t, 8, W[2], sc.seed, 1.6);
+    /* folhas e esquiva */
+    const rn = K.rng(sc.seed + 2); for (let i = 0; i < N(sc, 10); i++) { const u = (t * 0.8 + rn()) % 1, oy = (rn() - 0.5) * l * 1.6; const lx = x - d * (-l * 0.8 + u * l * 2.4) + S(u * 9 + i) * z * 3, ly = by + oy + S(u * 5 + i) * l * 0.15; ctx.save(); ctx.globalAlpha = a * Math.sin(u * PI); ctx.translate(lx, ly); ctx.rotate(u * 7 + i); ctx.fillStyle = i % 2 ? W[0] : W[1]; ctx.fillRect(-z * 1.5, -z, z * 3, z * 2); ctx.restore(); }
+    for (let i = 0; i < N(sc, 3); i++) { const p = ((t - 0.2) * 0.9 + i / 3) % 1; if (t > 0.2) chev(ctx, x + (i - 1) * l * 0.3, y - l * (0.3 + p * 1.3), z * 2.6, i % 2 ? W[3] : W[2], a * Math.sin(p * PI)); }
+    if (t < 0.3) K.flash(ctx, sc, '#cfffe0', 0.07 * (1 - seg(t, 0, 0.3)));
+  } });
+})();
+
+</script>
+<script id="aurora-skill-fx-arcano">
+/* Aurora 046 · Animações de habilidades: Mago, Paladino e Ladino (21 habilidades). Somente visual. */
+(function () {
+  'use strict';
+  if (typeof G === 'undefined' || G.HEADLESS || !G.A || !G.A.SkillFX) return;
+  const FX = G.A.SkillFX, K = FX.kit, E = K.ease, seg = K.seg, TAU = Math.PI * 2, sin = Math.sin, cos = Math.cos;
+
+  /* ---------- helpers ---------- */
+  const N = (sc, n) => (sc.light ? Math.max(2, Math.ceil(n / 3)) : n);          // contagem reduzida no modo leve
+  const circ = (c, x, y, r, col, a) => K.disc(c, x, y, r, col, a, 1);             // círculo de tela (fumaça, orbes)
+  const shk = (sc, p, t, a, b) => { if (t >= a && t < b) sc.shake(p); };
+  const out1 = (t, a, b) => 1 - seg(t, a, b);
+  const spark = (c, x, y, s, col, a) => { K.px(c, x, y, s, col, a); K.px(c, x - s, y, s * .6, col, a * .7); K.px(c, x + s, y, s * .6, col, a * .7); K.px(c, x, y - s, s * .6, col, a * .7); K.px(c, x, y + s, s * .6, col, a * .7); };
+  const flake = (c, x, y, s, col, a) => { K.px(c, x, y, s, '#fff', a); K.px(c, x - s, y, s, col, a); K.px(c, x + s, y, s, col, a); K.px(c, x, y - s, s, col, a); K.px(c, x, y + s, s, col, a); };
+  const cross = (c, x, y, s, col, a) => { K.px(c, x, y, s, '#fff', a); K.px(c, x, y - s, s, col, a); K.px(c, x, y + s, s, col, a); K.px(c, x - s, y, s, col, a); K.px(c, x + s, y, s, col, a); K.px(c, x, y + s * 2, s, col, a); };
+  /* língua de fogo subindo (partículas em ciclo) */
+  function flames(ctx, sc, x, y, w, h, t, seed, n, a) {
+    const r = K.rng(seed), cs = ['#fff4b8', '#ffc13d', '#ff7a24', '#c8341d'];
+    for (let i = 0; i < n; i++) {
+      const bx = x + (r() - .5) * w, ph = (t * 1.5 + r()) % 1, s = sc.z * (4.4 - 3 * ph) * (.7 + r() * .6);
+      K.px(ctx, bx + sin(t * 9 + i) * sc.z * 1.5 * ph, y - ph * h, s, cs[Math.min(3, (ph * 4) | 0)], a * (1 - ph * .5));
+    }
+  }
+  function crystal(ctx, x, y, h, w, c1, c2, a) {
+    if (h < 1) return;
+    K.poly(ctx, [[x - w, y], [x - w * .6, y - h * .65], [x, y - h], [x + w * .6, y - h * .65], [x + w, y]], c1, a);
+    K.poly(ctx, [[x, y], [x, y - h], [x + w * .6, y - h * .65], [x + w, y]], c2, a);
+    K.streak(ctx, x - w * .35, y - h * .2, x - w * .35, y - h * .6, Math.max(1, w * .2), '#fff', a * .85);
+  }
+  function pillar(ctx, x, y, w, h, c, a) {
+    if (h < 1 || w < 1) return;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = c;
+    ctx.globalAlpha = K.clamp(a * .35, 0, 1); ctx.fillRect(x - w / 2, y - h, w, h);
+    ctx.globalAlpha = K.clamp(a * .5, 0, 1); ctx.fillRect(x - w * .3, y - h, w * .6, h);
+    ctx.globalAlpha = K.clamp(a, 0, 1); ctx.fillStyle = '#fff'; ctx.fillRect(x - w * .12, y - h, w * .24, h); ctx.restore();
+  }
+  function rays(ctx, x, y, r0, r1, n, rot, c, w, a, sq) {
+    for (let i = 0; i < n; i++) { const an = rot + i * TAU / n; K.streak(ctx, x + cos(an) * r0, y + sin(an) * r0 * sq, x + cos(an) * r1, y + sin(an) * r1 * sq, w, c, a); }
+  }
+  function crack(ctx, x, y, ang, len, seed, c, w, a) {
+    const r = K.rng(seed), st = 6; ctx.save(); ctx.globalAlpha = K.clamp(a, 0, 1); ctx.strokeStyle = c; ctx.lineWidth = w; ctx.lineJoin = 'miter'; ctx.beginPath(); ctx.moveTo(x, y);
+    let px = x, py = y; for (let i = 0; i < st; i++) { ang += (r() - .5) * .9; px += cos(ang) * len / st; py += sin(ang) * len / st * .5; ctx.lineTo(px, py); } ctx.stroke(); ctx.restore();
+  }
+  /* círculo rúnico no chão com estrela */
+  function rune(ctx, x, y, r, rot, c, w, a, pts) {
+    if (!(r > 0)) return; const n = pts || 5, k = (n === 5 || n === 7) ? 2 : 1;
+    K.ring(ctx, x, y, r, c, w, a); K.ring(ctx, x, y, r * .8, c, w, a * .6);
+    ctx.save(); ctx.globalAlpha = K.clamp(a * .8, 0, 1); ctx.strokeStyle = c; ctx.lineWidth = w; ctx.beginPath();
+    for (let i = 0; i <= n; i++) { const an = rot + (i * k % n) * TAU / n, px = x + cos(an) * r * .8, py = y + sin(an) * r * .8 * .42; i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+    ctx.stroke(); ctx.restore();
+    for (let i = 0; i < n; i++) { const an = rot + i * TAU / n; K.diamond(ctx, x + cos(an) * r, y + sin(an) * r * .42, w * 1.6, c, a, true); }
+  }
+  function chain(ctx, x1, y1, x2, y2, n, c, a, z) {
+    for (let i = 0; i <= n; i++) { const u = i / n; K.diamond(ctx, K.lerp(x1, x2, u), K.lerp(y1, y2, u), z * 2.2, i % 2 ? '#fff6c8' : c, a, i % 2 === 0); }
+  }
+  function hex(ctx, x, y, r, c, a, w) {
+    ctx.save(); ctx.globalAlpha = K.clamp(a, 0, 1); ctx.strokeStyle = c; ctx.lineWidth = w; ctx.beginPath();
+    for (let i = 0; i <= 6; i++) { const an = i * TAU / 6 + TAU / 12; i ? ctx.lineTo(x + cos(an) * r, y + sin(an) * r) : ctx.moveTo(x + cos(an) * r, y + sin(an) * r); } ctx.stroke(); ctx.restore();
+  }
+  function sparkles(ctx, sc, x, y, w, h, t, seed, n, cols, a) {
+    const r = K.rng(seed);
+    for (let i = 0; i < n; i++) { const ph = (t * .9 + r()) % 1, px = x + (r() - .5) * w, py = y - ph * h, s = sc.z * (1 + r() * 1.2); spark(ctx, px, py, s, cols[i % cols.length], a * sin(ph * Math.PI)); }
+  }
+  /* partícula balística: devolve [x, y] */
+  const ballistic = (x, y, vx, vy, g, tt) => [x + vx * tt, y - vy * tt + g * tt * tt];
+  const SKULL = ['0111110', '1111111', '1011101', '1011101', '1111111', '0111110', '0101010'];
+  function skull(ctx, x, y, s, col, a) {
+    ctx.save(); ctx.globalAlpha = K.clamp(a, 0, 1); ctx.fillStyle = col;
+    for (let j = 0; j < 7; j++) for (let i = 0; i < 7; i++) if (SKULL[j][i] === '1') ctx.fillRect(Math.round(x + (i - 3.5) * s), Math.round(y + (j - 3.5) * s), Math.ceil(s), Math.ceil(s));
+    ctx.restore();
+  }
+  /* esqueletos aliados surgindo do chão (somente prévia) */
+  function skeleton(ctx, x, y, z, rise, dir) {
+    try {
+      const s = G.A.monSheet('esqueleto', 0, 0), sw = s.sw || s.w, sh = s.sh || s.h, hh = s.h * z;
+      ctx.save(); ctx.beginPath(); ctx.rect(x - s.w * z, y - hh - 8, s.w * z * 2, hh + 8 + z * 2); ctx.clip();
+      ctx.translate(x, y + (1 - rise) * hh); ctx.scale(dir, 1); ctx.drawImage(s.cv, 0, 0, sw, sh, -s.w * z / 2, -(s.h - 2) * z, s.w * z, s.h * z); ctx.restore();
+    } catch (e) { /* sem sprite */ }
+  }
+  /* escudo em cúpula hexagonal sobre uma criatura com pés em (x, y) */
+  function dome(ctx, sc, x, y, u, t, a, c1, c2) {
+    const T = sc.tile, z = sc.z, cy = y - .6 * T, rx = .62 * T * u, ry = .86 * T * u; if (u <= 0) return;
+    ctx.save(); ctx.globalAlpha = a * .16; ctx.fillStyle = c1; ctx.beginPath(); ctx.ellipse(x, cy, rx, ry, 0, 0, TAU); ctx.fill();
+    ctx.globalAlpha = a; ctx.strokeStyle = c2; ctx.lineWidth = z; ctx.beginPath(); ctx.ellipse(x, cy, rx, ry, 0, 0, TAU); ctx.stroke();
+    ctx.globalAlpha = a * .9; ctx.strokeStyle = '#fff'; ctx.lineWidth = z * 1.5; ctx.beginPath(); ctx.ellipse(x, cy, rx * .86, ry * .86, 0, Math.PI * 1.05, Math.PI * 1.45); ctx.stroke(); ctx.restore();
+    if (!sc.light) for (let i = 0; i < 5; i++) { const ax = x + [-.25, .2, 0, -.28, .26][i] * T * u, ay = cy + [-.4, -.35, -.05, .3, .28][i] * T * u; hex(ctx, ax, ay, T * .17 * u, c2, a * (.35 + .35 * sin(t * 6 + i * 1.7)), z * .8); }
+  }
+  /* sombra em silhueta do conjurador (pós-imagem) */
+  const ghost = (ctx, sc, x, y, pose, flip, a, col) => sc.drawCaster(ctx, x, y, { alpha: a, pose, flip, tint: col });
+
+  /* ============================== BÁSICAS ============================== */
+
+  /* Legião Arcana: raio arcano, runa + explosão no alvo, círculos de invocação */
+  FX.register('base:mag', {
+    dur: 1.5, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, c1 = '#8a62c9', c2 = '#d9b8ff', q = sc.quiet ? .4 : 1, cx = sc.x, cb = sc.y - .75 * T, tb = ty - .5 * T;
+      // antecipação: orbe cresce na mão e voa até o alvo
+      const g = E.out(seg(t, 0, .28)), fadeR = 1 - seg(t, .4, .85);
+      if (t < .3) {
+        const p = E.in(seg(t, .08, .3)), hx = K.lerp(cx, tx, p), hy = K.lerp(cb, tb, p);
+        K.glow(ctx, hx, hy, T * (.3 + .25 * sin(t * 40)), c2, .9);
+        for (let i = 1; i < 6; i++) K.px(ctx, K.lerp(cx, tx, Math.max(0, p - i * .06)), K.lerp(cb, tb, Math.max(0, p - i * .06)), z * (4 - i * .6), i % 2 ? c1 : c2, .8 - i * .12);
+        K.px(ctx, hx, hy, z * 4, '#fff', 1);
+      }
+      if (t < .9) { rune(ctx, tx, ty, T * 2.2 * g, t * 2.5, c1, z, .9 * fadeR, 5); K.disc(ctx, tx, ty, T * 2.2 * g, c1, .16 * fadeR); }
+      if (t >= .28) {
+        const u = seg(t, .28, .85);
+        K.glow(ctx, tx, tb, T * (1 + 2.2 * E.out(u)), c1, .85 * (1 - u));
+        K.glow(ctx, tx, tb, T * (.6 + .6 * u), '#fff', 1 - seg(t, .28, .5));
+        K.ring(ctx, tx, ty, T * 2.2 * E.out(u), c2, z * 2, 1 - u); K.ring(ctx, tx, ty, T * 1.3 * E.out(u), '#fff', z, 1 - u);
+        K.burst(ctx, tx, tb, { n: N(sc, 22), r: T * 2 * q, size: z * 3, colors: [c1, c2, '#fff'], seed: sc.seed, u, up: T * .4 });
+        rays(ctx, tx, tb, T * .3, T * (.3 + 1.6 * E.out(u)), 8, .4, c2, z, (1 - u) * .8, .8);
+        shk(sc, 2, t, .28, .4); K.flash(ctx, sc, c1, .15 * out1(t, .28, .4));
+      }
+      // círculos de invocação e ossos
+      for (const s of [-1, 1]) {
+        const px = cx + s * .7 * T, py = sc.y + .5 * T, u = seg(t, .4, 1.4), gg = E.out(seg(t, .4, .7)), fo = 1 - seg(t, 1.1, 1.5);
+        if (t < .4 || fo <= 0) continue;
+        rune(ctx, px, py, T * .75 * gg, t * (s * 3), '#7ee0a0', z, .9 * fo, 6); K.disc(ctx, px, py, T * .75 * gg, '#3fa86a', .22 * fo);
+        K.glow(ctx, px, py - T * .4 * gg, T * .7, '#7ee0a0', .35 * fo * E.pulse(K.clamp(u * 1.4, 0, 1)));
+        const r = K.rng(sc.seed + (s > 0 ? 9 : 19)), n = N(sc, 10);
+        for (let i = 0; i < n; i++) { const a = r() * TAU, v = (.3 + r() * .7) * T * 1.1, tt = seg(t, .5 + r() * .15, 1.2), p = ballistic(px + cos(a) * T * .2, py, cos(a) * v * q, (T * 1.3 + r() * T) * q, T * 1.6 * q, tt); K.px(ctx, p[0], p[1], z * (1.5 + r() * 2) * (1 - tt * .5), i % 3 ? '#e8e2cf' : '#9ad7b4', tt > 0 && tt < 1 ? 1 - tt * tt : 0); }
+        if (!sc.world) skeleton(ctx, px, py, z, E.out(seg(t, .55, 1.0)), sc.dir);
+      }
+    },
+  });
+
+  /* Luz da Concórdia: coluna sagrada, onda de cura, correntes e auréola no alvo */
+  FX.register('base:pal', {
+    dur: 1.9, hits: [0.3, 0.75],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, g1 = '#ffd86a', g2 = '#fff2b8', x = sc.x, y = sc.y, tx = sc.tx, ty = sc.ty, q = sc.quiet ? .4 : 1;
+      const a1 = E.out(seg(t, 0, .22)) * (1 - seg(t, .55, 1.0));
+      pillar(ctx, x, y, T * 1.1 * (1 - .3 * seg(t, .3, 1)), T * 5 * E.out(seg(t, 0, .2)), g1, a1);
+      K.glow(ctx, x, y - .6 * T, T * 1.6, g2, .5 * a1); K.ring(ctx, x, y, T * .8 * (1 + seg(t, 0, .3)), g2, z * 2, a1);
+      rays(ctx, x, y - .7 * T, T * .5, T * (.7 + 1.1 * E.out(seg(t, .05, .5))), 10, t * 1.2, g2, z, .7 * a1, 1);
+      // onda de cura
+      if (t > .25) {
+        const u = E.out(seg(t, .25, 1.0));
+        K.ring(ctx, x, y, T * 4 * u, '#9dffb0', z * 2, 1 - u); K.ring(ctx, x, y, T * 3.4 * u, g1, z, (1 - u) * .8);
+        K.disc(ctx, x, y, T * 4 * u, '#9dffb0', .1 * (1 - u));
+        for (const a of sc.allies) { const w = E.out(seg(t, .35, .9)); sparkles(ctx, sc, a.x, a.y, T * .6, T * 1.3, t, sc.seed + 5, N(sc, 5), ['#9dffb0', g2], w * (1 - seg(t, 1.3, 1.8))); K.glow(ctx, a.x, a.y - .6 * T, T * .8, '#9dffb0', .4 * (1 - seg(t, .45, 1))); }
+        sparkles(ctx, sc, x, y, T * 1.2, T * 1.6, t, sc.seed + 11, N(sc, 8), ['#9dffb0', g2, g1], 1 - seg(t, 1.3, 1.8));
+      }
+      // auréola e correntes no alvo dominado
+      const hy = ty - 1.25 * T, ua = E.out(seg(t, .3, .65)), fo = 1 - seg(t, 1.5, 1.9);
+      if (t >= .25 && fo > 0) {
+        const dy = (1 - ua) * T * 1.5 * q;
+        K.glow(ctx, tx, hy - dy, T * .8, g1, .5 * ua * fo);
+        K.ring(ctx, tx, hy - dy, T * .5, g1, z * 2, ua * fo, .28); K.ring(ctx, tx, hy - dy, T * .42, g2, z, ua * fo, .28);
+        const nL = 6;
+        for (let i = 0; i < nL; i++) { const an = t * 2 + i * TAU / nL, k = seg(t, .4 + i * .03, .8), px = tx + cos(an) * T * .45, py = ty - .7 * T + sin(an) * T * .15 + (i / nL - .5) * T * .9;
+          chain(ctx, tx + cos(an + .6) * T * .45 * k, py - T * .1, px, py + T * .1, 2, g1, fo * k, z); }
+        K.ring(ctx, tx, ty, T * .7 * E.out(seg(t, .3, .6)), g1, z * 1.5, fo);
+        K.diamond(ctx, tx, ty - .6 * T, T * .12, g2, .5 * fo * ua, false);
+      }
+      if (t > .3 && t < .75) K.burst(ctx, tx, ty - .6 * T, { n: N(sc, 10), r: T * 1.1 * q, size: z * 2, colors: [g1, g2], seed: sc.seed + 3, u: seg(t, .3, .75) });
+    },
+  });
+
+  /* Golpe Sombrio: dash em sombras, corte crítico imenso, moedas */
+  FX.register('base:lad', {
+    dur: 1.1, hits: [0.2],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, p1 = '#c8a0ff', p0 = '#3a2a5c', x = sc.x, y = sc.y, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, d = sc.dir, q = sc.quiet ? .4 : 1;
+      // dash: pós-imagens roxas do conjurador entre ele e o alvo
+      if (t < .5) {
+        const u = seg(t, 0, .2);
+        for (let i = 0; i < (sc.light ? 2 : 4); i++) { const k = E.out(K.clamp(u - i * .12, 0, 1)); ghost(ctx, sc, K.lerp(x, tx - d * .7 * T, k), K.lerp(y, ty, k), 'atk' + (i % 3), d < 0, .5 * (1 - i * .2) * (1 - seg(t, .25, .5)), p1); }
+        K.streak(ctx, x, y - .6 * T, K.lerp(x, tx, E.out(u)), K.lerp(y - .6 * T, tb, E.out(u)), z * 3, p0, .8 * (1 - seg(t, .2, .45)));
+        K.streak(ctx, x, y - .6 * T, K.lerp(x, tx, E.out(u)), K.lerp(y - .6 * T, tb, E.out(u)), z, p1, 1 - seg(t, .2, .45));
+        K.burst(ctx, x, y - .4 * T, { n: N(sc, 8), r: T * .9 * q, size: z * 3, colors: [p0, p1], seed: sc.seed, u: seg(t, 0, .35) });
+      }
+      // golpe crítico: corte grande em X + estrela
+      if (t >= .16) {
+        const u = seg(t, .16, .55), s1 = E.out(seg(t, .16, .26)), s2 = E.out(seg(t, .2, .3)), f = 1 - u;
+        const L = T * 1.5;
+        K.streak(ctx, tx - d * L * .8 * s1 + d * L * .8 * (1 - s1), tb - L * .6, tx + d * L * .8 * s1, tb + L * .6 * s1, z * 5, p0, f);
+        K.streak(ctx, tx - L * .9, tb - L * .7, tx - L * .9 + L * 1.8 * s1, tb - L * .7 + L * 1.4 * s1, z * 3, p1, f);
+        K.streak(ctx, tx - L * .9, tb - L * .7, tx - L * .9 + L * 1.8 * s1, tb - L * .7 + L * 1.4 * s1, z, '#fff', f);
+        K.streak(ctx, tx + L * .9, tb - L * .6, tx + L * .9 - L * 1.8 * s2, tb - L * .6 + L * 1.3 * s2, z * 2, p1, f);
+        spark(ctx, tx, tb, z * (3 + 6 * E.pulse(seg(t, .16, .4))), '#fff', f);
+        K.glow(ctx, tx, tb, T * 1.3, p1, .7 * f); K.glow(ctx, tx, tb, T * .5, '#fff', f);
+        K.ring(ctx, tx, ty, T * 1.6 * E.out(u), p1, z, f);
+        K.burst(ctx, tx, tb, { n: N(sc, 16), r: T * 1.8 * q, size: z * 3, colors: [p1, p0, '#fff'], seed: sc.seed + 2, u });
+        shk(sc, 3, t, .16, .26); K.flash(ctx, sc, '#b080ff', .14 * out1(t, .16, .3));
+      }
+      // moedas roubadas
+      const r = K.rng(sc.seed + 40), n = N(sc, 9);
+      for (let i = 0; i < n; i++) { const a = -Math.PI * (.2 + r() * .6), v = T * (1.6 + r() * 1.4), tt = seg(t, .2 + r() * .06, 1.05), p = ballistic(tx, tb, cos(a) * v * q * d, -sin(a) * v * q * -1, T * 4.2 * q, tt);
+        if (tt > 0 && tt < 1) { K.px(ctx, p[0], p[1], z * 2.5, '#ffd24a', 1 - tt * .5); K.px(ctx, p[0] - z / 2, p[1] - z / 2, z, '#fff6c8', 1 - tt * .5); } }
+    },
+  });
+
+  /* ============================== MAGO ============================== */
+
+  /* Parede de Chamas */
+  FX.register('piromante', {
+    dur: 1.6, hits: [0.25, 0.7],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, q = sc.quiet ? .4 : 1, x = sc.x, cb = sc.y - .7 * T;
+      // bola de fogo da mão ao chão do alvo
+      if (t < .25) { const p = E.in(seg(t, 0, .24)); const hx = K.lerp(x, tx, p), hy = K.lerp(cb, ty, p) - sin(p * Math.PI) * T * .8 * q;
+        K.glow(ctx, hx, hy, T * .55, '#ff7a24', .9); K.px(ctx, hx, hy, z * 5, '#fff4b8', 1);
+        for (let i = 1; i < 6; i++) { const pp = Math.max(0, p - i * .07); K.px(ctx, K.lerp(x, tx, pp), K.lerp(cb, ty, pp) - sin(pp * Math.PI) * T * .8 * q, z * (5 - i * .7), ['#ffc13d', '#ff7a24', '#c8341d'][i % 3], .85 - i * .1); } }
+      // faixa de chão em brasa
+      const gu = E.out(seg(t, .2, .5)), fo = 1 - seg(t, 1.2, 1.6);
+      K.disc(ctx, tx, ty, T * 2.4 * gu, '#3a0f08', .45 * fo, .3); K.disc(ctx, tx, ty, T * 2.1 * gu, '#ff5a1a', .3 * fo, .3);
+      for (let i = 0; i < 4; i++) crack(ctx, tx, ty, i * 1.57 + .4, T * 1.6 * gu, sc.seed + i, '#ffb347', z, .9 * fo);
+      // parede: colunas de fogo irrompendo em arco
+      const nC = sc.light ? 5 : 9;
+      for (let i = 0; i < nC; i++) {
+        const k = i / (nC - 1) - .5, px = tx + k * T * 2.5, py = ty + (k * k * 4 - .5) * T * .35, d0 = .22 + Math.abs(k) * .2, h = T * (1.9 - Math.abs(k) * .9) * E.back(seg(t, d0, d0 + .25)) * fo;
+        if (t < d0) continue;
+        K.glow(ctx, px, py - h * .4, T * .75, '#ff6a2a', .38 * fo);
+        flames(ctx, sc, px, py, T * .55, Math.max(2, h), t, sc.seed + 20 + i, sc.light ? 4 : 7, fo);
+        K.px(ctx, px, py, z * 5, '#fff4b8', .8 * fo * out1(t, d0, d0 + .5));
+      }
+      if (t >= .22) { const u = seg(t, .22, .8); K.ring(ctx, tx, ty, T * 1.8 * E.out(u), '#ffc13d', z * 2, 1 - u); K.burst(ctx, tx, ty - T * .3, { n: N(sc, 18), r: T * 2.2 * q, size: z * 2.5, colors: ['#ffc13d', '#ff7a24', '#fff4b8'], seed: sc.seed + 5, u, up: T * 1.1 }); shk(sc, 2, t, .22, .34); K.flash(ctx, sc, '#ff7a24', .12 * out1(t, .22, .34)); }
+      // brasas residuais (queimadura)
+      const r = K.rng(sc.seed + 77); for (let i = 0; i < N(sc, 9); i++) { const ph = (t * .8 + r()) % 1; K.px(ctx, tx + (r() - .5) * T * 2.3, ty - ph * T * 1.8, z * 1.6, i % 2 ? '#ffc13d' : '#ff5a1a', (1 - ph) * fo * seg(t, .5, .7)); }
+    },
+  });
+
+  /* Lança de Gelo */
+  FX.register('criomante', {
+    dur: 1.4, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, x = sc.x, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, d = sc.dir, cb = sc.y - .8 * T, i1 = '#7fd8ff', i2 = '#d8f6ff', i3 = '#2f7fc8', q = sc.quiet ? .4 : 1;
+      // forma a lança diante do mago, depois dispara
+      const form = E.out(seg(t, 0, .14)), fly = E.in(seg(t, .12, .3));
+      const hx = K.lerp(x + d * T * .6, tx, fly), hy = K.lerp(cb, tb, fly);
+      if (t < .3) {
+        const ang = Math.atan2(tb - cb, tx - x), L = T * 1.2 * form, bx = hx - cos(ang) * L * .5 * (1 - fly * .3), by = hy - sin(ang) * L * .5;
+        K.glow(ctx, hx, hy, T * .7, i1, .6 * form);
+        K.poly(ctx, [[hx + cos(ang) * L * .55, hy + sin(ang) * L * .55], [bx + cos(ang + 1.57) * z * 3, by + sin(ang + 1.57) * z * 3], [bx - cos(ang) * L * .4, by - sin(ang) * L * .4], [bx + cos(ang - 1.57) * z * 3, by + sin(ang - 1.57) * z * 3]], i2, 1);
+        K.streak(ctx, hx - cos(ang) * L * .3, hy - sin(ang) * L * .3, hx + cos(ang) * L * .5, hy + sin(ang) * L * .5, z, '#fff', 1);
+        for (let i = 1; i < 6; i++) K.px(ctx, hx - cos(ang) * L * (.5 + i * .25), hy - sin(ang) * L * (.5 + i * .25), z * (3 - i * .4), i % 2 ? i1 : i2, fly * (1 - i * .15));
+        for (let i = 0; i < N(sc, 6); i++) flake(ctx, x + d * T * .6 + sin(t * 10 + i * 2) * T * .4, cb + cos(t * 8 + i * 3) * T * .4, z, i1, (1 - fly) * form);
+      }
+      // impacto: estilhaços + bloco de gelo
+      if (t >= .28) {
+        const u = seg(t, .28, .7), fo = 1 - seg(t, 1.1, 1.4), g = E.out(seg(t, .3, .55));
+        K.glow(ctx, tx, tb, T * (.5 + u), '#fff', (1 - u) * .9); K.ring(ctx, tx, ty, T * 1.7 * E.out(u), i1, z * 2, 1 - u);
+        const r = K.rng(sc.seed + 4);
+        for (let i = 0; i < N(sc, 12); i++) { const a = r() * TAU, v = T * (.8 + r() * 1.4) * q, tt = seg(t, .28, 1.0), p = ballistic(tx, tb, cos(a) * v, sin(a) * v * .8 + T * .6, T * 3 * q, tt);
+          K.poly(ctx, [[p[0], p[1] - z * 3], [p[0] + z * 2, p[1]], [p[0], p[1] + z * 3], [p[0] - z * 2, p[1]]], i % 2 ? i2 : i1, tt < 1 ? 1 - tt * tt : 0); }
+        // gelo prendendo o alvo
+        if (t > .4 && fo > 0) {
+          K.disc(ctx, tx, ty, T * 1.1 * g, i1, .3 * fo, .35);
+          const cr = [[-.5, .12, 1.3, .26], [.45, .1, 1.1, .22], [-.15, -.1, 1.8, .22], [.15, -.05, 1.5, .24], [-.7, -.1, .8, .16], [.7, -.08, .7, .15]];
+          for (const [ox, oy, h, w] of cr) crystal(ctx, tx + ox * T * .8, ty + oy * T, h * T * g, w * T, i1, i3, fo);
+          K.glow(ctx, tx, tb, T * .9, i1, .22 * fo * (.7 + .3 * sin(t * 12)));
+          if (t > 1.05) K.burst(ctx, tx, tb, { n: N(sc, 10), r: T * 1.2 * q, size: z * 2, colors: [i2, i1], seed: sc.seed + 8, u: seg(t, 1.05, 1.4) });
+        }
+        shk(sc, 2, t, .28, .38);
+      }
+    },
+  });
+
+  /* Meteoro */
+  FX.register('arquimago', {
+    dur: 1.9, hits: [0.33, 0.55],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, d = sc.dir, q = sc.quiet ? .4 : 1, F = ['#fff4b8', '#ffc13d', '#ff7a24', '#c8341d'];
+      const hit = .33;
+      // sombra crescendo no chão e círculo de convocação
+      const su = E.in(seg(t, 0, hit)), sfo = 1 - seg(t, hit, hit + .2);
+      K.disc(ctx, tx, ty, T * 3 * su, '#000', .35 * sfo, .4);
+      if (t < hit + .2) rune(ctx, tx, ty, T * 3 * E.out(seg(t, 0, .2)), t * 2, '#ff9a3c', z, .7 * sfo, 6);
+      // meteoro caindo na diagonal
+      if (t < hit) {
+        const p = sc.quiet ? 1 : E.in(seg(t, 0, hit)), sx = tx + d * T * 3.2, sy = ty - T * 6, mx = K.lerp(sx, tx, p), my = K.lerp(sy, ty - .2 * T, p), r0 = T * (.4 + .35 * p);
+        for (let i = 0; i < N(sc, 22); i++) { const k = i / 22, pp = Math.max(0, p - k * .3), rx = K.lerp(sx, tx, pp), ry = K.lerp(sy, ty - .2 * T, pp), wob = sin(i * 5.3 + t * 30) * T * .12;
+          K.px(ctx, rx + wob, ry + wob * .5, r0 * (1 - k) * 1.6 + z, F[Math.min(3, (k * 4 + .5) | 0)], (1 - k) * .9 * p); }
+        K.glow(ctx, mx, my, r0 * 3.2, '#ff7a24', .8);
+        circ(ctx, mx, my, r0, '#4a2018', 1); circ(ctx, mx - r0 * .2, my - r0 * .15, r0 * .75, '#a8441c', 1); circ(ctx, mx - r0 * .3, my - r0 * .3, r0 * .4, '#ffb347', 1); K.px(ctx, mx - r0 * .35, my - r0 * .35, z * 3, '#fff', 1);
+      }
+      // impacto
+      if (t >= hit) {
+        const u = seg(t, hit, 1.9), ub = seg(t, hit, hit + .5), fo = 1 - seg(t, 1.5, 1.9), cy = ty - .3 * T;
+        K.glow(ctx, tx, cy, T * (1.6 + 2.2 * E.out(ub)), '#ffb347', .9 * (1 - ub)); K.glow(ctx, tx, cy, T * 1.2 * (1 - ub * .5), '#fff', (1 - seg(t, hit, hit + .18)));
+        K.ring(ctx, tx, ty, T * 3.2 * E.out(ub), '#ffe49a', z * 3, 1 - ub); K.ring(ctx, tx, ty, T * 2.2 * E.out(seg(t, hit + .05, hit + .6)), '#ff7a24', z * 2, 1 - seg(t, hit + .05, hit + .6));
+        shk(sc, 4, t, hit, hit + .14); K.flash(ctx, sc, '#ffd9a0', .2 * out1(t, hit, hit + .2));
+        // cratera
+        const cg = E.out(seg(t, hit, hit + .2));
+        K.disc(ctx, tx, ty, T * 1.5 * cg, '#2a1410', .75 * fo, .42); K.disc(ctx, tx, ty, T * 1.1 * cg, '#120806', .8 * fo, .42); K.ring(ctx, tx, ty, T * 1.5 * cg, '#ff7a24', z * 2, .9 * fo * (.7 + .3 * sin(t * 10)), .42);
+        for (let i = 0; i < 6; i++) crack(ctx, tx, ty, i * 1.05 + .3, T * 2.4 * E.out(seg(t, hit, hit + .3)), sc.seed + i * 3, '#ff9a3c', z, .85 * fo);
+        // pedras voando
+        const r = K.rng(sc.seed + 31);
+        for (let i = 0; i < N(sc, 14); i++) { const a = -Math.PI * (.1 + r() * .8), v = T * (1.8 + r() * 2.2) * q, tt = seg(t, hit, hit + .9), p = ballistic(tx, ty - .2 * T, cos(a) * v * (r() < .5 ? -1 : 1), sin(-a) * v * 1.3, T * 8 * q, tt);
+          if (tt > 0 && tt < 1) { K.px(ctx, p[0], p[1], z * (2 + r() * 3), i % 3 ? '#4a2018' : '#a8441c', 1 - tt * .5); K.px(ctx, p[0] + z, p[1] - z, z * 1.5, '#ffb347', .9 - tt); } else r(); }
+        // coluna de fogo + fumaça
+        flames(ctx, sc, tx, ty, T * 1.6, T * 2.6 * E.out(seg(t, hit, hit + .3)), t, sc.seed + 50, N(sc, 16), fo * .9);
+        const rs = K.rng(sc.seed + 60);
+        for (let i = 0; i < N(sc, 8); i++) { const ph = K.clamp((t - hit - rs() * .3) / 1.2, 0, 1), px = tx + (rs() - .5) * T * 1.6 + sin(i + t * 3) * T * .2, py = ty - T * (.4 + ph * 2.6 + rs()); circ(ctx, px, py, T * (.3 + .5 * ph), i % 2 ? '#3a2e34' : '#58484c', .5 * (1 - ph) * (ph > 0 ? 1 : 0)); }
+        const rb = K.rng(sc.seed + 90); for (let i = 0; i < N(sc, 12); i++) { const ph = (t * .6 + rb()) % 1; K.px(ctx, tx + (rb() - .5) * T * 2.6, ty - ph * T * 1.8, z * 1.5, '#ffb347', (1 - ph) * fo * .8); }
+      }
+    },
+  });
+
+  /* Combustão */
+  FX.register('senhor_cinzas', {
+    dur: 1.7, hits: [0.25, 0.6],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, q = sc.quiet ? .4 : 1, x = sc.x, cb = sc.y - .75 * T, ash = '#6e6670';
+      const tg = [{ x: tx, y: ty }].concat(sc.others.slice(0, sc.light ? 2 : 5));
+      // mão incandescente + onda de calor
+      const h = E.out(seg(t, 0, .22)) * out1(t, .22, .5);
+      K.glow(ctx, x, cb, T * 1.1 * h, '#ff7a24', .8 * h); K.glow(ctx, x, cb, T * .4 * h, '#fff4b8', h);
+      const u0 = E.out(seg(t, .12, .6));
+      K.ring(ctx, tx, ty, T * 3.5 * u0, '#ff7a24', z * 2, (1 - u0) * .9); K.ring(ctx, tx, ty, T * 3 * u0, '#ffc13d', z, (1 - u0) * .6);
+      K.disc(ctx, tx, ty, T * 3.5 * u0, '#ff5a1a', .12 * (1 - u0));
+      K.streak(ctx, x, cb, K.lerp(x, tx, E.in(seg(t, .05, .25))), K.lerp(cb, ty - .5 * T, E.in(seg(t, .05, .25))), z * 2, '#ffc13d', out1(t, .1, .3));
+      tg.forEach((e, i) => {
+        const t0 = .22 + i * .07, u = seg(t, t0, t0 + .45), on = t >= t0, fo = 1 - seg(t, 1.3, 1.7), eb = e.y - .5 * T;
+        if (!on) return;
+        K.glow(ctx, e.x, eb, T * (.5 + 1.6 * E.out(u)), '#ffffff', (1 - seg(t, t0, t0 + .15)) * .9);
+        K.glow(ctx, e.x, eb, T * (1 + 1.2 * u), '#ff7a24', .7 * (1 - u));
+        K.ring(ctx, e.x, e.y, T * 1.6 * E.out(u), '#ffb347', z * 2, 1 - u);
+        K.burst(ctx, e.x, eb, { n: N(sc, 14), r: T * 1.6 * q, size: z * 2.5, colors: ['#fff4b8', '#ffc13d', '#ff7a24'], seed: sc.seed + i * 5, u, up: T * .5 });
+        K.disc(ctx, e.x, e.y, T * .8 * E.out(u), '#2a1410', .5 * fo, .4);
+        flames(ctx, sc, e.x, e.y, T * .8, T * 1.7 * E.out(seg(t, t0, t0 + .25)), t, sc.seed + 100 + i * 7, sc.light ? 5 : 9, fo);
+        K.glow(ctx, e.x, eb, T * .8, '#ff6a2a', .3 * fo);
+        shk(sc, i === 0 ? 3 : 0, t, t0, t0 + .1);
+      });
+      if (t > .25) K.flash(ctx, sc, '#ff7a24', .12 * out1(t, .25, .4));
+      // cinzas caindo
+      const r = K.rng(sc.seed + 13), a = seg(t, .3, .6) * (1 - seg(t, 1.4, 1.7));
+      for (let i = 0; i < N(sc, 22); i++) { const ph = (t * .5 + r()) % 1, px = tx + (r() - .5) * T * 6.5 + sin(t * 3 + i) * T * .15, py = ty - T * 2.6 + ph * T * 2.8; K.px(ctx, px, py, z * (1 + r() * 1.5), i % 4 ? ash : '#b8b0bc', a * .85); }
+    },
+  });
+
+  /* Distorção */
+  FX.register('sabio_fenda', {
+    dur: 1.6, hits: [0.3, 0.85],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, x = sc.x, cb = sc.y - .7 * T, q = sc.quiet ? .4 : 1;
+      const v1 = '#7a3cff', v2 = '#3de0ff', v3 = '#ff4fd8';
+      const open = E.out(seg(t, .02, .3)), close = 1 - seg(t, 1.2, 1.6), imp = seg(t, .3, .9);
+      // mão -> fenda
+      if (t < .3) { K.glow(ctx, x, cb, T * .5, v2, .8 * out1(t, .1, .3)); K.bolt(ctx, x, cb, K.lerp(x, tx, E.out(seg(t, 0, .25))), K.lerp(cb, tb, E.out(seg(t, 0, .25))), { seed: Math.floor(t * 30) + 9, segments: 7, jag: 5, color: v2, width: z * 1.5, alpha: .9 }); }
+      // ondulações do espaço no chão
+      for (let i = 0; i < 3; i++) { const u = (seg(t, .1 + i * .15, .9 + i * .15)); K.ring(ctx, tx, ty, T * 2.8 * E.out(u), i % 2 ? v2 : v1, z * 1.5, (1 - u) * .8 * close); }
+      K.disc(ctx, tx, ty, T * 2.8 * open, v1, .15 * close, .42);
+      // a fenda: fenda vertical em losango com bordas cromáticas
+      const h = T * 1.9 * open * close, w = T * .4 * open * (1 + .2 * sin(t * 18));
+      if (h > 2) {
+        K.glow(ctx, tx, tb, T * 1.8 * open, v1, .5 * close);
+        K.poly(ctx, [[tx - w - z * 2, tb], [tx, tb - h - z * 2], [tx + w + z * 2, tb], [tx, tb + h + z * 2]], v3, .8 * close);
+        K.poly(ctx, [[tx - w, tb], [tx, tb - h], [tx + w, tb], [tx, tb + h]], v2, .9 * close);
+        K.poly(ctx, [[tx - w * .65, tb], [tx, tb - h * .88], [tx + w * .65, tb], [tx, tb + h * .88]], '#0a0418', 1 * close);
+        for (let i = 0; i < 5; i++) K.px(ctx, tx + sin(t * 3 + i * 1.3) * w * .45, tb + (i - 2) * h * .3, z * 1.5, '#fff', .9 * close);
+        for (let i = 0; i < 6; i++) crack(ctx, tx, tb, i * 1.05 + t * .3, T * 1.4 * open, sc.seed + i, i % 2 ? v2 : v3, z, .8 * close * (1 - imp * .5));
+      }
+      // fragmentos sendo sugados e depois expelidos
+      const r = K.rng(sc.seed + 8);
+      for (let i = 0; i < N(sc, 18); i++) { const a = r() * TAU, rr = T * (1 + r() * 1.8), ph = (t * 1.1 + r()) % 1, pull = 1 - ph * ph, ss = (1 + r() * 2) * z;
+        const spiral = a + ph * 3 * (i % 2 ? 1 : -1); K.px(ctx, tx + cos(spiral) * rr * pull * q + (1 - q) * 0, tb + sin(spiral) * rr * pull * .6 * q, ss, i % 3 ? v2 : '#fff', open * close * (ph > .9 ? (1 - ph) * 10 : 1)); }
+      // pulso de implosão + explosão
+      if (t >= .3) { const u = seg(t, .3, .75); K.ring(ctx, tx, tb, T * 2.6 * E.out(u), '#fff', z * 2, (1 - u) * .8, .8); K.glow(ctx, tx, tb, T * 1.5 * (1 - u * .4), v3, .7 * (1 - u)); shk(sc, 3, t, .3, .42); K.flash(ctx, sc, v1, .14 * out1(t, .3, .42)); }
+      // lentidão: relógio/espiral em torno do alvo
+      const sl = seg(t, .5, .8) * close; if (sl > 0) { for (let i = 0; i < 2; i++) K.ring(ctx, tx, ty, T * (.6 + i * .2), v2, z, .6 * sl, .35); const a = -t * 2; K.px(ctx, tx + cos(a) * T * .6, ty + sin(a) * T * .6 * .35, z * 3, '#fff', sl); K.px(ctx, tx + cos(a * .3) * T * .8, ty + sin(a * .3) * T * .8 * .35, z * 3, v3, sl); }
+    },
+  });
+
+  /* Nevasca */
+  FX.register('tecelao', {
+    dur: 1.9, hits: [0.3, 0.65, 1.0, 1.35],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, q = sc.quiet ? .4 : 1, x = sc.x, i1 = '#7fd8ff', i2 = '#d8f6ff', i3 = '#2f7fc8';
+      const fo = 1 - seg(t, 1.6, 1.9), grow = E.out(seg(t, .1, .6));
+      // neblina gelada e chão congelado
+      K.disc(ctx, tx, ty, T * 2.8 * grow, '#bfeaff', .22 * fo, .42); K.disc(ctx, tx, ty, T * 2 * grow, i1, .2 * fo, .42);
+      K.ring(ctx, tx, ty, T * 2.8 * grow, i2, z * 1.5, .7 * fo); rune(ctx, tx, ty, T * 2.3 * grow, -t, i1, z, .5 * fo, 6);
+      K.glow(ctx, tx, ty - T * 1.8, T * 3 * grow, '#9fd8ff', .22 * fo);
+      // mão invoca
+      if (t < .35) { K.glow(ctx, x, sc.y - .8 * T, T * .7 * E.pulse(seg(t, 0, .35)), i2, .8); rays(ctx, x, sc.y - .8 * T, T * .2, T * .7, 8, t * 6, i1, z, .8 * out1(t, 0, .35), 1); }
+      // vento + flocos caindo na diagonal
+      const r = K.rng(sc.seed + 3), nF = N(sc, 40), a0 = seg(t, .12, .4) * fo;
+      for (let i = 0; i < nF; i++) { const ph = (t * (.9 + r() * .5) + r()) % 1, px = tx + (r() - .5) * T * 6 + ph * T * .9 * sc.dir * q, py = ty - T * 3.3 + ph * T * 3.6 + sin(t * 4 + i) * T * .08, s = z * (1 + r() * 1.5);
+        (i % 4 === 0 ? flake : (c, X, Y, S, C, A) => K.px(c, X, Y, S, C, A))(ctx, px, py, s, i % 3 ? i2 : i1, a0 * (ph < .1 ? ph * 10 : 1)); }
+      for (let i = 0; i < N(sc, 6); i++) { const ph = (t * 1.6 + i * .17) % 1, yy = ty - T * (.4 + i * .4), xx = tx - T * 3 * sc.dir + ph * T * 6 * sc.dir; K.streak(ctx, xx, yy, xx + T * .8 * sc.dir, yy + T * .14, z, i2, .55 * a0 * sin(ph * Math.PI)); }
+      // 4 rajadas: onda, cristais, estilhaços
+      for (let g = 0; g < 4; g++) {
+        const t0 = .28 + g * .35, u = seg(t, t0, t0 + .5), ang = g * 1.9 + .4; if (t < t0) continue;
+        const cx = tx + cos(ang) * T * (g ? 1.3 : 0), cy = ty + sin(ang) * T * .5 * (g ? 1 : 0);
+        K.ring(ctx, cx, cy, T * 1.7 * E.out(u), i2, z * 2, (1 - u) * .9); K.glow(ctx, cx, cy - T * .5, T * 1.4, '#fff', .55 * (1 - seg(t, t0, t0 + .2)));
+        const h = T * 1.3 * E.back(seg(t, t0, t0 + .2)) * (g < 3 ? out1(t, t0 + .7, t0 + 1.1) : fo);
+        for (let k = 0; k < (sc.light ? 2 : 3); k++) crystal(ctx, cx + (k - 1) * T * .38, cy + (k % 2) * T * .12, h * (k === 1 ? 1 : .65), T * .17, i1, i3, 1);
+        K.burst(ctx, cx, cy - T * .4, { n: N(sc, 12), r: T * 1.7 * q, size: z * 2.5, colors: [i2, i1, '#fff'], seed: sc.seed + g * 7, u, up: T * .6 });
+        shk(sc, g === 0 ? 3 : 2, t, t0, t0 + .1);
+      }
+      if (t > 1.3) { const u = seg(t, 1.3, 1.9); K.glow(ctx, tx, ty - T * .5, T * 3 * u, i2, .3 * (1 - u)); }
+    },
+  });
+
+  /* ============================== PALADINO ============================== */
+
+  /* Golpe Sagrado */
+  FX.register('cruzado', {
+    dur: 1.1, hits: [0.22],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, d = sc.dir, g1 = '#ffd86a', g2 = '#fff2b8', q = sc.quiet ? .4 : 1;
+      // espada de luz sobe e desce em arco
+      const up = E.out(seg(t, 0, .12)), dn = E.in(seg(t, .1, .22)), ang = K.lerp(-2.2, 1.3, dn) * d - (d < 0 ? Math.PI - 0 : 0);
+      if (t < .3) {
+        const hx = sc.x + d * T * .5, hy = sc.y - 1.1 * T * up + 1.1 * T * dn * .5, L = T * 1.9 * (1 + .2 * dn), a = K.lerp(-2.2, 1.0, dn);
+        const ax = d * cos(a), ay = sin(a);
+        K.glow(ctx, hx + ax * L * .5, hy + ay * L * .5, T * 1, g1, .5);
+        K.streak(ctx, hx, hy, hx + ax * L, hy + ay * L, z * 5, g1, .9); K.streak(ctx, hx, hy, hx + ax * L, hy + ay * L, z * 2, '#fff', 1);
+      }
+      // corte sagrado + cruz
+      if (t >= .18) {
+        const u = seg(t, .18, .7), f = 1 - u, s = E.out(seg(t, .18, .3));
+        K.streak(ctx, tx, tb - T * 1.3 * s, tx, tb - T * 1.3 + T * 2.6 * s, z * 6, g1, f); K.streak(ctx, tx, tb - T * 1.3 * s, tx, tb - T * 1.3 + T * 2.6 * s, z * 2, '#fff', f);
+        const cs = E.out(seg(t, .22, .4)); K.streak(ctx, tx - T * .85 * cs, tb - T * .2, tx + T * .85 * cs, tb - T * .2, z * 5, g1, f); K.streak(ctx, tx - T * .85 * cs, tb - T * .2, tx + T * .85 * cs, tb - T * .2, z * 2, '#fff', f);
+        K.glow(ctx, tx, tb, T * (1 + u), g1, .8 * f); K.glow(ctx, tx, tb, T * .5, '#fff', f);
+        K.ring(ctx, tx, ty, T * 1.7 * E.out(u), g2, z * 2, f); pillar(ctx, tx, ty, T * .9, T * 3.2, g1, .6 * f * E.out(seg(t, .18, .3)));
+        K.burst(ctx, tx, tb, { n: N(sc, 18), r: T * 1.8 * q, size: z * 2.5, colors: [g1, g2, '#fff'], seed: sc.seed, u, up: T * .5 });
+        shk(sc, 3, t, .18, .28); K.flash(ctx, sc, g1, .14 * out1(t, .18, .3));
+      }
+      // cura em si
+      if (t > .3) { const a = 1 - seg(t, .8, 1.1); sparkles(ctx, sc, sc.x, sc.y, T * .9, T * 1.6, t, sc.seed + 4, N(sc, 6), ['#9dffb0', g2], a * seg(t, .3, .45)); K.glow(ctx, sc.x, sc.y - .6 * T, T * .9, '#9dffb0', .3 * a * seg(t, .3, .5)); }
+    },
+  });
+
+  /* Bênção */
+  FX.register('clerigo', {
+    dur: 2.1, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, g1 = '#ffd86a', g2 = '#fff2b8', gr = '#9dffb0', fo = 1 - seg(t, 1.7, 2.1), q = sc.quiet ? .4 : 1;
+      const who = [{ x: sc.x, y: sc.y }].concat(sc.allies);
+      const u = E.out(seg(t, .05, .7));
+      K.disc(ctx, sc.x, sc.y, T * 4.5 * u, g2, .1 * fo, .42); K.ring(ctx, sc.x, sc.y, T * 4.5 * u, g1, z * 2, (1 - seg(t, .7, 1.2)) * .9 * fo); K.ring(ctx, sc.x, sc.y, T * 4.5 * E.out(seg(t, .2, .9)), g2, z, (1 - seg(t, .8, 1.3)) * .6 * fo);
+      rune(ctx, sc.x, sc.y, T * 1.4 * E.out(seg(t, 0, .3)), t * 1.5, g1, z, .8 * fo, 6);
+      who.forEach((e, i) => {
+        const t0 = .12 + i * .08, a = E.out(seg(t, t0, t0 + .25)) * fo; if (t < t0) return;
+        pillar(ctx, e.x, e.y, T * .8, T * 3.5, g1, .55 * a * out1(t, t0 + .2, t0 + .9));
+        K.glow(ctx, e.x, e.y - .6 * T, T * 1.1, g2, .4 * a);
+        const hy = e.y - 1.35 * T - (1 - E.out(seg(t, t0, t0 + .4))) * T * 1.2 * q;
+        K.ring(ctx, e.x, hy, T * .34, g1, z * 2, a, .3); K.ring(ctx, e.x, hy, T * .26, g2, z, a, .3);
+        // símbolo de escudo (-18% dano) e pluses de regeneração
+        const sh = a * seg(t, t0 + .3, t0 + .5);
+        K.poly(ctx, [[e.x - T * .22, e.y - .7 * T - T * .45], [e.x + T * .22, e.y - .7 * T - T * .45], [e.x + T * .22, e.y - .7 * T - T * .15], [e.x, e.y - .7 * T + T * .05], [e.x - T * .22, e.y - .7 * T - T * .15]], g1, .2 * sh);
+        sparkles(ctx, sc, e.x, e.y, T * .7, T * 1.8, t + i * .2, sc.seed + i * 9, N(sc, 5), [gr, g2, g1], a);
+        if (t < t0 + .4) K.burst(ctx, e.x, e.y - .6 * T, { n: N(sc, 8), r: T * .9 * q, size: z * 2, colors: [g1, g2], seed: sc.seed + i, u: seg(t, t0, t0 + .4) });
+        for (let k = 0; k < 2; k++) { const ph = (t * .8 + k * .5 + i * .13) % 1; cross(ctx, e.x + (k ? .3 : -.3) * T, e.y - ph * T * 1.6, z, gr, a * sin(ph * Math.PI) * seg(t, .5, .8)); }
+      });
+      rays(ctx, sc.x, sc.y - .7 * T, T * .6, T * (.8 + .8 * u), 12, t * .6, g2, z, .55 * out1(t, .1, .8), 1);
+    },
+  });
+
+  /* Julgamento */
+  FX.register('avatar', {
+    dur: 1.6, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, g1 = '#ffd86a', g2 = '#fff2b8', x = sc.x, y = sc.y, q = sc.quiet ? .4 : 1, bb = y - .8 * T;
+      const wing = E.back(seg(t, 0, .3)) * (1 - seg(t, 1.1, 1.5));
+      // asas de luz
+      if (wing > 0) for (const s of [-1, 1]) for (let i = 0; i < 6; i++) {
+        const an = (-.3 - i * .24) , len = T * (1.15 - i * .09) * wing, bx = x + s * T * .2, by = bb - T * .1;
+        const ex = bx + s * cos(an) * len * 1.2, ey = by + sin(an) * len * 1.1 + T * .2 * i * .15;
+        K.poly(ctx, [[bx, by], [bx + s * cos(an + .12) * len * .6, by + sin(an + .12) * len * .6 - z * 2], [ex, ey], [bx + s * cos(an - .1) * len * .6, by + sin(an - .1) * len * .6 + z * 2]], i % 2 ? g2 : '#fff', .85 * Math.min(1, wing));
+      }
+      K.glow(ctx, x, bb, T * 1.8 * wing, g1, .45);
+      // pilares de julgamento ao redor
+      const nP = sc.light ? 4 : 7;
+      for (let i = 0; i < nP; i++) {
+        const an = i * TAU / nP + .5, rr = T * 2.5 * (.7 + .3 * (i % 2)), px = x + cos(an) * rr, py = y + sin(an) * rr * .42, t0 = .14 + i * .03, a = E.out(seg(t, t0, t0 + .12)) * out1(t, t0 + .2, t0 + .65);
+        if (t < t0) continue;
+        pillar(ctx, px, py, T * .55, T * 4 * E.out(seg(t, t0, t0 + .1)), g1, a); K.glow(ctx, px, py, T * .8, g2, a * .6); K.ring(ctx, px, py, T * .5 * E.out(seg(t, t0, t0 + .3)), g2, z, a * .8);
+        crack(ctx, px, py, an, T * .8, sc.seed + i, g1, z, a * .7);
+      }
+      // nova sagrada
+      if (t >= .25) {
+        const u = E.out(seg(t, .25, .8)), f = 1 - seg(t, .25, .8);
+        K.glow(ctx, x, y - .5 * T, T * 3 * u, g1, .55 * f); K.ring(ctx, x, y, T * 2.5 * u, '#fff', z * 3, f); K.ring(ctx, x, y, T * 2.1 * u, g1, z * 2, f); K.disc(ctx, x, y, T * 2.5 * u, g2, .3 * f);
+        K.burst(ctx, x, y - .5 * T, { n: N(sc, 22), r: T * 2.7 * q, size: z * 2.5, colors: [g1, g2, '#fff'], seed: sc.seed, u: seg(t, .25, .9), up: T * .4 });
+        shk(sc, 3, t, .25, .38); K.flash(ctx, sc, g2, .16 * out1(t, .25, .4));
+      }
+      // cura aos aliados
+      for (const a of sc.allies) { const k = seg(t, .35, .9) * (1 - seg(t, 1.2, 1.6)); sparkles(ctx, sc, a.x, a.y, T * .6, T * 1.4, t, sc.seed + 6, N(sc, 5), ['#9dffb0', g2], k); K.glow(ctx, a.x, a.y - .6 * T, T * .8, '#9dffb0', .3 * k); }
+      rune(ctx, x, y, T * 1.7 * E.out(seg(t, 0, .25)), t * 2, g1, z, .8 * (1 - seg(t, .8, 1.3)), 8);
+    },
+  });
+
+  /* Sentença */
+  FX.register('inquisidor', {
+    dur: 1.5, hits: [0.28],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, g1 = '#ffd86a', g2 = '#fff2b8', q = sc.quiet ? .4 : 1, fo = 1 - seg(t, 1.1, 1.5);
+      // selo do tribunal no chão
+      const gr = E.out(seg(t, 0, .22)); rune(ctx, tx, ty, T * 1.7 * gr, t * 1.5, g1, z, .9 * fo, 8); K.disc(ctx, tx, ty, T * 1.7 * gr, g1, .15 * fo);
+      // espada colossal cai do céu
+      const fall = sc.quiet ? 1 : E.in(seg(t, .02, .28)), tipY = K.lerp(ty - T * 7, ty - .1 * T, fall), L = T * 5.5, W = T * .5;
+      if (t < 1.1) {
+        const a = fall < 1 ? 1 : out1(t, .9, 1.1);
+        K.glow(ctx, tx, tipY - L * .5, T * 2.2, g1, .35 * a);
+        K.poly(ctx, [[tx, tipY], [tx - W, tipY - W * 1.4], [tx - W * .8, tipY - L], [tx + W * .8, tipY - L], [tx + W, tipY - W * 1.4]], g2, a);
+        K.poly(ctx, [[tx, tipY], [tx + W, tipY - W * 1.4], [tx + W * .8, tipY - L], [tx + W * .15, tipY - L]], g1, a);
+        K.streak(ctx, tx - W * .3, tipY - W * 2, tx - W * .3, tipY - L * .8, z * 1.5, '#fff', a);
+        K.poly(ctx, [[tx - W * 2, tipY - L], [tx + W * 2, tipY - L], [tx + W * 2, tipY - L - W * .5], [tx - W * 2, tipY - L - W * .5]], g1, a);
+        pillar(ctx, tx, tipY, W * 2.4, L, g1, .25 * a * fall);
+      }
+      // impacto, ondas e correntes
+      if (t >= .26) {
+        const u = seg(t, .26, .8), f = 1 - u;
+        K.glow(ctx, tx, ty - .2 * T, T * (1.2 + 1.8 * E.out(u)), '#fff', .9 * f); K.ring(ctx, tx, ty, T * 2.8 * E.out(u), g1, z * 3, f); K.ring(ctx, tx, ty, T * 1.8 * E.out(u), '#fff', z, f);
+        rays(ctx, tx, ty - .2 * T, T * .3, T * (.4 + 1.9 * E.out(u)), 12, .2, g2, z, f * .8, .5);
+        K.burst(ctx, tx, ty - .3 * T, { n: N(sc, 20), r: T * 2.2 * q, size: z * 2.5, colors: [g1, g2, '#fff'], seed: sc.seed + 2, u, up: T * .9 });
+        for (let i = 0; i < 4; i++) crack(ctx, tx, ty, i * 1.57 + .8, T * 1.8 * E.out(seg(t, .26, .5)), sc.seed + i, g1, z, .9 * fo);
+        shk(sc, 4, t, .26, .38); K.flash(ctx, sc, g2, .2 * out1(t, .26, .4));
+        // correntes douradas amarrando
+        const ck = E.out(seg(t, .3, .6));
+        for (let i = 0; i < 4; i++) { const an = i * 1.57 + .6 + t * .8, sx = tx + cos(an) * T * 1.5, sy = ty + sin(an) * T * .6; chain(ctx, K.lerp(sx, tx, ck), K.lerp(sy, tb, ck * .9), tx + cos(an + 2.4) * T * .35 * ck, tb + sin(an + 2.4) * T * .3 * ck + (i - 1.5) * T * .22, 4, g1, fo * ck, z); }
+      }
+      // estrelas de atordoamento
+      if (t > .45 && fo > 0) for (let i = 0; i < 3; i++) { const an = t * 5 + i * TAU / 3; spark(ctx, tx + cos(an) * T * .45, ty - 1.25 * T + sin(an) * T * .15, z * 1.6, i % 2 ? g2 : '#fff', fo * seg(t, .45, .6)); }
+    },
+  });
+
+  /* Renovação */
+  FX.register('sumo_sacerdote', {
+    dur: 2.1, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, x = sc.x, y = sc.y, g1 = '#7dff9a', g2 = '#e8ffd0', g3 = '#ffd86a', fo = 1 - seg(t, 1.7, 2.1), q = sc.quiet ? .4 : 1;
+      const gr = E.out(seg(t, 0, .35));
+      rune(ctx, x, y, T * 1.8 * gr, t * 1.3, g1, z, .9 * fo, 6); K.disc(ctx, x, y, T * 1.8 * gr, g1, .18 * fo); K.glow(ctx, x, y - .5 * T, T * 2 * gr, g1, .3 * fo);
+      pillar(ctx, x, y, T * 1.2, T * 4 * E.out(seg(t, .05, .3)), g1, .5 * out1(t, .35, 1.1));
+      // ondas verdes saindo
+      for (let i = 0; i < 3; i++) { const u = E.out(seg(t, .28 + i * .22, 1.0 + i * .22)); K.ring(ctx, x, y, T * 4.5 * u, i % 2 ? g3 : g1, z * 2, (1 - u) * .9 * fo); }
+      K.disc(ctx, x, y, T * 4.5 * E.out(seg(t, .28, 1.1)), g1, .08 * fo, .42);
+      // pétalas/folhas em espiral subindo
+      const r = K.rng(sc.seed + 2);
+      for (let i = 0; i < N(sc, 22); i++) { const ph = (t * .55 + r()) % 1, rr = T * (.4 + r() * 1.5) * (1 - ph * .3), an = ph * 7 + r() * TAU, s = z * (1.5 + r() * 1.5), px = x + cos(an) * rr, py = y - ph * T * 2.6 + sin(an) * rr * .3;
+        K.px(ctx, px, py, s, i % 3 ? g1 : g2, sin(ph * Math.PI) * fo * seg(t, .1, .35)); if (i % 4 === 0) K.px(ctx, px + z, py + z, s * .6, '#2fa84a', sin(ph * Math.PI) * fo * seg(t, .1, .35)); }
+      // aliados: cura + bolhas de veneno estourando
+      const targets = [{ x, y }].concat(sc.allies);
+      targets.forEach((e, i) => {
+        const t0 = .3 + i * .08, k = seg(t, t0, t0 + .5); if (t < t0) return; const fa = (1 - seg(t, 1.5, 2)) ;
+        K.glow(ctx, e.x, e.y - .6 * T, T * 1.1, g1, .5 * out1(t, t0, t0 + .9)); K.ring(ctx, e.x, e.y, T * .8 * E.out(k), g2, z * 1.5, 1 - k);
+        sparkles(ctx, sc, e.x, e.y, T * .7, T * 1.7, t, sc.seed + i * 4, N(sc, 5), [g1, g2, g3], fa);
+        for (let b = 0; b < 3; b++) { const bt = seg(t, t0 + .05 + b * .12, t0 + .45 + b * .12), bx = e.x + (b - 1) * T * .3, by = e.y - T * (.3 + b * .3) - bt * T * .4;
+          if (bt > 0 && bt < 1) { if (bt < .7) { ctx.save(); ctx.globalAlpha = .9 * (1 - bt); ctx.strokeStyle = '#a06be0'; ctx.lineWidth = z; ctx.beginPath(); ctx.arc(bx, by, z * (2 + bt * 2), 0, TAU); ctx.stroke(); ctx.restore(); }
+            else K.burst(ctx, bx, by, { n: 5, r: T * .4 * q, size: z * 1.5, colors: ['#fff', g2], seed: sc.seed + b, u: (bt - .7) / .3 }); } }
+      });
+      K.glow(ctx, x, y - .6 * T, T * 1.2, '#fff', .7 * out1(t, .28, .55)); shk(sc, 1, t, .28, .36);
+    },
+  });
+
+  /* Égide Sagrada */
+  FX.register('guardiao_luz', {
+    dur: 2.1, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, x = sc.x, y = sc.y, g1 = '#ffd86a', c1 = '#aee4ff', c2 = '#fff2b8', fo = 1 - seg(t, 1.7, 2.1);
+      const who = [{ x, y }].concat(sc.allies), u = E.out(seg(t, .05, .6));
+      K.ring(ctx, x, y, T * 4.5 * u, g1, z * 2, (1 - seg(t, .55, 1.1)) * fo); K.disc(ctx, x, y, T * 4.5 * u, c1, .08 * fo, .42);
+      rune(ctx, x, y, T * 1.6 * E.out(seg(t, 0, .25)), t * 1.2, g1, z, .8 * fo * out1(t, .5, 1.2), 6);
+      // raios de luz ligando o conjurador aos aliados
+      sc.allies.forEach((a, i) => { const k = E.out(seg(t, .12, .38)); K.bolt(ctx, x, y - .8 * T, K.lerp(x, a.x, k), K.lerp(y - .8 * T, a.y - .8 * T, k), { seed: sc.seed + i, segments: 6, jag: 4, color: c2, width: z * 1.5, alpha: out1(t, .25, .55) }); });
+      who.forEach((e, i) => {
+        const t0 = .15 + i * .07, k = E.back(seg(t, t0, t0 + .35)), a = (t < t0 ? 0 : 1) * fo;
+        if (t < t0) return;
+        dome(ctx, sc, e.x, e.y, k, t, a * (.75 + .25 * sin(t * 4 + i)), c1, g1);
+        K.glow(ctx, e.x, e.y - .6 * T, T * 1.2, c1, .35 * a * out1(t, t0, t0 + .5));
+        K.ring(ctx, e.x, e.y, T * .7 * E.out(seg(t, t0, t0 + .4)), g1, z * 1.5, (1 - seg(t, t0, t0 + .5)));
+        if (t < t0 + .4) K.burst(ctx, e.x, e.y - .6 * T, { n: N(sc, 8), r: T * 1.2, size: z * 2, colors: [c2, g1, c1], seed: sc.seed + i, u: seg(t, t0, t0 + .4) });
+        // brilho passando pela cúpula
+        const sw = (t * .9 + i * .3) % 1.6; if (sw < 1) K.px(ctx, e.x - T * .5 + sw * T, e.y - .6 * T - T * .7 + sw * T * 1.2 * .2, z * 2, '#fff', a * sin(sw * Math.PI) * .9);
+      });
+      // símbolo do escudo gigante pulsando sobre o conjurador
+      const sy = y - 2.6 * T - (1 - E.out(seg(t, 0, .3))) * T, sa = E.pulse(seg(t, 0, .9)) * .85 * fo;
+      if (sa > 0) { K.poly(ctx, [[x - T * .55, sy - T * .55], [x + T * .55, sy - T * .55], [x + T * .55, sy], [x, sy + T * .7], [x - T * .55, sy]], g1, sa * .5); K.poly(ctx, [[x - T * .4, sy - T * .4], [x + T * .4, sy - T * .4], [x + T * .4, sy - T * .05], [x, sy + T * .5], [x - T * .4, sy - T * .05]], c2, sa * .6); K.glow(ctx, x, sy, T * 1.1, g1, sa * .4); K.streak(ctx, x, sy - T * .35, x, sy + T * .3, z * 2, '#fff', sa); K.streak(ctx, x - T * .22, sy - T * .1, x + T * .22, sy - T * .1, z * 2, '#fff', sa); }
+      shk(sc, 1, t, .3, .38);
+    },
+  });
+
+  /* ============================== LADINO ============================== */
+  const P1 = '#c8a0ff', P0 = '#3a2a5c', P2 = '#7c4bd8';
+
+  /* Emboscada */
+  FX.register('sombra', {
+    dur: 1.1, hits: [0.22],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, x = sc.x, y = sc.y, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, d = sc.dir, q = sc.quiet ? .4 : 1;
+      // some em fumaça de sombra
+      if (t < .5) { const u = seg(t, 0, .5); const r = K.rng(sc.seed + 1); for (let i = 0; i < N(sc, 9); i++) { const a = r() * TAU, rr = T * (.2 + r() * .5) * E.out(u); circ(ctx, x + cos(a) * rr, y - .6 * T + sin(a) * rr * .8 - u * T * .3 * q, T * (.2 + .3 * u) * (.6 + r() * .6), i % 2 ? P0 : P2, (1 - u) * .8); } }
+      ghost(ctx, sc, x, y, 'cast1', d < 0, .5 * out1(t, 0, .12), P0);
+      // rastro de sombra até as costas do alvo
+      const bx = tx + d * T * .75, by = ty, run = E.out(seg(t, .04, .2));
+      if (t < .6) { for (let i = 0; i < 5; i++) { const k = E.out(K.clamp(seg(t, .04, .2) - i * .1, 0, 1)); circ(ctx, K.lerp(x, bx, k), K.lerp(y - .5 * T, by - .5 * T, k), T * (.35 - i * .04), i % 2 ? P0 : P2, (1 - i * .18) * out1(t, .2, .55) * (k > 0 ? 1 : 0)); }
+        K.streak(ctx, x, y - .5 * T, K.lerp(x, bx, run), K.lerp(y - .5 * T, by - .5 * T, run), z * 2, P1, out1(t, .15, .45)); }
+      // assassino surge atrás do alvo e golpeia
+      if (t >= .16) { const a = out1(t, .3, .62); ghost(ctx, sc, bx, by, 'atk' + (t < .28 ? 1 : 2), d > 0, .75 * a, P0); ghost(ctx, sc, bx, by, 'atk2', d > 0, .25 * a, P1); }
+      if (t >= .2) {
+        const u = seg(t, .2, .65), f = 1 - u, s = E.out(seg(t, .2, .3)), L = T * 1.7;
+        K.streak(ctx, tx - L * .1, tb - L * .75, tx + L * .1 + 0, tb - L * .75 + L * 1.5 * s, z * 5, P0, f); K.streak(ctx, tx - L * .1, tb - L * .75, tx + L * .1, tb - L * .75 + L * 1.5 * s, z * 2.5, P1, f); K.streak(ctx, tx - L * .1, tb - L * .75, tx + L * .1, tb - L * .75 + L * 1.5 * s, z, '#fff', f);
+        const s2 = E.out(seg(t, .25, .34)); K.streak(ctx, tx - d * L * .7, tb - L * .1, tx + d * L * .7 * s2 - d * L * .7 * (1 - s2) * 0, tb + L * .1, z * 3, P1, f * .8); K.streak(ctx, tx + d * L * .8, tb + L * .15 - L * .3 * s2, tx - d * L * .8 * s2 + d * L * .8 * (1 - s2), tb + L * .15, z * 2, '#fff', f * .9);
+        spark(ctx, tx, tb, z * (3 + 6 * E.pulse(seg(t, .2, .45))), '#fff', f); K.glow(ctx, tx, tb, T * 1.3, '#ff4fd8', .5 * f); K.glow(ctx, tx, tb, T * 1.1, P1, .6 * f);
+        K.ring(ctx, tx, ty, T * 1.5 * E.out(u), P1, z * 1.5, f);
+        K.burst(ctx, tx, tb, { n: N(sc, 16), r: T * 1.9 * q, size: z * 3, colors: [P1, P0, '#fff', '#ff4fd8'], seed: sc.seed + 2, u });
+        shk(sc, 3, t, .2, .3); K.flash(ctx, sc, '#b080ff', .14 * out1(t, .2, .32));
+      }
+    },
+  });
+
+  /* Bomba de Fumaça */
+  FX.register('trapaceiro', {
+    dur: 1.8, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, x = sc.x, y = sc.y, tx = sc.tx, ty = sc.ty, q = sc.quiet ? .4 : 1, cb = y - .7 * T;
+      // bomba em arco com pavio
+      if (t < .3) {
+        const p = E.out(seg(t, 0, .3)), bx = K.lerp(x, tx, p), by = K.lerp(cb, ty - .3 * T, p) - sin(p * Math.PI) * T * 1.8 * q;
+        circ(ctx, bx, by, T * .2, '#1c1624', 1); circ(ctx, bx - z, by - z, T * .09, '#5a4a78', 1); K.streak(ctx, bx, by - T * .2, bx + z * 2, by - T * .38, z, '#b88a4a', 1);
+        K.px(ctx, bx + z * 2, by - T * .4, z * 3, '#ffc13d', 1); K.px(ctx, bx + z * 2 + sin(t * 80) * z * 2, by - T * .5, z * 2, '#fff', .9);
+        for (let i = 1; i < 4; i++) K.px(ctx, K.lerp(x, tx, Math.max(0, p - i * .08)), K.lerp(cb, ty - .3 * T, Math.max(0, p - i * .08)) - sin(Math.max(0, p - i * .08) * Math.PI) * T * 1.8 * q, z * 2, P1, .5 - i * .1);
+      }
+      // explosão: flash e núcleo
+      if (t >= .28) {
+        const u = seg(t, .28, .55); K.glow(ctx, tx, ty - .4 * T, T * (1 + 2 * u), '#fff', (1 - u) * .9); K.glow(ctx, tx, ty - .4 * T, T * 2.4, P2, .5 * (1 - u)); K.ring(ctx, tx, ty, T * 2.6 * E.out(u), P1, z * 2, 1 - u);
+        shk(sc, 3, t, .28, .38); K.flash(ctx, sc, '#b080ff', .14 * out1(t, .28, .4));
+        // nuvem densa: muitos puffs em camadas
+        const r = K.rng(sc.seed + 2), n = N(sc, 26), fo = 1 - seg(t, 1.2, 1.8), cols = ['#2a2238', '#3a3050', '#4d4068', '#62547f', '#7a6a98'];
+        for (let i = 0; i < n; i++) {
+          const a = r() * TAU, rr = r(), ph = E.out(seg(t, .28 + r() * .1, 1.0)), sw = t * (i % 2 ? .6 : -.6) * rr, ox = cos(a + sw) * T * 2.1 * rr * ph, oy = sin(a + sw) * T * 1.0 * rr * ph, rise = seg(t, .5, 1.8) * T * (.3 + r() * .5), rad = T * (.4 + r() * .45) * (.5 + .5 * ph);
+          circ(ctx, tx + ox, ty - .35 * T + oy - rise - rr * T * .5, rad, cols[(i + (rr * 3 | 0)) % 5], .88 * fo);
+        }
+        for (let i = 0; i < N(sc, 8); i++) { const a = r() * TAU, rr = T * (.4 + r() * 1.6), ph = (t * .6 + r()) % 1; K.px(ctx, tx + cos(a) * rr, ty - T * (.2 + ph * 1.4), z * 1.6, P1, fo * sin(ph * Math.PI) * .8); }
+        // estrelas de atordoamento girando na fumaça
+        if (t > .4) for (let i = 0; i < 3; i++) { const an = t * 5 + i * TAU / 3; spark(ctx, tx + cos(an) * T * .5, ty - 1.3 * T + sin(an) * T * .16, z * 1.6, i % 2 ? '#ffe07a' : '#fff', fo * seg(t, .4, .55)); }
+        // esquiva: caster envolto em fumaça leve
+        const ea = seg(t, .35, .6) * fo * .6; for (let i = 0; i < 4; i++) { const an = t * 3 + i * 1.57; circ(ctx, x + cos(an) * T * .45, y - .5 * T + sin(an) * T * .5, T * .2, P0, ea * .8); K.px(ctx, x + cos(an + .8) * T * .5, y - .5 * T + sin(an + .8) * T * .5, z * 2, P1, ea); }
+      }
+    },
+  });
+
+  /* Mil Cortes */
+  FX.register('fantasma', {
+    dur: 1.5, hits: [0.18, 0.28, 0.38, 0.48, 0.58, 0.68],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, d = sc.dir, q = sc.quiet ? .4 : 1, L = T * 1.5;
+      const angs = [-.9, .5, -.2, 2.2, -1.4, 1.2], hv = [.18, .28, .38, .48, .58, .68];
+      K.glow(ctx, tx, tb, T * 2, P2, .25 * seg(t, .1, .3) * out1(t, .7, 1.1));
+      // fantasma do conjurador pulando em volta do alvo em cada corte
+      hv.forEach((h, i) => { const k = seg(t, h - .06, h + .06) * out1(t, h + .02, h + .16); if (k > 0 && !sc.light) { const side = i % 2 ? 1 : -1; ghost(ctx, sc, tx + side * T * 1.05, ty + (i % 3 - 1) * T * .15, 'atk' + (i % 3), side > 0, .5 * k, P1); } });
+      hv.forEach((h, i) => {
+        const a = angs[i] + (d < 0 ? Math.PI : 0) * 0, c = cos(angs[i]), s = sin(angs[i]), ox = (i % 3 - 1) * T * .12, oy = (i % 2 - .5) * T * .2;
+        const sw = E.out(seg(t, h - .06, h + .02)), f = out1(t, h, h + .5); if (t < h - .06) return;
+        const x1 = tx + ox - c * L * (1 - sw * 0) , y1 = tb + oy - s * L, x2 = tx + ox + c * L * (-1 + 2 * sw), y2 = tb + oy + s * L * (-1 + 2 * sw);
+        K.streak(ctx, x1, y1, x2, y2, z * 6, P0, f * .8); K.streak(ctx, x1, y1, x2, y2, z * 3, P1, f); K.streak(ctx, x1, y1, x2, y2, z * 1.2, '#fff', f);
+        if (t >= h) { const u = seg(t, h, h + .3); spark(ctx, tx + ox, tb + oy, z * (2 + 3 * E.pulse(u)), '#fff', 1 - u); K.burst(ctx, tx + ox, tb + oy, { n: N(sc, 7), r: T * 1.1 * q, size: z * 2, colors: [P1, '#fff', P2], seed: sc.seed + i * 3, u }); shk(sc, 1, t, h, h + .06); }
+      });
+      // golpe final: todos os cortes se fundem
+      if (t >= .72) { const u = seg(t, .72, 1.1); K.glow(ctx, tx, tb, T * (.8 + 1.6 * E.out(u)), P1, .8 * (1 - u)); K.ring(ctx, tx, ty, T * 2.3 * E.out(u), P1, z * 2, 1 - u); K.ring(ctx, tx, tb, T * 1.2 * E.out(u), '#fff', z, 1 - u, .9);
+        for (let i = 0; i < 6; i++) { const c = cos(angs[i]), s = sin(angs[i]), e = E.out(u); K.streak(ctx, tx + c * L * .3, tb + s * L * .3, tx + c * L * (.4 + e), tb + s * L * (.4 + e), z * 2, P1, 1 - u); }
+        K.burst(ctx, tx, tb, { n: N(sc, 20), r: T * 2.2 * q, size: z * 2.5, colors: [P1, '#fff', P2], seed: sc.seed + 50, u }); shk(sc, 3, t, .72, .82); K.flash(ctx, sc, '#b080ff', .12 * out1(t, .72, .84)); }
+    },
+  });
+
+  /* Execução */
+  FX.register('carrasco', {
+    dur: 1.5, hits: [0.3],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, q = sc.quiet ? .4 : 1, red = '#ff3b4e', dk = '#7a1020', fo = 1 - seg(t, 1.1, 1.5);
+      // mira vermelha travando no alvo
+      const lk = E.out(seg(t, 0, .22)), rr = T * (1.5 - .8 * lk), pu = t < .3 ? 1 : 0;
+      if (t < .5) { const a = (.4 + .6 * lk) * out1(t, .3, .5); K.ring(ctx, tx, tb, rr, red, z * 1.5, a, .9); K.ring(ctx, tx, tb, rr * .6, red, z, a, .9);
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) K.streak(ctx, tx + dx * rr * 1.25, tb + dy * rr * 1.25, tx + dx * rr * .65, tb + dy * rr * .65, z * 1.5, red, a);
+        K.glow(ctx, tx, tb, T * .5, red, a * .4 * (pu ? 1 + sin(t * 40) * .3 : 1)); }
+      K.disc(ctx, tx, ty, T * 1.1 * lk, dk, .35 * fo, .4);
+      // lâmina gigante cai (corte vertical) com guilhotina em arco
+      const fall = sc.quiet ? 1 : E.in(seg(t, .12, .3)), by = K.lerp(tb - T * 4.5, tb + T * .8, fall), W = T * 1.1;
+      if (t < .75) { const a = out1(t, .4, .75); K.glow(ctx, tx, by, T * 1.6, red, .3 * a);
+        K.poly(ctx, [[tx - W, by - T * 1.4], [tx + W, by - T * 1.4], [tx + W, by], [tx - W * .2, by + z * 3]], '#c8c8d8', a); K.poly(ctx, [[tx - W, by - T * 1.4], [tx + W, by - T * 1.4], [tx + W, by - T * 1.15], [tx - W, by - T * 1.15]], '#6a6a82', a);
+        K.streak(ctx, tx - W, by - z, tx + W * .9, by - z, z * 2, '#fff', a); }
+      if (t >= .28) {
+        const u = seg(t, .28, .9), f = 1 - u, s = E.out(seg(t, .28, .36));
+        K.streak(ctx, tx, tb - T * 1.5 * s, tx, tb - T * 1.5 + T * 3.1 * s, z * 7, dk, f); K.streak(ctx, tx, tb - T * 1.5 * s, tx, tb - T * 1.5 + T * 3.1 * s, z * 3, red, f); K.streak(ctx, tx, tb - T * 1.5 * s, tx, tb - T * 1.5 + T * 3.1 * s, z, '#fff', f);
+        K.streak(ctx, tx - T * 1.3, tb - T * .2, tx + T * 1.3 * s, tb - T * .2 + T * .1, z * 3, red, f * .8);
+        K.glow(ctx, tx, tb, T * (1.2 + u), red, .8 * f); K.glow(ctx, tx, tb, T * .5, '#fff', f); K.ring(ctx, tx, ty, T * 2.2 * E.out(u), red, z * 2, f); K.ring(ctx, tx, ty, T * 1.4 * E.out(u), '#fff', z, f);
+        K.burst(ctx, tx, tb, { n: N(sc, 22), r: T * 2.1 * q, size: z * 3, colors: [red, dk, '#fff', '#c01830'], seed: sc.seed, u, fall: T * .8 * q });
+        crack(ctx, tx, ty, 0, T * 2.2 * E.out(seg(t, .28, .5)), sc.seed + 4, red, z * 1.5, fo); crack(ctx, tx, ty, Math.PI, T * 2.2 * E.out(seg(t, .28, .5)), sc.seed + 5, red, z * 1.5, fo);
+        shk(sc, 4, t, .28, .4); K.flash(ctx, sc, '#ff4a5a', .2 * out1(t, .28, .42));
+        // caveira
+        const sk = E.back(seg(t, .45, .7)); if (sk > 0 && fo > 0) { const sy = ty - 1.8 * T - seg(t, .45, 1.2) * T * .6 * q; K.glow(ctx, tx, sy, T * .6, red, .4 * fo); skull(ctx, tx + z, sy + z, z * 1.6 * sk, dk, fo); skull(ctx, tx, sy, z * 1.6 * sk, '#f4efe4', fo); }
+      }
+    },
+  });
+
+  /* Grande Golpe */
+  FX.register('rei_ladroes', {
+    dur: 1.6, hits: [0.25],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, x = sc.x, y = sc.y, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, d = sc.dir, q = sc.quiet ? .4 : 1, gd = '#ffd24a', gl = '#fff2b8';
+      // preparo: lâmina brilha, arco largo de golpe
+      const sw = E.out(seg(t, .1, .3)), fa = out1(t, .24, .7);
+      if (t < .75) {
+        K.glow(ctx, x + d * T * .6, y - .8 * T, T * .8 * seg(t, 0, .15) * out1(t, .15, .3), P1, .8);
+        const cx = tx - d * T * 1.1, cy = tb + T * .5, R = T * 1.9, a0 = d > 0 ? -2.5 : -.64, a1 = d > 0 ? .15 : -3.0;
+        K.slash(ctx, cx, cy, R, a0, a1, T * .65, P0, fa * .9, sw); K.slash(ctx, cx, cy, R - T * .1, a0, a1, T * .4, P1, fa, sw); K.slash(ctx, cx, cy, R - T * .2, a0, a1, T * .15, '#fff', fa, sw);
+        K.slash(ctx, cx, cy, R * .92, a0, a1, T * .1, gd, fa * .8, sw);
+      }
+      if (t >= .22) {
+        const u = seg(t, .22, .7), f = 1 - u; K.glow(ctx, tx, tb, T * (1 + 1.5 * E.out(u)), P1, .75 * f); K.glow(ctx, tx, tb, T * .6, '#fff', 1 - seg(t, .22, .4)); K.ring(ctx, tx, ty, T * 2 * E.out(u), P1, z * 2, f);
+        K.burst(ctx, tx, tb, { n: N(sc, 18), r: T * 2 * q, size: z * 3, colors: [P1, P0, gd, '#fff'], seed: sc.seed + 1, u, up: T * .5 }); shk(sc, 4, t, .22, .34); K.flash(ctx, sc, '#c8a0ff', .18 * out1(t, .22, .36));
+        // lascas do chão
+        for (let i = 0; i < 4; i++) crack(ctx, tx, ty, i * 1.6 + .3, T * 1.6 * E.out(seg(t, .22, .45)), sc.seed + i, P1, z, f);
+      }
+      // bolsa de moedas voa do alvo ao conjurador, derramando moedas
+      const fly = seg(t, .3, 1.0), p = E.inOut(fly), bx = K.lerp(tx, x, p), by = K.lerp(tb, y - .8 * T, p) - sin(fly * Math.PI) * T * 1.6 * q;
+      if (t >= .3 && t < 1.05) {
+        const pop = E.back(seg(t, .3, .45)), r = T * .26 * pop, a = out1(t, .9, 1.05);
+        K.glow(ctx, bx, by, T * .6, gd, .5 * a); circ(ctx, bx, by + r * .15, r, '#8a5a2a', a); circ(ctx, bx - r * .25, by - r * .05, r * .5, '#b07a3a', a); K.px(ctx, bx, by - r * 1.05, z * 3, '#6a4020', a); K.streak(ctx, bx - r * .5, by - r, bx + r * .5, by - r, z * 1.5, gd, a); K.px(ctx, bx, by + r * .15, z * 3, gd, a);
+        const rc = K.rng(sc.seed + 9); for (let i = 0; i < N(sc, 12); i++) { const dl = .35 + rc() * .45, tt = seg(t, dl, dl + .5), pp = E.inOut(seg(dl, .3, 1.0)), sx = K.lerp(tx, x, pp), sy = K.lerp(tb, y - .8 * T, pp) - sin(seg(dl, .3, 1) * Math.PI) * T * 1.6 * q, vx = (rc() - .5) * T * 1.2;
+          if (tt > 0 && tt < 1) { K.px(ctx, sx + vx * tt, sy + T * 2.2 * tt * tt, z * 2.5, gd, 1 - tt * .6); K.px(ctx, sx + vx * tt - z / 2, sy + T * 2.2 * tt * tt - z / 2, z, gl, 1 - tt); } }
+        if (t < .5) for (let i = 0; i < 5; i++) { const a2 = i * 1.26 + 1, k = seg(t, .3, .5); spark(ctx, tx + cos(a2) * T * (.4 + k), tb + sin(a2) * T * (.4 + k) * .7, z * 1.4, gd, 1 - k); }
+      }
+      // recebimento: brilho dourado no conjurador
+      if (t > .95) { const u = seg(t, .95, 1.4); K.glow(ctx, x, y - .8 * T, T * (.5 + u), gd, .7 * (1 - u)); K.ring(ctx, x, y - .8 * T, T * .9 * E.out(u), gl, z, 1 - u, .9); spark(ctx, x + d * T * .15, y - .9 * T, z * 4 * E.pulse(u), '#fff', 1 - u * .5); }
+    },
+  });
+
+  /* Lâmina Tóxica */
+  FX.register('envenenador', {
+    dur: 1.6, hits: [0.2],
+    draw(ctx, t, sc) {
+      const T = sc.tile, z = sc.z, x = sc.x, y = sc.y, tx = sc.tx, ty = sc.ty, tb = ty - .6 * T, d = sc.dir, q = sc.quiet ? .4 : 1, g1 = '#7cff5a', g2 = '#3fa83a', g3 = '#1d5a2a', fo = 1 - seg(t, 1.2, 1.6);
+      // lâmina pinga veneno (antecipação)
+      if (t < .2) { const k = seg(t, 0, .2); K.glow(ctx, x + d * T * .5, y - .8 * T, T * .6, g1, .6); for (let i = 0; i < 3; i++) K.px(ctx, x + d * T * (.5 + i * .12), y - .6 * T + k * T * (.3 + i * .15) * (i + 1) * .4, z * 2, g1, 1 - k); }
+      // corte duplo verde
+      const sw = E.out(seg(t, .08, .26)), fa = out1(t, .2, .55), cx = tx, cy = tb + T * .3, R = T * 1.6, a0 = d > 0 ? -2.4 : -.74, a1 = d > 0 ? .1 : -3.04;
+      if (t < .6) { K.slash(ctx, cx, cy, R, a0, a1, T * .55, g3, fa, sw); K.slash(ctx, cx, cy, R - T * .08, a0, a1, T * .35, g1, fa, sw); K.slash(ctx, cx, cy, R - T * .16, a0, a1, T * .12, '#eaffd8', fa, sw);
+        const s2 = E.out(seg(t, .16, .3)); K.streak(ctx, tx - T * 1.2, tb + T * .5, tx - T * 1.2 + T * 2.4 * s2, tb - T * .5, z * 3, g1, fa * .8); }
+      if (t >= .18) {
+        const u = seg(t, .18, .7), f = 1 - u; K.glow(ctx, tx, tb, T * (1 + u), g1, .7 * f); K.glow(ctx, tx, tb, T * .5, '#fff', 1 - seg(t, .18, .32)); K.ring(ctx, tx, ty, T * 1.6 * E.out(u), g1, z * 2, f);
+        K.burst(ctx, tx, tb, { n: N(sc, 16), r: T * 1.8 * q, size: z * 3, colors: [g1, g2, '#eaffd8'], seed: sc.seed, u, fall: T * .9 * q }); shk(sc, 2, t, .18, .28); K.flash(ctx, sc, '#6aff3a', .1 * out1(t, .18, .3));
+        // poça tóxica e gotas
+        const pg = E.out(seg(t, .25, .7)); K.disc(ctx, tx, ty, T * 1.1 * pg, g3, .65 * fo, .4); K.disc(ctx, tx, ty, T * .85 * pg, g2, .5 * fo, .4); K.ring(ctx, tx, ty, T * 1.1 * pg, g1, z, .7 * fo * (.7 + .3 * sin(t * 8)), .4);
+        const r = K.rng(sc.seed + 6);
+        for (let i = 0; i < N(sc, 7); i++) { const ox = (r() - .5) * T * .9, t0 = .22 + r() * .5, tt = seg(t, t0, t0 + .35); if (tt > 0 && tt < 1) { K.px(ctx, tx + ox, tb - T * .5 + tt * T * 1.1, z * 2.5, g1, 1 - tt * .3); K.px(ctx, tx + ox, tb - T * .5 + tt * T * 1.1 - z * 2, z * 1.5, g2, .6); } if (tt >= 1) K.ring(ctx, tx + ox, ty, T * .2 * seg(t, t0 + .35, t0 + .55), g1, z, (1 - seg(t, t0 + .35, t0 + .55)) * fo); }
+        // bolhas e fumaça tóxica subindo, caveira esverdeada
+        for (let i = 0; i < N(sc, 10); i++) { const ph = (t * .7 + r()) % 1, bx = tx + (r() - .5) * T * 1.2, by = ty - T * .2 - ph * T * 1.9, br = z * (1.5 + r() * 1.5);
+          ctx.save(); ctx.globalAlpha = .8 * fo * sin(ph * Math.PI) * seg(t, .3, .5); ctx.strokeStyle = i % 2 ? g1 : g2; ctx.lineWidth = z; ctx.beginPath(); ctx.arc(bx + sin(t * 5 + i) * z * 2, by, br, 0, TAU); ctx.stroke(); ctx.restore(); }
+        for (let i = 0; i < N(sc, 5); i++) { const ph = (t * .5 + i * .2) % 1; circ(ctx, tx + sin(i * 2 + t * 2) * T * .4, ty - T * .4 - ph * T * 1.4, T * (.25 + ph * .25), g2, .28 * fo * (1 - ph)); }
+        const sk = seg(t, .4, .6); if (sk > 0) skull(ctx, tx, ty - 1.65 * T - seg(t, .4, 1.2) * T * .3 * q, z * 1.3, g1, .8 * fo * sk);
+      }
+    },
+  });
+})();
+
+</script>
+<script id="aurora-skill-preview-ui">
+/* Aurora 046 · Prévias animadas das habilidades (aba Habilidades da ficha do herói).
+   Grimório no topo, miniaturas nos cartões, prévia grande (janela e vocação). Somente visual:
+   um único laço requestAnimationFrame para todas as telas; desenha só canvases visíveis. */
+(function () {
+  'use strict';
+  if (typeof G === 'undefined' || G.HEADLESS || !G.UI || !G.A || !G.A.SkillFX) return;
+  const FX = G.A.SkillFX, K = FX.kit, UI = G.UI, A = G.A;
+  const PRE = 0.25, POST = 0.35;                       // silêncio antes/depois da animação (s) · total = dur + 0,6
+  const esc = s => (UI.esc ? UI.esc(String(s)) : String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])));
+  const ic = n => { try { return UI.ic(n) || ''; } catch (e) { return ''; } };
+  const media = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  const reduced = () => !!((G.S && G.S.opts && G.S.opts.reduceMotion) || media.matches);
+  const dprNow = () => Math.max(1, Math.min(2, window.devicePixelRatio || 1, (G.S && G.S.opts && G.S.opts.dprCap) || 2));
+  const hashKey = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) || 1; };
+
+  /* ---------- cores ---------- */
+  const rgb = c => { c = String(c || '#888').replace('#', ''); if (c.length === 3) c = c.replace(/./g, '$&$&'); const n = parseInt(c, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const mix = (a, b, f) => { const x = rgb(a), y = rgb(b); return 'rgb(' + x.map((v, i) => Math.round(v + (y[i] - v) * f)).join(',') + ')'; };
+  const rgba = (c, a) => { const x = rgb(c); return 'rgba(' + x[0] + ',' + x[1] + ',' + x[2] + ',' + a + ')'; };
+
+  /* ---------- dados: tipo, plano de dano, estado de bloqueio ---------- */
+  const BASE_OPS = {
+    esp: [{ o: 'aoe', m: 1.3 }], cav: [{ o: 'taunt' }, { o: 'buff', k: 'def', v: 0.55 }],
+    arq: [{ o: 'hit', m: 2 }, { o: 'dot', c: '#ff8a3a' }], mag: [{ o: 'aoe', m: 2 }],
+    pal: [{ o: 'heal', pct: 0.2 }, { o: 'dominate' }], lad: [{ o: 'hit', m: 2.6, crit: 1 }],
+  };
+  const opsOf = info => info.ops || BASE_OPS[info.cls] || [];
+  const TYPE_NAMES = { dano: 'Dano', area: 'Área', cont: 'Contínuo', ctrl: 'Controle', sup: 'Suporte' };
+  function typesOf(info) {
+    const ops = opsOf(info), has = n => ops.some(o => n.indexOf(o.o) >= 0), out = [];
+    const area = has(['aoe', 'multi']), dmg = has(['hit']);
+    if (area) out.push('area'); else if (dmg) out.push('dano');
+    if (has(['dot'])) out.push('cont');
+    if (has(['stun', 'slow', 'taunt', 'vuln', 'dominate'])) out.push('ctrl');
+    if (has(['buff', 'heal', 'shield', 'cleanse'])) out.push('sup');
+    if (!out.length) out.push('dano');
+    return out.slice(0, 2).map(t => ({ t, label: TYPE_NAMES[t] }));
+  }
+  const BUFF_TXT = { atk: p => '+' + p + '% ATQ', def: p => '-' + p + '% DANO', aspd: p => '+' + p + '% VEL', eva: p => '+' + p + '% ESQ', regen: () => 'REGEN', thorns: () => 'ESPINHOS' };
+  const plans = Object.create(null);
+  function planOf(key) {
+    if (plans[key]) return plans[key];
+    const info = FX.info(key); if (!info) return null;
+    const ops = opsOf(info), dm = ops.filter(o => o.o === 'hit' || o.o === 'aoe' || o.o === 'multi');
+    const dur = FX.duration(key), hits = FX.hits(key).filter(h => h < dur).sort((a, b) => a - b);
+    if (!hits.length) hits.push(Math.min(0.2, dur * 0.3));
+    const rnd = K.rng(hashKey(key)), crit = ops.some(o => o.crit) || /cr[ií]tico/i.test(info.desc || '');
+    const p = { key, info, ops, dur, hits, dmg: dm.length > 0, area: ops.some(o => o.o === 'aoe' || o.o === 'multi'), heal: ops.some(o => o.o === 'heal'), crit, types: typesOf(info), nums: [], tags: [], status: [] };
+    const m = dm.length ? dm[0].m || 1 : 0;
+    p.noDmg = !p.dmg;
+    hits.forEach((ht, i) => {
+      const v = Math.round(78 * (m || 1) * (0.9 + rnd() * 0.2) * (crit && i === 0 ? 1 : 1)) + (i === 0 ? 0 : 0);
+      p.nums.push({ t: ht, v, crit: crit && i === 0, dx: (((i % 3) - 1) * 0.5 + (rnd() - 0.5) * 0.2) });
+    });
+    for (const o of ops) {
+      if (o.o === 'buff') { const f = BUFF_TXT[o.k]; if (f) p.tags.push(f(Math.round((o.v || 0) * 100))); }
+      else if (o.o === 'shield') p.tags.push('ESCUDO'); else if (o.o === 'cleanse') p.tags.push('LIMPAR');
+      else if (o.o === 'stun') p.status.push('ATORDOADO'); else if (o.o === 'slow') p.status.push('LENTO');
+      else if (o.o === 'dot') p.status.push(/9be08a/i.test(o.c || '') ? 'VENENO' : 'QUEIMANDO');
+      else if (o.o === 'vuln') p.status.push('MARCADO'); else if (o.o === 'taunt' && p.dmg) p.status.push('PROVOCADO');
+      else if (o.o === 'dominate') p.status.push('DOMINADO');
+    }
+    if (info.cls === 'cav' && info.tier === 1) p.tags.push('PROVOCAR');
+    if (o_has(ops, 'taunt') && !p.dmg && !p.tags.length) p.tags.push('PROVOCAR');
+    const cast = info.ranged || info.sup || !p.dmg;
+    p.pose = cast ? 'cast' : 'atk';
+    p.melee = !cast;
+    return (plans[key] = p);
+  }
+  function o_has(ops, n) { return ops.some(o => o.o === n); }
+
+  function rankName(i) { try { return 'Rank ' + (G.RANKS[i] || i); } catch (e) { return 'Rank'; } }
+  /* estado: learned | avail | locked | closed, com motivo curto */
+  function statusOf(h, key) {
+    const info = FX.info(key); if (!info) return { st: 'locked', txt: '' };
+    const J = G.JOBS;
+    try {
+      if (info.tier === 1) return { st: 'learned', txt: 'Aprendida · Nv.' + (G.skillLvl ? G.skillLvl(h, 0) : 1) };
+      if (info.tier === 2) {
+        if (h.j2 === key) return { st: 'learned', txt: 'Aprendida · Nv.' + (G.skillLvl ? G.skillLvl(h, 1) : 1) };
+        if (h.j2) return { st: 'closed', txt: 'Ramo fechado' };
+        return G.jobReady(h) ? { st: 'avail', txt: 'Disponível' } : { st: 'locked', txt: rankName(G.jobReq(2).rank) };
+      }
+      if (h.j3 === key) return { st: 'learned', txt: 'Aprendida · Nv.' + (G.skillLvl ? G.skillLvl(h, 2) : 1) };
+      if (h.j3) return { st: 'closed', txt: 'Ramo fechado' };
+      if (!h.j2) return { st: 'locked', txt: 'Vem de ' + ((J[info.from] && J[info.from].name) || '?') };
+      if (h.j2 !== info.from) return { st: 'closed', txt: 'Ramo fechado' };
+      return G.jobReady(h) ? { st: 'avail', txt: 'Disponível' } : { st: 'locked', txt: rankName(G.jobReq(3).rank) };
+    } catch (e) { return { st: 'locked', txt: '' }; }
+  }
+  const lvName = t => (t === 1 ? 'Básica' : t + 'ª');
+  const fmtCd = cd => 'Rec. ' + String(Math.round(cd * 10) / 10).replace('.', ',') + ' s';
+
+  /* ---------- personagens ---------- */
+  const fakes = {};
+  const fakeHero = cls => fakes[cls] || (fakes[cls] = { cls, rar: 1, rank: 2, look: { skin: 2, hair: 4, style: 1, seed: 9 }, cos: {}, gear: { arma: { type: G.CLASSES[cls].w, tier: 2, rar: 1, plus: 0 }, armadura: { type: G.CLASSES[cls].a, tier: 2, rar: 1, plus: 0 } } });
+  const heroById = id => { const L = (G.S && G.S.heroes) || []; return L.find(x => String(x.id) === String(id)) || L[0] || null; };
+  function pickCaster(h, info) { const L = (G.S && G.S.heroes) || []; if (h && h.cls === info.cls) return h; return L.find(x => x.cls === info.cls) || fakeHero(info.cls); }
+  function pickAlly(caster) { const L = (G.S && G.S.heroes) || []; return L.find(x => x !== caster && x.cls) || fakeHero(caster.cls === 'pal' ? 'cav' : 'pal'); }
+
+  /* inimigo: esqueleto (quadro 0 e versão branca para o clarão de dano) */
+  let mon = null, monWhite = null;
+  function monster() {
+    if (mon) return mon;
+    try {
+      const s = A.monSheet('esqueleto', 0, 0), fw = s.sw || s.w, fh = s.sh || s.h;
+      const w = A.mk(fw, fh), x = w.getContext('2d'); x.drawImage(s.cv, 0, 0, fw, fh, 0, 0, fw, fh); x.globalCompositeOperation = 'source-atop'; x.fillStyle = '#fff'; x.fillRect(0, 0, fw, fh);
+      mon = { s, fw, fh }; monWhite = w;
+    } catch (e) { mon = { s: null }; }
+    return mon;
+  }
+  function drawMon(ctx, x, y, z, flip, white, n) {
+    const m = monster(); if (!m.s) { K.disc(ctx, x, y, 8 * z, '#9aa', 0.8, 0.6); return; }
+    const s = m.s, w = s.w * z, h = s.h * z;
+    ctx.save(); ctx.translate(x, y); if (flip) ctx.scale(-1, 1);
+    ctx.drawImage(s.cv, (n || 0) * m.fw, 0, m.fw, m.fh, -w / 2, -(s.h - 2) * z, w, h);
+    if (white > 0) { ctx.globalAlpha = Math.min(1, white); ctx.drawImage(monWhite, 0, 0, m.fw, m.fh, -w / 2, -(s.h - 2) * z, w, h); }
+    ctx.restore();
+  }
+
+  /* ---------- cenário (cache por tamanho) ---------- */
+  const MARG = 10;
+  function buildBg(i) {
+    const W = i.w, H = i.h, d = i.dpr, c = i.color, cv = A.mk(Math.ceil((W + MARG * 2) * d), Math.ceil((H + MARG * 2) * d)), x = cv.getContext('2d');
+    x.scale(d, d); x.translate(MARG, MARG); x.imageSmoothingEnabled = false;
+    const u = Math.max(2, Math.round(i.z * 1.5)), rnd = K.rng(hashKey(i.key) ^ 0x51ed), gy = Math.round(H * 0.64);
+    const top = '#0b1020', hor = mix(c, '#1a2140', 0.72), N = 7;
+    for (let b = 0; b < N; b++) { x.fillStyle = mix(top, hor, b / (N - 1)); x.fillRect(-MARG, -MARG + (gy + MARG) * b / N, W + MARG * 2, (gy + MARG) / N + 1); }
+    for (let s = 0; s < Math.round(W / 14); s++) { x.fillStyle = 'rgba(255,255,255,' + (0.25 + rnd() * 0.45) + ')'; x.fillRect(Math.round(rnd() * W), Math.round(rnd() * gy * 0.7), 1, 1); }
+    // lua / brilho distante
+    const mx = W * (0.15 + rnd() * 0.7), my = gy * 0.28;
+    const g = x.createRadialGradient(mx, my, 0, mx, my, H * 0.34); g.addColorStop(0, rgba(c, 0.28)); g.addColorStop(1, rgba(c, 0)); x.fillStyle = g; x.fillRect(0, 0, W, gy);
+    // montanhas em degraus
+    for (let layer = 0; layer < 2; layer++) {
+      x.fillStyle = mix(hor, '#080b16', 0.35 + layer * 0.3); let hh = H * (0.16 + layer * 0.05);
+      for (let px = -MARG; px < W + MARG; px += u * 2) { hh = K.clamp(hh + (rnd() - 0.5) * u * 3, H * 0.07, H * 0.26); x.fillRect(px, gy - hh * (1 - layer * 0.35), u * 2 + 1, hh * (1 - layer * 0.35) + 1); }
+    }
+    // chão
+    const fg = x.createLinearGradient(0, gy, 0, H + MARG); fg.addColorStop(0, mix('#2a3045', c, 0.14)); fg.addColorStop(1, mix('#161a28', c, 0.08));
+    x.fillStyle = fg; x.fillRect(-MARG, gy, W + MARG * 2, H - gy + MARG);
+    x.fillStyle = 'rgba(255,255,255,.10)'; x.fillRect(-MARG, gy, W + MARG * 2, 1);
+    x.strokeStyle = 'rgba(255,255,255,.07)'; x.lineWidth = 1;
+    for (let r = 1; r <= 4; r++) { const yy = gy + (H - gy) * (r * r) / 16; x.beginPath(); x.moveTo(-MARG, Math.round(yy) + 0.5); x.lineTo(W + MARG, Math.round(yy) + 0.5); x.stroke(); }
+    for (let k = -6; k <= 6; k++) { x.beginPath(); x.moveTo(W / 2 + k * W * 0.04, gy); x.lineTo(W / 2 + k * W * 0.22, H + MARG); x.stroke(); }
+    for (let f = 0; f < Math.round(W / 12); f++) { x.fillStyle = rnd() < 0.5 ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.18)'; x.fillRect(Math.round(rnd() * W), Math.round(gy + 3 + rnd() * (H - gy - 4)), u, 1); }
+    const gl = x.createRadialGradient(W * 0.5, H * 0.8, 0, W * 0.5, H * 0.8, W * 0.5); gl.addColorStop(0, rgba(c, 0.2)); gl.addColorStop(1, rgba(c, 0)); x.fillStyle = gl; x.fillRect(0, gy, W, H - gy);
+    const vg = x.createRadialGradient(W / 2, H / 2, H * 0.4, W / 2, H / 2, Math.max(W, H) * 0.75); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.5)'); x.fillStyle = vg; x.fillRect(-MARG, -MARG, W + MARG * 2, H + MARG * 2);
+    i.bg = cv;
+  }
+
+  /* ---------- números e rótulos flutuantes ---------- */
+  function floatText(ctx, txt, x, y, age, o) {
+    if (age < 0 || age > 1) return;
+    const u = age, fs = o.fs, rise = K.ease.out(Math.min(1, u * 1.1)) * o.rise, hop = u < 0.3 ? -Math.sin(u / 0.3 * Math.PI) * o.hop : 0, a = u < 0.62 ? 1 : 1 - (u - 0.62) / 0.38;
+    const pop = u < 0.12 ? 0.6 + 3.3 * u : 1;
+    ctx.save(); ctx.globalAlpha = Math.max(0, a); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '900 ' + Math.round(fs * pop) + 'px ui-monospace,Menlo,Consolas,monospace'; ctx.lineJoin = 'round'; ctx.lineWidth = Math.max(3, fs * 0.28);
+    ctx.strokeStyle = '#120a06'; ctx.strokeText(txt, x, y - rise + hop); ctx.fillStyle = o.color; ctx.fillText(txt, x, y - rise + hop);
+    if (o.hi) { ctx.globalAlpha = Math.max(0, a) * 0.5; ctx.fillStyle = '#fff'; ctx.fillText(txt, x, y - rise + hop - 1); }
+    ctx.restore();
+  }
+
+  /* ---------- cena ---------- */
+  function layout(i) {
+    const p = i.plan, W = i.w, H = i.h, z = i.z, tile = 16 * z, melee = p.melee && !p.info.ranged;
+    const cx = W * (melee ? 0.29 : 0.22), tx = W * (melee ? 0.6 : 0.68), cy = H * 0.8, ty = H * 0.8;
+    return { cx, cy, tx, ty, tile, melee };
+  }
+  function drawScene(i, tt) {
+    const ctx = i.ctx, p = i.plan, W = i.w, H = i.h, z = i.z, d = i.dpr, rm = i.rm, t = tt - PRE;
+    const L = layout(i), tile = L.tile;
+    ctx.setTransform(d, 0, 0, d, 0, 0); ctx.imageSmoothingEnabled = false; ctx.clearRect(0, 0, W, H);
+    const sh = rm ? 0 : i.shk * (i.big ? 1 : 0.5), fr = i.frameN++;
+    const sx = sh ? (fr % 2 ? 1 : -1) * sh * 0.6 : 0, sy = sh ? (fr % 3 === 0 ? -1 : 1) * sh * 0.4 : 0;
+    ctx.drawImage(i.bg, -MARG + sx, -MARG + sy, W + MARG * 2, H + MARG * 2);
+    ctx.save(); ctx.translate(sx, sy);
+    ctx.beginPath(); ctx.rect(-4, -4, W + 8, H + 8); ctx.clip();
+    i.shkNext = 0;
+    // hit reaction
+    const react = k => { let r = 0; for (const h of p.hits) { const a = t - h - k * 0.03; if (a >= 0 && a < 0.24) r = Math.max(r, 1 - a / 0.24); } return r; };
+    const dir = 1;
+    const others = [{ x: L.tx + tile * 1.1, y: L.ty - tile * 0.34, k: 1 }, { x: L.tx + tile * 0.8, y: L.ty + tile * 0.5, k: 2 }];
+    const ally = { x: L.cx - tile * 0.95, y: L.cy - tile * 0.3 };
+    const items = [];
+    items.push({ y: ally.y, f: () => { shadow(ctx, ally.x, ally.y, z); i.allyDraw(ctx, ally.x, ally.y, { pose: 'idle' + (Math.floor(tt * 2.2 + 1) % 2) }); } });
+    const hitsOthers = p.area || p.dmg && p.info.tier >= 3 && p.ops.some(o => o.r);
+    others.forEach(o => items.push({ y: o.y, f: () => { const r = hitsOthers && p.dmg ? react(o.k) : 0; shadow(ctx, o.x, o.y, z); drawMon(ctx, o.x + r * z * 2.5, o.y, z, true, r * 0.9, Math.floor(tt * 3 + o.k) % 2 ? 0 : 1); } }));
+    const r0 = p.dmg || p.status.length ? react(0) : 0;
+    items.push({ y: L.ty, f: () => { shadow(ctx, L.tx, L.ty, z); drawMon(ctx, L.tx + r0 * z * 3.5, L.ty, z, true, r0 * 0.95, Math.floor(tt * 3) % 2 ? 0 : 1); } });
+    // conjurador
+    const h0 = p.hits[0], last = p.hits[p.hits.length - 1];
+    let pose, lunge = 0;
+    if (t < 0 || t > Math.max(last + 0.15, h0 + 0.3, p.dur * 0.55)) pose = 'idle' + (Math.floor(tt * 2.2) % 2);
+    else { const f = t < h0 - 0.12 ? 0 : t < h0 + 0.1 ? 1 : 2; pose = p.pose + f; if (L.melee) lunge = K.ease.out(K.seg(t, h0 - 0.2, h0 - 0.03)) * (1 - K.seg(t, last + 0.1, last + 0.35)); }
+    items.push({ y: L.cy + 0.01, f: () => { shadow(ctx, L.cx, L.cy, z); i.casterDraw(ctx, L.cx + lunge * tile * 0.35, L.cy, { pose }); } });
+    items.sort((a, b) => a.y - b.y).forEach(it => it.f());
+    // efeito da habilidade
+    const sc = {
+      x: L.cx, y: L.cy, tx: L.tx, ty: L.ty, z, tile, dir, quiet: rm, light: !i.big, world: false, seed: i.seed, W, H,
+      others: others.map(o => ({ x: o.x, y: o.y })), allies: [{ x: ally.x, y: ally.y }],
+      shake: px => { if (!rm && px > 0) i.shkNext = Math.max(i.shkNext, Math.min(px, 6)); }, drawCaster: i.casterDraw,
+    };
+    if (t >= 0 && t <= p.dur) FX.render(ctx, p.key, t, sc);
+    // números, rótulos
+    const fs = K.clamp(z * 5.4, 10, 20);
+    if (t >= 0) {
+      const body = L.ty - 27 * z;
+      p.nums.forEach((n, k) => {
+        const age = (t - n.t) / 0.9, big = n.crit ? 1.35 : 1;
+        if (p.dmg) {
+          floatText(ctx, (n.crit ? '' : '') + n.v + (n.crit ? '!' : ''), L.tx + n.dx * tile, body, age, { fs: fs * big, color: n.crit ? '#ffd75a' : '#fff1e0', rise: 18 * z, hop: 5 * z, hi: n.crit });
+          if (hitsOthers) others.forEach((o, q) => floatText(ctx, Math.round(n.v * 0.7), o.x, o.y - 25 * z, age - q * 0.05, { fs: fs * 0.8, color: '#ffd9c0', rise: 14 * z, hop: 4 * z }));
+          if (p.heal && k === p.nums.length - 1) floatText(ctx, '+' + Math.round(n.v * 0.3), L.cx, L.cy - 31 * z, age - 0.1, { fs: fs * 0.9, color: '#7dffa0', rise: 14 * z, hop: 3 * z });
+        } else if (p.heal) {
+          floatText(ctx, '+' + Math.round(n.v * 1.5), L.cx, L.cy - 31 * z, age, { fs, color: '#7dffa0', rise: 16 * z, hop: 4 * z });
+          floatText(ctx, '+' + Math.round(n.v * 1.2), ally.x, ally.y - 31 * z, age - 0.07, { fs: fs * 0.9, color: '#7dffa0', rise: 16 * z, hop: 4 * z });
+        }
+      });
+      if (!p.dmg && !p.heal && p.tags.length) p.tags.slice(0, 2).forEach((s, k) => {
+        floatText(ctx, s, L.cx, L.cy - 31 * z - k * fs * 1.15, (t - h0 - k * 0.1) / 1.1, { fs: fs * 0.78, color: '#9eeaff', rise: 10 * z, hop: 0 });
+      });
+      else if (p.tags.length && p.dmg) floatText(ctx, p.tags[0], L.cx, L.cy - 31 * z, (t - h0 - 0.1) / 1.1, { fs: fs * 0.7, color: '#9eeaff', rise: 8 * z, hop: 0 });
+      if (i.big && p.status.length) p.status.slice(0, 2).forEach((s, k) => floatText(ctx, s, L.tx, body - fs * 1.7 - k * fs * 1.1, (t - last - 0.12 - k * 0.1) / 1.3, { fs: fs * 0.62, color: '#ffe07a', rise: 6 * z, hop: 0 }));
+    }
+    // nome da habilidade (só na grande)
+    if (i.big) {
+      const u = tt / (p.dur + PRE + POST), a = u < 0.04 ? u / 0.04 : u < 0.4 ? 1 : K.clamp(1 - (u - 0.4) / 0.2, 0, 1);
+      if (a > 0.01) {
+        ctx.save(); ctx.globalAlpha = a * 0.95; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; const f2 = Math.round(K.clamp(W / 24, 11, 17));
+        ctx.font = '900 ' + f2 + 'px ui-monospace,Menlo,Consolas,monospace'; ctx.lineWidth = 4; ctx.lineJoin = 'round'; ctx.strokeStyle = '#0a0d18'; ctx.strokeText(p.info.name.toUpperCase(), W / 2, 12 - (1 - a) * 4); ctx.fillStyle = '#fff6d0'; ctx.fillText(p.info.name.toUpperCase(), W / 2, 12 - (1 - a) * 4); ctx.restore();
+      }
+    }
+    ctx.restore();
+    i.shk = i.shkNext;
+  }
+  function shadow(ctx, x, y, z) { K.disc(ctx, x, y - z, 10 * z, '#000', 0.38, 0.32); }
+
+  /* ---------- registro e laço único ---------- */
+  const insts = new Set();
+  let raf = 0, poll = 0;
+  const io = typeof IntersectionObserver === 'function' ? new IntersectionObserver(es => { for (const e of es) if (e.target._sfx) e.target._sfx.vis = e.isIntersecting; ensure(); }, { threshold: 0.01 }) : null;
+  function dispose(i) { insts.delete(i); if (io) try { io.unobserve(i.cv); } catch (e) { /* nada */ } }
+  function reg(cv, o) {
+    if (cv._sfx) dispose(cv._sfx);
+    const plan = planOf(o.key); if (!plan) return null;
+    const hero = heroById(o.hid), caster = pickCaster(hero, plan.info);
+    const i = { cv, ctx: cv.getContext('2d'), key: o.key, plan, big: !!o.big, hero, caster, ally: pickAlly(caster), color: plan.info.color, vis: true, t0: performance.now(), w: 0, h: 0, z: 1, dpr: 1, dirty: true, once: null, shk: 0, shkNext: 0, frameN: 0, last: 0, rm: reduced(), seed: hashKey(o.key) % 100000 + 1 };
+    cv._sfx = i; insts.add(i); if (io) io.observe(cv); ensure(); return i;
+  }
+  function modalBlocks(cv) { const m = document.getElementById('modal'); return !!(UI.modalOpen && m && !m.contains(cv)); }
+  function size(i) {
+    const w = i.cv.clientWidth, h = i.cv.clientHeight, d = dprNow(); if (!w || !h) return false;
+    if (w === i.w && h === i.h && d === i.dpr && i.bg) return true;
+    i.w = w; i.h = h; i.dpr = d; i.cv.width = Math.round(w * d); i.cv.height = Math.round(h * d);
+    i.z = Math.max(1, Math.round(h / (i.big ? 68 : 66) * d * 2) / (2 * d));
+    i.casterDraw = FX.casterDrawer(i.caster, i.z); i.allyDraw = FX.casterDrawer(i.ally, i.z);
+    buildBg(i); i.dirty = true; return true;
+  }
+  function step(i, now) {
+    if (!size(i)) return;
+    const p = i.plan, total = p.dur + PRE + POST, rmNow = reduced();
+    if (rmNow !== i.rm) { i.rm = rmNow; i.once = null; i.dirty = true; }
+    if (i.rm) {
+      if (i.once != null) { const tt = (now - i.once) / 1000; if (tt > total) { i.once = null; i.dirty = true; } else { drawScene(i, tt); return; } }
+      if (i.dirty) { i.dirty = false; drawScene(i, PRE + p.hits[0] + 0.12); }
+      return;
+    }
+    if (!i.big && now - i.last < 30) return; i.last = now; i.dirty = false;
+    drawScene(i, ((now - i.t0) / 1000) % total);
+  }
+  function frame(now) {
+    raf = 0; if (document.hidden) return;
+    let active = 0, blocked = 0;
+    for (const i of Array.from(insts)) {
+      if (!i.cv.isConnected) { dispose(i); continue; }
+      if (!i.vis) continue;
+      if (modalBlocks(i.cv)) { blocked++; continue; }
+      active++; try { step(i, now); } catch (e) { (G.recordError || console.error)(e, 'skillpreview'); dispose(i); }
+    }
+    if (active) raf = requestAnimationFrame(frame);
+    else if (blocked && !poll) poll = setTimeout(() => { poll = 0; ensure(); }, 350);
+  }
+  function ensure() { if (!raf && !document.hidden && insts.size) raf = requestAnimationFrame(frame); }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { insts.forEach(i => { i.t0 = performance.now() - (i.t0 ? 0 : 0); }); ensure(); } });
+  function replay(i) { if (!i) return; if (i.rm) { i.once = performance.now(); } else i.t0 = performance.now(); i.shk = 0; ensure(); }
+
+  /* ---------- peças de interface ---------- */
+  const cvars = c => '--c:' + c + ';--cg:' + rgba(c, 0.5);
+  const lockIc = () => '<span class="sfx-lk" aria-hidden="true">' + ic('lock') + '</span>';
+  function chips(p, withCd) {
+    return '<span class="sfx-chips">' + (withCd ? '<i class="sfx-chip cd">' + fmtCd(p.info.cd) + '</i>' : '') + p.types.map(t => '<i class="sfx-chip t-' + t.t + '">' + t.label + '</i>').join('') + '</span>';
+  }
+  function thumbHTML(key, hid, st, ctrl) {
+    const p = planOf(key); if (!p) return '';
+    const lock = st.st === 'locked' || st.st === 'closed';
+    return '<span class="sfx-th sfx-frame' + (lock ? ' is-lock' : '') + '" style="' + cvars(p.info.color) + '" data-a="sfxprev:' + esc(key) + ':' + hid + '" data-sfx-key="' + esc(key) + '" data-sfx-hid="' + hid + '"' + (ctrl ? ' role="button" tabindex="0" aria-label="Ver prévia: ' + esc(p.info.name) + '"' : '') + '><canvas class="sfx-cv" aria-hidden="true"></canvas><span class="sfx-play" aria-hidden="true">▶</span>' + (lock ? lockIc() : '') + '</span>';
+  }
+  function cardHTML(key, h, hid) {
+    const p = planOf(key); if (!p) return '';
+    const st = statusOf(h, key), lock = st.st === 'locked' || st.st === 'closed';
+    const stIc = lock ? ic('lock') : st.st === 'learned' ? '✔' : '✦';
+    return '<button type="button" class="sfx-card t' + p.info.tier + ' st-' + st.st + '" style="' + cvars(p.info.color) + '" data-a="sfxprev:' + esc(key) + ':' + hid + '" aria-label="Prévia: ' + esc(p.info.name) + ' (' + esc(st.txt) + ')">' +
+      '<span class="sfx-frame' + (lock ? ' is-lock' : '') + '"><canvas class="sfx-cv" data-sfx-key="' + esc(key) + '" data-sfx-hid="' + hid + '" aria-hidden="true"></canvas><span class="sfx-seal"><b>▶</b> PRÉVIA</span><span class="sfx-lv">' + lvName(p.info.tier) + '</span>' + (lock ? lockIc() : '') + '</span>' +
+      '<span class="sfx-nm">' + esc(p.info.name) + '</span>' + chips(p, true) +
+      '<span class="sfx-st"><span class="sfx-sti">' + stIc + '</span>' + esc(st.txt) + '</span></button>';
+  }
+  function grimHTML(h) {
+    const keys = FX.classSkills(h.cls), tot = keys.length;
+    let own = 0; keys.forEach(k => { const s = statusOf(h, k).st; if (s === 'learned') own++; });
+    let col = false; try { col = localStorage.getItem('aurora.sfxGrim') === '0'; } catch (e) { /* sem storage */ }
+    return '<div class="sfx-grim' + (col ? ' sfx-collapsed' : '') + '" data-sfx-grim="' + h.id + '|' + (h.j2 || '') + '|' + (h.j3 || '') + '|' + (G.heroPeak ? G.heroPeak(h) : '') + '">' +
+      '<button type="button" class="sfx-gh" data-a="sfxgrim" aria-expanded="' + (!col) + '"><span class="sfx-gt"><b>Grimório de habilidades</b><small>' + own + ' aprendidas · ' + tot + ' na classe · toque para ver a prévia</small></span><span class="sfx-gc" aria-hidden="true">' + ic('up') + '</span></button>' +
+      '<div class="sfx-gg">' + keys.map(k => cardHTML(k, h, h.id)).join('') + '</div></div>';
+  }
+  function bigHTML(key, hid, full) {
+    const p = planOf(key); if (!p) return '';
+    const h = heroById(hid), st = h ? statusOf(h, key) : { st: 'locked', txt: '' }, lock = st.st === 'locked' || st.st === 'closed';
+    const stIc = lock ? ic('lock') : st.st === 'learned' ? '✔' : '✦';
+    return '<div class="sfx-big' + (lock ? ' is-lock' : '') + '" style="' + cvars(p.info.color) + '" data-sfx-big="' + esc(key) + '">' +
+      '<div class="sfx-frame" data-a="sfxreplay"><canvas class="sfx-cv" aria-hidden="true"></canvas><span class="sfx-seal"><b>▶</b> PRÉVIA</span><span class="sfx-lv">' + lvName(p.info.tier) + '</span>' + (lock ? lockIc() : '') + '</div>' +
+      '<div class="sfx-bar"><button type="button" class="btn sm sfx-rp" data-a="sfxreplay" aria-label="Repetir a prévia">↻ Repetir</button>' + chips(p, true) + '<span class="sfx-st lg"><span class="sfx-sti">' + stIc + '</span>' + esc(st.txt) + '</span></div>' +
+      (full ? '<p class="sfx-desc">' + esc(p.info.desc) + '</p>' : '') + '</div>';
+  }
+  function activate(root) {
+    root.querySelectorAll('canvas.sfx-cv').forEach(cv => {
+      if (cv._sfx && cv._sfx.cv === cv && insts.has(cv._sfx)) return;
+      const th = cv.closest('[data-sfx-key]') || cv, big = cv.closest('.sfx-big');
+      const key = th.getAttribute('data-sfx-key') || cv.getAttribute('data-sfx-key') || (big && big.getAttribute('data-sfx-big'));
+      const hid = th.getAttribute('data-sfx-hid') || cv.getAttribute('data-sfx-hid') || (big && big.getAttribute('data-hero')) || '';
+      if (key) reg(cv, { key, hid, big: !!big });
+    });
+  }
+
+  /* ---------- ações ---------- */
+  const splitArgs = a => { a = (a || []).slice(); const hid = a.pop(); return { key: a.join(':'), hid }; };
+  UI.ACT.sfxprev = a => {
+    const { key, hid } = splitArgs(a), p = planOf(key); if (!p) return;
+    const info = p.info, j = G.JOBS[key];
+    const html = '<div class="sfx-win" style="' + cvars(info.color) + '"><h2>' + esc(info.name) + '</h2>' +
+      '<div class="sfx-prev-host" data-skill-preview="' + esc(key) + '" data-hero="' + hid + '" data-full="1"></div>' +
+      '<div class="sfx-wbtns">' + (j ? '<button type="button" class="btn pri" data-a="job:' + hid + ':' + esc(key) + '">Ver vocação</button>' : '') + '<button type="button" class="btn" data-a="mclose">Fechar</button></div></div>';
+    UI.modal(html, { pause: false });
+    const m = document.getElementById('modal'); if (m) mount(m);
+  };
+  UI.ACT.sfxreplay = (a, el) => { const b = el && el.closest('.sfx-big'); const cv = b && b.querySelector('canvas'); if (cv) replay(cv._sfx); };
+  UI.ACT.sfxgrim = (a, el) => {
+    const g = el && el.closest('.sfx-grim'); if (!g) return; const c = g.classList.toggle('sfx-collapsed');
+    const bt = g.querySelector('.sfx-gh'); if (bt) bt.setAttribute('aria-expanded', String(!c));
+    try { localStorage.setItem('aurora.sfxGrim', c ? '0' : '1'); } catch (e) { /* sem storage */ }
+    ensure();
+  };
+  /* Enter/Espaço nas miniaturas que não são botões */
+  document.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.classList && e.target.classList.contains('sfx-th') && e.target.getAttribute('role') === 'button') { e.preventDefault(); e.target.click(); }
+  });
+
+  /* ---------- injeção idempotente ---------- */
+  function mount(m) {
+    m.querySelectorAll('.sfx-prev-host[data-skill-preview]').forEach(host => {
+      const key = host.getAttribute('data-skill-preview'), hid = host.getAttribute('data-hero'), full = host.getAttribute('data-full') === '1';
+      if (host.getAttribute('data-sfx-ok') === key + '|' + hid) { activate(host); return; }
+      if (!planOf(key)) return;
+      host.innerHTML = bigHTML(key, hid, full); host.setAttribute('data-sfx-ok', key + '|' + hid);
+      const bg = host.querySelector('.sfx-big'); if (bg) bg.setAttribute('data-hero', hid || '');
+      activate(host);
+    });
+  }
+  function inject(s, b) {
+    const h = s.sub.hero && (typeof s.sub.hero === 'object' ? s.sub.hero : heroById(s.sub.hero));
+    const hero = h || heroById(s.sub.hero); if (!hero || !hero.cls || !G.CLASSES[hero.cls]) return;
+    document.documentElement.classList.toggle('sfx-rm', reduced());
+    const root = b.querySelector('.hero-content') || b;
+    // grimório
+    const sig = hero.id + '|' + (hero.j2 || '') + '|' + (hero.j3 || '') + '|' + (G.heroPeak ? G.heroPeak(hero) : '');
+    let g = root.querySelector('.sfx-grim');
+    if (g && g.getAttribute('data-sfx-grim') !== sig) { g.remove(); g = null; }
+    if (!g) {
+      const wrap = document.createElement('div'); wrap.innerHTML = grimHTML(hero); g = wrap.firstChild;
+      const first = root.querySelector('.sec'); if (first && first.parentNode === root) root.insertBefore(g, first); else root.insertBefore(g, root.firstChild);
+    }
+    activate(g);
+    // miniaturas nos cartões
+    root.querySelectorAll('[data-skill]').forEach(el => {
+      if (el.classList.contains('node') || !el.classList.contains('sk') || el.querySelector('.sfx-th')) return;
+      const key = el.getAttribute('data-skill'), row = el.querySelector('.row'); if (!row || !FX.info(key)) return;
+      const st = statusOf(hero, key), tmp = document.createElement('div'); tmp.innerHTML = thumbHTML(key, hero.id, st, !el.matches('button'));
+      const ski = row.querySelector('.ski'), th = tmp.firstChild; if (!th) return;
+      if (ski && ski.nextSibling) row.insertBefore(th, ski.nextSibling); else row.insertBefore(th, row.firstChild);
+      el.classList.add('sfx-has');
+      activate(th);
+    });
+    ensure();
+  }
+  G.hook('sheetDraw', (s, b) => {
+    try { if (s && s.name === 'herois' && s.sub && s.sub.hero && s.sub.ht === 'habil' && b) inject(s, b); } catch (e) { (G.recordError || console.error)(e, 'skillpreview'); }
+  }, 60);
+  G.hook('modalShow', m => { try { if (m) mount(m); } catch (e) { (G.recordError || console.error)(e, 'skillpreview'); } }, 60);
 })();
 
 </script>

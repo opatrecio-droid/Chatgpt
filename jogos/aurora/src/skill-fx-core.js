@@ -83,7 +83,11 @@
   /* gerador determinístico (mulberry32): o mesmo seed gera as mesmas partículas a cada quadro */
   K.rng = seed => { let a = (seed >>> 0) || 1; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
   /* pixel quadrado alinhado à grade de arte */
-  K.px = (ctx, x, y, s, color, alpha) => { if (alpha != null) ctx.globalAlpha = alpha; ctx.fillStyle = color; s = Math.max(1, Math.round(s)); ctx.fillRect(Math.round(x - s / 2), Math.round(y - s / 2), s, s); };
+  K.px = (ctx, x, y, s, color, alpha) => {
+    const a0 = ctx.globalAlpha; if (alpha != null) ctx.globalAlpha = K.clamp(alpha, 0, 1);
+    ctx.fillStyle = color; s = Math.max(1, Math.round(s)); ctx.fillRect(Math.round(x - s / 2), Math.round(y - s / 2), s, s);
+    ctx.globalAlpha = a0;   // não vaza a transparência para os próximos desenhos
+  };
   /* brilho aditivo suave */
   K.glow = (ctx, x, y, r, color, alpha) => {
     if (!(r > 0)) return; ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = K.clamp(alpha == null ? 1 : alpha, 0, 1);

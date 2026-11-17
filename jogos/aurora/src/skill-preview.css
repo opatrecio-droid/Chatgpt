@@ -1,0 +1,88 @@
+/* Aurora 046 · Prévias animadas de habilidades */
+html.aurora-rpg #app .sfx-frame{position:relative;display:block;overflow:hidden;border-radius:7px;background:#0b1020;
+  box-shadow:0 0 0 2px #070a14,0 0 0 3px var(--c,#8a62c9),0 0 12px 1px var(--cg,rgba(138,98,201,.5)),inset 0 0 0 1px rgba(255,255,255,.12);isolation:isolate}
+html.aurora-rpg #app .sfx-frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;border-radius:inherit;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.16) 50%,transparent 60%) -140% 0/260% 100% no-repeat;animation:sfx-sheen 4.2s ease-in-out infinite}
+html.aurora-rpg #app .sfx-cv{display:block;width:100%;height:100%;image-rendering:pixelated;touch-action:manipulation}
+html.aurora-rpg #app .sfx-frame.is-lock .sfx-cv,html.aurora-rpg #app .sfx-big.is-lock .sfx-cv{filter:saturate(.55) brightness(.9)}
+@keyframes sfx-sheen{0%,55%{background-position:-140% 0}100%{background-position:140% 0}}
+@keyframes sfx-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+html.aurora-rpg #app .sfx-seal{position:absolute;left:5px;top:5px;z-index:4;font:900 9px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em;color:#fff6d0;
+  background:rgba(8,10,20,.78);border:1px solid var(--c,#8a62c9);border-radius:999px;padding:3px 6px 3px 5px;box-shadow:0 0 6px var(--cg,transparent)}
+html.aurora-rpg #app .sfx-seal b{display:inline-block;color:var(--c,#ffd75a);filter:brightness(1.5);animation:sfx-pulse 1.4s ease-in-out infinite;margin-right:1px}
+html.aurora-rpg #app .sfx-lv{position:absolute;right:5px;top:5px;z-index:4;font:900 10px/1 ui-monospace,Menlo,Consolas,monospace;color:#10131f;background:var(--c,#ffd75a);
+  border-radius:4px;padding:3px 5px;box-shadow:0 1px 0 rgba(0,0,0,.5),inset 0 -2px 0 rgba(0,0,0,.2);text-transform:uppercase}
+html.aurora-rpg #app .sfx-lk{position:absolute;right:5px;bottom:5px;z-index:4;width:20px;height:20px;display:grid;place-items:center;background:rgba(8,10,20,.82);
+  border:1px solid rgba(255,255,255,.35);border-radius:5px;color:#ffd75a}
+html.aurora-rpg #app .sfx-lk .i{width:12px;height:12px}
+html.aurora-rpg #app .sfx-lk i,html.aurora-rpg #app .sfx-lk svg{width:12px;height:12px}
+
+/* grimório */
+html.aurora-rpg #app .sfx-grim{margin:4px 0 12px;padding:8px;border-radius:12px;background:linear-gradient(180deg,rgba(32,38,64,.85),rgba(16,20,36,.9));
+  border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 14px rgba(0,0,0,.35)}
+html.aurora-rpg #app .sfx-gh{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:2px 4px;background:none;border:0;color:inherit;text-align:left;cursor:pointer}
+html.aurora-rpg #app .sfx-gt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+html.aurora-rpg #app .sfx-gt b{font-size:15px;letter-spacing:.02em;color:#ffe9a8}
+html.aurora-rpg #app .sfx-gt small{font-size:11px;opacity:.72;line-height:1.25}
+html.aurora-rpg #app .sfx-gc{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.07);transition:transform .2s}
+html.aurora-rpg #app .sfx-collapsed .sfx-gc{transform:rotate(180deg)}
+html.aurora-rpg #app .sfx-gg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+html.aurora-rpg #app .sfx-collapsed .sfx-gg{display:none}
+html.aurora-rpg #app .sfx-card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:5px;min-width:0;padding:6px 6px 7px;border-radius:10px;cursor:pointer;
+  background:rgba(8,11,22,.55);border:1px solid rgba(255,255,255,.08);-webkit-tap-highlight-color:transparent;transition:transform .12s,border-color .12s}
+html.aurora-rpg #app .sfx-card:active{transform:scale(.98)}
+html.aurora-rpg #app .sfx-card:focus-visible{outline:2px solid #ffe07a;outline-offset:2px}
+html.aurora-rpg #app .sfx-card.t1{grid-column:1/-1}
+html.aurora-rpg #app .sfx-card .sfx-frame{aspect-ratio:19/10;width:100%}
+html.aurora-rpg #app .sfx-card.t1 .sfx-frame{aspect-ratio:3.2/1}
+html.aurora-rpg #app .sfx-card.st-locked,html.aurora-rpg #app .sfx-card.st-closed{border-color:rgba(255,255,255,.05)}
+html.aurora-rpg #app .sfx-card.st-learned{border-color:var(--c)}
+html.aurora-rpg #app .sfx-nm{font:800 13px/1.2 inherit;color:#f4f1e6;padding:0 2px;overflow-wrap:anywhere}
+html.aurora-rpg #app .sfx-chips{display:flex;flex-wrap:wrap;gap:4px;padding:0 2px}
+html.aurora-rpg #app .sfx-chip{font:700 10px/1 ui-monospace,Menlo,Consolas,monospace;font-style:normal;padding:3px 6px;border-radius:5px;background:rgba(255,255,255,.1);color:#e8e8f0;white-space:nowrap}
+html.aurora-rpg #app .sfx-chip.cd{background:rgba(255,224,122,.16);color:#ffe07a}
+html.aurora-rpg #app .sfx-chip.t-dano{background:rgba(255,110,90,.22);color:#ffb0a2}
+html.aurora-rpg #app .sfx-chip.t-area{background:rgba(255,165,70,.22);color:#ffcb8a}
+html.aurora-rpg #app .sfx-chip.t-cont{background:rgba(170,120,255,.24);color:#d2b8ff}
+html.aurora-rpg #app .sfx-chip.t-ctrl{background:rgba(90,200,255,.2);color:#a6e4ff}
+html.aurora-rpg #app .sfx-chip.t-sup{background:rgba(110,230,150,.2);color:#a8f0c0}
+html.aurora-rpg #app .sfx-st{display:flex;align-items:center;gap:4px;font-size:11px;line-height:1.2;color:#cfd3e4;padding:0 2px}
+html.aurora-rpg #app .sfx-st.lg{margin-left:auto;font-size:12px}
+html.aurora-rpg #app .sfx-sti{display:inline-grid;place-items:center;width:14px;height:14px;font-size:11px;color:#8fe6a8;flex:none}
+html.aurora-rpg #app .sfx-sti .i{width:12px;height:12px;color:#ffd75a}
+html.aurora-rpg #app .sfx-card.st-locked .sfx-st,html.aurora-rpg #app .sfx-card.st-closed .sfx-st{color:#b8bccc}
+html.aurora-rpg #app .sfx-card.st-avail .sfx-sti{color:#ffe07a}
+
+/* miniatura nos cartões .sk */
+html.aurora-rpg #app .sk .sfx-th{flex:0 0 96px;width:96px;height:62px;align-self:center;cursor:pointer;margin:0 2px;box-sizing:border-box;min-width:0}
+html.aurora-rpg #app .sk .sfx-th:focus-visible{outline:2px solid #ffe07a;outline-offset:2px}
+html.aurora-rpg #app .sfx-th::after{display:none}
+html.aurora-rpg #app .sfx-th .sfx-play{position:absolute;left:4px;bottom:4px;z-index:4;width:18px;height:18px;display:grid;place-items:center;font-size:9px;line-height:1;color:#fff6d0;
+  background:rgba(8,10,20,.8);border:1px solid var(--c);border-radius:50%;padding-left:1px;box-sizing:border-box}
+html.aurora-rpg #app .sfx-th .sfx-lk{width:18px;height:18px}
+html.aurora-rpg #app .sk.sfx-has .row>.gr{min-width:0}
+
+/* prévia grande */
+html.aurora-rpg #app .sfx-prev-host{margin:6px 0 10px}
+html.aurora-rpg #app .sfx-big .sfx-frame{width:100%;max-width:420px;aspect-ratio:9/5;margin:0 auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+html.aurora-rpg #app .sfx-big .sfx-seal{font-size:10px;padding:4px 8px 4px 6px}
+html.aurora-rpg #app .sfx-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 2px 4px}
+html.aurora-rpg #app .sfx-bar .sfx-rp{min-height:44px;min-width:44px;padding:0 14px}
+html.aurora-rpg #app .sfx-name{margin:8px 2px 2px;font-size:17px;color:#ffe9a8}
+html.aurora-rpg #app .sfx-desc{margin:4px 2px 0;font-size:13px;line-height:1.4;opacity:.9}
+html.aurora-rpg #app .sfx-desc.sm{font-size:12px;opacity:.8}
+html.aurora-rpg #app .sfx-win h2{margin:0 0 4px}
+html.aurora-rpg #app .sfx-wbtns{display:flex;gap:8px;margin-top:12px}
+html.aurora-rpg #app .sfx-wbtns .btn{flex:1;min-height:44px}
+
+/* movimento reduzido */
+html.aurora-rpg.sfx-rm #app .sfx-frame::after{animation:none;display:none}
+html.aurora-rpg.sfx-rm #app .sfx-seal b{animation:none}
+@media (prefers-reduced-motion:reduce){
+  html.aurora-rpg #app .sfx-frame::after{animation:none;display:none}
+  html.aurora-rpg #app .sfx-seal b{animation:none}
+  html.aurora-rpg #app .sfx-gc{transition:none}
+}
+@media (max-width:360px){
+  html.aurora-rpg #app .sk .sfx-th{flex-basis:80px;width:80px;height:52px}
+}
