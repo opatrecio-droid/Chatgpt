@@ -154,7 +154,7 @@
         if (motivo) { G.UI.toast(motivo, 'bad'); return; }
         const r = await RENDER.trocar('3d');
         if (!r.ok) G.UI.toast(r.why, 'bad');
-        else G.UI.toast('Vista 3D (prévia): cidade e cenário em 3D; heróis e monstros ainda só no 2D. Toque de novo para voltar.', 'info', null, 6000);
+        else G.UI.toast('Vista 3D (prévia). Toque de novo no ícone para voltar.', 'info', null, 4500);
       }
     } catch (e) {
       G.recordError(e, 'vista3d');

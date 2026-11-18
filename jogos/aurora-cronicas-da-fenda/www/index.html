@@ -4082,7 +4082,7 @@ html.aurora-rpg #app #bcard .bk-description,html.aurora-rpg #modal .trade-intro 
 html.aurora-rpg #app .btn,html.aurora-rpg #modal .btn {font-size:calc(14px * var(--ts,1))!important}
 html.aurora-rpg #app #bcard .bk-bottom .btn,html.aurora-rpg #modal .acts .btn {font-size:calc(16px * var(--ts,1))!important}
 
-</style><meta name="aurora-plataforma" content="aurora-plataforma:ba774f0d6996">
+</style><meta name="aurora-plataforma" content="aurora-plataforma:a4404464700a">
 <style id="aurora-menu-inicial">
 /* Aurora — menu inicial (v1). Todas as classes começam com "am-" para não colidir com o jogo. */
 #title.am-title:not(.recovering){display:none;padding:0!important;background:#05070f!important;overflow:hidden;--am-gold:#e2b659;--am-gold2:#f3d9a0;--am-line:rgba(226,182,89,.3);--am-ink:#eadfc8;--am-mut:#b9a98c}
@@ -46243,7 +46243,7 @@ html.aurora-rpg #app #modal .mbox.aurora-return-window .rcd.rar5 .rcx-aura.b{bor
         if (motivo) { G.UI.toast(motivo, 'bad'); return; }
         const r = await RENDER.trocar('3d');
         if (!r.ok) G.UI.toast(r.why, 'bad');
-        else G.UI.toast('Vista 3D (prévia): cidade e cenário em 3D; heróis e monstros ainda só no 2D. Toque de novo para voltar.', 'info', null, 6000);
+        else G.UI.toast('Vista 3D (prévia). Toque de novo no ícone para voltar.', 'info', null, 4500);
       }
     } catch (e) {
       G.recordError(e, 'vista3d');
@@ -50516,7 +50516,7 @@ void main() {
     angulo: prefAngulo(),  // graus a partir do chão: 90 = de cima (igual ao 2D), 45–60 = inclinada
     minAngulo: 20, maxAngulo: 90,
     transicao: 0.5,      // segundos da descida da câmera
-    passoProf: 0.002,    // separação de profundidade entre sprites, em unidades
+    passoProf: 0.02,     // profundidade por tile de y (invisível em ortográfica; só ordena)
     distCam: 400,        // a câmera é ortográfica: a distância não muda o tamanho, só a ordem
   };
 
@@ -50564,6 +50564,7 @@ void main() {
     ren = new THREE.WebGLRenderer({ canvas: cv3, antialias: false, alpha: false, powerPreference: 'low-power', stencil: false });
     ren.setPixelRatio(1);
     ren.setClearColor(0x39464e, 1);     // mesma cor de fora do mapa usada pelo 2D
+    montarCamadaUI();
   }
 
   function textura(cv) {
@@ -50609,8 +50610,6 @@ void main() {
       /* Mesma âncora do 2D: canto em (p.x*TS - 4, (p.y+4)*TS - (h-4)). */
       itens.push({ cv: sp.cv, w: sp.w, h: sp.h, x: (p.x * TS - 4 + sp.w / 2) / TS, y: ((p.y + 4) * TS + 4) / TS });
     }
-    itens.sort((a, b) => a.y - b.y);                    // mesma ordem de pintura do 2D
-    itens.forEach((it, i) => { it.rank = i + 1; });
     return itens;
   }
 
@@ -50636,16 +50635,17 @@ void main() {
     precisaMatrizes = true;
   }
 
-  /* A posição de cada sprite é deslocada na direção da câmera por rank × passo.
-     Em projeção ortográfica isso NÃO muda nada na tela — só a ordem de profundidade.
-     Assim o 3D respeita exatamente a ordem de pintura do 2D e ainda usa o z-buffer. */
+  /* Cada sprite é deslocado na direção da câmera por (y do mundo) × passo.
+     Em projeção ortográfica isso NÃO muda nada na tela — só a profundidade. Assim
+     estáticos e entidades se intercalam exatamente na ordem de pintura do 2D
+     (que também é por y), e ainda ganhamos o z-buffer. */
   function atualizarMatrizes() {
     const a = ang * GRAU, nx = 0, ny = Math.sin(a), nz = Math.cos(a);
     qTmp.setFromAxisAngle(EIXO_X, -a);
     for (const lote of lotes) {
       const { mesh, lista } = lote;
       for (let i = 0; i < lista.length; i++) {
-        const it = lista[i], d = it.rank * CFG.passoProf;
+        const it = lista[i], d = it.y * CFG.passoProf;
         pTmp.set(it.x + nx * d, ny * d, it.y + nz * d);
         sTmp.set(it.w / TS, it.h / TS, 1);
         mTmp.compose(pTmp, qTmp, sTmp);
@@ -50654,6 +50654,165 @@ void main() {
       mesh.instanceMatrix.needsUpdate = true;
     }
     precisaMatrizes = false;
+  }
+
+  /* ---------- camada dinâmica (Fase 2): heróis, NPCs e monstros ----------
+     Cada entidade vira um quadrilátero em pé com a MESMA imagem que o 2D usaria:
+     a folha de sprites é a do jogo (A.charSheet / A.monSheet), o quadro é o que o
+     jogo escolheu (A.visualPose / A.charFrame) e o recorte é copiado para um
+     canvas pequeno só dessa entidade. Nada de arte nova. */
+  const SOMBRA = (() => {
+    const c = document.createElement('canvas'); c.width = c.height = 64;
+    const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0, 'rgba(8,10,18,.55)'); g.addColorStop(0.6, 'rgba(8,10,18,.28)'); g.addColorStop(1, 'rgba(8,10,18,0)');
+    x.fillStyle = g; x.fillRect(0, 0, 64, 64); return c;
+  })();
+
+  let poolVivos = [], poolSombras = [], geoSombra = null, matSombra = null;
+
+  function pegarVivo(i) {
+    if (poolVivos[i]) return poolVivos[i];
+    const cv = document.createElement('canvas'); cv.width = cv.height = 8;
+    const tex = new THREE.CanvasTexture(cv);
+    tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
+    const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.04, depthWrite: true, side: THREE.DoubleSide });
+    const m = new THREE.Mesh(geo, mat);
+    m.frustumCulled = false; m.visible = false; cena.add(m);
+    return poolVivos[i] = { mesh: m, cv, ctx: cv.getContext('2d'), tex, mat, assin: '' };
+  }
+
+  function pegarSombra(i) {
+    if (poolSombras[i]) return poolSombras[i];
+    if (!geoSombra) {
+      geoSombra = new THREE.PlaneGeometry(1, 1); geoSombra.rotateX(-Math.PI / 2);
+      const t = new THREE.CanvasTexture(SOMBRA); t.colorSpace = THREE.SRGBColorSpace;
+      matSombra = new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false });
+    }
+    const m = new THREE.Mesh(geoSombra, matSombra);
+    m.frustumCulled = false; m.visible = false; m.renderOrder = -1; cena.add(m);
+    return poolSombras[i] = m;
+  }
+
+  /* Monta a descrição de desenho de uma entidade, nas mesmas contas do 2D.
+     Devolve null quando a arte ainda não existe (a entidade some, nada quebra). */
+  function descrever(e, tipo) {
+    if (tipo === 'm') {
+      const d = G.MON[e.k]; if (!d) return null;
+      const sp = A.monSheet(e.k, e.elite, e.visualStage || 0); if (!sp || !sp.cv) return null;
+      const k = (d.boss ? 1.6 : (d.size || 1) > 1.2 ? 1.15 : 1) * (e.elite ? 1.2 : 1);
+      const quadros = sp.frames === 8
+        ? (e.flash > 0 ? 5 : e.swing > 0 ? 4 : e._cast ? 1 : Math.floor(R.t * (e.state === 'chase' || e.state === 'march' ? 8 : 4) + e.id) % 4) : 0;
+      const sw = sp.sw || sp.w, sh = sp.sh || sp.h;
+      const voa = (d.fly && !(e._groundUntil > G.S.t) || e._airUntil > G.S.t) ? 4 + Math.sin(R.t * 3 + e.id) * 1.5 : 0;
+      return { cv: sp.cv, sx: quadros * sw, sy: 0, sw, sh, lp: -sp.w / 2 * k, tp: -(sp.h - 2) * k,
+        w: sp.w * k, h: sp.h * k, flip: e.dir < 0, alto: voa, raio: sp.w * 0.3 * k,
+        assin: 'm' + e.k + (e.elite ? 'e' : '') + (e.visualStage || 0) + ':' + quadros + ':' + (e.dir < 0 ? 1 : 0) + ':' + (e.flash > 0 ? 1 : 0) };
+    }
+    const heroi = tipo === 'h';
+    const look = heroi ? A.heroLook(e) : A.npcLook(e); if (!look) return null;
+    const folha = A.charSheet(look); if (!folha || !folha.cv) return null;
+    const fr = A.visualPose ? A.visualPose(e, R.t) : A.charFrame(e, R.t);
+    if (folha.need) folha.need(fr);
+    const idx = folha.idx && folha.idx[fr]; if (idx == null) return null;
+    const fw = folha.fw || 26, fh = folha.fh || 30, fs = folha.scale || 1;
+    const ax = folha.ax == null ? 13 : folha.ax, ay = folha.ay == null ? 27 : folha.ay;
+    return { cv: folha.cv, sx: idx * fw, sy: 0, sw: fw, sh: fh, lp: -ax * fs, tp: -ay * fs,
+      w: fw * fs, h: fh * fs, flip: e.dir < 0, alto: 0, raio: 6.5,
+      assin: (heroi ? 'h' : 'n') + (e.id || e.name) + ':' + fr + ':' + (e.dir < 0 ? 1 : 0) + ':' + (e.flash > 0 ? 1 : 0) + ':' + (e._lk || '') };
+  }
+
+  function desenharVivos() {
+    const S = G.S; if (!S) return;
+    const lista = [];
+    for (const h of S.heroes) if (!h.inside && h.state !== 'recover') lista.push([h, 'h']);
+    for (const n of G.npcs || []) if (!n.inside) lista.push([n, 'n']);
+    for (const n of G.guards || []) lista.push([n, 'n']);
+    for (const m of G.mons || []) if (!m.dead && !m.nodraw) lista.push([m, 'm']);
+
+    const a = ang * GRAU, ux = 0, uy = Math.cos(a), uz = -Math.sin(a);   // "para cima" na tela
+    const nx = 0, ny = Math.sin(a), nz = Math.cos(a);                     // direção da câmera
+    qTmp.setFromAxisAngle(EIXO_X, -a);
+    let usados = 0;
+    for (const [e, tipo] of lista) {
+      let d = null;
+      try { d = descrever(e, tipo); } catch (err) { d = null; }
+      if (!d) continue;
+      const slot = pegarVivo(usados), prof = e.y * CFG.passoProf;
+      if (slot.assin !== d.assin || slot.cv.width !== d.sw || slot.cv.height !== d.sh) {
+        if (slot.cv.width !== d.sw || slot.cv.height !== d.sh) { slot.cv.width = d.sw; slot.cv.height = d.sh; }
+        const c = slot.ctx;
+        c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, d.sw, d.sh); c.imageSmoothingEnabled = false;
+        if (d.flip) { c.translate(d.sw, 0); c.scale(-1, 1); }
+        try { c.drawImage(d.cv, d.sx, d.sy, d.sw, d.sh, 0, 0, d.sw, d.sh); } catch (err) { continue; }
+        if (e.flash > 0 && A.flashOf) { try { c.globalAlpha = 0.75; c.drawImage(A.flashOf(d.cv), d.sx, d.sy, d.sw, d.sh, 0, 0, d.sw, d.sh); c.globalAlpha = 1; } catch (err) { /* sem brilho */ } }
+        slot.tex.needsUpdate = true; slot.assin = d.assin;
+      }
+      /* Mesma âncora do 2D: o ponto do chão fica em (ax, ay) dentro do sprite. */
+      const L = d.w / TS, Al = d.h / TS;
+      const cx = (d.lp + d.w / 2) / TS;                  // centro horizontal em relação ao pé
+      const cy = -(d.tp + d.h) / TS + d.alto / TS;       // base do sprite (negativo = abaixo do ponto)
+      pTmp.set(e.x + cx + ux * cy + nx * prof, uy * cy + ny * prof, e.y + uz * cy + nz * prof);
+      sTmp.set(L, Al, 1);
+      mTmp.compose(pTmp, qTmp, sTmp);
+      slot.mesh.matrix.copy(mTmp); slot.mesh.matrixAutoUpdate = false; slot.mesh.matrixWorldNeedsUpdate = true;
+      slot.mesh.visible = true;
+
+      const som = pegarSombra(usados), r = d.raio / TS;
+      som.position.set(e.x + nx * (prof - CFG.passoProf * 0.4), 0.004 + ny * (prof - CFG.passoProf * 0.4), e.y + nz * (prof - CFG.passoProf * 0.4));
+      som.scale.set(r * 2.3, 1, r * 1.1);
+      som.visible = true;
+      usados++;
+    }
+    for (let i = usados; i < poolVivos.length; i++) poolVivos[i].mesh.visible = false;
+    for (let i = usados; i < poolSombras.length; i++) poolSombras[i].visible = false;
+  }
+
+  /* ---------- itens 2D avulsos no 3D (portal, criatura da sorte, ...) ----------
+     Vários módulos registram itens dinâmicos do tipo 'x': funções que pintam num
+     contexto 2D em coordenadas de tela. Em vez de reescrever cada uma, elas pintam
+     numa camada transparente por cima do 3D, usando a projeção da câmera 3D — então
+     caem no lugar certo sem código novo. É também onde rótulos e números de dano
+     vão entrar na Fase 4.
+     Limite conhecido: esta camada fica sempre na frente, sem se misturar na
+     profundidade com os sprites 3D. */
+  let cvUI = null, ctxUI = null;
+
+  function montarCamadaUI() {
+    cvUI = document.createElement('canvas');
+    cvUI.id = 'view3d-ui';
+    cvUI.setAttribute('aria-hidden', 'true');
+    cvUI.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;z-index:2;display:block;pointer-events:none';
+    cv3.parentElement.insertBefore(cvUI, cv3.nextSibling);
+    ctxUI = cvUI.getContext('2d');
+  }
+
+  function desenharExtras(dt) {
+    if (!ctxUI) return;
+    ctxUI.setTransform(1, 0, 0, 1, 0, 0);
+    ctxUI.clearRect(0, 0, cwA, chA);
+    const c = R.cam, z = c.z;
+    const vx0 = (c.x - cwA / 2 / z) / TS - 3, vx1 = (c.x + cwA / 2 / z) / TS + 3;
+    const vy0 = (c.y - chA / 2 / z) / TS - 1, vy1 = (c.y + chA / 2 / z) / TS + 5;
+    const dyn = [];
+    try { if (R.dynMore) R.dynMore(dyn, vx0, vx1, vy0, vy1); } catch (e) { /* módulo ausente */ }
+    try { G.runHooks('renderItems', dyn, ctxUI, { x0: vx0, x1: vx1, y0: vy0, y1: vy1 }); } catch (e) { /* idem */ }
+    const itens = dyn.filter((d) => d && d.k === 'x' && typeof d.f === 'function');
+    if (!itens.length) return;
+    /* Sem giro lateral, a coluna da tela depende só do x do mundo e a linha só do y,
+       então dá para entregar X e Y separados, como o desenho 2D espera. */
+    const proj = (wx, wy) => { vTmp.set(wx, 0, wy).project(cam); return [(vTmp.x + 1) / 2 * cwA, (1 - vTmp.y) / 2 * chA]; };
+    const ctxAntigo = R.ctx;
+    for (const d of itens) {
+      try {
+        R.ctx = ctxUI;
+        ctxUI.save(); ctxUI.imageSmoothingEnabled = false;
+        d.f(d.e, (wx) => proj(wx, d.y || 0)[0], (wy) => proj(d.e ? d.e.x : 0, wy)[1], z, [], dt);
+        ctxUI.restore();
+      } catch (err) { try { ctxUI.restore(); } catch (e2) { /* nada */ } }
+      R.ctx = ctxAntigo;
+    }
+    R.ctx = ctxAntigo;
   }
 
   function aplicarNoite(escuro) {
@@ -50704,6 +50863,7 @@ void main() {
     cwA = w; chA = h;
     cv3.width = w; cv3.height = h;
     cv3.style.width = (w / dpr()) + 'px'; cv3.style.height = (h / dpr()) + 'px';
+    if (cvUI) { cvUI.width = w; cvUI.height = h; cvUI.style.width = cv3.style.width; cvUI.style.height = cv3.style.height; }
     ren.setSize(w, h, false);
   }
 
@@ -50719,7 +50879,7 @@ void main() {
     },
 
     init() {
-      if (ren) { cv3.style.display = 'block'; CFG.angulo = G.clamp(prefAngulo(), CFG.minAngulo, CFG.maxAngulo); ang = 90; mirarAngulo(CFG.angulo); precisaMatrizes = true; return; }
+      if (ren) { cv3.style.display = 'block'; if (cvUI) cvUI.style.display = 'block'; CFG.angulo = G.clamp(prefAngulo(), CFG.minAngulo, CFG.maxAngulo); ang = 90; mirarAngulo(CFG.angulo); precisaMatrizes = true; return; }
       cena = new THREE.Scene();
       cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000);
       montarCanvas();
@@ -50743,6 +50903,8 @@ void main() {
         if (ang === angAlvo && resolverRecolher) { const f = resolverRecolher; resolverRecolher = null; f(); }
       }
       if (precisaMatrizes) atualizarMatrizes();
+      desenharVivos();
+      desenharExtras(dt);
       aplicarNoite(G.S ? G.darkness(G.S.clock) : 0);
       ajustarCamera();
       ren.render(cena, cam);
@@ -50761,7 +50923,7 @@ void main() {
       return [(vTmp.x + 1) / 2 * cwA / dpr(), (1 - vTmp.y) / 2 * chA / dpr()];
     },
 
-    dispose() { if (cv3) cv3.style.display = 'none'; },
+    dispose() { if (cv3) cv3.style.display = 'none'; if (cvUI) { cvUI.style.display = 'none'; ctxUI && ctxUI.clearRect(0, 0, cwA, chA); } },
 
     /* Sobe a câmera de volta a 90° antes de devolver a vista ao 2D (transição de saída). */
     recolher() {

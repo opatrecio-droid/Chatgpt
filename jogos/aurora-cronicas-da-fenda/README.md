@@ -5,7 +5,7 @@ O mesmo jogo em **um só HTML**, agora com um menu inicial novo e empacotado com
 | Quero… | Faça isto |
 |---|---|
 | Jogar no PC | Abra `www/index.html` no Chrome/Edge/Firefox (duplo clique) |
-| Instalar no Android | Baixe `apk/aurora-cronicas-da-fenda-v30.7.2-android.apk`, abra no celular e permita "instalar apps desconhecidos" |
+| Instalar no Android | Baixe `apk/aurora-cronicas-da-fenda-v30.7.3-android.apk`, abra no celular e permita "instalar apps desconhecidos" |
 | Gerar o APK de novo | `npm ci && npm run apk` (precisa de Node 22, JDK 21 e Android SDK; veja abaixo) |
 | Trocar a versão do jogo | Substitua `fonte/aurora-046-animacoes.html`, rode `npm run montar` e `npm run apk` |
 
@@ -52,7 +52,7 @@ assinatura/           chave de assinatura — NÃO vai para o git
 ```bash
 export ANDROID_HOME=/caminho/do/android-sdk      # cmdline-tools + platforms;android-36 + build-tools
 npm ci
-npm run apk                                       # → apk/aurora-cronicas-da-fenda-v30.7.2-android.apk
+npm run apk                                       # → apk/aurora-cronicas-da-fenda-v30.7.3-android.apk
 ```
 
 `npm run verificar` confere se `www/index.html` está em dia com `fonte/` e `modulos/`.
@@ -66,7 +66,7 @@ O repositório é público, então a chave **não** está nele. O Android só at
 
 Dentro do jogo, o ícone na coluna da esquerda troca entre a vista clássica e uma vista 3D do mesmo mapa — mesmo save, mesmas regras, mesma cidade de outro ângulo. O 2D continua sendo o padrão.
 
-Hoje a prévia desenha **chão, cenário, muralha, casas e prédios** em 3D; heróis, monstros e NPCs ainda são a próxima fase. A inclinação (45°, 55°, 60° ou "De cima") fica em *Ajustes → Gráficos*. Com a câmera "De cima" o 3D põe cada ponto no mesmo pixel do 2D — é assim que os testes provam que o mapa não saiu do lugar.
+Hoje a vista 3D desenha chão, cenário, prédios, heróis, NPCs, guardas, monstros e o portal. Faltam a luz dos lampiões à noite, o círculo rúnico do chão e os rótulos sobre os personagens. A inclinação (45°, 55°, 60° ou "De cima") fica em *Ajustes → Gráficos*. Com a câmera "De cima" o 3D põe cada ponto no mesmo pixel do 2D — é assim que os testes provam que o mapa não saiu do lugar.
 
 O Three.js (525 KB) só é lido quando alguém toca no ícone: antes disso ele fica no arquivo como texto, sem custo. Se o aparelho não tiver WebGL, o ícone não aparece. Detalhes, medidas e o que falta: **[PLANO-3D.md](PLANO-3D.md)**.
 
