@@ -1,6 +1,6 @@
 {
   "name": "aurora-cronicas-da-fenda",
-  "version": "30.7.0",
+  "version": "30.7.1",
   "private": true,
   "description": "Aurora — Crônicas da Fenda: jogo web (PC) empacotado como app Android com Capacitor.",
   "type": "module",
@@ -18,7 +18,6 @@
     "@capacitor/app": "^8.1.2",
     "@capacitor/core": "^8.6.2",
     "@capacitor/filesystem": "^8.1.5",
-    "@capacitor/haptics": "^8.0.2",
     "@capacitor/share": "^8.0.3"
   },
   "devDependencies": {

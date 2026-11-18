@@ -11,7 +11,7 @@
   if (typeof document === 'undefined' || !window.G || !G.UI || !window.AuroraPlatform) return;
   const U = G.UI, P = window.AuroraPlatform, Cfg = P.Config;
   const $ = (s, r) => (r || document).querySelector(s);
-  const esc = U.esc || ((s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])));
+  const esc = U.esc;
 
   /* ---------- resumo do salvamento (para o cartão "Continuar") ---------- */
   const chaveCampanha = () => (G.TEST && G.TEST.CAMPAIGN_KEY) || G.SAVE_KEY;
@@ -218,7 +218,7 @@
     menu.push('<div class="am-slot"' + idx() + '>' + itemPrincipal('sbstart:' + (teste ? '1' : '0'), '✧', teste ? 'Continuar ambiente de testes' : 'Ambiente de testes', 'Tudo liberado · editor de mundo · monstros', '', 'am-teal') + (teste ? '<button class="am-link" data-a="sbnew">Novo mundo de testes →</button>' : '') + '</div>');
     const ultimo = P.cfg.interface && P.cfg.interface.menuSair ? tile('am-sair', '⏻', 'Sair') : tile('am-sobre', 'ⓘ', 'Sobre');
     menu.push('<div class="am-tiles"' + idx() + '>' + tile('am-config', '⚙', 'Ajustes') + tile('am-jornada', '💾', 'Jornada') + tile('am-comojogar', '?', 'Como jogar') + ultimo + '</div>');
-    const dica = P.suporta('gamepad') || P.suporta('teclado') ? '<span class="am-dica"><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> escolher</span>' : '';
+    const dica = P.cfg.interface.mostrarAtalhos && (P.suporta('gamepad') || P.suporta('teclado')) ? '<span class="am-dica"><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> escolher</span>' : '';
     return '<canvas class="am-fx" aria-hidden="true"></canvas><div class="am-veu"></div>' +
       '<header class="am-topo"><span class="am-marca"><i aria-hidden="true">✦</i> AURORA</span><span class="am-direita"><span class="am-selo">' + esc(P.cfg.rotulo || 'PC') + '</span><span class="am-selo am-versao">v' + esc(G.VERSION) + '</span>' +
       (!P.nativo && P.fullscreen.disponivel() && P.cfg.tela && P.cfg.tela.telaCheia ? '<button class="am-mini" data-a="am-fs" aria-label="Alternar tela cheia" title="Tela cheia">⛶</button>' : '') + '</span></header>' +
@@ -356,7 +356,7 @@
   U.ACT['am-codigo'] = () => U.exportModal();
 
   U.ACT['am-comojogar'] = () => {
-    const toque = !!(P.cfg.entrada && P.cfg.entrada.toque && P.cfg.entrada.toque !== false) && (P.nativo || matchMedia('(pointer:coarse)').matches);
+    const toque = !!P.cfg.entrada.toque && (P.nativo || matchMedia('(pointer:coarse)').matches);
     const T = P.controles.toque || {}, M = P.controles.mouse || {}, tec = (id) => P.Teclas.acoes().find((a) => a.id === id);
     const linhasTeclado = [
       [tec('pausar').rotuloAtual, 'Pausar / continuar'],
@@ -381,5 +381,4 @@
   G.hook('titleShow', () => queueMicrotask(() => { const t = $('#title'); if (t && t.classList.contains('on') && !t.querySelector('.am-root')) desenharMenu(); }), 250000);
   G.on('start', desfazer);
   const t0 = $('#title'); if (t0 && t0.classList.contains('on')) queueMicrotask(desenharMenu);
-  window.AuroraMenu = Object.freeze({ redesenhar: desenharMenu, abrirConfig });
 })();

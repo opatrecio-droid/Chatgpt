@@ -1,10 +1,5 @@
 {
   "schema": 1,
-  "jogo": {
-    "id": "aurora-cronicas-da-fenda",
-    "nome": "Aurora — Crônicas da Fenda",
-    "appId": "br.com.aurora.cronicasdafenda"
-  },
   "deteccao": {
     "capacitor:android": "android",
     "capacitor:ios": "ios",

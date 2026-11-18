@@ -1,5 +1,5 @@
 /* Aurora — menu inicial (v1). Todas as classes começam com "am-" para não colidir com o jogo. */
-#title.am-title:not(.recovering){display:none;padding:0!important;background:#05070f!important;overflow:hidden;--am-gold:#e2b659;--am-gold2:#f3d9a0;--am-line:rgba(226,182,89,.3);--am-ink:#eadfc8;--am-mut:#b9a98c;--am-teal:#4fc3b5}
+#title.am-title:not(.recovering){display:none;padding:0!important;background:#05070f!important;overflow:hidden;--am-gold:#e2b659;--am-gold2:#f3d9a0;--am-line:rgba(226,182,89,.3);--am-ink:#eadfc8;--am-mut:#b9a98c}
 #title.am-title:not(.recovering).on{display:block}
 #title.am-title:not(.recovering)::before,#title.am-title:not(.recovering)::after{display:none!important}
 #title.am-title:not(.recovering)>:is(.stars,.moon,.sky,.hill){display:none!important}
@@ -37,8 +37,7 @@
 .am-lema{margin:clamp(8px,2.2vh,20px) 0 0;max-width:30em;font:italic clamp(14px,2.1vh,18px)/1.5 Georgia,serif;color:#d9ccb2;text-shadow:0 1px 0 #000}
 .am-campeoes{position:relative;display:flex;align-items:flex-end;gap:clamp(0px,1vw,12px);height:clamp(110px,27vh,250px);margin-top:clamp(8px,3vh,28px);padding-left:clamp(0px,2vw,30px);max-width:100%}
 .am-champ{height:100%;width:auto;min-width:0;max-width:32%;object-fit:contain;object-position:50% 100%;flex:0 1 auto;image-rendering:pixelated;position:relative;z-index:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6));animation:am-respira 4.2s ease-in-out infinite}
-.am-champ-0{--aura:rgba(226,182,89,.5)}.am-champ-1{--aura:rgba(238,102,170,.45);animation-delay:-1.4s}.am-champ-2{--aura:rgba(150,120,240,.45);animation-delay:-2.8s}
-.am-champ::before{content:""}
+.am-champ-1{animation-delay:-1.4s}.am-champ-2{animation-delay:-2.8s}
 @keyframes am-respira{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 .am-chao{position:absolute;left:0;right:0;bottom:-4px;height:10px;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.6),transparent 70%)}
 
@@ -75,7 +74,6 @@
 .am-dica kbd,.am-atalhos dt,.am-kbd{font:600 11px/1 ui-monospace,Consolas,monospace}
 .am-dica{letter-spacing:.04em;white-space:nowrap}
 .am-dica kbd{padding:3px 6px;border:1px solid rgba(255,255,255,.18);border-radius:5px;background:rgba(0,0,0,.35);color:var(--am-gold2)}
-.plat-android .am-dica,.plat-ios .am-dica{display:none}
 
 /* ---- janelas (configurações, jornada, como jogar) ---- */
 #modal .mbox:has(.am-modal){width:min(680px,96vw);max-width:96vw;max-height:min(90vh,800px);padding:0;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(180deg,#221a14,#15100d);border:1px solid rgba(226,182,89,.4);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.65)}

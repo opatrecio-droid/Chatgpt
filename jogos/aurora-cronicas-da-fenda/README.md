@@ -5,7 +5,7 @@ O mesmo jogo em **um só HTML**, agora com um menu inicial novo e empacotado com
 | Quero… | Faça isto |
 |---|---|
 | Jogar no PC | Abra `www/index.html` no Chrome/Edge/Firefox (duplo clique) |
-| Instalar no Android | Baixe `apk/aurora-cronicas-da-fenda-v30.7.0-android.apk`, abra no celular e permita "instalar apps desconhecidos" |
+| Instalar no Android | Baixe `apk/aurora-cronicas-da-fenda-v30.7.1-android.apk`, abra no celular e permita "instalar apps desconhecidos" |
 | Gerar o APK de novo | `npm ci && npm run apk` (precisa de Node 22, JDK 21 e Android SDK; veja abaixo) |
 | Trocar a versão do jogo | Substitua `fonte/aurora-046-animacoes.html`, rode `npm run montar` e `npm run apk` |
 
@@ -19,7 +19,7 @@ O mesmo jogo em **um só HTML**, agora com um menu inicial novo e empacotado com
 - Fundo em pixel-art animado (aurora boreal, duas luas, a Fenda no horizonte, vagalumes). Respeita "reduzir movimento" e economia de bateria.
 - Navegação por teclado (↑ ↓ Enter), toque e **controle** (D-pad/analógico, A confirma, B volta).
 
-O jogo em si **não foi alterado**: `fonte/` guarda o HTML original e `ferramentas/montar.mjs` apenas acrescenta, no fim, o menu e a camada de plataforma.
+`fonte/` é o jogo (já sem o código morto, ver abaixo) e `ferramentas/montar.mjs` apenas acrescenta, no fim, o menu e a camada de plataforma. O HTML exatamente como foi enviado está no histórico do Git (commit `04dea36`).
 
 ## PC como base, plataformas como herança
 
@@ -35,10 +35,11 @@ O módulo `modulos/plataforma.js` lê esses arquivos, detecta o perfil (`?perfil
 ## Estrutura
 
 ```
-fonte/                original intocado (aurora-046-animacoes.html)
+fonte/                o jogo (aurora-046-animacoes.html), sem código morto
 modulos/              menu-inicial.{js,css} · plataforma.js
 config/               plataformas.json · pc-controles.json · icone.svg
 ferramentas/          montar.mjs · gerar-apk.sh · gerar-icones.cjs
+verificacao/          harness, robô de simulação e comparador (provas de que nada mudou)
 www/index.html        build final (PC e base do app). Gerado, mas versionado
 android/              projeto Capacitor (ícones, splash, modo imersivo, plugin "Plataforma")
 apk/                  APK compilado
@@ -50,7 +51,7 @@ assinatura/           chave de assinatura — NÃO vai para o git
 ```bash
 export ANDROID_HOME=/caminho/do/android-sdk      # cmdline-tools + platforms;android-36 + build-tools
 npm ci
-npm run apk                                       # → apk/aurora-cronicas-da-fenda-v30.7.0-android.apk
+npm run apk                                       # → apk/aurora-cronicas-da-fenda-v30.7.1-android.apk
 ```
 
 `npm run verificar` confere se `www/index.html` está em dia com `fonte/` e `modulos/`.
@@ -59,6 +60,22 @@ Há também o workflow manual **"Aurora para Android (APK)"** no GitHub Actions 
 ### Assinatura (importante)
 
 O repositório é público, então a chave **não** está nele. O Android só atualiza um app por cima se o novo APK tiver a **mesma chave** do instalado. Guarde `assinatura/aurora-release.jks` e `assinatura/keystore.properties` em local privado. Se perdê-los, é preciso desinstalar e reinstalar (exporte a jornada antes: *Menu → Jornada*). A cada APK novo, aumente `versionCode` em `android/app/build.gradle`. Sem chave, o build usa a chave de debug.
+
+## Limpeza de código morto
+
+Só saiu o que a análise de escopo (ESLint/acorn) ou a busca por referências provou **sem nenhum uso**:
+
+- variáveis, funções e desestruturações locais que ninguém lê; sobras como `void 0;`, `;` solto, `return;` inútil no fim de função e hooks cujo corpo não faz nada (restos do padrão antigo `const tk0 = G.tick;`);
+- o paginador de colunas das folhas (desativado por um `return;` logo no início) com seu CSS, e duas condições `|| true`;
+- 49 atribuições `G.x = …`/`UI.x = …` que nenhum código lia, 13 regras CSS idênticas repetidas e 2 fontes embutidas que nenhum CSS usa (22 KB);
+- no projeto Android: testes de exemplo do template, dependências de teste, o plugin Haptics (a permissão `VIBRATE`, que a vibração do jogo precisa, foi declarada direto no manifesto), configs que repetiam o valor padrão do Capacitor, linhas duplicadas do `.gitignore`;
+- nos módulos novos: API de plataforma que ninguém chamava, variáveis CSS sem uso e a regra que escondia a dica de atalhos por plataforma (agora é `interface.mostrarAtalhos` da config).
+
+**De propósito, ficaram:** ferramentas de diagnóstico e teste do jogo (`*Stats`, `*Test`, `debugBot`, Laboratório), ações `data-a` (podem ser montadas por concatenação de texto), toda a configuração dos perfis de plataforma (inclusive chaves ainda não lidas por código, que valem para plataformas futuras) e o bloco "CADASTRE NOVOS ITENS AQUI" (modelo comentado para criar equipamentos).
+
+Resultado: o jogo ficou 41 KB menor (a maior parte do arquivo é arte embutida); o ganho real é menos ruído e menos trabalho desperdiçado por quadro.
+
+**Como se provou que nada quebrou** (`verificacao/`): 365 capturas determinísticas (relógio virtual + `Math.random` com semente) em PC, celular em paisagem e retrato, com **estado completo do jogo, textos e erros idênticos**; robô de simulação do próprio jogo, 6 cenários × 30 dias, **hashes idênticos**; e **34.203 elementos × 69 telas** com **zero diferença** em todas as propriedades CSS computadas. O próprio jogo original tem uma pequena corrida na geração do retrato dos heróis (1 caractere no PNG, de execução para execução); isso não vem da limpeza.
 
 ## O que foi testado — e o que não foi
 

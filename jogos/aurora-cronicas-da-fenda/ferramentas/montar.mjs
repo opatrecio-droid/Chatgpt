@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-/* Monta www/index.html a partir do jogo original (fonte/) + módulos (modulos/) + config (config/).
-   O HTML original nunca é editado: este script só injeta, no fim, o que a plataforma precisa.
+/* Monta www/index.html a partir do jogo (fonte/) + módulos (modulos/) + config (config/).
+   Este script não altera o jogo: só injeta, no fim, o menu e a camada de plataforma.
    Uso: node ferramentas/montar.mjs            (gera www/index.html)
         node ferramentas/montar.mjs --verificar (falha se www/index.html estiver desatualizado) */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
-const ler = (p) => readFileSync(join(raiz, p), 'utf8');
+const ler = (p) => readFileSync(resolve(raiz, p), 'utf8');
 const sha = (s) => createHash('sha256').update(s).digest('hex');
 
-const ORIGINAL = 'fonte/aurora-046-animacoes.html';
+const ORIGINAL = process.env.AURORA_FONTE || 'fonte/aurora-046-animacoes.html';   // AURORA_FONTE/AURORA_SAIDA: só para testar variantes
 const html = ler(ORIGINAL);
 if (!html.includes('</head>') || !html.includes('</body>')) throw new Error('HTML original sem </head> ou </body>.');
-if (html.includes('id="aurora-menu-inicial"')) throw new Error('O original já contém o menu; use o arquivo de fonte limpo.');
+if (html.includes('id="aurora-menu-inicial"')) throw new Error('A fonte já contém o menu; use o HTML do jogo sem os módulos.');
 
 const json = (p) => JSON.stringify(JSON.parse(ler(p))).replace(/<\/(script)/gi, '<\\/$1');   // valida e compacta
 const js = (p) => ler(p).replace(/<\/(script)/gi, '<\\/$1');
@@ -36,7 +36,7 @@ const iHead = html.indexOf('</head>');
 const iBody = html.lastIndexOf('</body>');
 const saida = html.slice(0, iHead) + antesDoHead + html.slice(iHead, iBody) + antesDoBody + html.slice(iBody);
 
-const destino = join(raiz, 'www/index.html');
+const destino = resolve(raiz, process.env.AURORA_SAIDA || 'www/index.html');
 if (process.argv.includes('--verificar')) {
   if (!existsSync(destino) || sha(readFileSync(destino, 'utf8')) !== sha(saida)) { console.error('www/index.html está desatualizado. Rode: node ferramentas/montar.mjs'); process.exit(1); }
   console.log('www/index.html está em dia (' + marca + ').'); process.exit(0);

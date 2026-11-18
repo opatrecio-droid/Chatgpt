@@ -189,7 +189,6 @@
       const r = await FS.writeFile({ path: nome, data: texto, directory: 'CACHE', encoding: 'utf8' });
       await Share.share({ title: nome, text: 'Jornada de Aurora', url: r.uri, dialogTitle: 'Guardar jornada' });
     },
-    vibrar(ms) { try { const H = plugin('Haptics'); if (H && H.vibrate) H.vibrate({ duration: ms || 20 }); else if (navigator.vibrate) navigator.vibrate(ms || 20); } catch (e) { /* sem vibração */ } },
   };
 
   let trava = null;
@@ -293,14 +292,11 @@
   ligarAoJogo();
 
   window.AuroraPlatform = Object.freeze({
-    VERSAO: 1,
     perfil, nativo, cfg, perfis: CFG.perfis,
     controles: CTRL,
-    Config, Teclas, Sistema, fullscreen, Gamepad,
-    telaLigada,
+    Config, Teclas, Sistema, fullscreen,
     suporta: (recurso) => !!(cfg.entrada && cfg.entrada[recurso]),
     capturarProximaTecla(f) { capturando = f ? (e) => { const ok = f(e); if (ok !== false) capturando = null; } : null; },
     pararCaptura() { capturando = null; },
-    sintetizarEsc,
   });
 })();
