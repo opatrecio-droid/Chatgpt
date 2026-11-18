@@ -53,6 +53,7 @@ O primeiro teste real voltou com dois problemas: **lento aos trancos** e **"NPCs
 - **Trabalhadores com a aparência trocada (corrigido).** O 2D desenha NPCs em serviço por um caminho próprio (`R.npcDraw`, com a aparência guardada em `_wlook`). O 3D usava `A.npcLook` e trocava a pessoa. Agora respeita `_wlook`, e um quadro de animação que não exista na folha cai para a pose parada em vez de sumir com o NPC.
 - **Desperdício de desenho (corrigido).** Os 1.486 sprites do mapa inteiro iam para a GPU a cada quadro: eu tinha desligado o descarte por campo de visão, que o 2D faz. Agora só entram os que estão na janela da câmera, e grupos sem nada à vista não chegam a virar chamada de desenho. Medido no perfil de celular: o tempo de `render` caiu de **33 ms para 22 ms** por quadro.
 - **Rede de segurança (nova).** Se o 3D ficar engasgando (quadros acima de 120 ms por cerca de 45 vezes), ele volta sozinho para o 2D e avisa, em vez de deixar o jogador preso.
+  Ela mede o tempo entre desenhos, não o custo do 3D: num aparelho em que até o 2D passa de 120 ms por quadro, volta ao 2D sem ganho. Uma janela aberta, sozinha, não a dispara — o jogo pula desenhos com janela aberta, mas os quadros pulados ficam leves (testado: 24 s de janela aberta, no máximo 3 engasgos de 45).
 - **Qualidade econômica (nova).** Em *Ajustes → Gráficos*, "Econômica" ou a economia de bateria fazem o 3D desenhar com metade da largura e altura — um quarto dos pixels.
 
 Honestamente: as melhorias são reais e medidas, mas **o teste aqui não tem GPU**, então não dá para afirmar que agora roda liso no aparelho. É por isso que a rede de segurança existe.
@@ -67,13 +68,46 @@ Honestamente: as melhorias são reais e medidas, mas **o teste aqui não tem GPU
 | Aumento do APK | até +1 MB | **+0,13 MB** (Three.js: 525 KB de texto, comprimido no APK) |
 | HTML | alerta acima de 9 MB | 8,26 → **8,79 MB** |
 | Chamadas de desenho | — | 119 (chão + 118 grupos para 1.486 sprites) |
+| Celular simulado (390×844, tela 3×, CPU 6× mais lenta, sem GPU) | — | 2D **7 fps**, 3D **5 fps**; `gpu` 17,9 ms por quadro — só para comparar versões |
 
 **Não medido:** quadros por segundo em aparelho real e memória com o 3D ativo. O ambiente de build não tem GPU — o número que sai aqui (14 fps) vem do renderizador por software e **não** serve de estimativa para um celular.
 
 ## Próximos passos
 
-- [x] Protótipo da Fase 1 (chão 3D) — feito, com a textura corrigida
-- [ ] **Testar o APK num celular e escolher a inclinação** (Ajustes → Gráficos → Inclinação da vista 3D: 45°, 55°, 60° ou De cima)
-- [x] Lugar do botão 3D/2D — `#fabs-l`; falta a arte definitiva do ícone
-- [x] Fase 0 no código-fonte
-- [ ] Fase 2: heróis, monstros, NPCs e portal como sprites em pé
+Em ordem. Cada passo termina num APK que o dono testa no celular antes do próximo.
+
+1. **Confirmar a 30.7.4 no aparelho.** O sprite trocado sumiu? O 3D ficou jogável, ao menos na qualidade Econômica? Qual inclinação o dono prefere (Ajustes → Gráficos → Inclinação da vista 3D: 45°, 55°, 60° ou De cima)? Se continuar lento, o passo 2 vem antes de tudo.
+2. **Se ainda estiver lento, cortar custo** — medindo com `verificacao/desempenho-3d.cjs` e `G.R3D.medir(true)` antes e depois de cada mudança:
+   - juntar os 118 grupos de cenário num atlas único e num só `InstancedMesh`, com o recorte de UV por instância;
+   - trocar as texturas por entidade por um atlas atualizado por quadro;
+   - testar se a textura do chão pode cair para 8 px por tile sem perda visível.
+   Aceite: 30 fps ou mais na cidade, num Android intermediário.
+3. **Fase 4 — rótulos e números de dano** na camada `#view3d-ui`, com `G.R3D.worldToScreen`. `R.statusIcons(e, x, y)` é público e pinta em `R.ctx`: troque `R.ctx` pela camada, como já é feito com os itens `'x'`. Os rótulos do 2D vivem em closures privadas (`over.push` dentro de `drawChar` e `drawMon`) e precisam ser refeitos com dados públicos, como `e.name` e `G.RANK_COLOR[e.rank]`. Aceite: seleção, construção, decretos e bandeiras funcionam igual nos dois modos.
+4. **Fase 5 — luz da noite e chão.** O 2D monta a luz num canvas de 1/4 da resolução (`lcv` e `lctx`, dentro do `R.frame`); reproduzir como textura sobre o chão ou como passagem aditiva. O círculo rúnico entra como quadrilátero deitado, com o gancho `groundDecor` pintando numa textura. Depois, transparência de objetos altos na frente de heróis e névoa (`R.drawEdgeFog`). Aceite: nenhum herói escondido atrás de árvores ou torres, e a noite parecida com a do 2D lado a lado.
+5. **Fase 3 — arte do ícone.** Hoje é um SVG provisório em `modulos/render-modos.js`; a arte é escolha do dono.
+6. **Fase 6 — lançamento.** Presets de qualidade e versão 30.8.0, com a mesma chave. Aceite: as metas do plano original — 30 fps, troca em até 1,5 s, até +150 MB de memória e até +1 MB de APK.
+
+Decisões que esperam o dono: a inclinação padrão (hoje 55°, por palpite) e a arte do ícone.
+
+## Para quem continuar
+
+- **O 2D não pode mudar.** Antes de mexer, gere a referência com `harness.cjs` e `bot.cjs`; depois, compare: zero diferenças de estado, texto, erros e rótulos (`verificacao/LEIA-ME.md`).
+- **A fidelidade a 90° fica em 0,00 px** (`verificacao/teste-3d.cjs`). É o que prova que o 3D não tirou nada do lugar.
+- **Não mova código do 2D.** O 3D mora em `modulos/render3d.js` e `modulos/render-modos.js`; `fonte/` só muda para consertar o jogo, nunca por causa do 3D.
+- **Sempre `npm run montar`, depois `npm run verificar`.** O `www/index.html` é versionado e vai no commit.
+- **Cada APK novo sobe a versão:** `versionCode` e `versionName` em `android/app/build.gradle`, `version` no `package.json` e o nome do APK no `README.md`. Sem subir o `versionCode`, o Android não atualiza por cima.
+- **A chave de assinatura nunca vai para o Git** (o repositório é público). Para gerar um APK que atualize o instalado, ela precisa estar em `assinatura/`, que está no `.gitignore`.
+- **Não prometa desempenho sem aparelho.** O ambiente de build roda WebGL por software: as medidas servem para comparar versões.
+- **Instalar o Android SDK exige aceitar a licença do Google:** peça a autorização do dono antes.
+- **Tudo em português do Brasil**, inclusive os textos do jogo, os comentários e as mensagens de commit.
+
+### Comandos do console úteis
+
+| Comando | Para quê |
+|---|---|
+| `G.UI.act('vista3d')` | o mesmo que tocar no ícone; na primeira vez, carrega o 3D |
+| `G.R3D.estado()` | ângulo, tamanho do canvas 3D, grupos e sprites |
+| `G.R3D.definirAngulo(45)` | muda a inclinação na hora |
+| `G.R3D.medir(true)`, depois `G.R3D.medida()` | tempo médio por quadro de cada etapa: `vivos`, `extras`, `noite`, `camera`, `gpu` |
+| `G.R3D.slots()` | dono e arte de cada sprite de entidade em uso |
+| `G.R3D.engasgos()` | o contador da rede de segurança (volta ao 2D em 45) |
