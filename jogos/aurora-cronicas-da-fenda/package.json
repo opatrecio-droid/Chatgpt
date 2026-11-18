@@ -1,6 +1,6 @@
 {
   "name": "aurora-cronicas-da-fenda",
-  "version": "30.7.1",
+  "version": "30.7.2",
   "private": true,
   "description": "Aurora — Crônicas da Fenda: jogo web (PC) empacotado como app Android com Capacitor.",
   "type": "module",
@@ -8,7 +8,8 @@
     "montar": "node ferramentas/montar.mjs",
     "verificar": "node ferramentas/montar.mjs --verificar",
     "sincronizar": "npm run montar && cap sync android",
-    "apk": "bash ferramentas/gerar-apk.sh"
+    "apk": "bash ferramentas/gerar-apk.sh",
+    "three": "node ferramentas/gerar-three.mjs"
   },
   "engines": {
     "node": ">=22"
@@ -21,6 +22,8 @@
     "@capacitor/share": "^8.0.3"
   },
   "devDependencies": {
-    "@capacitor/cli": "^8.6.2"
+    "@capacitor/cli": "^8.6.2",
+    "esbuild": "^0.28.2",
+    "three": "^0.187.0"
   }
 }

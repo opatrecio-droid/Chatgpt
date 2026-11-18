@@ -21,13 +21,19 @@ const json = (p) => JSON.stringify(JSON.parse(ler(p))).replace(/<\/(script)/gi, 
 const js = (p) => ler(p).replace(/<\/(script)/gi, '<\\/$1');
 
 const css = ler('modulos/menu-inicial.css');
-const marca = `aurora-plataforma:${sha(css + js('modulos/plataforma.js') + js('modulos/menu-inicial.js') + json('config/plataformas.json') + json('config/pc-controles.json')).slice(0, 12)}`;
+/* O 3D vai num <script type="text/plain">: fica no arquivo, mas o navegador não
+   analisa nem executa nada dele até o jogador pedir a vista 3D (plano: "carregado
+   sob demanda"). Three.js só é lido nesse momento. */
+const fonte3D = [js('vendor/three.min.js'), js('modulos/render3d.js')].join('\n;\n');
+const marca = `aurora-plataforma:${sha(css + js('modulos/plataforma.js') + js('modulos/menu-inicial.js') + js('modulos/render-modos.js') + fonte3D + json('config/plataformas.json') + json('config/pc-controles.json')).slice(0, 12)}`;
 
 const antesDoHead = `<meta name="aurora-plataforma" content="${marca}">\n<style id="aurora-menu-inicial">\n${css}\n</style>\n`;
 const antesDoBody = [
   `<script type="application/json" id="aurora-cfg-plataformas">${json('config/plataformas.json')}</script>`,
   `<script type="application/json" id="aurora-cfg-controles">${json('config/pc-controles.json')}</script>`,
   `<script id="aurora-plataforma">\n${js('modulos/plataforma.js')}\n</script>`,
+  `<script id="aurora-render-modos">\n${js('modulos/render-modos.js')}\n</script>`,
+  `<script type="text/plain" id="aurora-render3d-fonte">\n${fonte3D}\n</script>`,
   `<script id="aurora-menu-inicial">\n${js('modulos/menu-inicial.js')}\n</script>`,
   '',
 ].join('\n');

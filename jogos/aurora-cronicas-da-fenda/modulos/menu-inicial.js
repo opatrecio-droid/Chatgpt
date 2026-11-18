@@ -267,6 +267,8 @@
     return '<button type="button" class="am-troca' + (on ? ' on' : '') + '" role="switch" aria-checked="' + on + '" data-a="am-flip:' + chave + '"><span><b>' + rotulo + '</b>' + (dica ? '<small>' + dica + '</small>' : '') + '</span><i aria-hidden="true"></i></button>';
   };
 
+  const temWebGL = () => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch (e) { return false; } };
+
   const ABAS = [['audio', 'Áudio'], ['graficos', 'Gráficos'], ['controles', 'Controles'], ['acessibilidade', 'Acessibilidade'], ['sobre', 'Plataforma']];
   let abaAtual = 'audio';
 
@@ -281,6 +283,7 @@
       alternador('tela.reduzirMovimento', 'Reduzir movimento', 'Menos tremores, brilhos e animações.') +
       alternador('tela.economiaBateria', 'Economia de bateria', 'Menos quadros por segundo nos efeitos.') +
       (P.nativo || 'wakeLock' in navigator ? alternador('sistema.manterTelaLigada', 'Manter a tela ligada', 'Evita que a tela apague enquanto você joga.') : '') +
+      (temWebGL() ? segmentado('tela.angulo3d', 'Inclinação da vista 3D', [[45, '45°'], [55, '55°'], [60, '60°'], [90, 'De cima']], 'Vale para o ícone 3D/2D dentro do jogo. "De cima" mostra exatamente o mesmo enquadramento do 2D.') : '') +
       (!P.nativo && P.fullscreen.disponivel() ? '<div class="am-acoes"><button class="am-btn" data-a="am-fs">Alternar tela cheia (' + esc(P.Teclas.rotulo(P.Teclas.acoes().find((a) => a.id === 'telaCheia').atual)) + ')</button></div>' : '');
   }
   function abaControles() {

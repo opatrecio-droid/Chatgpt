@@ -12,7 +12,7 @@
       "estado": "ativo",
       "descricao": "Perfil-base. Tudo o que o jogo faz no computador (teclado, mouse, roda, tela cheia, DPI, qualidade) mora aqui. Os outros perfis herdam e sobrescrevem só o que muda.",
       "entrada": { "teclado": true, "mouse": true, "toque": "auto", "gamepad": true },
-      "tela": { "telaCheia": true, "imersivo": false, "dprCap": 2, "qualidade": "auto", "reduzirMovimento": false, "economiaBateria": false },
+      "tela": { "telaCheia": true, "imersivo": false, "dprCap": 2, "qualidade": "auto", "reduzirMovimento": false, "economiaBateria": false, "angulo3d": 55 },
       "audio": { "sfx": 0.7, "music": 0.35, "ambient": 0.35 },
       "interface": { "textScale": 100, "altoContraste": false, "canhoto": false, "menuSair": false, "mostrarAtalhos": true },
       "sistema": { "manterTelaLigada": false, "voltarFechaJanelas": false, "salvarAoPausar": true },
