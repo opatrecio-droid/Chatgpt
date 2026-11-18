@@ -45,6 +45,18 @@ Três pontos do diagnóstico não batiam com o código:
 - A **camada de luz da noite** (lampiões, fogueiras) não existe no 3D. O 2D monta um mapa de luz em baixa resolução e compõe por cima; o 3D hoje só escurece as cores. É a maior diferença visual que sobra.
 - **Rótulos, números de dano e ícones de status** continuam só no 2D (Fase 4).
 
+## Correções depois do primeiro teste em celular (30.7.4)
+
+O primeiro teste real voltou com dois problemas: **lento aos trancos** e **"NPCs viram monstros"**. O 2D continuou normal, e sair do 3D devolvia o jogo ao normal.
+
+- **Sprite com a arte de outra entidade (corrigido).** Os sprites das entidades eram reaproveitados por *posição na lista*. Quando um NPC entra num prédio ou um monstro morre, a lista encurta e os índices escorregam — o slot troca de dono e podia manter a textura já desenhada. Agora cada sprite é amarrado à **entidade**, e um teste força 40 rodadas de entra-e-sai conferindo que nenhum sprite fica com a arte de outro.
+- **Trabalhadores com a aparência trocada (corrigido).** O 2D desenha NPCs em serviço por um caminho próprio (`R.npcDraw`, com a aparência guardada em `_wlook`). O 3D usava `A.npcLook` e trocava a pessoa. Agora respeita `_wlook`, e um quadro de animação que não exista na folha cai para a pose parada em vez de sumir com o NPC.
+- **Desperdício de desenho (corrigido).** Os 1.486 sprites do mapa inteiro iam para a GPU a cada quadro: eu tinha desligado o descarte por campo de visão, que o 2D faz. Agora só entram os que estão na janela da câmera, e grupos sem nada à vista não chegam a virar chamada de desenho. Medido no perfil de celular: o tempo de `render` caiu de **33 ms para 22 ms** por quadro.
+- **Rede de segurança (nova).** Se o 3D ficar engasgando (quadros acima de 120 ms por cerca de 45 vezes), ele volta sozinho para o 2D e avisa, em vez de deixar o jogador preso.
+- **Qualidade econômica (nova).** Em *Ajustes → Gráficos*, "Econômica" ou a economia de bateria fazem o 3D desenhar com metade da largura e altura — um quarto dos pixels.
+
+Honestamente: as melhorias são reais e medidas, mas **o teste aqui não tem GPU**, então não dá para afirmar que agora roda liso no aparelho. É por isso que a rede de segurança existe.
+
 ## Medidas
 
 | Métrica | Meta do plano | Medido |

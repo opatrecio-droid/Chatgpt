@@ -27,18 +27,30 @@
     transicao: 0.5,      // segundos da descida da câmera
     passoProf: 0.02,     // profundidade por tile de y (invisível em ortográfica; só ordena)
     distCam: 400,        // a câmera é ortográfica: a distância não muda o tamanho, só a ordem
+    msRuim: 120,         // quadro acima disso conta como engasgo (~8 por segundo)
+    engasgosParaDesistir: 45,
   };
 
   const EIXO_X = new THREE.Vector3(1, 0, 0);
   let ren = null, cena = null, cam = null, cv3 = null, cv2 = null;
   let chao = null, texChao = null, lotes = [], materiais = [], geo = null;
   let ang = 90, angAlvo = CFG.angulo, angVel = 0, cwA = 0, chA = 0, escuroAplicado = -1;
+  let engasgos = 0, desdeQueEntrou = 0, desistindo = false;
   let precisaMatrizes = true, resolverRecolher = null;
   const raycaster = new THREE.Raycaster(), planoChao = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
   const vTmp = new THREE.Vector3(), mTmp = new THREE.Matrix4(), qTmp = new THREE.Quaternion();
   const pTmp = new THREE.Vector3(), sTmp = new THREE.Vector3(), alvoTmp = new THREE.Vector3();
 
   const dpr = () => R.dpr || 1;
+  /* Medidor: R3D.medir(true) liga; R3D.medida() devolve o tempo médio de cada etapa.
+     Desligado por padrão e sem custo quando desligado. */
+  const MED = { on: false, n: 0, t: {} };
+  const cronometro = (nome, fn) => {
+    if (!MED.on) return fn();
+    const t0 = performance.now(); const r = fn();
+    MED.t[nome] = (MED.t[nome] || 0) + (performance.now() - t0);
+    return r;
+  };
   /* Arrastar: na vista inclinada o chão aparece comprimido na vertical (× sen θ),
      então um dedo que anda N pixels precisa mover a câmera N/sen θ para o mapa
      acompanhar o dedo. O R.pan original é do 2D; aqui ele ganha essa correção. */
@@ -81,7 +93,7 @@
     t.magFilter = THREE.NearestFilter;                 // pixel art: nada de borrar ao ampliar
     t.minFilter = THREE.LinearMipmapLinearFilter;      // mipmap evita o chuvisco ao afastar
     t.generateMipmaps = true;
-    t.anisotropy = Math.min(8, ren.capabilities.getMaxAnisotropy());
+    t.anisotropy = Math.min(2, ren.capabilities.getMaxAnisotropy());   // mais que isso pesa em GPU de celular
     t.colorSpace = THREE.SRGBColorSpace;
     return t;
   }
@@ -148,18 +160,40 @@
      Em projeção ortográfica isso NÃO muda nada na tela — só a profundidade. Assim
      estáticos e entidades se intercalam exatamente na ordem de pintura do 2D
      (que também é por y), e ainda ganhamos o z-buffer. */
+  /* Só entram na lista de desenho os sprites dentro da janela da câmera — é o mesmo
+     recorte que o 2D faz com vx0..vx1 / vy0..vy1. Sem isso, os 1.486 estáticos do
+     mapa inteiro iriam para a GPU a cada quadro, com o mapa mostrando uns 26×15 tiles. */
+  let janela = null;
+  function janelaAtual() {
+    const c = R.cam, z = c.z, mx = 6 / Math.max(0.35, Math.sin(ang * GRAU));
+    return {
+      x0: Math.floor((c.x - cwA / 2 / z) / TS) - 4, x1: Math.ceil((c.x + cwA / 2 / z) / TS) + 4,
+      y0: Math.floor((c.y - chA / 2 / z) / TS - mx), y1: Math.ceil((c.y + chA / 2 / z) / TS + mx),
+    };
+  }
+  function mudouJanela() {
+    const j = janelaAtual();
+    if (janela && j.x0 === janela.x0 && j.x1 === janela.x1 && j.y0 === janela.y0 && j.y1 === janela.y1) return false;
+    janela = j; return true;
+  }
+
   function atualizarMatrizes() {
-    const a = ang * GRAU, nx = 0, ny = Math.sin(a), nz = Math.cos(a);
+    const a = ang * GRAU, nx = 0, ny = Math.sin(a), nz = Math.cos(a), j = janela || (janela = janelaAtual());
     qTmp.setFromAxisAngle(EIXO_X, -a);
     for (const lote of lotes) {
       const { mesh, lista } = lote;
+      let n = 0;
       for (let i = 0; i < lista.length; i++) {
-        const it = lista[i], d = it.y * CFG.passoProf;
+        const it = lista[i];
+        if (it.x < j.x0 || it.x > j.x1 || it.y < j.y0 || it.y > j.y1) continue;
+        const d = it.y * CFG.passoProf;
         pTmp.set(it.x + nx * d, ny * d, it.y + nz * d);
         sTmp.set(it.w / TS, it.h / TS, 1);
         mTmp.compose(pTmp, qTmp, sTmp);
-        mesh.setMatrixAt(i, mTmp);
+        mesh.setMatrixAt(n++, mTmp);
       }
+      mesh.count = n;
+      mesh.visible = n > 0;            // grupo sem nada à vista nem chega à GPU
       mesh.instanceMatrix.needsUpdate = true;
     }
     precisaMatrizes = false;
@@ -178,9 +212,14 @@
   })();
 
   let poolVivos = [], poolSombras = [], geoSombra = null, matSombra = null;
+  /* O slot é amarrado à entidade, nunca à posição na lista: quando alguém entra
+     num prédio ou um monstro morre, a lista encurta e os índices escorregam. Se o
+     slot fosse por índice, um NPC herdaria a textura já desenhada de um monstro. */
+  const slotDe = new Map();
 
   function pegarVivo(i) {
-    if (poolVivos[i]) return poolVivos[i];
+    for (const s of poolVivos) if (s.vivoEm !== quadroAtual && (!s.dono || s.vivoEm < quadroAtual - 1)) { s.dono = null; return s; }
+    i = poolVivos.length;
     const cv = document.createElement('canvas'); cv.width = cv.height = 8;
     const tex = new THREE.CanvasTexture(cv);
     tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
@@ -188,7 +227,7 @@
     const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.04, depthWrite: true, side: THREE.DoubleSide });
     const m = new THREE.Mesh(geo, mat);
     m.frustumCulled = false; m.visible = false; cena.add(m);
-    return poolVivos[i] = { mesh: m, cv, ctx: cv.getContext('2d'), tex, mat, assin: '' };
+    return poolVivos[i] = { mesh: m, cv, ctx: cv.getContext('2d'), tex, mat, assin: '', dono: null, vivoEm: -1 };
   }
 
   function pegarSombra(i) {
@@ -219,11 +258,15 @@
         assin: 'm' + e.k + (e.elite ? 'e' : '') + (e.visualStage || 0) + ':' + quadros + ':' + (e.dir < 0 ? 1 : 0) + ':' + (e.flash > 0 ? 1 : 0) };
     }
     const heroi = tipo === 'h';
-    const look = heroi ? A.heroLook(e) : A.npcLook(e); if (!look) return null;
+    /* Trabalhadores têm uma aparência própria guardada em _wlook (o 2D os desenha
+       por R.npcDraw). Usar A.npcLook neles trocaria a pessoa. */
+    const look = heroi ? A.heroLook(e) : (e._wk && e._wlook ? e._wlook : A.npcLook(e)); if (!look) return null;
     const folha = A.charSheet(look); if (!folha || !folha.cv) return null;
     const fr = A.visualPose ? A.visualPose(e, R.t) : A.charFrame(e, R.t);
     if (folha.need) folha.need(fr);
-    const idx = folha.idx && folha.idx[fr]; if (idx == null) return null;
+    let idx = folha.idx && folha.idx[fr];
+    if (idx == null) { for (const alt of ['idle0', 'idle', 'stand', 'walk0']) { if (folha.idx && folha.idx[alt] != null) { idx = folha.idx[alt]; break; } } }
+    if (idx == null) return null;
     const fw = folha.fw || 26, fh = folha.fh || 30, fs = folha.scale || 1;
     const ax = folha.ax == null ? 13 : folha.ax, ay = folha.ay == null ? 27 : folha.ay;
     return { cv: folha.cv, sx: idx * fw, sy: 0, sw: fw, sh: fh, lp: -ax * fs, tp: -ay * fs,
@@ -231,8 +274,10 @@
       assin: (heroi ? 'h' : 'n') + (e.id || e.name) + ':' + fr + ':' + (e.dir < 0 ? 1 : 0) + ':' + (e.flash > 0 ? 1 : 0) + ':' + (e._lk || '') };
   }
 
+  let quadroAtual = 0;
   function desenharVivos() {
     const S = G.S; if (!S) return;
+    quadroAtual++;
     const lista = [];
     for (const h of S.heroes) if (!h.inside && h.state !== 'recover') lista.push([h, 'h']);
     for (const n of G.npcs || []) if (!n.inside) lista.push([n, 'n']);
@@ -247,7 +292,10 @@
       let d = null;
       try { d = descrever(e, tipo); } catch (err) { d = null; }
       if (!d) continue;
-      const slot = pegarVivo(usados), prof = e.y * CFG.passoProf;
+      let slot = slotDe.get(e);
+      if (!slot || slot.dono !== e) { slot = pegarVivo(usados); slot.dono = e; slot.assin = ''; slotDe.set(e, slot); }
+      slot.vivoEm = quadroAtual;
+      const prof = e.y * CFG.passoProf;
       if (slot.assin !== d.assin || slot.cv.width !== d.sw || slot.cv.height !== d.sh) {
         if (slot.cv.width !== d.sw || slot.cv.height !== d.sh) { slot.cv.width = d.sw; slot.cv.height = d.sh; }
         const c = slot.ctx;
@@ -273,7 +321,7 @@
       som.visible = true;
       usados++;
     }
-    for (let i = usados; i < poolVivos.length; i++) poolVivos[i].mesh.visible = false;
+    for (const s of poolVivos) if (s.vivoEm !== quadroAtual) { s.mesh.visible = false; if (s.dono) { slotDe.delete(s.dono); s.dono = null; } }
     for (let i = usados; i < poolSombras.length; i++) poolSombras[i].visible = false;
   }
 
@@ -366,14 +414,29 @@
     cam.updateProjectionMatrix();
   }
 
+  /* Em "Econômica" ou com economia de bateria, o 3D desenha com metade da largura
+     e da altura (um quarto dos pixels) e a tela estica. É o botão mais eficaz que
+     o jogador tem se o aparelho não der conta. */
+  function escala() {
+    try {
+      const C = window.AuroraPlatform && window.AuroraPlatform.Config;
+      if (C && (C.get('tela.qualidade') === 'baixa' || C.get('tela.economiaBateria'))) return 0.5;
+    } catch (e) { /* sem configuração */ }
+    if (G.S && G.S.opts && (G.S.opts.lowFx || G.S.opts.battery)) return 0.5;
+    return 1;
+  }
+  let escalaAtual = 1;
   function conferirTamanho() {
-    const w = cv2.width, h = cv2.height;
-    if (w === cwA && h === chA) return;
+    const k = escala(), w = Math.max(2, Math.round(cv2.width * k)), h = Math.max(2, Math.round(cv2.height * k));
+    if (w === cwA && h === chA && k === escalaAtual) return;
+    escalaAtual = k;
     cwA = w; chA = h;
     cv3.width = w; cv3.height = h;
-    cv3.style.width = (w / dpr()) + 'px'; cv3.style.height = (h / dpr()) + 'px';
-    if (cvUI) { cvUI.width = w; cvUI.height = h; cvUI.style.width = cv3.style.width; cvUI.style.height = cv3.style.height; }
+    const larguraCSS = (cv2.width / dpr()) + 'px', alturaCSS = (cv2.height / dpr()) + 'px';
+    cv3.style.width = larguraCSS; cv3.style.height = alturaCSS;
+    if (cvUI) { cvUI.width = w; cvUI.height = h; cvUI.style.width = larguraCSS; cvUI.style.height = alturaCSS; }
     ren.setSize(w, h, false);
+    janela = null;
   }
 
   /* ---------- interface do renderizador ---------- */
@@ -388,6 +451,7 @@
     },
 
     init() {
+      engasgos = 0; desdeQueEntrou = 0; desistindo = false;
       if (ren) { cv3.style.display = 'block'; if (cvUI) cvUI.style.display = 'block'; CFG.angulo = G.clamp(prefAngulo(), CFG.minAngulo, CFG.maxAngulo); ang = 90; mirarAngulo(CFG.angulo); precisaMatrizes = true; return; }
       cena = new THREE.Scene();
       cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000);
@@ -403,6 +467,16 @@
     frame(dt) {
       conferirTamanho();
       if (!cwA || !chA) return;
+      /* Rede de segurança: se o aparelho não estiver dando conta, volta para o 2D
+         em vez de deixar o jogador preso numa vista travada. */
+      if (desdeQueEntrou > 2.5) { if (dt * 1000 > CFG.msRuim) engasgos++; else engasgos = Math.max(0, engasgos - 0.5); }
+      desdeQueEntrou += dt;
+      if (engasgos >= CFG.engasgosParaDesistir && !desistindo) {
+        desistindo = true;
+        try { G.UI.toast('A vista 3D está pesada neste aparelho; voltei para a clássica. Em Ajustes → Gráficos dá para tentar a qualidade Econômica.', 'bad', null, 7000); } catch (e) { /* sem aviso */ }
+        G.RENDER.trocar('2d');
+        return;
+      }
       R.t += dt;
       moverCamera(dt);
       if (ang !== angAlvo) {
@@ -411,12 +485,14 @@
         precisaMatrizes = true;
         if (ang === angAlvo && resolverRecolher) { const f = resolverRecolher; resolverRecolher = null; f(); }
       }
-      if (precisaMatrizes) atualizarMatrizes();
-      desenharVivos();
-      desenharExtras(dt);
-      aplicarNoite(G.S ? G.darkness(G.S.clock) : 0);
-      ajustarCamera();
-      ren.render(cena, cam);
+      if (mudouJanela()) precisaMatrizes = true;
+      if (precisaMatrizes) cronometro('matrizes', atualizarMatrizes);
+      cronometro('vivos', desenharVivos);
+      cronometro('extras', () => desenharExtras(dt));
+      cronometro('noite', () => aplicarNoite(G.S ? G.darkness(G.S.clock) : 0));
+      cronometro('camera', ajustarCamera);
+      cronometro('gpu', () => ren.render(cena, cam));
+      if (MED.on) MED.n++;
     },
 
     screenToWorld(px, py) {
@@ -450,6 +526,14 @@
       return CFG.angulo;
     },
     /* Usado pelos testes: números para comparar com o 2D. */
+    medir(lig) { MED.on = !!lig; MED.n = 0; MED.t = {}; },
+    engasgos: () => engasgos,
+    /* Para os testes: quem é o dono de cada sprite em uso e que arte está nele. */
+    slots: () => poolVivos.filter((x) => x.mesh.visible).map((x) => ({
+      assin: x.assin, tipo: x.assin ? x.assin[0] : '?',
+      dono: x.dono ? (x.dono.k ? 'm:' + x.dono.k : (x.dono.cls ? 'h:' + x.dono.id : 'n:' + (x.dono.id || x.dono.name))) : null,
+    })),
+    medida: () => ({ quadros: MED.n, ms: Object.fromEntries(Object.entries(MED.t).map(([k, v]) => [k, +(v / Math.max(1, MED.n)).toFixed(2)])) }),
     estado: () => ({ ang, angAlvo, cw: cwA, ch: chA, lotes: lotes.length,
       sprites: lotes.reduce((n, l) => n + l.lista.length, 0),
       camZ: R.cam.z, frustum: cam ? [cam.left, cam.right, cam.top, cam.bottom] : null }),

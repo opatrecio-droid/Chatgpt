@@ -18,8 +18,8 @@ android {
         applicationId "br.com.aurora.cronicasdafenda"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3073          // 30.7.3 → 3073; some 1 a cada APK publicado, senão o Android não atualiza por cima
-        versionName "30.7.3"
+        versionCode 3074          // 30.7.4 → 3074; some 1 a cada APK publicado, senão o Android não atualiza por cima
+        versionName "30.7.4"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
              // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61

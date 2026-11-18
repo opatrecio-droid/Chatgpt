@@ -5,7 +5,7 @@ O mesmo jogo em **um só HTML**, agora com um menu inicial novo e empacotado com
 | Quero… | Faça isto |
 |---|---|
 | Jogar no PC | Abra `www/index.html` no Chrome/Edge/Firefox (duplo clique) |
-| Instalar no Android | Baixe `apk/aurora-cronicas-da-fenda-v30.7.3-android.apk`, abra no celular e permita "instalar apps desconhecidos" |
+| Instalar no Android | Baixe `apk/aurora-cronicas-da-fenda-v30.7.4-android.apk`, abra no celular e permita "instalar apps desconhecidos" |
 | Gerar o APK de novo | `npm ci && npm run apk` (precisa de Node 22, JDK 21 e Android SDK; veja abaixo) |
 | Trocar a versão do jogo | Substitua `fonte/aurora-046-animacoes.html`, rode `npm run montar` e `npm run apk` |
 
@@ -52,7 +52,7 @@ assinatura/           chave de assinatura — NÃO vai para o git
 ```bash
 export ANDROID_HOME=/caminho/do/android-sdk      # cmdline-tools + platforms;android-36 + build-tools
 npm ci
-npm run apk                                       # → apk/aurora-cronicas-da-fenda-v30.7.3-android.apk
+npm run apk                                       # → apk/aurora-cronicas-da-fenda-v30.7.4-android.apk
 ```
 
 `npm run verificar` confere se `www/index.html` está em dia com `fonte/` e `modulos/`.
