@@ -1,10 +1,10 @@
 /* Aurora — menu inicial (v1). Todas as classes começam com "am-" para não colidir com o jogo. */
-#title.am-title{display:none;padding:0!important;background:#05070f!important;overflow:hidden;--am-gold:#e2b659;--am-gold2:#f3d9a0;--am-line:rgba(226,182,89,.3);--am-ink:#eadfc8;--am-mut:#b9a98c;--am-teal:#4fc3b5}
-#title.am-title.on{display:block}
-#title.am-title::before,#title.am-title::after{display:none!important}
-#title.am-title>:is(.stars,.moon,.sky,.hill){display:none!important}
-#title.am-title.has-city{background:#0b1410!important}
-#title.am-title #title-city{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9}
+#title.am-title:not(.recovering){display:none;padding:0!important;background:#05070f!important;overflow:hidden;--am-gold:#e2b659;--am-gold2:#f3d9a0;--am-line:rgba(226,182,89,.3);--am-ink:#eadfc8;--am-mut:#b9a98c;--am-teal:#4fc3b5}
+#title.am-title:not(.recovering).on{display:block}
+#title.am-title:not(.recovering)::before,#title.am-title:not(.recovering)::after{display:none!important}
+#title.am-title:not(.recovering)>:is(.stars,.moon,.sky,.hill){display:none!important}
+#title.am-title.has-city:not(.recovering){background:#0b1410!important}
+#title.am-title:not(.recovering) #title-city{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9}
 
 .am-root{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;color:var(--am-ink,#eadfc8);overflow:hidden;
   padding:calc(var(--sat,0px) + 12px) calc(var(--sar,0px) + clamp(14px,4.5vw,64px)) calc(var(--sab,0px) + 8px) calc(var(--sal,0px) + clamp(14px,4.5vw,64px));
