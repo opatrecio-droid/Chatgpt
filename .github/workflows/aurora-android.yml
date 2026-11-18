@@ -1,0 +1,52 @@
+name: Aurora para Android (APK)
+# Compila o APK de jogos/aurora-cronicas-da-fenda e o anexa à execução. Disparo manual.
+# Para um APK que atualize por cima do anterior, cadastre em Settings → Secrets → Actions:
+#   AURORA_KEYSTORE_BASE64 (base64 do .jks), AURORA_KEYSTORE_PASSWORD, AURORA_KEY_ALIAS, AURORA_KEY_PASSWORD.
+# Sem esses segredos o APK sai com a chave de debug.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jogos/aurora-cronicas-da-fenda
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: jogos/aurora-cronicas-da-fenda/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: android-actions/setup-android@v3
+      - name: Instalar plataforma e build-tools
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+      - run: npm ci
+      - name: Conferir que www/ está em dia com a fonte
+        run: npm run verificar
+      - name: Preparar chave de assinatura (se houver)
+        env:
+          KS_B64: ${{ secrets.AURORA_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KS_B64" ]; then
+            mkdir -p "$RUNNER_TEMP/ks" && echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/ks/aurora.jks"
+            echo "AURORA_KEYSTORE=$RUNNER_TEMP/ks/aurora.jks" >> "$GITHUB_ENV"
+          else
+            echo "Sem chave de release: usando a de debug."
+          fi
+      - name: Compilar
+        env:
+          AURORA_KEYSTORE_PASSWORD: ${{ secrets.AURORA_KEYSTORE_PASSWORD }}
+          AURORA_KEY_ALIAS: ${{ secrets.AURORA_KEY_ALIAS }}
+          AURORA_KEY_PASSWORD: ${{ secrets.AURORA_KEY_PASSWORD }}
+        run: npm run apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aurora-android-apk
+          path: jogos/aurora-cronicas-da-fenda/apk/*.apk

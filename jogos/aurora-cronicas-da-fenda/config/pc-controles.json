@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "descricao": "Controles de PC do Aurora — fonte da verdade. Toda plataforma nova (Android, iOS, desktop, console) herda este mapa e só declara o que muda em config/plataformas.json. Estas teclas são exatamente as que o jogo original já responde; nada aqui foi removido para o APK.",
+  "teclado": {
+    "pausar": {
+      "rotulo": "Pausar / continuar",
+      "padrao": "Space",
+      "remapeavel": true,
+      "gera": { "key": " ", "code": "Space" }
+    },
+    "velocidade1": {
+      "rotulo": "Velocidade 1×",
+      "padrao": "Digit1",
+      "remapeavel": true,
+      "gera": { "key": "1", "code": "Digit1" }
+    },
+    "velocidade2": {
+      "rotulo": "Velocidade 2×",
+      "padrao": "Digit2",
+      "remapeavel": true,
+      "gera": { "key": "2", "code": "Digit2" }
+    },
+    "velocidade3": {
+      "rotulo": "Velocidade 3×",
+      "padrao": "Digit3",
+      "remapeavel": true,
+      "gera": { "key": "3", "code": "Digit3" }
+    },
+    "mapa": {
+      "rotulo": "Mapa do mundo",
+      "padrao": "KeyM",
+      "remapeavel": true,
+      "gera": { "key": "m", "code": "KeyM" }
+    },
+    "telaCheia": {
+      "rotulo": "Tela cheia",
+      "padrao": "KeyF",
+      "remapeavel": true,
+      "tratadoPelaPlataforma": true
+    },
+    "fechar": {
+      "rotulo": "Fechar janela / abrir o menu do jogo",
+      "padrao": "Escape",
+      "remapeavel": false
+    },
+    "percorrer": {
+      "rotulo": "Percorrer os controles",
+      "padrao": "Tab",
+      "remapeavel": false
+    },
+    "confirmar": {
+      "rotulo": "Confirmar o controle em foco",
+      "padrao": "Enter",
+      "remapeavel": false
+    }
+  },
+  "mouse": {
+    "arrastar": "Mover o mapa",
+    "roda": "Aproximar / afastar o mapa",
+    "clique": "Selecionar heróis, prédios e botões",
+    "segurarBotaoDeMelhoria": "Segurar um botão de melhoria repete a compra"
+  },
+  "toque": {
+    "arrastar": "Mover o mapa",
+    "pinca": "Aproximar / afastar o mapa (dois dedos)",
+    "toque": "Selecionar heróis, prédios e botões",
+    "segurarBotaoDeMelhoria": "Segurar um botão de melhoria repete a compra",
+    "voltar": "Botão voltar do aparelho = Esc"
+  },
+  "gamepad": {
+    "direcional": "Navegar pelos menus",
+    "A": "Confirmar",
+    "B": "Voltar (Esc)",
+    "Start": "Abrir o menu do jogo (Esc)",
+    "observacao": "Hoje o controle navega os menus; o mapa continua por toque/mouse. Mapeamento de câmera fica para uma versão de console."
+  }
+}

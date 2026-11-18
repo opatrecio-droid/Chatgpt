@@ -1,0 +1,13 @@
+{
+  "appId": "br.com.aurora.cronicasdafenda",
+  "appName": "Aurora",
+  "webDir": "www",
+  "backgroundColor": "#0b0e1a",
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#0b0e1a"
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "jogo": {
+    "id": "aurora-cronicas-da-fenda",
+    "nome": "Aurora — Crônicas da Fenda",
+    "appId": "br.com.aurora.cronicasdafenda"
+  },
+  "deteccao": {
+    "capacitor:android": "android",
+    "capacitor:ios": "ios",
+    "electron": "desktop",
+    "padrao": "pc"
+  },
+  "perfis": {
+    "pc": {
+      "rotulo": "PC",
+      "estado": "ativo",
+      "descricao": "Perfil-base. Tudo o que o jogo faz no computador (teclado, mouse, roda, tela cheia, DPI, qualidade) mora aqui. Os outros perfis herdam e sobrescrevem só o que muda.",
+      "entrada": { "teclado": true, "mouse": true, "toque": "auto", "gamepad": true },
+      "tela": { "telaCheia": true, "imersivo": false, "dprCap": 2, "qualidade": "auto", "reduzirMovimento": false, "economiaBateria": false },
+      "audio": { "sfx": 0.7, "music": 0.35, "ambient": 0.35 },
+      "interface": { "textScale": 100, "altoContraste": false, "canhoto": false, "menuSair": false, "mostrarAtalhos": true },
+      "sistema": { "manterTelaLigada": false, "voltarFechaJanelas": false, "salvarAoPausar": true },
+      "armazenamento": { "tipo": "localStorage", "chaveDoJogo": "aurora.economy.v2.save", "exportar": "arquivo" }
+    },
+    "android": {
+      "extends": "pc",
+      "rotulo": "Android",
+      "estado": "ativo",
+      "descricao": "APK via Capacitor. Teclado, mouse e gamepad continuam valendo (teclado Bluetooth, Chromebook, DeX, consoles portáteis).",
+      "tela": { "telaCheia": false, "imersivo": true },
+      "interface": { "menuSair": true, "mostrarAtalhos": false },
+      "sistema": { "manterTelaLigada": true, "voltarFechaJanelas": true },
+      "armazenamento": { "exportar": "compartilhar" }
+    },
+    "ios": {
+      "extends": "pc",
+      "rotulo": "iOS",
+      "estado": "planejado",
+      "descricao": "Mesma base web em Capacitor (npx cap add ios). Falta apenas ícones, assinatura Apple e teste em aparelho.",
+      "tela": { "telaCheia": false, "imersivo": true },
+      "interface": { "menuSair": false, "mostrarAtalhos": false },
+      "sistema": { "manterTelaLigada": true, "voltarFechaJanelas": false },
+      "armazenamento": { "exportar": "compartilhar" }
+    },
+    "desktop": {
+      "extends": "pc",
+      "rotulo": "Windows · macOS · Linux",
+      "estado": "planejado",
+      "descricao": "Empacotamento Electron/Tauri do mesmo www/. Mantém 100% dos controles de PC.",
+      "interface": { "menuSair": true },
+      "armazenamento": { "exportar": "arquivo" }
+    },
+    "console": {
+      "extends": "pc",
+      "rotulo": "Console / TV",
+      "estado": "planejado",
+      "descricao": "Só controle. Precisa de câmera por analógico e navegação por foco em todas as janelas.",
+      "entrada": { "teclado": false, "mouse": false, "toque": false, "gamepad": true },
+      "interface": { "menuSair": true, "mostrarAtalhos": false }
+    }
+  },
+  "opcoesDoJogo": {
+    "comentario": "Ponte entre a configuração da plataforma e G.S.opts do jogo. 'direta' copia o valor; 'qualidade' vira lowFx.",
+    "mapa": [
+      { "chave": "audio.sfx", "opcao": "sfx", "tipo": "direta" },
+      { "chave": "audio.music", "opcao": "music", "tipo": "direta" },
+      { "chave": "audio.ambient", "opcao": "ambient", "tipo": "direta" },
+      { "chave": "tela.dprCap", "opcao": "dprCap", "tipo": "direta" },
+      { "chave": "tela.qualidade", "opcao": "lowFx", "tipo": "qualidade" },
+      { "chave": "tela.reduzirMovimento", "opcao": "reduceMotion", "tipo": "direta" },
+      { "chave": "tela.economiaBateria", "opcao": "battery", "tipo": "direta" },
+      { "chave": "interface.textScale", "opcao": "textScale", "tipo": "direta" },
+      { "chave": "interface.altoContraste", "opcao": "highContrast", "tipo": "direta" },
+      { "chave": "interface.canhoto", "opcao": "leftHand", "tipo": "direta" }
+    ]
+  }
+}
